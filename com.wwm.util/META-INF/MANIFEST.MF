@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Util Plug-in
+Bundle-SymbolicName: com.wwm.util
+Bundle-Version: 1.0.0
+Bundle-Vendor: Whirlwind Match Ltd
+Export-Package: com.wwm.context,
+ com.wwm.geo,
+ com.wwm.model.attributes,
+ com.wwm.model.dimensions,
+ com.wwm.util
