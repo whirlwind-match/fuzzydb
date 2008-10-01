@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Whirlwind GUI Utils
+Bundle-SymbolicName: com.wwm.util.gui
+Bundle-Version: 1.0.0
+Export-Package: com.wwm.util.gui.table
+Bundle-Vendor: Whirlwind Match Limited
