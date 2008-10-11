@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.io.packet.exceptions;
 
-import com.archopolis.db.exceptions.ArchException;
+import com.wwm.db.core.exceptions.ArchException;
 
 @SuppressWarnings("serial")
 public class ClassRepeatedException extends ArchException {

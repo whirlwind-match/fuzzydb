@@ -4,5 +4,5 @@ Bundle-Name: Core Classes and Interfaces for WWM Db
 Bundle-SymbolicName: com.wwm.db.core
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Limted
-Export-Package: com.archopolis.db,
- com.archopolis.db.exceptions
+Export-Package: com.wwm.db.core,
+ com.wwm.db.core.exceptions

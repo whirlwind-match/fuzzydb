@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.archopolis.db;
+package com.wwm.db.core;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -168,7 +168,7 @@ public class Settings implements SettingsMBean {
             
             ObjectName name;
 			try {
-				name = new ObjectName("com.archopolis.db:type=Settings");
+				name = new ObjectName("com.wwm.db.core:type=Settings");
 				mbs.registerMBean(instance, name); 
 			} catch (Throwable e) {
 				//	e.printStackTrace();
@@ -179,7 +179,7 @@ public class Settings implements SettingsMBean {
 	}	
 	
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#isWindows()
+	 * @see com.wwm.db.core.SettingsMBean#isWindows()
 	 */
 	public boolean isWindows() {
 		String osName = System.getProperty("os.name");
@@ -187,7 +187,7 @@ public class Settings implements SettingsMBean {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getPrimaryServer()
+	 * @see com.wwm.db.core.SettingsMBean#getPrimaryServer()
 	 */
 	public String getPrimaryServer() {
 		return primaryServer;
@@ -198,7 +198,7 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getPrimaryServerPort()
+	 * @see com.wwm.db.core.SettingsMBean#getPrimaryServerPort()
 	 */
 	public int getPrimaryServerPort() {
 		return primaryServerPort;
@@ -209,7 +209,7 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getSecondaryServer()
+	 * @see com.wwm.db.core.SettingsMBean#getSecondaryServer()
 	 */
 	public String getSecondaryServer() {
 		return secondaryServer;
@@ -220,7 +220,7 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getSecondaryServerPort()
+	 * @see com.wwm.db.core.SettingsMBean#getSecondaryServerPort()
 	 */
 	public int getSecondaryServerPort() {
 		return secondaryServerPort;
@@ -231,7 +231,7 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getCompressLogs()
+	 * @see com.wwm.db.core.SettingsMBean#getCompressLogs()
 	 */
 	public boolean getCompressLogs() {
 		return compressLogs;
@@ -242,7 +242,7 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getXmlLogs()
+	 * @see com.wwm.db.core.SettingsMBean#getXmlLogs()
 	 */
 	public boolean getXmlLogs() {
 		return xmlLogs;
@@ -261,7 +261,7 @@ public class Settings implements SettingsMBean {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getDbRoot()
+	 * @see com.wwm.db.core.SettingsMBean#getDbRoot()
 	 */
 	public String getDbRoot() {
 		if (isWindows()) {
@@ -280,7 +280,7 @@ public class Settings implements SettingsMBean {
 	}
 
     /* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getPostcodeRoot()
+	 * @see com.wwm.db.core.SettingsMBean#getPostcodeRoot()
 	 */
     public String getPostcodeRoot() {
         if (isWindows()) {
@@ -299,7 +299,7 @@ public class Settings implements SettingsMBean {
     }
     
     /* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getIpLookupRoot()
+	 * @see com.wwm.db.core.SettingsMBean#getIpLookupRoot()
 	 */
     public String getIpLookupRoot() {
         if (isWindows()) {
@@ -318,7 +318,7 @@ public class Settings implements SettingsMBean {
     }
     
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getListenPort()
+	 * @see com.wwm.db.core.SettingsMBean#getListenPort()
 	 */
 	public int getListenPort() {
 		return listenPort;
@@ -329,7 +329,7 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getLogDir()
+	 * @see com.wwm.db.core.SettingsMBean#getLogDir()
 	 */
 	public String getLogDir() {
 		return getDbRoot() + File.separator + logDir;
@@ -342,7 +342,7 @@ public class Settings implements SettingsMBean {
 	
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getReposDir()
+	 * @see com.wwm.db.core.SettingsMBean#getReposDir()
 	 */
 	public String getReposDir() {
 		return getDbRoot() + File.separator + reposDir;
@@ -355,7 +355,7 @@ public class Settings implements SettingsMBean {
 	
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getTxDir()
+	 * @see com.wwm.db.core.SettingsMBean#getTxDir()
 	 */
 	public String getTxDir() {
 		return getDbRoot() + File.separator + txDir;
@@ -367,7 +367,7 @@ public class Settings implements SettingsMBean {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getLeafCriticalMass()
+	 * @see com.wwm.db.core.SettingsMBean#getLeafCriticalMass()
 	 */
 	public int getLeafCriticalMass() {
 		return leafCriticalMass;
@@ -524,42 +524,42 @@ public class Settings implements SettingsMBean {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getDefaultTargetNumResults()
+	 * @see com.wwm.db.core.SettingsMBean#getDefaultTargetNumResults()
 	 */
 	public int getDefaultTargetNumResults() {
 		return defaultTargetNumResults;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getDefaultScoreThreshold()
+	 * @see com.wwm.db.core.SettingsMBean#getDefaultScoreThreshold()
 	 */
 	public float getDefaultScoreThreshold() {
 		return defaultScoreThreshold;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getQueryInactivityTimeoutSecs()
+	 * @see com.wwm.db.core.SettingsMBean#getQueryInactivityTimeoutSecs()
 	 */
 	public int getQueryInactivityTimeoutSecs() {
 		return queryInactivityTimeoutSecs;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getQueryTimeToLiveSecs()
+	 * @see com.wwm.db.core.SettingsMBean#getQueryTimeToLiveSecs()
 	 */
 	public int getQueryTimeToLiveSecs() {
 		return queryTimeToLiveSecs;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getSearchInactivityTimeoutSecs()
+	 * @see com.wwm.db.core.SettingsMBean#getSearchInactivityTimeoutSecs()
 	 */
 	public int getSearchInactivityTimeoutSecs() {
 		return searchInactivityTimeoutSecs;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getSearchTimeToLiveSecs()
+	 * @see com.wwm.db.core.SettingsMBean#getSearchTimeToLiveSecs()
 	 */
 	public int getSearchTimeToLiveSecs() {
 		return searchTimeToLiveSecs;
@@ -571,7 +571,7 @@ public class Settings implements SettingsMBean {
 	
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getTransactionInactivityTimeoutSecs()
+	 * @see com.wwm.db.core.SettingsMBean#getTransactionInactivityTimeoutSecs()
 	 */
 	public int getTransactionInactivityTimeoutSecs() {
 		return transactionInactivityTimeoutSecs;
@@ -582,14 +582,14 @@ public class Settings implements SettingsMBean {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getTransactionTimeToLiveSecs()
+	 * @see com.wwm.db.core.SettingsMBean#getTransactionTimeToLiveSecs()
 	 */
 	public int getTransactionTimeToLiveSecs() {
 		return transactionTimeToLiveSecs;
 	}
 
     /* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getDefaultStore()
+	 * @see com.wwm.db.core.SettingsMBean#getDefaultStore()
 	 */
     public String getDefaultStore() {
         return defaultStore;
@@ -601,14 +601,14 @@ public class Settings implements SettingsMBean {
 
     
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#isSlave()
+	 * @see com.wwm.db.core.SettingsMBean#isSlave()
 	 */
 	public boolean isSlave() {
 		return isSlave;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.archopolis.db.SettingsMBean#getParentNode()
+	 * @see com.wwm.db.core.SettingsMBean#getParentNode()
 	 */
 	public InetSocketAddress getParentNode() {
 		return parentNode;

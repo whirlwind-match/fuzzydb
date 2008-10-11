@@ -18,8 +18,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.archopolis.db.Settings;
-import com.archopolis.db.exceptions.ArchException;
+import com.wwm.db.core.Settings;
+import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.packet.ClassLoaderInterface;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;

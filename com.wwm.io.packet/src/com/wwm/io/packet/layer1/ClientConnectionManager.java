@@ -12,7 +12,7 @@ package com.wwm.io.packet.layer1;
 
 import java.io.IOException;
 
-import com.archopolis.db.exceptions.ArchException;
+import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.packet.messages.Command;
 import com.wwm.io.packet.messages.Response;
 
