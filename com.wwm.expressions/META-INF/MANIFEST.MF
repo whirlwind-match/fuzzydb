@@ -5,3 +5,4 @@ Bundle-SymbolicName: com.wwm.expressions
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Limited
 Require-Bundle: com.wwm.db.core;bundle-version="1.0.0"
+Export-Package: com.wwm.expressions

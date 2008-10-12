@@ -17,7 +17,9 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
+import com.archopolis.internal.util.LogFactory;
 import com.wwm.io.packet.ArchInStream;
 import com.wwm.io.packet.ArchOutStream;
 import com.wwm.io.packet.ClassLoaderInterface;
@@ -30,6 +32,7 @@ import com.wwm.io.packet.messages.PacketMessage;
 
 public class PacketCodec implements MessageInterface {
 	
+	static private Logger log = LogFactory.getLogger(PacketCodec.class);
 	
 	private final PacketInterface pi;	// The underlying layer interface
 	private final ClassLoaderInterface cli;	// The resource which provides class storage services
@@ -99,6 +102,9 @@ public class PacketCodec implements MessageInterface {
 	private final ClassTokenCache ctc = new ClassTokenCache(false);
 
 	public void requestClassData(int storeId, String className) throws IOException {
+		log.info("requesting class data, as load class failed for: " + className + " using classloader: " 
+				+ getClass().getClassLoader() );
+
 		// Issue class upload request to peer
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ArchOutStream out = newOutputStream(baos, storeId);

@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: WWM
 Export-Package: com.wwm.io.packet,
  com.wwm.io.packet.exceptions,
+ com.wwm.io.packet.impl,
  com.wwm.io.packet.layer1,
  com.wwm.io.packet.layer2,
  com.wwm.io.packet.messages
