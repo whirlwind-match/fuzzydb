@@ -6,5 +6,6 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Limted
 Export-Package: com.archopolis.internal.util,
  com.wwm.db.core,
- com.wwm.db.core.exceptions
+ com.wwm.db.core.exceptions,
+ likemynds.util
 Import-Package: com.wwm.util
