@@ -82,7 +82,7 @@ public class Settings implements SettingsMBean {
 	private boolean xmlLogs = false;
 	
 	private String attributeMapClassName = "likemynds.db.indextree.internal.AttributeMap";
-    private String constraintMapClassName = "com.archopolis.db.whirlwind.internal.ConstraintMap";
+    private String constraintMapClassName = "com.wwm.attrs.internal.ConstraintMap";
     private String configDAOClassName = "com.archopolis.db.dao.internal.Db1ClientDAO";
     private String statsDAOClassName = "com.archopolis.db.dao.StatsStoreDao"; 
     
