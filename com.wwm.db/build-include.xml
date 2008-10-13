@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse.ant.import?>
+
+<!-- Example of how to prompt Export->Build scripts to include extra stuff we might want 
+
+ ** IF THIS FILE IS GIVING PROBLEMS, go to Window->Preferences->Ant->Editor->Problems->Names of files that will not be checked,
+ and add build-include.xml to the list
+-->
+
+<project basedir="." default="all" name="com.wwm.db-include">
+    <tstamp>
+          <format property="timestamp" pattern="yyyyMMddhhmm"/>
+    </tstamp>
+
+    <target name="all" depends="init-eclipse-compiler,build-eclipse-compiler,test-subprojects,junitreport"/>
+    
+	<target name="test-project" depends="build,TestDbClient2All,junitreport"/>
+	
+	<target name="test-subprojects" depends="test-project">
+		<!-- No sub-projects -->
+	</target>
+</project>
