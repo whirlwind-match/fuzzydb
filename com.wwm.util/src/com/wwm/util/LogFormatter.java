@@ -13,9 +13,6 @@ package com.wwm.util;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-/**
- * @author Neale
- */
 public class LogFormatter extends Formatter {
 
     static private long startMillis;
