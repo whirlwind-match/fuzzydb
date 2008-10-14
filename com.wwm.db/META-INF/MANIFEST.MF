@@ -4,19 +4,15 @@ Bundle-Name: com.wwm.db
 Bundle-SymbolicName: com.wwm.db
 Bundle-Version: 1.0.0
 Export-Package: 
- com.archopolis.db.whirlwind.internal,
  com.wwm.db,
- com.wwm.db.annotations,
  com.wwm.db.dao,
  com.wwm.db.exceptions,
  com.wwm.db.internal,
  com.wwm.db.internal.comms.messages,
  com.wwm.db.marker,
- com.wwm.db.query,
  com.wwm.db.userobjects,
  com.wwm.db.util,
- com.wwm.db.whirlwind,
- com.wwm.db.whirlwind.internal
+ com.wwm.db.whirlwind
 Eclipse-LazyStart: false
 DynamicImport-Package: com.wwm.db,
  com.wwm.db.internal.index,

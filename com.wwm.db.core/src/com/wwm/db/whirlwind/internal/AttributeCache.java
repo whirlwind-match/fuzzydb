@@ -18,15 +18,16 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 
-
 /**
  * FIXME: Add JMX support so we can see size and benefit
  * FIXME: Make available as a singleton, rather than needing to pass it around.
- * FIXME: Resolve two diff AttributeCache impls into one.
  * 
  * Cache for allowing objects that are the same to be 'merged' after de-serialisation such that only 
  * one instance remains in memory.  This naturally assumes that the objects who's instances are being 
  * unified are immutable.
+ * NOTE: This could be quite important in future, as rather than serialising each object, we
+ * would just serialise the attribute cache as part of the repository, and then
+ * write a unique cache key to the disk.
  */
 public class AttributeCache {
 	
@@ -54,10 +55,24 @@ public class AttributeCache {
 			return value.compareAttribute(rhs.getValue());
 		}
 
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof CacheEntry) {
+				return this.compareTo((CacheEntry) obj) == 0;
+			}
+			return false;
+		}
+
 		public IAttribute getValue() {
 			return value;
 		}
 		
+		@Override
+		public int hashCode() {
+			// this ensures that we don't break hashCode rules where equal objects should have equal hashCodes
+			assert false : "hashCode not designed"; 
+			return 0; // any arbitrary constant will do 
+		}
 	}
 	
 	/**
