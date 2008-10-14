@@ -1,5 +1,8 @@
 package com.wwm.io.packet.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 import com.archopolis.internal.util.LogFactory;
@@ -26,9 +29,32 @@ public class DummyCli implements ClassLoaderInterface {
 		return c;
 	}
 
+	/**
+	 * Resolve the class and return it's bytes for returning to requesting entity.
+	 */
 	public byte[] getClassBytecode(int storeId, String className) {
 		log.info("DummyCli getClassBytecode() loading: " + className );
-		throw new UnsupportedOperationException();
+		
+		ClassLoader cl = getClass().getClassLoader();
+		Class<?> c;
+		try {
+			c = Class.forName(className, false, cl);
+		} catch (ClassNotFoundException e) {
+			return null; // or re-throw
+		}
+	
+		String resourceName = "/" + className.replace('.', '/')+ ".class";
+		
+		InputStream stream = cl.getResourceAsStream(resourceName);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			stream.close();
+		} catch (IOException e) {
+			// ignore
+		}
+		return null;
+		
+//		throw new UnsupportedOperationException();
 	}
 
 	public void addClass(int storeId, String className, byte[] bytecode) {
