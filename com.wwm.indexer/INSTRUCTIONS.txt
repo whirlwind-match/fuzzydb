@@ -1,0 +1,14 @@
+
+To get going:
+- Run "Run Server V2 (for build Standalone Index)" large memory footprint (includes DbToUploadfromClient v1 cos we need the postcode use count object which Postcode project is using)
+- Run "SI - DbIndexerUpdate" (this creates attrDefs).
+
+- Run application (e.g. WhirlwindDemo V2)
+- Insert lots of records
+
+- Shutdown Db
+
+- Run "Run Server V2 (for benchmark Standalone Index)" smaller memory footprint (ditto)
+- Run application (e.g. WhirlwindDemo V2)
+- Do benchmarks
+
