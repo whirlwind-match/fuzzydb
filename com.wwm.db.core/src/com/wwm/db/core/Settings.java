@@ -81,10 +81,10 @@ public class Settings implements SettingsMBean {
 	private boolean compressLogs = false;
 	private boolean xmlLogs = false;
 	
-	private String attributeMapClassName = "likemynds.db.indextree.internal.AttributeMap";
+	private String attributeMapClassName = "com.wwm.attrs.internal.AttributeMap";
     private String constraintMapClassName = "com.wwm.attrs.internal.ConstraintMap";
     private String configDAOClassName = "com.archopolis.db.dao.internal.Db1ClientDAO";
-    private String statsDAOClassName = "com.archopolis.db.dao.StatsStoreDao"; 
+    private String statsDAOClassName = "com.wwm.db.dao.StatsStoreDao"; 
     
 	private ScorerVersion scorerVersion = ScorerVersion.v2; // v1 no longer supported
 
