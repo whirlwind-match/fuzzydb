@@ -1,0 +1,59 @@
+
+There are a number of processes that happen when the server starts, which warrant a little explanation.
+
+*) Interaction with OSGi bundles and services
+	The database needs to start up and be available for connection, before some other OSGi services, and
+	after other optional ones, such as installable indexes.
+	*** THIS NEEDS DOCUMENTING ***
+
+
+*) Loading of the Repository
+	After startup, the server state should include the last committed transaction.
+	
+	For speed, we use transaction logging to allow us to not flush all state to disk 
+	before acknowledging the end of each transaction.
+	Periodically, a repository is synced to disk and we roll-over to a new transaction
+	log from that point.
+	
+	This means that at any point, we should be able to find the latest valid (i.e.
+	it all got written) repository, load that, and then apply transactions from
+	the transaction log.
+	
+	Any dynamically flushed pages that are more recent than the repository used, are
+	flushed prior to applying the transaction log (as they are not part of the consistent
+	image).
+	
+	** NOTE: Newly detected stores are imported during the repository load. 
+	Importing stores may cause the latest database version to jump, if those
+	stores were from a database which is later (otherwise their data would not
+	be visible)
+	
+*) Transaction Log Playback
+	Once a repository has been loaded, we iterate through replaying transactions from the
+	transaction logs.  No other transactions can be committed during this time, as the
+	transactions must be applied in the original order.
+	
+*) Index detection and re-builds
+	Each time a new class of object is inserted into the database, a check is made as
+	to whether it requires indexing.  If so, the relevant indexes are initialised
+	and the object is added to that index.
+	
+	There is a difference with some installable, configurable indexes, such as Whirlwind Index,
+	which can be re-configured and re-built.  The configuration of these indexes is
+	found in special configuration objects in the relevant store.
+	
+	This gives us two scenarios that need to be supported:
+	- No configuration existed previously, and one is added.
+	- The configuration has been changed, and therefore an index needs to be rebuilt.
+	
+	An index build or re-build could occur offline, such that write transactions can continue.
+	This would require the queueing up of updates that have yet to be applied.  It would also
+	require visibility of the database at a transaction some hours old.  This would be a 
+	problem if there is high load, as all changes would be maintained.
+	
+	Surely this problem has been solved elsewhere... :)
+	
+	One short term option is to perform any required rebuilds ahead of the server becoming
+	available.  This would mean that the server goes down for a significant time, and
+	rebuilds are only done on a restart.
+ 
