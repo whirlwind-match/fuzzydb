@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/files"
+            base-name="/web">
+      </resource>
+   </extension>
+   <extension
+         id="productID"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.emf.cdo.server.app"
+            name="Whirlwind">
+      </product>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ant.core.antRunner"
+            name="Whirlwind">
+         <property
+               name="appName"
+               value="Whirlwind">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="1"
+            thread="any"
+            visible="true">
+         <run
+               class="com.wwm.atom.server.Application">
+         </run>
+      </application>
+   </extension>
+
+</plugin>
