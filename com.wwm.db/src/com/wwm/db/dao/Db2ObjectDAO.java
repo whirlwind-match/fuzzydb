@@ -12,10 +12,10 @@ package com.wwm.db.dao;
 
 import java.util.logging.Logger;
 
-import com.archopolis.internal.util.LogFactory;
 import com.wwm.db.Store;
 import com.wwm.db.StoreMgr;
 import com.wwm.db.Transaction;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.WriteCollisionException;
 
 /**

@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import com.archopolis.internal.util.LogFactory;
+import com.wwm.db.core.LogFactory;
 import com.wwm.io.packet.ArchInStream;
 import com.wwm.io.packet.ArchOutStream;
 import com.wwm.io.packet.ClassLoaderInterface;

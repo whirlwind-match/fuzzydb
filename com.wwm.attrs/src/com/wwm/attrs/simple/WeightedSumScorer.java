@@ -13,11 +13,11 @@ package com.wwm.attrs.simple;
 import java.util.logging.Logger;
 
 
-import com.archopolis.internal.util.LogFactory;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.TwoAttrScorer;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.db.whirlwind.internal.IAttributeMap;

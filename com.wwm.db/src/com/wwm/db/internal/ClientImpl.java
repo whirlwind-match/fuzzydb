@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import likemynds.util.UncaughtExceptionLogger;
 
 import com.wwm.db.Client;
 import com.wwm.db.GenericRef;
@@ -27,6 +26,7 @@ import com.wwm.db.Ref;
 import com.wwm.db.ServerStats;
 import com.wwm.db.Store;
 import com.wwm.db.core.Settings;
+import com.wwm.db.core.UncaughtExceptionLogger;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.AuthorityException;
 import com.wwm.db.exceptions.UnknownObjectException;

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
 
-import com.archopolis.internal.util.LogFactory;
+import com.wwm.db.core.LogFactory;
 import com.wwm.io.packet.ClassLoaderInterface;
 
 public class DummyCli implements ClassLoaderInterface {

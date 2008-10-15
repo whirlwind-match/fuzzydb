@@ -15,9 +15,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 
-import com.archopolis.internal.util.LogFactory;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Scorer;
+import com.wwm.db.core.LogFactory;
 
 
 

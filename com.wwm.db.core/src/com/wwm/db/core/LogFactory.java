@@ -1,4 +1,14 @@
-package com.archopolis.internal.util;
+/******************************************************************************
+ * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
+ *
+ * This is open source software; you can use, redistribute and/or modify
+ * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * Open Source Initiative.
+ *
+ * You should have received a copy of the Open Software Licence along with this
+ * application. if not, contact the Open Source Initiative (www.opensource.org)
+ *****************************************************************************/
+package com.wwm.db.core;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,7 +23,6 @@ import java.util.logging.StreamHandler;
 import java.util.logging.XMLFormatter;
 import java.util.zip.GZIPOutputStream;
 
-import com.wwm.db.core.Settings;
 import com.wwm.util.LogFormatter;
 
 

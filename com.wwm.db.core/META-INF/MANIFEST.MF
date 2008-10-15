@@ -5,7 +5,6 @@ Bundle-SymbolicName: com.wwm.db.core
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Limted
 Export-Package: com.archopolis.db.whirlwind.internal,
- com.archopolis.internal.util,
  com.wwm.db.annotations,
  com.wwm.db.core,
  com.wwm.db.core.exceptions,
@@ -13,8 +12,7 @@ Export-Package: com.archopolis.db.whirlwind.internal,
  com.wwm.db.marker,
  com.wwm.db.query,
  com.wwm.db.whirlwind,
- com.wwm.db.whirlwind.internal,
- likemynds.util
+ com.wwm.db.whirlwind.internal
 Import-Package: com.wwm.util,
  gnu.trove
 Require-Bundle: com.wwm.util

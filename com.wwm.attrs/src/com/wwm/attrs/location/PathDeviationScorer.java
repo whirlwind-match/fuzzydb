@@ -11,12 +11,12 @@
 package com.wwm.attrs.location;
 
 
-import com.archopolis.internal.util.LogFactory;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.dimensions.DimensionsRangeConstraint;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.TwoByTwoAttrScorer;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.db.whirlwind.internal.IAttributeMap;

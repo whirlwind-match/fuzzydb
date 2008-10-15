@@ -20,7 +20,6 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 
-import com.archopolis.internal.util.LogFactory;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
@@ -30,6 +29,7 @@ import com.wwm.attrs.location.RangePreference;
 import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
+import com.wwm.db.core.LogFactory;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.model.attributes.DistanceAttribute;
 import com.wwm.model.attributes.EnumAttribute;
