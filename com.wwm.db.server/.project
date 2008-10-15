@@ -18,11 +18,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>ca.mcgill.sable.clone.markers.cloneProblemMarkingBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.pde.ManifestBuilder</name>
 			<arguments>
 			</arguments>
