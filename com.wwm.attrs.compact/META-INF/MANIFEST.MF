@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Compact Attribute Map (optional)
+Bundle-SymbolicName: com.wwm.attrs.compact
+Bundle-Version: 1.0.0
+Bundle-Vendor: Whirlwind Match Limited
+Require-Bundle: com.wwm.bundle.libs,
+ com.wwm.util;bundle-version="1.0.0",
+ com.wwm.attrs;bundle-version="1.0.0";visibility:=reexport
+Eclipse-RegisterBuddy: com.wwm.bundle.libs,
+ com.wwm.io.packet
