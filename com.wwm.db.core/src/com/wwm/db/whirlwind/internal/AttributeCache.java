@@ -29,8 +29,10 @@ import java.util.TreeMap;
  * would just serialise the attribute cache as part of the repository, and then
  * write a unique cache key to the disk.
  */
-public class AttributeCache {
+public class AttributeCache implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	static private AttributeCache instance = new AttributeCache();
 
 	static private class CacheEntry implements Comparable<CacheEntry>, Serializable {
