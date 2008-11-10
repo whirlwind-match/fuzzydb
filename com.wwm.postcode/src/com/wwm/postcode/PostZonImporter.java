@@ -13,20 +13,18 @@ package com.wwm.postcode;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
-import java.util.zip.GZIPOutputStream;
 
 import com.wwm.db.core.Settings;
 import com.wwm.geo.LatLongDegs;
 import com.wwm.geo.OsgbGridCoord;
 import com.wwm.util.CsvReader;
+import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;
 import com.wwm.util.CsvReader.GarbageLineException;
 import com.wwm.util.CsvReader.NoSuchColumnException;
@@ -48,7 +46,7 @@ public class PostZonImporter {
 	private static final String townColName = "AuthName";
 	
 	public static final String postzonDataDir = "postzon";
-	private static final String postzonSourceFile = "PostZon.csv";
+	private static final String postzonSourceFile = "PostZon_2005_2-PcodeComma.csv"; // "PostZon.csv";
 	
 	public static final int blocksize = 2;	// Number of characters of postcode to put in single file, bigger = less files, max 4, min 1
 	private TreeMap<String, String> locationCache = new TreeMap<String, String>();	// used to reduce mem overhead a bit by unifying string instances - this was found to have a massive effect, reducing overhead from 800MB to 300MB
@@ -165,41 +163,12 @@ public class PostZonImporter {
 					}
 				} while (entry != null && entry.getKey().startsWith(filename));
 				
-				
-				// Write file out
-				FileOutputStream fos = null;
 				try {
-					fos = new FileOutputStream(out + File.separatorChar + filename);
-				} catch (FileNotFoundException e) {
-					System.out.println("Error opening " + out + " for output: " + e.getMessage());
-					return;
-				}
-				
-				GZIPOutputStream gzos = null;
-				try {
-					gzos = new GZIPOutputStream(fos);
+					String outFile = out + File.separatorChar + filename;
+					FileUtils.writeObjectToGZip(outFile, submap);
 				} catch (IOException e) {
-					System.out.println("Error creating GZIPOutputStream: " + e.getMessage());
 					return;
 				}
-				
-				ObjectOutputStream oos = null;
-				try {
-					oos = new ObjectOutputStream(gzos);
-				} catch (IOException e) {
-					System.out.println("Error creating ObjectOutputStream: " + e.getMessage());
-					return;
-				}
-				
-				try {
-					oos.writeObject(submap);
-					oos.flush();
-					oos.close();
-				} catch (IOException e) {
-					System.out.println("Error while writing: " + e.getMessage());
-					return;
-				}
-				
 			}
 		}
 		System.out.println("Conversion complete.");

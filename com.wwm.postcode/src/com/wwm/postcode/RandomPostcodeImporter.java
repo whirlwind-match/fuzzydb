@@ -13,16 +13,14 @@ package com.wwm.postcode;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.zip.GZIPOutputStream;
 
 import com.wwm.db.core.Settings;
 import com.wwm.util.CsvReader;
+import com.wwm.util.FileUtils;
 import com.wwm.util.CsvReader.GarbageLineException;
 import com.wwm.util.CsvReader.NoSuchColumnException;
 import com.wwm.util.CsvReader.UnsupportedTypeException;
@@ -31,9 +29,10 @@ public class RandomPostcodeImporter {
 	private static final String postcodeColName = "Postcode";
 	private static final String eastingColName = "GridEast";
 	private static final String northingColName = "GridNorth";
+	private static final String townColName = "AuthName";
 	
 	public static final String randomCodesFile = "randomPostcodes";
-	private static final String postzonSourceFile = "PostZon.csv";
+	private static final String postzonSourceFile = "PostZon_2005_2-PcodeComma.csv"; // "PostZon.csv";
 	
 	public static final int blocksize = 2;	// Number of characters of postcode to put in single file, bigger = less files, max 4, min 1
 	public static final int minPostcodeLen = 5;
@@ -83,6 +82,7 @@ public class RandomPostcodeImporter {
 				reader.setColumn(postcodeColName, String.class);
 				reader.setColumn(eastingColName, Integer.class);
 				reader.setColumn(northingColName, Integer.class);
+				reader.setColumn(townColName, String.class);
 			} catch (NoSuchColumnException e) {
 				System.out.println("Missing column in " + in + ": " + e.getMessage());
 				return;
@@ -94,8 +94,13 @@ public class RandomPostcodeImporter {
 				for (;;) {
 					try {
 						Map<String, Object> data = reader.readLine();
-//						Integer easting = (Integer)data.get(eastingColName);
-//						Integer northing = (Integer)data.get(northingColName);
+						// Ignore stuff we don't have a town or location for - they'll not work for random
+						if (data.get(townColName) == null || data.get(eastingColName) == null || data.get(northingColName) == null ) {
+							linesIgnored++; // Things like PO boxes have a postcode but no location
+							continue;
+						}
+
+						
 						String postcode = stripSpaces((String)data.get(postcodeColName)).toUpperCase();
 						if (postcode.length() < minPostcodeLen) throw new GarbageLineException("Postcode too short:" + postcode);
 						
@@ -126,29 +131,6 @@ public class RandomPostcodeImporter {
 			return;
 		}
 		
-		File output = new File(out);
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream(output);
-		} catch (FileNotFoundException e) {
-			System.out.println("Error opening output file: " + e);
-			return;
-		}
-		GZIPOutputStream gzos;
-		try {
-			gzos = new GZIPOutputStream(fos);
-		} catch (IOException e) {
-			System.out.println("Error opening gzip stream: " + e);
-			return;
-		}
-		ObjectOutputStream oos;
-		try {
-			oos = new ObjectOutputStream(gzos);
-		} catch (IOException e) {
-			System.out.println("Error opening object output stream: " + e);
-			return;
-		}
-		
 		System.out.println("Building array...");
 		byte[] coded = new byte[postcodes.size()*7];
 		int index = 0;
@@ -168,17 +150,10 @@ public class RandomPostcodeImporter {
 		assert(index == coded.length);
 		System.out.println("Writing file...");
 		
-		try {
-			oos.writeObject(coded);
-		} catch (IOException e) {
-			System.out.println("Error while writing: " + e);
-			return;
-		}
 		
 		try {
-			oos.close();
+			FileUtils.writeObjectToGZip(out, coded);
 		} catch (IOException e) {
-			System.out.println("Error while closing: " + e);
 			return;
 		}
 		

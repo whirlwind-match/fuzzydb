@@ -68,6 +68,15 @@ public class PostcodeConvertor {
 	 * @throws LostDbConnection
 	 */
 	public synchronized PostcodeResult lookupFull(String postcode) {
-		return service.lookupFull(postcode);
+		// If no service for full postcode, then try short somehow
+		if (service != null){
+			return service.lookupFull(postcode);
+		}
+		assert postcode.indexOf(' ') == -1; // should have been stripped
+		int trimmedLength = postcode.length() - 3; // strip off tail
+		if (trimmedLength != 3 && trimmedLength != 4) return null;
+		
+		postcode = postcode.substring(0, trimmedLength);
+		return jibble.lookupShort(postcode);
 	}
 }

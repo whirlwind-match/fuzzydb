@@ -11,16 +11,14 @@
 package com.wwm.postcode;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
 
 import com.wwm.db.core.Settings;
+import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;
 
 public class JibbleConvertor {
@@ -31,13 +29,8 @@ public class JibbleConvertor {
 	@SuppressWarnings("unchecked")
 	public JibbleConvertor(Logger log) {
 		log.info("Starting up JibbleConvertor using data: " + jibbleFile);
-		FileInputStream fis;
 		try {
-			fis = new FileInputStream(jibbleFile);
-		
-			GZIPInputStream gzis = new GZIPInputStream(fis);
-			ObjectInputStream ois = new ObjectInputStream(gzis);
-			jibbleMap = (TreeMap<String, PostcodeResult>)ois.readObject();
+			jibbleMap = (TreeMap<String, PostcodeResult>)FileUtils.readObjectFromGZip(jibbleFile);
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "Failed to load Jibble data", e);
 		}

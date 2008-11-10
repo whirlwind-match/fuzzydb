@@ -11,17 +11,13 @@
 package com.wwm.postcode;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
+import com.wwm.util.FileUtils;
 import com.wwm.util.MTRandom;
 
 public class RandomPostcodeGenerator {
@@ -52,7 +48,7 @@ public class RandomPostcodeGenerator {
 		if (fullData==null || fullData.length < 7) {
 			throw new Error("Random Postcodes data did not load");
 		}
-		int numCodes = fullData.length/7;
+		int numCodes = fullData.length / 7;
 		int index = 7 * random.nextInt(numCodes);
 		
 		String result;
@@ -70,7 +66,7 @@ public class RandomPostcodeGenerator {
 		if (shortData==null || shortData.length < 4) {
 			throw new Error("Random Postcodes short data did not load");
 		}
-		int numCodes = shortData.length/4;
+		int numCodes = shortData.length / 4;
 		int index = 4 * random.nextInt(numCodes);
 		
 		String result;
@@ -91,45 +87,11 @@ public class RandomPostcodeGenerator {
 		
 		// Load full data
 		String root = Settings.getInstance().getPostcodeRoot();
-		File file = new File(root + File.separatorChar + RandomPostcodeImporter.randomCodesFile);
-		
-		FileInputStream fis;
-		try {
-			fis = new FileInputStream(file);
-		} catch (FileNotFoundException e) {
-			System.out.println("File missing: " + file);
-			throw new Error(e);
-		}
-		GZIPInputStream gzis;
-		try {
-			gzis = new GZIPInputStream(fis);
-		} catch (IOException e) {
-			System.out.println("Error reading from " + file);
-			System.out.println("Error opening GZIP input stream: " + e);
-			throw new Error(e);
-		}
-		ObjectInputStream ois;
-		try {
-			ois = new ObjectInputStream(gzis);
-		} catch (IOException e) {
-			System.out.println("Error reading from " + file);
-			System.out.println("Error opening ObjectInputStream: " + e);
-			throw new Error(e);
-		}
-		try {
-			fullData = (byte[]) ois.readObject();
-		} catch (IOException e) {
-			System.out.println("Error reading from " + file + ": " + e);
-			throw new Error(e);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Internal Error reading from " + file + ": " + e);
-			throw new Error(e);
-		} catch (ClassCastException e) {
-			System.out.println("File Format Error reading from " + file + ": " + e);
-			throw new Error(e);
-		}
-		if (fullData.length%7 != 0) {
-			System.out.println("Error reading from " + file + ": Postcodes array is not a multiple of 7!");
+		String fileName = root + File.separatorChar + RandomPostcodeImporter.randomCodesFile;
+		fullData = (byte[]) FileUtils.readObjectFromGZip(fileName);
+
+		if (fullData.length % 7 != 0) {
+			System.out.println("Error reading from " + fileName + ": Postcodes array is not a multiple of 7!");
 			throw new Error();
 		}
 	}

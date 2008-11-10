@@ -13,15 +13,13 @@ package com.wwm.postcode;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.zip.GZIPOutputStream;
 
 import com.wwm.db.core.Settings;
 import com.wwm.util.CsvReader;
+import com.wwm.util.FileUtils;
 import com.wwm.util.CsvReader.GarbageLineException;
 import com.wwm.util.CsvReader.NoSuchColumnException;
 import com.wwm.util.CsvReader.UnsupportedTypeException;
@@ -102,35 +100,9 @@ public class JibbleImporter {
 			return;
 		}
 		
-		// Write file out
-		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream(out);
-		} catch (FileNotFoundException e) {
-			System.out.println("Error opening " + out + " for output: " + e.getMessage());
-			return;
-		}
-		
-		GZIPOutputStream gzos = null;
-		try {
-			gzos = new GZIPOutputStream(fos);
+			FileUtils.writeObjectToGZip(out, map);
 		} catch (IOException e) {
-			System.out.println("Error creating GZIPOutputStream: " + e.getMessage());
-		}
-		
-		ObjectOutputStream oos = null;
-		try {
-			oos = new ObjectOutputStream(gzos);
-		} catch (IOException e) {
-			System.out.println("Error creating GZIPOutputStream: " + e.getMessage());
-		}
-		System.out.println("Writing data...");
-		try {
-			oos.writeObject(map);
-			oos.flush();
-			oos.close();
-		} catch (IOException e) {
-			System.out.println("Error while writing: " + e.getMessage());
 			return;
 		}
 		System.out.println("Conversion complete.");
