@@ -90,6 +90,7 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 	private final ConnectionManagerImpl cm;
 	private final CommsStack authStack;
 	private final CommsStack nonAuthStack;
+	/** pendingCommands - Need full sync as we want removals be instantaneous */
 	private Map<Integer, PendingCommand> pendingCommands = Collections.synchronizedMap(new HashMap<Integer, PendingCommand>());
 	private boolean neverTimesOut = false;
 	
