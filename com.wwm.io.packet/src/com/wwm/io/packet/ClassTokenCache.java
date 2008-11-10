@@ -10,9 +10,11 @@
  *****************************************************************************/
 package com.wwm.io.packet;
 
+import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TObjectIntHashMap;
+
 import java.io.ObjectStreamClass;
 import java.io.Serializable;
-import java.util.HashMap;
 
 
 public class ClassTokenCache implements Serializable {
@@ -20,9 +22,6 @@ public class ClassTokenCache implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static class ClassCacheEntry implements Serializable {
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 		private final Class<?> clazz;
 		private final long svUID;
@@ -60,8 +59,8 @@ public class ClassTokenCache implements Serializable {
 	}
 	
 	
-	private final HashMap<ClassCacheEntry, Integer> oscCacheToToken = new HashMap<ClassCacheEntry, Integer>();
-	private final HashMap<Integer, ClassCacheEntry> oscCacheToOSC = new HashMap<Integer, ClassCacheEntry>();
+	private final TObjectIntHashMap<ClassCacheEntry> oscCacheToToken = new TObjectIntHashMap<ClassCacheEntry>();
+	private final TIntObjectHashMap<ClassCacheEntry> oscCacheToOSC = new TIntObjectHashMap<ClassCacheEntry>();
 	private int lastOscToken = 0;
 	private final boolean autoAdd;
 
@@ -71,15 +70,16 @@ public class ClassTokenCache implements Serializable {
 	
 	public int getOSCToken(int storeId, Class<?> clazz, long serialVersionUID) {
 		ClassCacheEntry temp = new ClassCacheEntry(clazz, serialVersionUID, storeId);
-		Integer rval = oscCacheToToken.get(temp);
-		if (rval == null) {
+		if (oscCacheToToken.containsKey(temp)) {
+			int rval = oscCacheToToken.get(temp);
+			return rval;
+		}
+		
 			if (autoAdd) {
 				return addOSCTokenPriv(storeId, clazz, serialVersionUID);
 			} else {
 				return -1;
 			}
-		}
-		return rval;
 	}
 	
 	public int addOSCToken(int storeId, Class<?> clazz, long serialVersionUID) {
