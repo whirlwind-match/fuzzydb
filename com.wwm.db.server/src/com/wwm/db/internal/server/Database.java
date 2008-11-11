@@ -112,10 +112,11 @@ public final class Database implements DatabaseVersionState {
     }
     
     /**
-     * Create a new database instance listening on the given InetSocketAddress
-     * FIXME: Adrian: We've already gone wrong a few times passing InetSocketAddress(InetAddr.LocalAddr, port)
-     * when we actually want to listen on AnyLocalAddr or a loopback (?), then should we not
-     * generate the InetSocketAddress within our API?
+     * Create a new database ready to listen on the given InetSocketAddress
+     * NOTE: We've already gone wrong a few times passing InetSocketAddress(InetAddr.LocalAddr, port)
+     * when we actually want to listen on AnyLocalAddr or a loopback (?), perhaps we can not
+     * generate the InetSocketAddress within our API?  E.g. see how startServer() behaves if we 
+     * don't specify serverAddress()
      * @param address e.g. new InetSocketAddress( port )
      * @throws IOException
      */
@@ -123,8 +124,6 @@ public final class Database implements DatabaseVersionState {
     	
     	serverAddress = socket.getHostName(); 
     	serverPort = socket.getPort();
-    	
-    	startServer();
     }
 
     public void setServerAddress(String serverAddress) {

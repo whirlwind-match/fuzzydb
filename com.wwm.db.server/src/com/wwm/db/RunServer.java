@@ -53,6 +53,7 @@ public class RunServer {
 			Database db = new Database(new InetSocketAddress(host, port));
 			IndexImplementationsService service = new IndexImplementationsService();
 			db.setIndexImplsService(service);
+			db.startServer();
 		} catch (Throwable e) {
 			LogFactory.getLogger(RunServer.class).log(Level.SEVERE, "Unhandled exception starting database", e);
 		}

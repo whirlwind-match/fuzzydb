@@ -48,6 +48,7 @@ public class Activator implements BundleActivator {
 			IndexImplementationsService service = new IndexImplementationsService();
 			registration = context.registerService(IndexImplementationsService.class.getName(), service, null);
 			db.setIndexImplsService(service);
+			db.startServer();
 			
 		} catch (Throwable e) {
 			LogFactory.getLogger(Activator.class).log(Level.SEVERE, "Unhandled exception starting database", e);
