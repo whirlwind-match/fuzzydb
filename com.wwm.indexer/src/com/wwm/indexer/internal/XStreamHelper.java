@@ -17,37 +17,25 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.InputStreamReader;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import com.thoughtworks.xstream.XStream;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.SplitConfiguration;
-import com.wwm.attrs.bool.BooleanScorer;
+import com.wwm.attrs.XMLAliases;
 import com.wwm.attrs.bool.BooleanSplitConfiguration;
 import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
-import com.wwm.attrs.enums.EnumExclusiveScorerExclusive;
-import com.wwm.attrs.enums.EnumExclusiveScorerPreference;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
-import com.wwm.attrs.enums.MultiEnumScorer;
-import com.wwm.attrs.enums.SeatsScorer;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
-import com.wwm.attrs.location.LocationAndRangeScorer;
-import com.wwm.attrs.location.PathDeviationScorer;
-import com.wwm.attrs.location.RangePreferenceScorer;
-import com.wwm.attrs.location.VectorDistanceScorer;
-import com.wwm.attrs.simple.FloatRangePreferenceScorer;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
-import com.wwm.attrs.simple.SimilarFloatValueScorer;
-import com.wwm.attrs.simple.WeightedSumScorer;
 import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.internal.xstream.AttributeIdMapper;
 import com.wwm.indexer.internal.xstream.TableToPreferenceMapConverter;
-import com.wwm.util.AsymptoticScoreMapper;
 import com.wwm.util.DynamicRef;
-import com.wwm.util.LinearScoreMapper;
 
 
 public class XStreamHelper {
@@ -87,28 +75,11 @@ public class XStreamHelper {
         xStream.alias("Scorer", Scorer.class);
         xStream.useAttributeFor(Scorer.class, "name");
 
-        xStream.alias("BooleanScorer", BooleanScorer.class);
-        xStream.alias("EnumExclusiveScorerExclusive", EnumExclusiveScorerExclusive.class);
-        xStream.alias("EnumMatchScorer", EnumExclusiveScorerExclusive.class);
-        xStream.alias("EnumScoresMapScorer", EnumExclusiveScorerPreference.class);
         
-        xStream.alias("MultiEnumScorer", MultiEnumScorer.class);
-        
-        xStream.alias("SimilarFloatValueScorer", SimilarFloatValueScorer.class);
-        xStream.alias("FloatRangePreferenceScorer", FloatRangePreferenceScorer.class);
-        xStream.alias("WeightedSumScorer", WeightedSumScorer.class);
-
-        xStream.alias("LocationAndRangeScorer", LocationAndRangeScorer.class);
-        xStream.alias("PathDeviationScorer", PathDeviationScorer.class);
-        xStream.alias("RangePreferenceScorer", RangePreferenceScorer.class);
-        xStream.alias("VectorDistanceScorer", VectorDistanceScorer.class);
-
-        xStream.alias("SeatsScorer", SeatsScorer.class);
-        xStream.alias("PathDeviationScorer", PathDeviationScorer.class);
-
-        
-        xStream.alias("LinearScoreMapper", LinearScoreMapper.class);
-        xStream.alias("AsymptoticScoreMapper", AsymptoticScoreMapper.class);
+        // Add all the scorer aliases
+        for (Entry<String, Class<?>> entry : XMLAliases.getScorerAliases().entrySet() ) {
+			xStream.alias(entry.getKey(), entry.getValue());
+		}
     }
 
 
