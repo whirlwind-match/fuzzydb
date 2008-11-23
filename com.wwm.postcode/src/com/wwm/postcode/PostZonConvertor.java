@@ -28,6 +28,7 @@ import com.wwm.db.dao.DaoWriteCollisionException;
 import com.wwm.db.dao.SimpleDAO;
 import com.wwm.db.userobjects.PostcodeUseCount;
 import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
+import com.wwm.stats.counters.Count;
 import com.wwm.util.MTRandom;
 import com.wwm.util.StringUtils;
 
@@ -110,7 +111,7 @@ public class PostZonConvertor extends Thread {
 
 				try {
 					safeDao.begin();
-					PostcodeUseCount puc = safeDao.retrieve(PostcodeUseCount.class, null);
+					Count puc = safeDao.retrieve(PostcodeUseCount.class, null);
 					if (puc != null) {
 						puc.setCount(puc.getCount()+increment);
 						safeDao.update(puc, null);

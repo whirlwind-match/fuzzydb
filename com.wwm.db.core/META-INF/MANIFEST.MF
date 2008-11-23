@@ -12,7 +12,8 @@ Export-Package: com.archopolis.db.whirlwind.internal,
  com.wwm.db.marker,
  com.wwm.db.query,
  com.wwm.db.whirlwind,
- com.wwm.db.whirlwind.internal
+ com.wwm.db.whirlwind.internal,
+ com.wwm.stats.counters
 Import-Package: com.wwm.util,
  gnu.trove
 Require-Bundle: com.wwm.util
