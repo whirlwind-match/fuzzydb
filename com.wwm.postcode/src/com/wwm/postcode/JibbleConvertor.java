@@ -31,8 +31,8 @@ public class JibbleConvertor {
 		log.info("Starting up JibbleConvertor using data: " + jibbleFile);
 		try {
 			jibbleMap = (TreeMap<String, PostcodeResult>)FileUtils.readObjectFromGZip(jibbleFile);
-		} catch (Exception e) {
-			log.log(Level.SEVERE, "Failed to load Jibble data", e);
+		} catch (Error e) {
+			log.log(Level.SEVERE, "Lookups disabled.  Failed to load Jibble data" + e.getCause().getMessage());
 		}
 	}
 	

@@ -17,6 +17,8 @@ import org.apache.abdera.i18n.iri.IRI;
 import org.apache.abdera.model.Document;
 import org.apache.abdera.model.Feed;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.EntryDecorator;
@@ -96,6 +98,13 @@ public class TestAtomProperty extends BaseAtomTest {
         assert scorerLocation != null;
     }
     
+    @Override
+	@Ignore("No range data is currently configured")
+    @Test
+    public void testGetFeedWithRange() throws Exception {
+    	// do nowt
+    }
+
     
 	@Override
 	protected void validateTestGetFeedResults(Document<Feed> docGot) {
