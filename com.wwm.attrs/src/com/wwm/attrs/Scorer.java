@@ -12,7 +12,6 @@ package com.wwm.attrs;
 
 import java.io.Serializable;
 
-
 import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -105,6 +104,18 @@ public abstract class Scorer implements Serializable {
         return scoreNull;
     }
 
+    /**
+     * Set true if we do want to score if the searchAttribute is null.  This allows us two options:
+     * to allow a middling "don't know" score for something like gender, so if it is unspecified, then
+     * both male and female score, say 50% (see {@link Scorer.setScoreOnNull} ), but otherwise
+     * maxScore or minScore if the search (i.e. wanted attribute) is present.
+     * 
+     * For Enums, this also allows some optimisation by allowing 'null' to be shorthand for a commonly
+     * used default or majority attribute. e.g. it would be sensible to encode sexuality=heterosexual
+     * using null if your website were for the general population.
+     * In this case, null matching null scores 100%.  See EnumExclusiveScorerExclusive for more details.
+     * @param scoreNull
+     */
     public void setScoreNull(boolean scoreNull) {
         this.scoreNull = scoreNull;
     }
