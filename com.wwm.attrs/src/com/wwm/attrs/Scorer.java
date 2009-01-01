@@ -13,6 +13,7 @@ package com.wwm.attrs;
 import java.io.Serializable;
 
 import com.wwm.attrs.Score.Direction;
+import com.wwm.attrs.internal.GlobalDecorators;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
@@ -181,7 +182,7 @@ public abstract class Scorer implements Serializable {
     
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":" + this.scorerAttrId + ": noScoreDir = " + this.noScoreDirection 
+        return this.getClass().getSimpleName() + ":" + GlobalDecorators.getInstance().getAttrName(this.scorerAttrId) + ": noScoreDir = " + this.noScoreDirection 
         + ": name = " + name;
     }
 }
