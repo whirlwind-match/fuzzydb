@@ -13,7 +13,6 @@ Export-Package:
  com.wwm.db.userobjects,
  com.wwm.db.util,
  com.wwm.db.whirlwind
-Eclipse-LazyStart: false
 DynamicImport-Package: com.wwm.db,
  com.wwm.db.internal.index,
  com.wwm.db.internal.index.btree,
