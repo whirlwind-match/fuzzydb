@@ -10,9 +10,11 @@ Export-Package: com.wwm.io.packet,
  com.wwm.io.packet.layer1,
  com.wwm.io.packet.layer2,
  com.wwm.io.packet.messages
-Require-Bundle: com.wwm.db.core;bundle-version="1.0.0"
+Require-Bundle: com.wwm.db.core;bundle-version="1.0.0",
+ org.junit4
 Eclipse-BuddyPolicy: registered
 Bundle-Description: Provides a non-blocking I/O based transport layer.  Messages to be sent over the wire need
  to have their bundle registered using Eclipse-RegisterBuddy: com.wwm.io.packet
 Import-Package: gnu.trove,
- gnu.trove.decorator
+ gnu.trove.decorator,
+ junit.framework
