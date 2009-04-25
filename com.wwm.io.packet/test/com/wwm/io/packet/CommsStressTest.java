@@ -20,7 +20,7 @@ import com.wwm.io.packet.messages.Message;
 
 public class CommsStressTest {
 	protected static final String defaultAddress = "127.0.0.1";
-	protected static final int serverPort = 5002;
+	protected static final int serverPort = 5001;
 	
 	ClassLoaderInterface cli = new DummyCli();
 	
@@ -105,14 +105,15 @@ public class CommsStressTest {
 		// By default Win XP seems to only allow about 5000 sockets, and they hang around for 240 secs in the TIMED_WAIT state.
 		// See http://support.microsoft.com/kb/314053/ for info on how to change TcpTimedWaitDelay and possibly TcpNumConnections. 
 		
-		final int loops = 500;
+		final int loops = 1500;
 		
 		// Make server
 		ServerImpl server = new ServerImpl(cli);
 		server.listen(new InetSocketAddress(serverPort));	// listen on main adaptor
 		
-		doConnectLoops(server, loops);
+		doConnectLoops(server, 100); // warm-up
 		
+		// benchmark
 		long start = System.currentTimeMillis();
 		doConnectLoops(server, loops);
 		long duration = System.currentTimeMillis() - start;

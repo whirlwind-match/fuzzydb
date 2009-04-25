@@ -55,7 +55,9 @@ public class TestReadWritePerf {
 			
 			try {
 				client.deleteStore(storeName);
-			} catch (UnknownStoreException e) { fail("Not sure if this should happen or not"); }
+			} catch (UnknownStoreException e) { 
+				// OKAY FOR EMPTY DB fail("Not sure if this should happen or not"); 
+			}
 			Store store = client.createStore(storeName);
 			
 			long start = System.currentTimeMillis();

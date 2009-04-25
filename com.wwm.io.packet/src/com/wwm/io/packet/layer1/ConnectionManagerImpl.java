@@ -23,7 +23,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import com.wwm.db.core.LogFactory;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.exceptions.NotListeningException;
 import com.wwm.io.packet.layer2.SourcedMessage;
@@ -32,6 +34,8 @@ import com.wwm.io.packet.messages.PacketMessage;
 
 public class ConnectionManagerImpl implements ConnectionManager {
 
+	static private final Logger log = LogFactory.getLogger(ConnectionManagerImpl.class); 
+	
 	protected Selector selector;
 	protected Map<SelectionKey, CommsStack> connections = Collections.synchronizedMap(new HashMap<SelectionKey, CommsStack>());
 
@@ -106,8 +110,13 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		assert (false);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Implementation note: Forces implementation of timeout by assuming no time passed if select(timeout) returned
+	 * keys.  Testing shows that we sometimes get keys but no messages very quickly.
+	 */
 	public synchronized Collection<SourcedMessage> waitForMessage(int timeoutMillis) throws NotListeningException {
-		// This method is unsynchronized to allow access from multiple threads.
+		// This method is unsynchronized to allow access from multiple threads (clearly it isn't!! - Need to check if I changed it and why!)
 		Collection<SourcedMessage> messages;
 		
 		int selectTimeout = 500;
@@ -117,13 +126,13 @@ public class ConnectionManagerImpl implements ConnectionManager {
 			timeoutMillis = 1;
 		}
 		
-		for ( ; timeoutMillis > 0; timeoutMillis -= selectTimeout) {
+		for ( ; timeoutMillis > 0; ) {
 			try {
 				if (selector.keys().size() == 0){ // no keys means no remaining connections
 //			    	System.out.println("no keys");
 					throw new NotListeningException();
 				}
-				// Block for up to 1000ms waiting for IO. If the timeout expires, this causes
+				// Block for up to selectTimeout waiting for IO. If the timeout expires, this causes
 				// us to go round the loop which checks again if there are actually any
 				// keys registered. This ensures that if all keys are deregistered while
 				// we are blocking, we unblock and throw the right exception rather
@@ -137,10 +146,11 @@ public class ConnectionManagerImpl implements ConnectionManager {
 				    if (messages != null && messages.size() > 0){
 				    	return messages;
 				    } else {
-//				    	System.out.println("No messages returned by processReadyKeys()");
+//				    	log.info("No messages returned by processReadyKeys()");
 				    }
 				} else {
-//			    	System.out.println("timed out");
+					timeoutMillis -= selectTimeout;
+//					log.info("timed out");
 				}
 			} catch (ClosedSelectorException e1) {
 				// Another thread did the unlisten() and close the selector while we were sitting on it

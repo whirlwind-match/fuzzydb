@@ -18,7 +18,6 @@ import com.wwm.io.packet.layer2.SourcedMessage;
 
 public interface ConnectionManager {
 	/**Blocks until messages arrives, then returns them.
-	 * Never returns null.
 	 * Throws an exception if the Server is not listening, or unlisten is called while another thread is blocking.
 	 * @param timeoutMillis How long to wait
 	 * @return A collection of received messages with information on where they came from.  Returns null if times out.
