@@ -25,8 +25,8 @@ import org.apache.abdera.protocol.client.AbderaClient;
 import org.apache.abdera.protocol.client.ClientResponse;
 import org.apache.abdera.protocol.client.RequestOptions;
 import org.apache.abdera.protocol.client.util.BaseRequestEntity;
+import org.apache.commons.codec.binary.Base64;
 
-import sun.misc.BASE64Encoder;
 
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.server.BadRequestException;
@@ -104,11 +104,12 @@ public class AtomFactory {
         AtomFactory.password = password;
     }
 
-
     static public RequestOptions getOptions() throws UnsupportedEncodingException {
         RequestOptions options = AtomFactory.getClient().getDefaultRequestOptions();
         String usernamePassword = username + ":" + password;
-        String auth = new BASE64Encoder().encode(usernamePassword.getBytes("utf-8"));
+        byte[] bytes = Base64.encodeBase64(usernamePassword.getBytes("utf-8"));
+        String auth = new String(bytes, "utf-8");
+//        String auth = new Base64().encode(usernamePassword.getBytes("utf-8"));
         options.setAuthorization("Basic " + auth);
         //      options.setContentType("application/atom+xml;type=entry");
         return options;

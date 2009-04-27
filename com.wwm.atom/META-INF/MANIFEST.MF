@@ -14,4 +14,5 @@ Export-Package: com.whirlwindmatch.api,
  com.wwm.atom.util
 Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0",
+ org.apache.commons.codec.binary,
  org.apache.commons.httpclient.methods;version="3.1.0"
