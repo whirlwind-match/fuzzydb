@@ -11,14 +11,20 @@
 package com.wwm.io.packet.layer1;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.CancelledKeyException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Logger;
+
+import com.wwm.db.core.LogFactory;
 
 public class Connection implements PacketInterface, SocketDriver {
+	private static final Logger log = LogFactory.getLogger(Connection.class);
+	
 	private boolean closing = false;
 	private SocketChannel sc;
 	private LinkedList<ByteBuffer> outgoingPackets = new LinkedList<ByteBuffer>();
@@ -243,18 +249,27 @@ public class Connection implements PacketInterface, SocketDriver {
 	public synchronized void close() {
 		if (closing) return;
 		closing = true;
+		Socket socket = sc.socket();
 		try {
-			sc.socket().shutdownInput();
-		} catch (IOException e) { e.printStackTrace(); } // FIXME: Document this exception
+			if (!socket.isInputShutdown()) socket.shutdownInput();
+		} catch (IOException e) {
+			log.info("Ignoring IOException shutting down input");
+		}
 		try {
-			sc.socket().shutdownOutput();
-		} catch (IOException e) { e.printStackTrace(); } // FIXME: Document this exception
+			socket.shutdownOutput();
+		} catch (IOException e) {
+			log.info("Ignoring IOException shutting down output");
+		}
 		try {
-			sc.socket().close();
-		} catch (IOException e) { e.printStackTrace(); } // FIXME: Document this exception
+			socket.close();
+		} catch (IOException e) {
+			log.info("Ignoring IOException closing socket");
+		}
 		try {
 			sc.close();
-		} catch (IOException e) { e.printStackTrace(); } // FIXME: Document this exception
+		} catch (IOException e) {
+			log.info("Ignoring IOException closing socketChannel");
+		}
 	}
 
 	public SocketChannel getSocketChannel() {
