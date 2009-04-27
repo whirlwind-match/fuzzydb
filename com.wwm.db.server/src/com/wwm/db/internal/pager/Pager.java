@@ -275,7 +275,8 @@ public class Pager implements PagerMBean {
 			updatePurgeList();
 		}
 
-		return purgeList[purgeListIndex++];
+		return purgeList[purgeListIndex++]; // FIXME: AIOOBE here from lockElementForRead.  No multi-thread... seems to be ref change
+		/* Above issue caused running performance.TestReadWritePerf.testCreateManyAndUpdate	on Mac */
 	}
 
 	/**
@@ -345,7 +346,7 @@ public class Pager implements PagerMBean {
 			long pageId = score.pageId;
 			try {
 				HashSet<Long> ids = pages.get(pageTable);
-				if (ids != null && ids.contains(pageId)) {	// make sure it's enqued, deleted stores can cause pages to hang around
+				if (ids != null && ids.contains(pageId)) {	// make sure it's enqueued, deleted stores can cause pages to hang around
 					if (pageTable.tryPurgePage(pageId)) {
 						purgeScores.append( score.score ).append(", ");
 						boolean success = ids.remove(pageId);
