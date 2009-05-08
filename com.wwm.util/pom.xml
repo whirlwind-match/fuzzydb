@@ -32,6 +32,7 @@
             <artifactId>junit</artifactId>
             <version>4.5</version>
             <type>jar</type>
+            <scope>test</scope>
             <optional>false</optional>
         </dependency>
         <dependency>
@@ -39,6 +40,7 @@
             <artifactId>surefire-junit4</artifactId>
             <version>2.4.3</version>
             <type>jar</type>
+            <scope>test</scope>
             <optional>false</optional>
         </dependency>
     </dependencies>
