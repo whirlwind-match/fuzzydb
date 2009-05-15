@@ -40,7 +40,8 @@ import org.apache.abdera.util.EntityTag;
 import org.apache.abdera.util.MimeTypeHelper;
 import org.apache.abdera.writer.StreamWriter;
 
-import com.wwm.atom.util.AtomUtils;
+import com.wwm.abdera.util.AtomUtils;
+
 
 
 /**
@@ -348,11 +349,9 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
     	return this;
     }
 
-	@Override
-	public ResponseContext extensionRequest(RequestContext request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    public ResponseContext extensionRequest(RequestContext request) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 	
 }

@@ -70,7 +70,9 @@ public class ReferenceProviderImpl extends AbstractWorkspaceProvider implements 
             Collection collection = workspace.addCollection("Simple", "atom/feed");
             collection.setAccept("entry");
             collection.addCategories().setFixed(false);
-        } catch (Exception e) { e.printStackTrace(); } // FIXME: Document this exception
+        } catch (Exception e) {
+            e.printStackTrace();
+        } // FIXME: Document this exception
         return service.getDocument();
     }
 
@@ -84,7 +86,9 @@ public class ReferenceProviderImpl extends AbstractWorkspaceProvider implements 
             feed.addLink("");
             feed.addLink("", "self");
             feed.addAuthor("Simple");
-        } catch (Exception e) { e.printStackTrace(); } // FIXME: Document this exception
+        } catch (Exception e) {
+            e.printStackTrace();
+        } // FIXME: Document this exception
         return feed.getDocument();
     }
 
@@ -142,7 +146,7 @@ public class ReferenceProviderImpl extends AbstractWorkspaceProvider implements 
                 }
                 entry.setUpdated(new Date());
                 // NOTE: WE KEEP THE UUID
-                //				entry.getIdElement().setValue(factory.newUuidUri());
+                // entry.getIdElement().setValue(factory.newUuidUri());
                 entry.addLink("feed/" + entry.getId().toString(), "edit");
                 Feed feed = get_feed_doc(abdera).getRoot();
                 feed.insertEntry(entry);
@@ -206,7 +210,7 @@ public class ReferenceProviderImpl extends AbstractWorkspaceProvider implements 
                 }
 
                 Document<Entry> entry_doc = (Document<Entry>) request
-                .getDocument(parser).clone();
+                        .getDocument(parser).clone();
                 if (entry_doc != null) {
                     Entry entry = entry_doc.getRoot();
                     if (!entry.getId().equals(orig_entry.getId())) {
@@ -218,7 +222,7 @@ public class ReferenceProviderImpl extends AbstractWorkspaceProvider implements 
                     entry.setUpdated(new Date());
                     entry.getIdElement().setValue(factory.newUuidUri());
                     entry.addLink("atom/feed/" + entry.getId().toString(),
-                    "edit");
+                            "edit");
                     orig_entry.discard();
                     Feed feed = get_feed_doc(abdera).getRoot();
                     feed.insertEntry(entry);
@@ -273,37 +277,32 @@ public class ReferenceProviderImpl extends AbstractWorkspaceProvider implements 
         return segments[segments.length - 1];
     }
 
-	@Override
-	public CollectionAdapter getCollectionAdapter(RequestContext request) {
-		return this;
-	}
-
-	public ResponseContext headEntry(RequestContext request) {
-		return ProviderHelper.notsupported(request);
-	}
-
-	public ResponseContext optionsEntry(RequestContext request) {
-		return ProviderHelper.notsupported(request);
-	}
-	
-    public ResponseContext getCategories(RequestContext request) {
-    	return new StreamWriterResponseContext(request.getAbdera()) {
-    		@Override
-    		protected void writeTo(StreamWriter sw) throws IOException {
-    			sw.startDocument()
-    			.startCategories(false)
-    			.writeCategory("a category")
-    			.endCategories()
-    			.endDocument();
-    		}
-    	}
-    	.setStatus(HttpServletResponse.SC_OK)
-    	.setContentType(Constants.CAT_MEDIA_TYPE);    
+    public CollectionAdapter getCollectionAdapter(RequestContext request) {
+        return this;
     }
 
-	@Override
-	public ResponseContext extensionRequest(RequestContext request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public ResponseContext headEntry(RequestContext request) {
+        return ProviderHelper.notsupported(request);
+    }
+
+    public ResponseContext optionsEntry(RequestContext request) {
+        return ProviderHelper.notsupported(request);
+    }
+
+    public ResponseContext getCategories(RequestContext request) {
+        return new StreamWriterResponseContext(request.getAbdera()) {
+            @Override
+            protected void writeTo(StreamWriter sw) throws IOException {
+                sw.startDocument().startCategories(false).writeCategory("a category")
+                        .endCategories().endDocument();
+            }
+        }
+                .setStatus(HttpServletResponse.SC_OK)
+                .setContentType(Constants.CAT_MEDIA_TYPE);
+    }
+
+    public ResponseContext extensionRequest(RequestContext request) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

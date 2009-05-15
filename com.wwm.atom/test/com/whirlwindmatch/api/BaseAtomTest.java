@@ -10,6 +10,10 @@
  *****************************************************************************/
 package com.whirlwindmatch.api;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -29,15 +33,13 @@ import org.apache.abdera.protocol.client.util.BaseRequestEntity;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.wwm.abdera.util.AtomUtils;
 import com.wwm.atom.client.AtomFactory;
 import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.EntryDecorator;
 import com.wwm.atom.server.BadRequestException;
-import com.wwm.atom.util.AtomUtils;
 import com.wwm.util.NanoTimer;
-
-import static org.junit.Assert.*;
 
 public abstract class BaseAtomTest {
 

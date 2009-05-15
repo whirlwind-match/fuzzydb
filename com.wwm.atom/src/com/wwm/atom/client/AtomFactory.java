@@ -27,10 +27,9 @@ import org.apache.abdera.protocol.client.RequestOptions;
 import org.apache.abdera.protocol.client.util.BaseRequestEntity;
 import org.apache.commons.codec.binary.Base64;
 
-
+import com.wwm.abdera.util.AtomUtils;
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.server.BadRequestException;
-import com.wwm.atom.util.AtomUtils;
 
 /**
  * Factory for getting the stuff the end user needs.
@@ -51,7 +50,7 @@ public class AtomFactory {
     static private String username;
     static private String password = "not used";
 
-    static private final Abdera abdera = new Abdera();
+    static private final Abdera abdera = Abdera.getInstance();
     static private AbderaClient client = new AbderaClient(abdera);
 
     static public Entry createBaseEntry(String author, String title, String linkUrl) {
