@@ -16,8 +16,8 @@ import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.atom.server.BadRequestException;
-import com.wwm.atom.server.NotFoundException;
+import com.wwm.abdera.util.server.BadRequestException;
+import com.wwm.abdera.util.server.NotFoundException;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.WWConfigHelper;
 import com.wwm.db.Store;

@@ -28,8 +28,8 @@ import org.apache.abdera.protocol.client.util.BaseRequestEntity;
 import org.apache.commons.codec.binary.Base64;
 
 import com.wwm.abdera.util.AtomUtils;
+import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.atom.elements.AbderaElementFactory;
-import com.wwm.atom.server.BadRequestException;
 
 /**
  * Factory for getting the stuff the end user needs.

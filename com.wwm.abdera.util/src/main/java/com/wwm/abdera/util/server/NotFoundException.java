@@ -8,18 +8,31 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.atom.server;
+package com.wwm.abdera.util.server;
 
 /**
- * FIXME: Just throw an Error(e) .. that should do it
+ * Exception to indicate that content was not found.
+ * In an HTTP environment, this can be used to indicate that SC_NOT_FOUND would be returned as a status code.
  */
-public class InternalServerError extends Exception {
+public class NotFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-
-	public InternalServerError(Throwable e) {
-		super(e);
+	
+	public NotFoundException() {
+		super();
 	}
-
-
+	
+	public NotFoundException(String message) {
+		super(message);
+	}
+	
+	public NotFoundException(Throwable cause){
+		super(cause);
+	}
+	
+	public NotFoundException(String message, Throwable cause) {
+		super(message, cause);
+	}
+	
+	
 }

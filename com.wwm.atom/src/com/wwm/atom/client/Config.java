@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
 import org.apache.abdera.i18n.iri.IRI;
 import org.apache.abdera.model.Entry;
 
-import com.wwm.atom.server.BadRequestException;
+import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.util.StringUtils;
 
 public class Config {

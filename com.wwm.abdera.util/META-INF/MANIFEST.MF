@@ -3,4 +3,5 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Util
 Bundle-SymbolicName: com.wwm.abdera.util
 Bundle-Version: 1.0.0.qualifier
-Export-Package: com.wwm.abdera.util
+Export-Package: com.wwm.abdera.util,
+ com.wwm.abdera.util.server

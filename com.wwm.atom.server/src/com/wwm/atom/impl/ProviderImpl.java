@@ -12,7 +12,7 @@ package com.wwm.atom.impl;
 
 import java.util.logging.Logger;
 
-import com.wwm.atom.server.BaseProviderImpl;
+import com.wwm.abdera.util.server.BaseProviderImpl;
 import com.wwm.db.core.LogFactory;
 
 

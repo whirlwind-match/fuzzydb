@@ -17,7 +17,7 @@
  * 
  * THIS FILE IS THE SUPPLIED: org.apache.abdera.examples.appserver.SimpleProvider.java
  */
-package com.wwm.atom.server;
+package com.wwm.abdera.util.server;
 
 import java.io.IOException;
 import java.util.Date;

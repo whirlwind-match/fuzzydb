@@ -8,14 +8,14 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.atom.server;
+package com.wwm.abdera.util.server;
 
 import org.apache.abdera.model.Collection;
 import org.apache.abdera.protocol.server.CategoriesInfo;
 import org.apache.abdera.protocol.server.CollectionInfo;
 import org.apache.abdera.protocol.server.RequestContext;
 
-public class FuzzCollectionInfo implements CollectionInfo {
+public class DumbCollectionInfo implements CollectionInfo {
 
 	public Collection asCollectionElement(RequestContext request) {
 		// TODO Auto-generated method stub

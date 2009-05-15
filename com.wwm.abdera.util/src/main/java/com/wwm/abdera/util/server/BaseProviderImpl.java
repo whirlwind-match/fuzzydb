@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.atom.server;
+package com.wwm.abdera.util.server;
 
 import org.apache.abdera.protocol.server.CollectionAdapter;
 import org.apache.abdera.protocol.server.CollectionInfo;
@@ -62,7 +62,7 @@ public class BaseProviderImpl extends AbstractWorkspaceProvider {
         // Add a Workspace descriptor so the provider can generate an atompub service document
         SimpleWorkspaceInfo workspace = new SimpleWorkspaceInfo();
         workspace.setTitle("A Simple Workspace");
-        CollectionInfo collection = new FuzzCollectionInfo();
+        CollectionInfo collection = new DumbCollectionInfo();
         workspace.addCollection(collection);
         addWorkspace(workspace);
         

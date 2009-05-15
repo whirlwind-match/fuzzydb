@@ -7,11 +7,10 @@ Bundle-Vendor: Whirlwind Match Limited
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.wwm.util,
  com.wwm.bundle.abdera;bundle-version="0.4.0",
- com.wwm.abdera.util;bundle-version="1.0.0"
+ com.wwm.abdera.util;bundle-version="1.0.0";visibility:=reexport
 Export-Package: com.whirlwindmatch.api,
  com.wwm.atom.client,
- com.wwm.atom.elements,
- com.wwm.atom.server
+ com.wwm.atom.elements
 Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0",
  org.apache.commons.codec.binary,

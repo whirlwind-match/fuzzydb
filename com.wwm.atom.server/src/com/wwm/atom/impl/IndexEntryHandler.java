@@ -22,8 +22,8 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 
-import com.wwm.atom.server.BadRequestException;
-import com.wwm.atom.server.NotFoundException;
+import com.wwm.abdera.util.server.BadRequestException;
+import com.wwm.abdera.util.server.NotFoundException;
 import com.wwm.db.core.LogFactory;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;

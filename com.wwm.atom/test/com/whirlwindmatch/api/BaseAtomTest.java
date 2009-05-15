@@ -34,11 +34,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.wwm.abdera.util.AtomUtils;
+import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.atom.client.AtomFactory;
 import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.EntryDecorator;
-import com.wwm.atom.server.BadRequestException;
 import com.wwm.util.NanoTimer;
 
 public abstract class BaseAtomTest {
