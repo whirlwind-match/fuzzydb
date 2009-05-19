@@ -42,54 +42,54 @@ import org.apache.abdera.writer.StreamWriter;
 
 import com.wwm.abdera.util.AtomUtils;
 
-
-
 /**
  * Provides common processing required for handling of Abdera requests, and allows
- * application-specific functionality to be implemented by internal protected methods, (somewhat) using the
- * "open for extension, closed for modification" pattern that the Spring Framework uses.
+ * application-specific functionality to be implemented by internal protected methods, (somewhat)
+ * using the "open for extension, closed for modification" pattern that the Spring Framework uses.
  */
 public abstract class BaseCollectionAdapter implements CollectionAdapter {
 
-    //	protected static Logger log = LogFactory.getLogger(BaseProviderImpl.class);
+    // protected static Logger log = LogFactory.getLogger(BaseProviderImpl.class);
 
     public BaseCollectionAdapter() {
         super();
     }
 
     /**
-     * Implements fixed aspects of dealing with a create request, such
-     * as validating Atom XML conformity.
-     * createEntry handles POST to a COLLECTION
+     * Implements fixed aspects of dealing with a create request, such as validating Atom XML
+     * conformity. createEntry handles POST to a COLLECTION
      */
     @SuppressWarnings("unchecked")
     public final ResponseContext postEntry(RequestContext request) {
         Parser parser = getParser(request);
-        /* Factory factory = */ getAndInitFactory(request);
+        /* Factory factory = */getAndInitFactory(request);
         try {
             MimeType contentType = request.getContentType();
             String ctype = (contentType != null) ? contentType.toString() : null;
             if (ctype != null && !MimeTypeHelper.isAtom(ctype)
                     && !MimeTypeHelper.isXml(ctype)) {
-                return makeExceptionResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, "Content-Type must be application/atom+xml or application/xml");
+                return makeExceptionResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE,
+                    "Content-Type must be application/atom+xml or application/xml");
             }
 
             Document<Entry> entryDoc = (Document<Entry>) request.getDocument(parser).clone();
             if (entryDoc != null) {
                 Entry entry = entryDoc.getRoot();
                 if (!ProviderHelper.isValidEntry(entry)) {
-                    return makeExceptionResponse(HttpServletResponse.SC_BAD_REQUEST, "Invalid Atom document. Must have valid entries for id, author, title and updated");
+                    return makeExceptionResponse(HttpServletResponse.SC_BAD_REQUEST,
+                        "Invalid Atom document. Must have valid entries for id, author, title and updated");
                 }
 
                 createEntryInternal(request, entryDoc, entry);
 
                 /*
-                 * Sort out the response, including giving the location which will be used to GET the document
+                 * Sort out the response, including giving the location which will be used to GET
+                 * the document
                  */
                 BaseResponseContext<Base> rc = new BaseResponseContext<Base>(entry);
                 IRI baseUri = ProviderHelper.resolveBase(request);
                 IRI editLinkResolvedHref = entry.getEditLinkResolvedHref();
-                if (editLinkResolvedHref == null){
+                if (editLinkResolvedHref == null) {
                     throw new Error("createEntryInternal() must set the edit link href");
                 }
                 rc.setLocation(baseUri.resolve(editLinkResolvedHref).toString());
@@ -113,27 +113,28 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
         }
     }
 
-    abstract protected void createEntryInternal(RequestContext request,	Document<Entry> entryDoc, Entry entry)
-    throws Exception;
+    abstract protected void createEntryInternal(RequestContext request, Document<Entry> entryDoc,
+            Entry entry)
+            throws Exception;
 
-    
     public ResponseContext deleteEntry(RequestContext request) {
         String entryId = getEntryID(request);
         try {
             deleteEntryInternal(request, entryId);
         } catch (NotFoundException e) {
-            return makeExceptionResponse(HttpServletResponse.SC_NOT_FOUND, "No entry for id " + entryId );
+            return makeExceptionResponse(HttpServletResponse.SC_NOT_FOUND, 
+            "No entry for id " + entryId);
         } catch (BadRequestException e) {
             return makeExceptionResponse(HttpServletResponse.SC_BAD_REQUEST, e);
         }
 
         EmptyResponseContext emptyResponseContext = new EmptyResponseContext(HttpServletResponse.SC_NO_CONTENT);
         emptyResponseContext.setContentLength(0);
-		return emptyResponseContext;
+        return emptyResponseContext;
     }
 
-    abstract protected void deleteEntryInternal(RequestContext request, String entryId) throws NotFoundException, BadRequestException;
-
+    abstract protected void deleteEntryInternal(RequestContext request, String entryId)
+            throws NotFoundException, BadRequestException;
 
     /**
      * Implements GET on an ENTRY
@@ -142,31 +143,32 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
         Entry entry;
         String entryId = getEntryID(request);
         try {
-            entry = getEntryInternal(request, entryId );
+            entry = getEntryInternal(request, entryId);
             Document<Entry> entryDoc = entry.getDocument();
             AbstractResponseContext rc = new BaseResponseContext<Document<Entry>>(entryDoc);
             rc.setEntityTag(calculateEntityTag(entry));
             return rc;
         } catch (NotFoundException e) {
-            return makeExceptionResponse(HttpServletResponse.SC_NOT_FOUND, "No entry for id " + entryId );
+            return makeExceptionResponse(HttpServletResponse.SC_NOT_FOUND,
+                "No entry for id " + entryId);
         } catch (BadRequestException e) {
             return makeExceptionResponse(HttpServletResponse.SC_BAD_REQUEST, e);
         }
     }
 
-    abstract protected Entry getEntryInternal(RequestContext request, String entryId) throws NotFoundException, BadRequestException;
-
+    abstract protected Entry getEntryInternal(RequestContext request, String entryId)
+            throws NotFoundException, BadRequestException;
 
     /**
-     * Performs an update of an Entry
-     * Handles PUT to an ENTRY
+     * Performs an update of an Entry Handles PUT to an ENTRY
+     * 
      * @param request
      * @return
      */
     @SuppressWarnings("unchecked")
     public ResponseContext putEntry(RequestContext request) {
         Parser parser = getParser(request);
-        /* Factory factory = */ getAndInitFactory(request);
+        /* Factory factory = */getAndInitFactory(request);
 
         try {
             MimeType contentType = request.getContentType();
@@ -174,7 +176,7 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
                     && !MimeTypeHelper.isAtom(contentType.toString())) {
                 EmptyResponseContext emptyResponseContext = new EmptyResponseContext(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
                 emptyResponseContext.setContentLength(0);
-				return emptyResponseContext;
+                return emptyResponseContext;
             }
 
             Document<Entry> updatedDoc = (Document<Entry>) request.getDocument(parser).clone();
@@ -185,7 +187,7 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
 
                 EmptyResponseContext emptyResponseContext = new EmptyResponseContext(HttpServletResponse.SC_NO_CONTENT);
                 emptyResponseContext.setContentLength(0);
-				return emptyResponseContext;
+                return emptyResponseContext;
             }
         } catch (ParseException pe) {
             return makeExceptionResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, pe);
@@ -196,9 +198,8 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
         }
     }
 
-    abstract protected void updateEntryInternal(RequestContext request,	Document<? extends Entry> doc) throws IOException;
-
-
+    abstract protected void updateEntryInternal(RequestContext request,
+            Document<? extends Entry> doc) throws IOException;
 
     private Parser getParser(RequestContext request) {
         Abdera abdera = request.getAbdera();
@@ -213,8 +214,9 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
     }
 
     /**
-     * If any extensions need registering, then this method should
-     * be overridden and calls made to registerExtension() in {@link Factory}
+     * If any extensions need registering, then this method should be overridden and calls made to
+     * registerExtension() in {@link Factory}
+     * 
      * @param factory
      */
     protected void registerExtensionsInternal(Factory factory) {
@@ -224,64 +226,73 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
      * Implements GET on a COLLECTION
      */
     public ResponseContext getFeed(RequestContext request) {
-        /* Factory factory = */ getAndInitFactory(request);
+        /* Factory factory = */getAndInitFactory(request);
         Feed feed;
         try {
-            feed = getFeedInternal( request );
+            int length = ProviderHelper.getPageSize(request, "count", 25);
+            int offset = ProviderHelper.getOffset(request, "page", length);
+            String _page = request.getParameter("page");
+            int page =(_page != null) ? Integer.parseInt(_page) : 0;
+            feed = getFeedInternal(request, offset, length);
         } catch (BadRequestException e) {
             return makeExceptionResponse(HttpServletResponse.SC_BAD_REQUEST, e);
         }
 
         Document<Feed> doc = feed.getDocument();
 
-        AbstractResponseContext rc = new BaseResponseContext<Document<Feed>>( doc );
+        AbstractResponseContext rc = new BaseResponseContext<Document<Feed>>(doc);
         rc.setEntityTag(calculateEntityTag(feed));
         return rc;
     }
 
-    protected Feed getFeedInternal( RequestContext request) throws BadRequestException{
-        dummyImpl(request);
+    protected Feed getFeedInternal(RequestContext request, int offset, int length) throws BadRequestException {
+        // default impl is to ignore page requests
+        return getFeedInternal(request);
+    }
+
+    // FIXME: Make this abstract
+    protected Feed getFeedInternal(RequestContext request) throws BadRequestException {
+//        dummyImpl(request);
         return null;
     }
 
     public ResponseContext headEntry(RequestContext request) {
-    	return ProviderHelper.notsupported(request);
+        return ProviderHelper.notsupported(request);
     }
 
     public ResponseContext optionsEntry(RequestContext request) {
-    	return ProviderHelper.notsupported(request);
+        return ProviderHelper.notsupported(request);
     }
 
     /**
-     * Return the different categories we support (we use categories for different types of document)
+     * Return the different categories we support (we use categories for different types of
+     * document)
      */
     public ResponseContext getCategories(RequestContext request) {
-    	return new StreamWriterResponseContext(request.getAbdera()) {
-    		@Override
-    		protected void writeTo(StreamWriter sw) throws IOException {
-    			sw.startDocument()
-    			.startCategories(false);
-    			Collection<String> cats = getCategoriesInternal();
-    			if (cats != null) {
-					for( String cat : cats){
-	    				sw.writeCategory(cat);
-	    			}
-    			}
-    			sw.endCategories()
-    			.endDocument();
-    		}
-    	}
-    	.setStatus(HttpServletResponse.SC_OK)
-    	.setContentType(Constants.CAT_MEDIA_TYPE);    
+        return new StreamWriterResponseContext(request.getAbdera()) {
+            @Override
+            protected void writeTo(StreamWriter sw) throws IOException {
+                sw.startDocument().startCategories(false);
+                Collection<String> cats = getCategoriesInternal();
+                if (cats != null) {
+                    for (String cat : cats) {
+                        sw.writeCategory(cat);
+                    }
+                }
+                sw.endCategories().endDocument();
+            }
+        }
+            .setStatus(HttpServletResponse.SC_OK)
+            .setContentType(Constants.CAT_MEDIA_TYPE);
     }
 
     /**
-     * Implement this to return a collection of strings which are then formed into the categories document
-     * @return a collection, or null ofr an empty collection
+     * Implement this to return a collection of strings which are then formed into the categories
+     * document
+     * 
+     * @return a collection, or null for an empty collection
      */
-	abstract protected Collection<String> getCategoriesInternal();
-
-
+    abstract protected Collection<String> getCategoriesInternal();
 
     protected String getEntryID(RequestContext request) {
         if (request.getTarget().getType() != TargetType.TYPE_ENTRY) {
@@ -306,13 +317,13 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
         return EntityTag.generate(id, modifiedDate);
     }
 
-    //================================================================
+    // ================================================================
     // Misc dev stuff
-    //================================================================
+    // ================================================================
     private ResponseContext dummyImpl(RequestContext request) {
         try {
             System.out.println(request);
-            //            String[] parameters = request.getParameterNames();
+            // String[] parameters = request.getParameterNames();
             Document<Element> doc = request.getDocument();
             if (doc != null) {
                 AtomUtils.prettyPrint(doc);
@@ -324,7 +335,6 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
         // throw new UnsupportedOperationException();
         return null;
     }
-
 
     final private ResponseContext makeExceptionResponse(int statusCode, Exception e) {
         EmptyResponseContext rc = new EmptyResponseContext(statusCode);
@@ -344,14 +354,40 @@ public abstract class BaseCollectionAdapter implements CollectionAdapter {
 
     abstract protected void decorateErrorResponse(EmptyResponseContext rc, String error);
 
-
     public CollectionAdapter getCollectionAdapter(RequestContext request) {
-    	return this;
+        return this;
     }
 
     public ResponseContext extensionRequest(RequestContext request) {
         // TODO Auto-generated method stub
         return null;
     }
-	
+
+    protected void addEditLinkToEntry(Entry entry) throws Exception {
+        if (ProviderHelper.getEditUriFromEntry(entry) == null) {
+            entry.addLink(entry.getId().toString(), "edit");
+        }
+    }
+
+    protected void setEntryIdIfNull(RequestContext request, Entry entry) throws Exception {
+        // if there is no id in Entry, assign one.
+        if (entry.getId() != null) {
+            return;
+        }
+        String uuidUri = request.getAbdera().getFactory().newUuidUri();
+        String[] segments = uuidUri.split(":");
+        String entryId = segments[segments.length - 1];
+        entry.setId(createEntryIdUri(entryId));
+    }
+
+    protected String createEntryIdUri(String entryId) throws Exception {
+        return getFeedUri() + "/" + entryId;
+    }
+    
+    /** 
+     * This must be overridden to give the feed uri, which must NOT end in a trailing '/'
+     * @return e.g. "atom/feed"
+     */
+    abstract protected String getFeedUri();
+
 }
