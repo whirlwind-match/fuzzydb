@@ -3,6 +3,12 @@
   <groupId>com.wwm.atom</groupId>
   <artifactId>com.wwm.atom</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <parent>
+  	<artifactId>build</artifactId>
+  	<groupId>com.wwm.atom</groupId>
+  	<version>1.0-SNAPSHOT</version>
+  	<relativePath>../build</relativePath>
+  </parent>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
@@ -18,10 +24,17 @@
   </build>
   <dependencies>
   	<dependency>
-  		<groupId>com.wwm.abdera.util</groupId>
+  		<groupId>com.wwm.abdera</groupId>
   		<artifactId>com.wwm.abdera.util</artifactId>
   		<version>1.0-SNAPSHOT</version>
+  		<scope>runtime</scope>
   		<optional>false</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.wwm.util</groupId>
+  		<artifactId>com.wwm.util</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+  		<scope>runtime</scope>
   	</dependency>
   </dependencies>
 </project>
