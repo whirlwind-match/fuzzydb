@@ -10,16 +10,17 @@
  *****************************************************************************/
 package com.wwm.abdera.util.server;
 
+
 /**
- * FIXME: Just throw an Error(e) .. that should do it
+ * @deprecated Just throw an Error(e) .. that should do it
  */
 public class InternalServerError extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public InternalServerError(Throwable e) {
-		super(e);
-	}
+    public InternalServerError(Throwable cause) {
+        super(cause);
+    }
 
 
 }
