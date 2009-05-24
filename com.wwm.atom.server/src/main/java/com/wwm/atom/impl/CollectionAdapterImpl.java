@@ -152,6 +152,7 @@ public class CollectionAdapterImpl extends BaseCollectionAdapter {
 
         entry.setUpdated(new Date());
         //				entry.getIdElement().setValue(factory.newUuidUri());
+        //FIXME: Should this be addEditLinkToEntry(entry);
         entry.addLink("fuzz/feed/" + entry.getId().toString(),"edit");
 
 
@@ -201,6 +202,11 @@ public class CollectionAdapterImpl extends BaseCollectionAdapter {
 	@Override
 	protected Collection<String> getCategoriesInternal() {
 		return typeHandlers.keySet();
+	}
+
+	@Override
+	protected String getFeedUri() {
+		return "fuzz/feed";
 	}
     
 }
