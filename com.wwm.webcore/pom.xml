@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.wwm.webcore</groupId>
+  <artifactId>com.wwm.webcore</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>com.wwm.webcore Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.5</version>
+  		<type>jar</type>
+  		<scope>test</scope>
+  		<optional>false</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.wwm.db</groupId>
+  		<artifactId>com.wwm.db</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
+  <build>
+    <finalName>com.wwm.webcore</finalName>
+  </build>
+</project>
