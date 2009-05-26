@@ -1,80 +1,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.wwm.abdera</groupId>
-  <artifactId>com.wwm.abdera.util</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>com.wwm.abdera.util</name>
-  <url>http://maven.apache.org</url>
-  <build>
-    <plugins> 
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-    </plugins><!--
- 
-     <extensions>
-      <extension>
-        <groupId>org.jvnet.wagon-svn</groupId>
-        <artifactId>wagon-svn</artifactId>
-        <version>1.8</version>
-      </extension>
-    </extensions>
-  --></build>
-	
-  <repositories><!--
-  	<repository>
-  		<id>wwm</id>
-  		<name>Whirlwind at SourceForge.net</name>
-  		<url>https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk/maven-repos</url>
-  	</repository>
-  	--><!--<repository>
-  		<id>apache-snapshots</id>
-  		<name>Apache Snapshots</name>
-  		<url>http://people.apache.org/maven-snapshot-repository/</url>
-  	</repository>
-  --></repositories>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wwm.abdera</groupId>
+    <artifactId>com.wwm.abdera.util</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>com.wwm.abdera.util</name>
+
+    <!-- 
+      - NOTE: parent can be any type of packaging, so picking the logical parent is a good idea
+      - e.g. the parent will contain many dependencies you need. 
+     -->
+    <parent>
+        <artifactId>com.wwm.build</artifactId>
+        <groupId>com.wwm</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../com.wwm.build</relativePath>
+    </parent>
 
 
-  <distributionManagement>
-    <site>
-    </site>
-    
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-    </repository>
-  </distributionManagement>
-
-
-  <dependencies>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.5</version>
-  		<type>jar</type>
-  		<scope>test</scope>
-  		<optional>false</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.abdera</groupId>
-  		<artifactId>abdera-server</artifactId>
-  		<version>1.0-SNAPSHOT</version>
-  		<type>jar</type>
-  		<scope>runtime</scope>
-  		<optional>false</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.abdera</groupId>
-  		<artifactId>abdera-client</artifactId>
-  		<version>1.0-SNAPSHOT</version>
-  		<type>jar</type>
-  		<scope>runtime</scope>
-  		<optional>false</optional> 
-  	</dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.abdera</groupId>
+            <artifactId>abdera-server</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>runtime</scope>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.abdera</groupId>
+            <artifactId>abdera-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>runtime</scope>
+            <optional>false</optional>
+        </dependency>
+    </dependencies>
 </project>

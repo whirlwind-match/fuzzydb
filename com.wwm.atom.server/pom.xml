@@ -3,7 +3,19 @@
   <groupId>com.wwm.atom</groupId>
   <artifactId>com.wwm.atom.server</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <dependencyManagement>
+
+    <!-- 
+      - NOTE: parent can be any type of packaging, so picking the logical parent is a good idea
+      - e.g. the parent will contain many dependencies you need. 
+     -->
+  <parent>
+    <artifactId>com.wwm.atom</artifactId>
+    <groupId>com.wwm.atom</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../com.wwm.atom</relativePath>
+  </parent>
+
+
   	<dependencies>
   		<dependency>
   			<groupId>com.wwm.atom</groupId>
@@ -12,5 +24,4 @@
   			<scope>runtime</scope>
   		</dependency>
   	</dependencies>
-  </dependencyManagement>
 </project>

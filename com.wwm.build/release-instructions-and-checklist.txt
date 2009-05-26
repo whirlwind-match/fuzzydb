@@ -1,0 +1,10 @@
+
+TODO:
+
+  General idea is to make the release lifecycle work using maven
+  
+  It's a good idea to start here, where the difference between inheritance (referring to parent) 
+  and an aggregation is defined (see http://svn.apache.org/repos/asf/maven/components/branches/maven-2.1.x/pom.xml
+  for an example - this is an aggregator that refers to a parent).
+  
+  http://maven.apache.org/pom.html#Introduction
