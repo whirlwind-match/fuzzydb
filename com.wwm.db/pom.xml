@@ -1,32 +1,41 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.wwm.db</groupId>
-  <artifactId>com.wwm.db</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <dependencies>
-    <dependency>
-      <groupId>com.wwm.util</groupId>
-      <artifactId>com.wwm.util</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-    	<groupId>com.wwm.db.core</groupId>
-    	<artifactId>com.wwm.db.core</artifactId>
-    	<version>1.0-SNAPSHOT</version>
-    	<scope>runtime</scope>
-    </dependency>
-    <dependency>
-    	<groupId>com.wwm.io.packet</groupId>
-    	<artifactId>com.io.packet</artifactId>
-    	<version>1.0-SNAPSHOT</version>
-    	<scope>runtime</scope>
-    </dependency>
-    <dependency>
-    	<groupId>com.wwm.expressions</groupId>
-    	<artifactId>com.wwm.expressions</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    	<scope>runtime</scope>
-    </dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wwm.db</groupId>
+    <artifactId>com.wwm.db</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <artifactId>com.wwm.build</artifactId>
+        <groupId>com.wwm</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../com.wwm.build</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.wwm.util</groupId>
+            <artifactId>com.wwm.util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.wwm.db.core</groupId>
+            <artifactId>com.wwm.db.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.wwm.io.packet</groupId>
+            <artifactId>com.io.packet</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.wwm</groupId>
+            <artifactId>com.wwm.expressions</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
 </project>
