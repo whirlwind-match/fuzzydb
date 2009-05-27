@@ -3,4 +3,12 @@
   <groupId>com.wwm.attrs</groupId>
   <artifactId>com.wwm.attrs</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.wwm.db</groupId>
+  		<artifactId>com.wwm.db</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  </dependencies>
 </project>

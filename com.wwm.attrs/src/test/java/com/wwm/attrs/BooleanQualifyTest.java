@@ -10,7 +10,10 @@
  *****************************************************************************/
 package com.wwm.attrs;
 
+import org.junit.Ignore;
+
 // Test null etc in all permutations for consistentFor function
+@Ignore
 public class BooleanQualifyTest {
 
 	// TODO: test finding correct node from a branch node that has been split on boolean

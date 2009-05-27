@@ -21,6 +21,11 @@ import static org.junit.Assert.assertTrue;
 
 public class LocationBoxTest {
 
+	/**
+	 * Error margin to allow for cumulative errors in calculations
+	 */
+	private static final float FLOAT_ERROR_MARGIN = 0.0001f;
+
 	@Test
 	public void testOnePoint() {
 		EcefVector home = EcefVector.fromDegs(1, 45, 45);
@@ -177,7 +182,7 @@ public class LocationBoxTest {
 					);
 			float p1ToBox = homeBc.getDistance(p1);
 			float p1ToHome = home.distance(p1);
-			assertTrue(p1ToBox <= p1ToHome);
+			assertTrue(p1ToBox <= p1ToHome + FLOAT_ERROR_MARGIN);
 		}
 	}
 	
@@ -208,7 +213,7 @@ public class LocationBoxTest {
 				float pToBox = homeBc.getDistance(p1);
 				for (int i=0; i < homes; i++) {
 					float pToHome = home[i].distance(p1);
-					assertTrue(pToBox <= pToHome);
+					assertTrue(pToBox <= pToHome + FLOAT_ERROR_MARGIN);
 				}
 			}
 		}

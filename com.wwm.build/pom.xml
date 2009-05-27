@@ -42,6 +42,15 @@
             </extension> </extensions>
         -->
     </build>
+    <modules>
+    	<module>../com.wwm.attrs</module>
+    	<module>../com.wwm.attrs.compact</module>
+    	<module>../com.wwm.db</module>
+    	<module>../com.wwm.db.core</module>
+    	<module>../com.wwm.expressions</module>
+    	<module>../com.wwm.io.packet</module>
+    	<module>../com.wwm.util</module>
+    </modules>
 
     <repositories>
         <!--
