@@ -6,7 +6,21 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>com.wwm.build Multi Project</name>
+    <description>Master pom for managing the Whirlwind Match open source projects.</description>
     <url>https://sourceforge.net/projects/whirlwind/</url>
+    <inceptionYear>2004 or was it 2003</inceptionYear>
+    <developers>
+        <developer>
+            <name>Neale Upstone</name>
+            <organization>Whirlwind Match Limited</organization>
+            <organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:svn:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk</connection>
+        <developerConnection>scm:svn:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk</developerConnection>
+        <url>https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk</url>
+    </scm>
 
     <!--
         - Parent project to capture dependencies and configurations that
@@ -34,22 +48,16 @@
                 </configuration>
             </plugin>
         </plugins>
-        <!--
-
-            <extensions> <extension>
-            <groupId>org.jvnet.wagon-svn</groupId>
-            <artifactId>wagon-svn</artifactId> <version>1.8</version>
-            </extension> </extensions>
-        -->
     </build>
     <modules>
-    	<module>../com.wwm.attrs</module>
-    	<module>../com.wwm.attrs.compact</module>
-    	<module>../com.wwm.db</module>
-    	<module>../com.wwm.db.core</module>
-    	<module>../com.wwm.expressions</module>
-    	<module>../com.wwm.io.packet</module>
-    	<module>../com.wwm.util</module>
+        <module>../com.wwm.attrs</module>
+        <module>../com.wwm.attrs.compact</module>
+        <module>../com.wwm.db</module>
+        <module>../com.wwm.db.core</module>
+        <module>../com.wwm.expressions</module>
+        <module>../com.wwm.io.packet</module>
+        <module>../com.wwm.util</module>
+        <!--        <module>../com.wwm.postcode</module> -->
     </modules>
 
     <repositories>
@@ -59,6 +67,15 @@
             <url>https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk/maven-repos</url>
             </repository>
         -->
+        
+        <!-- For wagon-svn -->
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+        </repository>
+
+
         <repository>
             <id>apache-snapshots</id>
             <name>Apache Snapshots</name>
@@ -85,4 +102,16 @@
             <optional>false</optional>
         </dependency>
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Whirlwind releases repository</name>
+            <url>scm:svn:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Whirlwind snapshots repository</name>
+            <url>scm:svn:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

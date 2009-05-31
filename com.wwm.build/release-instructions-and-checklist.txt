@@ -8,3 +8,11 @@ TODO:
   for an example - this is an aggregator that refers to a parent).
   
   http://maven.apache.org/pom.html#Introduction
+  
+  
+Cooking a release
+=================  
+  
+  Currently working on this, based on what's written at http://maven.apache.org/guides/mini/guide-releasing.html
+  
+  "svn" needs to be on the command line path (which is a pain, given Eclipse has various providers... )
