@@ -3,12 +3,17 @@
   <groupId>com.wwm</groupId>
   <artifactId>com.wwm.indexer</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <parent>
+  	<artifactId>com.wwm.build</artifactId>
+  	<groupId>com.wwm</groupId>
+  	<version>1.0-SNAPSHOT</version>
+  	<relativePath>../com.wwm.build/pom.xml</relativePath>
+  </parent>
   <dependencies>
   	<dependency>
   		<groupId>com.wwm.db</groupId>
   		<artifactId>com.wwm.db</artifactId>
   		<version>1.0-SNAPSHOT</version>
-  		<scope>runtime</scope>
   	</dependency>
   </dependencies>
 </project>

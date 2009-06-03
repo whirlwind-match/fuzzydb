@@ -21,7 +21,11 @@
   			<groupId>com.wwm.atom</groupId>
   			<artifactId>com.wwm.atom</artifactId>
   			<version>1.0-SNAPSHOT</version>
-  			<scope>runtime</scope>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.wwm.db</groupId>
+  			<artifactId>com.wwm.db</artifactId>
+  			<version>1.0-SNAPSHOT</version>
   		</dependency>
   	</dependencies>
 </project>

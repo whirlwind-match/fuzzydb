@@ -13,7 +13,7 @@
   
   <dependencies>
     <dependency>
-      <groupId>com.wwm.db.core</groupId>
+      <groupId>com.wwm</groupId>
       <artifactId>com.wwm.db.core</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>

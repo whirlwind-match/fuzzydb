@@ -1,38 +1,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.wwm.io.packet</groupId>
-    <artifactId>com.io.packet</artifactId>
+    <groupId>com.wwm</groupId>
+    <artifactId>com.wwm.io.packet</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
-    	<artifactId>com.wwm.build</artifactId>
-    	<groupId>com.wwm</groupId>
-    	<version>1.0-SNAPSHOT</version>
-    	<relativePath>../com.wwm.build</relativePath>
+        <artifactId>com.wwm.build</artifactId>
+        <groupId>com.wwm</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../com.wwm.build</relativePath>
     </parent>
-
     <dependencies>
-    	<dependency>
-    		<groupId>com.wwm.db.core</groupId>
-    		<artifactId>com.wwm.db.core</artifactId>
-    		<version>1.0-SNAPSHOT</version>
-    		<type>jar</type>
-    		<optional>false</optional>
-    	</dependency>
-    	<dependency>
-    		<groupId>trove</groupId>
-    		<artifactId>trove</artifactId> 
-    		<version>2.0-SNAPSHOT</version>
-    		<type>jar</type>
-    		<optional>false</optional>
-    	</dependency>
+        <dependency>
+            <groupId>com.wwm</groupId>
+            <artifactId>com.wwm.db.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>trove</groupId>
+            <artifactId>trove</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <type>jar</type>
+            <optional>false</optional>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
             <id>jboss</id>
             <name>JBoss Repository</name>
-        	<url>http://repository.jboss.org/maven2</url>
+            <url>http://repository.jboss.org/maven2</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

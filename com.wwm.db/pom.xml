@@ -14,28 +14,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.wwm.util</groupId>
+            <groupId>com.wwm</groupId>
             <artifactId>com.wwm.util</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.wwm.db.core</groupId>
+            <groupId>com.wwm</groupId>
             <artifactId>com.wwm.db.core</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.wwm.io.packet</groupId>
-            <artifactId>com.io.packet</artifactId>
+            <groupId>com.wwm</groupId>
+            <artifactId>com.wwm.io.packet</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.wwm</groupId>
             <artifactId>com.wwm.expressions</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>

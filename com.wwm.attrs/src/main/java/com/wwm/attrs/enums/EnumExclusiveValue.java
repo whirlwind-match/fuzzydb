@@ -81,7 +81,7 @@ public class EnumExclusiveValue extends EnumValue implements IMergeable, Compara
 	}
 		
 	@Override
-	public IAttribute clone() {
+	public EnumExclusiveValue clone() {
 		return new EnumExclusiveValue( this );
 	}
 	

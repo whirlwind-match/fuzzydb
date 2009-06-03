@@ -17,7 +17,7 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 
-public class IntegerAttribute extends Attribute implements IAttribute {
+public class IntegerAttribute extends Attribute<IntegerAttribute> {
 
 	private static final long serialVersionUID = 1L;
 	int value;

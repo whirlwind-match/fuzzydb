@@ -14,14 +14,12 @@
   		<groupId>com.wwm.abdera</groupId>
   		<artifactId>com.wwm.abdera.util</artifactId>
   		<version>1.0-SNAPSHOT</version>
-  		<scope>runtime</scope>
   		<optional>false</optional>
   	</dependency>
   	<dependency>
-  		<groupId>com.wwm.util</groupId>
+  		<groupId>com.wwm</groupId>
   		<artifactId>com.wwm.util</artifactId>
   		<version>1.0-SNAPSHOT</version>
-  		<scope>runtime</scope>
   	</dependency>
   </dependencies>
 </project>

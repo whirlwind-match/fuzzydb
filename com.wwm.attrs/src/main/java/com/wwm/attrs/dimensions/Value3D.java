@@ -19,7 +19,7 @@ import com.wwm.model.dimensions.IPoint3D;
 /**
  * X,Y,Z 
  */
-public abstract class Value3D extends Attribute implements IPoint3D, Cloneable {
+public abstract class Value3D extends Attribute implements IPoint3D {
 
 	private static final long serialVersionUID = 8140172132739575464L;
 	

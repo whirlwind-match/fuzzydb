@@ -31,4 +31,6 @@ public interface IPoint3D extends IDimensions {
     public void setZ(float z);
 
     public boolean equals(IPoint3D rhs);
+    
+//    public IPoint3D clone() throws CloneNotSupportedException;
 }

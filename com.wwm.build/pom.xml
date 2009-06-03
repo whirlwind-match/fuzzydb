@@ -34,8 +34,19 @@
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
+                    <!--
+                        <compilerId>eclipse</compilerId>
+                    -->
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-eclipse</artifactId>
+                        <version>1.5.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -50,13 +61,13 @@
         </plugins>
     </build>
     <modules>
+        <module>../com.wwm.util</module>
+        <module>../com.wwm.db.core</module>
+        <module>../com.wwm.io.packet</module>
+        <module>../com.wwm.db</module>
         <module>../com.wwm.attrs</module>
         <module>../com.wwm.attrs.compact</module>
-        <module>../com.wwm.db</module>
-        <module>../com.wwm.db.core</module>
         <module>../com.wwm.expressions</module>
-        <module>../com.wwm.io.packet</module>
-        <module>../com.wwm.util</module>
         <!--        <module>../com.wwm.postcode</module> -->
     </modules>
 
@@ -67,7 +78,7 @@
             <url>https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk/maven-repos</url>
             </repository>
         -->
-        
+
         <!-- For wagon-svn -->
         <repository>
             <id>maven2-repository.dev.java.net</id>
@@ -80,6 +91,10 @@
             <id>apache-snapshots</id>
             <name>Apache Snapshots</name>
             <url>http://people.apache.org/maven-snapshot-repository/</url>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <url>http://repository.jboss.org/maven2</url>
         </repository>
     </repositories>
 

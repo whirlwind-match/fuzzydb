@@ -15,7 +15,7 @@ import java.io.Serializable;
 /**
  * Internal Attribute representation, as required by the server.
  */
-public abstract interface IAttribute extends Serializable, Cloneable, com.archopolis.db.whirlwind.internal.IAttribute {
+public interface IAttribute<T extends IAttribute<T>> extends Serializable, Cloneable, com.archopolis.db.whirlwind.internal.IAttribute {
 
     /**
      * Return the Attribute ID
@@ -35,7 +35,7 @@ public abstract interface IAttribute extends Serializable, Cloneable, com.archop
 	public int compareAttribute(IAttribute rhs);
 
     
-    public IAttribute clone() throws CloneNotSupportedException;
+    public T clone() throws CloneNotSupportedException;
     
     /**
      * Ensure that the attribute is a DB2 API attribute, allowing DB1 API attrs to

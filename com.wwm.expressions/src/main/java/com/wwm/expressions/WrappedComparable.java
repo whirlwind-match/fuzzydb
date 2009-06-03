@@ -69,7 +69,8 @@ public class WrappedComparable implements WrappedValue {
 		return comparable.toString();
 	}
 
-	public Comparable<?> getComparable() {
+	@SuppressWarnings("unchecked")
+	public Comparable getComparable() {
 		return comparable;
 	}
 

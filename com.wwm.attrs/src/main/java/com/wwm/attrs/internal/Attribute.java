@@ -19,7 +19,7 @@ import com.wwm.db.whirlwind.internal.IAttributeConstraint;
  * @author ac
  *
  */
-public abstract class Attribute extends BaseAttribute implements IAttribute, Cloneable {
+public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute implements IAttribute<T>, Cloneable {
 
 	private static final long serialVersionUID = 371895097117898864L;
 
@@ -36,7 +36,7 @@ public abstract class Attribute extends BaseAttribute implements IAttribute, Clo
 	}
 	
 	@Override
-    public abstract IAttribute clone() throws CloneNotSupportedException;
+    public abstract T clone() throws CloneNotSupportedException;
 	
 
 	/**Generates a minimalist constraint that only just encapulates this attribute

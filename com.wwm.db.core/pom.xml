@@ -11,10 +11,9 @@
   </parent>
   <dependencies>
   	<dependency>
-  		<groupId>com.wwm.util</groupId>
+  		<groupId>com.wwm</groupId>
   		<artifactId>com.wwm.util</artifactId>
   		<version>1.0-SNAPSHOT</version>
-  		<type>jar</type>
   		<optional>false</optional>
   	</dependency>
   </dependencies>
