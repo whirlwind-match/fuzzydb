@@ -61,7 +61,10 @@
         </plugins>
     </build>
     <modules>
+        <module>../trove-2.0</module>
         <module>../com.wwm.util</module>
+        <module>../com.wwm.util.gui</module>
+        <module>../com.wwm.util.servlet</module>
         <module>../com.wwm.db.core</module>
         <module>../com.wwm.io.packet</module>
         <module>../com.wwm.db</module>
