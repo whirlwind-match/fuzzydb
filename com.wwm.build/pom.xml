@@ -71,6 +71,7 @@
         <module>../com.wwm.attrs</module>
         <module>../com.wwm.attrs.compact</module>
         <module>../com.wwm.expressions</module>
+        <module>../com.wwm.db.server</module>
         <!--        <module>../com.wwm.postcode</module> -->
     </modules>
 
