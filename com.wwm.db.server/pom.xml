@@ -16,6 +16,19 @@
       <groupId>com.wwm.db</groupId> 
       <artifactId>com.wwm.db</artifactId>
       <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.wwm.attrs</groupId>
+    	<artifactId>com.wwm.attrs</artifactId>
+    	<version>1.0-SNAPSHOT</version>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse</groupId>
+    	<artifactId>osgi</artifactId>
+    	<version>3.3.0-v20070530</version>
+    	<type>jar</type>
+    	<scope>test</scope>
     </dependency> 
   </dependencies>
 </project>
