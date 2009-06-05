@@ -26,16 +26,11 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.6.2</version>
+            <version>1.6.4</version>
         </dependency>
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.6-SNAPSHOT</version>
-            </plugin>
             <plugin> <!-- http://www.google.co.uk/search?q=aspectj-maven-plugin+1.2-SNAPSHOT -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>

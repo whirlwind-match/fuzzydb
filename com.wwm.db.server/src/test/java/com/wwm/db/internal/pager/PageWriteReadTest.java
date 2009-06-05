@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 /**
  * Defines test for Page of Elements.  Should also support other paging mechanisms via common interface.
  */
-public class TestPageWriteRead {
+public class PageWriteReadTest {
 
 	protected long currentDbVer;
 	protected long oldestTxVer;
@@ -195,7 +195,7 @@ public class TestPageWriteRead {
 	
 	
 	private Page newPage(long startingOid) {
-		return Page.blankPage(5, store.getPath() + File.separator + TestPageWriteRead.class.getName(), pc, vp, startingOid);
+		return Page.blankPage(5, store.getPath() + File.separator + PageWriteReadTest.class.getName(), pc, vp, startingOid);
 	}
 
 	private void savePage(Page page) throws PagePurgedException, IOException {

@@ -28,7 +28,7 @@ import com.wwm.util.MTRandom;
 
 import static org.junit.Assert.fail;
 
-public class TestReadWritePerf {
+public class ReadWritePerfTest {
 	
 	static final int serverPort = 5002;
 	

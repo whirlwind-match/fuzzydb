@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.db.Ref;
@@ -16,7 +17,7 @@ import com.wwm.util.MTRandom;
 
 import static org.junit.Assert.*;
 
-public class TestSimpleIndex extends BaseDatabaseTest {
+public class SimpleIndexTest extends BaseDatabaseTest {
 	static final int serverPort = 5002;
 	
 	ClassLoaderInterface cli = new DummyCli();
@@ -148,6 +149,7 @@ public class TestSimpleIndex extends BaseDatabaseTest {
 //		System.out.println(numberPerLoop * numberOfLoops + " Indexed Objects individually looked up in " + lookupTime + "ms");
 	}
 	
+	@Ignore
 	@Test public void testDeleteManyObjects() throws Exception {
 		fail(); // (NU->NU/AC) Need to write this test.  I've put this placeholder in cos Db1 crashes when deleting a number of objects from SimpleIndex (see ArchiveStats.java in Applications)
 		/*

@@ -28,7 +28,6 @@
     	<artifactId>osgi</artifactId>
     	<version>3.3.0-v20070530</version>
     	<type>jar</type>
-    	<scope>test</scope>
     </dependency> 
   </dependencies>
 </project>
