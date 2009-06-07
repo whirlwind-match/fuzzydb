@@ -5,9 +5,24 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.wwm.db/com.wwm.db">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.wwm.db/com.wwm.db">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.wwm.util/com.wwm.util">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.wwm.db.core/com.wwm.db.core">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/trove-2.0/trove-2.0">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.wwm.io.packet/com.wwm.io.packet">
+<dependency-type>uses</dependency-type>
+</dependent-module>
+<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/com.wwm.expressions/com.wwm.expressions">
+<dependency-type>uses</dependency-type>
+</dependent-module>
         <property name="context-root" value="com.wwm.webcore"/>
         <property name="java-output-path"/>
     </wb-module>
