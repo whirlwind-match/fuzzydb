@@ -12,13 +12,18 @@
   	<relativePath>../com.wwm.build</relativePath>
   </parent>
   <modules>
+  	<module>../com.wwm.util</module>
+  	<module>../com.wwm.db.core</module>
   	<module>../com.wwm.attrs.db1</module>
   	<module>../DbShared</module>
   	<module>../DbClient</module>
   	<module>../DbServer</module>
   	<module>../AppLayer</module>
-<!--  	<module>../AppLayerPlus</module>-->
+  	<module>../AppLayerPlus</module>
+  	<module>../IpLocator</module>
 <!--  	<module>../AppLayerOther</module>-->
-<!--  	<module>../WebsiteSrc</module>-->
+  	<module>../WebsiteSrc</module>
+  	<module>../AdminTool</module>
+  	<module>../LikeMynds.com_Spring</module>
   </modules>
 </project>
