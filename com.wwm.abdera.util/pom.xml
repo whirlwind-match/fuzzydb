@@ -25,7 +25,6 @@
             <artifactId>abdera-server</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
-            <scope>runtime</scope>
             <optional>false</optional>
         </dependency>
         <dependency>
@@ -33,7 +32,6 @@
             <artifactId>abdera-client</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
-            <scope>runtime</scope>
             <optional>false</optional>
         </dependency>
     </dependencies>
