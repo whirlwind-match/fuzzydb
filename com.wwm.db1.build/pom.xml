@@ -12,16 +12,20 @@
   	<relativePath>../com.wwm.build</relativePath>
   </parent>
   <modules>
-  	<module>../com.wwm.util</module>
-  	<module>../com.wwm.db.core</module>
+    <module>../com.wwm.build</module>
   	<module>../com.wwm.attrs.db1</module>
   	<module>../DbShared</module>
   	<module>../DbClient</module>
+    <module>../DbToUploadFromClient</module>
   	<module>../DbServer</module>
+    <module>../Postcode</module>
+    <module>../com.wwm.postcode</module>
+    <module>../com.wwm.postcode.uk.full</module>
   	<module>../AppLayer</module>
   	<module>../AppLayerPlus</module>
   	<module>../IpLocator</module>
 <!--  	<module>../AppLayerOther</module>-->
+    <module>../com.wwm.atom.build</module>
   	<module>../WebsiteSrc</module>
   	<module>../AdminTool</module>
   	<module>../LikeMynds.com_Spring</module>
