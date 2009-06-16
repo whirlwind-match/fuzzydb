@@ -59,7 +59,7 @@ public interface IDimensions extends Serializable {
 	
 	public boolean equals(IDimensions rhs);
 	
-	public IDimensions clone() throws CloneNotSupportedException;
+	public Object clone() throws CloneNotSupportedException;
 
 	public boolean canExpandDown(IDimensions value);
 

@@ -19,7 +19,7 @@ import com.wwm.db.whirlwind.internal.IAttributeConstraint;
  * @author ac
  *
  */
-public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute implements IAttribute<T>, Cloneable {
+public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute implements IAttribute, Cloneable {
 
 	private static final long serialVersionUID = 371895097117898864L;
 

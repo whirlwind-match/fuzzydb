@@ -56,8 +56,8 @@ class DimensionsRange implements Serializable, Cloneable {
 	public DimensionsRange(DimensionsRange clonee) {
 		super();
 		try {
-		    this.min = clonee.min.clone();
-		    this.max = clonee.max.clone();
+		    this.min = (IDimensions) clonee.min.clone();
+		    this.max = (IDimensions) clonee.max.clone();
 		}
 		catch( CloneNotSupportedException e ) {
 		    assert false;

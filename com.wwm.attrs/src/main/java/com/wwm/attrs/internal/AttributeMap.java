@@ -46,7 +46,7 @@ public class AttributeMap<T extends IAttribute> implements Cloneable, Serializab
         for (IAttribute attr : clonee ) {
             try {
                 if (attr != null) {
-                    this.attributes[i++] = attr.clone();
+                    this.attributes[i++] = (com.archopolis.db.whirlwind.internal.IAttribute) attr.clone();
                 }
             } catch (CloneNotSupportedException e) {
                 throw new Error(e);
