@@ -5,7 +5,42 @@
         Framework, see -
         https://src.springframework.org/svn/spring-framework/trunk/org.springframework.spring-parent/pom.xml
 
-        NOTE: It is a PARENT POM, and is not an aggregator    -->
+        NOTE: It is a PARENT POM, and is not an aggregator   
+
+
+TODO: (from http://code.google.com/p/spring-maven-plugin/wiki/CreatingAMavenRepositoryInSubversion)        
+         <servers>
+        <server>
+                <id>googlecode.svn.spring-maven-plugin</id>
+                <username>your.name</username>
+                <password>MYSECRETPASSWORD</password>
+        </server>
+    </servers>
+
+Then in your pom.xml, set up the repository and tell Wagon that we need its WebDAV provider:
+
+        <build>
+                <extensions>
+                        <extension>
+                                <groupId>org.apache.maven.wagon</groupId>
+                                <artifactId>wagon-webdav</artifactId>
+                                <version>1.0-beta-2</version>
+                        </extension>
+                </extensions>
+        </build>
+        <distributionManagement>
+                <repository>
+                        <id>googlecode.svn.spring-maven-plugin</id>
+                        <url>dav:https://spring-maven-plugin.googlecode.com/svn/maven-repository/</url>
+                </repository>
+                <snapshotRepository>
+                        <id>googlecode.svn.spring-maven-plugin</id>
+                        <url>dav:https://spring-maven-plugin.googlecode.com/svn/maven-snapshot-repository/</url>
+                        <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+        </distributionManagement>
+        
+         -->
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.wwm</groupId>
