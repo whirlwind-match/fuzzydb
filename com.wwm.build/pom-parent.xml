@@ -10,6 +10,7 @@
 
 
 TODO: (from http://code.google.com/p/spring-maven-plugin/wiki/CreatingAMavenRepositoryInSubversion)        
+ADD to settings.xml
          <servers>
         <server>
                 <id>googlecode.svn.spring-maven-plugin</id>
@@ -122,26 +123,38 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 				</snapshotRepository>
 			</distributionManagement>
 		</profile>
+		<profile>
+			<id>sourceforge</id>
+			<distributionManagement>
+				<site>
+					<id>whirlwind.svn.sourceforge.net</id>
+					<url>dav:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/site</url>
+				</site>
+				<repository>
+					<id>whirlwind.svn.sourceforge.net</id>
+					<url>dav:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/releases</url>
+				</repository>
+				<snapshotRepository>
+					<id>whirlwind.svn.sourceforge.net</id>
+					<url>dav:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots</url>
+					<uniqueVersion>false</uniqueVersion>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
 		<!--
-			<profile> <id>central</id> <distributionManagement> <site>
-            <id>staging</id>
-            <url>file:///${user.dir}/target/staging</url> </site>
-            <repository> <id>spring-milestone</id> <name>Spring
-            Milestone Repository</name>
-            <url>s3://maven.springframework.org/milestone</url>
-			</repository> <snapshotRepository> <id>spring-snapshot</id>
-			<name>Spring Snapshot Repository</name>
-			<url>s3://maven.springframework.org/snapshot</url>
-			</snapshotRepository> </distributionManagement> </profile>
-
-
-			<distributionManagement> <repository> <id>releases</id>
+	
+			<distributionManagement>
+			<repository>
+			<id>releases</id>
 			<name>Whirlwind releases repository</name>
 			<url>scm:svn:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots</url>
-            </repository> <snapshotRepository> <id>snapshots</id>
+            </repository>
+            <snapshotRepository>
+            <id>snapshots</id>
             <name>Whirlwind snapshots repository</name>
 			<url>scm:svn:https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots</url>
-			</snapshotRepository> </distributionManagement>
+			</snapshotRepository>
+			</distributionManagement>
 		-->
 		<profile>
 			<id>release</id>
@@ -214,6 +227,16 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<dependencies>
+					<dependency>
+	                    <groupId>org.apache.maven.wagon</groupId>
+	                    <artifactId>wagon-webdav</artifactId>
+	                    <version>1.0-beta-2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
@@ -313,6 +336,16 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<artifactId>maven-scm-provider-svnjava</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.wagon</groupId>
+			<artifactId>wagon-webdav</artifactId>
+			<version>1.0-beta-2</version>
+		</dependency>
 
 	</dependencies>
+	<distributionManagement>
+		<snapshotRepository>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
