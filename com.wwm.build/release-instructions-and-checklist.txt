@@ -12,7 +12,16 @@ TODO:
   
 Cooking a release
 =================  
-  
-  Currently working on this, based on what's written at http://maven.apache.org/guides/mini/guide-releasing.html
-  
-  "svn" needs to be on the command line path (which is a pain, given Eclipse has various providers... )
+
+
+Deploying a snapshot to public repository
+=========================================
+Ensure you have "maven" checked out at same directory level as trunk projects (i.e. in same dir as com.wwm.build)
+In com.wwm.build, run "mvn deploy -Pstaging,release" (check parent pom for what these do).
+
+This should deploy snapshots to maven/snapshots dir
+
+If happy with these, commit them to SVN to make them publicly available.
+
+(To attempt to do this in one go, try "mvn deploy -Psourceforge,release"
+

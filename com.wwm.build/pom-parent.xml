@@ -110,15 +110,15 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<distributionManagement>
 				<site>
 					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
+					<url>file:///${user.dir}/../maven/site</url>
 				</site>
 				<repository>
 					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
+					<url>file:///${user.dir}/../maven/releases</url>
 				</repository>
 				<snapshotRepository>
 					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
+					<url>file:///${user.dir}/../maven/snapshots</url>
 					<uniqueVersion>false</uniqueVersion>
 				</snapshotRepository>
 			</distributionManagement>
@@ -265,12 +265,13 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 	</modules>
 
 	<repositories>
-		<!--
-            <repository> <id>wwm</id> <name>Whirlwind at
-            SourceForge.net</name>
-			<url>https://whirlwind.svn.sourceforge.net/svnroot/whirlwind/trunk/maven-repos</url>
-			</repository>
-		-->
+        <repository>
+            <id>wwm-snapshots</id>
+            <name>Whirlwind at SourceForge.net</name>
+            <url>http://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots/</url>
+        </repository>
+<!--
+        -->
 
 		<!-- For wagon-svn -->
 		<repository>
@@ -281,7 +282,6 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-
 
 		<repository>
 			<id>apache-snapshots</id>
@@ -336,16 +336,7 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<artifactId>maven-scm-provider-svnjava</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.wagon</groupId>
-			<artifactId>wagon-webdav</artifactId>
-			<version>1.0-beta-2</version>
-		</dependency>
 
 	</dependencies>
-	<distributionManagement>
-		<snapshotRepository>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
+
 </project>
