@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.wwm.io.packet.exceptions.NotListeningException;
@@ -20,21 +21,26 @@ import com.wwm.io.packet.messages.Message;
 
 public class CommsStressTest {
 	protected static final String defaultAddress = "127.0.0.1";
-	protected static final int serverPort = 5001;
+	protected static int serverPort = 5001;
 	
-	ClassLoaderInterface cli = new DummyCli();
+	private ClassLoaderInterface cli = new DummyCli();
 	
 	@SuppressWarnings("serial")
 	private static class TestMessage extends Message {
-
 		int value;
+		@SuppressWarnings("unused") // 
 		byte[] bytes = new byte[10];
 		
 		public TestMessage(int value) {
 			super(0,0);
 			this.value = value;
 		}
-
+	}
+	
+	@Before
+	public void setUp() {
+		// Increment server port on each test, as it takes some time to free up connections under windows (240secs)
+		serverPort++;
 	}
 	
 	private void doConnectLoops(Server server, int loops) throws IOException, NotListeningException
