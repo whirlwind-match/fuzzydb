@@ -12,7 +12,6 @@ package com.wwm.indexer.test;
 
 import java.net.MalformedURLException;
 
-import com.wwm.atom.client.AtomFactory;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.WWMDBProtocolHander;
 import com.wwm.indexer.Indexer;
@@ -32,7 +31,7 @@ public class DBIndexerBuildAndQuery {
         DBIndexerBuildAndQuery t = new DBIndexerBuildAndQuery();
 
         String xmlPath = args[0];
-        String storeUrl = "wwmdb://127.0.0.1/LiftShareStore";
+        String storeUrl = "wwmdb://127.0.0.1/StoreStore";
         if (args.length > 1) {
             storeUrl = args[1];
         }
@@ -54,7 +53,7 @@ public class DBIndexerBuildAndQuery {
         // Use store name as username as we use username as the store
         // in web service.
         String storeName = WWMDBProtocolHander.getAsURL(storeUrl).getPath();
-        AtomFactory.setCredentials(storeName, "dummy");
+//        AtomFactory.setCredentials(storeName, "dummy");
         indexer = IndexerFactory.getIndexer();
     }
 

@@ -16,7 +16,6 @@ import java.net.MalformedURLException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.wwm.atom.client.AtomFactory;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.WWMDBProtocolHander;
 import com.wwm.indexer.exceptions.IndexerException;
@@ -58,7 +57,7 @@ public class TestIndexer {
         // Use store name as username as we use username as the store
         // in web service.
         String storeName = WWMDBProtocolHander.getAsURL(storeUrl).getPath();
-        AtomFactory.setCredentials(storeName, "dummy");
+//        AtomFactory.setCredentials(storeName, "dummy");
         indexer = IndexerFactory.getIndexer();
     }
 
