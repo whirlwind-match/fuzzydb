@@ -175,6 +175,7 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			</build>
 		</profile>
 	</profiles>
+    
 
 	<!--
         - Parent project to capture dependencies and configurations that
@@ -307,6 +308,13 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<id>com.springsource.repository.bundles.external</id>
 			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
 			<url>http://repository.springsource.com/maven/bundles/external</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>wwm-externals</id>
+			<url>http://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/externals</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
