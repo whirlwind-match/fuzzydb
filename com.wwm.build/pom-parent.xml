@@ -271,6 +271,12 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 				<id>bundlor</id> <goals> <goal>transform</goal> </goals>
 				</execution> </executions> </plugin>
 			-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-par-plugin</artifactId>
+				<version>1.0.0.M1</version>
+			</plugin>
 		</plugins>
 	</build>
 	<modules><!--
@@ -325,6 +331,14 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+
+		<repository>
+			<id>com.springsource.repository.bundles.milestone</id>
+			<name>SpringSource Enterprise Bundle Repository</name>
+			<url>http://repository.springsource.com/maven/bundles/milestone</url>
+		</repository>
+
+
 		<repository>
 			<id>wwm-externals</id>
 			<url>http://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/externals</url>
