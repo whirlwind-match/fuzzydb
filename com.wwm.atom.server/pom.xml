@@ -1,31 +1,43 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.wwm.atom</groupId>
-  <artifactId>com.wwm.atom.server</artifactId>
-  <version>1.0-SNAPSHOT</version>
-
-    <!-- 
-      - NOTE: parent can be any type of packaging, so picking the logical parent is a good idea
-      - e.g. the parent will contain many dependencies you need. 
-     -->
-  <parent>
-    <artifactId>com.wwm.atom</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.wwm.atom</groupId>
+    <artifactId>com.wwm.atom.server</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <relativePath>../com.wwm.atom</relativePath>
-  </parent>
+
+    <!--
+        - NOTE: parent can be any type of packaging, so picking the
+        logical parent is a good idea - e.g. the parent will contain
+        many dependencies you need.
+    -->
+    <parent>
+        <artifactId>com.wwm.atom.build</artifactId>
+        <groupId>com.wwm.atom</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../com.wwm.atom.build/pom.xml</relativePath>
+    </parent>
 
 
-  	<dependencies>
-  		<dependency>
-  			<groupId>com.wwm.atom</groupId>
-  			<artifactId>com.wwm.atom</artifactId>
-  			<version>1.0-SNAPSHOT</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>com.wwm.db</groupId>
-  			<artifactId>com.wwm.db</artifactId>
-  			<version>1.0-SNAPSHOT</version>
-  		</dependency>
-  	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.wwm.atom</groupId>
+            <artifactId>com.wwm.atom</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wwm</groupId>
+            <artifactId>com.wwm.util.servlet</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.wwm</groupId>
+        	<artifactId>com.wwm.indexer</artifactId>
+        	<version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.osgi</groupId>
+            <artifactId>org.eclipse.osgi.services</artifactId>
+            <version>3.1.200.v20071203</version>
+        </dependency>
+    </dependencies>
 </project>

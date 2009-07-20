@@ -11,6 +11,7 @@
   <modules>
     <module>../com.wwm.abdera.util</module>
     <module>../com.wwm.atom</module>
+    <module>../com.wwm.atom.server</module>
   </modules>
   <parent>
   	<artifactId>com.wwm.build.parent</artifactId>
