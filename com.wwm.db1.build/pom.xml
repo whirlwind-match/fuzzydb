@@ -1,33 +1,102 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.wwm.db1</groupId>
-  <artifactId>com.wwm.db1.build</artifactId>
-  <packaging>pom</packaging>
-  <name>Build for all Db1 apps</name>
-  <version>1.0-SNAPSHOT</version>
-  <parent>
-  	<artifactId>com.wwm.build.parent</artifactId>
-  	<groupId>com.wwm</groupId>
-  	<version>1.0-SNAPSHOT</version>
-  	<relativePath>../com.wwm.build/pom-parent.xml</relativePath>
-  </parent>
-  <modules>
-    <module>../com.wwm.build</module>
-  	<module>../com.wwm.attrs.db1</module>
-  	<module>../DbShared</module>
-  	<module>../DbClient</module>
-    <module>../DbToUploadFromClient</module>
-  	<module>../DbServer</module>
-    <module>../Postcode</module>
-    <module>../com.wwm.postcode</module>
-    <module>../com.wwm.postcode.uk.full</module>
-  	<module>../AppLayer</module>
-  	<module>../AppLayerPlus</module>
-  	<module>../IpLocator</module>
-<!--  	<module>../AppLayerOther</module>-->
-    <module>../com.wwm.atom.build</module>
-  	<module>../WebsiteSrc</module>
-  	<module>../AdminTool</module>
-  	<module>../LikeMynds.com_Spring</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wwm.db1</groupId>
+    <artifactId>com.wwm.db1.build</artifactId>
+    <packaging>pom</packaging>
+    <name>Build for all Db1 apps</name>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
+        <artifactId>com.wwm.build.parent</artifactId>
+        <groupId>com.wwm</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../com.wwm.build/pom-parent.xml</relativePath>
+    </parent>
+    <modules>
+        <module>../com.wwm.build</module>
+        <module>../com.wwm.attrs.db1</module>
+        <module>../DbShared</module>
+        <module>../DbClient</module>
+        <module>../DbToUploadFromClient</module>
+        <module>../DbServer</module>
+        <module>../Postcode</module>
+        <module>../com.wwm.postcode</module>
+        <module>../com.wwm.postcode.uk.full</module>
+        <module>../AppLayer</module>
+        <module>../AppLayerPlus</module>
+        <module>../IpLocator</module>
+        <!--  	<module>../AppLayerOther</module>-->
+        <module>../com.wwm.atom.build</module>
+        <module>../WebsiteSrc</module>
+        <module>../AdminTool</module>
+        <module>../LikeMynds.com_Spring</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>loki-snapshots</id>
+            <name>loki-snapshots</name>
+            <url>http://loki/svn/main/maven-private/snapshots</url>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <id>staging</id>
+            <distributionManagement>
+                <site>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/../maven-private/site</url>
+                </site>
+                <repository>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/../maven-private/releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/../maven-private/snapshots</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>sourceforge</id>
+            <!--
+                deliberately replacing sourceforge so we don't
+                accidentally publish it until ready
+            -->
+            <distributionManagement>
+                <site>
+                    <id>whirlwind.loki</id>
+                    <url>dav:http://loki/svn/main/maven-private/site</url>
+                </site>
+                <repository>
+                    <id>whirlwind.loki</id>
+                    <url>dav:http://loki/svn/main/maven-private/releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>whirlwind.loki</id>
+                    <url>dav:http://loki/svn/main/maven-private/snapshots</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Override so we don't use supplied manifest (preventing inherit seems to work) -->
+                <inherited>false</inherited>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <archive>
+                        <manifestFile></manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>
