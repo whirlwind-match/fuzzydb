@@ -36,7 +36,7 @@
         <repository>
             <id>loki-snapshots</id>
             <name>loki-snapshots</name>
-            <url>http://loki/svn/main/maven-private/snapshots</url>
+            <url>http://192.168.2.250/svn/main/maven-private/snapshots</url>
         </repository>
     </repositories>
 
