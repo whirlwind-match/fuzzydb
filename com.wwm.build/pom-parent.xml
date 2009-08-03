@@ -366,11 +366,6 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<scope>test</scope>
 			<optional>false</optional>
 		</dependency>
-		<dependency>
-			<groupId>com.google.scm.svnjava</groupId>
-			<artifactId>maven-scm-provider-svnjava</artifactId>
-			<version>1.2</version>
-		</dependency>
 
 	</dependencies>
 
