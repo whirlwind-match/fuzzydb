@@ -18,7 +18,12 @@
   		<groupId>com.wwm.db</groupId>
   		<artifactId>com.wwm.db</artifactId>
   		<version>1.0-SNAPSHOT</version>
-  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mockito</groupId>
+  		<artifactId>mockito-core</artifactId>
+  		<version>1.8.0</version>
+  		<scope>test</scope>
   	</dependency>
   </dependencies>
 </project>

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
+ * Copyright (c) 2005-2009 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 
@@ -25,25 +25,25 @@ import com.wwm.util.CsvReader.NoSuchColumnException;
 import com.wwm.util.CsvReader.UnsupportedTypeException;
 
 /**
- * This application converts [postcode root]\jibble-postcodes.csv and outputs to [postcode root]\jibble
- * @author ac
+ * This application converts [postcode root]\npemap.org.uk.outward-part.csv and outputs to [postcode root]\jibble
  */
-public class JibbleImporter {
+public class NPEMapImporter {
 
 	private static final String postcodeColName = "postcode";
 	private static final String latitudeColName = "latitude";
 	private static final String longitudeColName = "longitude";
 	
-	public static final String jibbleDataFile = "jibble";
-	private static final String jibbleSourceFile = "jibble-postcodes.csv";
+	public static final String dataFile = "postcodes-short.dat";
+	private static final String sourceFile = "npemap.org.uk.outward-part.csv";
 
 	public static void main(String[] args) {
-		JibbleImporter j = new JibbleImporter();
+		NPEMapImporter j = new NPEMapImporter();
 		String root = Settings.getInstance().getPostcodeRoot();
-		j.convert(root + File.separatorChar + jibbleSourceFile, root + File.separatorChar + jibbleDataFile);
+//		j.convert(root + File.separatorChar + jibbleSourceFile, root + File.separatorChar + jibbleDataFile);
+		j.convert("data" + File.separatorChar + sourceFile, "data" + File.separatorChar + dataFile);
 	}
 
-	public JibbleImporter() {
+	public NPEMapImporter() {
 		super();
 	}
 

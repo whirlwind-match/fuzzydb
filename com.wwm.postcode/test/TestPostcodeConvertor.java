@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
+ * Copyright (c) 2005-2009 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 
@@ -13,26 +13,26 @@
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import com.wwm.db.dao.Db2ObjectDAO;
 import com.wwm.db.dao.SimpleDAO;
 import com.wwm.postcode.PostcodeConvertor;
 import com.wwm.postcode.PostcodeResult;
 import com.wwm.postcode.RandomPostcodeGenerator;
 import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
 
+import static org.mockito.Mockito.mock;
+
 /**
  * These tests assume the postcode data has been built and installed into the correct location.
  */
 public class TestPostcodeConvertor extends TestCase {
-    //	private Database database;
     private PostcodeConvertor convertor;
 
+    
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        //		database = new Database();
-        //		database.listen();
-        SimpleDAO dao = new Db2ObjectDAO("wwmdb:/postcode");
+//        SimpleDAO dao = new Db2ObjectDAO("wwmdb:/postcode");
+        SimpleDAO dao = mock(SimpleDAO.class);
 
         convertor = new PostcodeConvertor(dao);
     }
@@ -40,7 +40,6 @@ public class TestPostcodeConvertor extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        //		database.closeDown();
     }
 
     public void testJibbleSimple() {
@@ -84,25 +83,22 @@ public class TestPostcodeConvertor extends TestCase {
     public void testFullAb() throws LostDbConnection {
         PostcodeResult r = convertor.lookupFull("ab101af");
         Assert.assertNotNull(r);
-        Assert.assertEquals(r.getLatitude(), 57.15, 0.05);
-        Assert.assertEquals(r.getLongitude(), -2.05, 0.01);
+        Assert.assertEquals(57.15, r.getLatitude(), 0.05);
+        Assert.assertEquals(-2.05, r.getLongitude(), 0.01);
     }
 
     public void testFullCB45RJ() throws LostDbConnection {
         PostcodeResult r = convertor.lookupFull("CB4 5RJ");
         Assert.assertNotNull(r);
-        Assert.assertEquals(r.getLatitude(), 52.30, 0.05);
-        Assert.assertTrue (r.getLatitude() > 52.25);
-        Assert.assertTrue (r.getLongitude() < -0.00);
-        Assert.assertTrue (r.getLongitude() > -0.01);
+        Assert.assertEquals(52.30, r.getLatitude(), 0.05);
+        Assert.assertEquals(-0.005, r.getLongitude(), 0.005);
     }
 
     public void testFullCB42QW() throws LostDbConnection {
         PostcodeResult r = convertor.lookupFull("CB4 2QW");
         Assert.assertNotNull(r);
-        Assert.assertEquals(r.getLatitude(), 52.30, 0.05);
-        //		Assert.assertTrue (r.getLongitude() < -0.00);
-        //		Assert.assertTrue (r.getLatitude() > -0.01);
+        Assert.assertEquals(52.30, r.getLatitude(), 0.05);
+        Assert.assertEquals(-0.005, r.getLongitude(), 0.005);
     }
 
     public void testFullBL09BX() throws LostDbConnection {
@@ -139,10 +135,8 @@ public class TestPostcodeConvertor extends TestCase {
 
     private void assertAB101AF(PostcodeResult r) {
         Assert.assertNotNull(r);
-        Assert.assertTrue (r.getLatitude() < 57.16);
-        Assert.assertTrue (r.getLatitude() > 57.14);
-        Assert.assertTrue (r.getLongitude() < -2.095);
-        Assert.assertTrue (r.getLatitude() > -2.15);
+        Assert.assertEquals(57.15, r.getLatitude(), 0.01);
+        Assert.assertEquals(-2.1, r.getLongitude(), 0.005);
     }
 
     public void testFullAbSpacedCaps() throws LostDbConnection {
