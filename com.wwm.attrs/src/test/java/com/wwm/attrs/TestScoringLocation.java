@@ -16,8 +16,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.attrs.AttributeMapFactory;
-import com.wwm.attrs.ItemScore;
 import com.wwm.attrs.dimensions.DimensionsRangeConstraint;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.ScoreConfiguration;
@@ -29,6 +27,8 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.model.dimensions.Point3D;
 import com.wwm.util.LinearScoreMapper;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author ac
@@ -62,7 +62,7 @@ public class TestScoringLocation {
 		profile.putAttr(point1);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
-		Assert.assertEquals(1.0f / 1.1f, score.total()); // large range reduces score a bit: 1 / (1 + range/1000)
+		Assert.assertEquals(1.0f / 1.1f, score.total(), 0.001f); // large range reduces score a bit: 1 / (1 + range/1000)
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class TestScoringLocation {
 		profile.putAttr(area1);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
-		Assert.assertEquals(1f / 1.1f, score.total() );
+		Assert.assertEquals(1f / 1.1f, score.total(), 0.001f);
 	}
 
 	@Test
@@ -298,8 +298,8 @@ public class TestScoringLocation {
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
 		
-		Assert.assertEquals(90.0, lat, 0.0001); 
-		Assert.assertEquals(0.0, lon, 0.0001); 
+		assertEquals(90.0, lat, 0.0001); 
+		assertEquals(0.0, lon, 0.0001); 
 	}
 
 	@Test public void testLocationConversion3() {
@@ -309,8 +309,8 @@ public class TestScoringLocation {
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
 		
-		Assert.assertEquals(0.0, lat, 0.0001); 
-		Assert.assertEquals(90.0, lon, 0.0001); 
+		assertEquals(0.0, lat, 0.0001); 
+		assertEquals(90.0, lon, 0.0001); 
 	}
 
 	@Test public void testLocationConversion4() {
@@ -320,8 +320,8 @@ public class TestScoringLocation {
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
 		
-		Assert.assertEquals(27.0, lat, 0.0001); 
-		Assert.assertEquals(42.0, lon, 0.0001); 
+		assertEquals(27.0, lat, 0.0001); 
+		assertEquals(42.0, lon, 0.0001); 
 	}
 	
 	@Test public void testLocationConversionNearNorthPole() {
@@ -331,8 +331,8 @@ public class TestScoringLocation {
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
 		
-		Assert.assertEquals(89.0, lat, 0.0001); 
-		Assert.assertEquals(0.0, lon, 0.0001); 
+		assertEquals(89.0, lat, 0.0001); 
+		assertEquals(0.0, lon, 0.0001); 
 	}
 
 	@Test public void testLocationConversionNearSouthPole() {
@@ -342,8 +342,8 @@ public class TestScoringLocation {
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
 		
-		Assert.assertEquals(-89.0, lat, 0.0001); 
-		Assert.assertEquals(0.0, lon, 0.0001); 
+		assertEquals(-89.0, lat, 0.0001); 
+		assertEquals(0.0, lon, 0.0001); 
 	}
 	
 }

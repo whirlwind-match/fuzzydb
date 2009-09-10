@@ -61,9 +61,9 @@ public class EnumExclusiveScorerExclusiveTest {
     @Test public void testGetMultiEnumScore() {
     	EnumExclusiveScorerExclusive s = new EnumExclusiveScorerExclusive(1, 1);
     	
-    	assertEquals(1f, s.getMultiEnumScore(2, 2));
-    	assertEquals(0.5f, s.getMultiEnumScore(1, 2));
-    	assertEquals(0.75f, s.getMultiEnumScore(3, 4));
+    	assertEquals(1f, s.getMultiEnumScore(2, 2), 0.001f);
+    	assertEquals(0.5f, s.getMultiEnumScore(1, 2), 0.001f);
+    	assertEquals(0.75f, s.getMultiEnumScore(3, 4), 0.001f);
     	
     	s.setWeight(0.5f);
     }
