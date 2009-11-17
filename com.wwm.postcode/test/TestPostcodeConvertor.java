@@ -23,6 +23,8 @@ import static org.mockito.Mockito.mock;
 
 /**
  * These tests assume the postcode data has been built and installed into the correct location.
+ * 
+ * They test functionality where only the basic "outward part" postcode database is available.
  */
 public class TestPostcodeConvertor extends TestCase {
     private PostcodeConvertor convertor;
