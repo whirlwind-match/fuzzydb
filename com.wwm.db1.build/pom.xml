@@ -64,6 +64,37 @@
                 </snapshotRepository>
             </distributionManagement>
         </profile>
+        <profile>
+            <id>strict</id>
+            <properties>
+                <maven.test.failure.ignore>false</maven.test.failure.ignore>
+            </properties>
+        </profile>
+        <profile>
+            <id>fast</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
     
     <build>
