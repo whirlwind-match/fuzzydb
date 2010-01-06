@@ -20,6 +20,33 @@
             <id>loki-snapshots</id>
             <name>loki-snapshots</name>
             <url>http://192.168.2.250/svn/main/maven-private/snapshots</url>
+            <releases>
+            	<enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>loki-releases</id>
+            <name>loki-releases</name>
+            <url>http://192.168.2.250/svn/main/maven-private/releases</url>
+            <snapshots>
+            	<enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+        	<id>wwm-snapshots</id>
+        	<name>wwm-snapshots</name>
+        	<url>http://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots</url>
+        	<releases>
+        		<enabled>false</enabled>
+        	</releases>
+        </repository>
+        <repository>
+        	<id>wwm-releases</id>
+        	<name>wwm-releases</name>
+        	<url>http://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/releases</url>
+        	<snapshots>
+        		<enabled>false</enabled>
+        	</snapshots>
         </repository>
     </repositories>
 
