@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.springsource.sts.ide.tomcat.runtimeTarget/SpringSource tc Server v6.0"/>
+	<classpathentry kind="lib" path="F:/apps/STS-2.3.1/tc-server-6.0.20.C/webapps-lib/insight-annotation-1.0.0.M2.jar"/>
+	<classpathentry kind="lib" path="F:/apps/STS-2.3.1/tc-server-6.0.20.C/webapps-lib/insight-jdbc-1.0.0.M2.jar"/>
+	<classpathentry kind="lib" path="F:/apps/STS-2.3.1/tc-server-6.0.20.C/webapps-lib/insight-springcore-1.0.0.M2.jar"/>
+	<classpathentry kind="lib" path="F:/apps/STS-2.3.1/tc-server-6.0.20.C/webapps-lib/spring-insight-collection-1.0.0.M2.jar"/>
+	<classpathentry kind="lib" path="F:/apps/STS-2.3.1/tc-server-6.0.20.C/lib/spring-insight-core-1.0.0.M2.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
