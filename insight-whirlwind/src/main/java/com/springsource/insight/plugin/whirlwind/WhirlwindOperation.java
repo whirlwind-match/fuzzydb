@@ -16,13 +16,14 @@ public class WhirlwindOperation extends BasicOperation {
 
 	@Override
 	public String getLabel() {
-		return "Transaction op:" + getSourceCodeLocation().getMethodName();
+		return getSourceCodeLocation().getClassName() + ":" + getSourceCodeLocation().getMethodName();
 	}
 
 	@Override
 	public OperationType getType() {
-		// TODO Auto-generated method stub
-		return OperationType.valueOf("WWMDb");
+		return OperationType.valueOf("READ");
 	}
+	
+	
 
 }

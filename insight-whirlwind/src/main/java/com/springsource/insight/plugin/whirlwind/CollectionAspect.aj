@@ -11,7 +11,9 @@ public aspect CollectionAspect extends AbstractOperationCollectionAspect {
 	// In parent aspect this triggers the call of Operation.enter() on before advice
 	// and Operation.exitNormal() afterReturning.
 	public pointcut collectionPoint() : 
-		execution(public * Transaction.retrieve(..));
+		execution(public * Transaction.count(..)) || 
+		execution(public * Transaction.retrieve*(..)) || 
+		execution(public * Transaction.query*(..));
 	
 	@Override
 	protected WhirlwindOperation createOperation(JoinPoint jp) {
