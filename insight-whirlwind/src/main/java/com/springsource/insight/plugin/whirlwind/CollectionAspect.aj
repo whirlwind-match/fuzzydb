@@ -1,5 +1,6 @@
 package com.springsource.insight.plugin.whirlwind;
 
+
 import likemynds.db.client.Transaction;
 
 import org.aspectj.lang.JoinPoint;
@@ -21,9 +22,10 @@ public aspect CollectionAspect extends AbstractOperationCollectionAspect {
 	}
 	
 	
+	
 	private WhirlwindOperation createWhirlwindOperation(JoinPoint jp) {
 		WhirlwindOperation op = new WhirlwindOperation(getSourceCodeLocation(jp));
-		// TODO fill out the detail??
+		op.setArgs(jp.getArgs());
 		return op;
 	}
 
