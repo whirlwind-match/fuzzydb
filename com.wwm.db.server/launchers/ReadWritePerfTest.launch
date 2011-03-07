@@ -14,5 +14,6 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="performance.ReadWritePerfTest"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.wwm.db.server"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-server -ea -Djava.util.logging.config.file=${workspace_loc:com.wwm.db.server}/logging.properties -Xms30M -Xmx30M"/>
 </launchConfiguration>

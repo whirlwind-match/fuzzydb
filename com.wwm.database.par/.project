@@ -16,11 +16,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.springframework.ide.eclipse.core.springbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.maven.ide.eclipse.maven2Builder</name>
 			<arguments>
 			</arguments>
@@ -30,7 +25,6 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
 		<nature>com.springsource.server.ide.facet.core.parnature</nature>
-		<nature>org.springframework.ide.eclipse.core.springnature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
 </projectDescription>
