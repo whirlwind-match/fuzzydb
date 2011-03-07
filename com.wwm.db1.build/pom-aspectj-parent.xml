@@ -13,7 +13,7 @@
         <groupId>com.wwm.db1</groupId>
         <artifactId>com.wwm.db1.build</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>pom.xml</relativePath>
+        
     </parent>
     <pluginRepositories>
         <pluginRepository>

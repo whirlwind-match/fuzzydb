@@ -7,7 +7,7 @@
     <artifactId>com.wwm.build.parent</artifactId>
     <groupId>com.wwm</groupId>
     <version>1.0-SNAPSHOT</version>
-    <relativePath>../com.wwm.build/pom-parent.xml</relativePath>
+    
   </parent>
   <build>
   	<sourceDirectory>src</sourceDirectory>
