@@ -1,9 +1,10 @@
 target/
 
-# Currently have these committed.
-#.classpath
-#.settings/
-#.project
+# Ignore eclipse project artifacts and instead rely on pom.xml
+# NOTE: Currently have these committed for many projects, but want to migrate to just pom.xml 
+.classpath
+.settings/
+.project
 
 
 
