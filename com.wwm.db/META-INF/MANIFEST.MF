@@ -25,8 +25,7 @@ DynamicImport-Package: com.wwm.db,
  com.wwm.db.server.whirlwind.internal,
  com.wwm.db.server.wwstrategies.manual,
  likemynds.db.server
-Require-Bundle: com.wwm.bundle.libs,
- com.wwm.util;visibility:=reexport,
+Require-Bundle: com.wwm.util;visibility:=reexport,
  com.wwm.io.packet;visibility:=reexport,
  com.wwm.db.core;visibility:=reexport,
  com.wwm.expressions;visibility:=reexport
