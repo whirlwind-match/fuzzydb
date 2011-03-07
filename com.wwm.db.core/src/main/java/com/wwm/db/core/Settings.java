@@ -45,16 +45,16 @@ public class Settings implements SettingsMBean {
 	private String defaultStore = null; // no longer a default. Must set in .properties or from app "SearchDemo";
    
     // Postcode Data Configs
-    private String postcodeRootWin = "c:\\apps\\wwm-postcode";
+    private String postcodeRootWin = "\\apps\\wwm-postcode";
     private String postcodeRootLinux = "/lmdb/lmpostcode";
 
     // IPLookup Data Configs
-    private String iplookupRootWin = "c:\\apps\\wwm-iplookup";
+    private String iplookupRootWin = "\\apps\\wwm-iplookup";
     private String iplookupRootLinux = "/lmdb/lmiplookup";
 
 	// DbServer Configs
     private boolean dbCleanOnStart = false; // NOTE: true deletes database dirs EVERY time
-	private String dbRootWin = "c:\\apps\\wwm-db";
+	private String dbRootWin = "\\apps\\wwm-db";
 	private String dbRootLinux = "/lmdb/db";
 	private String reposDir = "repos";
 	private String txDir = "tx";
