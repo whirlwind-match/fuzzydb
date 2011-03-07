@@ -13,6 +13,9 @@
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 
      <modules>
+        <module>parent</module>
+        <module>aspectj-parent</module>
+        
         <module>../com.wwm.util</module>
         <module>../com.wwm.util.gui</module>
         <module>../com.wwm.util.servlet</module>
