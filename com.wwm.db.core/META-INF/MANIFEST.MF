@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core Classes and Interfaces for WWM Db
@@ -15,3 +16,23 @@ Export-Package: com.archopolis.db.whirlwind.internal,
  com.wwm.db.whirlwind.internal,
  com.wwm.stats.counters
 Import-Package: com.wwm.util
+=======
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Classes and Interfaces for WWM Db
+Bundle-SymbolicName: com.wwm.db.core
+Bundle-Version: 1.0.0
+Bundle-Vendor: Whirlwind Match Limted
+Export-Package: com.archopolis.db.whirlwind.internal,
+ com.wwm.db.annotations,
+ com.wwm.db.core,
+ com.wwm.db.core.exceptions,
+ com.wwm.db.dao,
+ com.wwm.db.marker,
+ com.wwm.db.query,
+ com.wwm.db.whirlwind,
+ com.wwm.db.whirlwind.internal,
+ com.wwm.stats.counters
+Import-Package: com.wwm.util
+Require-Bundle: com.wwm.util
+>>>>>>> Remove PDE and IAM natures.  WWMDb codebase in process of migrating away from OSGi
