@@ -8,8 +8,13 @@
   	<artifactId>com.wwm.build.parent</artifactId>
   	<groupId>com.wwm</groupId>
   	<version>1.0-SNAPSHOT</version>
-  	
   </parent>
+
+    <properties>
+    	<spring.version>2.5.6.SEC02</spring.version>
+    </properties>
+
+  
   <dependencies>
   	<dependency>
   		<groupId>com.wwm</groupId>
@@ -17,6 +22,13 @@
   		<version>1.0-SNAPSHOT</version>
   		<optional>false</optional>
   	</dependency>
+   	<dependency>
+   		<groupId>org.springframework</groupId>
+   		<artifactId>spring-core</artifactId>
+   		<version>${spring.version}</version>
+   		<type>jar</type>
+   		<scope>compile</scope>
+   	</dependency>
   	<dependency>
   		<groupId>net.sf.trove4j</groupId>
   		<artifactId>trove4j</artifactId>

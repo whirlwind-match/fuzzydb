@@ -22,11 +22,30 @@ import java.util.Properties;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
 
 /**
- *
+ * Provides fast access to Whirlwind database settings including providing some platform specific defaults.
+ * 
+ * <li> Looks for system property 'whirlwind.properties.url' and loads properties file for 
+ * 	settings from that url, including recognising classpath: scheme.  Fails if that resource doesn't exist.
+ * <li> Else, looks for legacy property 'likemynds.config.file' and tries loading that file.  Fails if that resource doesn't exist.
+ * <li> Else, looks for whirlwind.properties on the classpath (doesn't fail if missing)
+ * <li> Else uses defaults.
+ * 
  */
 public class Settings implements SettingsMBean {
+
+	private static final String PROPERTIES_URL_KEY = "whirlwind.properties.url";
+	private static final String LIKEMYNDS_CONFIG_FILE = "likemynds.config.file";
+
 	public enum ScorerVersion {
 		v1, v2, compact
 	}
@@ -148,13 +167,7 @@ public class Settings implements SettingsMBean {
 	 * Private constructor to force use of singleton
 	 */
 	private Settings() {
-		try {
-			initialise();
-		} catch (IOException e) {
-			System.out.println( "INFO No Config file found: Using defaults");
-//			System.err.println( "Error: " + e.getMessage() );
-//			throw new Error( e ); // Can't cope with errors here
-		}
+		initialise();
 	}
 
 	/**
@@ -377,56 +390,41 @@ public class Settings implements SettingsMBean {
 	
 	/**
 	 * Initialise from config file specified by system property likemynds.config.file
-	 * and if not found, look in java.home/lib for likemynds.properties
+	 * If not found, look for whirlwind.properties on classpath
 	 */
-	private void initialise() throws IOException {
-		String filename = System.getProperty("likemynds.config.file");
-		if (filename == null) {
-		    filename = System.getProperty("java.home");
-		    if (filename == null) {
-			throw new Error("Can't find java.home ??");
-		    }
-		    File f = new File(filename, "lib");
-		    f = new File(f, "likemynds.properties");
-		    filename = f.getCanonicalPath();
+	private void initialise() {
+
+		final ResourceLoader resourceLoader = new DefaultResourceLoader();
+		Resource resource = null;
+		if (StringUtils.hasText(System.getProperty(PROPERTIES_URL_KEY))) {
+			resource = resourceLoader.getResource(System.getProperty(PROPERTIES_URL_KEY));
 		}
-        
-        InputStream in;
+		
+		else if (StringUtils.hasText(System.getProperty(LIKEMYNDS_CONFIG_FILE))) {
+			resource = new FileSystemResource(System.getProperty(LIKEMYNDS_CONFIG_FILE));
+		}
+		
+		else {
+			resource = resourceLoader.getResource("classpath:/whirlwind.properties");
+			if (!resource.exists()) {
+				resource = resourceLoader.getResource("classpath:/database.properties");
+				if (!resource.exists()) {
+					System.out.println("WARNING ** USING DEFAULTS **. No Whirlwind config specified by " 
+							+ PROPERTIES_URL_KEY + " and couldn't find whirlwind.properties or database.properties on the classpath");
+					return; // ok to use defaults
+				}
+			}
+		}
+		
 		try { 
-            in = new FileInputStream(filename); // this might throw exception upwards
-            System.out.println( "INFO Opened config in file: " + filename );
-        }
-        catch (IOException e) {
-            // failed to open file .. try something else
-            in = null;
-        }
+			System.out.println( "INFO Loading Whirlwind settings from resource: " + resource);
+            PropertiesLoaderUtils.fillProperties(props, resource); 
         
-        // If can't find from above, try from resources:  
-        // ("database.properties" will look for likemynds/db/database.properties in that JAR)
-        // "/database.properties" will look for database.properties in the root of the JAR).
-        if (in == null) {
-            in = Settings.class.getResourceAsStream( "/database.properties");
-            if (in != null) System.out.println( "Loaded database.properties from classloader that loaded Settings");
-        }
-
-        // try the loader for this thread (good way of getting at servlet loader maybe.. copied from log4j.
-        // see http://www.docjar.com/html/api/org/apache/log4j/helpers/Loader.java.html
-        if (in == null) {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            in = loader.getResourceAsStream( "/database.properties");
-            if (in != null) System.out.println( "Loaded database.properties from ThreadContext classloader");
-        }
-
-		BufferedInputStream bin = new BufferedInputStream(in);
-		try {
-			// Load the properties (if we have some)
-			props.load(bin);
-
+		}
+		catch (IOException e) {
+			throw new Error(e);
 		} finally {
-			readConfiguration(); // merges defaults with System.getProperties()
-		    if (in != null) {
-		    	in.close();
-		    }
+			readConfiguration(); 
 		}
 	}
 	
