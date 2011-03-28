@@ -156,26 +156,7 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			</snapshotRepository>
 			</distributionManagement>
 		-->
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-    
+    </profiles>
 
 	<!--
         - Parent project to capture dependencies and configurations that
@@ -241,6 +222,21 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
                     </archive>
                 </configuration>
             </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+			            <goals>
+			            	<goal>jar-no-fork</goal>
+			            </goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
