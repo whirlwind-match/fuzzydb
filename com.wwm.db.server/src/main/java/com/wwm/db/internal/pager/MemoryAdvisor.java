@@ -23,6 +23,8 @@ class MemoryAdvisor {
 	private long free; // amount of currently allocated heap (i.e. total) that is free 
 	private long total;
 
+	static final int MEG = 1024 * 1024;
+
 	/**
 	 * Initialise with given config
 	 * @param low - min amount of free memory, in megabytes
@@ -30,9 +32,9 @@ class MemoryAdvisor {
 	 * @param high - high in megabytes
 	 */
 	public MemoryAdvisor(float low, float mid, float high) {
-		lowWaterMark = (long) (low * 1024 * 1024);
-		midWaterMark = (long) (mid * 1024 * 1024);
-		highWaterMark = (long) (high * 1024 * 1024);
+		lowWaterMark = (long) (low * MEG);
+		midWaterMark = (long) (mid * MEG);
+		highWaterMark = (long) (high * MEG);
 	}
 
 	/**
@@ -60,5 +62,14 @@ class MemoryAdvisor {
 	public boolean isAboveHigh() {
 		return getFreeMem() > highWaterMark;
 	}
+
+	@Override
+	public String toString() {
+		return "MemoryAdvisor [lowWaterMark=" + lowWaterMark / MEG
+				+ ", midWaterMark=" + midWaterMark  / MEG + ", highWaterMark="
+				+ highWaterMark  / MEG + ", max=" + max  / MEG + ", free=" + free  / MEG
+				+ ", total=" + total  / MEG + "]";
+	}
+	
 	
 }

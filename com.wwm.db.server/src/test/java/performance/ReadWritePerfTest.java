@@ -219,7 +219,9 @@ public class ReadWritePerfTest {
 			
 			long duration = System.currentTimeMillis() - start;
 	
-			System.out.println(numberPerLoop * numberOfLoops + " Objects created, read back and verified in " + duration + "ms");
+			int numObjects = numberPerLoop * numberOfLoops;
+			System.out.println(numObjects + " Objects created, read back and verified in " + duration + "ms");
+			System.out.println(" Ave = " + duration * 1000 / numObjects + "us");
 			database.close();
 
 			long testDuration = System.currentTimeMillis() - testStart;
@@ -232,7 +234,7 @@ public class ReadWritePerfTest {
 	@Test public void testCreateManyAndUpdate() throws IOException, ArchException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
-		final int numberOfLoops = 100;
+		final int numberOfLoops = 30;
 
 
 		for (int count = 0; count < outerLoops; count++) {
@@ -333,7 +335,9 @@ public class ReadWritePerfTest {
 			
 			long duration = System.currentTimeMillis() - start;
 	
-			System.out.println(numberPerLoop * numberOfLoops + " Objects created, read back, modified and verified in " + duration + "ms");
+			int numObjects = numberPerLoop * numberOfLoops;
+			System.out.println(numObjects + " Objects created, read back, modified and verified in " + duration + "ms");
+			System.out.println(" Ave = " + duration * 1000 / numObjects + "us");
 			database.close();
 
 			long testDuration = System.currentTimeMillis() - testStart;

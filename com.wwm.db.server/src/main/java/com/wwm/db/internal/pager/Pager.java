@@ -51,15 +51,15 @@ public class Pager implements PagerMBean {
 
 	private int outstandingPurges = 0;
 
-	private MemoryAdvisor memoryAdvisor = new MemoryAdvisor( 5f, 12.5f, 15f );
+	private MemoryAdvisor memoryAdvisor = new MemoryAdvisor( 10f, 12.5f, 15f );
 	
 	private FastSemaphore purgeLock = new FastSemaphore(1);
 
 	private long totalScoreTime = 0;
 
-	private PageScore[] purgeList; // sorted array of pages to purge
+	private volatile PageScore[] purgeList; // sorted array of pages to purge
 
-	private int purgeListIndex = 0;
+	private volatile int purgeListIndex = 0;
 
 	private long lastBuiltPurgeList = 0;
 	private float lowestPurgeScore = 0;
@@ -271,10 +271,19 @@ public class Pager implements PagerMBean {
 	}
 
 	private PageScore getNextPurgeItem() {
+		if (purgeList == null || loadedPages == 0) {
+			return null; // If we start up with low memory (try -Xmx=30M, this can happen. TODO. extract purgeList
+			// and operations such as getNextPurgeItem to another class we can test and see!
+		}
+		
+		// If we've reached the end of the current list, create a new one
 		if (purgeListIndex == purgeList.length) {
 			updatePurgeList();
 		}
-
+	
+		// still need to guard against nothing to purge
+		if (purgeListIndex >= purgeList.length) return null;
+		
 		return purgeList[purgeListIndex++]; // FIXME: AIOOBE here from lockElementForRead.  No multi-thread... seems to be ref change
 		/* Above issue caused running performance.TestReadWritePerf.testCreateManyAndUpdate	on Mac */
 	}
@@ -295,7 +304,7 @@ public class Pager implements PagerMBean {
 			if ( memoryAdvisor.isAboveHigh() ){
 				return; // if freeMem is above high water mark, we don't need to purge any
 			}
-
+			System.err.println("Need memory: " + memoryAdvisor.toString());
 			outstandingPurges += pagesNeeded;
 			
 			if ( isPurgeTooRecent() ) {
@@ -309,7 +318,7 @@ public class Pager implements PagerMBean {
 			// FIXME: This is crude. We need to replace this with an adaptive
 			// loadedPagesTarget
 			if (memoryAdvisor.isMemoryLow()){
-				outstandingPurges += 5;
+				outstandingPurges += 1;
 			}
 
 			synchronized (pages) {
@@ -319,7 +328,7 @@ public class Pager implements PagerMBean {
 					updatePurgeList();
 				}
 
-				if ( purgeOutstandingPages() == false) {
+				if ( !purgeOutstandingPages()) {
 					forceGc = true;
 				}
 			}
@@ -338,10 +347,17 @@ public class Pager implements PagerMBean {
 	 * @return succeeded in purging the required number of pages
 	 */
 	private boolean purgeOutstandingPages() {
+		// assume GC is needed if this happened
+		if (loadedPages < 100){ return false; }
+		
 		System.out.println("Purging " + outstandingPurges + " pages. " + loadedPages + " pages loaded.");
 		StringBuilder purgeScores = new StringBuilder("Scores: ");
 		for (; outstandingPurges > 0; outstandingPurges--) {
 			PageScore score = getNextPurgeItem();
+			if (score == null){
+				outstandingPurges--;// = 0; // EXPERIMENT: Outstanding otherwise keeps growing
+				return false;
+			}
 			PersistentPagedObject pageTable = score.pageTable;
 			long pageId = score.pageId;
 			try {
