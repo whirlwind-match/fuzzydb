@@ -133,6 +133,7 @@ public class ReadWritePerfTest {
 		{
 			// Make server
 			Database database = new Database(new InetSocketAddress(serverPort));
+			database.startServer();
 
 			Client client = Factory.createClient();
 			client.connect(new InetSocketAddress(InetAddress.getLocalHost(), serverPort));
