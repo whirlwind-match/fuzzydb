@@ -172,7 +172,7 @@ class Insertor<T> extends Operator<T> {
         } else if (style == IndexPointerStyle.Reference) {
             al.add(ref);
         } else {
-            throw new Error();
+            throw new RuntimeException();
         }
         inserts.put(key, al);
 

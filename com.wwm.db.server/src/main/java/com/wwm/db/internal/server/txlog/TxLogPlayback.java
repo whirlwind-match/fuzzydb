@@ -119,7 +119,7 @@ public class TxLogPlayback extends WorkerThread implements MessageInterface {
 			}
 		} catch (Throwable e){
 			log.log( Level.SEVERE, "Unexpected Exception", e );
-			throw new Error(e);
+			throw new RuntimeException(e);
 		} finally {
 			finished.release();
 		}
@@ -143,10 +143,10 @@ public class TxLogPlayback extends WorkerThread implements MessageInterface {
 		// always release, otherwise error will deadlock.
 		if (m instanceof ErrorRsp) {
 			ErrorRsp er = (ErrorRsp)m;
-			throw new Error(er.getError());
+			throw new RuntimeException(er.getError());
 		}
 		if (!(m instanceof OkRsp)) {
-			throw new Error();
+			throw new RuntimeException();
 		}
 	}
 

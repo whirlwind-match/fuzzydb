@@ -77,7 +77,7 @@ public class LogFactory {
 				if (!logRoot.mkdirs()) {
 					System.err.println("FATAL ERROR, Exiting: Unable to make log directories at " +
 							logRoot.toString() );
-					throw new Error("FATAL ERROR, Exiting: Unable to make log directories at " +
+					throw new RuntimeException("FATAL ERROR, Exiting: Unable to make log directories at " +
 							logRoot.toString() );
 					// FIXME: remove this.  left in for the moment while nail down JUnit config
 				}

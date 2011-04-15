@@ -68,7 +68,7 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
             if (ia instanceof Attribute) {
                 scoreItemToItems(score, d, scorer, c, scoreAttrs);
             } else {
-            	throw new Error("ScoreConfiguration.scoreAll() executing code I thought was dead");
+            	throw new RuntimeException("ScoreConfiguration.scoreAll() executing code I thought was dead");
             	// scoreNodeToSearch(score, d, scorer, (IAttributeMap<IAttributeConstraint>) c, scoreAttrs);
             }
         }

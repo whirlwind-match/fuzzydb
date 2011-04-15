@@ -120,7 +120,7 @@ public abstract class WorkerThreadManager implements IOManager {
 				try {
 					gate.acquire();
 				} catch (InterruptedException e) {
-					throw new Error(e);
+					throw new RuntimeException(e);
 				}
 				synchronized (this) {
 					releasable++;

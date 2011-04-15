@@ -123,7 +123,7 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 		Response response = null;
 		
 		if (Thread.holdsLock(Thread.currentThread())) {
-			throw new Error("App thread tried to execute a DB command while synchronized on itself, this causes a deadlock");
+			throw new RuntimeException("App thread tried to execute a DB command while synchronized on itself, this causes a deadlock");
 		}
 
 		PendingCommand pc = new PendingCommand(Thread.currentThread());
@@ -171,9 +171,9 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 				try {
 					localException = serverException.getClass().newInstance();
 				} catch (InstantiationException e1) {
-					throw new Error(e1);
+					throw new RuntimeException(e1);
 				} catch (IllegalAccessException e1) {
-					throw new Error(e1);
+					throw new RuntimeException(e1);
 				}
 				localException.initCause(serverException);
 				localException.setStackTrace(getStackTrace()); // set stack trace to here (rather than one set in newInstance()

@@ -36,7 +36,7 @@ public class TransactionState implements TransactionControl {
 			return commitVersion;
 		}
 		
-		throw new Error();
+		throw new RuntimeException();
 	}
 
 	public Long getCommitVersion() {
@@ -48,7 +48,7 @@ public class TransactionState implements TransactionControl {
 			return vp.getCurrentDbVersion();
 		}
 		
-		throw new Error();
+		throw new RuntimeException();
 	}
 
 	public void setCommitVersion(Long commitVersion) {

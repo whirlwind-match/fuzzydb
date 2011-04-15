@@ -83,7 +83,7 @@ public class CommandExecutor {
 			try {
 				commandClass = Class.forName(commandClassName);
 			} catch (ClassNotFoundException e) {
-				throw new Error(e);
+				throw new RuntimeException(e);
 			}
 			commandMap.put(commandClass, method);
 		}		
@@ -142,9 +142,9 @@ public class CommandExecutor {
 	//			}
 				method.invoke(executionTarget, storeId, cid, source, cmd, packet);
 			} catch (IllegalArgumentException e) {
-				throw new Error("IllegalArgumentException returned when invoking command", e);
+				throw new RuntimeException("IllegalArgumentException returned when invoking command", e);
 			} catch (IllegalAccessException e) {
-				throw new Error("IllegalAccessException returned when invoking command", e);
+				throw new RuntimeException("IllegalAccessException returned when invoking command", e);
 			} catch (InvocationTargetException e) {
 				Throwable targetException = e.getTargetException();
 				
@@ -167,7 +167,7 @@ public class CommandExecutor {
 						// ... what thread is getting killed, and, shouldn't teh client be told something?
 						// I think we should always sendErrorRsp().
 					} else {
-						throw new Error(targetException);
+						throw new RuntimeException(targetException);
 					}
 				}
 			}

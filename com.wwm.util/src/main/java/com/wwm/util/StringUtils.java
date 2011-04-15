@@ -44,7 +44,7 @@ public class StringUtils {
                 str.append(s);
             }
         } catch (IOException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     
         return str.toString();

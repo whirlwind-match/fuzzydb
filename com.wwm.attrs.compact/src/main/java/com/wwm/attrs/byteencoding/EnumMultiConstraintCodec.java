@@ -58,7 +58,7 @@ public class EnumMultiConstraintCodec extends CompactConstraintCodec {
 		} else if (ENUM_VALUES_LENGTH == 8){
 			bytes.putLong(i + ENUM_VALUES_OFFSET, word );
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 	
 		bytes.putByte(i + LOWEST_COUNT_OFFSET, (byte)enumValue.getLowestCount() );
@@ -84,7 +84,7 @@ public class EnumMultiConstraintCodec extends CompactConstraintCodec {
 		} else if (ENUM_VALUES_LENGTH == 8){
 			return bytes.getLong(index + ENUM_VALUES_OFFSET );
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 	}
 

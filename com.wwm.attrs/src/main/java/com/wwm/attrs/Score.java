@@ -183,7 +183,7 @@ public abstract class Score implements com.wwm.model.attributes.Score, Comparabl
     public void setScorerAttribute(String name, float value) {
         // NOTE: Hard coded for single case for now
         if (!name.equals("Distance")){
-            throw new Error("Invalid Attribute:" + name );
+            throw new RuntimeException("Invalid Attribute:" + name );
         }
         distance = value;
     }
@@ -191,7 +191,7 @@ public abstract class Score implements com.wwm.model.attributes.Score, Comparabl
     public float getScorerAttributeAsFloat(String name){
         // NOTE: Hard coded for single case for now
         if (!name.equals("Distance")){
-            throw new Error("Invalid Attribute:" + name );
+            throw new RuntimeException("Invalid Attribute:" + name );
         }
         return distance;
     }

@@ -270,7 +270,7 @@ public class ReadAheadInputStream extends FilterInputStream {
 	 */
 	@Override
 	public synchronized long skip(long n) {
-		throw(new Error("ReadAheadInputStream.skip() not implemented due to checksum calculations"));
+		throw(new RuntimeException("ReadAheadInputStream.skip() not implemented due to checksum calculations"));
 //		getBufIfOpen(); // Check for closed stream
 //		if (n <= 0) {
 //			return 0;

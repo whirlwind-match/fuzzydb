@@ -64,7 +64,7 @@ public class MultiEnumReverseNodeSelector extends BranchConstraint {
 			return enumVal.getBitSet().cardinality() >= lowestAllowed;
 		}
 
-		throw new Error("Unsupported type");
+		throw new RuntimeException("Unsupported type");
 	}
     
     /**

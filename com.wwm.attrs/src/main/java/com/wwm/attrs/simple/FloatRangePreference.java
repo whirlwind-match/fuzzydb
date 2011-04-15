@@ -108,7 +108,7 @@ public class FloatRangePreference extends Attribute implements IFloatRangePrefer
             return maxDiff;
 
         default:
-            throw new Error("Illegal dimension");
+            throw new RuntimeException("Illegal dimension");
         }
     }
 
@@ -135,7 +135,7 @@ public class FloatRangePreference extends Attribute implements IFloatRangePrefer
             break;
 
         default:
-            throw new Error( "Illegal dimension");
+            throw new RuntimeException( "Illegal dimension");
         }
     }
 

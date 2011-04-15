@@ -45,7 +45,7 @@ public class BtreeLookup<T> {
         try {
             rs = (RootSentinel) table.getObject(btree.getSentinel());
         } catch (UnknownObjectException e) {
-            throw new Error("Missing root in index", e);
+            throw new RuntimeException("Missing root in index", e);
         }
         RefImpl<NodeW> rootRef = rs.getRoot();
         if (rootRef == null) {
@@ -55,7 +55,7 @@ public class BtreeLookup<T> {
         try {
             node = table.getObject(rootRef);
         } catch (UnknownObjectException e) {
-            throw new Error("Missing node in index", e);
+            throw new RuntimeException("Missing node in index", e);
         }
         return get((Comparable<Object>)key, node);
     }
@@ -87,7 +87,7 @@ public class BtreeLookup<T> {
                     try {
                         child = table.getObject(entry.getValue());
                     } catch (UnknownObjectException e) {
-                        throw new Error("Missing node in index", e);
+                        throw new RuntimeException("Missing node in index", e);
                     }
                     return get(key, child);
                 }
@@ -96,7 +96,7 @@ public class BtreeLookup<T> {
             try {
                 child = table.getObject(branch.getRightChild());
             } catch (UnknownObjectException e) {
-                throw new Error("Missing node in index", e);
+                throw new RuntimeException("Missing node in index", e);
             }
             return get(key, child);
         } else {
@@ -127,7 +127,7 @@ public class BtreeLookup<T> {
             try {
                 return btree.getNamespace().getObject(ref);
             } catch (UnknownObjectException e) {
-                throw new Error("Missing object in index", e);
+                throw new RuntimeException("Missing object in index", e);
             }
         }
     }

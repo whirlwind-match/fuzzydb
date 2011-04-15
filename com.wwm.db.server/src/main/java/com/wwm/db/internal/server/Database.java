@@ -248,7 +248,7 @@ public final class Database implements DatabaseVersionState {
 					latestDiskVersion = dbVersion;
 				}
 			} catch (IOException e) {
-				throw new Error(e);
+				throw new RuntimeException(e);
 			}
 			log.fine(".. completed sync.");
 
@@ -289,7 +289,7 @@ public final class Database implements DatabaseVersionState {
                         try {
                             txLog.close();
                         } catch (IOException e) {
-                            throw new Error(e);
+                            throw new RuntimeException(e);
                         }
                         pager.saveAll();
 
@@ -300,7 +300,7 @@ public final class Database implements DatabaseVersionState {
                                 repository.save(setup.getReposDiskRoot());
                             }
                         } catch (IOException e) {
-                            throw new Error(e);
+                            throw new RuntimeException(e);
                         }
                         closed = true;
                     	log.info("===== Database shutdown complete =====");

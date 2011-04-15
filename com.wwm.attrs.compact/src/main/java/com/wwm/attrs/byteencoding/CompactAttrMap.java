@@ -103,7 +103,7 @@ public class CompactAttrMap<T extends IAttribute> implements Cloneable, IAttribu
 		if (codec != null) {
 			codec.encodeToByteArray(bytes, attrId, value);
 		} else {
-			throw new Error("Couldn't find codec for " + value);
+			throw new RuntimeException("Couldn't find codec for " + value);
 		}
 	}
 
@@ -198,7 +198,7 @@ public class CompactAttrMap<T extends IAttribute> implements Cloneable, IAttribu
 //			// FIXME: Aren't we supposed to clone the rest
 //			// FIXME: NOTE: Where we're clone()ing arrays, use arraycopy instead (as it's much slower, pre java 7)
 		} catch (CloneNotSupportedException e) {
-			throw new Error(e); // Should always impl
+			throw new RuntimeException(e); // Should always impl
 		}
 	}
 

@@ -40,7 +40,7 @@ public class FileUtils {
 			fis = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			System.out.println("File missing: " + file);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		GZIPInputStream gzis;
 		try {
@@ -48,7 +48,7 @@ public class FileUtils {
 		} catch (IOException e) {
 			System.out.println("Error reading from " + file);
 			System.out.println("Error opening GZIP input stream: " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		ObjectInputStream ois;
 		try {
@@ -56,7 +56,7 @@ public class FileUtils {
 		} catch (IOException e) {
 			System.out.println("Error reading from " + file);
 			System.out.println("Error opening ObjectInputStream: " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		
 		Object obj;
@@ -64,13 +64,13 @@ public class FileUtils {
 			obj = ois.readObject();
 		} catch (IOException e) {
 			System.out.println("Error reading from " + file + ": " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Internal Error reading from " + file + ": " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		} catch (ClassCastException e) {
 			System.out.println("File Format Error reading from " + file + ": " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		return obj;
 	}

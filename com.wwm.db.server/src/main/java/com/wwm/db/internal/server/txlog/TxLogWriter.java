@@ -57,7 +57,7 @@ public class TxLogWriter implements TxLogSink, PacketInterface {
 				mos = null;
 			}
 		} catch (IOException e) {
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 	}
 

@@ -69,7 +69,7 @@ public class MultiEnumNodeSelector extends BranchConstraint {
 			return enumVal.getBitSet().get(enumIndex);
 		}
 
-		throw new Error("Unsupported type");
+		throw new RuntimeException("Unsupported type");
 	}
 
     @Override

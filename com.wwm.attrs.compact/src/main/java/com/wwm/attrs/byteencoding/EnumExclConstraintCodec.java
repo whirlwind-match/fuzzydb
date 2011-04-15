@@ -59,7 +59,7 @@ public class EnumExclConstraintCodec extends CompactConstraintCodec {
 			long bitfield = word;
 			bytes.putLong(i + ENUM_VALUES_OFFSET, bitfield );
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 		
 	}
@@ -81,7 +81,7 @@ public class EnumExclConstraintCodec extends CompactConstraintCodec {
 		} else if (ENUM_VALUES_LENGTH == 8){
 			return bytes.getLong(index + ENUM_VALUES_OFFSET );
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 	}
 

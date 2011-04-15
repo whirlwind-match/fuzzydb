@@ -156,9 +156,9 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		try {
 			element = page.getElementForRead(elementId);
 		} catch (IOException e) {
-			throw new Error("Error loading element", e);
+			throw new RuntimeException("Error loading element", e);
 		} catch (ClassNotFoundException e) {
-			throw new Error("Error loading element", e);
+			throw new RuntimeException("Error loading element", e);
 		}
 		if (element == null) {
 			page.releaseRead();
@@ -179,9 +179,9 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		try {
 			element = page.getElementForWrite(elementId);
 		} catch (IOException e) {
-			throw new Error("Error loading element", e);
+			throw new RuntimeException("Error loading element", e);
 		} catch (ClassNotFoundException e) {
-			throw new Error("Error loading element", e);
+			throw new RuntimeException("Error loading element", e);
 		}
 		if (element == null) {
 			page.releaseWrite();
@@ -299,7 +299,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 						try {
 							page.acquireWrite();
 						} catch (PagePurgedException e) {
-							throw new Error(e); // It can't get purged yet, as
+							throw new RuntimeException(e); // It can't get purged yet, as
 							// the page manager doesn't know
 							// about it
 						}
@@ -315,7 +315,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 							page.releaseWriteAcquireRead();
 						}
 					} catch (PagePurgedException e) {
-						throw new Error(e); // It can't get purged yet, as the
+						throw new RuntimeException(e); // It can't get purged yet, as the
 						// pager doesn't know about it
 					}
 					pager.addPurgeablePage(this, pageId);
@@ -392,7 +392,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 				page.save(flushPageFromMemory);
 			} catch (IOException e) {
 				// severe error, cant save page
-				throw new Error("Error writing page", e);
+				throw new RuntimeException("Error writing page", e);
 			}
 			long duration = System.currentTimeMillis() - start;
 			saveTime.time(duration);

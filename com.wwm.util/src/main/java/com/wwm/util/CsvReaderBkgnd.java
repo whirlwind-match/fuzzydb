@@ -42,7 +42,7 @@ public class CsvReaderBkgnd extends CsvReader implements Runnable {
 				next = 0;
 			}
 		} catch (InterruptedException e) {
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		o = packet[next++];
 		if (next == packet.length) {
@@ -82,7 +82,7 @@ public class CsvReaderBkgnd extends CsvReader implements Runnable {
 				try {
 					queue.put(stuff);
 				} catch (InterruptedException e1) {
-					throw new Error(e1);
+					throw new RuntimeException(e1);
 				}
 				thread = null;
 				return;
@@ -91,7 +91,7 @@ public class CsvReaderBkgnd extends CsvReader implements Runnable {
 				try {
 					queue.put(stuff);
 				} catch (InterruptedException e1) {
-					throw new Error(e1);
+					throw new RuntimeException(e1);
 				}
 				thread = null;
 				return;
@@ -100,7 +100,7 @@ public class CsvReaderBkgnd extends CsvReader implements Runnable {
 				try {
 					queue.put(stuff);
 				} catch (InterruptedException e1) {
-					throw new Error(e1);
+					throw new RuntimeException(e1);
 				}
 				thread = null;
 				return;

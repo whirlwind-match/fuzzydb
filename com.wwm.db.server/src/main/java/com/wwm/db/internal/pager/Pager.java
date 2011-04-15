@@ -112,7 +112,7 @@ public class Pager implements PagerMBean {
 				}
 			}
 		} catch (PagePurgedException e) {
-			throw new Error("Didn't expect: " + e.getMessage(), e);
+			throw new RuntimeException("Didn't expect: " + e.getMessage(), e);
 		} finally {
 			purgeLock.release();
 		}
@@ -171,11 +171,11 @@ public class Pager implements PagerMBean {
 							deleteFailReason = e;
 						}
 						if (!deleted) {
-							throw new Error("Unable to delete page file " + fileName, deleteFailReason);
+							throw new RuntimeException("Unable to delete page file " + fileName, deleteFailReason);
 						}
 					}
 				} catch (NumberFormatException e) { 
-					throw new Error("Failure extracting version from filename:" + fileName, e);
+					throw new RuntimeException("Failure extracting version from filename:" + fileName, e);
 				}
 			}
 		}
@@ -219,7 +219,7 @@ public class Pager implements PagerMBean {
 				try {
 					pageTable.flushOldVersions( pageIds );
 				} catch (PagePurgedException e) {
-					throw new Error(e);
+					throw new RuntimeException(e);
 				}
 			}		
 		}
@@ -245,7 +245,7 @@ public class Pager implements PagerMBean {
 			try {
 				pageTable.flushOldVersions( pageIds );
 			} catch (PagePurgedException e) {
-				throw new Error(e);
+				throw new RuntimeException(e);
 			}
 			
 			for (Long pageId : pageIds) {
@@ -360,7 +360,7 @@ public class Pager implements PagerMBean {
 					}
 				}
 			} catch (PagePurgedException e) { 
-				throw new Error(e); // FIXME: Document this exception / establish if this is possible or recoverable
+				throw new RuntimeException(e); // FIXME: Document this exception / establish if this is possible or recoverable
 			} 
 		}
 		System.out.println(purgeScores);

@@ -87,7 +87,7 @@ public class PacketCodec implements MessageInterface {
 					}
 				} else {
 					// NU - Added 27May08 to ensure we don't skip messages.  
-					throw new Error("Attempted unsupported operation. We need to ensure that all packets are processed in order");
+					throw new RuntimeException("Attempted unsupported operation. We need to ensure that all packets are processed in order");
 				}
 			}
 		} catch (IOException e) {

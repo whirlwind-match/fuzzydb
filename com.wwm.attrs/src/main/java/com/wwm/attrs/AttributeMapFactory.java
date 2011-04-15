@@ -26,7 +26,7 @@ public class AttributeMapFactory {
 	    try {
 	        return (Class<IConstraintMap>) Class.forName(Settings.getInstance().getConstraintMapClassName());
 	    } catch (ClassNotFoundException e) {
-	        throw new Error(e); // Fatal error if we can't find it.
+	        throw new RuntimeException(e); // Fatal error if we can't find it.
 	    }
 	}
 
@@ -35,7 +35,7 @@ public class AttributeMapFactory {
 		try {
 			return (Class<? extends IAttributeMap<T>>) Class.forName(Settings.getInstance().getAttributeMapClassName());
 		} catch (ClassNotFoundException e) {
-			throw new Error(e); // Fatal error if we can't find it.
+			throw new RuntimeException(e); // Fatal error if we can't find it.
 		}
 	}
 
@@ -44,9 +44,9 @@ public class AttributeMapFactory {
         	IAttributeMap<T> map = AttributeMapFactory.getAttributeMapClass(clazz).newInstance();
             return map;
         } catch (InstantiationException e) {
-            throw new Error(e); // Can't instantiate an interface or abstract class
+            throw new RuntimeException(e); // Can't instantiate an interface or abstract class
         } catch (IllegalAccessException e) {
-            throw new Error(e); // Need public constructor, or whatever
+            throw new RuntimeException(e); // Need public constructor, or whatever
         }
 	}
 
@@ -55,9 +55,9 @@ public class AttributeMapFactory {
             IConstraintMap map = AttributeMapFactory.getConstraintMapClass().newInstance();
             return map;
         } catch (InstantiationException e) {
-            throw new Error(e); // Can't instantiate an interface or abstract class
+            throw new RuntimeException(e); // Can't instantiate an interface or abstract class
         } catch (IllegalAccessException e) {
-            throw new Error(e); // Need public constructor, or whatever
+            throw new RuntimeException(e); // Need public constructor, or whatever
         }
     }
 

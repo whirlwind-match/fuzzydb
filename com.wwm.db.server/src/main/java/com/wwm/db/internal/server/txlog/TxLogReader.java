@@ -36,7 +36,7 @@ public class TxLogReader implements PacketInterface {
 		try {
 			fis.close();
 		} catch (IOException e) {
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 	}
 

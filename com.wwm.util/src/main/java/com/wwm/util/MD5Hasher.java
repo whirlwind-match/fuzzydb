@@ -56,14 +56,14 @@ public class MD5Hasher {
 		try {
 			md5hasher = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException e) {
-			throw new Error(e); // can't continue
+			throw new RuntimeException(e); // can't continue
 		}
 
 		byte[] md5data;
 		try {
 			md5data = md5hasher.digest(InputSting.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			throw new Error(e);	// should never happen as all srings can be encoded UTF-8
+			throw new RuntimeException(e);	// should never happen as all srings can be encoded UTF-8
 		}
 		
 		StringBuilder hexStr = new StringBuilder();

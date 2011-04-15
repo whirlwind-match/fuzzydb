@@ -69,7 +69,7 @@ public class StoreMgr implements IShutdown {
             assert(url.getProtocol().equals("wwmdb"));
             return getStore(url);
         } catch (MalformedURLException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -99,7 +99,7 @@ public class StoreMgr implements IShutdown {
                 client = getClient(url);
                 store = client.openStore(storeName, true);
             } catch (ArchException e) {
-                throw new Error(e);
+                throw new RuntimeException(e);
             }
         }
         storesByStoreName.put(storeName, store);

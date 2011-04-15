@@ -66,9 +66,9 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
             try {
                 field = forClass.getDeclaredField(fieldName);
             } catch (SecurityException e) {
-                throw new Error("Unable to access key field", e);
+                throw new RuntimeException("Unable to access key field", e);
             } catch (NoSuchFieldException e) {
-                throw new Error("Unable to access key field", e);
+                throw new RuntimeException("Unable to access key field", e);
             }
             if (!field.isAccessible()) {
                 AccessController.doPrivileged(new PrivilegedAction<Object>() {
@@ -83,9 +83,9 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
         try {
             fieldValue = field.get(object);
         } catch (IllegalArgumentException e) {
-            throw new Error("Unable to access key field", e);
+            throw new RuntimeException("Unable to access key field", e);
         } catch (IllegalAccessException e) {
-            throw new Error("Unable to access key field", e);
+            throw new RuntimeException("Unable to access key field", e);
         }
         if (fieldValue == null) {
             return null;

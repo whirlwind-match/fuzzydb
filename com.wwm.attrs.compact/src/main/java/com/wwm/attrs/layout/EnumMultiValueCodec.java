@@ -49,7 +49,7 @@ public class EnumMultiValueCodec extends LayoutAttrCodec<IAttribute> {
 			map.getInts()[index+1] = (int) (bitfield >>> 32);
 			
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 	}
 	
@@ -72,7 +72,7 @@ public class EnumMultiValueCodec extends LayoutAttrCodec<IAttribute> {
 			word = (word << 32) | ints[index];
 			return word;
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 	}
 	

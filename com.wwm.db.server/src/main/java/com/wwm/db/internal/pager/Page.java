@@ -162,7 +162,7 @@ public class Page<T> implements FilenameFilter {
 			if (bestVersion > vp.getCurrentDbVersion()) {
 				// This is OK if the version is 1 more, and there is a transaction in the commit phase
 				if (bestVersion > vp.getCurrentDbVersion() + 1) {
-					throw new Error("Disk contains a page newer than the repository");
+					throw new RuntimeException("Disk contains a page newer than the repository");
 				}
 				// TODO: Check a tx is in the commit phase
 			}
@@ -177,7 +177,7 @@ public class Page<T> implements FilenameFilter {
 				assert getInt(pageData, 0) != 0 : "Root branch node should always exist";
 			}
 		} catch (IOException e) {
-			throw new Error(e); // e.g. FileNotFoundException, or general IOException
+			throw new RuntimeException(e); // e.g. FileNotFoundException, or general IOException
 		} finally {
 			WorkerThread.endIO();
 		}
@@ -193,7 +193,7 @@ public class Page<T> implements FilenameFilter {
 		FileInputStream fis = new FileInputStream(bestFile);
 		try {
 			int read = fis.read(pageData);
-			if (read != fileLen) { throw new Error("Error loading page"); }
+			if (read != fileLen) { throw new RuntimeException("Error loading page"); }
 		} finally {
 			fis.close();
 		}
@@ -425,7 +425,7 @@ public class Page<T> implements FilenameFilter {
 				e = null;
 				deleted = true;
 				if (disableDelete){
-					throw new Error("Shouldn't be deleting from @Branches or BTree Index");
+					throw new RuntimeException("Shouldn't be deleting from @Branches or BTree Index");
 				}
 			}
 		} 
@@ -473,7 +473,7 @@ public class Page<T> implements FilenameFilter {
 			int nextAddress = (i+1) * 8;
 			int dataOffset = getInt(pageData, nextAddress);
 			if (dataOffset != 0) {
-				throw new Error("We've deleted something by accident");
+				throw new RuntimeException("We've deleted something by accident");
 			}
 		}
 		
@@ -493,7 +493,7 @@ public class Page<T> implements FilenameFilter {
 		File parentDir = getParentDir();
 		if (!parentDir.exists()){
 			if( !parentDir.mkdirs() ){
-				throw new Error("Couldn't create dir:" + parentDir);
+				throw new RuntimeException("Couldn't create dir:" + parentDir);
 			}
 		}
 

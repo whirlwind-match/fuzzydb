@@ -48,7 +48,7 @@ public class CompactConstraintMap extends CompactAttrMap<IAttributeConstraint> i
 
 			}
 		}
-		throw new Error("Wasn't expecting to get here");
+		throw new RuntimeException("Wasn't expecting to get here");
 	}
 
     @Override

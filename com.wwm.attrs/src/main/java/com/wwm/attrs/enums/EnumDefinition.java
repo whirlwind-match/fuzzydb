@@ -81,7 +81,7 @@ public class EnumDefinition implements Serializable {
             }
             int index = strValues.size(); // i.e. this one will go in at values[index] when added to end
             if (index >= MAX_ENTRIES){
-                throw new Error( "Exceeded limit of enum definitions for '" + name + "'. Max is: " + MAX_ENTRIES);
+                throw new RuntimeException( "Exceeded limit of enum definitions for '" + name + "'. Max is: " + MAX_ENTRIES);
             }
             enumVal = new EnumExclusiveValue( attrId, enumDefId, (short)index );
 

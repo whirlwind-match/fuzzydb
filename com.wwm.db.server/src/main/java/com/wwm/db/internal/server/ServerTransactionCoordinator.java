@@ -154,7 +154,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		try {
 			exclusiveLock.acquire();
 		} catch (InterruptedException e) {
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		synchronized (this) {
 			assert(privilegedThread == null);
@@ -193,7 +193,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 				txLog.write(dbVersionState.getCurrentDbVersion(), command);
 				txLog.flush();
 			} catch (IOException e) {
-				throw new Error(e);
+				throw new RuntimeException(e);
 			}
 		}
 	}

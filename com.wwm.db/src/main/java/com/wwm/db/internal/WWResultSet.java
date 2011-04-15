@@ -47,7 +47,7 @@ class WWResultSet <T extends Object> implements ResultSet<Result<T>> {
 	
 	void throwIfDisposed() {
 		if (disposed) {
-			throw new Error("Query used after dispose()");
+			throw new RuntimeException("Query used after dispose()");
 		}
 	}	
 }

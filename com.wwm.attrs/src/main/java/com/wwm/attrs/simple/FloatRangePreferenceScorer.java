@@ -190,7 +190,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
             score.add(this, scoreMapper.getScore(nodeScoreFactor), d);
 		}
 		else {
-		    throw new Error( "FloatRangePreferenceScorer doesn't support " + wantAttr.getClass().getName() );
+		    throw new RuntimeException( "FloatRangePreferenceScorer doesn't support " + wantAttr.getClass().getName() );
 		}		
 	}
 

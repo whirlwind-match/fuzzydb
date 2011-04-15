@@ -53,7 +53,7 @@ public class Point3D implements Cloneable, IPoint3D {
         try {
             return (Point3D) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -93,7 +93,7 @@ public class Point3D implements Cloneable, IPoint3D {
             return z;
 
         default:
-            throw new Error( "Illegal dimension");
+            throw new RuntimeException( "Illegal dimension");
         }
     }
 
@@ -122,7 +122,7 @@ public class Point3D implements Cloneable, IPoint3D {
             break;
 
         default:
-            throw new Error( "Illegal dimension");
+            throw new RuntimeException( "Illegal dimension");
         }
     }
 

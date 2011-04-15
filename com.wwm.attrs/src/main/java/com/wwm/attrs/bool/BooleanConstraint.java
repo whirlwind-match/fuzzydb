@@ -158,7 +158,7 @@ public class BooleanConstraint extends BranchConstraint /*implements IBooleanVal
 		case hasBoth:
 			return super.hashCode() + 0x80000041;
     	}
-		throw new Error(); // Shouldn't have got here
+		throw new RuntimeException(); // Shouldn't have got here
     }
 
 	@Override

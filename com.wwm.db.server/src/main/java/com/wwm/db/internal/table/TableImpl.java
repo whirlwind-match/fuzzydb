@@ -64,7 +64,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 				currentOid++;
 				return result;
 			} catch (UnknownObjectException e) {
-				throw new Error("Failed to get object we just checked exists.");
+				throw new RuntimeException("Failed to get object we just checked exists.");
 			}
 		}
 

@@ -85,7 +85,7 @@ public abstract class Value3D extends Attribute<Value3D> implements IPoint3D {
             return getZ();
 
         default:
-            throw new Error("Illegal dimension");
+            throw new RuntimeException("Illegal dimension");
         }
     }
     /* (non-Javadoc)
@@ -112,7 +112,7 @@ public abstract class Value3D extends Attribute<Value3D> implements IPoint3D {
             break;
 
         default:
-            throw new Error( "Illegal dimension");
+            throw new RuntimeException( "Illegal dimension");
         }
     }
     

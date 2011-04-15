@@ -101,7 +101,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 		try {
 			return (Class<SimpleDAO>) Class.forName(Settings.getInstance().getConfigDAOClassName());
 		} catch (ClassNotFoundException e) {
-			throw new Error(e); // Fatal error if we can't find it.
+			throw new RuntimeException(e); // Fatal error if we can't find it.
 		}
     }
 
@@ -125,7 +125,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 				 dao.commit();
 			}
 		} catch (Exception e) {
-			throw new Error(e); // FIXME: not sure what we'll get
+			throw new RuntimeException(e); // FIXME: not sure what we'll get
 		}
 		return config;
 	}
@@ -146,7 +146,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 			dao.update(this, ref );
 			dao.commit();
 		} catch (Exception e) {
-			throw new Error(e); // If we get here, it's likely that we're on the server trying to update.  THis means we haven't seen all attributes on the client prior to starting our transaction
+			throw new RuntimeException(e); // If we get here, it's likely that we're on the server trying to update.  THis means we haven't seen all attributes on the client prior to starting our transaction
 		}
 	}
 

@@ -116,7 +116,7 @@ public class WWResultSetIterator<T extends Object> implements ResultIterator<Res
 				moreResults = fetch.isMoreResults();
 				moreResultsKnown = true;
 			} else {
-				throw new Error("Unfinished code");	//FIXME: handle the rest
+				throw new RuntimeException("Unfinished code");	//FIXME: handle the rest
 			}
 		}
 		

@@ -49,7 +49,7 @@ public class AttributeMap<T extends IAttribute> implements Cloneable, Serializab
                     this.attributes[i++] = (com.archopolis.db.whirlwind.internal.IAttribute) attr.clone();
                 }
             } catch (CloneNotSupportedException e) {
-                throw new Error(e);
+                throw new RuntimeException(e);
             }
         }
         this.count = i;
@@ -194,7 +194,7 @@ public class AttributeMap<T extends IAttribute> implements Cloneable, Serializab
             return clone;
 
         } catch (CloneNotSupportedException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 

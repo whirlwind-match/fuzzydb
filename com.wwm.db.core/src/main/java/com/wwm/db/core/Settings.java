@@ -422,7 +422,7 @@ public class Settings implements SettingsMBean {
         
 		}
 		catch (IOException e) {
-			throw new Error(e);
+			throw new RuntimeException(e);
 		} finally {
 			readConfiguration(); 
 		}
@@ -643,7 +643,7 @@ public class Settings implements SettingsMBean {
 //		try {
 //			return (Class<SimpleDAO>) Class.forName(Settings.getInstance().getStatsDAOClassName());
 //		} catch (ClassNotFoundException e) {
-//			throw new Error(e); // Fatal error if we can't find it.
+//			throw new RuntimeException(e); // Fatal error if we can't find it.
 //		}
 //    }
 

@@ -102,7 +102,7 @@ public class RefImpl<T> implements GenericRef<T>, Ref, Serializable, Comparable<
 		} catch (UnknownObjectException e) {
 			return null;
 		} catch (ArchException e){
-			throw new Error(e); // Unexpected.
+			throw new RuntimeException(e); // Unexpected.
 		}
 	}
 }

@@ -50,7 +50,7 @@ public class ServerAllocNewIdsTransaction extends ServerTransaction {
 		try {
 			store = stc.getRepository().getStore(command.getStoreId());
 		} catch (UnknownStoreException e) {
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		Namespace namespace = store.getCreateNamespace(nameSpace);
 		UserTable<?> table = namespace.getCreateTable(clazz);

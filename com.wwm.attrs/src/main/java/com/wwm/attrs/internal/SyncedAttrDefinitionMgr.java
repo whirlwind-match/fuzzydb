@@ -73,7 +73,7 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
             } catch (UnknownObjectException e) {
                 w.setObject( getFromStore( store ) );
             } catch (ArchException e) {
-                throw new Error(e);
+                throw new RuntimeException(e);
             }
         }
         return w;
@@ -96,7 +96,7 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
                 tx.commit();
             }
         } catch (ArchException e) {
-            throw new Error(e); // FIXME: not sure what we'll get
+            throw new RuntimeException(e); // FIXME: not sure what we'll get
         }
         mgr.setStore( store );
         return mgr;
@@ -115,7 +115,7 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
             tx.update(this);
             tx.commit();
         } catch (ArchException e) {
-            throw new Error(e); // FIXME: Dunno what to expect
+            throw new RuntimeException(e); // FIXME: Dunno what to expect
         }
     }
 }

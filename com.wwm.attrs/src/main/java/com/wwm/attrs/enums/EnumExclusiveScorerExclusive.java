@@ -109,7 +109,7 @@ public class EnumExclusiveScorerExclusive extends TwoAttrScorer {
         
 //        // This should never happen
 //        if (!bNa.hasValue()) {
-//            throw new Error(e);
+//            throw new RuntimeException(e);
 //            return;
 //        }
 
@@ -298,7 +298,7 @@ public class EnumExclusiveScorerExclusive extends TwoAttrScorer {
      *  be, as in above example, due to a single match within the node (i.e. C -> CDE)
      */
     protected float calcScoreNodeToSearch(EnumMultipleConstraint bc, EnumMultipleValue attr) {
-    	if (maxMatches != null) throw new Error("Needs making work with maxMatches");
+    	if (maxMatches != null) throw new RuntimeException("Needs making work with maxMatches");
     	
     	BitSet64 constraintBits = bc.getBitSet();
     	BitSet64 attrBits = attr.getBitSet();

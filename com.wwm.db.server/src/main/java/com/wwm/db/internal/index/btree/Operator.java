@@ -39,7 +39,7 @@ abstract class Operator<T> {
         try {
             node = table.getObject(ref);
         } catch (UnknownObjectException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
         if (node == null) {
             return null;
@@ -56,7 +56,7 @@ abstract class Operator<T> {
             }
             return getNode(rootRef);
         } catch (UnknownObjectException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -65,7 +65,7 @@ abstract class Operator<T> {
             RootSentinel rs = new RootSentinel(ref);
             table.update(tree.getSentinel(), rs);
         } catch (UnknownObjectException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -115,7 +115,7 @@ abstract class Operator<T> {
             try {
                 table.createUpdate(ref, node);
             } catch (UnknownObjectException e) {
-                throw new Error("Error in Index Flush", e);
+                throw new RuntimeException("Error in Index Flush", e);
             }
         }
     }

@@ -119,7 +119,7 @@ public class AttrDefinitionMgr implements Serializable {
         case LOCATION_PREF:
             return AttrType.locationPrefValue;
         default:
-            throw new Error("Type mapping needed.");
+            throw new RuntimeException("Type mapping needed.");
         }
     }
 
@@ -136,7 +136,7 @@ public class AttrDefinitionMgr implements Serializable {
         }
 
         //	FIXME : (jc)Should throw a Arch exception?  - (nu) Not really.  it's a programming error.  Don't want to declare/catch exceptions for programming errors.
-        throw new Error("PBC Error");
+        throw new RuntimeException("PBC Error");
     }
 
     /**
@@ -155,7 +155,7 @@ public class AttrDefinitionMgr implements Serializable {
         Integer attrId = ids.get( attrName );
         if (attrId != null) {
             if (clazz != null && (attrId & ATTR_CLASS_MASK) != overlay ) {
-                throw new Error( "Cannot re-use the same name with a different class:" + attrName );
+                throw new RuntimeException( "Cannot re-use the same name with a different class:" + attrName );
             }
             // FIXME: Except we can: Boolean / BooleanConstraint...?
             return attrId;
@@ -266,7 +266,7 @@ public class AttrDefinitionMgr implements Serializable {
             attrId = ids.get( attrName );
             if (attrId != null) {
                 if ( (attrId & overlay) != overlay ) {
-                    throw new Error( "Cannot re-use the same name with a different class:" + attrName );
+                    throw new RuntimeException( "Cannot re-use the same name with a different class:" + attrName );
                 }
                 return attrId;
             }

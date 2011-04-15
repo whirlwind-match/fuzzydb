@@ -78,7 +78,7 @@ public class DeflatedString {
 			utf8 = value.getBytes("UTF8");
 		} catch (UnsupportedEncodingException e) {
 			// Can't normally happen
-			throw new Error("Fatal error in DeflatedString, UTF8 coding not supported");
+			throw new RuntimeException("Fatal error in DeflatedString, UTF8 coding not supported");
 		}
 		if (value.length() > noCompressionLength) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -90,7 +90,7 @@ public class DeflatedString {
 				d.close();
 			} catch (IOException e) {
 				// Can't normally happen
-				throw new Error("Fatal error in DeflatedString, streams not working");
+				throw new RuntimeException("Fatal error in DeflatedString, streams not working");
 			}
 			byte[] encoded = baos.toByteArray();
 			if (encoded.length < (utf8.length+1)) {
@@ -159,7 +159,7 @@ public class DeflatedString {
 			throw new DataFormatException("Unknown coding type");
 		} catch (UnsupportedEncodingException e) {
 			// Can't normally happen
-			throw new Error("Fatal error in DeflatedString, UTF8 coding not supported");
+			throw new RuntimeException("Fatal error in DeflatedString, UTF8 coding not supported");
 		}
 	}
 	

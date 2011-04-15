@@ -54,7 +54,7 @@ public class EnumMultiConstraintCodec extends LayoutConstraintCodec {
 			map.getInts()[index + 1] = (int) (word >>> 32);
 			
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 		
 		map.getInts()[index + LOWEST_COUNT_OFFSET] = constraint.getLowestCount();
@@ -81,7 +81,7 @@ public class EnumMultiConstraintCodec extends LayoutConstraintCodec {
 			word = (word << 32) | ints[index];
 			return word;
 		} else {
-			throw new Error( "Unsupported Enum size");
+			throw new RuntimeException( "Unsupported Enum size");
 		}
 	}
 
