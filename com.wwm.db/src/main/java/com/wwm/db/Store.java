@@ -31,8 +31,6 @@ public interface Store extends Transaction {
 	 * @see currentTransaction()
 	 */
 	public Transaction begin();
-	//public void commit();		// from Transaction
-	//public void rollback();	// from Transaction
 	
 	/**Return the current, active transaction associated with this thread.
 	 * If there is no transaction yet, this method returns null.
