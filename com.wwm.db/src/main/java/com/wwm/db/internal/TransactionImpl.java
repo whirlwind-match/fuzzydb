@@ -151,6 +151,8 @@ public class TransactionImpl implements Transaction {
 				store.addToMetaCache(mo);
 			}
 		}
+		
+		store.clearCurrentTransaction();
 	}
 
 	public synchronized <E> long count(Class<E> clazz) throws ArchException {
@@ -212,6 +214,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	public synchronized void dispose() {
+		store.clearCurrentTransaction();
 		if (disposed) return;
 		disposed = true;
 		if (started) {

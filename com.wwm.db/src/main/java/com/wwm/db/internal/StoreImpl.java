@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.springframework.util.Assert;
+
 import com.wwm.db.GenericRef;
 import com.wwm.db.Helper;
 import com.wwm.db.Ref;
@@ -47,6 +49,12 @@ import com.wwm.io.packet.messages.Command;
 import com.wwm.io.packet.messages.Message;
 import com.wwm.io.packet.messages.Response;
 
+/**
+ * TODO: Operations on the current transaction are not yet implemented... but could be.
+ * 
+ * @author Adrian Clarkson
+ * @author Neale Upstone
+ */
 public class StoreImpl implements Store {
 
 	private class StoreImplContext implements Helper {
@@ -162,6 +170,8 @@ public class StoreImpl implements Store {
 	private final Authority authority;
 	private final StoreImpl peer;
 	
+	private final ThreadLocal<Transaction> currentTransaction = new ThreadLocal<Transaction>();
+	
 	/**Constructs an Authoritative store
 	 * @param storeId
 	 * @param storeName
@@ -235,11 +245,18 @@ public class StoreImpl implements Store {
 	}
 	
 	public Transaction begin() {
-		return new TransactionImpl(this, context.getDefaultNamespace());
+		Assert.state(currentTransaction.get() == null, "Current transaction already active on this thread. Nested transactions not supported");
+		TransactionImpl transaction = new TransactionImpl(this, context.getDefaultNamespace());
+		currentTransaction.set(transaction);
+		return transaction;
 	}
 
 	public Transaction currentTransaction() {
-		throw new UnsupportedOperationException(); // to do
+		return currentTransaction.get();
+	}
+	
+	void clearCurrentTransaction() {
+		currentTransaction.remove();
 	}
 
 	public Store getAuthStore() {
@@ -434,7 +451,7 @@ public class StoreImpl implements Store {
 		return context.getVersion(obj);
 	}
 
-	public StoreImplContext getContext() {
+	public final StoreImplContext getContext() {
 		return context;
 	}
 
