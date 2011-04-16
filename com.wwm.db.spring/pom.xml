@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>com.wwm.build.parent</artifactId>
+    <groupId>com.wwm</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>com.wwm.db</groupId>
+  <artifactId>com.wwm.db.spring</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Whirlwind JPA</name>
+  <description>Provides JPA support</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.geronimo.specs</groupId>
+  		<artifactId>geronimo-jpa_2.0_spec</artifactId>
+  		<version>1.1</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.wwm.db</groupId>
+  		<artifactId>com.wwm.db.server</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.wwm.db</groupId>
+  		<artifactId>com.wwm.db</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-tx</artifactId>
+  		<version>${spring.version}</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
+  <properties>
+  	<spring.version>3.0.5.RELEASE</spring.version>
+  </properties>
+</project>
