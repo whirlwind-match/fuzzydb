@@ -1,5 +1,8 @@
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -11,16 +14,9 @@ import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.userobjects.TestIndexClass;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.impl.DummyCli;
 import com.wwm.util.MTRandom;
 
-import static org.junit.Assert.*;
-
 public class SimpleIndexTest extends BaseDatabaseTest {
-	static final int serverPort = 5002;
-	
-	ClassLoaderInterface cli = new DummyCli();
 
 	@Test public void testCreateIndexedObject() throws ArchException {
 		
