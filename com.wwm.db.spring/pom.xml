@@ -8,8 +8,8 @@
   <groupId>com.wwm.db</groupId>
   <artifactId>com.wwm.db.spring</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Whirlwind JPA</name>
-  <description>Provides JPA support</description>
+  <name>${project.artifactId}</name>
+  <description>Provides integration with Spring transaction management</description>
   <dependencies>
   	<dependency>
   		<groupId>org.apache.geronimo.specs</groupId>
