@@ -27,5 +27,6 @@
         <module>com.wwm.expressions</module>
         <module>com.wwm.db.server</module>
         <!--        <module>com.wwm.postcode</module> -->
-    </modules>
+        <module>com.wwm.db.spring</module>
+     </modules>
 </project>
