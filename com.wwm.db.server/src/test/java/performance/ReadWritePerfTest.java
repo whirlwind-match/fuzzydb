@@ -1,6 +1,8 @@
 package performance;
 
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -25,8 +27,6 @@ import com.wwm.db.userobjects.MutableString;
 import com.wwm.io.packet.ClassLoaderInterface;
 import com.wwm.io.packet.impl.DummyCli;
 import com.wwm.util.MTRandom;
-
-import static org.junit.Assert.fail;
 
 public class ReadWritePerfTest {
 	
@@ -215,6 +215,7 @@ public class ReadWritePerfTest {
 					String result = (String) map.get(ref);
 					Assert.assertEquals("Hello World " + (i*numberPerLoop + j), result);
 				}
+				t.dispose();
 			}
 			
 			long duration = System.currentTimeMillis() - start;
