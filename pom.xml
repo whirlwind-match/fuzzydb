@@ -20,6 +20,7 @@
         <module>com.wwm.util.gui</module>
         <module>com.wwm.util.servlet</module>
         <module>com.wwm.db.core</module>
+        <module>com.wwm.io.core</module>
         <module>com.wwm.io.packet</module>
         <module>com.wwm.db</module>
         <module>com.wwm.attrs</module>
