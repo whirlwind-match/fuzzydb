@@ -10,30 +10,26 @@
  *****************************************************************************/
 package com.wwm.db.internal.server;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.Collection;
 
+import com.wwm.io.core.MessageSource;
+import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.packet.exceptions.NotListeningException;
-import com.wwm.io.packet.impl.DummyCli;
-import com.wwm.io.packet.layer1.Server;
-import com.wwm.io.packet.layer1.ServerImpl;
-import com.wwm.io.packet.layer2.SourcedMessage;
-
+ 
 /**
- * A multi-threaded executor which processes commands retrieved from a server instance
+ * A multi-threaded executor which processes commands retrieved from a {@link MessageSource} instance
  */
 public class CommandProcessingPool extends WorkerThreadManager {
 
 	private final CommandExecutor commandExecutor;
 
-	private final Server server;
+	private final MessageSource messageSource;
 
 
-	public CommandProcessingPool(CommandExecutor commandExecutor, DummyCli cli, InetSocketAddress address) throws IOException {
+	public CommandProcessingPool(CommandExecutor commandExecutor, MessageSource messageSource) {
 		this.commandExecutor = commandExecutor;
-		this.server = new ServerImpl(cli);
-		server.listen(address);
+		this.messageSource = messageSource;
+		messageSource.start();
 	}
 
     /**
@@ -43,7 +39,7 @@ public class CommandProcessingPool extends WorkerThreadManager {
     public void runWorker() {
         Collection<SourcedMessage> messages = null;
         try {
-            messages = server.waitForMessage(1000);
+            messages = messageSource.waitForMessage(1000);
         } catch (NotListeningException e) {
             //super.stop();
         } finally {
@@ -73,6 +69,6 @@ public class CommandProcessingPool extends WorkerThreadManager {
     @Override
     public void shutdown() {
     	super.shutdown();
-    	server.close();
+    	messageSource.close();
     }
 }

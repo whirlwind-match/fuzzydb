@@ -26,13 +26,13 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.exceptions.NotListeningException;
-import com.wwm.io.packet.layer2.SourcedMessage;
 import com.wwm.io.packet.layer2.SourcedMessageImpl;
 import com.wwm.io.packet.messages.PacketMessage;
 
-public class ConnectionManagerImpl implements ConnectionManager {
+public abstract class ConnectionManagerImpl implements ConnectionManager {
 
 	static private final Logger log = LogFactory.getLogger(ConnectionManagerImpl.class); 
 	
@@ -46,7 +46,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	public int getNumberOfConnections() {
 		return connections.size();
 	}
-	
+
 	public void close()
 	{
 		synchronized(connections) {

@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.io.packet.messages;
 
+import com.wwm.io.core.Message;
+
 @SuppressWarnings("serial")
 public class Response extends Message {
 

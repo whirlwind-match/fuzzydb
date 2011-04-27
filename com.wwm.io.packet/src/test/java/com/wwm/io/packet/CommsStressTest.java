@@ -12,12 +12,13 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.wwm.io.core.Message;
+import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.packet.exceptions.NotListeningException;
 import com.wwm.io.packet.impl.DummyCli;
 import com.wwm.io.packet.layer1.Server;
 import com.wwm.io.packet.layer1.ServerImpl;
-import com.wwm.io.packet.layer2.SourcedMessage;
-import com.wwm.io.packet.messages.Message;
+import com.wwm.io.packet.layer1.SocketListeningServer;
 
 public class CommsStressTest {
 	protected static final String defaultAddress = "127.0.0.1";
@@ -93,8 +94,8 @@ public class CommsStressTest {
 		final int loops = 10000;
 		
 		// Make server
-		ServerImpl server = new ServerImpl(cli);
-		server.listen(new InetSocketAddress(serverPort));	// listen on main adaptor
+		ServerImpl server = new SocketListeningServer(cli, new InetSocketAddress(serverPort));
+		server.start();
 		
 		doMessageLoops(server, loops);
 		
@@ -114,8 +115,8 @@ public class CommsStressTest {
 		final int loops = 1500;
 		
 		// Make server
-		ServerImpl server = new ServerImpl(cli);
-		server.listen(new InetSocketAddress(serverPort));	// listen on main adaptor
+		ServerImpl server = new SocketListeningServer(cli, new InetSocketAddress(serverPort));
+		server.start();
 		
 		doConnectLoops(server, 100); // warm-up
 		

@@ -12,7 +12,9 @@ package com.wwm.io.packet.layer2;
 
 import java.nio.ByteBuffer;
 
-import com.wwm.io.packet.messages.Message;
+import com.wwm.io.core.Message;
+import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.SourcedMessage;
 
 public class SourcedMessageImpl implements SourcedMessage {
 

@@ -23,7 +23,10 @@ import com.wwm.io.packet.ClassLoaderInterface;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;
 
-public class ServerImpl extends ConnectionManagerImpl implements Server {
+/**
+ * A MessageSource capable of listening on multiple InetSockets
+ */
+public abstract class ServerImpl extends ConnectionManagerImpl implements Server {
 		
 	//private Selector selector;	// Always null when there are no listers active.
 	private Map<SelectionKey, ServerSocketChannel> listners = Collections.synchronizedMap(new HashMap<SelectionKey, ServerSocketChannel>());

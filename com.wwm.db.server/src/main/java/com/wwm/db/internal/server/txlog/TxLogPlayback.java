@@ -25,11 +25,11 @@ import com.wwm.db.internal.comms.messages.OkRsp;
 import com.wwm.db.internal.server.CommandProcessingPool;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.WorkerThread;
-import com.wwm.io.packet.layer2.MessageInterface;
+import com.wwm.io.core.Message;
+import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.layer2.PacketCodec;
 import com.wwm.io.packet.layer2.SourcedMessageImpl;
 import com.wwm.io.packet.messages.ErrorRsp;
-import com.wwm.io.packet.messages.Message;
 import com.wwm.io.packet.messages.PacketMessage;
 
 public class TxLogPlayback extends WorkerThread implements MessageInterface {

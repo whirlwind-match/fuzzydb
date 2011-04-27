@@ -20,28 +20,31 @@ import java.util.Map;
 
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
+import com.wwm.io.core.Message;
+import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.packet.ClassLoaderInterface;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;
 import com.wwm.io.packet.exceptions.CommandTimedOutException;
 import com.wwm.io.packet.exceptions.ConnectionLostException;
 import com.wwm.io.packet.exceptions.NotListeningException;
-import com.wwm.io.packet.layer2.SourcedMessage;
 import com.wwm.io.packet.messages.Command;
 import com.wwm.io.packet.messages.ErrorRsp;
-import com.wwm.io.packet.messages.Message;
 import com.wwm.io.packet.messages.Response;
 
 public class ClientConnectionManagerImpl extends Thread implements ClientConnectionManager {
 
+	private static final int MILLIS_PER_SEC = 1000;
+	private static final int TIMEOUT = 1000;
+
 	@Override
-	public void run() {
+	public final void run() {
 		super.run();
 
 		for (;;) {
 			Collection<SourcedMessage> messages = null;			
 			try {
-				messages = cm.waitForMessage(1000);
+				messages = cm.waitForMessage(TIMEOUT);
 			} catch (NotListeningException e) {
 				// Connection lost!
 				// signal all threads to wake up
@@ -104,7 +107,12 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 		nonAuthStack = authStack = new TCPStack(sc, cli);
 
 		// Create a connection manager to pump message out and in
-		cm = new ConnectionManagerImpl();
+		cm = new ConnectionManagerImpl(){
+			@Override
+			public void start() { 
+				// effectively connect() in this scenario.  
+			}
+		};
 		cm.addConnection(authStack);
 		super.setDaemon(true);
 		super.start();
@@ -118,7 +126,7 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 		return null;
 	}
 	
-	public Response execute(Authority authority, Command command) throws ArchException {
+	public final Response execute(Authority authority, Command command) throws ArchException {
 		int cid = command.getCommandId();
 		Response response = null;
 		
@@ -152,7 +160,7 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 			if (neverTimesOut ) {
 				Thread.sleep(Long.MAX_VALUE);
 			} else {
-				Thread.sleep(Settings.getInstance().getCommandTimeoutSecs() * 1000);
+				Thread.sleep(Settings.getInstance().getCommandTimeoutSecs() * MILLIS_PER_SEC);
 			}
 			// Timeout
 			removePendingCommand(cid);
@@ -188,13 +196,13 @@ public class ClientConnectionManagerImpl extends Thread implements ClientConnect
 		}
 	}
 
-	public void close() {
+	public final void close() {
 		nonAuthStack.getMessageInterface().close();
 		authStack.getMessageInterface().close();
 		cm.close();
 	}
 
-	public void requestClassData(Authority authority, int storeId, String className) throws IOException {
+	public final void requestClassData(Authority authority, int storeId, String className) throws IOException {
 		CommsStack stack = null;
 		switch (authority) {
 		case Authoritative:

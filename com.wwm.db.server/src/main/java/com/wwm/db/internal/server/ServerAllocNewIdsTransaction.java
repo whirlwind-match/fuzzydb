@@ -18,7 +18,7 @@ import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.io.packet.layer2.MessageInterface;
+import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.messages.Command;
 
 public class ServerAllocNewIdsTransaction extends ServerTransaction {

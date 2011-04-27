@@ -23,7 +23,7 @@ import com.wwm.db.core.Settings;
 import com.wwm.db.exceptions.UnknownTransactionException;
 import com.wwm.db.internal.server.PersistentServerTransaction.Key;
 import com.wwm.db.internal.server.txlog.TxLogSink;
-import com.wwm.io.packet.layer2.MessageInterface;
+import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.messages.Command;
 import com.wwm.util.FastSemaphore;
 

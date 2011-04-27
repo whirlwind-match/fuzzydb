@@ -12,6 +12,8 @@ package com.wwm.io.packet.messages;
 
 import java.nio.ByteBuffer;
 
+import com.wwm.io.core.Message;
+
 public class PacketMessage {
 	private final Message message;
 	private final ByteBuffer packet;

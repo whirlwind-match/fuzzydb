@@ -10,23 +10,12 @@
  *****************************************************************************/
 package com.wwm.io.packet.layer1;
 
-import java.util.Collection;
 
+import com.wwm.io.core.MessageSource;
 import com.wwm.io.packet.CommsStack;
-import com.wwm.io.packet.exceptions.NotListeningException;
-import com.wwm.io.packet.layer2.SourcedMessage;
 
-public interface ConnectionManager {
-	/**Blocks until messages arrives, then returns them.
-	 * Throws an exception if the Server is not listening, or unlisten is called while another thread is blocking.
-	 * @param timeoutMillis How long to wait
-	 * @return A collection of received messages with information on where they came from.  Returns null if times out.
-	 * @throws NotListeningException The server is not listening, or was unlistened while this thread was blocking
-	 */
-	public Collection<SourcedMessage> waitForMessage(int timeoutMillis) throws NotListeningException;
-	//public void closeAllConnections();
-	public void addConnection(CommsStack stack);
-	public void close();
-	
-	public int getNumberOfConnections();
+public interface ConnectionManager extends MessageSource {
+	//void closeAllConnections();
+	void addConnection(CommsStack stack);
+	int getNumberOfConnections();
 }

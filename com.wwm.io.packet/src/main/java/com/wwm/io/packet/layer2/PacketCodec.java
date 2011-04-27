@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.io.core.Message;
+import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.ArchInStream;
 import com.wwm.io.packet.ArchOutStream;
 import com.wwm.io.packet.ClassLoaderInterface;
@@ -27,7 +29,6 @@ import com.wwm.io.packet.ClassTokenCache;
 import com.wwm.io.packet.exceptions.ClassRepeatedException;
 import com.wwm.io.packet.layer1.PacketInterface;
 import com.wwm.io.packet.messages.Loggable;
-import com.wwm.io.packet.messages.Message;
 import com.wwm.io.packet.messages.PacketMessage;
 
 public class PacketCodec implements MessageInterface {

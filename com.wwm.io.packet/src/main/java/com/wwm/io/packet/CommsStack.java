@@ -12,8 +12,8 @@ package com.wwm.io.packet;
 
 import java.io.IOException;
 
+import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.layer1.SocketDriver;
-import com.wwm.io.packet.layer2.MessageInterface;
 
 public interface CommsStack {
 	public SocketDriver getDriver();

@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.io.packet.messages;
 
+import com.wwm.io.core.Message;
+
 public abstract class Command extends Message {
 
 	public Command() {

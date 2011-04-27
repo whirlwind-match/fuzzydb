@@ -54,7 +54,7 @@ import com.wwm.db.internal.table.UserTable;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.query.RetrieveSpec;
 import com.wwm.db.query.RetrieveSpecItem;
-import com.wwm.io.packet.layer2.MessageInterface;
+import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.messages.ErrorRsp;
 import com.wwm.io.packet.messages.Response;
 import com.wwm.model.attributes.Score;

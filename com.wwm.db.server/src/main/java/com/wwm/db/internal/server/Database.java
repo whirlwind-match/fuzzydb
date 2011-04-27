@@ -22,8 +22,10 @@ import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.internal.server.txlog.TxLogWriter;
 import com.wwm.db.services.IndexImplementationsService;
+import com.wwm.io.core.MessageSource;
 import com.wwm.io.packet.ClassLoaderInterface;
 import com.wwm.io.packet.impl.DummyCli;
+import com.wwm.io.packet.layer1.SocketListeningServer;
 
 /**
  * TODO: (nu, 8Mar08) I believe Pager should be replaced with a an abstraction of the backing-store, as this should
@@ -141,7 +143,7 @@ public final class Database implements DatabaseVersionState {
      */
 	public void startServer() throws IOException {
 		
-		InetSocketAddress address = (serverAddress == null) ?
+		final InetSocketAddress address = (serverAddress == null) ?
 				new InetSocketAddress(serverPort) :
 				new InetSocketAddress(serverAddress, serverPort);
 		
@@ -162,7 +164,10 @@ public final class Database implements DatabaseVersionState {
 
         transactionCoordinator = new ServerTransactionCoordinator( this, repository);
         CommandExecutor commandExecutor = new CommandExecutor(transactionCoordinator, this);
-        commandProcessor = new CommandProcessingPool(commandExecutor, cli, address); // Note: Starts listening, so may get connections while processing txlog, should be able to cope as we'll just queue messages until we start the processor
+        
+        MessageSource source = new SocketListeningServer(cli, address);
+        
+        commandProcessor = new CommandProcessingPool(commandExecutor, source); // Note: Starts listening, so may get connections while processing txlog, should be able to cope as we'll just queue messages until we start the processor
         
         // Initialise repository, tables and indexes with their transient data
         Initialiser initialiser = new Initialiser( repository, this, commandProcessor );

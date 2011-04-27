@@ -10,6 +10,9 @@
  *****************************************************************************/
 package com.wwm.io.packet.layer2;
 
+import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.SourcedMessage;
+
 public interface MessageSourceManager {
 
 	public void addSource(MessageInterface m);
