@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.wwm.io.packet.layer1.PacketInterface;
+import com.wwm.io.core.PacketInterface;
 
 public class TxLogReader implements PacketInterface {
 

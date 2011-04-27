@@ -14,7 +14,7 @@ import java.util.Collection;
 
 import com.wwm.io.core.MessageSource;
 import com.wwm.io.core.SourcedMessage;
-import com.wwm.io.packet.exceptions.NotListeningException;
+import com.wwm.io.core.exceptions.NotListeningException;
  
 /**
  * A multi-threaded executor which processes commands retrieved from a {@link MessageSource} instance

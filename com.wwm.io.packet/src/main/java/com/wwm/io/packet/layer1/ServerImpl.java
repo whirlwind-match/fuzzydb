@@ -19,7 +19,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.wwm.io.packet.ClassLoaderInterface;
+import org.springframework.util.Assert;
+
+import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;
 
@@ -28,17 +30,16 @@ import com.wwm.io.packet.TCPStack;
  */
 public abstract class ServerImpl extends ConnectionManagerImpl implements Server {
 		
+	protected ServerImpl() throws IOException {
+		super();
+	}
+
 	//private Selector selector;	// Always null when there are no listers active.
 	private Map<SelectionKey, ServerSocketChannel> listners = Collections.synchronizedMap(new HashMap<SelectionKey, ServerSocketChannel>());
 	//private Map<SelectionKey, CommsStack> connections = Collections.synchronizedMap(new HashMap<SelectionKey, CommsStack>());
 	private ClassLoaderInterface cli;
 	private boolean closing = false;
 	
-	public ServerImpl(ClassLoaderInterface cli) throws IOException
-	{
-		super();
-		this.cli = cli;
-	}
 
 	public void listen(String hostname, int port) throws IOException {
 		InetSocketAddress isa = new InetSocketAddress(hostname, port);
@@ -181,6 +182,7 @@ public abstract class ServerImpl extends ConnectionManagerImpl implements Server
 	}
 */
 	private synchronized void accept(ServerSocketChannel ssc) {
+		Assert.state(cli != null, "setCli() must be called before connections are accepted");
 		SocketChannel sc;
 		try {
 			sc = ssc.accept();
@@ -205,4 +207,7 @@ public abstract class ServerImpl extends ConnectionManagerImpl implements Server
 		addConnection(stack);
 	}
 
+	public void setCli(ClassLoaderInterface cli) {
+		this.cli = cli;
+	}
 }

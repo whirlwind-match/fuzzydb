@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.io.core.PacketInterface;
 
 public class Connection implements PacketInterface, SocketDriver {
 	private static final Logger log = LogFactory.getLogger(Connection.class);

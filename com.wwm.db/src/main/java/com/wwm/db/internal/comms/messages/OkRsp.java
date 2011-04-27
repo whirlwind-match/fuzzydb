@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
-import com.wwm.io.packet.messages.Response;
+import com.wwm.io.core.messages.Response;
 
 @SuppressWarnings("serial")
 public class OkRsp extends Response {

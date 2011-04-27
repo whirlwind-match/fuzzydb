@@ -13,8 +13,8 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.userobjects.MutableString;
 import com.wwm.db.userobjects.SampleObject;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.impl.DummyCli;
+import com.wwm.io.core.ClassLoaderInterface;
+import com.wwm.io.core.impl.DummyCli;
 import com.wwm.util.Stopwatch;
 
 import static org.junit.Assert.*;

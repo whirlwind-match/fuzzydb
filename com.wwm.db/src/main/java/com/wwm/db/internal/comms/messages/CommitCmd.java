@@ -15,7 +15,7 @@ import java.util.Map;
 
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.io.packet.messages.Loggable;
+import com.wwm.io.core.messages.Loggable;
 
 @SuppressWarnings("serial")
 public class CommitCmd extends TransactionCommand implements Loggable {

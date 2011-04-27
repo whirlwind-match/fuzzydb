@@ -11,7 +11,6 @@
 package com.wwm.db.internal.server;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Logger;
 
@@ -22,10 +21,10 @@ import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.internal.server.txlog.TxLogWriter;
 import com.wwm.db.services.IndexImplementationsService;
+import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.MessageSource;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.impl.DummyCli;
-import com.wwm.io.packet.layer1.SocketListeningServer;
+import com.wwm.io.core.impl.DummyCli;
+import com.wwm.io.packet.layer1.ServerImpl;
 
 /**
  * TODO: (nu, 8Mar08) I believe Pager should be replaced with a an abstraction of the backing-store, as this should
@@ -40,9 +39,8 @@ public final class Database implements DatabaseVersionState {
     // Ensure we log all uncaught exceptions for whole server.
     static { UncaughtExceptionLogger.initialise(); }
 
-    private String serverAddress;
-    private int serverPort;
-
+    private final MessageSource messageSource;
+    
     private final DummyCli cli = new DummyCli();
     private ServerTransactionCoordinator transactionCoordinator;
     private CommandProcessingPool commandProcessor;
@@ -104,37 +102,14 @@ public final class Database implements DatabaseVersionState {
     }
 
     
-    /**
-     * No-args constructor for use in bean environments like Spring.
-     * To use: need to set serverAddress (optional, can leave as null), and serverPort, and then, when starting up,
-     * call startServer() on the database bean.
-     */
-    public Database() {
-    	// to allow bean version to be constructed
-    }
     
     /**
-     * Create a new database ready to listen on the given InetSocketAddress
-     * NOTE: We've already gone wrong a few times passing InetSocketAddress(InetAddr.LocalAddr, port)
-     * when we actually want to listen on AnyLocalAddr or a loopback (?), perhaps we can not
-     * generate the InetSocketAddress within our API?  E.g. see how startServer() behaves if we 
-     * don't specify serverAddress()
-     * @param address e.g. new InetSocketAddress( port )
-     * @throws IOException
+     * Create a new database ready to process requests from this message source
      */
-    public Database(InetSocketAddress socket) throws IOException {
-    	
-    	serverAddress = socket.getHostName(); 
-    	serverPort = socket.getPort();
+    public Database(MessageSource messageSource) {
+    	this.messageSource = messageSource;
     }
 
-    public void setServerAddress(String serverAddress) {
-		this.serverAddress = serverAddress;
-	}
-    
-    public void setServerPort(int serverPort) {
-		this.serverPort = serverPort;
-	}
 
     /**
      * Allows database to be started having been configured as a 'bean' with the serverAddress and serverPort
@@ -143,10 +118,8 @@ public final class Database implements DatabaseVersionState {
      */
 	public void startServer() throws IOException {
 		
-		final InetSocketAddress address = (serverAddress == null) ?
-				new InetSocketAddress(serverPort) :
-				new InetSocketAddress(serverAddress, serverPort);
-		
+		((ServerImpl) messageSource).setCli(cli);
+			
         // load latest valid repository
         log.info("========== Starting Server ==========");
         Repository loaded = Repository.load(setup.getReposDiskRoot());
@@ -165,9 +138,7 @@ public final class Database implements DatabaseVersionState {
         transactionCoordinator = new ServerTransactionCoordinator( this, repository);
         CommandExecutor commandExecutor = new CommandExecutor(transactionCoordinator, this);
         
-        MessageSource source = new SocketListeningServer(cli, address);
-        
-        commandProcessor = new CommandProcessingPool(commandExecutor, source); // Note: Starts listening, so may get connections while processing txlog, should be able to cope as we'll just queue messages until we start the processor
+        commandProcessor = new CommandProcessingPool(commandExecutor, messageSource); // Note: Starts listening, so may get connections while processing txlog, should be able to cope as we'll just queue messages until we start the processor
         
         // Initialise repository, tables and indexes with their transient data
         Initialiser initialiser = new Initialiser( repository, this, commandProcessor );

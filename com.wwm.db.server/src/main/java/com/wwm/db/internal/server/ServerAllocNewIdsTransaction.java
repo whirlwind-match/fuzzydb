@@ -19,7 +19,7 @@ import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
 import com.wwm.db.internal.table.UserTable;
 import com.wwm.io.core.MessageInterface;
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.messages.Command;
 
 public class ServerAllocNewIdsTransaction extends ServerTransaction {
 

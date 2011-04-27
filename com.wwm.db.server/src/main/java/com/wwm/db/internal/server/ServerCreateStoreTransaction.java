@@ -19,7 +19,7 @@ import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.comms.messages.CreateStoreCmd;
 import com.wwm.db.internal.comms.messages.CreateStoreRsp;
 import com.wwm.io.core.MessageInterface;
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.messages.Command;
 
 public class ServerCreateStoreTransaction extends ServerTransaction {
 

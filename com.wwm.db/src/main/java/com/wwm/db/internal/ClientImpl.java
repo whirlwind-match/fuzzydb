@@ -40,16 +40,16 @@ import com.wwm.db.internal.comms.messages.ListStoresRsp;
 import com.wwm.db.internal.comms.messages.OpenStoreCmd;
 import com.wwm.db.internal.comms.messages.OpenStoreRsp;
 import com.wwm.db.internal.comms.messages.ShutdownCmd;
-import com.wwm.io.packet.ArchInStream;
-import com.wwm.io.packet.ArchOutStream;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.ClassTokenCache;
-import com.wwm.io.packet.exceptions.CommsErrorException;
-import com.wwm.io.packet.impl.DummyCli;
-import com.wwm.io.packet.layer1.Authority;
+import com.wwm.io.core.ArchInStream;
+import com.wwm.io.core.ArchOutStream;
+import com.wwm.io.core.Authority;
+import com.wwm.io.core.ClassLoaderInterface;
+import com.wwm.io.core.ClassTokenCache;
+import com.wwm.io.core.exceptions.CommsErrorException;
+import com.wwm.io.core.impl.DummyCli;
+import com.wwm.io.core.messages.Command;
 import com.wwm.io.packet.layer1.ClientConnectionManager;
 import com.wwm.io.packet.layer1.ClientConnectionManagerImpl;
-import com.wwm.io.packet.messages.Command;
 
 public class ClientImpl implements Client {
 

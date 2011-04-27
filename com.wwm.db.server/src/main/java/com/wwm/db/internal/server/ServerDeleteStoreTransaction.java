@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.comms.messages.DeleteStoreCmd;
 import com.wwm.io.core.MessageInterface;
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.messages.Command;
 
 public class ServerDeleteStoreTransaction extends ServerTransaction {
 	

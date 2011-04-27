@@ -10,8 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.Loggable;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.Loggable;
 
 @SuppressWarnings("serial")
 public class DeleteStoreCmd extends Command implements Loggable {

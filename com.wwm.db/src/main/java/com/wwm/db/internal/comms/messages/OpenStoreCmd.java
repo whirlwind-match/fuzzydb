@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.messages.Command;
 
 public class OpenStoreCmd extends Command {
 

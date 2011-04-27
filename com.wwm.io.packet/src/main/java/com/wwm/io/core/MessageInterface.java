@@ -13,7 +13,7 @@ package com.wwm.io.core;
 import java.io.IOException;
 import java.util.Collection;
 
-import com.wwm.io.packet.messages.PacketMessage;
+import com.wwm.io.core.messages.PacketMessage;
 
 public interface MessageInterface {
 	/**
@@ -24,7 +24,7 @@ public interface MessageInterface {
 	 * @return Collection of PacketMessage, or null if no messages are available at this time.
 	 * @throws IOException 
 	 */
-	public Collection<PacketMessage> read() throws IOException;
+	Collection<PacketMessage> read() throws IOException;
 	
 	/**
 	 * Send a message back to the source.  This will either be the requested data, an acknowledgement, or an error.
@@ -32,11 +32,11 @@ public interface MessageInterface {
 	 * then this should just ensure that the next command is able to be received.
 	 * @param m The message to be sent
 	 */
-	public void send(Message m) throws IOException;
-	public void send(Message m[]) throws IOException;
-	public void send(Collection<Message> m) throws IOException;
+	void send(Message m) throws IOException;
+	void send(Message m[]) throws IOException;
+	void send(Collection<Message> m) throws IOException;
 	
-	public void requestClassData(int storeId, String className) throws IOException;
+	void requestClassData(int storeId, String className) throws IOException;
 	
-	public void close();
+	void close();
 }

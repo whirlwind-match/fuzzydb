@@ -20,7 +20,7 @@ import com.wwm.db.internal.comms.messages.QueryFetchCmd;
 import com.wwm.db.internal.comms.messages.QueryRsp;
 import com.wwm.db.query.ResultIterator;
 import com.wwm.expressions.LogicExpr;
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.messages.Command;
 
 public class ResultIteratorImpl<E> implements ResultIterator<E> {
 

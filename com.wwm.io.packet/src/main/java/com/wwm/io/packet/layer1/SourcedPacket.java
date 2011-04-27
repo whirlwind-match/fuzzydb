@@ -12,6 +12,8 @@ package com.wwm.io.packet.layer1;
 
 import java.nio.ByteBuffer;
 
+import com.wwm.io.core.PacketInterface;
+
 public interface SourcedPacket {
 	public ByteBuffer getPacket();
 	public PacketInterface getSource();

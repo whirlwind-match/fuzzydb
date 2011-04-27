@@ -24,8 +24,9 @@ import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.userobjects.MutableString;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.impl.DummyCli;
+import com.wwm.io.core.ClassLoaderInterface;
+import com.wwm.io.core.impl.DummyCli;
+import com.wwm.io.packet.layer1.SocketListeningServer;
 import com.wwm.util.MTRandom;
 
 public class ReadWritePerfTest {
@@ -44,7 +45,7 @@ public class ReadWritePerfTest {
 
 		for (int count = 0; count < outerLoops; count++) {
 			// Make server
-			Database database = new Database(new InetSocketAddress(serverPort));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
 			database.startServer();
 			
 			// Make client
@@ -105,7 +106,7 @@ public class ReadWritePerfTest {
 		if (false) // comment out this line to enable
 		{
 			// Make server
-			Database database = new Database(new InetSocketAddress(serverPort));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
 
 			Client client = Factory.createClient();
 			client.connect(new InetSocketAddress(InetAddress.getLocalHost(), serverPort));
@@ -132,7 +133,7 @@ public class ReadWritePerfTest {
 		// RANDOM READS
 		{
 			// Make server
-			Database database = new Database(new InetSocketAddress(serverPort));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
 			database.startServer();
 
 			Client client = Factory.createClient();
@@ -171,7 +172,7 @@ public class ReadWritePerfTest {
 
 		for (int count = 0; count < outerLoops; count++) {
 			// Make server
-			Database database = new Database(new InetSocketAddress(serverPort));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
 			database.startServer();
 			
 			// Make client
@@ -240,7 +241,7 @@ public class ReadWritePerfTest {
 
 		for (int count = 0; count < outerLoops; count++) {
 			// Make server
-			Database database = new Database(new InetSocketAddress(serverPort));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
 			database.startServer();
 			
 			// Make client

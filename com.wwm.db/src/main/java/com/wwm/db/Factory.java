@@ -14,7 +14,7 @@ package com.wwm.db;
 import com.wwm.db.internal.ClientImpl;
 import com.wwm.db.internal.RetrieveSpecImpl;
 import com.wwm.db.query.RetrieveSpec;
-import com.wwm.io.packet.layer1.Authority;
+import com.wwm.io.core.Authority;
 
 
 

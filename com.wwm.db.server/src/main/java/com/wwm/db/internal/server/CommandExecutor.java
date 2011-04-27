@@ -39,9 +39,9 @@ import com.wwm.db.internal.comms.messages.WWSearchCmd;
 import com.wwm.db.internal.comms.messages.WWSearchFetchCmd;
 import com.wwm.io.core.MessageInterface;
 import com.wwm.io.core.SourcedMessage;
-import com.wwm.io.packet.layer2.SourcedMessageImpl;
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.ErrorRsp;
+import com.wwm.io.core.layer2.SourcedMessageImpl;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.ErrorRsp;
 
 public class CommandExecutor {
 
@@ -90,7 +90,7 @@ public class CommandExecutor {
 	}
 	
 	private void sendErrorRsp(SourcedMessage command, ArchException ae) {
-		ErrorRsp er = new ErrorRsp(command.getStoreId(), command.getMessage().getCommandId(), ae);
+		ErrorRsp er = new ErrorRsp(command.getMessage().getStoreId(), command.getMessage().getCommandId(), ae);
 		try {
 			command.getSource().send(er);
 		} catch (IOException e1) {
@@ -103,7 +103,7 @@ public class CommandExecutor {
 		Command cmd = (Command)command.getMessage();
 		ByteBuffer packet = command.getPacket();
 		int cid = cmd.getCommandId();
-		int storeId = command.getStoreId();
+		int storeId = cmd.getStoreId();
 		
 		Object executionTarget = null;
 		if (cmd instanceof TransactionCommand) {
@@ -194,7 +194,7 @@ public class CommandExecutor {
 		Command payload = command.getPayload();
 		if (payload != null) {
 			// execute payload command
-			SourcedMessage command2 = new SourcedMessageImpl(storeId, source, payload, packet);
+			SourcedMessage command2 = new SourcedMessageImpl(source, payload, packet);
 			execute(command2);
 		} else {
 			// payload was empty, just ack the begin transaction

@@ -18,10 +18,10 @@ import java.nio.ByteBuffer;
 import java.util.Collection;
 import java.util.Date;
 
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.layer1.PacketInterface;
-import com.wwm.io.packet.layer2.PacketCodec;
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.ClassLoaderInterface;
+import com.wwm.io.core.PacketInterface;
+import com.wwm.io.core.layer2.PacketCodec;
+import com.wwm.io.core.messages.Command;
 import com.wwm.util.MeteredOutputStream;
 
 public class TxLogWriter implements TxLogSink, PacketInterface {

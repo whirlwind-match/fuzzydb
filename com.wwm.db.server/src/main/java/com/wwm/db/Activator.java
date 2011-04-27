@@ -22,6 +22,7 @@ import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.services.IndexImplementationsService;
+import com.wwm.io.packet.layer1.SocketListeningServer;
 
 /**
  * This implements the OSGi {@link BundleActivator} interface, and, for the moment,
@@ -42,7 +43,7 @@ public class Activator implements BundleActivator {
 		int port = config.getListenPort();
 		
 		try {
-			db = new Database(new InetSocketAddress(host, port));
+			db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)));
 			
 			// Also want to register indexManager service, which probably should be in own bundle
 			IndexImplementationsService service = new IndexImplementationsService();

@@ -27,10 +27,10 @@ import java.util.logging.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.SourcedMessage;
+import com.wwm.io.core.exceptions.NotListeningException;
+import com.wwm.io.core.layer2.SourcedMessageImpl;
+import com.wwm.io.core.messages.PacketMessage;
 import com.wwm.io.packet.CommsStack;
-import com.wwm.io.packet.exceptions.NotListeningException;
-import com.wwm.io.packet.layer2.SourcedMessageImpl;
-import com.wwm.io.packet.messages.PacketMessage;
 
 public abstract class ConnectionManagerImpl implements ConnectionManager {
 
@@ -80,7 +80,7 @@ public abstract class ConnectionManagerImpl implements ConnectionManager {
 						incoming = stack.getMessageInterface().read();
 						if (incoming != null) {
 							for (PacketMessage m : incoming) {
-								messages.add(new SourcedMessageImpl(m.getMessage().getStoreId(), stack
+								messages.add(new SourcedMessageImpl(stack
 										.getMessageInterface(), m.getMessage(), m.getPacket()));
 							}
 						}

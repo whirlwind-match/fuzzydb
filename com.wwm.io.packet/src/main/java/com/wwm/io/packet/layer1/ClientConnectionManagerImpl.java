@@ -20,17 +20,18 @@ import java.util.Map;
 
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
+import com.wwm.io.core.Authority;
+import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.Message;
 import com.wwm.io.core.SourcedMessage;
-import com.wwm.io.packet.ClassLoaderInterface;
+import com.wwm.io.core.exceptions.CommandTimedOutException;
+import com.wwm.io.core.exceptions.ConnectionLostException;
+import com.wwm.io.core.exceptions.NotListeningException;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.ErrorRsp;
+import com.wwm.io.core.messages.Response;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;
-import com.wwm.io.packet.exceptions.CommandTimedOutException;
-import com.wwm.io.packet.exceptions.ConnectionLostException;
-import com.wwm.io.packet.exceptions.NotListeningException;
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.ErrorRsp;
-import com.wwm.io.packet.messages.Response;
 
 public class ClientConnectionManagerImpl extends Thread implements ClientConnectionManager {
 

@@ -12,7 +12,7 @@ package com.wwm.db.internal.comms.messages;
 
 import java.util.ArrayList;
 
-import com.wwm.io.packet.messages.Command;
+import com.wwm.io.core.messages.Command;
 
 @SuppressWarnings("serial")
 public class DisposeCmd extends Command {

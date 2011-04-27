@@ -27,10 +27,10 @@ import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.WorkerThread;
 import com.wwm.io.core.Message;
 import com.wwm.io.core.MessageInterface;
-import com.wwm.io.packet.layer2.PacketCodec;
-import com.wwm.io.packet.layer2.SourcedMessageImpl;
-import com.wwm.io.packet.messages.ErrorRsp;
-import com.wwm.io.packet.messages.PacketMessage;
+import com.wwm.io.core.layer2.PacketCodec;
+import com.wwm.io.core.layer2.SourcedMessageImpl;
+import com.wwm.io.core.messages.ErrorRsp;
+import com.wwm.io.core.messages.PacketMessage;
 
 public class TxLogPlayback extends WorkerThread implements MessageInterface {
 
@@ -76,7 +76,7 @@ public class TxLogPlayback extends WorkerThread implements MessageInterface {
 					}
 					
 					try {
-						commandProcessor.execute(new SourcedMessageImpl(storeId, this, m, message.getPacket()));
+						commandProcessor.execute(new SourcedMessageImpl(this, m, message.getPacket()));
 					} catch (Error e) {
 						playbackErrors++;
 					}

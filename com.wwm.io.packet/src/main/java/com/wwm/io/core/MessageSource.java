@@ -2,7 +2,7 @@ package com.wwm.io.core;
 
 import java.util.Collection;
 
-import com.wwm.io.packet.exceptions.NotListeningException;
+import com.wwm.io.core.exceptions.NotListeningException;
 
 public interface MessageSource {
 

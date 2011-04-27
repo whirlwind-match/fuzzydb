@@ -27,8 +27,8 @@ import com.wwm.db.internal.server.DatabaseVersionState;
 import com.wwm.db.internal.server.ServerStore;
 import com.wwm.db.internal.server.TransactionControl;
 import com.wwm.db.internal.server.WorkerThread;
-import com.wwm.io.packet.ArchInStream;
-import com.wwm.io.packet.ArchOutStream;
+import com.wwm.io.core.ArchInStream;
+import com.wwm.io.core.ArchOutStream;
 import com.wwm.util.MeteredOutputStream;
 
 // Page format is:

@@ -15,8 +15,7 @@ import java.nio.ByteBuffer;
 
 public interface SourcedMessage {
 
-	public MessageInterface getSource();
-	public Message getMessage();
-	public int getStoreId();
-	public ByteBuffer getPacket();
+	MessageInterface getSource();
+	Message getMessage();
+	ByteBuffer getPacket();
 }

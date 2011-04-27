@@ -52,11 +52,11 @@ import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.expressions.LogicExpr;
-import com.wwm.io.packet.ArchInStream;
-import com.wwm.io.packet.ArchOutStream;
-import com.wwm.io.packet.exceptions.CommsErrorException;
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.Response;
+import com.wwm.io.core.ArchInStream;
+import com.wwm.io.core.ArchOutStream;
+import com.wwm.io.core.exceptions.CommsErrorException;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.Response;
 
 public class TransactionImpl implements Transaction {
 

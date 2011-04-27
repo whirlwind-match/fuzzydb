@@ -12,12 +12,12 @@ import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.comms.messages.EchoCmd;
 import com.wwm.db.internal.comms.messages.EchoRsp;
 import com.wwm.db.internal.server.Database;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.impl.DummyCli;
-import com.wwm.io.packet.layer1.Authority;
+import com.wwm.io.core.Authority;
+import com.wwm.io.core.ClassLoaderInterface;
+import com.wwm.io.core.impl.DummyCli;
+import com.wwm.io.core.messages.Response;
 import com.wwm.io.packet.layer1.ClientConnectionManager;
 import com.wwm.io.packet.layer1.ClientConnectionManagerImpl;
-import com.wwm.io.packet.messages.Response;
 
 public class EchoPerfTest {
 	protected static int serverPort = 5002;

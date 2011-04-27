@@ -64,18 +64,12 @@ public class UserTableImpl<T> implements Serializable, UserTable<T> {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#testCanCreate(com.wwm.io.packet.MetaObject)
-	 */
 	public void testCanCreate(MetaObject<T> mo) throws ObjectExistsException {
 		if (doesElementExist(mo.getRef())) {
 			throw new ObjectExistsException();
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#testCanUpdate(com.wwm.io.packet.MetaObject)
-	 */
 	public void testCanUpdate(MetaObject<T> mo) throws UnknownObjectException, WriteCollisionException {
 		MetaObject<T> previous = getObject(mo.getRef());
 		if ( previous.getVersion() != mo.getVersion() 
@@ -84,39 +78,24 @@ public class UserTableImpl<T> implements Serializable, UserTable<T> {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#testCanDelete(com.wwm.io.packet.MetaObject)
-	 */
 	public void testCanDelete(RefImpl<T> ref) throws UnknownObjectException {
 		if ( !canSeeLatest(ref) ){
 			throw new UnknownObjectException();
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#create(com.wwm.io.packet.MetaObject)
-	 */
 	public void create(MetaObject<T> mo) {
 		table.create(mo.getRef(), new VersionedObject<T>(mo.getObject()));
 	}
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#update(com.wwm.io.packet.MetaObject)
-	 */
 	public void update(MetaObject<T> mo) throws UnknownObjectException {
 		table.update(mo.getRef(), VersionedObject.nextVersion(mo.getObject(), mo.getVersion()));
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#delete(com.wwm.io.packet.MetaObject)
-	 */
 	public void delete(RefImpl<T> ref) throws UnknownObjectException {
 		table.delete(ref);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#getObject(com.wwm.io.packet.RefImpl)
-	 */
 	public MetaObject<T> getObject(RefImpl<T> ref) throws UnknownObjectException {
 		VersionedObject<T> vo = table.getObject(ref);
 		if (vo != null) {
@@ -145,9 +124,6 @@ public class UserTableImpl<T> implements Serializable, UserTable<T> {
 	 */
 
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.Table#allocNewIds(int)
-	 */
 	public long allocNewIds(int count) {
 		return table.allocNewIds(count);
 	}

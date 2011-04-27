@@ -15,9 +15,9 @@ import com.wwm.db.internal.comms.messages.WWSearchOkayRsp;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;
 import com.wwm.db.whirlwind.SearchSpec;
-import com.wwm.io.packet.exceptions.CommandTimedOutException;
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.Response;
+import com.wwm.io.core.exceptions.CommandTimedOutException;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.Response;
 
 public class WWResultSetIterator<T extends Object> implements ResultIterator<Result<T>> {
 

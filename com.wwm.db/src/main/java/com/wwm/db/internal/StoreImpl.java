@@ -41,13 +41,13 @@ import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.expressions.LogicExpr;
+import com.wwm.io.core.ArchInStream;
+import com.wwm.io.core.ArchOutStream;
+import com.wwm.io.core.Authority;
+import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.Message;
-import com.wwm.io.packet.ArchInStream;
-import com.wwm.io.packet.ArchOutStream;
-import com.wwm.io.packet.ClassLoaderInterface;
-import com.wwm.io.packet.layer1.Authority;
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.Response;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.Response;
 
 /**
  * TODO: Operations on the current transaction are not yet implemented... but could be.

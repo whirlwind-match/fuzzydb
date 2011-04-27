@@ -13,8 +13,9 @@ package com.wwm.io.packet.layer1;
 import java.io.IOException;
 
 import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.io.packet.messages.Command;
-import com.wwm.io.packet.messages.Response;
+import com.wwm.io.core.Authority;
+import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.Response;
 
 public interface ClientConnectionManager {
 
