@@ -1,20 +1,24 @@
 package com.springsource.insight.plugin.whirlwind;
 
 
-import likemynds.db.client.Transaction;
 
 import org.aspectj.lang.JoinPoint;
 
 import com.springsource.insight.collection.AbstractOperationCollectionAspect;
 
+
+/**
+ * Collect data on a number of interesting operations.
+ * @author Neale Upstone
+ */
 public aspect CollectionAspect extends AbstractOperationCollectionAspect {
 
 	// In parent aspect this triggers the call of Operation.enter() on before advice
 	// and Operation.exitNormal() afterReturning.
 	public pointcut collectionPoint() : 
-		execution(public * Transaction.count(..)) || 
-		execution(public * Transaction.retrieve*(..)) || 
-		execution(public * Transaction.query*(..));
+		execution(public * com.wwm.db.DataOperations.count(..)) || 
+		execution(public * com.wwm.db.DataOperations.retrieve*(..)) || 
+		execution(public * com.wwm.db.DataOperations.query*(..));
 	
 	@Override
 	protected WhirlwindOperation createOperation(JoinPoint jp) {
