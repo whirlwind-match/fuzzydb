@@ -61,11 +61,11 @@ public class StoreImpl implements Store {
 		private static final int maxIdsToRequest = 1024;
 		private final int storeId;
 		private final String storeName;
-		private final ClientImpl client;
+		private final AbstractClient client;
 		private final NewObjectIds newIdCache = new NewObjectIds();
 		private String defaultNamespace = "";
 		private final HashMap<Class<?>, Integer> nextIdReqCount = new HashMap<Class<?>, Integer>();
-		public StoreImplContext(int storeId, String storeName, ClientImpl client ) {
+		public StoreImplContext(int storeId, String storeName, AbstractClient client ) {
 			this.storeId = storeId;
 			this.storeName = storeName;
 			this.client = client;
@@ -91,7 +91,7 @@ public class StoreImpl implements Store {
 			return client.getCli();
 		}
 
-		public ClientImpl getClient() {
+		public AbstractClient getClient() {
 			return client;
 		}
 
@@ -177,7 +177,7 @@ public class StoreImpl implements Store {
 	 * @param storeName
 	 * @param client
 	 */
-	public StoreImpl(int storeId, String storeName, ClientImpl client) {
+	public StoreImpl(int storeId, String storeName, AbstractClient client) {
 		this.context = new StoreImplContext(storeId, storeName, client);
 		this.authority = Authority.Authoritative;
 		this.peer = new StoreImpl(this);

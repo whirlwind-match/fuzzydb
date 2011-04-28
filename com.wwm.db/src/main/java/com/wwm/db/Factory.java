@@ -35,13 +35,30 @@ public final class Factory {
     static private ThreadLocal<Transaction> currentTransaction = new ThreadLocal<Transaction>();
 
 
-    /**Creates a new non-authoritative client.
-     * @return
+    /**
+     * Create a single Authoritative client with no peer
      */
     public static Client createClient() {
-        return new ClientImpl(Authority.NonAuthoritative);
+		return new ClientImpl(Authority.Authoritative);
     }
 
+    /**
+     * Create two connected clients and return the nonAuth one
+     * @return
+     */
+    public static Client createClients() {
+
+    	
+    		
+    	ClientImpl auth = new ClientImpl(Authority.Authoritative);
+
+    	//FIXME: Must sort out so that each gets their connection info provided, and connect() is called on auth and nonAuth when needed (first request?) 
+    	ClientImpl nonAuth = new ClientImpl(Authority.NonAuthoritative);
+    	nonAuth.setAuthorititivePeer(auth);
+        throw new UnsupportedOperationException("Unfinished. Need to sort out connection maangement");
+    }
+
+    
     public static RetrieveSpec createRetrieveSpec() {
         return new RetrieveSpecImpl();
     }

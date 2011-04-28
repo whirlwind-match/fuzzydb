@@ -12,12 +12,6 @@
   <description>Provides integration with Spring transaction management</description>
   <dependencies>
   	<dependency>
-  		<groupId>org.apache.geronimo.specs</groupId>
-  		<artifactId>geronimo-jpa_2.0_spec</artifactId>
-  		<version>1.1</version>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
   		<groupId>com.wwm.db</groupId>
   		<artifactId>com.wwm.db.server</artifactId>
   		<version>1.0-SNAPSHOT</version>
@@ -37,6 +31,13 @@
   		<version>${spring.version}</version>
   		<type>jar</type>
   		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.wwm</groupId>
+  		<artifactId>com.wwm.io.packet</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>test</scope>
   	</dependency>
   </dependencies>
   <properties>

@@ -106,6 +106,7 @@ public interface Client extends Authority, Helper {
     /**Returns a Non-Authoritative version of this client.
      * This is guaranteed to be a low cost operation, the intended use is for applications to toggle between authoritative and non-authoritative Client views with this function.
      * If this client is already Non-Authoritative, it safely returns a reference to this client.
+     * If there is only a single client (i.e. no peer), then it returns that client. 
      * @return the Non-Authoritative client view.
      */
     public Client getNonAuthClient();

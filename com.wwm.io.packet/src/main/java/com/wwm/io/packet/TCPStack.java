@@ -42,9 +42,4 @@ public class TCPStack implements CommsStack {
 	public MessageInterface getMessageInterface() {
 		return mi;
 	}
-
-	public void requestClassData(int storeId, String className) throws IOException {
-		mi.requestClassData(storeId, className);
-	}
-
 }

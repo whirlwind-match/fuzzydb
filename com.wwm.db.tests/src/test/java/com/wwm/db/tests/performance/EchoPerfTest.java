@@ -15,9 +15,10 @@ import com.wwm.db.internal.server.Database;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.impl.DummyCli;
+import com.wwm.io.core.layer1.ClientConnectionManager;
 import com.wwm.io.core.messages.Response;
-import com.wwm.io.packet.layer1.ClientConnectionManager;
 import com.wwm.io.packet.layer1.ClientConnectionManagerImpl;
+import com.wwm.io.packet.layer1.SocketListeningServer;
 
 public class EchoPerfTest {
 	protected static int serverPort = 5002;
@@ -43,7 +44,7 @@ public class EchoPerfTest {
 	public void testEcho() throws IOException, ArchException {
 		final int loops = 1000;
 		// Make server
-		Database database = new Database(new InetSocketAddress(serverPort));
+		Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
 		database.startServer();
 		
 		// Make client

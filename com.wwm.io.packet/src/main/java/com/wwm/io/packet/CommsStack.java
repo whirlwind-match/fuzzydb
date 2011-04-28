@@ -10,14 +10,10 @@
  *****************************************************************************/
 package com.wwm.io.packet;
 
-import java.io.IOException;
-
 import com.wwm.io.core.MessageInterface;
 import com.wwm.io.packet.layer1.SocketDriver;
 
 public interface CommsStack {
 	public SocketDriver getDriver();
 	public MessageInterface getMessageInterface();
-	public void requestClassData(int storeId, String className) throws IOException;
-
 }
