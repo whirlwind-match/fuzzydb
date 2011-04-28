@@ -12,6 +12,8 @@
         
     </parent>
 
+    <description>database client and items common to the client and server (i.e. messages in between)
+NOTE: compiled against io.packet, but io.packet is set as provided scope and must be included specifically in runtime scope to use TCP connection.</description>
     <dependencies>
         <dependency>
             <groupId>com.wwm</groupId>
@@ -32,6 +34,13 @@
             <groupId>com.wwm</groupId>
             <artifactId>com.wwm.expressions</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.wwm</groupId>
+        	<artifactId>com.wwm.io.packet</artifactId>
+        	<version>1.0-SNAPSHOT</version>
+        	<type>jar</type>
+        	<scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
