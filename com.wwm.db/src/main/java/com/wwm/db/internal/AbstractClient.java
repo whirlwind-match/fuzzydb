@@ -62,7 +62,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	
 	        }
 	
-	        void setConnection(ClientConnectionManager connection) {
+	        public void setConnection(ClientConnectionManager connection) {
 	            this.connection = connection;
 	        }
 	

@@ -15,6 +15,7 @@ import com.wwm.db.internal.ClientImpl;
 import com.wwm.db.internal.RetrieveSpecImpl;
 import com.wwm.db.query.RetrieveSpec;
 import com.wwm.io.core.Authority;
+import com.wwm.io.core.MessageSource;
 
 
 
@@ -41,8 +42,26 @@ public final class Factory {
     public static Client createClient() {
 		return new ClientImpl(Authority.Authoritative);
     }
-
+    
     /**
+     * Create an embedded client connected to a singleton database instance within same VM
+     */
+    public static Client createEmbeddedClient() {
+    	MessageSource databaseMessageSource = getDatabaseDirectMessageSource(); 
+    	return new DirectClient(Authority.Authoritative, databaseMessageSource);
+    	
+    	
+    	
+    }
+
+    private static MessageSource getDatabaseDirectMessageSource() {
+    	// TODO: Create database with source
+    	// RESULT should be the message source for the client... need queues each way between execute() and receiveMessages()
+    	// ******* WOULD be simpler to just be a straight through connection.
+    	return null;
+	}
+
+	/**
      * Create two connected clients and return the nonAuth one
      * @return
      */
