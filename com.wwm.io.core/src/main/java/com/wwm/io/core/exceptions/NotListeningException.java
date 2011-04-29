@@ -13,4 +13,15 @@ package com.wwm.io.core.exceptions;
 @SuppressWarnings("serial")
 public class NotListeningException extends Exception {
 
+	public NotListeningException() {
+		super();
+	}
+
+	public NotListeningException(Throwable cause) {
+		super(cause);
+	}
+	
+	public NotListeningException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }
