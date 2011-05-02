@@ -140,14 +140,6 @@ public class StoreImpl implements Store {
 			client.disposeTransaction(tid);
 		}
 
-		public void requestClassData(String className) throws IOException {
-			client.requestClassData(storeId, className);
-		}
-
-		public void waitForClass(String className) {
-			client.waitForClass(storeId, className);
-		}
-
 		public void addToMetaCache(MetaObject<?> mo) {
 			client.addToMetaCache(mo);
 		}
@@ -457,14 +449,6 @@ public class StoreImpl implements Store {
 
 	public void disposeTransaction(int tid) throws ArchException {
 		context.disposeTransaction(tid);
-	}
-
-	public void requestClassData(String className) throws IOException {
-		context.requestClassData(className);
-	}
-
-	public void waitForClass(String className) {
-		context.waitForClass(className);
 	}
 
 	public void addToMetaCache(MetaObject<?> mo) {

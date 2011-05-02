@@ -90,14 +90,6 @@ public abstract class AbstractClient implements Cloneable, Client {
 	            return ArchOutStream.newOutputStream(out, storeId, ctc);
 	        }
 	
-	        public void requestClassData(Authority authority, int storeId, String className) throws IOException {
-	            connection.requestClassData(authority, storeId, className);
-	        }
-	
-	        public void waitForClass(int storeId, String className) {
-	            cli.waitForClass(storeId, className);
-	        }
-	
 	        public void addToMetaCache(MetaObject<?> mo) {
 	            synchronized (metaMap) {
 	                metaMap.add(mo);
@@ -312,15 +304,6 @@ public abstract class AbstractClient implements Cloneable, Client {
 	        Command cmd = new DisposeCmd(getNextId(), disposedTransactions, disposedQueries);
 	        getConnection().execute(authority, cmd);
 	    }
-	}
-
-	public void requestClassData(int storeId, String className)
-			throws IOException {
-			    context.requestClassData(authority, storeId, className);
-			}
-
-	public void waitForClass(int storeId, String className) {
-	    context.waitForClass(storeId, className);
 	}
 
 	public void addToMetaCache(MetaObject<?> mo) {

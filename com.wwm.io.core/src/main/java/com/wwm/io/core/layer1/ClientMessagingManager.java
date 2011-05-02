@@ -9,6 +9,7 @@ import java.util.Map;
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.Authority;
+import com.wwm.io.core.ClassDefinitionSource;
 import com.wwm.io.core.Message;
 import com.wwm.io.core.MessageInterface;
 import com.wwm.io.core.SourcedMessage;
@@ -168,7 +169,14 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 
 	public final void requestClassData(Authority authority, int storeId, String className)
 			throws IOException {
-				getMessageInterface(authority).requestClassData(storeId, className);
+			
+				MessageInterface messageInterface = getMessageInterface(authority);
+				if (messageInterface instanceof ClassDefinitionSource) {
+					((ClassDefinitionSource) messageInterface).requestClassData(storeId, className);
+				}
+				else {
+					throw new UnsupportedOperationException();
+				}
 			}
 
 	/**

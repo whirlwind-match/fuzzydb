@@ -32,12 +32,10 @@ public interface Store extends Transaction {
 	 */
 	public Transaction begin();
 	
-	/**Return the current, active transaction associated with this thread.
+	/**Return the current, active transaction for this Store associated with this thread.
 	 * If there is no transaction yet, this method returns null.
-	 * If the transaction was comitted or disposed, it is still returned.
+	 * If the transaction was committed or disposed, it is still returned.
 	 * Switching between Authoritative and Non-Authoritative views does not stop this method returning the current transaction. 
-	 * impl. Per thread i.e. private ThreadLocal<Transaction> currentTransaction
-	 * see likemynds.app.context.RequestContext in Applayer for example
 	 * @return the current transaction for the calling thread, or null if the thread has not started a transaction yet.
 	 */
 	public Transaction currentTransaction();

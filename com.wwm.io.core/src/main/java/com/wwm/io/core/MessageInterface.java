@@ -26,6 +26,4 @@ public interface MessageInterface extends MessageSink {
 	 */
 	Collection<PacketMessage> read() throws IOException;
 	
-	void requestClassData(int storeId, String className) throws IOException;
-	
 }

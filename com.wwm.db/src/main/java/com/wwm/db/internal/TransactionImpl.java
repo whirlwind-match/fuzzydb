@@ -54,7 +54,6 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
-import com.wwm.io.core.exceptions.CommsErrorException;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Response;
 
@@ -69,7 +68,7 @@ public class TransactionImpl implements Transaction {
 	private final int tid;
 	private volatile String namespace;
 	private Stack<String> namespaceStack;
-	private int defaultFetchSize = 10;
+	private final int defaultFetchSize = 10;
 	
 	public TransactionImpl(StoreImpl store, String namespace) {
 		this.store = store;
@@ -320,7 +319,6 @@ public class TransactionImpl implements Transaction {
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	public synchronized <E> E refresh(E obj) throws ArchException {
 		requiresActive();
 		// TODO add current version check. (Right now this always fetches the object)
@@ -343,29 +341,29 @@ public class TransactionImpl implements Transaction {
 		return mo.getObject();
 	}
 	
-	@SuppressWarnings({ "unused", "unchecked" })
-	private <T> T receiveObject(CompactedObject<T> deflated) throws ArchException {
-		T inflated = null;
-		try {
-			do {
-				ArchInStream in = newInputStream(deflated.getData());
-				try {
-					inflated = (T) in.readObject();
-				} catch (ClassNotFoundException e) {
-					String className = e.toString();	// TODO: Needs processing to extract class name
-					store.requestClassData(className);
-					store.waitForClass(className);
-				}
-			} while (inflated == null);
-			
-		} catch (IOException e) {
-			throw new CommsErrorException(e);
-		}
-		
-		MetaObject<T> mo = new MetaObject<T>(deflated.getRef(), deflated.getVersion(), inflated);
-		store.addToMetaCache(mo);
-		return inflated;
-	}
+//	@SuppressWarnings({ "unused", "unchecked" })
+//	private <T> T receiveObject(CompactedObject<T> deflated) throws ArchException {
+//		T inflated = null;
+//		try {
+//			do {
+//				ArchInStream in = newInputStream(deflated.getData());
+//				try {
+//					inflated = (T) in.readObject();
+//				} catch (ClassNotFoundException e) {
+//					String className = e.toString();	// TODO: Needs processing to extract class name
+////					store.requestClassData(className);
+//					store.waitForClass(className);
+//				}
+//			} while (inflated == null);
+//			
+//		} catch (IOException e) {
+//			throw new CommsErrorException(e);
+//		}
+//		
+//		MetaObject<T> mo = new MetaObject<T>(deflated.getRef(), deflated.getVersion(), inflated);
+//		store.addToMetaCache(mo);
+//		return inflated;
+//	}
 
 	public synchronized Map<Ref, Object> retrieve(Collection<Ref> refs) throws ArchException {
 		requiresActive();

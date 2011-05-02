@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
+import com.wwm.io.core.ClassDefinitionSource;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.ClassTokenCache;
 import com.wwm.io.core.Message;
@@ -31,7 +32,7 @@ import com.wwm.io.core.exceptions.ClassRepeatedException;
 import com.wwm.io.core.messages.Loggable;
 import com.wwm.io.core.messages.PacketMessage;
 
-public class PacketCodec implements MessageInterface {
+public class PacketCodec implements MessageInterface, ClassDefinitionSource {
 	
 	static private Logger log = LogFactory.getLogger(PacketCodec.class);
 	

@@ -79,7 +79,7 @@ public class ResultIteratorImpl<E> implements ResultIterator<E> {
 		if (disposed) return;
 		parent.iteratorDisposed(this);
 		disposed = true;
-		throw new sun.reflect.generics.reflectiveObjects.NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean hasNext() {

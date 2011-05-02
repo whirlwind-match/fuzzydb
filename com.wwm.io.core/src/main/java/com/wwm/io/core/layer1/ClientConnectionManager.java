@@ -10,8 +10,6 @@
  *****************************************************************************/
 package com.wwm.io.core.layer1;
 
-import java.io.IOException;
-
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.messages.Command;
@@ -21,5 +19,4 @@ public interface ClientConnectionManager {
 
 	public Response execute(Authority authority, Command command) throws ArchException;
 	public void close();
-	public void requestClassData(Authority authority, int storeId, String className) throws IOException;
 }
