@@ -1,7 +1,6 @@
 package com.wwm.io.core;
 
 import java.io.IOException;
-import java.util.Collection;
 
 public interface MessageSink {
 
@@ -13,9 +12,5 @@ public interface MessageSink {
 	 */
 	void send(Message m) throws IOException;
 
-	void send(Message m[]) throws IOException;
-
-	void send(Collection<Message> m) throws IOException;
-	
 	void close();
 }
