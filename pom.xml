@@ -29,5 +29,6 @@
         <module>com.wwm.db.server</module>
         <!--        <module>com.wwm.postcode</module> -->
         <module>com.wwm.db.spring</module>
+		<module>com.wwm.db.tests</module>
      </modules>
 </project>

@@ -214,19 +214,6 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			</plugin>
 
         
-            <plugin>
-                <!-- Pick up Eclipse PDE managed manifest to make OSGi bundles -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>
-                            META-INF/MANIFEST.MF
-                        </manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
