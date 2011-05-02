@@ -17,6 +17,7 @@ import com.wwm.db.Store;
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
+import com.wwm.db.internal.StoreImpl;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.services.IndexImplementationsService;
 import com.wwm.io.packet.layer1.SocketListeningServer;
@@ -68,8 +69,15 @@ public abstract class BaseDatabaseTest {
 		
 		store = client.createStore(storeName);
 	}
-
-
+  
+	/**
+	 * call this in tests where you're going to use overlapped Txs
+	 */
+	protected void allowOverlappedTx() {
+		((StoreImpl)store).setAllowTxOverlapInThread(true);
+	}
+	
+	
 	@After
 	public void closeDatabase() throws Exception {
 		if (database != null) {

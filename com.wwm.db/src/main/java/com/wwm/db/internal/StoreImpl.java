@@ -24,6 +24,7 @@ import com.wwm.db.Helper;
 import com.wwm.db.Ref;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
@@ -157,12 +158,25 @@ public class StoreImpl implements Store {
 		}
 		
 	}
+
+	private boolean allowTxOverlapInThread = false;
+	
+	private static Logger log = LogFactory.getLogger(StoreImpl.class);
+	
+	
+	public void setAllowTxOverlapInThread(boolean allowTxOverlapInThread) {
+		this.allowTxOverlapInThread = allowTxOverlapInThread;
+	}
+	
 	
 	private final StoreImplContext context;
 	private final Authority authority;
 	private final StoreImpl peer;
 	
 	private final ThreadLocal<Transaction> currentTransaction = new ThreadLocal<Transaction>();
+	
+	
+	
 	
 	/**Constructs an Authoritative store
 	 * @param storeId
@@ -237,7 +251,12 @@ public class StoreImpl implements Store {
 	}
 	
 	public Transaction begin() {
-		Assert.state(currentTransaction.get() == null, "Current transaction already active on this thread. Nested transactions not supported");
+		if (allowTxOverlapInThread && currentTransaction.get() != null) {
+			log.warning("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
+		}
+		else {
+			Assert.state(currentTransaction.get() == null, "Current transaction already active on this thread. Nested transactions not supported");
+		}
 		TransactionImpl transaction = new TransactionImpl(this, context.getDefaultNamespace());
 		currentTransaction.set(transaction);
 		return transaction;

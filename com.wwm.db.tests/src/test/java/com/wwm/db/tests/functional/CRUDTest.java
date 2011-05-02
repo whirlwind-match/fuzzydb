@@ -70,6 +70,7 @@ public class CRUDTest extends BaseDatabaseTest {
 			s = (String) o;
 			assertEquals("Hello World 2", s);
 			assertEquals(1, t.getVersion(s));
+    		t.dispose();
 		}
 		
 		// Test multi retrieve
@@ -85,6 +86,7 @@ public class CRUDTest extends BaseDatabaseTest {
 			assertTrue(result.containsKey(ref2));
 			assertEquals("Hello World 1", result.get(ref1));
 			assertEquals("Hello World 2", result.get(ref2));
+    		t.dispose();
 		}
 	}
 	
@@ -147,6 +149,7 @@ public class CRUDTest extends BaseDatabaseTest {
 			Object o = t.retrieve(ref);
 			String s = (String) o;
 			assertEquals("Hello World", s);
+			t.dispose();
 		}
 
 		{
@@ -294,7 +297,7 @@ public class CRUDTest extends BaseDatabaseTest {
     		assertTrue(so != so2);	             // Different instance please!
     		assertTrue(!so.equals(so2));
     		assertTrue(t.getVersion(so) == t.getVersion(so2));	// but refs are the same
-    
+    		t.dispose();
     	}
     	//deleteStore();
     }
@@ -319,6 +322,7 @@ public class CRUDTest extends BaseDatabaseTest {
     			Object result = t.retrieve(ref);	// get the object using the ref the WT gave us
     			so = (SampleObject)result;
     			assertTrue(so.getTest() == count);	// make sure field value is same
+        		t.dispose();
     		}
     		
     		{	// Update object
@@ -335,6 +339,7 @@ public class CRUDTest extends BaseDatabaseTest {
     			updated = (SampleObject)result;
     			assertTrue(updated.getTest() == count);	// make sure field value is as we originally created it
     			assertTrue(t.getVersion(updated) == 1);	// should be v1
+        		t.dispose();
     		}
     	}
     
@@ -361,6 +366,8 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 
 	@Test public void testTransactionOverlap() throws ArchException {
+		allowOverlappedTx();
+		
 		Ref ref = null;
 		
 		// Create it
@@ -409,7 +416,8 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 
     @Test public void testUpdateDeleted() throws ArchException {
-    
+		allowOverlappedTx();
+
     	for(int count=0; count<10; count++) {
     		
     		Ref ref;
@@ -448,6 +456,8 @@ public class CRUDTest extends BaseDatabaseTest {
     			assertTrue( exceptionThrown );
     		}
     		
+    		told.dispose();
+    		
     	}
     
     }
@@ -482,6 +492,7 @@ public class CRUDTest extends BaseDatabaseTest {
 			Object o = t.retrieve(ref);
 			MutableString s = (MutableString) o;
 			assertEquals("Hello World Updated", s.value);
+    		t.dispose();
 		}
 		
 		// Test using retrieveFirstOf
@@ -490,10 +501,12 @@ public class CRUDTest extends BaseDatabaseTest {
 			Object o = t.retrieveFirstOf(MutableString.class);
 			MutableString s = (MutableString) o;
 			assertEquals("Hello World Updated", s.value);
+    		t.dispose();
 		}
 	}
 
     @Test public void testUpdateOverlap() throws ArchException {
+		allowOverlappedTx();
 		Ref ref = null;
 		
 		// Create it
@@ -569,7 +582,8 @@ public class CRUDTest extends BaseDatabaseTest {
                 Object result = t.retrieve(ref);    // get the object using the ref the WT gave us
                 so = (SampleObject)result;
                 assertTrue(so.getTest() == count);   // make sure field value is same
-            }
+        		t.dispose();
+           }
             
             {   // Update object
                 Transaction wt2 = store.getAuthStore().begin();
@@ -585,6 +599,7 @@ public class CRUDTest extends BaseDatabaseTest {
                 updated = (SampleObject)result;
                 assertTrue(updated.getTest() == 100+count);  // make sure field value is as we updated it
                 assertTrue(t.getVersion(updated) == 2);  // should be v2
+        		t.dispose();
             }
         }
     }
@@ -610,6 +625,7 @@ public class CRUDTest extends BaseDatabaseTest {
     			so = (SampleObject)result;
     			assertTrue(so.getTest() == count);	// make sure field value is same
     			assertTrue(t.getVersion(so) == 1);
+        		t.dispose();
     		}
     		
     		{	// Update object
@@ -627,6 +643,7 @@ public class CRUDTest extends BaseDatabaseTest {
     			updated = (SampleObject)result;
     			assertTrue(updated.getTest() == 100 + count);	// make sure field value is as we updated it
     			assertTrue(t.getVersion(updated) == 2);	// should be v2
+        		t.dispose();
     		}
     	}
     	// speed test
@@ -640,6 +657,7 @@ public class CRUDTest extends BaseDatabaseTest {
     		t.getVersion(ref);
     	}
     	timer.stop();
+		t.dispose();
     
     }
 }
