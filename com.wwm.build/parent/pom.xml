@@ -48,10 +48,17 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 	<artifactId>com.wwm.build.parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Whirlwind parent (not aggregator) POM</name>
-	<description>Parent pom for specifying common properties for Whirlwind Match open source projects.</description>
-	<url>https://sourceforge.net/projects/whirlwind/</url>
+	<name>Whirlwind parent POM</name>
+	<description>Parent POM for specifying common properties for Whirlwind Match open source projects.</description>
+	<url>https://github.com/whirlwind-match/whirlwind-db</url>
 	<inceptionYear>2004 or was it 2003</inceptionYear>
+
+	<properties>
+		<junit.version>4.8.2</junit.version>
+		<org.mockito.version>1.8.4</org.mockito.version>
+	</properties>
+
+
 	<developers>
 		<developer>
 			<name>Neale Upstone</name>
@@ -158,10 +165,6 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 		-->
     </profiles>
 
-	<!--
-        - Parent project to capture dependencies and configurations that
-        we want for all modules
-	-->
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -275,13 +278,6 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			</plugin>
 		</plugins>
 	</build>
-	<properties>
-		<junit.version>4.8.2</junit.version>
-	</properties>
-	<modules><!--
-        NEVER IN A PARENT
-        -->
-	</modules>
 
 	<repositories>
         <repository>
@@ -357,6 +353,13 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<scope>test</scope>
 			<optional>false</optional>
 		</dependency>
+
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>${org.mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
 
 	</dependencies>
 
