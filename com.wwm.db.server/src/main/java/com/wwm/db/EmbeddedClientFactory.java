@@ -48,6 +48,10 @@ public class EmbeddedClientFactory {
 		return client;
     }
     
+    public boolean isDatabaseClosed() {
+    	return database.isClosed();
+    }
+    
     public synchronized void shutdownDatabase() {
     	instance = null;
     	database.close();

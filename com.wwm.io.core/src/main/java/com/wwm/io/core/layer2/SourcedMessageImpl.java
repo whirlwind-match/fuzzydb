@@ -10,17 +10,19 @@
  *****************************************************************************/
 package com.wwm.io.core.layer2;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 
 import com.wwm.io.core.Message;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 
-public class SourcedMessageImpl implements SourcedMessage {
+// TODO: Make mi and packet part of Message as transient fields and simplify interfaces everywhere.
+public class SourcedMessageImpl implements SourcedMessage, Serializable {
 
-	private final MessageSink mi;
+	transient private final MessageSink mi;
 	private final Message message;
-	private final ByteBuffer packet;
+	transient private final ByteBuffer packet;
 
 	public SourcedMessageImpl(MessageSink mi, Message message, ByteBuffer packet) {
 		this.mi = mi;

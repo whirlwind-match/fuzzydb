@@ -131,7 +131,12 @@ public abstract class BaseDatabaseTest {
 	}
 
 	protected boolean isDatabaseClosed() {
-		return database.isClosed();
+		if (useEmbeddedDatabase) {
+			return EmbeddedClientFactory.getInstance().isDatabaseClosed();
+		}
+		else {
+			return database.isClosed();
+		}
 	}
 
 	/**

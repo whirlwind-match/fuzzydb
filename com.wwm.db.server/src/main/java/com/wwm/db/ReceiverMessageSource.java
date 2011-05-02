@@ -6,9 +6,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.util.SerializationUtils;
+
+import com.wwm.io.core.Message;
 import com.wwm.io.core.MessageSource;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.exceptions.NotListeningException;
+import com.wwm.io.core.layer2.SourcedMessageImpl;
 
 /**
  * TODO: Rename to QueuingMessageSource
@@ -48,8 +52,12 @@ public class ReceiverMessageSource implements MessageSource {
 	}
 
 	
-	public void put(SourcedMessage message) throws InterruptedException {
-		messagesForReceiver.put(message);
+	public void put(final SourcedMessage message) throws InterruptedException {
+		// FIXME: is there a cheaper way to do this reliably?
+		// Copy content, keep source. THROW packet AWAY (cos it's not used as far as I can tell)
+		Message newMessage = (Message) SerializationUtils.deserialize(SerializationUtils.serialize(message.getMessage()));
+		SourcedMessage newSourcedMessage = new SourcedMessageImpl(message.getSource(), newMessage, null); 
+		messagesForReceiver.put(newSourcedMessage);
 	}
 	
 	
