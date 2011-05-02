@@ -14,6 +14,11 @@ import java.io.Serializable;
 
 import com.wwm.io.core.exceptions.ClassRepeatedException;
 
+/**
+ * REname to ClassDefinitionRepository
+ * @author Neale
+ *
+ */
 public interface ClassLoaderInterface extends Serializable {
 
 	Class<?> getClass(int storeId, String className) throws ClassNotFoundException;

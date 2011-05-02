@@ -21,10 +21,10 @@ import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.internal.server.txlog.TxLogWriter;
 import com.wwm.db.services.IndexImplementationsService;
+import com.wwm.io.core.ClassDefinitionRepositoryAware;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.MessageSource;
 import com.wwm.io.core.impl.DummyCli;
-import com.wwm.io.packet.layer1.ServerImpl;
 
 /**
  * TODO: (nu, 8Mar08) I believe Pager should be replaced with a an abstraction of the backing-store, as this should
@@ -49,13 +49,13 @@ public final class Database implements DatabaseVersionState {
     private final Pager pager = new Pager(this);
     private long latestDiskVersion = -1;
     private TxLogSink txLog;
-    private Semaphore shutdownFlag = new Semaphore(0);
+    private final Semaphore shutdownFlag = new Semaphore(0);
     private boolean closed = false;
 
     private MaintThread maintThread;
 
     private long lastSync = 0;
-    private long syncPeriod = 5*60*1000L; // every 5 mins
+    private final long syncPeriod = 5*60*1000L; // every 5 mins
 	private IndexImplementationsService indexImplsService;
 
     private class MaintThread extends WorkerThread {
@@ -118,7 +118,9 @@ public final class Database implements DatabaseVersionState {
      */
 	public void startServer() throws IOException {
 		
-		((ServerImpl) messageSource).setCli(cli);
+		if (messageSource instanceof ClassDefinitionRepositoryAware){
+			((ClassDefinitionRepositoryAware) messageSource).setCli(cli);
+		}
 			
         // load latest valid repository
         log.info("========== Starting Server ==========");

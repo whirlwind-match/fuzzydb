@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.springframework.util.Assert;
 
+import com.wwm.io.core.ClassDefinitionRepositoryAware;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;
@@ -28,14 +29,14 @@ import com.wwm.io.packet.TCPStack;
 /**
  * A MessageSource capable of listening on multiple InetSockets
  */
-public abstract class ServerImpl extends ConnectionManagerImpl implements Server {
+public abstract class ServerImpl extends ConnectionManagerImpl implements Server, ClassDefinitionRepositoryAware {
 		
 	protected ServerImpl() throws IOException {
 		super();
 	}
 
 	//private Selector selector;	// Always null when there are no listers active.
-	private Map<SelectionKey, ServerSocketChannel> listners = Collections.synchronizedMap(new HashMap<SelectionKey, ServerSocketChannel>());
+	private final Map<SelectionKey, ServerSocketChannel> listners = Collections.synchronizedMap(new HashMap<SelectionKey, ServerSocketChannel>());
 	//private Map<SelectionKey, CommsStack> connections = Collections.synchronizedMap(new HashMap<SelectionKey, CommsStack>());
 	private ClassLoaderInterface cli;
 	private boolean closing = false;
