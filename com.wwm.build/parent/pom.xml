@@ -56,6 +56,7 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 	<properties>
 		<junit.version>4.8.2</junit.version>
 		<org.mockito.version>1.8.4</org.mockito.version>
+		<java.version>1.5</java.version>
 	</properties>
 
 
@@ -179,10 +180,10 @@ Then in your pom.xml, set up the repository and tell Wagon that we need its WebD
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<fork>true</fork>
-					<compilerVersion>1.6</compilerVersion>
+					<compilerVersion>${java.version}</compilerVersion>
 					<!--
 						<compilerId>eclipse</compilerId>
 					-->
