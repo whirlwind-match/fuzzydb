@@ -18,6 +18,7 @@ import java.util.Collection;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.exceptions.NotListeningException;
 import com.wwm.io.core.layer1.ClientMessagingManager;
@@ -68,8 +69,8 @@ public class ClientConnectionManagerImpl extends ClientMessagingManager {
 	 * Get the message interface for this Authority
 	 */
 	@Override
-	protected MessageInterface getMessageInterface(Authority authority) {
-		MessageInterface stack = null;
+	protected MessageSink getMessageInterface(Authority authority) {
+		MessageSink stack = null;
 		switch (authority) {
 		case Authoritative:
 			stack = authMessageInterface;

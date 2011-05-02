@@ -1,54 +1,55 @@
 package com.wwm.db;
 
-import org.springframework.util.Assert;
+import java.io.IOException;
 
+import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.server.Database;
 import com.wwm.io.core.Authority;
 
 public class EmbeddedClientFactory {
 
-	private static final EmbeddedClientFactory instance = new EmbeddedClientFactory();
+	private static EmbeddedClientFactory instance;
 	
-	private Database database;
+	private final Database database;
 
-	private ReceiverMessageSource databaseMessageSource;
+	private final ReceiverMessageSource databaseMessageSource;
+
 	
+	
+	public static synchronized EmbeddedClientFactory getInstance() {
+		if (instance == null) {
+			instance = new EmbeddedClientFactory();
+		}
+		return instance;
+	}
+	
+	
+	
+	private EmbeddedClientFactory() {
+		databaseMessageSource = new ReceiverMessageSource();
+		database = new Database(databaseMessageSource);
+		try {
+			database.startServer();
+		} catch (IOException e) {
+			throw new RuntimeException("Failure starting database:" + e.getMessage(), e);
+		}
+	}
 	
     /**
      * Create an embedded client connected to a singleton database instance within same VM
      */
-    public static Client createEmbeddedClient() {
-    	ReceiverMessageSource databaseMessageSource = instance.getClientMessageSource(); 
-    	return new DirectClient(Authority.Authoritative, databaseMessageSource.getMessagesForReceiverQueue());
-    	
-    	
-    	
-    }
-
-    
-    private synchronized Database getDatabase() {
-    	if (database != null) {
-    		return database;
-    	}
-    	
-    	// no database so create it
-    	Assert.isNull(databaseMessageSource, "databaseMessageSource must be null");
-    	databaseMessageSource = new ReceiverMessageSource();
-    	database = new Database(databaseMessageSource);
-    	return database;
+    public Client createEmbeddedClient() {
+    	DirectClient client = new DirectClient(Authority.Authoritative, databaseMessageSource);
+    	try {
+			client.connect();
+		} catch (ArchException e) {
+			throw new RuntimeException("Failure connecting client to database:" + e.getMessage(), e);
+		}
+		return client;
     }
     
-    // TODO: Create database with source
-    /* RESULT should be the message source for the client... need queues each way between MessageInterface execute() and waitForMessages()
-     * new SourcedMessageImpl(stack.getMessageInterface(), m.getMessage(), m.getPacket())
-     */
-    // ******* WOULD be simpler to just be a straight through connection.
-    
-    private ReceiverMessageSource getClientMessageSource() {
-    	// Ensure we have a database available
-    	instance.getDatabase();
-    	
-    	return databaseMessageSource;
-	}
-
+    public synchronized void shutdownDatabase() {
+    	instance = null;
+    	database.close();
+    }
 }

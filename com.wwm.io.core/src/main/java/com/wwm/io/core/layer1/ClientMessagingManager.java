@@ -11,7 +11,7 @@ import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.ClassDefinitionSource;
 import com.wwm.io.core.Message;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.exceptions.CommandTimedOutException;
 import com.wwm.io.core.exceptions.ConnectionLostException;
@@ -170,7 +170,7 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 	public final void requestClassData(Authority authority, int storeId, String className)
 			throws IOException {
 			
-				MessageInterface messageInterface = getMessageInterface(authority);
+				MessageSink messageInterface = getMessageInterface(authority);
 				if (messageInterface instanceof ClassDefinitionSource) {
 					((ClassDefinitionSource) messageInterface).requestClassData(storeId, className);
 				}
@@ -180,9 +180,9 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 			}
 
 	/**
-	 * Get the message interface for this Authority
+	 * Find where to send messages for this Authority
 	 */
-	abstract protected MessageInterface getMessageInterface(Authority authority);
+	abstract protected MessageSink getMessageInterface(Authority authority);
 
 	abstract public void close();
 }

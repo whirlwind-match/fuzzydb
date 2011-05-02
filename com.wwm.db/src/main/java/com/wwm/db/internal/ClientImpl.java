@@ -31,14 +31,16 @@ public class ClientImpl extends AbstractClient {
         connect(Settings.getInstance().getPrimaryServer());
     }
 
-    public void connect(String server) throws ArchException {
+    @Override
+	public void connect(String server) throws ArchException {
         InetSocketAddress address = new InetSocketAddress(
                 server,
                 Settings.getInstance().getPrimaryServerPort());
         connect(address);
     }
 
-    public void connect(InetSocketAddress addr) throws ArchException {
+    @Override
+	public void connect(InetSocketAddress addr) throws ArchException {
         try {
             context.setConnection(new ClientConnectionManagerImpl(addr, context.getCli()));
         } catch (IOException e) {

@@ -2,8 +2,8 @@ package com.wwm.db;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 import com.wwm.io.core.MessageSource;
@@ -11,15 +11,18 @@ import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.exceptions.NotListeningException;
 
 /**
- * A MessageSource that can be used by a receiver to receive messages from multiple clients
+ * TODO: Rename to QueuingMessageSource
  * 
- * @author Neale
- *
+ * Allows messages to be queued for a receiver to poll using the MessageSource interface.  
+ * When sent, they are placed in a queue as SourcedMessages, which are made available for polling.
+ * 
+ * @author Neale Upstone
  */
 public class ReceiverMessageSource implements MessageSource {
 
+	private static final int QUEUE_CAPACITY = 10;
 	
-	private final BlockingQueue<SourcedMessage> messagesForReceiver = new SynchronousQueue<SourcedMessage>();
+	private final BlockingQueue<SourcedMessage> messagesForReceiver = new ArrayBlockingQueue<SourcedMessage>(QUEUE_CAPACITY);
 	
 	public void start() {
 		// TODO Auto-generated method stub
@@ -45,13 +48,10 @@ public class ReceiverMessageSource implements MessageSource {
 	}
 
 	
-	public void send(SourcedMessage message) throws InterruptedException{
+	public void put(SourcedMessage message) throws InterruptedException {
 		messagesForReceiver.put(message);
 	}
 	
-	public BlockingQueue<SourcedMessage> getMessagesForReceiverQueue() {
-		return messagesForReceiver;
-	}
 	
 	/**
 	 * Get the symmetric dataSource

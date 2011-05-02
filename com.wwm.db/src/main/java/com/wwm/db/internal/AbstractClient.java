@@ -2,6 +2,7 @@ package com.wwm.db.internal;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -326,6 +327,16 @@ public abstract class AbstractClient implements Cloneable, Client {
 
 	public boolean isConnected() {
 	    return context.getConnection() != null;  // FIXME: Adrian is this correct.
+	}
+
+
+	public void connect(InetSocketAddress addr) throws ArchException {
+		throw new UnsupportedOperationException(); // Must implement in subclass
+	}
+
+
+	public void connect(String server) throws ArchException {
+		throw new UnsupportedOperationException(); // Must implement in subclass
 	}
 
 }
