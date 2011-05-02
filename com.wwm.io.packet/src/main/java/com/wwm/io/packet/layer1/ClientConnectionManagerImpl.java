@@ -49,7 +49,6 @@ public class ClientConnectionManagerImpl extends ClientMessagingManager {
 
 		// Create a connection manager to pump message out and in
 		cm = new ConnectionManagerImpl(){
-			@Override
 			public void start() { 
 				// effectively connect() in this scenario.  
 			}

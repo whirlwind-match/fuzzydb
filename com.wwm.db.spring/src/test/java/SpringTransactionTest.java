@@ -27,7 +27,6 @@ public class SpringTransactionTest extends BaseDatabaseTest {
 		final WhirlwindPlatformTransactionManager tm = new WhirlwindPlatformTransactionManager(store);
 
 		Ref ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref>() {
-			@Override
 			public Ref doInTransaction(TransactionStatus status) {
 				try {
 					return tm.getDataOps().create(new TestIndexClass(1));
@@ -80,7 +79,6 @@ public class SpringTransactionTest extends BaseDatabaseTest {
 	private Ref createOpFollowedByException(
 			final WhirlwindPlatformTransactionManager tm) {
 		Ref ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref>() {
-			@Override
 			public Ref doInTransaction(TransactionStatus status) {
 				try {
 					tm.getDataOps().create(new TestIndexClass(1));

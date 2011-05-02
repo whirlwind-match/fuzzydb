@@ -21,7 +21,6 @@ public class ReceiverMessageSource implements MessageSource {
 	
 	private final BlockingQueue<SourcedMessage> messagesForReceiver = new SynchronousQueue<SourcedMessage>();
 	
-	@Override
 	public void start() {
 		// TODO Auto-generated method stub
 		
@@ -30,7 +29,6 @@ public class ReceiverMessageSource implements MessageSource {
 	/**
 	 * NOTE: This implementation only returns one message at a time.  It could easily return more. 
 	 */
-	@Override
 	public Collection<SourcedMessage> waitForMessage(int timeoutMillis)
 			throws NotListeningException {
 		try {
@@ -41,7 +39,6 @@ public class ReceiverMessageSource implements MessageSource {
 		}
 	}
 
-	@Override
 	public void close() {
 		// TODO Auto-generated method stub
 		

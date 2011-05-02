@@ -33,7 +33,6 @@ public class DirectClient extends AbstractClient implements Client {
 		return null;
 	}
 
-	@Override
 	public void connect() throws ArchException {
 		ClientConnectionManager x = new ClientMessagingManager("DirectClient"){
 
@@ -64,12 +63,10 @@ public class DirectClient extends AbstractClient implements Client {
 
 	}
 
-	@Override
 	public void connect(String server) throws ArchException {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
 	public void connect(InetSocketAddress addr) throws ArchException {
 		// TODO Auto-generated method stub
 	}

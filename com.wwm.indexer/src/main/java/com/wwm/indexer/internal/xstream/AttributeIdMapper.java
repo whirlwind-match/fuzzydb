@@ -27,7 +27,7 @@ import com.wwm.util.DynamicRef;
 
 public class AttributeIdMapper implements Converter {
 
-    private DynamicRef<? extends AttrDefinitionMgr> attrDefMgrRef;
+    private final DynamicRef<? extends AttrDefinitionMgr> attrDefMgrRef;
 
     public AttributeIdMapper(DynamicRef<? extends AttrDefinitionMgr> attrDefs) {
         this.attrDefMgrRef = attrDefs;
@@ -64,7 +64,6 @@ public class AttributeIdMapper implements Converter {
         
         // Dive in and get field we know is there!
         PathTracker tracker = AccessController.doPrivileged(new PrivilegedAction<PathTracker>() {
-        	@Override
         	public PathTracker run() {
         		try {
         			Field trackerField = PathTrackingReader.class.getField("pathTracker");
