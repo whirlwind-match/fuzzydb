@@ -38,6 +38,7 @@ import com.wwm.db.internal.comms.messages.TransactionCommand;
 import com.wwm.db.internal.comms.messages.WWSearchCmd;
 import com.wwm.db.internal.comms.messages.WWSearchFetchCmd;
 import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.layer2.SourcedMessageImpl;
 import com.wwm.io.core.messages.Command;
@@ -99,7 +100,7 @@ public class CommandExecutor {
 	}
 	
 	public void execute(SourcedMessage command) {
-		MessageInterface source = command.getSource();
+		MessageSink source = command.getSource();
 		Command cmd = (Command)command.getMessage();
 		ByteBuffer packet = command.getPacket();
 		int cid = cmd.getCommandId();
@@ -212,7 +213,7 @@ public class CommandExecutor {
 	}
 
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdEchoCmd(int storeId, int cid, MessageInterface source, EchoCmd command, ByteBuffer packet) throws IOException {
+	private void cmdEchoCmd(int storeId, int cid, MessageSink source, EchoCmd command, ByteBuffer packet) throws IOException {
 		EchoRsp rsp = new EchoRsp(storeId, cid, command.getMessage());
 		source.send(rsp);
 	}
@@ -234,7 +235,7 @@ public class CommandExecutor {
 	
 
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdOpenStoreCmd(int storeId, int cid, MessageInterface source, OpenStoreCmd command, ByteBuffer packet) throws UnknownStoreException, IOException {
+	private void cmdOpenStoreCmd(int storeId, int cid, MessageSink source, OpenStoreCmd command, ByteBuffer packet) throws UnknownStoreException, IOException {
 		String storeName = command.getStoreName();
 		int id = stc.getRepository().getStore(storeName).getStoreId();
 		OpenStoreRsp rsp = new OpenStoreRsp(cid, storeName, id);

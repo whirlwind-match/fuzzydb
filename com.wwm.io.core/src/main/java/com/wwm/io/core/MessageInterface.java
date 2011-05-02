@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import com.wwm.io.core.messages.PacketMessage;
 
-public interface MessageInterface {
+public interface MessageInterface extends MessageSink {
 	/**
 	 * Reads as many messages as are available.
 	 * If no messages are available, this method returns null.
@@ -26,17 +26,6 @@ public interface MessageInterface {
 	 */
 	Collection<PacketMessage> read() throws IOException;
 	
-	/**
-	 * Send a message back to the source.  This will either be the requested data, an acknowledgement, or an error.
-	 * When implementing streaming of loggable commands (i.e. transaction log, and connection from a master database at a slave),
-	 * then this should just ensure that the next command is able to be received.
-	 * @param m The message to be sent
-	 */
-	void send(Message m) throws IOException;
-	void send(Message m[]) throws IOException;
-	void send(Collection<Message> m) throws IOException;
-	
 	void requestClassData(int storeId, String className) throws IOException;
 	
-	void close();
 }

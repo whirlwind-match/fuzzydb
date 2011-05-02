@@ -13,22 +13,22 @@ package com.wwm.io.core.layer2;
 import java.nio.ByteBuffer;
 
 import com.wwm.io.core.Message;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 
 public class SourcedMessageImpl implements SourcedMessage {
 
-	private final MessageInterface mi;
+	private final MessageSink mi;
 	private final Message message;
 	private final ByteBuffer packet;
 
-	public SourcedMessageImpl(MessageInterface mi, Message message, ByteBuffer packet) {
+	public SourcedMessageImpl(MessageSink mi, Message message, ByteBuffer packet) {
 		this.mi = mi;
 		this.message = message;
 		this.packet = packet;
 	}
 	
-	public final MessageInterface getSource() {
+	public final MessageSink getSource() {
 		return mi;
 	}
 

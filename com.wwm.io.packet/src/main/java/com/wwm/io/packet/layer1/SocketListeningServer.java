@@ -21,7 +21,6 @@ public class SocketListeningServer extends ServerImpl {
 		this.address = address;
 	}
 
-	@Override
 	public void start() {
 		try {
 			listen(address);

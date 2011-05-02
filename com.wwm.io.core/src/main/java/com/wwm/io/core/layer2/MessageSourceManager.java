@@ -10,13 +10,13 @@
  *****************************************************************************/
 package com.wwm.io.core.layer2;
 
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 
 public interface MessageSourceManager {
 
-	public void addSource(MessageInterface m);
-	public void closeSource(MessageInterface m);
+	public void addSource(MessageSink m);
+	public void closeSource(MessageSink m);
 	public void closeAllSources();
 	public SourcedMessage waitForMessage();
 	

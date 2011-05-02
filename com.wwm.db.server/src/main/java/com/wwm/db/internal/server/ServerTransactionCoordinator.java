@@ -23,7 +23,7 @@ import com.wwm.db.core.Settings;
 import com.wwm.db.exceptions.UnknownTransactionException;
 import com.wwm.db.internal.server.PersistentServerTransaction.Key;
 import com.wwm.db.internal.server.txlog.TxLogSink;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 import com.wwm.util.FastSemaphore;
 
@@ -112,7 +112,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		}
 	}
 
-	public void tryRemoveTransaction(MessageInterface source, int tid) {
+	public void tryRemoveTransaction(MessageSink source, int tid) {
 		synchronized (transactions) {
 			Key key = new Key(source, tid);
 			PersistentServerTransaction transaction = transactions.get(key);
@@ -134,7 +134,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		}
 	}
 
-	public PersistentServerTransaction beginAction(MessageInterface source, int tid) throws UnknownTransactionException {
+	public PersistentServerTransaction beginAction(MessageSink source, int tid) throws UnknownTransactionException {
 		synchronized (transactions) {
 			Key key = new Key(source, tid);
 			PersistentServerTransaction transaction = transactions.get(key);

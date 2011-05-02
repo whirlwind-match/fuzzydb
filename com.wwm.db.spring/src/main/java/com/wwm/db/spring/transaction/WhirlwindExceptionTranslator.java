@@ -8,7 +8,6 @@ import com.wwm.db.core.exceptions.ArchException;
 public class WhirlwindExceptionTranslator implements
 		PersistenceExceptionTranslator {
 
-	@Override
 	public DataAccessException translateExceptionIfPossible(RuntimeException ex) {
 //		if (ex instanceof ArchException) {
 

@@ -55,6 +55,7 @@ import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.query.RetrieveSpec;
 import com.wwm.db.query.RetrieveSpecItem;
 import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.ErrorRsp;
 import com.wwm.io.core.messages.Response;
 import com.wwm.model.attributes.Score;
@@ -65,10 +66,10 @@ public class PersistentServerTransaction extends ServerTransaction {
 
     public static class Key {
 
-        private final MessageInterface source;
+        private final MessageSink source;
         private final int tid;
 
-        public Key(final MessageInterface source, final int tid) {
+        public Key(final MessageSink source, final int tid) {
             this.source = source;
             this.tid = tid;
         }
@@ -87,7 +88,7 @@ public class PersistentServerTransaction extends ServerTransaction {
             return this.source == rhs.source && this.tid == rhs.tid;
         }
 
-        public MessageInterface getSource() {
+        public MessageSink getSource() {
             return source;
         }
 
@@ -96,18 +97,18 @@ public class PersistentServerTransaction extends ServerTransaction {
         }
     }
 
-    private Date startedTime = new Date();
+    private final Date startedTime = new Date();
     private Date lastUsedTime = new Date();
-    private Key key;
+    private final Key key;
     private final ServerStore store;
     private int busy = 0;
 
     /** Searches in progress FIXME (NU->AC): We currently don't time these out :) */
-    private Map<TupleKey<MessageInterface, Integer>, Search> searches
-    = new TreeMap<TupleKey<MessageInterface, Integer>, Search>();
+    private final Map<TupleKey<MessageSink, Integer>, Search> searches
+    = new TreeMap<TupleKey<MessageSink, Integer>, Search>();
 
-    private Map<TupleKey<MessageInterface, Integer>, Query> queries
-    = new TreeMap<TupleKey<MessageInterface, Integer>, Query>();
+    private final Map<TupleKey<MessageSink, Integer>, Query> queries
+    = new TreeMap<TupleKey<MessageSink, Integer>, Query>();
 
     public PersistentServerTransaction(ServerTransactionCoordinator stc, MessageInterface source, int tid, int storeId) throws UnknownStoreException {
         super(stc, source);
@@ -131,18 +132,18 @@ public class PersistentServerTransaction extends ServerTransaction {
         return startedTime;
     }
 
-    public void cmdCommitCmd(int storeId, int cid, MessageInterface source, CommitCmd command, ByteBuffer packet) {
+    public void cmdCommitCmd(int storeId, int cid, MessageSink source, CommitCmd command, ByteBuffer packet) {
         setWriteCommand(command, packet);
         commit();
     }
 
-    public void cmdRetrieveByRefCmd(int storeId, int cid, MessageInterface source, RetrieveByRefCmd command, ByteBuffer packet) throws UnknownObjectException {
+    public void cmdRetrieveByRefCmd(int storeId, int cid, MessageSink source, RetrieveByRefCmd command, ByteBuffer packet) throws UnknownObjectException {
         RefImpl<?> ref = (RefImpl<?>)command.getRef();
         RetrieveSingleRsp rsp = new RetrieveSingleRsp(storeId, cid, getByRef(ref));
         sendResponse(rsp);
     }
 
-    public void cmdRetrieveByRefsCmd(int storeId, int cid, MessageInterface source, RetrieveByRefsCmd command, ByteBuffer packet) throws UnknownObjectException {
+    public void cmdRetrieveByRefsCmd(int storeId, int cid, MessageSink source, RetrieveByRefsCmd command, ByteBuffer packet) throws UnknownObjectException {
         ArrayList<Object> objects = new ArrayList<Object>();
         for (RefImpl<?> ref : command.getRefs()) {
             objects.add(getByRef(ref) );
@@ -153,7 +154,7 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
     @SuppressWarnings("unchecked")
-    public void cmdRetrieveBySpecCmd(int storeId, int cid, MessageInterface source, RetrieveBySpecCmd command, ByteBuffer packet) {
+    public void cmdRetrieveBySpecCmd(int storeId, int cid, MessageSink source, RetrieveBySpecCmd command, ByteBuffer packet) {
         RetrieveSpecResultImpl result = new RetrieveSpecResultImpl();
         RetrieveSpec spec = command.getSpec();
         Namespace namespace = store.getNamespace(command.getNamespace());
@@ -306,10 +307,10 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
 
-    void cmdWWSearchCmd(int storeId, int cid, MessageInterface source, WWSearchCmd command, ByteBuffer packet) throws UnknownStoreException, IOException, ArchException {
+    void cmdWWSearchCmd(int storeId, int cid, MessageSink source, WWSearchCmd command, ByteBuffer packet) throws UnknownStoreException, IOException, ArchException {
 
         // Create a key we can lookup this result with cmdWWSearchFetchCmd
-        TupleKey<MessageInterface, Integer> key = new TupleKey<MessageInterface, Integer>(source, command.getQueryId());
+        TupleKey<MessageSink, Integer> key = new TupleKey<MessageSink, Integer>(source, command.getQueryId());
 
         Namespace ns = repository.getStore(storeId).getNamespace(command.getNamespace());
         Search search = ns.search(command.getSearchSpec(), command.getWantNominee());
@@ -322,9 +323,9 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
 
-    void cmdWWSearchFetchCmd(int storeId, int cid, MessageInterface source, WWSearchFetchCmd command, ByteBuffer packet) throws IOException {
+    void cmdWWSearchFetchCmd(int storeId, int cid, MessageSink source, WWSearchFetchCmd command, ByteBuffer packet) throws IOException {
 
-        TupleKey<MessageInterface, Integer> key = new TupleKey<MessageInterface, Integer>(source, command.getQueryId());
+        TupleKey<MessageSink, Integer> key = new TupleKey<MessageSink, Integer>(source, command.getQueryId());
 
         Search search = searches.get(key);
         if (search == null){
@@ -335,7 +336,7 @@ public class PersistentServerTransaction extends ServerTransaction {
         }
     }
 
-    void cmdRetrieveByKeyCmd(int storeId, int cid, MessageInterface source, RetrieveByKeyCmd command, ByteBuffer packet) {
+    void cmdRetrieveByKeyCmd(int storeId, int cid, MessageSink source, RetrieveByKeyCmd command, ByteBuffer packet) {
         MetaObject<?> mo = null;
         Namespace namespace = store.getNamespace(command.getNamespace());
         if (namespace != null) {
@@ -346,13 +347,13 @@ public class PersistentServerTransaction extends ServerTransaction {
         sendResponse(rsp);
     }
 
-    void cmdListNamespacesCmd(int storeId, int cid, MessageInterface source, ListNamespacesCmd command, ByteBuffer packet) {
+    void cmdListNamespacesCmd(int storeId, int cid, MessageSink source, ListNamespacesCmd command, ByteBuffer packet) {
         ListNamespacesRsp rsp = new ListNamespacesRsp(storeId, cid, store.getNamespaces());
         sendResponse(rsp);
     }
 
     @SuppressWarnings("unchecked")
-	void cmdRetrieveFirstOfCmd(int storeId, int cid, MessageInterface source, RetrieveFirstOfCmd command, ByteBuffer packet) {
+	void cmdRetrieveFirstOfCmd(int storeId, int cid, MessageSink source, RetrieveFirstOfCmd command, ByteBuffer packet) {
         MetaObject<?> mo = null;
         Namespace namespace = store.getNamespace(command.getNamespace());
         if (namespace != null) {
@@ -368,7 +369,7 @@ public class PersistentServerTransaction extends ServerTransaction {
         sendResponse(rsp);
     }
 
-    void cmdQueryCmd(int storeId, int cid, MessageInterface source, QueryCmd command, ByteBuffer packet) throws ArchException {
+    void cmdQueryCmd(int storeId, int cid, MessageSink source, QueryCmd command, ByteBuffer packet) throws ArchException {
         // Begin a new query
         Namespace namespace = store.getNamespace(command.getNamespace());
 
@@ -376,7 +377,7 @@ public class PersistentServerTransaction extends ServerTransaction {
 
         Query query = new Query(this, namespace, command.getForClass(), command.getIndex(), command.getExpr(), command.getFetchSize());
 
-        queries.put(new TupleKey<MessageInterface, Integer>(source, qid), query);
+        queries.put(new TupleKey<MessageSink, Integer>(source, qid), query);
 
         ArrayList<Object> results = query.fetch();
         boolean moreResults = query.isMoreResults();
@@ -385,10 +386,10 @@ public class PersistentServerTransaction extends ServerTransaction {
         sendResponse(rsp);
     }
 
-    void cmdQueryFetchCmd(int storeId, int cid, MessageInterface source, QueryFetchCmd command, ByteBuffer packet) throws ArchException {
+    void cmdQueryFetchCmd(int storeId, int cid, MessageSink source, QueryFetchCmd command, ByteBuffer packet) throws ArchException {
         // Progress an existing query
         int qid = command.getQid();
-        TupleKey<MessageInterface, Integer> key = new TupleKey<MessageInterface, Integer>(source, qid);
+        TupleKey<MessageSink, Integer> key = new TupleKey<MessageSink, Integer>(source, qid);
         Query query = queries.get(key);
 
         if (query == null) {
@@ -403,7 +404,7 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
 
-    void cmdCountClassCmd(int storeId, int cid, MessageInterface source, CountClassCmd command, ByteBuffer packet) {
+    void cmdCountClassCmd(int storeId, int cid, MessageSink source, CountClassCmd command, ByteBuffer packet) {
         long count = 0;
         Namespace namespace = store.getNamespace(command.getNamespace());
 
@@ -425,7 +426,7 @@ public class PersistentServerTransaction extends ServerTransaction {
      * Implements doing search and returning results for both intial search, WWSearchCmd and WWSearchFetchCmd
      * @throws IOException
      */
-    private void doSearchFetch(int storeId, int cid, MessageInterface source, Search search, int fetchSize) throws IOException {
+    private void doSearchFetch(int storeId, int cid, MessageSink source, Search search, int fetchSize) throws IOException {
         assert (search != null);
         if (search.isNominee()) {
             // Nominee version
