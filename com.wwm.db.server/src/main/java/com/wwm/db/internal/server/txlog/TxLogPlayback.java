@@ -26,20 +26,23 @@ import com.wwm.db.internal.server.CommandProcessingPool;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.WorkerThread;
 import com.wwm.io.core.Message;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.layer2.PacketCodec;
 import com.wwm.io.core.layer2.SourcedMessageImpl;
 import com.wwm.io.core.messages.ErrorRsp;
 import com.wwm.io.core.messages.PacketMessage;
 
-public class TxLogPlayback extends WorkerThread implements MessageInterface {
+/**
+ * WorkerThread that plays back the transaction log and applies it to the database
+ */
+public class TxLogPlayback extends WorkerThread implements MessageSink {
 
 	static private Logger log = LogFactory.getLogger(TxLogPlayback.class);
 
-	private Database database;
-	private Semaphore finished = new Semaphore(0);
-	private Semaphore executing = new Semaphore(0);
-	private CommandProcessingPool commandProcessor;
+	private final Database database;
+	private final Semaphore finished = new Semaphore(0);
+	private final Semaphore executing = new Semaphore(0);
+	private final CommandProcessingPool commandProcessor;
 
 	
 	public TxLogPlayback(Database database, CommandProcessingPool commandProcessor) {
@@ -130,14 +133,9 @@ public class TxLogPlayback extends WorkerThread implements MessageInterface {
 		// do nothing 
 	}
 
-	public Collection<PacketMessage> read() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void requestClassData(int storeId, String className) {
-		throw new UnsupportedOperationException();
-	}
-
+	/**
+	 * Receive response to having executed a command from the TxLog
+	 */
 	public void send(Message m) {
 		executing.release();
 		// always release, otherwise error will deadlock.
@@ -149,13 +147,4 @@ public class TxLogPlayback extends WorkerThread implements MessageInterface {
 			throw new RuntimeException();
 		}
 	}
-
-	public void send(Message[] m) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void send(Collection<Message> m) {
-		throw new UnsupportedOperationException();
-	}
-	
 }
