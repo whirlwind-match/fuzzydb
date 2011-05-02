@@ -18,14 +18,14 @@ import com.wwm.db.exceptions.StoreExistsException;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.comms.messages.CreateStoreCmd;
 import com.wwm.db.internal.comms.messages.CreateStoreRsp;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 
 public class ServerCreateStoreTransaction extends ServerTransaction {
 
 	private int storeId;
 	
-	public ServerCreateStoreTransaction(ServerTransactionCoordinator stc, MessageInterface source) {
+	public ServerCreateStoreTransaction(ServerTransactionCoordinator stc, MessageSink source) {
 		super(stc, source);
 	}
 

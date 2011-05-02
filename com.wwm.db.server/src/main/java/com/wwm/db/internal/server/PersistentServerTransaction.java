@@ -54,7 +54,6 @@ import com.wwm.db.internal.table.UserTable;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.query.RetrieveSpec;
 import com.wwm.db.query.RetrieveSpecItem;
-import com.wwm.io.core.MessageInterface;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.ErrorRsp;
 import com.wwm.io.core.messages.Response;
@@ -110,7 +109,7 @@ public class PersistentServerTransaction extends ServerTransaction {
     private final Map<TupleKey<MessageSink, Integer>, Query> queries
     = new TreeMap<TupleKey<MessageSink, Integer>, Query>();
 
-    public PersistentServerTransaction(ServerTransactionCoordinator stc, MessageInterface source, int tid, int storeId) throws UnknownStoreException {
+    public PersistentServerTransaction(ServerTransactionCoordinator stc, MessageSink source, int tid, int storeId) throws UnknownStoreException {
         super(stc, source);
         this.key = new Key(source, tid);
         store = stc.getRepository().getStore(storeId);

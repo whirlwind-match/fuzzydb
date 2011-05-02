@@ -14,12 +14,12 @@ import java.nio.ByteBuffer;
 
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.comms.messages.DeleteStoreCmd;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 
 public class ServerDeleteStoreTransaction extends ServerTransaction {
 	
-	public ServerDeleteStoreTransaction(ServerTransactionCoordinator stc, MessageInterface source) {
+	public ServerDeleteStoreTransaction(ServerTransactionCoordinator stc, MessageSink source) {
 		super(stc, source);
 	}
 

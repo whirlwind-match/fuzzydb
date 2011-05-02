@@ -18,7 +18,7 @@ import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 
 public class ServerAllocNewIdsTransaction extends ServerTransaction {
@@ -26,7 +26,7 @@ public class ServerAllocNewIdsTransaction extends ServerTransaction {
 	private long nextOid;
 	private int tableId;
 	
-	public ServerAllocNewIdsTransaction(ServerTransactionCoordinator stc, MessageInterface source) {
+	public ServerAllocNewIdsTransaction(ServerTransactionCoordinator stc, MessageSink source) {
 		super(stc, source);
 	}
 	@Override

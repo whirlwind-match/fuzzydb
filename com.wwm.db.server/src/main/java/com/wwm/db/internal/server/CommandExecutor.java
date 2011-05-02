@@ -50,9 +50,9 @@ public class CommandExecutor {
 	private final String commandPackageName;
 
 	// HashMap usage reviewed by Neale: Seems efficient as Class.hashCode() uses built-in, which will be cached (we'd hope)
-	private Map<Class<?>, Method> commandMap = new HashMap<Class<?>, Method>();
+	private final Map<Class<?>, Method> commandMap = new HashMap<Class<?>, Method>();
 	private final ServerTransactionCoordinator stc;
-	private Database database;
+	private final Database database;
 	
 	public CommandExecutor(ServerTransactionCoordinator stc, Database database) {
 		this.stc = stc;
@@ -143,9 +143,9 @@ public class CommandExecutor {
 	//			}
 				method.invoke(executionTarget, storeId, cid, source, cmd, packet);
 			} catch (IllegalArgumentException e) {
-				throw new RuntimeException("IllegalArgumentException returned when invoking command", e);
+				throw new RuntimeException("IllegalArgumentException returned when invoking command: " + method, e);
 			} catch (IllegalAccessException e) {
-				throw new RuntimeException("IllegalAccessException returned when invoking command", e);
+				throw new RuntimeException("IllegalAccessException returned when invoking command: " + method, e);
 			} catch (InvocationTargetException e) {
 				Throwable targetException = e.getTargetException();
 				
@@ -188,7 +188,7 @@ public class CommandExecutor {
 				|| cmd instanceof WWSearchFetchCmd);
 	}
 
-	private void beginTx(int storeId, int cid, MessageInterface source, BeginTransactionCmd command, ByteBuffer packet) throws UnknownStoreException {
+	private void beginTx(int storeId, int cid, MessageSink source, BeginTransactionCmd command, ByteBuffer packet) throws UnknownStoreException {
 		PersistentServerTransaction transaction = new PersistentServerTransaction(stc, source, command.getTid(), storeId);
 		stc.addTransaction(transaction);
 
@@ -203,7 +203,7 @@ public class CommandExecutor {
 		}
 	}
 	
-	private void sendOkRsp(MessageInterface source, int storeId, int cid){
+	private void sendOkRsp(MessageSink source, int storeId, int cid){
 		OkRsp ok = new OkRsp(storeId, cid);
 		try {
 			source.send(ok);
@@ -219,14 +219,14 @@ public class CommandExecutor {
 	}
 	
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdCreateStoreCmd(int storeId, int cid, MessageInterface source, CreateStoreCmd command, ByteBuffer packet) throws IOException, StoreExistsException {
+	private void cmdCreateStoreCmd(int storeId, int cid, MessageSink source, CreateStoreCmd command, ByteBuffer packet) throws IOException, StoreExistsException {
 		ServerCreateStoreTransaction transaction = new ServerCreateStoreTransaction(stc, source);
 		transaction.setWriteCommand(command, packet);
 		transaction.commit();
 	}
 
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdDeleteStoreCmd(int storeId, int cid, MessageInterface source, DeleteStoreCmd command, ByteBuffer packet) throws IOException, UnknownStoreException {
+	private void cmdDeleteStoreCmd(int storeId, int cid, MessageSink source, DeleteStoreCmd command, ByteBuffer packet) throws IOException, UnknownStoreException {
 		ServerDeleteStoreTransaction transaction = new ServerDeleteStoreTransaction(stc, source);
 		transaction.setWriteCommand(command, packet);
 		transaction.commit();
@@ -243,24 +243,24 @@ public class CommandExecutor {
 	}
 	
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdAllocNewIdsCmd(int storeId, int cid, MessageInterface source, AllocNewIdsCmd command, ByteBuffer packet) {
+	private void cmdAllocNewIdsCmd(int storeId, int cid, MessageSink source, AllocNewIdsCmd command, ByteBuffer packet) {
 		ServerAllocNewIdsTransaction transaction = new ServerAllocNewIdsTransaction(stc, source);
 		transaction.setWriteCommand(command, packet);
 		transaction.commit();
 	}
 	
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdBeginAndCommitCmd(int storeId, int cid, MessageInterface source, BeginTransactionCmd command, ByteBuffer packet) throws UnknownStoreException {
+	private void cmdBeginAndCommitCmd(int storeId, int cid, MessageSink source, BeginTransactionCmd command, ByteBuffer packet) throws UnknownStoreException {
 		beginTx(storeId, cid, source, command, packet);
 	}
 	
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdBeginTransactionCmd(int storeId, int cid, MessageInterface source, BeginTransactionCmd command, ByteBuffer packet) throws UnknownStoreException {
+	private void cmdBeginTransactionCmd(int storeId, int cid, MessageSink source, BeginTransactionCmd command, ByteBuffer packet) throws UnknownStoreException {
 		beginTx(storeId, cid, source, command, packet);
 	}
 	
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdDisposeCmd(int storeId, int cid, MessageInterface source, DisposeCmd command, ByteBuffer packet) throws UnknownStoreException {
+	private void cmdDisposeCmd(int storeId, int cid, MessageSink source, DisposeCmd command, ByteBuffer packet) throws UnknownStoreException {
 		ArrayList<Integer> tids = command.getDisposedTransactions();
 		for (Integer tid : tids) {
 			stc.tryRemoveTransaction(source, tid);
@@ -269,7 +269,7 @@ public class CommandExecutor {
 	}
 
 	@SuppressWarnings("unused") // Used via reflection
-	private void cmdShutdownCmd(int storeId, int cid, MessageInterface source, ShutdownCmd command, ByteBuffer packet) throws UnknownStoreException {
+	private void cmdShutdownCmd(int storeId, int cid, MessageSink source, ShutdownCmd command, ByteBuffer packet) throws UnknownStoreException {
 		// Unusual case: try and send the OK before we close down, so the client stands a chance of getting it before the network connection is closed.
 		sendOkRsp(source, storeId, cid);
 		database.closeNonBlocking();

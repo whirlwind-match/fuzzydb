@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
 
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.comms.messages.OkRsp;
-import com.wwm.io.core.MessageInterface;
+import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.ErrorRsp;
 
@@ -29,8 +29,8 @@ public abstract class ServerTransaction implements TransactionControl {
 	}
 	
 	protected Command command;
-	protected final MessageInterface source;
-	private TransactionState transactionState;
+	protected final MessageSink source;
+	private final TransactionState transactionState;
 	protected Repository repository;
 	
 	protected final ServerTransactionCoordinator stc;
@@ -44,7 +44,7 @@ public abstract class ServerTransaction implements TransactionControl {
 //	private ByteBuffer packet;
 	
 
-	public ServerTransaction(ServerTransactionCoordinator stc, MessageInterface source) {
+	public ServerTransaction(ServerTransactionCoordinator stc, MessageSink source) {
 		this.stc = stc;
 		this.source = source;
 		this.transactionState = new TransactionState(stc.getDatabaseVersionState());
