@@ -5,18 +5,11 @@
     <artifactId>com.wwm.atom.server</artifactId>
     <version>1.0.0.CI-SNAPSHOT</version>
 
-    <!--
-        - NOTE: parent can be any type of packaging, so picking the
-        logical parent is a good idea - e.g. the parent will contain
-        many dependencies you need.
-    -->
-    <parent>
-        <artifactId>com.wwm.atom.build</artifactId>
-        <groupId>com.wwm.atom</groupId>
-        <version>1.0.0.CI-SNAPSHOT</version>
-        
-    </parent>
-
+  <parent>
+  	<artifactId>whirlwind-parent</artifactId>
+  	<groupId>com.wwm</groupId>
+  	<version>1.0.0.CI-SNAPSHOT</version>
+  </parent>
 
     <dependencies>
         <dependency>

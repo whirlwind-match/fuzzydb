@@ -13,10 +13,5 @@
     <module>../com.wwm.atom</module>
     <module>../com.wwm.atom.server</module>
   </modules>
-  <parent>
-  	<artifactId>whirlwind-parent</artifactId>tId>
-  	<groupId>com.wwm</groupId>
-  	<version>1.0.0.CI-SNAPSHOT</version>
-  </parent>
 
 </project>
