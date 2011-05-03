@@ -1,3 +1,4 @@
+package com.wwm.postcode;
 /******************************************************************************
  * Copyright (c) 2005-2009 Whirlwind Match Limited. All rights reserved.
  *
@@ -27,11 +28,11 @@ import static org.mockito.Mockito.mock;
  * 
  * They test functionality where only the basic "outward part" postcode database is available.
  */
-public class TestPostcodeConvertor {
+public class PostcodeConverterTest {
     private PostcodeConvertor convertor;
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
 //        SimpleDAO dao = new Db2ObjectDAO("wwmdb:/postcode");
         SimpleDAO dao = mock(SimpleDAO.class);
 
