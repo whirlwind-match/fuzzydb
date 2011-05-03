@@ -8,6 +8,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 
+<!-- 	<ww-db:embedded id="storeBean" store="storeName" /> -->
+
+	<!-- TODO: We want to hide Client from apps, and instead handle Store as equiv of a DataSource -->
 	<bean id="clientFactory" class="com.wwm.db.EmbeddedClientFactory" factory-method="getInstance"/>
 	
 	<bean id="client" factory-bean="clientFactory" factory-method="createEmbeddedClient"/>
