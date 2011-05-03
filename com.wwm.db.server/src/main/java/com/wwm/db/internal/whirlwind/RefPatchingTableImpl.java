@@ -24,7 +24,7 @@ import com.wwm.db.internal.table.TableImpl;
  *  
  * @author Neale
  */
-public class RefPatchingTableImpl<T extends RefAware> extends TableImpl<T,T> implements RefPatchingTable<T> {
+public class RefPatchingTableImpl<T extends RefAware<T>> extends TableImpl<T,T> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class RefPatchingTableImpl<T extends RefAware> extends TableImpl<T,T> imp
 	}
 
 	@Override
-	public T getObject(RefImpl ref) throws UnknownObjectException {
+	public T getObject(RefImpl<T> ref) throws UnknownObjectException {
 		T object = super.getObject(ref);
 		if (object != null){
 			object.setRef(ref);
@@ -42,7 +42,7 @@ public class RefPatchingTableImpl<T extends RefAware> extends TableImpl<T,T> imp
 	}
 
 	@Override
-	public T getObjectNonIO(RefImpl ref) throws UnknownObjectException {
+	public T getObjectNonIO(RefImpl<T> ref) throws UnknownObjectException {
 		T object = super.getObjectNonIO(ref);
 		if (object != null){
 			object.setRef(ref);
@@ -50,15 +50,13 @@ public class RefPatchingTableImpl<T extends RefAware> extends TableImpl<T,T> imp
 		return object;
 	}
 	
-	@Override
-	public void create(RefImpl ref, T object) {
+	public void create(RefImpl<T> ref, T object) {
 		super.create(ref, object);
 		object.setRef(ref);
 		object.setImmutable(); // Tell the object that it can no longer be written to
 	}
 	
-	@Override
-	public void update(RefImpl ref, T object) throws UnknownObjectException {
+	public void update(RefImpl<T> ref, T object) throws UnknownObjectException {
 		super.update(ref, object);
 		object.setImmutable(); // Tell the object that it can no longer be written to
 	}
