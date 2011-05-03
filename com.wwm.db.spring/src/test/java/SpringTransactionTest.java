@@ -12,6 +12,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.exceptions.ArchException;

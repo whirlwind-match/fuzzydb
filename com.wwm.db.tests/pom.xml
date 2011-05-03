@@ -25,14 +25,13 @@
     		<artifactId>com.wwm.db.server</artifactId>
     		<version>1.0.0.CI-SNAPSHOT</version>
     	</dependency>
-    <!--
         <dependency>
             <groupId>com.wwm.db</groupId>
             <artifactId>com.wwm.db.server</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
             <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
-    -->
     	<dependency>
     		<groupId>com.wwm</groupId>
     		<artifactId>com.wwm.io.packet</artifactId>

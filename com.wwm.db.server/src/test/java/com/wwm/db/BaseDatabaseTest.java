@@ -1,4 +1,4 @@
-
+package com.wwm.db;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -12,20 +12,25 @@ import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.Client;
+import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Factory;
 import com.wwm.db.Store;
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
+import com.wwm.db.internal.StoreImpl;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.services.IndexImplementationsService;
 import com.wwm.io.packet.layer1.SocketListeningServer;
 
+
 public abstract class BaseDatabaseTest {
 
-	public static final String defaultAddress = "127.0.0.1";
+	protected static boolean useEmbeddedDatabase = true;
+	
+	private static final String defaultAddress = "127.0.0.1";
 //	public static final InetAddress defaultAddress = InetAddress.getLocalHost();
-	public static final int serverPort = 5002;
+	private static final int serverPort = 5002;
 
 	protected final String storeName = "TestStore";
 
@@ -34,9 +39,7 @@ public abstract class BaseDatabaseTest {
 	// TODO: make client, store and attrMgr private and use getClient, getStore etc so that they're read only
 	protected Client client; 
 	protected Store store;
-
-	protected boolean useWhirlwind = true;
-    
+	
 	
 	@BeforeClass
 	static public void tweakSettings()	{
@@ -55,11 +58,18 @@ public abstract class BaseDatabaseTest {
 	public void setUpDatabase() throws Exception {
 		JVMAppListener.getInstance().preRequest();
 
-		database = startNewDatabase();
+		if (useEmbeddedDatabase) {
+			database = null;
+			client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
+		}
+		else {
+			database = startNewDatabase();
+			// Make client
+			client = Factory.createClient();
+			client.connect(new InetSocketAddress(defaultAddress, serverPort));
+			
+		}
 		
-		// Make client
-		client = Factory.createClient();
-		client.connect(new InetSocketAddress(defaultAddress, serverPort));
 
 		try {
 			client.deleteStore(storeName);
@@ -69,12 +79,24 @@ public abstract class BaseDatabaseTest {
 		
 		store = client.createStore(storeName);
 	}
-
-
+  
+	/**
+	 * call this in tests where you're going to use overlapped Txs
+	 */
+	protected void allowOverlappedTx() {
+		((StoreImpl)store).setAllowTxOverlapInThread(true);
+	}
+	
+	
 	@After
 	public void closeDatabase() throws Exception {
-		if (database != null) {
-			database.close();
+		if (useEmbeddedDatabase) {
+			EmbeddedClientFactory.getInstance().shutdownDatabase();
+		}
+		else {
+			if (database != null) {
+				database.close();
+			}
 		}
 	}
 	
@@ -83,9 +105,7 @@ public abstract class BaseDatabaseTest {
 		InetSocketAddress anyLocalAddress = new InetSocketAddress(serverPort);
 		Database db = new Database(new SocketListeningServer(anyLocalAddress));
 		IndexImplementationsService service = new IndexImplementationsService();
-//		if (useWhirlwind) {
 //			service.add( new WhirlwindIndexImpl());
-//		}
 		db.setIndexImplsService(service);
 		db.startServer();
 		return db;
@@ -93,19 +113,30 @@ public abstract class BaseDatabaseTest {
 	}
 	
 	protected void restartDatabase() throws IOException, UnknownHostException, ArchException {
-		database.close();
-		// Make server
-		database = startNewDatabase();
-		
-		// Make client
-		Client client = Factory.createClient();
-		client.connect(new InetSocketAddress(defaultAddress, serverPort));
+		if (useEmbeddedDatabase) {
+			EmbeddedClientFactory.getInstance().shutdownDatabase();
+			client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
+		}
+		else {
+			database.close();
+			// Make server
+			database = startNewDatabase();
+			
+			// Make client
+			client = Factory.createClient();
+			client.connect(new InetSocketAddress(defaultAddress, serverPort));
+		}
 
 		store = client.openStore(storeName);
 	}
 
 	protected boolean isDatabaseClosed() {
-		return database.isClosed();
+		if (useEmbeddedDatabase) {
+			return EmbeddedClientFactory.getInstance().isDatabaseClosed();
+		}
+		else {
+			return database.isClosed();
+		}
 	}
 
 	/**
