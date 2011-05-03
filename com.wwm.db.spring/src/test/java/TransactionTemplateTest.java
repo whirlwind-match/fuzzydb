@@ -15,25 +15,20 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager;
 import com.wwm.db.userobjects.TestIndexClass;
 
-public class SpringTransactionTest extends BaseDatabaseTest {
+public class TransactionTemplateTest extends BaseDatabaseTest {
 	
 
 	@Test 
-	public void objectCreatedInTransactionTemplateIsFoundInDatabase() throws ArchException {
+	public void objectCreatedInTransactionTemplateIsFoundInDatabase() {
 		
 		final WhirlwindPlatformTransactionManager tm = new WhirlwindPlatformTransactionManager(store);
 
 		Ref ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref>() {
 			public Ref doInTransaction(TransactionStatus status) {
-				try {
-					return tm.getDataOps().create(new TestIndexClass(1));
-				} catch (ArchException e) {
-					throw new RuntimeException(e); // TODO: Make ArchException extend RuntimeException
-				}
+				return tm.getDataOps().create(new TestIndexClass(1));
 			}
 		});
 		
@@ -52,7 +47,7 @@ public class SpringTransactionTest extends BaseDatabaseTest {
 	}
 	
 	@Test 
-	public void transactionShouldRollbackOnException() throws ArchException {
+	public void transactionShouldRollbackOnException() {
 		
 		final WhirlwindPlatformTransactionManager tm = new WhirlwindPlatformTransactionManager(store);
 
@@ -72,7 +67,6 @@ public class SpringTransactionTest extends BaseDatabaseTest {
 		
 		assertThat(retrieved, nullValue());
 		
-		
 		t.dispose();
 
 	}
@@ -81,12 +75,8 @@ public class SpringTransactionTest extends BaseDatabaseTest {
 			final WhirlwindPlatformTransactionManager tm) {
 		Ref ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref>() {
 			public Ref doInTransaction(TransactionStatus status) {
-				try {
-					tm.getDataOps().create(new TestIndexClass(1));
-					throw new RuntimeException("Deliberate exception. Should cause rollback");
-				} catch (ArchException e) {
-					throw new RuntimeException(e);
-				}
+				tm.getDataOps().create(new TestIndexClass(1));
+				throw new RuntimeException("Deliberate exception. Should cause rollback");
 			}
 		});
 		return ref;
