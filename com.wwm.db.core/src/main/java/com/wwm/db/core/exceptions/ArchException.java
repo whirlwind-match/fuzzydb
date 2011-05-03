@@ -19,7 +19,7 @@ package com.wwm.db.core.exceptions;
  *
  */
 @SuppressWarnings("serial")
-public class ArchException extends Exception {
+public class ArchException extends RuntimeException {
 
     /**
      * TODO Not sure if we want this one implemented.
