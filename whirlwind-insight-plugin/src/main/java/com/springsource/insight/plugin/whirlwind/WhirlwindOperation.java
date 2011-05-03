@@ -13,18 +13,18 @@ import com.springsource.insight.intercept.operation.SourceCodeLocation;
  */
 public class WhirlwindOperation extends BasicOperation {
 
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<String> parameters;
 
 	public WhirlwindOperation(SourceCodeLocation scl) {
 		super(scl);
 	}
 
-	@Override
 	public String getLabel() {
 		return getSourceCodeLocation().getClassName() + ":" + getSourceCodeLocation().getMethodName();
 	}
 
-	@Override
 	public OperationType getType() {
 		return OperationType.valueOf("READ");
 	}
