@@ -2,8 +2,14 @@ package com.wwm.io.packet.layer1;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.logging.Logger;
+
+import com.wwm.db.core.LogFactory;
 
 public class SocketListeningServer extends ServerImpl {
+	
+	private static final Logger log = LogFactory.getLogger(SocketListeningServer.class);
+	
 	private final InetSocketAddress address;
 
 	/**
@@ -24,6 +30,7 @@ public class SocketListeningServer extends ServerImpl {
 	public void start() {
 		try {
 			listen(address);
+			log.info("<<< Server listening at address: " + address + " >>>");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
