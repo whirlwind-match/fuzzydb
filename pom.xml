@@ -13,8 +13,8 @@
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 
      <modules>
-        <module>com.wwm.build/parent</module>
-        <module>com.wwm.build/whirlwind-parent-aspectj</module>
+        <module>whirlwind-parent</module>
+        <module>whirlwind-parent-aspectj</module>
         
         <module>com.wwm.util</module>
         <module>com.wwm.util.gui</module>
