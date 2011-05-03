@@ -4,7 +4,7 @@
   <groupId>com.wwm.atom</groupId>
   <artifactId>com.wwm.atom.build</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.CI-SNAPSHOT</version>
 
   <name>Atom Parent Project</name>
  
@@ -14,9 +14,9 @@
     <module>../com.wwm.atom.server</module>
   </modules>
   <parent>
-  	<artifactId>com.wwm.build.parent</artifactId>
+  	<artifactId>whirlwind-parent</artifactId>tId>
   	<groupId>com.wwm</groupId>
-  	<version>1.0-SNAPSHOT</version>
+  	<version>1.0.0.CI-SNAPSHOT</version>
   </parent>
 
 </project>

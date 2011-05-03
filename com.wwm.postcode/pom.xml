@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.wwm</groupId>
   <artifactId>com.wwm.postcode</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.CI-SNAPSHOT</version>
   <parent>
-    <artifactId>com.wwm.build.parent</artifactId>
+    <artifactId>whirlwind-parent</artifactId>tId>
     <groupId>com.wwm</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0.CI-SNAPSHOT</version>
     
   </parent>
   <build>
@@ -17,7 +17,7 @@
   	<dependency>
   		<groupId>com.wwm.db</groupId>
   		<artifactId>com.wwm.db</artifactId>
-  		<version>1.0-SNAPSHOT</version>
+  		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>org.mockito</groupId>

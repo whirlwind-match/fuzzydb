@@ -8,13 +8,13 @@
     <groupId>com.wwm</groupId>
     <artifactId>com.wwm.build.aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0.CI-SNAPSHOT</version>
     <name>com.wwm.build Multi Project</name>
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 
      <modules>
         <module>com.wwm.build/parent</module>
-        <module>com.wwm.build/aspectj-parent</module>
+        <module>com.wwm.build/whirlwind-parent-aspectj</module>
         
         <module>com.wwm.util</module>
         <module>com.wwm.util.gui</module>

@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.wwm</groupId>
+	<artifactId>whirlwind-parent-aspectj</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0.CI-SNAPSHOT</version>
+	<name>AspectJ Parent</name>
+	<description>x</description>
+
+
+	<parent>
+		<artifactId>whirlwind-parent</artifactId>
+		<groupId>com.wwm</groupId>
+		<version>1.0.0.CI-SNAPSHOT</version>
+		
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.3.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<aspectj.version>1.6.8</aspectj.version>
+	</properties>
+
+</project>

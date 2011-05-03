@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.whirlwind-db</groupId>
 	<artifactId>whirlwind-insight-plugin</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0.CI-SNAPSHOT</version>
 	<parent>
 		<groupId>com.wwm</groupId>
-		<artifactId>com.wwm.aspectj.parent</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<artifactId>whirlwind-parent-aspectj</artifactId>
+		<version>1.0.0.CI-SNAPSHOT</version>
 		<!-- empty to workaround 3.0.x warning: see http://jira.codehaus.org/browse/MNG-4687 -->
 		<relativePath></relativePath>
 	</parent>
@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>com.wwm.db</groupId>
 			<artifactId>com.wwm.db</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0.0.CI-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

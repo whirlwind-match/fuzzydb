@@ -2,18 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.wwm.attrs</groupId>
   <artifactId>com.wwm.attrs</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.CI-SNAPSHOT</version>
   <parent>
-  	<artifactId>com.wwm.build.parent</artifactId>
+  	<artifactId>whirlwind-parent</artifactId>
   	<groupId>com.wwm</groupId>
-  	<version>1.0-SNAPSHOT</version>
+  	<version>1.0.0.CI-SNAPSHOT</version>
   	
   </parent>
   <dependencies>
   	<dependency>
   		<groupId>com.wwm.db</groupId>
   		<artifactId>com.wwm.db</artifactId>
-  		<version>1.0-SNAPSHOT</version>
+  		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>

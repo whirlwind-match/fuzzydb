@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.wwm.db</groupId>
   <artifactId>com.wwm.db.server</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.CI-SNAPSHOT</version>
 
     <parent>
         <groupId>com.wwm</groupId>
-        <artifactId>com.wwm.aspectj.parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>whirlwind-parent-aspectj</artifactId>
+        <version>1.0.0.CI-SNAPSHOT</version>
         
     </parent>
 
@@ -17,12 +17,12 @@ Compiles against io.packet, but that artifact must be included into runtime scop
     <dependency>
       <groupId>com.wwm.db</groupId> 
       <artifactId>com.wwm.db</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0.0.CI-SNAPSHOT</version>
     </dependency>
     <dependency>
     	<groupId>com.wwm.attrs</groupId>
     	<artifactId>com.wwm.attrs</artifactId>
-    	<version>1.0-SNAPSHOT</version>
+    	<version>1.0.0.CI-SNAPSHOT</version>
     	<scope>compile</scope>
     </dependency>
     <dependency>
@@ -34,7 +34,7 @@ Compiles against io.packet, but that artifact must be included into runtime scop
     <dependency>
     	<groupId>com.wwm</groupId>
     	<artifactId>com.wwm.io.packet</artifactId>
-    	<version>1.0-SNAPSHOT</version>
+    	<version>1.0.0.CI-SNAPSHOT</version>
     	<type>jar</type>
     	<scope>provided</scope>
     </dependency>

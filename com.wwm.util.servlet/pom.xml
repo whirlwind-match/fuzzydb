@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.wwm</groupId>
   <artifactId>com.wwm.util.servlet</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.CI-SNAPSHOT</version>
 
     <parent>
-        <artifactId>com.wwm.build.parent</artifactId>
+        <artifactId>whirlwind-parent</artifactId>
         <groupId>com.wwm</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0.CI-SNAPSHOT</version>
         
     </parent>
 
@@ -15,7 +15,7 @@
         <dependency>
         	<groupId>com.wwm</groupId>
         	<artifactId>com.wwm.util</artifactId>
-        	<version>1.0-SNAPSHOT</version>
+        	<version>1.0.0.CI-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>javax.servlet</groupId>
