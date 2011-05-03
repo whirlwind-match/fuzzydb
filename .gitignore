@@ -8,3 +8,7 @@ target/
 
 # Remnant of OSGi project configs under Eclipse - should eventually not generate a bin directory.
 bin/
+
+# Eclipse WTP is a pain in creating a manifest if we haven't
+*/src/main/java/META-INF/
+
