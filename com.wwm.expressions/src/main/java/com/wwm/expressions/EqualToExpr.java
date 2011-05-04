@@ -21,7 +21,7 @@ public class EqualToExpr extends RelExpr {
 	}
  
 	@Override
-	public boolean evaluate(ExprContext context) throws ArchException {
+	public boolean evaluate(ExprContext context) {
 		return left.evaluate(context).compareTo(right.evaluate(context)) == 0;
 	}
 }

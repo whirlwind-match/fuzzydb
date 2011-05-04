@@ -30,7 +30,7 @@ public class ServerDeleteStoreTransaction extends ServerTransaction {
 	}
 
 	@Override
-	protected void doCommitChecks() throws ArchException {
+	protected void doCommitChecks() {
 		String storeName = getStoreName();
 		
 		// Pre checks

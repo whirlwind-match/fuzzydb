@@ -55,7 +55,7 @@ public class ResultIteratorImpl<E> implements ResultIterator<E> {
 		dispose();
 	}
 	
-	private void activate() throws ArchException
+	private void activate()
 	{
 		if (active) return;
 		StoreImpl store = transaction.getStore();
@@ -70,7 +70,7 @@ public class ResultIteratorImpl<E> implements ResultIterator<E> {
 		moreResults = rsp.isMoreResults();
 	}
 	
-	public long count() throws ArchException {
+	public long count() {
 		throw new NotImplementedException();
 	}
 

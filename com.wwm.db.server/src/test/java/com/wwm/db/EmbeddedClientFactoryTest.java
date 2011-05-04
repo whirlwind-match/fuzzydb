@@ -12,7 +12,7 @@ public class EmbeddedClientFactoryTest {
 
 	
 	@Test
-	public void createStoreAgainstEmbeddedDatabaseSucceeds() throws ArchException, IOException {
+	public void createStoreAgainstEmbeddedDatabaseSucceeds(), IOException {
 		
 		Client client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
 		

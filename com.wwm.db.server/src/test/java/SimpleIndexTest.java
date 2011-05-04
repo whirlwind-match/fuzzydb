@@ -19,7 +19,7 @@ import com.wwm.util.MTRandom;
 
 public class SimpleIndexTest extends BaseDatabaseTest {
 
-	@Test public void testCreateIndexedObject() throws ArchException {
+	@Test public void testCreateIndexedObject() {
 		
 		Transaction t = store.getAuthStore().begin();
 		Ref ref = t.create(new TestIndexClass(1));
@@ -36,7 +36,7 @@ public class SimpleIndexTest extends BaseDatabaseTest {
 
 	}
 	
-	@Test public void testCreateIndexedObjects() throws ArchException {
+	@Test public void testCreateIndexedObjects() {
 		final int count = 1000; 
 		
 		Transaction t = store.getAuthStore().begin();
@@ -60,7 +60,7 @@ public class SimpleIndexTest extends BaseDatabaseTest {
 		
 	}
 
-	@Test public void testCreateManyIndexedObjectsSequential() throws ArchException {
+	@Test public void testCreateManyIndexedObjectsSequential() {
 		final int numberOfLoops = 10; 
 		final int numberPerLoop = 1000; 
 		
@@ -98,7 +98,7 @@ public class SimpleIndexTest extends BaseDatabaseTest {
 		System.out.println(numberPerLoop * numberOfLoops + " Indexed Objects individually looked up in " + lookupTime + "ms");
 	}
 
-	@Test public void testCreateManyIndexedObjectsRandom() throws ArchException {
+	@Test public void testCreateManyIndexedObjectsRandom() {
 		final int numberOfLoops = 100; 
 		final int numberPerLoop = 1000; 
 		

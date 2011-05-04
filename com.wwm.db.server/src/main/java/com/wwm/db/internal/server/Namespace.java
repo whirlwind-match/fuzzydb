@@ -238,7 +238,7 @@ public class Namespace implements Serializable {
 	 * @return Search object.  Search instance.  Not null.
 	 */
 	@SuppressWarnings("unchecked") // for (IndexedTable) up-cast.
-	public Search search(SearchSpec searchSpec, boolean wantNominee) throws ArchException {
+	public Search search(SearchSpec searchSpec, boolean wantNominee) {
 		Class<?> clazz = searchSpec.getClazz();
 		IndexedTable<?> table = (IndexedTable) getTable( clazz );
 		if (table == null) {

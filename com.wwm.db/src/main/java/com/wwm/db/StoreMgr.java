@@ -110,7 +110,7 @@ public class StoreMgr implements IShutdown {
      * Internal util for getting cached client connection, unique for client:port (i.e. single
      * client shared for stores on same server)
      */
-    synchronized private Client getClient(URL url) throws ArchException {
+    synchronized private Client getClient(URL url) {
         // NOTE: this can be inefficient, as it's only done once
         // for the first time for each new store
 

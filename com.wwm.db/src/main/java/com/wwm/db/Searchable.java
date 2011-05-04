@@ -25,7 +25,7 @@ public interface Searchable {
 	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize)
 			throws ArchException;
 
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search) throws ArchException;
+	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search);
 
 	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize)
 			throws ArchException;

@@ -39,7 +39,7 @@ public class Query implements ExprContext {
     private MetaObject<?> candidate;
 
     @SuppressWarnings("unchecked")
-	public <T> Query(TransactionControl transaction, Namespace namespace, Class<T> forClass, LogicExpr index, LogicExpr expr, int fetchSize) throws ArchException {
+	public <T> Query(TransactionControl transaction, Namespace namespace, Class<T> forClass, LogicExpr index, LogicExpr expr, int fetchSize) {
         //this.transaction = transaction;
         //this.namespace = namespace;
         //this.forClass = forClass;
@@ -68,7 +68,7 @@ public class Query implements ExprContext {
         lastResult = getNext();
     }
 
-    public ArrayList<Object> fetch() throws ArchException {
+    public ArrayList<Object> fetch() {
 
         ArrayList<Object> results = new ArrayList<Object>();
 
@@ -89,7 +89,7 @@ public class Query implements ExprContext {
      * @return the next object, or null if there are no more
      * @throws ArchException
      */
-    private Object getNext() throws ArchException {
+    private Object getNext() {
         boolean test1;
         boolean test2;
         do
@@ -108,7 +108,7 @@ public class Query implements ExprContext {
         return candidate;
     }
 
-    public Comparable<?> getField(String fieldName) throws ArchException {
+    public Comparable<?> getField(String fieldName) {
         try {
             Class<?> c = candidate.getObject().getClass();
             final Field backdoor = c.getDeclaredField(fieldName);

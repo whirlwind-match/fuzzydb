@@ -26,7 +26,7 @@ public class CRUDTest extends BaseDatabaseTest {
 	
 	ClassLoaderInterface cli = new DummyCli();
 
-	@Test public void testCreate2ObjectsNamespaced() throws ArchException {
+	@Test public void testCreate2ObjectsNamespaced() {
 		Ref ref1 = null;
 		Ref ref2 = null;
 		
@@ -91,7 +91,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 	
-	@Test public void testCreateObject() throws ArchException {
+	@Test public void testCreateObject() {
 		Ref ref = null;
 		
 		{
@@ -136,7 +136,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 
-	@Test public void testDeleteObject() throws ArchException {
+	@Test public void testDeleteObject() {
 		Ref ref = null;
 		
 		{
@@ -171,7 +171,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		assertTrue(threw);
 	}
 	
-	@Test public void testDoubleDeleteObject() throws ArchException {
+	@Test public void testDoubleDeleteObject() {
 		Ref ref = null;
 		
 		{
@@ -202,7 +202,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 
-	@Test public void testRetrieveFirstOf() throws ArchException {
+	@Test public void testRetrieveFirstOf() {
 		Ref ref = null;
 		
 		{
@@ -219,7 +219,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 	
-	@Test public void testRetrieveFirstOfAfterDelete() throws ArchException {
+	@Test public void testRetrieveFirstOfAfterDelete() {
 		Ref ref1 = null;
 		Ref ref2 = null;
 		
@@ -244,7 +244,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 
-	@Test public void testRetrieveFirstOfNull() throws ArchException {
+	@Test public void testRetrieveFirstOfNull() {
 		{
 			Transaction t = store.begin();
 			String s = t.retrieveFirstOf(String.class);
@@ -252,7 +252,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 
-	@Test public void testRetrieveFirstOfNullAfterDelete() throws ArchException {
+	@Test public void testRetrieveFirstOfNullAfterDelete() {
 		Ref ref1 = null;
 		
 		{
@@ -278,7 +278,7 @@ public class CRUDTest extends BaseDatabaseTest {
      * Test that when an object is retreived multiple times, that we get
      * different instances retrieved. 
      */
-    @Test public void testRetrieveGivesNewInstances() throws ArchException {
+    @Test public void testRetrieveGivesNewInstances() {
     
     	for(int count=0; count < 10; count++) {
     		Transaction wt = store.getAuthStore().begin();	// start write transaction
@@ -303,7 +303,7 @@ public class CRUDTest extends BaseDatabaseTest {
     	//deleteStore();
     }
 
-	@Test public void testRollback() throws ArchException {
+	@Test public void testRollback() {
     
     	for(int count=0; count < 10; count++) {
     		
@@ -346,7 +346,7 @@ public class CRUDTest extends BaseDatabaseTest {
     
     }
 	
-	@Test public void testShutdown() throws ArchException {
+	@Test public void testShutdown() {
 		final long timeout = 10000;
 		
 		assertFalse(isDatabaseClosed());
@@ -366,7 +366,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		assertTrue(isDatabaseClosed());
 	}
 
-	@Test public void testTransactionOverlap() throws ArchException {
+	@Test public void testTransactionOverlap() {
 		allowOverlappedTx();
 		
 		Ref ref = null;
@@ -416,7 +416,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 
-    @Test public void testUpdateDeleted() throws ArchException {
+    @Test public void testUpdateDeleted() {
 		allowOverlappedTx();
 
     	for(int count=0; count<10; count++) {
@@ -463,7 +463,7 @@ public class CRUDTest extends BaseDatabaseTest {
     
     }
 
-    @Test public void testUpdateObject() throws ArchException {
+    @Test public void testUpdateObject() {
 		Ref ref = null;
 		
 		// Create it
@@ -506,7 +506,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		}
 	}
 
-    @Test public void testUpdateOverlap() throws ArchException {
+    @Test public void testUpdateOverlap() {
 		allowOverlappedTx();
 		Ref ref = null;
 		
@@ -563,7 +563,7 @@ public class CRUDTest extends BaseDatabaseTest {
      * - commit using write tx
      * - Check it got updated 
 	 */
-    @Test public void testUpdateViaGet() throws ArchException {
+    @Test public void testUpdateViaGet() {
     
         for(int count=0; count < 10; count++) {
             
@@ -605,7 +605,7 @@ public class CRUDTest extends BaseDatabaseTest {
         }
     }
 
-    @Test public void testVersion() throws ArchException {
+    @Test public void testVersion() {
     
     	Ref ref = null;
     	

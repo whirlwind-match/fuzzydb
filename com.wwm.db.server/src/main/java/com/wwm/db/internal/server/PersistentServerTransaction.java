@@ -201,7 +201,7 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
     @Override
-    protected void doCommitChecks() throws ArchException {
+    protected void doCommitChecks() {
         CommitCmd cmd = (CommitCmd)command;
 
         //=================================================================
@@ -250,7 +250,7 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
     @Override
-    protected void doCommit() throws ArchException {
+    protected void doCommit() {
         CommitCmd cmd = (CommitCmd)command;
 
         //=================================================================
@@ -368,7 +368,7 @@ public class PersistentServerTransaction extends ServerTransaction {
         sendResponse(rsp);
     }
 
-    void cmdQueryCmd(int storeId, int cid, MessageSink source, QueryCmd command, ByteBuffer packet) throws ArchException {
+    void cmdQueryCmd(int storeId, int cid, MessageSink source, QueryCmd command, ByteBuffer packet) {
         // Begin a new query
         Namespace namespace = store.getNamespace(command.getNamespace());
 
@@ -385,7 +385,7 @@ public class PersistentServerTransaction extends ServerTransaction {
         sendResponse(rsp);
     }
 
-    void cmdQueryFetchCmd(int storeId, int cid, MessageSink source, QueryFetchCmd command, ByteBuffer packet) throws ArchException {
+    void cmdQueryFetchCmd(int storeId, int cid, MessageSink source, QueryFetchCmd command, ByteBuffer packet) {
         // Progress an existing query
         int qid = command.getQid();
         TupleKey<MessageSink, Integer> key = new TupleKey<MessageSink, Integer>(source, qid);
