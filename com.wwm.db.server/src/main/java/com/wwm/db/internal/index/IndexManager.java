@@ -59,7 +59,7 @@ public abstract class IndexManager<T> implements Serializable {
 	abstract public void testAddToIndexes(MetaObject<T> mo) throws KeyCollisionException;
 	abstract public void addToIndexes(MetaObject<T> mo);
 	abstract public void removeFromIndexes(MetaObject<T> mo);
-	abstract public Search getSearch(SearchSpec searchSpec, boolean wantNominee) throws ArchException;
+	abstract public Search getSearch(SearchSpec searchSpec, boolean wantNominee);
 
 
 	//	public MetaObject retrieve(String field, Sortable sortable, long dbversion);

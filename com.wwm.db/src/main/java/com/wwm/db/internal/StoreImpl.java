@@ -111,7 +111,7 @@ public class StoreImpl implements Store {
 		/**
 		 * Get the next reference to an object of the supplied class in the specified namespace
 		 */
-		public <C> RefImpl<C> getNextRef(String namespace, Class<C> clazz) throws ArchException {
+		public <C> RefImpl<C> getNextRef(String namespace, Class<C> clazz) {
 			NewObjectIds newIdCache = context.getNewIdCache();
 			synchronized (newIdCache) {
 				RefImpl<C> ref = null;
@@ -137,7 +137,7 @@ public class StoreImpl implements Store {
 			}
 		}
 
-		public void disposeTransaction(int tid) throws ArchException {
+		public void disposeTransaction(int tid) {
 			client.disposeTransaction(tid);
 		}
 
@@ -206,7 +206,7 @@ public class StoreImpl implements Store {
 		return context.newOutputStream(out);
 	}
 	
-	public Response execute(Command command) throws ArchException {
+	public Response execute(Command command) {
 		
 		TEMP_logIfTraceWanted(command, false);
 		
@@ -244,7 +244,7 @@ public class StoreImpl implements Store {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <E> RefImpl<E> getNextRef(String namespace, E obj) throws ArchException {
+	public <E> RefImpl<E> getNextRef(String namespace, E obj) {
 		assert(authority == Authority.Authoritative);
 		Class<E> clazz = (Class<E>) obj.getClass();
 		return context.getNextRef(namespace, clazz);
@@ -466,7 +466,7 @@ public class StoreImpl implements Store {
 		return context;
 	}
 
-	public void disposeTransaction(int tid) throws ArchException {
+	public void disposeTransaction(int tid) {
 		context.disposeTransaction(tid);
 	}
 

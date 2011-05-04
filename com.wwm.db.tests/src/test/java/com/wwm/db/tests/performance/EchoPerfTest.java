@@ -8,7 +8,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.comms.messages.EchoCmd;
 import com.wwm.db.internal.comms.messages.EchoRsp;
 import com.wwm.db.internal.server.Database;
@@ -26,7 +25,7 @@ public class EchoPerfTest {
 	private final ClassLoaderInterface cli = new DummyCli();
 	
 
-	private void doEchoLoops(ClientConnectionManager client, int loops) throws ArchException {
+	private void doEchoLoops(ClientConnectionManager client, int loops) {
 		
 		for (int i = 0; i < loops; i++) {
 			EchoCmd ec = new EchoCmd(0, i, "HelloWorld");
@@ -41,7 +40,7 @@ public class EchoPerfTest {
 	}
 	
 	@Test(timeout=5000)
-	public void testEcho() throws IOException, ArchException {
+	public void testEcho() throws IOException {
 		final int loops = 1000;
 		// Make server
 		Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));

@@ -124,7 +124,7 @@ public class IndexedTable<T> implements UserTable<T>, Serializable {
 	}
 
 
-	public Search getSearch(SearchSpec searchSpec, boolean wantNominee) throws ArchException {
+	public Search getSearch(SearchSpec searchSpec, boolean wantNominee) {
 		return indexManager.getSearch( searchSpec, wantNominee );
 	}
 

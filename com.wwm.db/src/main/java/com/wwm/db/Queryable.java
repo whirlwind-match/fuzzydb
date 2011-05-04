@@ -22,25 +22,25 @@ import com.wwm.expressions.LogicExpr;
 public interface Queryable extends Searchable {
 
 	// Retrieve api
-	public abstract Object retrieve(Ref ref) throws ArchException;
+	public abstract Object retrieve(Ref ref);
 
-	public abstract Map<Ref, Object> retrieve(Collection<Ref> refs) throws ArchException;
+	public abstract Map<Ref, Object> retrieve(Collection<Ref> refs);
 
 	// Querying - standard index, retrieve all
-	public abstract RetrieveSpecResult retrieve(RetrieveSpec spec) throws ArchException;
+	public abstract RetrieveSpecResult retrieve(RetrieveSpec spec);
 
-	public abstract <E> E retrieve(Class<E> clazz, String keyfield, Object keyval) throws ArchException;
+	public abstract <E> E retrieve(Class<E> clazz, String keyfield, Object keyval);
 
-	public abstract <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Object keyval) throws ArchException;
+	public abstract <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Object keyval);
 
 	// Querying - standard index, iterating
-	public abstract <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr) throws ArchException;
+	public abstract <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
 
 	public abstract <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize)
 			throws ArchException;
 
-	public abstract <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) throws ArchException;
+	public abstract <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
 
-	public abstract <E> long count(Class<E> clazz) throws ArchException;
+	public abstract <E> long count(Class<E> clazz);
 
 }

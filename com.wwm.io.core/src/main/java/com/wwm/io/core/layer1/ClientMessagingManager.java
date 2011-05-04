@@ -107,7 +107,7 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 		return null;
 	}
 
-	public final Response execute(Authority authority, Command command) throws ArchException {
+	public final Response execute(Authority authority, Command command) {
 		int cid = command.getCommandId();
 		Response response = null;
 		

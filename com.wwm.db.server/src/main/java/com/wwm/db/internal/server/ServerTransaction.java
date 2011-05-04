@@ -125,9 +125,9 @@ public abstract class ServerTransaction implements TransactionControl {
 		transactionState.setCommitVersion(stc.acquireWritePrivilege());
 	}
 	
-	protected abstract void doCommitChecks() throws ArchException;
+	protected abstract void doCommitChecks();
 	
-	protected abstract void doCommit() throws ArchException;
+	protected abstract void doCommit();
 	
 	protected void sendCommitOk() {
 		OkRsp ok = new OkRsp(command.getStoreId(), command.getCommandId());

@@ -18,6 +18,6 @@ public abstract class ComparableExpr<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public abstract T evaluate(ExprContext context) throws ArchException;
+	public abstract T evaluate(ExprContext context);
 
 }

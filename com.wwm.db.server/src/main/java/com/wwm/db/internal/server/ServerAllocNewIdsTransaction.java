@@ -36,7 +36,7 @@ public class ServerAllocNewIdsTransaction extends ServerTransaction {
 	}
 
 	@Override
-	protected void doCommitChecks() throws ArchException {
+	protected void doCommitChecks() {
 		// The store must exist
 		stc.getRepository().getStore(command.getStoreId());	// This throws if the store does not exist
 	}

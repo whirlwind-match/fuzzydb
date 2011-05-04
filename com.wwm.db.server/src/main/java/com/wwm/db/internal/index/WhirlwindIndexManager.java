@@ -84,7 +84,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 		
 	}
     
-    public Search getSearch(SearchSpec searchSpec, boolean wantNominee) throws ArchException {
+    public Search getSearch(SearchSpec searchSpec, boolean wantNominee) {
         WhirlwindConfiguration wwConfig = getWhirlwindConfig();
         if (wwConfig == null){
             throw new ArchException("Cannot search. No ScoreConfigs have been defined");

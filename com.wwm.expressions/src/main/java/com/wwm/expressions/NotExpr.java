@@ -23,7 +23,7 @@ public class NotExpr extends LogicExpr {
 	}
 	
 	@Override
-	public boolean evaluate(ExprContext context) throws ArchException {
+	public boolean evaluate(ExprContext context) {
 		return !expr.evaluate(context);
 	}
 

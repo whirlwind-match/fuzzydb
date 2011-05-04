@@ -85,7 +85,7 @@ public class TransactionImpl implements Transaction {
 		return store.newOutputStream(out);
 	}
 	
-	public Response execute(Command command) throws ArchException {
+	public Response execute(Command command) {
 		if (!started) {
 			if (command instanceof CommitCmd) {
 				command = new BeginAndCommitCmd(store.getStoreId(), command.getCommandId(), tid, command);
@@ -126,7 +126,7 @@ public class TransactionImpl implements Transaction {
 	}
 	
 	
-	public synchronized void commit() throws ArchException {
+	public synchronized void commit() {
 		requiresAuth();
 		requiresActive();
 		
@@ -154,14 +154,14 @@ public class TransactionImpl implements Transaction {
 		store.clearCurrentTransaction();
 	}
 
-	public synchronized <E> long count(Class<E> clazz) throws ArchException {
+	public synchronized <E> long count(Class<E> clazz) {
 		requiresActive();
 		Command cmd = new CountClassCmd(store.getStoreId(), store.getNextId(), tid, namespace, clazz);
 		CountClassRsp rsp = (CountClassRsp) execute(cmd);
 		return rsp.getCount();
 	}
 
-	public synchronized <E> Ref create(E obj) throws ArchException {
+	public synchronized <E> Ref create(E obj) {
 		requiresActive();
 		requiresAuth();
 		RefImpl<E> ref = store.getNextRef(namespace, obj);
@@ -170,7 +170,7 @@ public class TransactionImpl implements Transaction {
 		return ref;
 	}
 
-	public synchronized Ref[] create(Object[] objs) throws ArchException {
+	public synchronized Ref[] create(Object[] objs) {
 		requiresActive();
 		requiresAuth();
 		Ref[] refs = new Ref[objs.length];
@@ -180,23 +180,23 @@ public class TransactionImpl implements Transaction {
 		return refs;
 	}
 
-	public synchronized Ref[] create(Collection<Object> objs) throws ArchException {
+	public synchronized Ref[] create(Collection<Object> objs) {
 		requiresActive();
 		requiresAuth();
 		return create(objs.toArray());
 	}
 
-	public void delete(Object obj) throws ArchException {
+	public void delete(Object obj) {
 		delete(getRef(obj));
 	}
 
-	public synchronized void delete(Ref ref) throws ArchException {
+	public synchronized void delete(Ref ref) {
 		requiresActive();
 		requiresAuth();
 		addDeleted(ref);
 	}
 
-	public synchronized void delete(Ref[] ref) throws ArchException {
+	public synchronized void delete(Ref[] ref) {
 		requiresActive();
 		requiresAuth();
 		for (int i = 0; i < ref.length; i++) {
@@ -204,7 +204,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
-	public synchronized void delete(Collection<Ref> refs) throws ArchException {
+	public synchronized void delete(Collection<Ref> refs) {
 		requiresActive();
 		requiresAuth();
 		for (Ref ref : refs) {
@@ -225,7 +225,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
-	public synchronized Object execute(String methodName, Ref ref, Object param) throws ArchException {
+	public synchronized Object execute(String methodName, Ref ref, Object param) {
 		requiresActive();
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
@@ -235,11 +235,11 @@ public class TransactionImpl implements Transaction {
 		return namespace;
 	}
 
-	public synchronized long getVersion(Ref ref) throws ArchException {
+	public synchronized long getVersion(Ref ref) {
 		return getVersion(retrieve(ref));
 	}
 
-	public synchronized String[] listNamespaces() throws ArchException {
+	public synchronized String[] listNamespaces() {
 		requiresActive();
 		Command cmd = new ListNamespacesCmd(store.getStoreId(), store.getNextId(), tid);
 		ListNamespacesRsp rsp = (ListNamespacesRsp) execute(cmd);
@@ -247,32 +247,32 @@ public class TransactionImpl implements Transaction {
 		return rsp.getNamespaces();
 	}
 
-	public synchronized void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove) throws ArchException {
+	public synchronized void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
-	public synchronized void modifyField(Object obj, String field, Object newval) throws ArchException {
+	public synchronized void modifyField(Object obj, String field, Object newval) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
-	public synchronized void modifyNominee(IAttributeContainer obj, Object nominee) throws ArchException {
+	public synchronized void modifyNominee(IAttributeContainer obj, Object nominee) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
-	public synchronized void modifyNomineeField(IAttributeContainer obj, String field, Object newval) throws ArchException {
+	public synchronized void modifyNomineeField(IAttributeContainer obj, String field, Object newval) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
-	public synchronized void popNamespace() throws EmptyStackException, ArchException {
+	public synchronized void popNamespace() throws EmptyStackException {
 		requiresActive();
 		this.namespace = namespaceStack.pop();
 	}
 
-	public synchronized void pushNamespace(String namespace) throws ArchException {
+	public synchronized void pushNamespace(String namespace) {
 		requiresActive();
 		if (namespaceStack == null) {
 			namespaceStack = new Stack<String>();
@@ -281,51 +281,51 @@ public class TransactionImpl implements Transaction {
 		this.namespace = namespace;
 	}
 
-	public synchronized <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr) throws ArchException {
+	public synchronized <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr) {
 		return query(clazz, index, expr, defaultFetchSize);
 	}
 
-	public synchronized <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize) throws ArchException {
+	public synchronized <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize) {
 		requiresActive();
 		return new ResultSetImpl<E>(this, clazz, index, expr, fetchSize);
 	}
 
 	
-	public synchronized <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search) throws ArchException {
+	public synchronized <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search) {
 		requiresActive();
 		return query(resultClazz, search, 10); // TODO: Is 10 a sensible default (was what we had in DBv1)
 	}
 
-	public synchronized <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize) throws ArchException {
+	public synchronized <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize) {
 		requiresActive();
 		return new WWResultSet<E>(resultClazz, store, this, tid, search, fetchSize, false);
 	}
 
 
-	public synchronized <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) throws ArchException {
+	public synchronized <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
 	
-	public synchronized <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search) throws ArchException {
+	public synchronized <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search) {
 		requiresActive();
 		return queryNominee(resultClazz, search, 1);
 	}
 
-	public synchronized <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize) throws ArchException {
+	public synchronized <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize) {
 		requiresActive();
 		return new WWResultSet<E>(resultClazz, store, this, tid, search, fetchSize, true);
 	}
 
 	
-	public synchronized <E> E refresh(E obj) throws ArchException {
+	public synchronized <E> E refresh(E obj) {
 		requiresActive();
 		// TODO add current version check. (Right now this always fetches the object)
 		return retrieve(getRef(obj));
 	}
 
-	public synchronized Object retrieve(Ref ref) throws ArchException {
+	public synchronized Object retrieve(Ref ref) {
 		requiresActive();
 		Command cmd = new RetrieveByRefCmd(store.getStoreId(), store.getNextId(), tid, ref);
 		RetrieveSingleRsp rsp = (RetrieveSingleRsp) execute(cmd);
@@ -342,7 +342,7 @@ public class TransactionImpl implements Transaction {
 	}
 	
 //	@SuppressWarnings({ "unused", "unchecked" })
-//	private <T> T receiveObject(CompactedObject<T> deflated) throws ArchException {
+//	private <T> T receiveObject(CompactedObject<T> deflated) {
 //		T inflated = null;
 //		try {
 //			do {
@@ -365,7 +365,7 @@ public class TransactionImpl implements Transaction {
 //		return inflated;
 //	}
 
-	public synchronized Map<Ref, Object> retrieve(Collection<Ref> refs) throws ArchException {
+	public synchronized Map<Ref, Object> retrieve(Collection<Ref> refs) {
 		requiresActive();
 		Command cmd = new RetrieveByRefsCmd(store.getStoreId(), store.getNextId(), tid, refs);
 		RetrieveMultiRsp rsp = (RetrieveMultiRsp) execute(cmd);
@@ -382,7 +382,7 @@ public class TransactionImpl implements Transaction {
 		return result;
 	}
 
-	public synchronized RetrieveSpecResult retrieve(RetrieveSpec spec) throws ArchException {
+	public synchronized RetrieveSpecResult retrieve(RetrieveSpec spec) {
 		requiresActive();
 		Command cmd = new RetrieveBySpecCmd(store.getStoreId(), namespace, store.getNextId(), tid, spec);
 		RetrieveBySpecRsp rsp = (RetrieveBySpecRsp) execute(cmd);
@@ -393,7 +393,7 @@ public class TransactionImpl implements Transaction {
 
 	// FIXME: test that this works for clazz, null, null
 	@SuppressWarnings("unchecked")
-	public synchronized <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) throws ArchException {
+	public synchronized <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) {
 		requiresActive();
 		Command cmd = new RetrieveByKeyCmd(store.getStoreId(), namespace, store.getNextId(), tid, clazz, keyval, keyfield);
 		RetrieveSingleRsp rsp = (RetrieveSingleRsp) execute(cmd);
@@ -401,25 +401,25 @@ public class TransactionImpl implements Transaction {
 		return (E)receiveObject(mo);
 	}
 
-	public synchronized <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval) throws ArchException {
+	public synchronized <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval) {
 		requiresActive();
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 
-	public synchronized void setNamespace(String namespace) throws ArchException {
+	public synchronized void setNamespace(String namespace) {
 		requiresActive();
 		this.namespace = namespace;
 	}
 
-	public synchronized <E> void update(E obj) throws ArchException {
+	public synchronized <E> void update(E obj) {
 		requiresAuth();
 		requiresActive();
 		MetaObject<E> meta = new MetaObject<E>(getRef(obj), getVersion(obj), obj);
 		addUpdated(meta);
 	}
 
-	public synchronized void update(Object[] objs) throws ArchException {
+	public synchronized void update(Object[] objs) {
 		requiresAuth();
 		requiresActive();
 		for (int i = 0; i < objs.length; i++) {
@@ -427,7 +427,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
-	public synchronized void update(Collection<Object> objs) throws ArchException {
+	public synchronized void update(Collection<Object> objs) {
 		requiresAuth();
 		requiresActive();
 		for (Object obj : objs) {
@@ -465,7 +465,7 @@ public class TransactionImpl implements Transaction {
 		return store.getVersion(obj);
 	}
 
-	public void forceStart() throws ArchException {
+	public void forceStart() {
 		if (!started) {
 			store.execute(new BeginTransactionCmd(store.getStoreId(), store.getNextId(), tid, null));
 			started = true;
@@ -473,7 +473,7 @@ public class TransactionImpl implements Transaction {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <E> E retrieveFirstOf(Class<E> clazz) throws ArchException {
+	public <E> E retrieveFirstOf(Class<E> clazz) {
 		requiresActive();
 		
 		RetrieveFirstOfCmd cmd = new RetrieveFirstOfCmd(store.getStoreId(), namespace, store.getNextId(), tid, clazz);
@@ -486,12 +486,12 @@ public class TransactionImpl implements Transaction {
 		return (E)receiveObject(mo);
 	}
 
-	public <E> GenericRef<E> createGeneric(E obj) throws ArchException {
+	public <E> GenericRef<E> createGeneric(E obj) {
 		return new GenericRefImpl<E>(create(obj));
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E> E retrieve(GenericRef<E> ref) throws ArchException {
+	public <E> E retrieve(GenericRef<E> ref) {
 		return (E) retrieve((Ref)ref);
 	}
 

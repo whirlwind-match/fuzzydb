@@ -24,7 +24,7 @@ public class MultExpr extends BinaryExpr {
 	}
 
 	@Override
-	public Scalar evaluate(ExprContext context) throws ArchException {
+	public Scalar evaluate(ExprContext context) {
 		Scalar l = left.evaluate(context);
 		Scalar r = right.evaluate(context);
 		return l.mult(r);

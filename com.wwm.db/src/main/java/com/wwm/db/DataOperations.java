@@ -34,7 +34,7 @@ public interface DataOperations {
 	 * @throws ArchException 
 	 * @see pushNamespace()
 	 */
-	public void setNamespace(String namespace) throws ArchException;
+	public void setNamespace(String namespace);
 	
 	
 	/**Get the current namespace this Transaction is using.
@@ -48,7 +48,7 @@ public interface DataOperations {
 	 * @throws ArchException 
 	 * @see popNamepsace()
 	 */
-	public void pushNamespace(String namespace) throws ArchException;
+	public void pushNamespace(String namespace);
 	
 	/**Pops a previously stored namespace off the stack and restores it as the current namespace.
 	 * If no namespace was pushed this throws an API error.
@@ -56,63 +56,63 @@ public interface DataOperations {
 	 * @throws EmptyStackException 
 	 * 
 	 */
-	public void popNamespace() throws EmptyStackException, ArchException;
+	public void popNamespace() throws EmptyStackException;
 	
 	// Create api
-	public <E> Ref create(E obj) throws ArchException;
-	public <E> GenericRef<E> createGeneric(E obj) throws ArchException;
-	public Ref[] create(Object[] objs) throws ArchException;
-	public Ref[] create(Collection<Object> objs) throws ArchException;
+	public <E> Ref create(E obj);
+	public <E> GenericRef<E> createGeneric(E obj);
+	public Ref[] create(Object[] objs);
+	public Ref[] create(Collection<Object> objs);
 	
 	// Retrieve api
-	public Object retrieve(Ref ref) throws ArchException;
-	public <E> E retrieve(GenericRef<E> ref) throws ArchException;
-	public <E> E refresh(E obj) throws ArchException;	// check dirty flag and latest version, refresh if needed
-	public Map<Ref, Object> retrieve(Collection<Ref> refs) throws ArchException;
+	public Object retrieve(Ref ref);
+	public <E> E retrieve(GenericRef<E> ref);
+	public <E> E refresh(E obj);	// check dirty flag and latest version, refresh if needed
+	public Map<Ref, Object> retrieve(Collection<Ref> refs);
 	
 	// Update api
-	public <E> void update(E obj) throws ArchException;
-	public void update(Object[] objs) throws ArchException;
-	public void update(Collection<Object> objs) throws ArchException;
+	public <E> void update(E obj);
+	public void update(Object[] objs);
+	public void update(Collection<Object> objs);
 	
 	// Modify api
-	public void modifyField(Object obj, String field, Object newval) throws ArchException;
+	public void modifyField(Object obj, String field, Object newval);
 	
-	public void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove) throws ArchException;
-//	@Deprecated public void modifyAttributes(WhirlwindItem obj, StringAttributeMap add, Collection<String> remove) throws ArchException;
-	public void modifyNomineeField(IAttributeContainer obj, String field, Object newval) throws ArchException;
-	public void modifyNominee(IAttributeContainer obj, Object nominee) throws ArchException;
+	public void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove);
+//	@Deprecated public void modifyAttributes(WhirlwindItem obj, StringAttributeMap add, Collection<String> remove);
+	public void modifyNomineeField(IAttributeContainer obj, String field, Object newval);
+	public void modifyNominee(IAttributeContainer obj, Object nominee);
 	
 	// Delete api
-	public void delete(Object obj) throws ArchException;
-	public void delete(Ref ref) throws ArchException;
-	public void delete(Ref[] ref) throws ArchException;
-	public void delete(Collection<Ref> ref) throws ArchException;
+	public void delete(Object obj);
+	public void delete(Ref ref);
+	public void delete(Ref[] ref);
+	public void delete(Collection<Ref> ref);
 	
 	// Stored Procedures
-	public Object execute(String methodName, Ref ref, Object param) throws ArchException;
+	public Object execute(String methodName, Ref ref, Object param);
 
 	// Querying - indexless
-	public <E> E retrieveFirstOf(Class<E> clazz) throws ArchException;
+	public <E> E retrieveFirstOf(Class<E> clazz);
 	
 	// Querying - standard index, retrieve all
-	public RetrieveSpecResult retrieve(RetrieveSpec spec) throws ArchException;
-	public <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) throws ArchException;
-	public <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval) throws ArchException;
+	public RetrieveSpecResult retrieve(RetrieveSpec spec);
+	public <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval);
+	public <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval);
 	
 	// Querying - standard index, iterating
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr) throws ArchException;
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize) throws ArchException;
-	public <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) throws ArchException;
+	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
+	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize);
+	public <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
 	
 	// Searching - whirlwind index, iterating
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search) throws ArchException;
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize) throws ArchException;
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search) throws ArchException;
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize) throws ArchException;
+	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search);
+	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize);
+	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search);
+	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize);
 	
-	public <E> long count(Class<E> clazz) throws ArchException;
-	public long getVersion(Ref ref) throws ArchException;
-	public String[] listNamespaces() throws ArchException;
+	public <E> long count(Class<E> clazz);
+	public long getVersion(Ref ref);
+	public String[] listNamespaces();
 
 }

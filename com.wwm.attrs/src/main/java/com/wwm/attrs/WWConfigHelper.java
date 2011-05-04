@@ -27,7 +27,7 @@ import com.wwm.db.core.exceptions.ArchException;
  */
 public class WWConfigHelper {
 
-    public static void updateScorerConfig(Store store, String name, ScoreConfiguration sc) throws ArchException {
+    public static void updateScorerConfig(Store store, String name, ScoreConfiguration sc) {
         Transaction tx = store.getAuthStore().begin();
         WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
         if (conf == null){
@@ -41,7 +41,7 @@ public class WWConfigHelper {
         tx.commit();
     }
 
-    public static void updateEnumDefinition(Store store, String name, EnumDefinition def) throws ArchException {
+    public static void updateEnumDefinition(Store store, String name, EnumDefinition def) {
         Transaction tx = store.getAuthStore().begin();
         WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
 
@@ -55,7 +55,7 @@ public class WWConfigHelper {
      * FIXME: This does not check if no change has been made.  Server side needs to have code to detect this
      * and avoid rebuilding an index for no reason (unless forced)
      */
-    public static void updateIndexConfig(Store store, ManualIndexStrategy strategy) throws ArchException {
+    public static void updateIndexConfig(Store store, ManualIndexStrategy strategy) {
         Transaction tx = store.getAuthStore().begin();
         WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
         if (conf == null){

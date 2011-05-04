@@ -19,7 +19,6 @@ import com.wwm.db.Factory;
 import com.wwm.db.Ref;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.server.Database;
@@ -36,7 +35,7 @@ public class ReadWritePerfTest {
 	ClassLoaderInterface cli = new DummyCli();
 	private final String storeName = "TestStore";
 
-	@Test public void testCreateManyAndRandomAccess() throws IOException, ArchException {
+	@Test public void testCreateManyAndRandomAccess() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
 		final int numberOfLoops = 50;
@@ -164,7 +163,7 @@ public class ReadWritePerfTest {
 	}
 	
 
-	@Test public void testCreateManyAndReadBack() throws IOException, ArchException {
+	@Test public void testCreateManyAndReadBack() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
 		final int numberOfLoops = 100;
@@ -233,7 +232,7 @@ public class ReadWritePerfTest {
 
 	}
 	
-	@Test public void testCreateManyAndUpdate() throws IOException, ArchException {
+	@Test public void testCreateManyAndUpdate() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
 		final int numberOfLoops = 30;

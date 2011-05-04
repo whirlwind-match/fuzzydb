@@ -16,7 +16,6 @@ import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Factory;
 import com.wwm.db.Store;
 import com.wwm.db.core.Settings;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.StoreImpl;
 import com.wwm.db.internal.server.Database;
@@ -112,7 +111,7 @@ public abstract class BaseDatabaseTest {
 
 	}
 	
-	protected void restartDatabase() throws IOException, UnknownHostException, ArchException {
+	protected void restartDatabase() throws IOException, UnknownHostException {
 		if (useEmbeddedDatabase) {
 			EmbeddedClientFactory.getInstance().shutdownDatabase();
 			client = EmbeddedClientFactory.getInstance().createEmbeddedClient();

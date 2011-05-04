@@ -16,5 +16,5 @@ import com.wwm.db.core.exceptions.ArchException;
 
 public abstract class LogicExpr implements Serializable {
 
-	public abstract boolean evaluate(ExprContext context) throws ArchException;
+	public abstract boolean evaluate(ExprContext context);
 }
