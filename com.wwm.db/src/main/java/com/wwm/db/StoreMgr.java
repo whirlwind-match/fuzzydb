@@ -34,14 +34,14 @@ import com.wwm.db.core.exceptions.ArchException;
  * FIXME: Note: StoreMgr.getInstance() should not be used, but instead
  * we should put a StoreMgr instance in the application context, which
  * then allows those instances to be disposed of.
- * Also, storeMgr should close its' connections within finalise.
+ * Also, storeMgr should close its' connections with an appropriate lifecycle/context shutdown hook
  */
 public class StoreMgr implements IShutdown {
 
     private static StoreMgr instance;
 
-    private Map<String, Store> storesByStoreName = new HashMap<String, Store>();
-    private Map<String,Client> clientsByServer = new TreeMap<String,Client>();
+    private final Map<String, Store> storesByStoreName = new HashMap<String, Store>();
+    private final Map<String,Client> clientsByServer = new TreeMap<String,Client>();
 
 
     public static synchronized StoreMgr getInstance() {

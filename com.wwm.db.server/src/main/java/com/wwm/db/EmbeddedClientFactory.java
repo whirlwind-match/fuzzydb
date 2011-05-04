@@ -1,6 +1,7 @@
 package com.wwm.db;
 
 import java.io.IOException;
+import java.net.URL;
 
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.server.Database;
@@ -56,4 +57,17 @@ public class EmbeddedClientFactory {
     	instance = null;
     	database.close();
     }
+
+
+
+    /**
+     * Open the store for the given URL.
+     * 
+     * Should handle local/remote, and is allowed to create a store when running locally.
+     */
+	public Store openStore(URL asURL) {
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
