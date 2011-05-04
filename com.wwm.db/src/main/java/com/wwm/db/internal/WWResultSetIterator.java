@@ -48,7 +48,7 @@ public class WWResultSetIterator<T extends Object> implements ResultIterator<Res
 			this.wantNominee = wantNominee;
 		}
 		
-		private void activate() {
+		private void activate() throws ArchException {
 			if (!active) {
 				int cid = store.getNextId();
 				this.qid = store.getNextId();
@@ -129,7 +129,7 @@ public class WWResultSetIterator<T extends Object> implements ResultIterator<Res
 		}
 
         @SuppressWarnings("unused")
-        public long count() {
+        public long count() throws ArchException {
             throw new UnsupportedOperationException("count() not valid for Whirlwind results");
         }
 	}

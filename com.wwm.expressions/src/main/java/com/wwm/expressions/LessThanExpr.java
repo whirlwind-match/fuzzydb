@@ -21,7 +21,7 @@ public class LessThanExpr extends RelExpr {
 	}
 
 	@Override
-	public boolean evaluate(ExprContext context) {
+	public boolean evaluate(ExprContext context) throws ArchException {
 		return left.evaluate(context).compareTo(right.evaluate(context)) < 0;
 	}
 }

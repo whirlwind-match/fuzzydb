@@ -13,5 +13,5 @@ package com.wwm.expressions;
 import com.wwm.db.core.exceptions.ArchException;
 
 public interface ExprContext {
-	public Comparable<?> getField(String fieldName);
+	public Comparable<?> getField(String fieldName) throws ArchException;
 }

@@ -21,7 +21,7 @@ public class OrExpr extends BoolExpr {
 	}
 
 	@Override
-	public boolean evaluate(ExprContext context) {
+	public boolean evaluate(ExprContext context) throws ArchException {
 		return left.evaluate(context) || right.evaluate(context);
 	}
 }

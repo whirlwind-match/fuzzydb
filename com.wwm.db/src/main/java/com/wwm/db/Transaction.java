@@ -15,7 +15,7 @@ import com.wwm.db.core.exceptions.ArchException;
 public interface Transaction extends DataOperations, Authority, Helper {
 	
 	//public void rollback();
-	public void commit();
+	public void commit() throws ArchException;
 	/**Immediately marks this transaction as unusable. Further API calls will fail. The resources associated with this
 	 * transaction will be released quickly rather than taking time to time out.
 	 * Any queries and searches associated with this transaction are also disposed.
@@ -31,7 +31,7 @@ public interface Transaction extends DataOperations, Authority, Helper {
 	 * Useful for unit testing to create overlapping transactions, as otherwise transaction start time is undefined.
 	 * @throws ArchException
 	 */
-	public void forceStart();
+	public void forceStart() throws ArchException;
 	
 		
 //	This has been removed becuase its useless. Even if we could support switching from a non-auth to an auth transaction, the database view (version) would be the same so it would have no effect.	

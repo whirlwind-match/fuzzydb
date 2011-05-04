@@ -24,7 +24,7 @@ public class DivExpr extends BinaryExpr {
 	}
 
 	@Override
-	public Scalar evaluate(ExprContext context) {
+	public Scalar evaluate(ExprContext context) throws ArchException {
 		Scalar l = left.evaluate(context);
 		Scalar r = right.evaluate(context);
 		return l.div(r);

@@ -51,7 +51,7 @@ public class DirectClient extends AbstractClient implements Client {
 	}
 
 
-	public void connect() {
+	public void connect() throws ArchException {
 		ClientMessagingManager connection = new ClientMessagingManager("DirectClient"){
 
 			/**

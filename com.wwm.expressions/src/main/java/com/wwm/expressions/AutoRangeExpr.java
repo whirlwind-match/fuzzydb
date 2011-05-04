@@ -22,7 +22,7 @@ public class AutoRangeExpr<T extends Comparable<?>> extends RangeExpr<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean evaluate(ExprContext context) {
+	public boolean evaluate(ExprContext context) throws ArchException {
 		Comparable t = term.evaluate(context);
 		Comparable l = low.evaluate(context);
 		Comparable h = high.evaluate(context);

@@ -26,7 +26,7 @@ public class EchoPerfTest {
 	private final ClassLoaderInterface cli = new DummyCli();
 	
 
-	private void doEchoLoops(ClientConnectionManager client, int loops) {
+	private void doEchoLoops(ClientConnectionManager client, int loops) throws ArchException {
 		
 		for (int i = 0; i < loops; i++) {
 			EchoCmd ec = new EchoCmd(0, i, "HelloWorld");

@@ -17,6 +17,6 @@ import com.wwm.io.core.messages.Response;
 
 public interface ClientConnectionManager {
 
-	public Response execute(Authority authority, Command command);
+	public Response execute(Authority authority, Command command) throws ArchException;
 	public void close();
 }

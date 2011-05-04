@@ -161,7 +161,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    return context.newOutputStream(storeId, out);
 	}
 
-	public Store createStore(String storeName) {
+	public Store createStore(String storeName) throws ArchException {
 	    //throwIfNotAuthoritative();
 	    Map<String, StoreImpl> stores = context.getStores();
 	    synchronized (stores) {
@@ -182,7 +182,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    }
 	}
 
-	public Collection<String> listStores() {
+	public Collection<String> listStores() throws ArchException {
 	    ListStoresCmd cmd = new ListStoresCmd(getNextId());
 	    ListStoresRsp rsp = (ListStoresRsp) context.getConnection().execute(authority, cmd);
 	    return rsp.getStoreNames();
@@ -208,7 +208,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    throw new UnsupportedOperationException();
 	}
 
-	public Store openStore(String storeName) {
+	public Store openStore(String storeName) throws ArchException {
 	    Map<String, StoreImpl> stores = context.getStores();
 	    synchronized (stores) {
 	        StoreImpl store = stores.get(storeName);
@@ -230,7 +230,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	 * store on nonAuth server, which doesn't exist, and then try to create it on the auth server
 	 * when it does exist there.  This is no worse than the end-user would have done, for now.
 	 */
-	public Store openStore(String storeName, boolean canCreate) {
+	public Store openStore(String storeName, boolean canCreate) throws ArchException {
 	    try {
 	        return openStore(storeName);
 	    } catch (UnknownStoreException e){
@@ -241,7 +241,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    }
 	}
 
-	public void deleteStore(String storeName) {
+	public void deleteStore(String storeName) throws ArchException {
 	    //throwIfNotAuthoritative();
 	    Map<String, StoreImpl> stores = context.getStores();
 	    synchronized (stores) {
@@ -295,12 +295,12 @@ public abstract class AbstractClient implements Cloneable, Client {
 			    lazyFlushDisposed();
 			}
 
-	public synchronized void disposeQuery(int qid) {
+	public synchronized void disposeQuery(int qid) throws ArchException {
 	    disposedQueries.add(qid);
 	    lazyFlushDisposed();
 	}
 
-	private synchronized void lazyFlushDisposed() {
+	private synchronized void lazyFlushDisposed() throws ArchException {
 	    if (disposedTransactions.size() + disposedQueries.size() >= lazyFlushCount) {
 	        Command cmd = new DisposeCmd(getNextId(), disposedTransactions, disposedQueries);
 	        getConnection().execute(authority, cmd);
@@ -311,7 +311,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    context.addToMetaCache(mo);
 	}
 
-	public void shutdownServer() {
+	public void shutdownServer() throws ArchException {
 	    context.getConnection().execute(authority, new ShutdownCmd(getNextId()));
 	}
 
@@ -330,12 +330,12 @@ public abstract class AbstractClient implements Cloneable, Client {
 	}
 
 
-	public void connect(InetSocketAddress addr) {
+	public void connect(InetSocketAddress addr) throws ArchException {
 		throw new UnsupportedOperationException(); // Must implement in subclass
 	}
 
 
-	public void connect(String server) {
+	public void connect(String server) throws ArchException {
 		throw new UnsupportedOperationException(); // Must implement in subclass
 	}
 

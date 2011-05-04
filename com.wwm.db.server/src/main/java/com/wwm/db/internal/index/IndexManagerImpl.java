@@ -205,7 +205,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 
 
     @Override
-    public Search getSearch(SearchSpec searchSpec, boolean wantNominee) {
+    public Search getSearch(SearchSpec searchSpec, boolean wantNominee) throws ArchException {
     	return wwIndexMgr.getSearch(searchSpec, wantNominee);
     }
 }

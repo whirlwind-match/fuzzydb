@@ -27,12 +27,12 @@ public class ClientImpl extends AbstractClient {
     	super(authority);
     }
 
-    public void connect() {
+    public void connect() throws ArchException {
         connect(Settings.getInstance().getPrimaryServer());
     }
 
     @Override
-	public void connect(String server) {
+	public void connect(String server) throws ArchException {
         InetSocketAddress address = new InetSocketAddress(
                 server,
                 Settings.getInstance().getPrimaryServerPort());
@@ -40,7 +40,7 @@ public class ClientImpl extends AbstractClient {
     }
 
     @Override
-	public void connect(InetSocketAddress addr) {
+	public void connect(InetSocketAddress addr) throws ArchException {
         try {
             context.setConnection(new ClientConnectionManagerImpl(addr, context.getCli()));
         } catch (IOException e) {

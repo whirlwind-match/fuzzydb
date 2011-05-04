@@ -23,7 +23,7 @@ public class FieldExpr extends UnaryExpr<Scalar> {
 	}
 
 	@Override
-	public Scalar evaluate(ExprContext context) {
+	public Scalar evaluate(ExprContext context) throws ArchException {
 		Comparable<?> field = context.getField(fieldName);
 		if (field instanceof Scalar) { 
 			return (Scalar)field;

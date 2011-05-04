@@ -28,7 +28,7 @@ public interface Client extends Authority, Helper {
      * @throws ArchException
      * @throws IOException
      */
-    public void connect();
+    public void connect() throws ArchException;
 
     /**Connect to the specified server.
      * If a port is specified thsi is used. Otherwise the port is taken from the configuration file. If there is no file the default settings are used.
@@ -37,7 +37,7 @@ public interface Client extends Authority, Helper {
      * @throws ArchException
      * @throws IOException
      */
-    public void connect(String server);
+    public void connect(String server) throws ArchException;
 
     /**Connect to the specified server and port.
      * @param addr The full address of the server and port to conect to.
@@ -45,7 +45,7 @@ public interface Client extends Authority, Helper {
      * @throws ArchException
      * @throws IOException
      */
-    public void connect(InetSocketAddress addr);
+    public void connect(InetSocketAddress addr) throws ArchException;
 
 
     /**Creates a new store and returns an access object. An individual transaction is created and committed for this operation.
@@ -54,17 +54,17 @@ public interface Client extends Authority, Helper {
      * @return
      * @throws ArchException
      */
-    public Store createStore(String storeName);
+    public Store createStore(String storeName) throws ArchException;
 
     /**Obtain a list of Stores. An individual transaction is used (and disposed of) for this operation.
      * The response is Authoritative only if this Client is Authoritative.
      * @return
      * @throws ArchException
      */
-    public Collection<String> listStores();
+    public Collection<String> listStores() throws ArchException;
 
-    public Collection<String> listDbClasses();
-    public Class<?> getDbClass(String name);
+    public Collection<String> listDbClasses() throws ArchException;
+    public Class<?> getDbClass(String name) throws ArchException;
     public Collection<Class<?>> getDbClasses();
     public Collection<String> getNamespaces(Class<?> dbClass);
 
@@ -75,7 +75,7 @@ public interface Client extends Authority, Helper {
      * @return the Store.
      * @throws ArchException
      */
-    public Store openStore(String storeName);
+    public Store openStore(String storeName) throws ArchException;
 
     /**
      * Opens the specified Store.  If the Store does not exist, then it is created,
@@ -86,7 +86,7 @@ public interface Client extends Authority, Helper {
      * @return the Store.
      * @throws ArchException
      */
-    public Store openStore(String storeName, boolean canCreate);
+    public Store openStore(String storeName, boolean canCreate) throws ArchException;
 
 
     /**Deletes the specified Store. An individual transaction is created and committed for this operation.
@@ -94,7 +94,7 @@ public interface Client extends Authority, Helper {
      * @param storeName The Store to delete.
      * @throws ArchException
      */
-    public void deleteStore(String storeName);
+    public void deleteStore(String storeName) throws ArchException;
 
     /**Returns an Authoritative version of this client.
      * This is guaranteed to be a low cost operation, the intended use is for applications to toggle between authoritative and non-authoritative Client views with this function.
@@ -115,7 +115,7 @@ public interface Client extends Authority, Helper {
      * Shuts down the server.
      * @throws ArchException
      */
-    public void shutdownServer();
+    public void shutdownServer() throws ArchException;
 
     // FIXME =============== ADRIAN PLEASE REVIEW BELOW (and in ClientImpl) ==================
     /**
@@ -123,7 +123,7 @@ public interface Client extends Authority, Helper {
      * @param forceGC - force a garbage collection before checking memory usage.
      * @throws ArchException
      */
-    public ServerStats getStats(boolean forceGC);
+    public ServerStats getStats(boolean forceGC) throws ArchException;
 
     public void disconnect();
 
