@@ -26,7 +26,7 @@ public class EmbeddedClientFactoryTest {
 	@Test 
 	public void openUrlForEmbeddedStore() throws MalformedURLException {
 		final String storeName = "store@" + System.currentTimeMillis();
-		final String url = "wwmdb:local:/" + storeName;
+		final String url = "wwmdb:/" + storeName;
 		
 		Store store = EmbeddedClientFactory.getInstance().openStore(WWMDBProtocolHander.getAsURL(url));
 		

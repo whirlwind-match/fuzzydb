@@ -3,7 +3,10 @@ package com.wwm.db;
 import java.io.IOException;
 import java.net.URL;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
+import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.server.Database;
 import com.wwm.io.core.Authority;
 
@@ -41,11 +44,7 @@ public class EmbeddedClientFactory {
      */
     public Client createEmbeddedClient() {
     	DirectClient client = new DirectClient(Authority.Authoritative, databaseMessageSource);
-    	try {
-			client.connect();
-		} catch (ArchException e) {
-			throw new RuntimeException("Failure connecting client to database:" + e.getMessage(), e);
-		}
+		client.connect();
 		return client;
     }
     
@@ -65,9 +64,27 @@ public class EmbeddedClientFactory {
      * 
      * Should handle local/remote, and is allowed to create a store when running locally.
      */
-	public Store openStore(URL asURL) {
+	public Store openStore(URL url) {
 		
-		// TODO Auto-generated method stub
-		return null;
+		Assert.state(url.getProtocol().equals("wwmdb"));
+		String host = url.getHost();
+		
+		if (!StringUtils.hasLength(host)) {
+			return openEmbeddedStore(url);
+		}
+		
+		// If host is specified, use StoreMgr to get access.
+		return StoreMgr.getInstance().getStore(url.toExternalForm());
+	}
+
+
+
+	private Store openEmbeddedStore(URL url) {
+		Client client = createEmbeddedClient();
+		try {
+			return client.openStore(url.getPath());
+		} catch (UnknownStoreException e) {
+			return client.createStore(url.getPath());
+		}
 	}
 }
