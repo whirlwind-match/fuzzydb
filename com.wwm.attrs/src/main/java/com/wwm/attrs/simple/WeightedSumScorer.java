@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.attrs.simple;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 
 import com.wwm.attrs.Score;

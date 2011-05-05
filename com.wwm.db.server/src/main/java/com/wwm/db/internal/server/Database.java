@@ -12,7 +12,8 @@ package com.wwm.db.internal.server;
 
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.UncaughtExceptionLogger;
@@ -214,9 +215,9 @@ public final class Database implements DatabaseVersionState {
 
 			// FIXME: (nu->ac) - This probably needs synchronising, or doing in a blocking thread...?
 			// Can you take a look.
-			log.fine("Syncing...");
+			log.trace("Syncing...");
 			pager.saveAll();
-			log.fine(".. saved pages.. ");
+			log.trace(".. saved pages.. ");
 
 			try {
 				long dbVersion = getCurrentDbVersion();
@@ -228,7 +229,7 @@ public final class Database implements DatabaseVersionState {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-			log.fine(".. completed sync.");
+			log.trace(".. completed sync.");
 
 			lastSync = System.currentTimeMillis(); // Ensure we get gap between syncs
 		}

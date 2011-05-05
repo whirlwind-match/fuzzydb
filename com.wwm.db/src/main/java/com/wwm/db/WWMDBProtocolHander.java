@@ -19,8 +19,6 @@ import com.wwm.db.core.Settings;
 
 /**
  * Protocol handler to fit with
- * @author Administrator
- *
  */
 public class WWMDBProtocolHander extends URLStreamHandler {
 
@@ -45,6 +43,11 @@ public class WWMDBProtocolHander extends URLStreamHandler {
     }
 
     static public URL getAsURL(String strUrl) throws MalformedURLException {
-        return new URL(null, strUrl, getInstance());
+        URL url = new URL(null, strUrl, getInstance());
+        if (!url.getPath().startsWith("/")) {
+        	throw new MalformedURLException(
+        			"Format is wwmdb:[//host[:port]]/storeName - You asked for:" + strUrl);
+        }
+        return url;
     }
 }

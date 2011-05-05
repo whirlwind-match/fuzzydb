@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.attrs.byteencoding;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Score.Direction;

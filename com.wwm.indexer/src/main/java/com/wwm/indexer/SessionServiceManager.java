@@ -10,7 +10,8 @@
  *****************************************************************************/
 package com.wwm.indexer;
 
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
 
 import com.wwm.context.ContextManager;
 import com.wwm.context.SessionContext;

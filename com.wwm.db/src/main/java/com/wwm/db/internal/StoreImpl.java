@@ -15,7 +15,7 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import org.springframework.util.Assert;
 
@@ -25,7 +25,6 @@ import com.wwm.db.Ref;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
@@ -252,7 +251,7 @@ public class StoreImpl implements Store {
 	
 	public Transaction begin() {
 		if (allowTxOverlapInThread && currentTransaction.get() != null) {
-			log.warning("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
+			log.warn("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
 		}
 		else {
 			Assert.state(currentTransaction.get() == null, "Current transaction already active on this thread. Nested transactions not supported");

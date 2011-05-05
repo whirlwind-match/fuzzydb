@@ -16,12 +16,16 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
-import com.sun.image.codec.jpeg.ImageFormatException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageDecoder;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
+
 
 public class JpegManipulator {
 	public static class Jpeg {
@@ -29,7 +33,7 @@ public class JpegManipulator {
 		private int width;
 		private int height;
 		
-		public Jpeg(byte[] data) throws ImageFormatException {
+		public Jpeg(byte[] data) throws IOException {
 			if (data != null) {
 				int soi_index = 0;
 				this.data = data;
@@ -49,10 +53,10 @@ public class JpegManipulator {
 					jpeg++;
 				}
 				
-				if (!soi) throw new ImageFormatException("Missing JPEG Start of Image marker");
+				if (!soi) throw new IOException("Missing JPEG Start of Image marker");
 				
 				// Must have APP0 or APP1 markers
-				if (data[jpeg] != 0xff || (data[jpeg+1] != 0xe1 && data[jpeg+1] != 0xe0) ) if (!soi) throw new ImageFormatException("Missing APPx marker");
+				if (data[jpeg] != 0xff || (data[jpeg+1] != 0xe1 && data[jpeg+1] != 0xe0) ) if (!soi) throw new IOException("Missing APPx marker");
 				
 				/*
 				// Now look for FFE0 jFIF marker
@@ -107,7 +111,7 @@ public class JpegManipulator {
 					
 				}
 			}
-			throw new ImageFormatException("Missing JPEG Start of Frame marker");
+			throw new IOException("Missing JPEG Start of Frame marker");
 		}
 		
 		public byte[] getData() {
@@ -127,26 +131,38 @@ public class JpegManipulator {
 		// static only
 	}
 	
-	public static BufferedImage decodeImage(byte[] data) throws ImageFormatException, IOException {
-	    // Create BufferedImage
-	    BufferedImage bi = null;
-    	// load file from disk using Sun's JPEGIMageDecoder
-    	ByteArrayInputStream bis = new ByteArrayInputStream(data);
-    	JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(bis);
-    	bi = decoder.decodeAsBufferedImage();
+	public static BufferedImage decodeImage(byte[] data) throws IOException {
+
+        Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpeg");
+        ImageReader reader = iterator.next();
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(data);
+		ImageInputStream iis = ImageIO.createImageInputStream(bis);
+        reader.setInput(iis);
+	    BufferedImage bi = reader.read(0);
 	    return bi;
 	}
 	
-	public static byte[] encodeImage(BufferedImage image, float quality) throws ImageFormatException, IOException {
+	public static byte[] encodeImage(BufferedImage image, float quality) throws IOException {
 		assert(quality>=0.0 && quality <= 1.0);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(bos);
-		JPEGEncodeParam jep = encoder.getDefaultJPEGEncodeParam(image);
-		jep.setQuality(quality, false);
-		encoder.setJPEGEncodeParam(jep);
-		encoder.encode(image);
+
+        Iterator<ImageWriter> iterator = ImageIO.getImageWritersByFormatName("jpeg");
+        ImageWriter writer = iterator.next();
+        ImageWriteParam p = writer.getDefaultWriteParam();
+        p.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        p.setCompressionQuality(quality);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageOutputStream ios = ImageIO.createImageOutputStream(bos);
+        writer.setOutput(ios);
+        writer.write(null, new IIOImage(image, null, null), p);
+        ios.flush();
+        writer.dispose();
+        ios.close();
+
 		return bos.toByteArray();
 	}
+
 	
 	public static BufferedImage limitSize(BufferedImage input, int maxWidth, int maxHeight) {
 		

@@ -125,7 +125,7 @@ public class Indexes implements Serializable {
         CurrentTransactionHolder.setTransactionMode(Mode.Normal);
     }
 
-    private <FC> void remove(Class<FC> forClass, MetaObject<?> mo) {
+    private <FC> void remove(Class<FC> forClass, MetaObject mo) {
         Map<String, BTree<?>> fieldIndexes = indexes.get(forClass);
         if (fieldIndexes != null) {
             for (BTree<?> btree : fieldIndexes.values()) {

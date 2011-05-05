@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
@@ -36,7 +37,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
 
     private final Table<NodeW, NodeW> table;
 
-    private final RefImpl<NodeW> sentinel;
+    private final GenericRef<NodeW> sentinel;
 
     private static final int splitThreshold = 4;
     private static final int mergeThreshold = 2;
@@ -114,8 +115,8 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
         return lookup.get(key);
     }
 
-    public void remove(MetaObject mo) {
-        RefImpl ref = mo.getRef();
+    public void remove(MetaObject<T> mo) {
+        RefImpl<T> ref = mo.getRef();
         Object object = mo.getObject();
         Insertor<T> insertor = new Insertor<T>(this);
         Comparable<Object> key = getFieldValue(object);
@@ -136,7 +137,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
     }
 
 
-    public RefImpl<NodeW> getSentinel() {
+    public GenericRef<NodeW> getSentinel() {
         return sentinel;
     }
 

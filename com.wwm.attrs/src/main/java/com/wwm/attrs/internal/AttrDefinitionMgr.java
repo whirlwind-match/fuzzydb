@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 
 import com.wwm.attrs.bool.BooleanValue;
@@ -251,7 +251,7 @@ public class AttrDefinitionMgr implements Serializable {
             return UNKNOWN_CLASS; // actually it's known and non-indexed
         }
 
-        log.severe("ADM: Unknown class: " + clazz.getCanonicalName());
+        log.error("ADM: Unknown class: " + clazz.getCanonicalName());
         assert false : "Need to migrate use of class to a recognised type: " + clazz.getCanonicalName();
         return UNKNOWN_CLASS;
         // FIXME: Default for Jas

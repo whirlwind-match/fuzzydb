@@ -165,7 +165,7 @@ public class PathDeviationScorer extends TwoByTwoAttrScorer {
         DimensionsRangeConstraint pathStart = (DimensionsRangeConstraint) na;
         assert( pathStart.getAttrId() == scorerAttrId );
 
-        LogFactory.getLogger(getClass()).severe("Review this. Think it's fixed");
+        LogFactory.getLogger(getClass()).error("Review this. Think it's fixed");
 //        if (true) return; // FIXME: THERE'S A BUG DOWN HERE SOMEWHERE (comment this line out and you'll see the result)
 
         IAttributeConstraint annotation2 = c.findAttr(scoreSecondAttrId);

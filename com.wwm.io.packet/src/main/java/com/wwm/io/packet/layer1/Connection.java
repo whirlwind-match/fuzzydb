@@ -18,7 +18,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.PacketInterface;

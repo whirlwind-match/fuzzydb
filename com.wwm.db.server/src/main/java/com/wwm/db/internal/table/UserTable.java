@@ -62,7 +62,7 @@ public interface UserTable<T> extends Iterable<MetaObject<T>>{
 	 * Get the class of what is stored in this table
 	 * @return Class
 	 */
-	Class<?> getStoredClass();
+	Class<T> getStoredClass();
 	
 	long getElementCount();
 

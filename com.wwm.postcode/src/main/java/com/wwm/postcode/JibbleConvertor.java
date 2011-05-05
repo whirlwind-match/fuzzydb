@@ -14,8 +14,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.Settings;
 import com.wwm.util.FileUtils;
@@ -32,7 +31,7 @@ public class JibbleConvertor {
 		try {
 			jibbleMap = (TreeMap<String, PostcodeResult>)FileUtils.readObjectFromGZip(jibbleFile);
 		} catch (Error e) {
-			log.log(Level.SEVERE, "Lookups disabled.  Failed to load Jibble data" + e.getCause().getMessage());
+			log.error("Lookups disabled.  Failed to load Jibble data " + e.getCause().getMessage());
 		}
 	}
 	

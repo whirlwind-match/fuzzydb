@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 
@@ -62,7 +61,7 @@ public class FileUtil {
 				int version = Integer.parseInt(filename.substring(1, index));
 				return version;
 			} catch (NumberFormatException e) { 
-				log.log(Level.SEVERE, "Unexpected error:" + e.getMessage(), e );
+				log.error("Unexpected error:" + e.getMessage(), e );
 			}
 		}
 		return -1;

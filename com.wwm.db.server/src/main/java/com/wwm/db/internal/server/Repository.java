@@ -23,8 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.UnknownStoreException;
@@ -173,7 +172,7 @@ public class Repository implements Serializable {
 			}
 			r.tryLoadStores(file.getParentFile());
 		} catch (Throwable t) {
-			log.log(Level.SEVERE, "Unexpected error loading file, " + file.getName() + " :" + t.getMessage(), t );
+			log.error("Unexpected error loading file, " + file.getName() + " :" + t.getMessage(), t );
 		} finally {
 			
 		}
@@ -205,7 +204,7 @@ public class Repository implements Serializable {
 		// current store if entry in for this storeName matches current id. But then should check for duplicates.
 		if (currentStores.get(storeName) != null && currentStores.get(storeName).equals(id)) {
 			if (idStoreMap.containsKey(id)) {
-				log.severe("Skipped duplicate store (name and id clash with existing):" + storeName 
+				log.error("Skipped duplicate store (name and id clash with existing):" + storeName 
 						+ " at path " + store.getPath() );
 				return;
 			}
@@ -219,7 +218,7 @@ public class Repository implements Serializable {
 		// deleted store if entry in for this storeId matches name. But then should check for duplicates.
 		if (deletedStores.get(id) != null && deletedStores.get(id).equals(storeName)) {
 			if (idStoreMap.containsKey(id)) {
-				log.severe("Skipped duplicate (deleted) store (name and id clash with existing):" + storeName 
+				log.error("Skipped duplicate (deleted) store (name and id clash with existing):" + storeName 
 						+ " at path " + store.getPath() );
 				return;
 			}
@@ -372,7 +371,7 @@ public class Repository implements Serializable {
 			s.initTransientData(context); // have to be initialised
 			boolean success = s.deletePersistentData();
 			if (!success) {
-				log.severe("Failed to delete persistent data for store at " + s.getPath() );
+				log.error("Failed to delete persistent data for store at " + s.getPath() );
 			}
 		}
 		

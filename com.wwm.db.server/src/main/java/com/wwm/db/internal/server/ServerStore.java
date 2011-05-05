@@ -15,8 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.RefImpl;
@@ -39,8 +38,8 @@ public class ServerStore implements Serializable {
 
 	
 //	private ClassLoaderInterface commsClassLoader;
-	private ClassLoaderInterface pagerClassLoader;
-	private ClassTokenCache pagerClassTokenCache;
+	private final ClassLoaderInterface pagerClassLoader;
+	private final ClassTokenCache pagerClassTokenCache;
 	
 	private final String storeName;
 
@@ -216,7 +215,7 @@ public class ServerStore implements Serializable {
 				fis.close();
 			}
 		} catch (Throwable t) {
-			log.log(Level.SEVERE, "Unexpected error loading file, " + fileToUse.getName() + " :" + t.getMessage(), t );
+			log.error( "Unexpected error loading file, " + fileToUse.getName() + " :" + t.getMessage(), t );
 		}
 		// Store loaded.  Now clean up any pages newer than this version
 		// FIXME: Need to also assert that there are no stores newer than this version

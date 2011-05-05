@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.postcode;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.dao.SimpleDAO;

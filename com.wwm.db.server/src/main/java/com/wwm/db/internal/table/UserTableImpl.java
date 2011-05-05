@@ -136,8 +136,8 @@ public class UserTableImpl<T> implements Serializable, UserTable<T> {
 		return table.getNamespace();
 	}
 
-	public Class<?> getStoredClass() {
-		return table.getStoredClass();
+	public Class<T> getStoredClass() {
+		return (Class<T>) table.getStoredClass();
 	}
 	
     private boolean canSeeLatest(RefImpl<T> ref) throws UnknownObjectException {

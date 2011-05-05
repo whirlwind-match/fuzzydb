@@ -12,6 +12,7 @@ package com.wwm.db.internal.index.btree.node;
 
 import java.util.TreeMap;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.index.btree.BranchNodeW;
 import com.wwm.db.internal.index.btree.PendingOperations;
@@ -69,8 +70,8 @@ class BranchNode extends Node implements BranchNodeW {
 		children.put(key, ref);
 	}
 
-	public void setRight(RefImpl ref) {
-		rightChild = ref;
+	public void setRight(GenericRef ref) {
+		rightChild = (RefImpl) ref;
 	}
 
 	public TreeMap<Comparable<Object>, RefImpl> getChildren() {

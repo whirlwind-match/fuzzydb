@@ -12,7 +12,9 @@ package com.wwm.db.internal.server;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import org.slf4j.Logger;
 
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.comms.messages.OkRsp;
 import com.wwm.io.core.MessageSink;
@@ -21,7 +23,10 @@ import com.wwm.io.core.messages.ErrorRsp;
 
 
 public abstract class ServerTransaction implements TransactionControl {
-
+	
+	
+	static private final Logger log = LogFactory.getLogger(ServerTransaction.class);
+	
 	public static enum Mode {
 		Normal,
 		IndexWrite,	// Index write in progress as part of normal transaction commit
@@ -123,6 +128,7 @@ public abstract class ServerTransaction implements TransactionControl {
 	
 	protected void beginCommit() {
 		transactionState.setCommitVersion(stc.acquireWritePrivilege());
+		log.trace("beginCommit() @" + transactionState.getCommitVersion() );
 	}
 	
 	protected abstract void doCommitChecks();
@@ -149,10 +155,12 @@ public abstract class ServerTransaction implements TransactionControl {
 	
 	protected void endCommit() {
 		stc.releaseWritePrivilege();
+		log.trace("endCommit() @" + transactionState.getCommitVersion() );
 	}
 
 	protected void abortCommit() {
 		stc.abortWritePrivilege();
+		log.trace("abortCommit() @" + transactionState.getCommitVersion() );
 	}
 
 	public boolean isCompleted() {

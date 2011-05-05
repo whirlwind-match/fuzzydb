@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
@@ -30,9 +31,9 @@ import com.wwm.db.internal.table.Table;
 public class BtreeLookup<T> {
 
     private final BTree<T> btree;
-    private Table<NodeW,NodeW> table;
+    private final Table<NodeW,NodeW> table;
 
-    private HashSet<RefImpl> removalPending = new HashSet<RefImpl>();
+    private final HashSet<RefImpl> removalPending = new HashSet<RefImpl>();
 
     BtreeLookup(BTree<T> btree) {
         this.btree = btree;
@@ -40,14 +41,14 @@ public class BtreeLookup<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public MetaObject get(Comparable<?> key) {
+    public MetaObject<T> get(Comparable<?> key) {
         RootSentinel rs = null;
         try {
             rs = (RootSentinel) table.getObject(btree.getSentinel());
         } catch (UnknownObjectException e) {
             throw new RuntimeException("Missing root in index", e);
         }
-        RefImpl<NodeW> rootRef = rs.getRoot();
+        GenericRef<NodeW> rootRef = rs.getRoot();
         if (rootRef == null) {
             return null;
         }

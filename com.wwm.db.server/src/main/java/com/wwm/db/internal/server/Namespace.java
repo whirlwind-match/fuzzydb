@@ -15,11 +15,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.attrs.WhirlwindConfiguration;
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.exceptions.ObjectExistsException;
 import com.wwm.db.exceptions.UnknownObjectException;
@@ -51,10 +50,10 @@ public class Namespace implements Serializable {
 	private final Namespaces namespaces;
 	private final Indexes indexes = new Indexes(this); // FIXME: Move to IndexManagerImpl - we associate indices with a type
 
-	private Map<String, UserTable<?>> nameToTableMap = new HashMap<String, UserTable<?>>();
-	private Map<Integer, UserTable<?>> idToTableMap = new HashMap<Integer, UserTable<?>>();
+	private final Map<String, UserTable<?>> nameToTableMap = new HashMap<String, UserTable<?>>();
+	private final Map<Integer, UserTable<?>> idToTableMap = new HashMap<Integer, UserTable<?>>();
 
-	private AttributeCache attributeCache = new AttributeCache();
+	private final AttributeCache attributeCache = new AttributeCache();
 
 	private transient InitialisationContext context;
 

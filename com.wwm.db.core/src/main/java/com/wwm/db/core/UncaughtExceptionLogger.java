@@ -13,8 +13,7 @@ package com.wwm.db.core;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 
 /**
@@ -52,8 +51,8 @@ public class UncaughtExceptionLogger implements UncaughtExceptionHandler {
 	public void uncaughtException(Thread t, Throwable e) {
 		ByteArrayOutputStream s = new ByteArrayOutputStream();
 		e.printStackTrace( new PrintStream( s ) );
-		log.log( Level.SEVERE, "Fatal Exception in Thread: " + t.getName(), e );
-		log.log( Level.SEVERE, "Details - Exception = : " + s.toString() );
+		log.error( "Fatal Exception in Thread: " + t.getName(), e );
+		log.error( "Details - Exception = : " + s.toString() );
 		
 	}
 

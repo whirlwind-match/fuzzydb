@@ -15,8 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.comms.messages.BeginAndCommitCmd;
@@ -87,11 +86,11 @@ public class TxLogPlayback extends WorkerThread implements MessageSink {
 				}
 			}
 		} catch (IOException e) {
-			log.log(Level.SEVERE, "Error playing back TxLog", e);
+			log.error("Error playing back TxLog", e);
 			return;
 		} finally {
 			if (playbackErrors > 0){
-				log.log(Level.SEVERE, "Errors found during playback: " + playbackErrors + " commands failed.");
+				log.error("Errors found during playback: " + playbackErrors + " commands failed.");
 			}
 			pc.close();
 		}
@@ -121,7 +120,7 @@ public class TxLogPlayback extends WorkerThread implements MessageSink {
 				play(file);
 			}
 		} catch (Throwable e){
-			log.log( Level.SEVERE, "Unexpected Exception", e );
+			log.error( "Unexpected Exception", e );
 			throw new RuntimeException(e);
 		} finally {
 			finished.release();

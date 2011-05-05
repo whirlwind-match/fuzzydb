@@ -15,7 +15,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
 
 import com.wwm.attrs.AttrsFactory;
 import com.wwm.attrs.userobjects.StandaloneWWIndexData;
@@ -38,10 +39,10 @@ public class IndexerImpl implements Indexer {
 	
     protected static Logger log = LogFactory.getLogger(IndexerImpl.class);
 
-    private Map<Integer, ResultIterator<Result<StandaloneWWIndexData>>> searchSet = Collections.synchronizedMap(new TreeMap<Integer, ResultIterator<Result<StandaloneWWIndexData>>>());
+    private final Map<Integer, ResultIterator<Result<StandaloneWWIndexData>>> searchSet = Collections.synchronizedMap(new TreeMap<Integer, ResultIterator<Result<StandaloneWWIndexData>>>());
     private int lastSearch = 0;
-    private RecordConverter recordConverter;
-    private SearchParamsConverter searchParamsConverter;
+    private final RecordConverter recordConverter;
+    private final SearchParamsConverter searchParamsConverter;
 
     public IndexerImpl() {
         this.recordConverter = new RecordConverter();

@@ -11,7 +11,7 @@
 package com.wwm.db;
 
 import java.util.Collection;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 /**This class is used to access Stores.
  * Note that it implements the Transaction interface. Any transactions started on this Store are associated with the calling thread.

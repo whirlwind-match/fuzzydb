@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.attrs.IScoreConfiguration;
 import com.wwm.attrs.WhirlwindConfiguration;
@@ -45,9 +45,9 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 	 * previously only had global (not a great solution, admittedly) */
     transient private RefImpl<WhirlwindConfiguration> wwConfigRef = null;
 
-	private UserTable<T> table;
+	private final UserTable<T> table;
 
-	private Map<String, Index<T>> allIndexes;
+	private final Map<String, Index<T>> allIndexes;
 
     
 	/**
@@ -142,7 +142,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
         }
 
         if (conf == null){
-            getLog().severe("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". GETTING FIRST IN TABLE");
+            getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". GETTING FIRST IN TABLE");
             // Ignore trying to do anything via index, and just see if we have one
             Iterator<MetaObject<WhirlwindConfiguration>> iterator;
             try {
@@ -156,7 +156,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
                 conf = null;
             }
             if (conf == null){
-                getLog().severe("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Aborting");
+                getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Aborting");
                 // Allows to boot database and then insert a config later.
             }
         }

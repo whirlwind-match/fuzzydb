@@ -13,7 +13,6 @@ package com.wwm.db.internal.index;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.exceptions.ObjectExistsException;
 import com.wwm.db.exceptions.UnknownObjectException;
@@ -36,8 +35,8 @@ import com.wwm.db.whirlwind.SearchSpec;
 public class IndexedTable<T> implements UserTable<T>, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private UserTable<T> table;
-	private IndexManager<T> indexManager;
+	private final UserTable<T> table;
+	private final IndexManager<T> indexManager;
 
 
 	public IndexedTable(UserTable<T> table, IndexManager<T> indexManager) {
@@ -119,7 +118,7 @@ public class IndexedTable<T> implements UserTable<T>, Serializable {
 		return table.iterator();
 	}
 
-	public Class<?> getStoredClass() {
+	public Class<T> getStoredClass() {
 		return table.getStoredClass();
 	}
 

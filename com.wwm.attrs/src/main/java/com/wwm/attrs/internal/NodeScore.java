@@ -169,7 +169,7 @@ public class NodeScore extends Score implements Serializable {
 				continue;
 			}
 			if (entry.getValue().floatValue() > otherScore ){
-				LogFactory.getLogger(NodeScore.class).severe("Attr " + entry.getKey().getScorerAttrId() + " validation failure. " 
+				LogFactory.getLogger(NodeScore.class).error("Attr " + entry.getKey().getScorerAttrId() + " validation failure. " 
 						+ entry.getValue().floatValue() + " should not be greater than " + otherScore + ".   Scorer = " + entry.getKey().getClass().getName() );
 				return false; // should be <=
 			}

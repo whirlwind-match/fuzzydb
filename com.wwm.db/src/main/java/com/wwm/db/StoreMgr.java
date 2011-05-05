@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.springframework.util.Assert;
+
 import com.wwm.context.IShutdown;
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
@@ -81,7 +83,8 @@ public class StoreMgr implements IShutdown {
      * The URL path is used as the storeName
      */
     private Store getStore(URL url) {
-        String storeName = url.getPath();
+    	Assert.state(url.getPath().startsWith("/"), "URL path must start with /");
+        String storeName = url.getPath().substring(1);
         Store store = storesByStoreName.get(storeName);
         if (store != null) {
             return store;

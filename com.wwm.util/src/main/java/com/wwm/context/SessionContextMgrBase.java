@@ -10,8 +10,8 @@
  *****************************************************************************/
 package com.wwm.context;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+
 
 
 /**
@@ -49,10 +49,10 @@ public abstract class SessionContextMgrBase {
     protected SessionContextMgrBase(SessionContext session, Logger log) {
         this.log = log;
         if ( session == null ){
-            log.severe( "Created session context with null session. Proceeding to see what happens...");
+            log.warn( "Created session context with null session. Proceeding to see what happens...");
         }
         else {
-            log.fine(session.getSessionId() + ", Create Session:");
+            log.debug("{}, Create Session:", session.getSessionId());
         }
     }
 
@@ -78,7 +78,7 @@ public abstract class SessionContextMgrBase {
      */
     public void invalidateSession() {
         SessionContext session = ContextManager.getCurrentSessionContext();
-        log.fine(session.getSessionId() + ", invalidateSession: Thread = " + Thread.currentThread().getId());
+        log.trace(session.getSessionId() + ", invalidateSession: Thread = " + Thread.currentThread().getId());
         session.invalidate();
     }
 
@@ -102,10 +102,10 @@ public abstract class SessionContextMgrBase {
                 try {
                     objInstance = serviceClass.newInstance();
                     session.set( name, objInstance );
-                    log.fine(session.getSessionId() + ", getService -> new :" + name);
+                    log.trace(session.getSessionId() + ", getService -> new :" + name);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.log( Level.SEVERE, "Unexpected exception creating service", e );
+                    log.error("Unexpected exception creating service", e );
                 }
             }
         }

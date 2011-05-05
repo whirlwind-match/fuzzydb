@@ -12,8 +12,6 @@ package com.wwm.db;
 
 import java.io.File;
 import java.net.InetSocketAddress;
-import java.util.logging.Level;
-
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.db.internal.server.Database;
@@ -56,7 +54,7 @@ public class RunServer {
 			db.setIndexImplsService(service);
 			db.startServer();
 		} catch (Throwable e) {
-			LogFactory.getLogger(RunServer.class).log(Level.SEVERE, "Unhandled exception starting database", e);
+			LogFactory.getLogger(RunServer.class).error( "Unhandled exception starting database", e);
 		}
 	}
 }

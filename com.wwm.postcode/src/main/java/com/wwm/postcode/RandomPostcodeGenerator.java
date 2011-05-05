@@ -13,7 +13,7 @@ package com.wwm.postcode;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;

@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.dao;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.Store;
 import com.wwm.db.StoreMgr;

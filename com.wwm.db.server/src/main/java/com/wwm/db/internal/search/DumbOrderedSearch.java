@@ -11,8 +11,7 @@
 package com.wwm.db.internal.search;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.attrs.IScoreConfiguration;
 import com.wwm.attrs.internal.NodeScore;
@@ -38,14 +37,14 @@ public class DumbOrderedSearch<T> implements Search {
 
     private static Logger log = LogFactory.getLogger(DumbOrderedSearch.class);
 
-    private SearchSpecImpl spec;
+    private final SearchSpecImpl spec;
     private int nextSeq=0;
-    private ResultsQ resultsQ;
-    private UserTable<T> table;
+    private final ResultsQ resultsQ;
+    private final UserTable<T> table;
 
-    private boolean nominee;
+    private final boolean nominee;
 
-    private IScoreConfiguration config;
+    private final IScoreConfiguration config;
 
     /**
      * Maximum number of items to index "the dumb way"
@@ -71,7 +70,7 @@ public class DumbOrderedSearch<T> implements Search {
 
         fillResultsQ();
 
-        if ( log.isLoggable(Level.INFO) ){
+        if ( log.isInfoEnabled() ){
             log.info( "New Search: threshold = " + spec.getScoreThreshold()
                     + ", targetNumResults = " + spec.getTargetNumResults()
                     + ", searchType = " + spec.getScorerConfig() );
@@ -140,7 +139,7 @@ public class DumbOrderedSearch<T> implements Search {
 
 
         // Log some info about the work done
-        if ( log.isLoggable(Level.INFO) ) {
+        if ( log.isInfoEnabled() ) {
             log.info( "# results: " + results.size()
                     + ", Time (ms): " + timer.getMillis()
             );
@@ -155,11 +154,11 @@ public class DumbOrderedSearch<T> implements Search {
             float avTime = searchTime / searchCount;
             float avElapsed = (float)(System.currentTimeMillis() - searchStartTime) / searchCount;
             float avResults = (float)(totalResults) / searchCount;
-            log.severe("====================== SEARCH STATS =============================");
-            log.severe("Elapsed time per search: " + avElapsed + "ms (i.e. actual rate: " + 1000 / avElapsed + " searches per sec)");
-            log.severe("Mean time doing search: " + avTime + "ms (i.e. potential rate: " + 1000 / avTime + " searches per sec)");
-            log.severe("Mean results per search: " + avResults + " (=> SearchTime per result =" + avTime / avResults + "ms)");
-            log.severe("Non-search time (elapsed - search): " + (avElapsed - avTime) + "ms");
+            log.info("====================== SEARCH STATS =============================");
+            log.info("Elapsed time per search: " + avElapsed + "ms (i.e. actual rate: " + 1000 / avElapsed + " searches per sec)");
+            log.info("Mean time doing search: " + avTime + "ms (i.e. potential rate: " + 1000 / avTime + " searches per sec)");
+            log.info("Mean results per search: " + avResults + " (=> SearchTime per result =" + avTime / avResults + "ms)");
+            log.info("Non-search time (elapsed - search): " + (avElapsed - avTime) + "ms");
             searchTime = 0.0f;
             searchCount = 0;
             totalResults = 0;

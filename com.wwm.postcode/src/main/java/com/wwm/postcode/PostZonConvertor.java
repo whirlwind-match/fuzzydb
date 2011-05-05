@@ -19,8 +19,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 import java.util.zip.GZIPInputStream;
 
 import com.wwm.db.core.Settings;
@@ -38,7 +37,7 @@ import com.wwm.util.StringUtils;
  */
 @Deprecated
 public class PostZonConvertor extends Thread {
-	private Logger log;
+	private final Logger log;
 
 	private static final String fullFile = Settings.getInstance().getPostcodeRoot() + File.separatorChar + PostZonImporter.postzonDataDir;
 
@@ -60,7 +59,7 @@ public class PostZonConvertor extends Thread {
 
 	private volatile SimpleDAO dao;
 	private volatile long lookupCount=0;
-	private Random random = new MTRandom();
+	private final Random random = new MTRandom();
 	private boolean threadShutdownCalled = false;
 
 	//HashMap<String, byte[]> longCache = new HashMap<String, byte[]>();
@@ -120,7 +119,7 @@ public class PostZonConvertor extends Thread {
 						puc = new PostcodeUseCount();
 						puc.setCount(1);
 						safeDao.create(puc, null);
-						log.warning("PostcodeUseCount not found in store, starting new count from 1");
+						log.warn("PostcodeUseCount not found in store, starting new count from 1");
 					}
 					safeDao.commit();
 					committedCount += increment;
@@ -128,7 +127,7 @@ public class PostZonConvertor extends Thread {
 					log.info("Postcode count collision, will try again later");
 				} catch (Exception e) {
 					dao = null;
-					log.log(Level.SEVERE, "Unexpected exception", e);
+					log.error("Unexpected exception", e);
 				}
 			}
 			// Check for call to shutdown and make sure ALL tokens have been committed
@@ -171,10 +170,10 @@ public class PostZonConvertor extends Thread {
 				fis.read(cached);
 				//longCache.put(filename, cached);
 			} catch (FileNotFoundException e) {
-				log.warning("Failed to load Full data from " + fullFile + " for prefix: " + filename + ", bad code or missing file?");
+				log.warn("Failed to load Full data from " + fullFile + " for prefix: " + filename + ", bad code or missing file?");
 				return null;
 			} catch (IOException e) {
-				log.severe("Error reading full data: " + e);
+				log.error("Error reading full data: " + e);
 				return null;
 			}
 		}
@@ -192,10 +191,10 @@ public class PostZonConvertor extends Thread {
 			}
 			return pr;
 		} catch (IOException e) {
-			log.severe("Error reading full data: " + e);
+			log.error("Error reading full data: " + e);
 			return null;
 		} catch (ClassNotFoundException e) {
-			log.severe("PostcodeConvertor internal error, Error reading full data: " + e);
+			log.error("PostcodeConvertor internal error, Error reading full data: " + e);
 			return null;
 		}
 	}

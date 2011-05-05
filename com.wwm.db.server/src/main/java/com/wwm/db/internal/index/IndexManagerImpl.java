@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.KeyCollisionException;

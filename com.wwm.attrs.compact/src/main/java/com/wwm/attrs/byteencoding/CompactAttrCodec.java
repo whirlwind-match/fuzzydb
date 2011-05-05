@@ -136,7 +136,7 @@ public abstract class CompactAttrCodec {
 			int headerWord = getHeaderWord( bytes, i);
 			int length = getLength(bytes, i, headerWord);
 			if (length == 0){ // shouldn't be needed, but was in past.  Would be good to remove this. FIXME For now, just log
-				LogFactory.getLogger(CompactAttrCodec.class).severe("Got zero length. Wasn't expecting it");
+				LogFactory.getLogger(CompactAttrCodec.class).error("Got zero length. Wasn't expecting it");
 				break;
 			}
 			int bufAttrId = getAttrId( headerWord );

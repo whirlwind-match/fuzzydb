@@ -13,8 +13,8 @@ package com.wwm.db.internal.index.btree;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.index.btree.node.NodeFactory;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
 import com.wwm.db.internal.table.Table;
@@ -25,7 +25,7 @@ abstract class Operator<T> {
     protected final IndexPointerStyle style;
     protected final Table<NodeW, NodeW> table;
 
-    private final HashMap<RefImpl, NodeW> writeBehind = new HashMap<RefImpl, NodeW>();
+    private final HashMap<GenericRef<? extends NodeR>, NodeW> writeBehind = new HashMap<GenericRef<? extends NodeR>, NodeW>();
 
     protected Operator(BTree<T> tree) {
         super();
@@ -34,7 +34,7 @@ abstract class Operator<T> {
         this.table = tree.getTable();
     }
 
-    protected RefdNode getNode(RefImpl ref) {
+    protected RefdNode getNode(GenericRef<NodeW> ref) {
         NodeR node = null;
         try {
             node = table.getObject(ref);
@@ -50,7 +50,7 @@ abstract class Operator<T> {
     protected RefdNode getRoot() {
         try {
             RootSentinel rs = (RootSentinel)table.getObject(tree.getSentinel());
-            RefImpl rootRef = rs.getRoot();
+            GenericRef<NodeW> rootRef = rs.getRoot();
             if (rootRef == null) {
                 return null;
             }
@@ -60,7 +60,7 @@ abstract class Operator<T> {
         }
     }
 
-    protected void setRoot(RefImpl ref) {
+    protected void setRoot(GenericRef<NodeW> ref) {
         try {
             RootSentinel rs = new RootSentinel(ref);
             table.update(tree.getSentinel(), rs);
@@ -69,7 +69,13 @@ abstract class Operator<T> {
         }
     }
 
-    protected LeafNodeW getWritable(RefImpl ref, LeafNodeR ln) {
+    /**
+     * 
+     * @param ref - ref can be a read ref
+     * @param ln
+     * @return
+     */
+    protected LeafNodeW getWritable(GenericRef<? extends NodeR> ref, LeafNodeR ln) {
         NodeW n = writeBehind.get(ref);
         if (n != null) {
             return (LeafNodeW) n;
@@ -79,7 +85,7 @@ abstract class Operator<T> {
         return cloned;
     }
 
-    protected BranchNodeW getWritable(RefImpl ref, BranchNodeR bn) {
+    protected BranchNodeW getWritable(GenericRef<? extends NodeR> ref, BranchNodeR bn) {
         NodeW n = writeBehind.get(ref);
         if (n != null) {
             return (BranchNodeW) n;
@@ -93,10 +99,10 @@ abstract class Operator<T> {
         return NodeFactory.newLeafNode();
     }
 
-    protected RefImpl createNear(RefImpl near, BranchNodeR parentNode, NodeW newNode) {
-        RefImpl ref = null;
-        if (near != null) {
-            ref = table.allocOneRefNear(near, parentNode==null?null:parentNode.getChildOids());
+    protected GenericRef<NodeW> createNear(GenericRef<? extends NodeW> nearestRef, BranchNodeR parentNode, NodeW newNode) {
+        GenericRef<NodeW> ref = null;
+        if (nearestRef != null) {
+            ref = table.allocOneRefNear((GenericRef<NodeW>) nearestRef, parentNode==null?null:parentNode.getChildOids());
         } else {
             ref = table.allocOneRef();
         }
@@ -104,16 +110,16 @@ abstract class Operator<T> {
         return ref;
     }
 
-    protected void update(RefImpl ref, NodeW updatedNode) {
+    protected void update(GenericRef<? extends NodeW> ref, NodeW updatedNode) {
         writeBehind.put(ref, updatedNode);
     }
 
     void flush() {
-        for (Entry<RefImpl, NodeW> entry : writeBehind.entrySet()) {
-            RefImpl ref = entry.getKey();
+        for (Entry<GenericRef<? extends NodeR>, NodeW> entry : writeBehind.entrySet()) {
+        	GenericRef<? extends NodeR> ref = entry.getKey();
             NodeW node = entry.getValue();
             try {
-                table.createUpdate(ref, node);
+                table.createUpdate((GenericRef<NodeW>) ref, node);
             } catch (UnknownObjectException e) {
                 throw new RuntimeException("Error in Index Flush", e);
             }

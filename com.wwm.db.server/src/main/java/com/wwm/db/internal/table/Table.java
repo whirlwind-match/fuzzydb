@@ -12,8 +12,8 @@ package com.wwm.db.internal.table;
 
 import java.io.Serializable;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.server.Namespace;
 
 /**
@@ -48,7 +48,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * 
 	 * @return a new RefImpl
 	 */
-	RefImpl<RT> allocOneRef();
+	GenericRef<RT> allocOneRef();
 
 	/**
 	 * Allocate one new Ref, but try to place it near to the supplied ref so that the cost of reading one object goes
@@ -60,8 +60,8 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @param ls 
 	 * @return a new ref
 	 */
-	RefImpl<RT> allocOneRefNear(RefImpl<RT> nearRef, long[] ls);
-	RefImpl<RT> allocOneRefNear(RefImpl<RT> nearRef);
+	GenericRef<RT> allocOneRefNear(GenericRef<RT> nearRef, long[] ls);
+	GenericRef<RT> allocOneRefNear(GenericRef<RT> nearRef);
 
 	/**
 	 * Create a new object. The RefImpl should have previously been allocated with one of the alloc methods. The object
@@ -71,7 +71,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @param ref
 	 * @param object
 	 */
-	void create(RefImpl<RT> ref, T object);
+	void create(GenericRef<RT> ref, T object);
 
 	/**
 	 * Update an existing object. The transaction must be able to see the latest version of the object otherwise an
@@ -81,7 +81,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @param object
 	 * @throws UnknownObjectException
 	 */
-	void update(RefImpl<RT> ref, T object) throws UnknownObjectException;
+	void update(GenericRef<RT> ref, T object) throws UnknownObjectException;
 
 	/**
 	 * Delete the object with the specified Ref. The transaction must be able to see the latest version of the object
@@ -90,7 +90,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @param ref
 	 * @throws UnknownObjectException
 	 */
-	void delete(RefImpl<RT> ref) throws UnknownObjectException;
+	void delete(GenericRef<RT> ref) throws UnknownObjectException;
 
 	/**
 	 * Gets an object corresponding to the specified RefImpl. The version of the object is determined by the current
@@ -100,7 +100,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @return
 	 * @throws UnknownObjectException
 	 */
-	T getObject(RefImpl<RT> ref) throws UnknownObjectException;
+	T getObject(GenericRef<RT> ref) throws UnknownObjectException;
 
 	/**
 	 * Gets an object without performing any IO. If the object is not available, returns null. The exception may or may
@@ -113,7 +113,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @throws UnknownObjectException
 	 *             if it can be determined that the object does not exist without causing any IO
 	 */
-	T getObjectNonIO(RefImpl<RT> ref) throws UnknownObjectException;
+	T getObjectNonIO(GenericRef<RT> ref) throws UnknownObjectException;
 
 	int getTableId();
 
@@ -131,7 +131,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @param ref
 	 * @return
 	 */
-	boolean doesElementExist(RefImpl<RT> ref);
+	boolean doesElementExist(GenericRef<RT> ref);
 
 	/**
 	 * Safely determines if the latest version of the specified object is visible to the current transaction. A
@@ -140,7 +140,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 * @param ref
 	 * @return
 	 */
-	boolean canSeeLatest(RefImpl<RT> ref) throws UnknownObjectException;
+	boolean canSeeLatest(GenericRef<RT> ref) throws UnknownObjectException;
 
 	Namespace getNamespace();
 
@@ -150,7 +150,7 @@ public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializabl
 	 */
 	Class<?> getStoredClass();
 
-	public void createUpdate(RefImpl<RT> ref, T object) throws UnknownObjectException;
+	public void createUpdate(GenericRef<RT> ref, T object) throws UnknownObjectException;
 
 	long getElementCount();
 	

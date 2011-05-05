@@ -12,8 +12,6 @@ package com.wwm.db;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.logging.Level;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -52,7 +50,7 @@ public class Activator implements BundleActivator {
 			db.startServer();
 			
 		} catch (Throwable e) {
-			LogFactory.getLogger(Activator.class).log(Level.SEVERE, "Unhandled exception starting database", e);
+			LogFactory.getLogger(Activator.class).error("Unhandled exception starting database", e);
 		}
 	}
 

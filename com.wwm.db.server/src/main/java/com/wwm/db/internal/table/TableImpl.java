@@ -13,6 +13,7 @@ package com.wwm.db.internal.table;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.pager.Element;
@@ -31,7 +32,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 	private class TableIterator implements Iterator<RefObjectPair<RT,T>> {
 
 		private long currentOid = 0;
-		private long lastOid = table.getNextOid() - 1;
+		private final long lastOid = table.getNextOid() - 1;
 		
 		public boolean hasNext() {
 			// Find next object that exists
@@ -105,30 +106,30 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return table.allocNewIds(count);
 	}
 
-	public synchronized RefImpl<RT> allocOneRef() {
+	public synchronized GenericRef<RT> allocOneRef() {
 		long oid = table.allocOneRef();
 		return new RefImpl<RT>(getSlice(), tableId, oid);
 	}
 
-	public synchronized RefImpl<RT> allocOneRefNear(RefImpl<RT> nearRef, long[] others) {
-		long oid = table.allocOneRefNear(nearRef.getOid(), others);
+	public synchronized GenericRef<RT> allocOneRefNear(GenericRef<RT> nearRef, long[] others) {
+		long oid = table.allocOneRefNear(((RefImpl<RT>) nearRef).getOid(), others);
 		return new RefImpl<RT>(getSlice(), tableId, oid);
 	}
 	
-	public void create(RefImpl<RT> ref, T object) {
+	public void create(GenericRef<RT> ref, T object) {
 		if (!initialised){ initialise(); }
-		long oid = ref.getOid();
-		assert( ref.getTable() == tableId);
+		long oid = ((RefImpl<RT>) ref).getOid();
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		assert(oid < table.getNextOid()); // pick up silly bugs, such as passing wrong Ref.
 		Element<T> element = new Element<T>(oid, object);
 		table.createElement(element);
 		incrementCount();
 	}
 
-	public void delete(RefImpl<RT> ref) throws UnknownObjectException {
+	public void delete(GenericRef<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
-		assert( ref.getTable() == tableId);
-		long oid = ref.getOid();
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
+		long oid = ((RefImpl<RT>) ref).getOid();
 		Element<T> element = table.lockElementForWrite(oid);
 		element.delete();
 		table.unlockElementForWrite(element);
@@ -140,17 +141,17 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return table.deletePersistentData();
 	}
 
-	public T getObject(RefImpl<RT> ref) throws UnknownObjectException {
+	public T getObject(GenericRef<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
-		assert( ref.getTable() == tableId);
-		long oid = ref.getOid();
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
+		long oid = ((RefImpl<RT>) ref).getOid();
 		return getObjectByOid(oid);
 	}
 
 	@SuppressWarnings("unchecked")
 	protected T getObjectByOid(long oid) throws UnknownObjectException {
 		Object object = null;
-		ElementReadOnly element = table.lockElementForRead(oid);
+		ElementReadOnly<T> element = table.lockElementForRead(oid);
 		try {
 			object = element.getVersion();
 		} finally {
@@ -176,16 +177,16 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		initialised = true;
 	}
 
-	public void update(RefImpl<RT> ref, T object) throws UnknownObjectException {
+	public void update(GenericRef<RT> ref, T object) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
-		assert( ref.getTable() == tableId);
-		Element<T> element = table.lockElementForWrite(ref.getOid());
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
+		Element<T> element = table.lockElementForWrite(((RefImpl<RT>) ref).getOid());
 		assert(!element.isDeleted());
 		element.addVersion( object );
 		table.unlockElementForWrite(element);
 	}
 
-	public void createUpdate(RefImpl<RT> ref, T object) throws UnknownObjectException {
+	public void createUpdate(GenericRef<RT> ref, T object) throws UnknownObjectException {
 		if (doesElementExist(ref)) {
 			update(ref, object);
 		} else {
@@ -193,17 +194,17 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		}
 	}
 	
-	public boolean doesElementExist(RefImpl<RT> ref) {
+	public boolean doesElementExist(GenericRef<RT> ref) {
 		if (!initialised){ initialise(); }
-		assert( ref.getTable() == tableId);
-		long elementId = ref.getOid();
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
+		long elementId = ((RefImpl<RT>) ref).getOid();
 		return table.doesElementExist(elementId);
 	}
 
-	public boolean canSeeLatest(RefImpl<RT> ref) throws UnknownObjectException {
+	public boolean canSeeLatest(GenericRef<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
-		assert( ref.getTable() == tableId);
-		long oid = ref.getOid();
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
+		long oid = ((RefImpl<RT>) ref).getOid();
 		boolean result = canSeeLatestByOid(oid);
 		return result;
 
@@ -221,9 +222,9 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return new TableIterator();
 	}
 
-	public T getObjectNonIO(RefImpl<RT> ref) throws UnknownObjectException {
+	public T getObjectNonIO(GenericRef<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
-		assert( ref.getTable() == tableId);
+		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		// FIXME make this method do what its supposed to!
 		return getObject(ref);
 	}
@@ -233,7 +234,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return slice;
 	}
 
-	public RefImpl<RT> allocOneRefNear(RefImpl<RT> nearRef) {
+	public GenericRef<RT> allocOneRefNear(GenericRef<RT> nearRef) {
 		return allocOneRefNear(nearRef, null);
 	}
 

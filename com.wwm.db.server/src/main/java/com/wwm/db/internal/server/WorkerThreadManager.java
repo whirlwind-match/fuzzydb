@@ -14,8 +14,7 @@ import java.nio.channels.CancelledKeyException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 
@@ -48,7 +47,7 @@ public abstract class WorkerThreadManager implements IOManager {
 	
 	private volatile boolean stopping = false;
 	
-	private Set<WorkerThread> threads = new HashSet<WorkerThread>();
+	private final Set<WorkerThread> threads = new HashSet<WorkerThread>();
 	private boolean started = false;
 	
 	private final Semaphore gate = new Semaphore(1); // Was FastSemaphore (not sure why)
@@ -73,7 +72,7 @@ public abstract class WorkerThreadManager implements IOManager {
 	/**
 	 * For debug.  Ensure that each beginIO is ended with an endIO by the same thread.
 	 */
-	private ThreadLocal<Boolean> threadIsDoingIO = new ThreadLocal<Boolean>();
+	private final ThreadLocal<Boolean> threadIsDoingIO = new ThreadLocal<Boolean>();
 	
 	public void beginIO() {
 		assert(threadIsDoingIO.get() == null);
@@ -135,7 +134,7 @@ public abstract class WorkerThreadManager implements IOManager {
 			} catch (CancelledKeyException e) {
 				return; // thread exits
 			} catch (Throwable t) {
-				log.log(Level.SEVERE, "** Caught Unexpected Exception **", t);
+				log.error( "** Caught Unexpected Exception **", t);
 			} finally {
 				if (!stopping) {
 					runThreadLock.release();

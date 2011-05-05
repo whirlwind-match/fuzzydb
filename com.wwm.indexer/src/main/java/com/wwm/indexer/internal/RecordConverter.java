@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
 
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumValue;
@@ -56,7 +57,7 @@ public class RecordConverter {
 
     private DynamicRef<? extends AttrDefinitionMgr> attrDefsRef = null;
 
-    private Map<String, List<InboundDerivation<?>>> inboundDerivations = new HashMap<String, List<InboundDerivation<?>>>();
+    private final Map<String, List<InboundDerivation<?>>> inboundDerivations = new HashMap<String, List<InboundDerivation<?>>>();
 
     public RecordConverter() {
         // Load the Attributes map
@@ -107,7 +108,7 @@ public class RecordConverter {
         } else {
             IAttribute attribute = getIAttribute(name, attr);
             if (attribute==null){
-                log.severe("null attr: " + attr.toString());
+                log.error("null attr: " + attr.toString());
                 attribute = getIAttribute(name, attr); // was for debugging only
             }
             index.getAttributeMap().putAttr(attribute);

@@ -1,8 +1,7 @@
 package com.wwm.stats.counters;
 
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.dao.DaoWriteCollisionException;
@@ -29,7 +28,7 @@ public class Counter extends Thread  {
 	private volatile SimpleDAO dao;
 	private volatile long count = 0;
 	private boolean threadShutdownCalled = false;
-	private Class<? extends Count> countClass;
+	private final Class<? extends Count> countClass;
 
 
 	public Counter(String name, SimpleDAO dao, Class<? extends Count> countClass) {
@@ -84,7 +83,7 @@ public class Counter extends Thread  {
 						puc = countClass.newInstance();
 						puc.setCount(1);
 						safeDao.create(puc, null);
-						log.warning( countClass.getName() + " not found in store, starting new count from 1");
+						log.warn( countClass.getName() + " not found in store, starting new count from 1");
 					}
 					safeDao.commit();
 					committedCount += increment;
@@ -92,7 +91,7 @@ public class Counter extends Thread  {
 					log.info("Counter collision, will try again later");
 				} catch (Exception e) {
 					dao = null;
-					log.log(Level.SEVERE, "Unexpected exception", e);
+					log.error("Unexpected exception", e);
 				}
 			}
 			// Check for call to shutdown and make sure ALL tokens have been committed

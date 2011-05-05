@@ -11,8 +11,7 @@
 package com.wwm.db.internal.server;
 
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 
@@ -23,9 +22,9 @@ public class Initialiser extends WorkerThread {
 
 	static private Logger log = LogFactory.getLogger(Initialiser.class);
 
-	private Database database;
-	private Repository repository;
-	private Semaphore finished = new Semaphore(0);
+	private final Database database;
+	private final Repository repository;
+	private final Semaphore finished = new Semaphore(0);
 	
 	public Initialiser(Repository repository, Database database, WorkerThreadManager manager) {
 		super("Initialiser", manager);
@@ -47,7 +46,7 @@ public class Initialiser extends WorkerThread {
 			repository.initTransientData( new InitialisationContext(database) );
 			log.info("Initialise completed.");
 		} catch (Throwable e){
-			log.log( Level.SEVERE, "Unexpected Exception", e );
+			log.error( "Unexpected Exception", e );
 		} finally {
 			finished.release();
 		}

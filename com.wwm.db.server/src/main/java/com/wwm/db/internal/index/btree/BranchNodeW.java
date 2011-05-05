@@ -10,6 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.index.btree;
 
+import com.wwm.db.GenericRef;
 import com.wwm.db.internal.RefImpl;
 
 public interface BranchNodeW extends BranchNodeR, NodeW {
@@ -27,7 +28,7 @@ public interface BranchNodeW extends BranchNodeR, NodeW {
 	public PendingOperations removePendingOps();
 	
 	public void addLeft(Comparable<Object> key, RefImpl ref);
-	public void setRight(RefImpl ref);
+	public void setRight(GenericRef<NodeW> ref);
 	
 	public SplitOut splitOutLeft();
 }

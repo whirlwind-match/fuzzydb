@@ -10,16 +10,16 @@
  *****************************************************************************/
 package com.wwm.db.internal.index.btree;
 
-import com.wwm.db.internal.RefImpl;
+import com.wwm.db.GenericRef;
 
 class RefdNode {
 
 //	private static final long serialVersionUID = 1L;
 
 	final NodeR node;
-	final RefImpl ref;
+	final GenericRef<NodeW> ref;
 	
-	RefdNode(RefImpl ref, NodeR node) {
+	RefdNode(GenericRef<NodeW> ref, NodeR node) {
 		this.ref = ref;
 		this.node = node;
 	}
