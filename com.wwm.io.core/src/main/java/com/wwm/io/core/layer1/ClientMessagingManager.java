@@ -1,6 +1,8 @@
 package com.wwm.io.core.layer1;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -148,15 +150,24 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 				// Generate local exception of same class as the server exception.
 				ArchException localException;
 				try {
-					localException = serverException.getClass().newInstance();
+					Constructor<? extends ArchException> constructor = serverException.getClass().getConstructor(String.class);
+					localException = constructor.newInstance(serverException.getMessage());
+					localException.initCause(serverException);
+					localException.setStackTrace(getStackTrace()); // set stack trace to here (rather than one set in newInstance()
+					throw localException;
 				} catch (InstantiationException e1) {
 					throw new RuntimeException(e1);
 				} catch (IllegalAccessException e1) {
 					throw new RuntimeException(e1);
+				} catch (SecurityException e1) {
+					throw new RuntimeException(e1);
+				} catch (NoSuchMethodException e1) {
+					throw new RuntimeException(e1);
+				} catch (IllegalArgumentException e1) {
+					throw new RuntimeException(e1);
+				} catch (InvocationTargetException e1) {
+					throw new RuntimeException(e1);
 				}
-				localException.initCause(serverException);
-				localException.setStackTrace(getStackTrace()); // set stack trace to here (rather than one set in newInstance()
-				throw localException;
 			}
 			if (response==null) {
 				throw new ConnectionLostException();	// a null response indicates a lost connection

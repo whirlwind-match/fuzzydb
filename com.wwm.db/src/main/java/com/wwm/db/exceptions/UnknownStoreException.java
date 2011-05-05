@@ -14,23 +14,8 @@ import com.wwm.db.core.exceptions.ArchException;
 
 @SuppressWarnings("serial")
 public class UnknownStoreException extends ArchException {
-	private final String storeName;
 	
-	public UnknownStoreException() {
-		storeName = null;
+	public UnknownStoreException(String message) {
+		super(message);
 	}
-	
-	public UnknownStoreException(String storeName) {
-		this.storeName = storeName;
-	}
-
-	public String getStoreName() {
-		return storeName;
-	}
-	
-	@Override
-	public String toString() {
-		return "Unknown Store: " + storeName;
-	}
-
 }
