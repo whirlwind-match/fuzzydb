@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="java" deleted="false" description="Create JCL Logger using WWMDb LogFactory" enabled="true" name="log4wwmdb">${:import(com.wwm.db.core.LogFactory,java.util.logging.Logger)}&#13;
+static private final Logger log = LogFactory.getLogger(${enclosing_type}.class);&#13;
+</template></templates>
