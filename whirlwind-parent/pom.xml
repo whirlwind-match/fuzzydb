@@ -71,7 +71,8 @@
 		<profile>
 			<id>fast</id>
 			<properties>
-				<maven.test.skip>true</maven.test.skip>
+				<skipTests>true</skipTests>
+				<skipITs>true</skipITs>
 				<maven.javadoc.skip>true</maven.javadoc.skip>
 			</properties>
 		</profile>
