@@ -17,8 +17,9 @@
 		<junit.version>4.8.2</junit.version>
 		<org.mockito.version>1.8.4</org.mockito.version>
 		<java.version>1.5</java.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<log4j.version>1.2.16</log4j.version>
 	</properties>
-
 
 	<developers>
 		<developer>
@@ -301,6 +302,44 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
+	<dependencyManagement>
+		<dependencies>
+<!-- 			<dependency> -->
+<!-- 				<groupId>commons-logging</groupId> -->
+<!-- 				<artifactId>commons-logging</artifactId> -->
+<!-- 				<version>EXCLUDE-WE-USE-SLF4J</version> -->
+<!-- 				<type>jar</type> -->
+<!-- 				<scope>compile</scope> -->
+<!-- 			</dependency> -->
+		</dependencies>
+	</dependencyManagement>
 </project>
