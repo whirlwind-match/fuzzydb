@@ -1,6 +1,7 @@
 package com.wwm.db;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.springframework.util.Assert;
@@ -59,6 +60,16 @@ public class EmbeddedClientFactory {
 
 
 
+    /**
+     * Open the store for the given URL.
+     * 
+     * Should handle local/remote, and is allowed to create a store when running locally.
+     */
+    public Store openStore(String url) throws MalformedURLException {
+    	return openStore(WWMDBProtocolHander.getAsURL(url));
+    }
+
+    
     /**
      * Open the store for the given URL.
      * 

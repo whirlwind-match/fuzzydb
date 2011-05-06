@@ -10,6 +10,27 @@
 
 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
 	
+
+	<!-- <ww-db:embedded id="storeBean" store="wwmdb:/TravelDataStore" /> -->
+
+
+	<!-- TODO: We want to hide Client from apps, and instead handle Store as 
+		equiv of a DataSource -->
+	<bean id="clientFactory" class="com.wwm.db.EmbeddedClientFactory"
+		factory-method="getInstance" />
+
+	<bean id="store" factory-bean="clientFactory" factory-method="openStore">
+		<constructor-arg value="wwmdb:/TravelDataStore"/>
+	</bean>
+
+
+	<bean id="dataOperations" class="com.wwm.db.internal.CurrentTransactionDataOperationsProxy">
+		<constructor-arg ref="store"/>
+	</bean>
+
+	<bean id="transactionManager" class="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager">
+		<constructor-arg ref="store"/>
+	</bean>
 	
 
 </beans>

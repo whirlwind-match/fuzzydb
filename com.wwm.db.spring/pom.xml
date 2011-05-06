@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>whirlwind-parent</artifactId>
 		<groupId>com.wwm</groupId>
+		<artifactId>whirlwind-parent-aspectj</artifactId>
 		<version>1.0.0.CI-SNAPSHOT</version>
 	</parent>
 	<groupId>com.wwm.db</groupId>
@@ -11,6 +11,12 @@
 	<version>1.0.0.CI-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>Provides integration with Spring transaction management</description>
+
+
+	<properties>
+		<spring.version>3.0.5.RELEASE</spring.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.wwm.db</groupId>
@@ -40,6 +46,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
@@ -51,8 +62,42 @@
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
-	<properties>
-		<spring.version>3.0.5.RELEASE</spring.version>
-	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<configuration>
+					<aspectLibraries>
+						<aspectLibrary>
+							<groupId>org.springframework</groupId>
+							<artifactId>spring-aspects</artifactId>
+						</aspectLibrary>
+					</aspectLibraries>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
