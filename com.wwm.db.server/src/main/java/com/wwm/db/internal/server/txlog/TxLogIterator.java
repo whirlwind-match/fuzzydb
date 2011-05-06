@@ -88,10 +88,10 @@ public class TxLogIterator implements Iterable<File> {
 					if (version > highestDbVer && allowNonExact){
 						highestDbVer = version;
 						best = file;
-					} else {
-						i.remove(); // remove anything not high enough
-					}
-				} 
+					} 
+				} else {
+					i.remove(); // remove anything not high enough
+				}
 			}
 			return best;
 		}
