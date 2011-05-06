@@ -3,7 +3,9 @@ package com.wwm.db.spring;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Assert;
+import java.io.Serializable;
+import java.util.HashMap;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,53 +15,72 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
-import com.wwm.db.Store;
-import com.wwm.db.Transaction;
-import com.wwm.db.userobjects.MutableString;
+import com.wwm.db.annotations.Key;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/annotation-driven-aspectj-tx-context.xml"})
 public class ExampleSpringTxTest {
 	
-	@Autowired
-	private Store store;
+	static public class IndexedMap implements Serializable {
+		private static final long serialVersionUID = 1L;
+
+		private final @Key(unique=true) String key;
+		
+		private final HashMap<String, Object> stuff = new HashMap<String, Object>();
+		
+		public IndexedMap(String key) {
+			this.key = key;
+		}
+		
+		public String getKey() {
+			return key;
+		}
+		
+		public void put(String key, Object value) {
+			stuff.put(key, value);
+		}
+		
+		public Object get(String key) {
+			return stuff.get(key);
+		}
+	}
+	
 	
 	@Autowired
 	private DataOperations dataOperations;
 	
-	// one way of doing things.
-	@Test
-	public void storeShouldBeAutowired(){
-	
-		Assert.assertNotNull(store);
-		Transaction transaction = store.begin();
-		// blah
-		transaction.commit();
-	}
-	
-	
-	@Test
+	@Test 
 	public void createObjectSucceedInAtTransactionalViaInjectedDataOps(){
-		GenericRef<MutableString> ref = insertSomething();
+
+		// Create an item
+		IndexedMap originalItem = new IndexedMap("Hello");
+		originalItem.put("height", Integer.valueOf(181));
+		GenericRef<IndexedMap> ref = insertSomething(originalItem);
+
+		// Retrieve by ref
+		IndexedMap item = retrieveByRef(ref);
+		assertThat(item.getKey(), equalTo("Hello"));
+		assertThat(item.get("height"),equalTo((Object)Integer.valueOf(181)));
 		
-		MutableString ms = retrieveSomething(ref);
+		// Do an index lookup
+		IndexedMap item2 = retrieveByKey("Hello");
+		assertThat(item2.getKey(), equalTo("Hello"));
+		assertThat(item2.get("height"),equalTo((Object)Integer.valueOf(181)));
 		
-		assertThat(ms.toString(), equalTo("Hello"));
 	}
 
-
-	@Transactional
-	private MutableString retrieveSomething(GenericRef<MutableString> ref) {
-		MutableString ms = dataOperations.retrieve(ref);
-		return ms;
-	}
-
-
-	@Transactional
-	private GenericRef<MutableString> insertSomething() {
-		GenericRef<MutableString> ref = dataOperations.createGeneric(new MutableString("Hello"));
-		return ref;
+	@Transactional 
+	private GenericRef<IndexedMap> insertSomething(IndexedMap item) {
+		return dataOperations.createGeneric(item);
 	}
 	
+	@Transactional(readOnly=true)
+	private <T> T retrieveByRef(GenericRef<T> ref) {
+		return dataOperations.retrieve(ref);
+	}
 
+	@Transactional(readOnly=true)
+	private IndexedMap retrieveByKey(String key) {
+		return dataOperations.retrieve(IndexedMap.class, "key", key);
+	}
 }
