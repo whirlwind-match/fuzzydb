@@ -18,4 +18,19 @@ import com.wwm.db.core.exceptions.ArchException;
 // These stats should be logged to disk, or committed to database, periodically (if changed).
 public class KeyCollisionException extends ArchException {
 
+	public KeyCollisionException() {
+		super();
+	}
+
+	public KeyCollisionException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public KeyCollisionException(String message) {
+		super(message);
+	}
+
+	public KeyCollisionException(Throwable cause) {
+		super(cause);
+	}
 }

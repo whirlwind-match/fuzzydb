@@ -15,23 +15,20 @@ import com.wwm.db.core.exceptions.ArchException;
 @SuppressWarnings("serial")
 public class NotImplementedException extends ArchException {
 
-	private final String command;
 
 	public NotImplementedException() {
-		command = null;
+		super();
 	}
 	
 	public NotImplementedException(String command) {
-		this.command = command;
+		super(command);
 	}
 
-	public String getCommand() {
-		return command;
+	public NotImplementedException(String message, Throwable cause) {
+		super(message, cause);
 	}
-	
-	@Override
-	public String toString() {
-		return "Command not implemented: " + command;
+
+	public NotImplementedException(Throwable cause) {
+		super(cause);
 	}
-	
 }

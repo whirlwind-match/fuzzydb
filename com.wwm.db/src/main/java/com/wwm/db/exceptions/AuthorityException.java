@@ -15,4 +15,20 @@ import com.wwm.db.core.exceptions.ArchException;
 @SuppressWarnings("serial")
 public class AuthorityException extends ArchException {
 
+	public AuthorityException() {
+		super();
+	}
+
+	public AuthorityException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public AuthorityException(String message) {
+		super(message);
+	}
+
+	public AuthorityException(Throwable cause) {
+		super(cause);
+	}
+
 }

@@ -15,4 +15,19 @@ import com.wwm.db.core.exceptions.ArchException;
 @SuppressWarnings("serial")
 public class TransactionDisposedException extends ArchException {
 
+	public TransactionDisposedException() {
+		super();
+	}
+
+	public TransactionDisposedException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public TransactionDisposedException(String message) {
+		super(message);
+	}
+
+	public TransactionDisposedException(Throwable cause) {
+		super(cause);
+	}
 }

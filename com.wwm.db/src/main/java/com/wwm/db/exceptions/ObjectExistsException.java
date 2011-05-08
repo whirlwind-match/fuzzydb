@@ -15,4 +15,20 @@ import com.wwm.db.core.exceptions.ArchException;
 @SuppressWarnings("serial")
 public class ObjectExistsException extends ArchException {
 
+	public ObjectExistsException() {
+		super();
+	}
+
+	public ObjectExistsException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public ObjectExistsException(String message) {
+		super(message);
+	}
+
+	public ObjectExistsException(Throwable cause) {
+		super(cause);
+	}
+
 }
