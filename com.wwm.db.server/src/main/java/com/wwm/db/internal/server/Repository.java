@@ -185,7 +185,11 @@ public class Repository implements Serializable {
 		for (File fileOrDir : reposDir.listFiles()) {
 			if (!fileOrDir.isDirectory()) continue;
 			ServerStore store = ServerStore.tryLoad(fileOrDir, version);
-			if (store != null) addFoundStore(store);
+			if (store != null){
+				addFoundStore(store);
+			} else {
+				log.warn("Ignored store at {}, as it failed to load (see previous exceptions)", fileOrDir);
+			}
 		}
 		
 	}

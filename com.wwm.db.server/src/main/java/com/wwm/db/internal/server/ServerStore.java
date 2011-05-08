@@ -189,7 +189,7 @@ public class ServerStore implements Serializable {
 	 * - Must update path to reflect new path if this in on a different server
 	 * @param dir
 	 * @param version 
-	 * @return
+	 * @return ServerStore instance, or null if there was a problem loading the store.
 	 */
 	static ServerStore tryLoad(File dir, long version) {
 		
@@ -214,8 +214,12 @@ public class ServerStore implements Serializable {
 				ois.close();
 				fis.close();
 			}
-		} catch (Throwable t) {
-			log.error( "Unexpected error loading file, " + fileToUse.getName() + " :" + t.getMessage(), t );
+		} catch (ClassNotFoundException e) {
+			log.error( "Missing class loading store from disk, " + fileToUse.getName() + " :" + e.getMessage() );
+			return null;
+		} catch (Exception e) {
+			log.error( "Unexpected error loading store from disk, " + fileToUse.getName() + " :" + e.getMessage(), e );
+			return null;
 		}
 		// Store loaded.  Now clean up any pages newer than this version
 		// FIXME: Need to also assert that there are no stores newer than this version
