@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
 import com.wwm.db.Client;
@@ -16,8 +17,8 @@ import com.wwm.db.Helper;
 import com.wwm.db.Ref;
 import com.wwm.db.ServerStats;
 import com.wwm.db.Store;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.UncaughtExceptionLogger;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.AuthorityException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.UnknownStoreException;
@@ -47,6 +48,8 @@ import com.wwm.io.core.messages.Command;
  */
 public abstract class AbstractClient implements Cloneable, Client {
 
+	private static final Logger log = LogFactory.getLogger(AbstractClient.class);
+	
     // Ensure we log all uncaught exceptions for all client apps
     static { UncaughtExceptionLogger.initialise(); }
 
@@ -167,6 +170,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    synchronized (stores) {
 	        CreateStoreCmd cmd = new CreateStoreCmd(getNextId(), storeName);
 	        CreateStoreRsp rsp = (CreateStoreRsp) context.getConnection().execute(Authority.Authoritative, cmd);
+	        log.info("Created store: {}", storeName);
 	        // All failures result in the lower layers throwing an exception.
 	        assert(rsp.getNewStoreName().equals(storeName));
 	        StoreImpl store = new StoreImpl(rsp.getNewStoreId(), storeName, this);

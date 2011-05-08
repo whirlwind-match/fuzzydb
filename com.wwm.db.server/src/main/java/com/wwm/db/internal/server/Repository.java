@@ -325,7 +325,9 @@ public class Repository implements Serializable {
 	
 	public synchronized ServerStore getStore(String storeName) throws UnknownStoreException {
 		Integer storeId = currentStores.get(storeName);
-		if (storeId == null) throw new UnknownStoreException("Unknown store: " + storeName);
+		if (storeId == null){
+			throw new UnknownStoreException("Unknown store: " + storeName);
+		}
 		ServerStore store = idStoreMap.get(storeId);
 		if (store == null) throw new RuntimeException("Inconsistency in Store maps");
 		return store;

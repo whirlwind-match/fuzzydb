@@ -93,9 +93,9 @@ public class EmbeddedClientFactory {
 	private Store openEmbeddedStore(URL url) {
 		Client client = createEmbeddedClient();
 		try {
-			return client.openStore(url.getPath());
+			return client.openStore(url.getPath().substring(1)); // FIXME: substring() to remove leading / should be tidier
 		} catch (UnknownStoreException e) {
-			return client.createStore(url.getPath());
+			return client.createStore(url.getPath().substring(1)); // FIXME: substring() to remove leading / should be tidier
 		}
 	}
 }
