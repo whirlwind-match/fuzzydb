@@ -72,6 +72,7 @@ public class PostcodeConvertor {
 		if (service != null){
 			return service.lookupFull(postcode);
 		}
+		log.debug("No PostcodeService present, falling back to jibble for {}", postcode);
 		assert postcode.indexOf(' ') == -1; // should have been stripped
 		int trimmedLength = postcode.length() - 3; // strip off tail
 		if (trimmedLength != 3 && trimmedLength != 4) return null;
