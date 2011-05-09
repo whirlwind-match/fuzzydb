@@ -59,7 +59,7 @@ public class PageWriteReadTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		store = new ServerStore( new ServerSetupProvider().getReposDiskRoot() + File.separator + "pages", "TestStore", 1);
+		store = new ServerStore( new ServerSetupProvider().getReposDiskRoot(), "TestStore", 1);
 		store.deletePersistentData(); // clear out any old data.
 	}
 
@@ -77,7 +77,7 @@ public class PageWriteReadTest {
 
 		{
 			startWriteTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			checkDoesntExist(oid1, page);
 			setElementData(oid1, "First", page);
 			setElementData(oid2, "Second", page);
@@ -87,7 +87,7 @@ public class PageWriteReadTest {
 		
 		{
 			startReadTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			checkElementData(oid1, "First", page);
 			checkElementData(oid2, "Second", page);
@@ -96,7 +96,7 @@ public class PageWriteReadTest {
 		// Scenario 2: First modified, Second element not modified but tx moves forwards
 		{
 			startWriteTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			updateElementData(oid1, "FirstModified", page);
 			savePage(page);
@@ -105,7 +105,7 @@ public class PageWriteReadTest {
 
 		{
 			startReadTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			checkElementData(oid1, "FirstModified", page);
 			checkElementData(oid2, "Second", page);
@@ -114,7 +114,7 @@ public class PageWriteReadTest {
 		// Scenario 3: Second modified, First not modified but tx moves forwards
 		{
 			startWriteTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			updateElementData(oid2, "SecondModified", page);
 			savePage(page);
@@ -123,7 +123,7 @@ public class PageWriteReadTest {
 
 		{
 			startReadTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			checkElementData(oid1, "FirstModified", page);
 			checkElementData(oid2, "SecondModified", page);
@@ -145,7 +145,7 @@ public class PageWriteReadTest {
 		// Write initial and save it.
 		{
 			startWriteTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			checkDoesntExist(oid1, page);
 			setElementData(oid1, "First", page);
 			setElementData(oid2, "Second", page);
@@ -156,7 +156,7 @@ public class PageWriteReadTest {
 		// Load it back in - internally, page now has pageData set
 		{
 			startReadTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			checkElementData(oid1, "First", page);
 			checkElementData(oid2, "Second", page);
@@ -176,7 +176,7 @@ public class PageWriteReadTest {
 
 		{
 			startReadTx();
-			Page page = newPage(startingOid);
+			Page<String> page = newPage(startingOid);
 			page.load();
 			checkElementData(oid1, "FirstModified", page);
 			checkElementData(oid2, "SecondModified", page);
@@ -194,44 +194,44 @@ public class PageWriteReadTest {
 	
 	
 	
-	private Page newPage(long startingOid) {
+	private Page<String> newPage(long startingOid) {
 		return Page.blankPage(5, store.getPath() + File.separator + PageWriteReadTest.class.getName(), pc, vp, startingOid);
 	}
 
-	private void savePage(Page page) throws PagePurgedException, IOException {
+	private void savePage(Page<String> page) throws PagePurgedException, IOException {
 		page.acquireWrite();
 		page.save(false);
 		page.releaseWrite();
 	}
 
-	private void checkDoesntExist(long oid1, Page page) throws PagePurgedException, IOException,
+	private void checkDoesntExist(long oid1, Page<String> page) throws PagePurgedException, IOException,
 			ClassNotFoundException {
 		page.acquireWrite();
-		Element e = page.getElementForWrite(oid1);
+		Element<String> e = page.getElementForWrite(oid1);
 		assertNull("Element shouldn't yet exist", e);
 		page.releaseWrite();
 	}
 
-	private void checkElementData(long oid, String expected, Page page) throws PagePurgedException,
+	private void checkElementData(long oid, String expected, Page<String> page) throws PagePurgedException,
 			IOException, ClassNotFoundException, UnknownObjectException {
 		page.acquireRead();
-		ElementReadOnly e1 = page.getElementForRead(oid);
+		ElementReadOnly<String> e1 = page.getElementForRead(oid);
 		assertEquals(expected, e1.getVersion());
 		page.accessed(false);
 		page.releaseRead();
 	}
 
-	private void setElementData(long oid, String data, Page page) throws PagePurgedException {
+	private void setElementData(long oid, String data, Page<String> page) throws PagePurgedException {
 		page.acquireWrite();
-		Element ew = new Element(oid, data);
+		Element<String> ew = new Element<String>(oid, data);
 		page.setElement(oid, ew);
 		page.accessed(true);
 		page.releaseWrite();
 	}
 
-	private void updateElementData(long oid, String data, Page page) throws PagePurgedException, IOException, ClassNotFoundException {
+	private void updateElementData(long oid, String data, Page<String> page) throws PagePurgedException, IOException, ClassNotFoundException {
 		page.acquireWrite();
-		Element ew = page.getElementForWrite(oid);
+		Element<String> ew = page.getElementForWrite(oid);
 		ew.addVersion(data);
 		page.accessed(true);
 		page.releaseWrite();
