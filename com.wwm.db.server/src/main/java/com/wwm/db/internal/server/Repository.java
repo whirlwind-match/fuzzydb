@@ -205,15 +205,16 @@ public class Repository implements Serializable {
 		Integer id = store.getStoreId();
 		String storeName = store.getStoreName();
 		
+		log.info("Checking candidate store: {} with id: {} found at path: {}", new Object[]{storeName, id, store.getPath()});
+		
 		// current store if entry in for this storeName matches current id. But then should check for duplicates.
 		if (currentStores.get(storeName) != null && currentStores.get(storeName).equals(id)) {
 			if (idStoreMap.containsKey(id)) {
-				log.error("Skipped duplicate store (name and id clash with existing):" + storeName 
-						+ " at path " + store.getPath() );
+				log.warn("Skipping store {}. It is duplicate (name,id match) of a current store that's already been loaded.", store);
 				return;
 			}
 			// otherwise add it
-			log.info("Loaded current store: " + store.toString() );
+			log.info("Store is current and active, putting it online: " + store.toString() );
 			assert( id < nextStoreId );
 			idStoreMap.put(id, store);
 			return;
@@ -222,7 +223,7 @@ public class Repository implements Serializable {
 		// deleted store if entry in for this storeId matches name. But then should check for duplicates.
 		if (deletedStores.get(id) != null && deletedStores.get(id).equals(storeName)) {
 			if (idStoreMap.containsKey(id)) {
-				log.error("Skipped duplicate (deleted) store (name and id clash with existing):" + storeName 
+				log.warn("Skipped duplicate (deleted) store (name and id clash with existing):" + storeName 
 						+ " at path " + store.getPath() );
 				return;
 			}
@@ -237,7 +238,7 @@ public class Repository implements Serializable {
 		// - Assign the store a NEW storeId
 		// - Deal with latest dbVersion issues on this store.
 		if (!currentStores.containsKey(storeName)) {
-			log.info("Found new store: " + store + ".  Assigning new id: " + nextStoreId);
+			log.info("Found new store: " + store + ".  Importing with new id: " + nextStoreId);
 			id = nextStoreId++;
 			store.setStoreId(id);
 			idStoreMap.put(id, store);
