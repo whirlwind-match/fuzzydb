@@ -51,9 +51,8 @@ public class TransactionTemplateTest extends BaseDatabaseTest {
 		
 		final WhirlwindPlatformTransactionManager tm = new WhirlwindPlatformTransactionManager(store);
 
-		Ref ref = null;
 		try {
-			ref = createOpFollowedByException(tm);
+			createOpFollowedByException(tm);
 			fail(); // Exception should have been thrown
 		} catch (Exception e) {
 			Assert.assertThat(e.getMessage(), CoreMatchers.equalTo("Deliberate exception. Should cause rollback"));
