@@ -26,6 +26,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
 
 /**
@@ -56,7 +57,7 @@ import com.wwm.db.exceptions.UnknownStoreException;
  * So.  The answer is YES.  We at least need a list of the paths of stores to be deleted.
  *
  */
-public class Repository implements Serializable {
+public final class Repository implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static private final Logger log = LogFactory.getLogger(Repository.class);
@@ -79,7 +80,6 @@ public class Repository implements Serializable {
 	
 	/**
 	 * Id to Store map for all stores (current and deleted - but not yet expired)
-	 * FIXME: Make this transient, and load these by scanning the directory...???
 	 * For each store:
 	 * - Check if in currentStores - report "found current store: x"
 	 * - Check if in deletedStoresByVersion - report "found store pending delete: x"
@@ -147,15 +147,19 @@ public class Repository implements Serializable {
 		Collections.addAll(candidates, dirFile.listFiles());
 
 		for (;;) {
-			if (candidates.size() == 0) return null;
+			if (candidates.size() == 0) {
+				return null;
+			}
 		
 			File file = FileUtil.removeBestCandidate(candidates);
-			
-			if (file == null) return null;
+			if (file == null) {
+				return null;
+			}
 			
 			Repository r = tryLoad(file);
-			
-			if (r != null) return r;
+			if (r != null) {
+				return r;
+			}
 		}	
 	}
 	
@@ -171,10 +175,8 @@ public class Repository implements Serializable {
 				fis.close();
 			}
 			r.tryLoadStores(file.getParentFile());
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			log.error("Unexpected error loading file, " + file.getName() + " :" + t.getMessage(), t );
-		} finally {
-			
 		}
 		return r;
 	}
@@ -183,9 +185,11 @@ public class Repository implements Serializable {
 
 		idStoreMap = new HashMap<Integer, ServerStore>();
 		for (File fileOrDir : reposDir.listFiles()) {
-			if (!fileOrDir.isDirectory()) continue;
+			if (!fileOrDir.isDirectory()) {
+				continue;
+			}
 			ServerStore store = ServerStore.tryLoad(fileOrDir, version);
-			if (store != null){
+			if (store != null) {
 				addFoundStore(store);
 			} else {
 				log.warn("Ignored store at {}, as it failed to load (see previous exceptions)", fileOrDir);
@@ -309,13 +313,13 @@ public class Repository implements Serializable {
 		assert(storeId != null);
 
 		currentStores.remove(storeName);
-		long version = CurrentTransactionHolder.getCommitVersion();
+		long commitVersion = CurrentTransactionHolder.getCommitVersion();
 		
 		synchronized (deletedStoresByVersion) {
-			ArrayList<Integer> al = deletedStoresByVersion.get(version);
+			ArrayList<Integer> al = deletedStoresByVersion.get(commitVersion);
 			if (al == null) {
 				al = new ArrayList<Integer>();
-				deletedStoresByVersion.put(version, al);
+				deletedStoresByVersion.put(commitVersion, al);
 			}
 			al.add(storeId);
 		}
@@ -324,19 +328,23 @@ public class Repository implements Serializable {
 		}
 	}
 	
-	public synchronized ServerStore getStore(String storeName) throws UnknownStoreException {
+	public synchronized ServerStore getStore(String storeName) {
 		Integer storeId = currentStores.get(storeName);
-		if (storeId == null){
+		if (storeId == null) {
 			throw new UnknownStoreException("Unknown store: " + storeName);
 		}
 		ServerStore store = idStoreMap.get(storeId);
-		if (store == null) throw new RuntimeException("Inconsistency in Store maps");
+		if (store == null) {
+			throw new ArchException("Inconsistency in Store maps");
+		}
 		return store;
 	}
 	
-	public synchronized ServerStore getStore(int storeId) throws UnknownStoreException {
+	public synchronized ServerStore getStore(int storeId) {
 		ServerStore store = idStoreMap.get(storeId);
-		if (store == null) throw new UnknownStoreException("storeId: " + storeId + " (Store deleted?)");
+		if (store == null) {
+			throw new UnknownStoreException("storeId: " + storeId + " (Store deleted?)");
+		}
 		return store;
 	}
 
@@ -361,7 +369,9 @@ public class Repository implements Serializable {
 			
 			while (i.hasNext()) {
 				Entry<Long, ArrayList<Integer>> versionEntry = i.next();
-				if (versionEntry.getKey() > oldestTransaction) continue; // these are still live
+				if (versionEntry.getKey() > oldestTransaction) {
+					continue; // these are still live
+				}
 
 				// These are expired so add the to our expiredList, and remove from here.
 				for (Integer id : versionEntry.getValue()) {
