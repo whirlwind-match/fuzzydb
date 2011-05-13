@@ -4,7 +4,10 @@ import java.util.Collection;
 import java.util.EmptyStackException;
 import java.util.Map;
 
+import com.wwm.db.annotations.Key;
 import com.wwm.db.core.exceptions.ArchException;
+import com.wwm.db.exceptions.KeyCollisionException;
+import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.query.Result;
@@ -59,12 +62,19 @@ public interface DataOperations {
 	public void popNamespace() throws EmptyStackException;
 	
 	// Create api
+	
+	/**
+	 * @throws KeyCollisionException if {@link Key}(unique=true) is specified and there is a clash
+	 */
 	public <E> Ref create(E obj);
 	public <E> GenericRef<E> createGeneric(E obj);
 	public Ref[] create(Object[] objs);
 	public Ref[] create(Collection<Object> objs);
 	
 	// Retrieve api
+	/**
+	 * @throws UnknownObjectException if the object was not found (e.g. deleted by another transaction)
+	 */
 	public Object retrieve(Ref ref);
 	public <E> E retrieve(GenericRef<E> ref);
 	public <E> E refresh(E obj);	// check dirty flag and latest version, refresh if needed
