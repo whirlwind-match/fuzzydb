@@ -268,7 +268,8 @@ public class StoreImpl implements Store {
 
 	public Transaction currentTransaction() {
 		Assert.state(!allowTxOverlapInThread, "cannot use currentTransaction() when overlapped transactions in thread are enabled");
-		return currentTransaction.get().peek();
+		return currentTransaction.get() == null || currentTransaction.get().empty() 
+			? null : currentTransaction.get().peek();
 	}
 	
 	void clearCurrentTransaction(Transaction tx) {
