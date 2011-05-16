@@ -37,9 +37,9 @@ public class ReadWritePerfTest {
 
 	@Test public void testCreateManyAndRandomAccess() throws IOException {
 		final int outerLoops = 1;
-		final int numberPerLoop = 1000;
+		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 50;
-		final int numObjects = outerLoops * numberPerLoop * numberOfLoops;
+		final int numObjects = outerLoops * numberPerTransaction * numberOfLoops;
 		Ref ref = null; // Last ref retrieved
 
 		for (int count = 0; count < outerLoops; count++) {
@@ -64,7 +64,7 @@ public class ReadWritePerfTest {
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
-				for (int j = 0; j < numberPerLoop; j++) {
+				for (int j = 0; j < numberPerTransaction; j++) {
 					ref = t.create(
 
 					//		new String("Hello World " + i + ' ' + j)
@@ -80,7 +80,7 @@ public class ReadWritePerfTest {
 	
 			long duration = System.currentTimeMillis() - start;
 	
-			System.out.println(numberPerLoop * numberOfLoops + " Objects created in " + duration + "ms");
+			System.out.println(numberPerTransaction * numberOfLoops + " Objects created in " + duration + "ms");
 			database.close();
 
 			long testDuration = System.currentTimeMillis() - testStart;

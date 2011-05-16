@@ -13,7 +13,6 @@ import org.junit.Test;
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.userobjects.TestIndexClass;
 import com.wwm.util.MTRandom;
 
