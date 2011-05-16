@@ -15,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.Assert;
+
+import com.wwm.db.core.Settings;
 import com.wwm.db.dao.SimpleDAO;
 import com.wwm.postcode.PostcodeConvertor;
 import com.wwm.postcode.PostcodeResult;
@@ -33,6 +35,7 @@ public class PostcodeConverterTest {
 //        SimpleDAO dao = new Db2ObjectDAO("wwmdb:/postcode");
         SimpleDAO dao = mock(SimpleDAO.class);
 
+        Settings.getInstance().setPostcodeRoot("data");
         convertor = new PostcodeConvertor(dao);
     }
 
