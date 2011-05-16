@@ -10,9 +10,11 @@
  *****************************************************************************/
 package com.wwm.indexer;
 
+import java.net.MalformedURLException;
+
 import com.wwm.context.ContextManager;
+import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Store;
-import com.wwm.db.StoreMgr;
 
 /**
  * FIXME: Look at where this is called from, and adapt it to resolve the
@@ -60,7 +62,10 @@ public class IndexerFactory {
         // robust.
         String url = (String) ContextManager.getCurrentSessionContext().get(CURRENT_STORE_URL);
         assert url != null;
-        Store store = StoreMgr.getInstance().getStore(url);
-        return store;
+		try {
+			return EmbeddedClientFactory.getInstance().openStore(url);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
     }
 }

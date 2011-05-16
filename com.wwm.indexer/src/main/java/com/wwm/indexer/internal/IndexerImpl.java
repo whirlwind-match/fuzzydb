@@ -23,7 +23,6 @@ import com.wwm.attrs.userobjects.StandaloneWWIndexData;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;
 import com.wwm.db.query.ResultSet;
@@ -53,44 +52,36 @@ public class IndexerImpl implements Indexer {
      * @see com.wwm.indexer.Indexer#addRecord(com.wwm.indexer.Record)
      */
     public void addRecord(Record record) throws IndexerException {
-        try {
-            Store currentStore = IndexerFactory.getCurrentStore();
-			Transaction tx = currentStore.getAuthStore().begin();
-            StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, record.getPrivateId());
-            if (data == null) {
-                data = new StandaloneWWIndexData(record.getPrivateId());
-                recordConverter.convertRecordToInternal(data, record);
-                tx.create(data);
-                tx.commit();
-                log.info("Added record:" + record.getPrivateId() + ", store:" + currentStore.getStoreName());
-            } else {
-                recordConverter.convertRecordToInternal(data, record);
-                tx.update(data);
-                tx.commit();
-                log.info("Updated record:" + record.getPrivateId() + ", store:" + currentStore.getStoreName());
-            }
-        } catch (ArchException e) {
-            throw new Error(e);
+        Store currentStore = IndexerFactory.getCurrentStore();
+		Transaction tx = currentStore.getAuthStore().begin();
+        StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, record.getPrivateId());
+        if (data == null) {
+            data = new StandaloneWWIndexData(record.getPrivateId());
+            recordConverter.convertRecordToInternal(data, record);
+            tx.create(data);
+            tx.commit();
+            log.info("Added record:" + record.getPrivateId() + ", store:" + currentStore.getStoreName());
+        } else {
+            recordConverter.convertRecordToInternal(data, record);
+            tx.update(data);
+            tx.commit();
+            log.info("Updated record:" + record.getPrivateId() + ", store:" + currentStore.getStoreName());
         }
     }
 
 
     public Record retrieveRecord(String privateId) throws IndexerException {
-        try {
-            Store currentStore = IndexerFactory.getCurrentStore();
-			Transaction tx = currentStore.getStore().begin();
-            StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateId);
-            tx.dispose();
-            if (data == null) {
-                throw new IndexerException("Couldn't find record: privateId=" + privateId);
-            }
-            RecordImpl rec = new RecordImpl(privateId);
-            recordConverter.convertInternalToRecord(rec, data);
-            log.info("Retrieved record:" + privateId + ", store:" + currentStore.getStoreName());
-            return rec;
-        } catch (ArchException e) {
-            throw new IndexerException(e);
+        Store currentStore = IndexerFactory.getCurrentStore();
+		Transaction tx = currentStore.getStore().begin();
+        StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateId);
+        tx.dispose();
+        if (data == null) {
+            throw new IndexerException("Couldn't find record: privateId=" + privateId);
         }
+        RecordImpl rec = new RecordImpl(privateId);
+        recordConverter.convertInternalToRecord(rec, data);
+        log.info("Retrieved record:" + privateId + ", store:" + currentStore.getStoreName());
+        return rec;
     }
 
 
@@ -98,53 +89,39 @@ public class IndexerImpl implements Indexer {
      * @see com.wwm.indexer.Indexer#addRecords(java.util.ArrayList)
      */
     public void addRecords(ArrayList<Record> records) throws IndexerException {
-        try {
-            Store currentStore = IndexerFactory.getCurrentStore();
-			Transaction tx = currentStore.getAuthStore().begin();
-            Collection<Object> createdata = new ArrayList<Object>();
-            for (Record record : records) {
-                StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
-                recordConverter.convertRecordToInternal(data, record);
-                createdata.add(data);
-            }
-            tx.create(createdata);
-            tx.commit();
-            log.info("Added " + records.size() + " records to store:" + currentStore.getStoreName());
-        } catch (ArchException e) {
-            e.printStackTrace();
+        Store currentStore = IndexerFactory.getCurrentStore();
+		Transaction tx = currentStore.getAuthStore().begin();
+        Collection<Object> createdata = new ArrayList<Object>();
+        for (Record record : records) {
+            StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
+            recordConverter.convertRecordToInternal(data, record);
+            createdata.add(data);
         }
+        tx.create(createdata);
+        tx.commit();
+        log.info("Added " + records.size() + " records to store:" + currentStore.getStoreName());
     }
 
 
     public void deleteRecord(String privateRecordId) throws IndexerException {
-        try {
-        	Store currentStore = IndexerFactory.getCurrentStore();
-			Transaction tx = currentStore.getStore().getAuthStore().begin();
-            StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateRecordId);
-            if (data == null) {
-                tx.dispose();
-                return;
-            }
-
-            tx.delete(data);
-            tx.commit();
-            log.info("Deleted record:" + privateRecordId + " from store:" + currentStore.getStoreName());
-        } catch (ArchException e) {
-            e.printStackTrace();
+    	Store currentStore = IndexerFactory.getCurrentStore();
+		Transaction tx = currentStore.getStore().getAuthStore().begin();
+        StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateRecordId);
+        if (data == null) {
+            tx.dispose();
+            return;
         }
+
+        tx.delete(data);
+        tx.commit();
+        log.info("Deleted record:" + privateRecordId + " from store:" + currentStore.getStoreName());
     }
 
 
-    /* (non-Javadoc)
-     * @see com.wwm.indexer.Indexer#deleteRecord(int)
-     */
     public void deleteRecord(int recordId) throws IndexerException {
         throw new UnsupportedOperationException();
     }
 
-    /* (non-Javadoc)
-     * @see com.wwm.indexer.Indexer#deleteRecords(java.util.ArrayList)
-     */
     public void deleteRecords(ArrayList<Integer> recordIds) throws IndexerException {
         throw new UnsupportedOperationException();
     }
@@ -183,22 +160,13 @@ public class IndexerImpl implements Indexer {
 		log.info("Searching on store: "+ currentStore.getStoreName() + " using matchStyle: " + scorerConfig );
 		Transaction tx = currentStore.getStore().begin();
 		ResultSet<Result<StandaloneWWIndexData>> query;
-		try {
-			query = tx.query(StandaloneWWIndexData.class, searchSpec);
-		} catch (ArchException e) {
-			throw new IndexerException("Unexpected Db exception:" + e.getMessage(), e);
-		} catch (RuntimeException e) {
-			throw new IndexerException("Runtime exception:" + e.getMessage(), e);
-		}
+		query = tx.query(StandaloneWWIndexData.class, searchSpec);
 		searchSet.put(lastSearch, query.iterator());
 		return buildResults(lastSearch, numResults);
 	}
 
     
     
-    /* (non-Javadoc)
-     * @see com.wwm.indexer.Indexer#searchnext(int)
-     */
     public SearchResults searchNext(int searchId, int numResults) throws IndexerException {
         return buildResults(lastSearch, numResults);
     }
@@ -235,12 +203,8 @@ public class IndexerImpl implements Indexer {
     
     public long getCount() throws IndexerException {
     	Transaction tx = IndexerFactory.getCurrentStore().begin();
-		long count = 0;
-		try {
-			count = tx.count(StandaloneWWIndexData.class);
-		} catch (ArchException e) {
-			throw new IndexerException(e);
-		}
+		long count = tx.count(StandaloneWWIndexData.class);
+		tx.dispose();
 		return count;
     }
 }

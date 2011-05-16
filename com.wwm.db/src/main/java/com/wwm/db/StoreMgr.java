@@ -20,10 +20,10 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import com.wwm.context.IShutdown;
 import com.wwm.db.core.Settings;
-import com.wwm.db.core.exceptions.ArchException;
 
 /**
  * Implements access to a store by Url, and manages sharing of objects that should be shared, such
@@ -97,17 +97,25 @@ public class StoreMgr implements IShutdown {
                 return store;
             }
 
-            Client client;
-            try {
-                client = getClient(url);
-                store = client.openStore(storeName, true);
-            } catch (ArchException e) {
-                throw new RuntimeException(e);
-            }
+            store = openStore(url);
         }
         storesByStoreName.put(storeName, store);
         return store;
     }
+
+
+    /**
+     * Open store for remote or embedded store
+     * @param url
+     * @return
+     */
+	public Store openStore(URL url) {
+		if (StringUtils.hasLength(url.getHost())) {
+			Client client = getClient(url);
+			return client.openStore(url.getPath().substring(1), true);
+		}
+		return null; // FIXME: We want to be able to get an embedded instance here
+	}
 
     /**
      * Internal util for getting cached client connection, unique for client:port (i.e. single
