@@ -38,7 +38,7 @@ public class ReadWritePerfTest {
 	@Test public void testCreateManyAndRandomAccess() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerTransaction = 1000;
-		final int numberOfLoops = 50;
+		final int numberOfLoops = 10;
 		final int numObjects = outerLoops * numberPerTransaction * numberOfLoops;
 		Ref ref = null; // Last ref retrieved
 
@@ -97,7 +97,7 @@ public class ReadWritePerfTest {
 		
 		// if (true) return;  // Normal test ends here
 
-		RefImpl<?> ri = (RefImpl)ref;
+		RefImpl<?> ri = (RefImpl<?>)ref;
 		int slice = ri.getSlice();
 		int table = ri.getTable();
 		
@@ -117,7 +117,7 @@ public class ReadWritePerfTest {
 			
 			long testStart = System.currentTimeMillis();
 			for (int i = startReads; i < startReads + numReads; i++ ){
-				Object o = t.retrieve( new RefImpl(slice, table, i)  );
+				Object o = t.retrieve( new RefImpl<Object>(slice, table, i)  );
 			}
 
 			long testDuration = System.currentTimeMillis() - testStart;
@@ -146,7 +146,7 @@ public class ReadWritePerfTest {
 			long testStart = System.currentTimeMillis();
 			for (int i = 0; i < numReads; i++ ){
 				@SuppressWarnings("unused")
-				Object o = t.retrieve( new RefImpl(slice, table,rand.nextInt(numObjects)) );
+				Object o = t.retrieve( new RefImpl<Object>(slice, table,rand.nextInt(numObjects)) );
 			}
 
 			long testDuration = System.currentTimeMillis() - testStart;
@@ -166,7 +166,7 @@ public class ReadWritePerfTest {
 	@Test public void testCreateManyAndReadBack() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
-		final int numberOfLoops = 100;
+		final int numberOfLoops = 30;
 
 
 		for (int count = 0; count < outerLoops; count++) {
@@ -206,7 +206,7 @@ public class ReadWritePerfTest {
 				Transaction t = store.getAuthStore().begin();
 				ArrayList<Ref> al = new ArrayList<Ref>();
 				for (int j = 0; j < numberPerLoop; j++) {
-					RefImpl ref = new RefImpl(1, 0, i*numberPerLoop + j);
+					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerLoop + j);
 					al.add(ref);
 				}
 				Map<Ref, Object> map = t.retrieve(al);
@@ -235,7 +235,7 @@ public class ReadWritePerfTest {
 	@Test public void testCreateManyAndUpdate() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
-		final int numberOfLoops = 30;
+		final int numberOfLoops = 5;
 
 
 		for (int count = 0; count < outerLoops; count++) {
@@ -273,7 +273,7 @@ public class ReadWritePerfTest {
 				Transaction t = store.getAuthStore().begin();
 				ArrayList<Ref> al = new ArrayList<Ref>();
 				for (int j = 0; j < numberPerLoop; j++) {
-					RefImpl ref = new RefImpl(1, 0, i*numberPerLoop + j);
+					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerLoop + j);
 					al.add(ref);
 				}
 				Map<Ref, Object> map = t.retrieve(al);
@@ -301,7 +301,7 @@ public class ReadWritePerfTest {
 				ArrayList<Ref> al = new ArrayList<Ref>();
 				for (int j = 0; j < numberPerLoop; j++) {
 					Long oid = ali.remove(0);
-					RefImpl ref = new RefImpl(1, 0, oid);
+					RefImpl<?> ref = new RefImpl<Object>(1, 0, oid);
 					al.add(ref);
 				}
 				Transaction t = store.getAuthStore().begin();
@@ -322,7 +322,7 @@ public class ReadWritePerfTest {
 				Transaction t = store.getAuthStore().begin();
 				ArrayList<Ref> al = new ArrayList<Ref>();
 				for (int j = 0; j < numberPerLoop; j++) {
-					RefImpl ref = new RefImpl(1, 0, i*numberPerLoop + j);
+					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerLoop + j);
 					al.add(ref);
 				}
 				Map<Ref, Object> map = t.retrieve(al);
