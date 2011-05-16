@@ -151,7 +151,7 @@ public class TransactionImpl implements Transaction {
 			}
 		}
 		
-		store.clearCurrentTransaction();
+		store.clearCurrentTransaction(this);
 	}
 
 	public synchronized <E> long count(Class<E> clazz) {
@@ -213,7 +213,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	public synchronized void dispose() {
-		store.clearCurrentTransaction();
+		store.clearCurrentTransaction(this);
 		if (disposed) return;
 		disposed = true;
 		if (started) {
@@ -335,7 +335,7 @@ public class TransactionImpl implements Transaction {
 		return receiveObject(mo);
 	}
 
-	private Object receiveObject(MetaObject<?> mo) {
+	private <E> E receiveObject(MetaObject<E> mo) {
 		if (mo == null) return null;
 		store.addToMetaCache(mo);
 		return mo.getObject();
@@ -397,8 +397,8 @@ public class TransactionImpl implements Transaction {
 		requiresActive();
 		Command cmd = new RetrieveByKeyCmd(store.getStoreId(), namespace, store.getNextId(), tid, clazz, keyval, keyfield);
 		RetrieveSingleRsp rsp = (RetrieveSingleRsp) execute(cmd);
-		MetaObject mo = (MetaObject)rsp.getCompactedObject();
-		return (E)receiveObject(mo);
+		MetaObject<E> mo = (MetaObject<E>)rsp.getCompactedObject();
+		return receiveObject(mo);
 	}
 
 	public synchronized <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval) {
@@ -479,11 +479,11 @@ public class TransactionImpl implements Transaction {
 		RetrieveFirstOfCmd cmd = new RetrieveFirstOfCmd(store.getStoreId(), namespace, store.getNextId(), tid, clazz);
 		
 		RetrieveSingleRsp rsp = (RetrieveSingleRsp) execute(cmd);
-		MetaObject mo = (MetaObject)rsp.getCompactedObject();
+		MetaObject<E> mo = (MetaObject<E>)rsp.getCompactedObject();
 		if (mo == null) {
 			return null;
 		}
-		return (E)receiveObject(mo);
+		return receiveObject(mo);
 	}
 
 	public <E> GenericRef<E> createGeneric(E obj) {

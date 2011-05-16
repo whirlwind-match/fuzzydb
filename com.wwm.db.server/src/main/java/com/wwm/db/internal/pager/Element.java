@@ -193,7 +193,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 		for (int i = 1; i < count; i++) {
 			version = ois.readLong();
 			o = (E) ois.readObject();
-			VersionedObject next = new VersionedObject(version, null, o);
+			VersionedObject<E> next = new VersionedObject<E>(version, null, o);
 			current.setOlderVersion(next);
 			current = next;
 		}

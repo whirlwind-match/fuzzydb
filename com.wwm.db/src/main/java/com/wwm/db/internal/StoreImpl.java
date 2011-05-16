@@ -15,8 +15,9 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
+import java.util.Stack;
 
+import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
 import com.wwm.db.GenericRef;
@@ -172,7 +173,7 @@ public class StoreImpl implements Store {
 	private final Authority authority;
 	private final StoreImpl peer;
 	
-	private final ThreadLocal<Transaction> currentTransaction = new ThreadLocal<Transaction>();
+	private final ThreadLocal<Stack<Transaction>> currentTransaction = new ThreadLocal<Stack<Transaction>>();
 	
 	
 	
@@ -250,23 +251,29 @@ public class StoreImpl implements Store {
 	}
 	
 	public Transaction begin() {
-		if (allowTxOverlapInThread && currentTransaction.get() != null) {
-			log.warn("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
-		}
-		else {
-			Assert.state(currentTransaction.get() == null, "Current transaction already active on this thread. Nested transactions not supported");
+		// First on this thread
+		if (currentTransaction.get() == null) {
+			currentTransaction.set(new Stack<Transaction>());
+		} else {
+			if (!currentTransaction.get().empty()) { 
+					// && allowTxOverlapInThread  ) {
+				log.warn("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
+			}
 		}
 		TransactionImpl transaction = new TransactionImpl(this, context.getDefaultNamespace());
-		currentTransaction.set(transaction);
+		
+		currentTransaction.get().push(transaction);
 		return transaction;
 	}
 
 	public Transaction currentTransaction() {
-		return currentTransaction.get();
+		Assert.state(!allowTxOverlapInThread, "cannot use currentTransaction() when overlapped transactions in thread are enabled");
+		return currentTransaction.get().peek();
 	}
 	
-	void clearCurrentTransaction() {
-		currentTransaction.remove();
+	void clearCurrentTransaction(Transaction tx) {
+		Assert.state(currentTransaction() == tx, "You attempted to overlap transactions in a thread.  You can nest your own transactions but you must commit()/dispose() the inner transaction first");
+		currentTransaction.get().pop();
 	}
 
 	public Store getAuthStore() {
