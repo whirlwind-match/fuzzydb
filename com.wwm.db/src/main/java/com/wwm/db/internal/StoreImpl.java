@@ -251,6 +251,15 @@ public class StoreImpl implements Store {
 	}
 	
 	public Transaction begin() {
+		TransactionImpl transaction = new TransactionImpl(this, context.getDefaultNamespace());
+
+		if (!allowTxOverlapInThread) {
+			addToStack(transaction);
+		}
+		return transaction;
+	}
+
+	private void addToStack(TransactionImpl transaction) {
 		// First on this thread
 		if (currentTransaction.get() == null) {
 			currentTransaction.set(new Stack<Transaction>());
@@ -260,10 +269,7 @@ public class StoreImpl implements Store {
 				log.warn("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
 			}
 		}
-		TransactionImpl transaction = new TransactionImpl(this, context.getDefaultNamespace());
-		
 		currentTransaction.get().push(transaction);
-		return transaction;
 	}
 
 	public Transaction currentTransaction() {
@@ -273,8 +279,10 @@ public class StoreImpl implements Store {
 	}
 	
 	void clearCurrentTransaction(Transaction tx) {
-		Assert.state(currentTransaction() == tx, "You attempted to overlap transactions in a thread.  You can nest your own transactions but you must commit()/dispose() the inner transaction first");
-		currentTransaction.get().pop();
+		if (!allowTxOverlapInThread) {
+			Assert.state(currentTransaction() == tx, "You attempted to overlap transactions in a thread.  You can nest your own transactions but you must commit()/dispose() the inner transaction first");
+			currentTransaction.get().pop();
+		}
 	}
 
 	public Store getAuthStore() {
