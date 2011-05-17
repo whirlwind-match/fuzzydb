@@ -75,10 +75,10 @@ public class TransactionImpl implements Transaction {
 	private Stack<String> namespaceStack;
 	private final int defaultFetchSize = 10;
 	
-	public TransactionImpl(StoreImpl store, String namespace) {
+	public TransactionImpl(StoreImpl store) {
 		this.store = store;
 		this.tid = store.getNextId();
-		this.namespace = namespace;
+		this.namespace = "";
 		log.debug("New transaction: {} on {}", tid, store);
 	}
 	

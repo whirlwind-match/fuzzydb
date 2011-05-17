@@ -45,7 +45,6 @@ import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
 import com.wwm.io.core.Authority;
-import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.Message;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Response;
@@ -64,7 +63,6 @@ public class StoreImpl implements Store {
 		private final String storeName;
 		private final AbstractClient client;
 		private final NewObjectIds newIdCache = new NewObjectIds();
-		private String defaultNamespace = "";
 		private final HashMap<Class<?>, Integer> nextIdReqCount = new HashMap<Class<?>, Integer>();
 		public StoreImplContext(int storeId, String storeName, AbstractClient client ) {
 			this.storeId = storeId;
@@ -80,18 +78,6 @@ public class StoreImpl implements Store {
 			return client.newOutputStream(storeId, out);
 		}
 		
-		public String getDefaultNamespace() {
-			return defaultNamespace;
-		}
-
-		public void setDefaultNamespace(String defaultNamespace) {
-			this.defaultNamespace = defaultNamespace;
-		}
-
-		public ClassLoaderInterface getCli() {
-			return client.getCli();
-		}
-
 		public AbstractClient getClient() {
 			return client;
 		}
@@ -258,7 +244,7 @@ public class StoreImpl implements Store {
 	}
 	
 	public Transaction begin() {
-		TransactionImpl transaction = new TransactionImpl(this, context.getDefaultNamespace());
+		TransactionImpl transaction = new TransactionImpl(this);
 
 		if (!allowTxOverlapInThread) {
 			addToStack(transaction);
@@ -273,7 +259,7 @@ public class StoreImpl implements Store {
 		} else {
 			if (!currentTransaction.get().empty()) { 
 					// && allowTxOverlapInThread  ) {
-				log.warn("Multiple transactions active in one Thread. Store.currentTransaction() will only return the last started");
+				log.warn("Multiple transactions active in one Thread. Store.currentTransaction() will return the most recent uncommitted transaction");
 			}
 		}
 		currentTransaction.get().push(transaction);
