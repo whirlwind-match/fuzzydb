@@ -14,18 +14,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class DateAttribute extends Attribute {
+public class DateAttribute extends Attribute<Date> {
 
 	private int year, month, day;
 
-    public DateAttribute(String name, int year, int month, int day) {
-        super(name);
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
+	public DateAttribute(String name, int year, int month, int day) {
+		super(name);
+		this.year = year;
+		this.month = month;
+		this.day = day;
+	}
 
-    public DateAttribute(String name, Date date) {
+	public DateAttribute(String name, Date date) {
 		super(name);
 		setValue(date);
 	}
@@ -36,19 +36,22 @@ public class DateAttribute extends Attribute {
 		year = cal.get(Calendar.YEAR);
 		month = cal.get(Calendar.MONTH);
 		day = cal.get(Calendar.DAY_OF_MONTH);
-    }
+	}
 
-    public Date getValue() {
+	public Date getValue() {
 		Calendar cal = GregorianCalendar.getInstance();
 		int day = this.day == -1 ? 15 : this.day;
 		cal.set(year, month, day);
-        return cal.getTime();
-    }
+		return cal.getTime();
+	}
 
-    @Override
-    public String toString() {
-        return String.valueOf(getValue());
-    }
+	@Override
+	public String toString() {
+		return String.valueOf(getValue());
+	}
 
-
+	@Override
+	public Date getValueAsObject() {
+		return getValue();
+	}
 }

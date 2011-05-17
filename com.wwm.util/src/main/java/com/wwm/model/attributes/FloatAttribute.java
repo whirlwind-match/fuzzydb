@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class FloatAttribute extends Attribute {
+public class FloatAttribute extends Attribute<Float> {
 
     private float value;
 
@@ -32,5 +32,8 @@ public class FloatAttribute extends Attribute {
         return String.valueOf(value);
     }
 
-
+	@Override
+	public Float getValueAsObject() {
+		return Float.valueOf(value);
+	}
 }

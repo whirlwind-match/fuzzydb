@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class EnumAttribute extends EnumeratedAttribute {
+public class EnumAttribute extends EnumeratedAttribute<String> {
 
     private String value;
     private String enumName;
@@ -44,5 +44,10 @@ public class EnumAttribute extends EnumeratedAttribute {
     @Override
     public String toString() {
         return value;
+    }
+    
+    @Override
+    public String getValueAsObject() {
+    	return value;
     }
 }

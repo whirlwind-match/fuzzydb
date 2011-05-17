@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class BooleanAttribute extends Attribute {
+public class BooleanAttribute extends Attribute<Boolean> {
 
     private boolean value;
 
@@ -37,4 +37,9 @@ public class BooleanAttribute extends Attribute {
 
         return value ? "true" : "false";
     }
+
+	@Override
+	public Boolean getValueAsObject() {
+		return Boolean.valueOf(value);
+	}
 }

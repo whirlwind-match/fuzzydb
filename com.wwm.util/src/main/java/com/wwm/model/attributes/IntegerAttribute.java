@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class IntegerAttribute extends Attribute {
+public class IntegerAttribute extends Attribute<Integer> {
 
     private int value;
 
@@ -32,5 +32,8 @@ public class IntegerAttribute extends Attribute {
         return String.valueOf(value);
     }
 
-
+	@Override
+	public Integer getValueAsObject() {
+		return Integer.valueOf(value);
+	}
 }

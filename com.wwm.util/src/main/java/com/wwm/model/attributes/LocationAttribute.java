@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class LocationAttribute extends Attribute {
+public class LocationAttribute extends Attribute<String> {
 
 	private String postcode;
 
@@ -24,6 +24,11 @@ public class LocationAttribute extends Attribute {
 	}
 
 	public String getPostcode() {
+		return postcode;
+	}
+	
+	@Override
+	public String getValueAsObject() {
 		return postcode;
 	}
 }

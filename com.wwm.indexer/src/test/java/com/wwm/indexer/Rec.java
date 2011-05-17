@@ -13,7 +13,6 @@ package com.wwm.indexer;
 import java.util.Date;
 
 import com.wwm.indexer.internal.BaseRecord;
-
 class Rec extends BaseRecord implements Record {
     String dis = "";
     int id = 0;
@@ -32,7 +31,7 @@ class Rec extends BaseRecord implements Record {
     }
 
     public String getPrivateId() {
-        return null; // TODO:
+        throw new UnsupportedOperationException();
     }
 
     public Date getUpdatedDate() {

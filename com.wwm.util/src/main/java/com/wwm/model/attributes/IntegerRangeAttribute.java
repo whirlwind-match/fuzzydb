@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class IntegerRangeAttribute extends Attribute {
+public class IntegerRangeAttribute extends Attribute<float[]> {
 
 	private float min;
 	private float max;
@@ -18,8 +18,8 @@ public class IntegerRangeAttribute extends Attribute {
 
 	public IntegerRangeAttribute(String name, float min, float max, float pref) {
 		super(name);
-		assert(min <= pref);
-		assert(pref <= max);
+		assert (min <= pref);
+		assert (pref <= max);
 		this.setMin(min);
 		this.setMax(max);
 		this.setPref(pref);
@@ -49,6 +49,8 @@ public class IntegerRangeAttribute extends Attribute {
 		return pref;
 	}
 
-
-
+	@Override
+	public float[] getValueAsObject() {
+		return new float[] { min, pref, max };
+	}
 }

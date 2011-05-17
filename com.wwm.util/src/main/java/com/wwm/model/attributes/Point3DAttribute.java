@@ -12,7 +12,7 @@ package com.wwm.model.attributes;
 
 import com.wwm.model.dimensions.IPoint3D;
 
-public class Point3DAttribute extends Attribute {
+public class Point3DAttribute extends Attribute<IPoint3D> {
 
     private IPoint3D point;
 
@@ -34,6 +34,8 @@ public class Point3DAttribute extends Attribute {
         return point.toString();
     }
 
-
-
+	@Override
+	public IPoint3D getValueAsObject() {
+		return point;
+	}
 }

@@ -15,7 +15,7 @@ package com.wwm.model.attributes;
  * enum value, or location preference.
  * Values should be strings or intrinsic types (float, Date, String[], etc)
  */
-public abstract class Attribute {
+public abstract class Attribute<V> {
 
     private String name;
 
@@ -34,4 +34,6 @@ public abstract class Attribute {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public abstract V getValueAsObject();
 }

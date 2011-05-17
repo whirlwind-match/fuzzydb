@@ -38,4 +38,9 @@ public class DistanceAttribute extends Attribute {
 	public float getMiles() {
 		return miles;
 	}
+	
+	@Override
+	public Object getValueAsObject() {
+		throw new UnsupportedOperationException("Deprecated class");
+	}
 }

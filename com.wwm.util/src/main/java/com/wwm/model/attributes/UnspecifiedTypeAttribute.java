@@ -14,7 +14,7 @@ package com.wwm.model.attributes;
  * This indicates an attribute where we received on type information (such as in the search parameters
  * of a URL query).  It is therefore stored as a string until we can infer the type
  */
-public class UnspecifiedTypeAttribute extends Attribute implements NonIndexedAttribute {
+public class UnspecifiedTypeAttribute extends Attribute<String> implements NonIndexedAttribute {
 
 	private String value;
 
@@ -42,5 +42,10 @@ public class UnspecifiedTypeAttribute extends Attribute implements NonIndexedAtt
 
 	public boolean asBoolean() {
 		return "true".equals(value);
+	}
+	
+	@Override
+	public String getValueAsObject() {
+		return value;
 	}
 }

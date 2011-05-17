@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public class MultiEnumAttribute extends EnumeratedAttribute {
+public class MultiEnumAttribute extends EnumeratedAttribute<String[]> {
 
     private String[] values;
     private String enumName;
@@ -52,5 +52,10 @@ public class MultiEnumAttribute extends EnumeratedAttribute {
             }
         }
         return str.toString();
+    }
+    
+    @Override
+    public String[] getValueAsObject() {
+    	return values;
     }
 }

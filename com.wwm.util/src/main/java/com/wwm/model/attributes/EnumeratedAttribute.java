@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
-public abstract class EnumeratedAttribute extends Attribute {
+public abstract class EnumeratedAttribute<V> extends Attribute<V> {
 
    public EnumeratedAttribute( String name) {
         super(name);

@@ -12,7 +12,7 @@ package com.wwm.model.attributes;
 
 import java.util.Date;
 
-public class DateRangeAttribute extends Attribute {
+public class DateRangeAttribute extends Attribute<Date[]> {
 
 	private Date min;
 	private Date max;
@@ -20,8 +20,8 @@ public class DateRangeAttribute extends Attribute {
 
 	public DateRangeAttribute(String name, Date min, Date max, Date pref) {
 		super(name);
-		assert(min.compareTo(pref) <= 0);
-		assert(pref.compareTo(max) <= 0);
+		assert (min.compareTo(pref) <= 0);
+		assert (pref.compareTo(max) <= 0);
 		this.setMin(min);
 		this.setMax(max);
 		this.setPref(pref);
@@ -51,6 +51,8 @@ public class DateRangeAttribute extends Attribute {
 		return pref;
 	}
 
-
-
+	@Override
+	public Date[] getValueAsObject() {
+		return new Date[]{min,pref,max};
+	}
 }

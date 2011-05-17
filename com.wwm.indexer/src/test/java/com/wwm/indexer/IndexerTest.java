@@ -17,6 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.wwm.context.JVMAppListener;
+import com.wwm.indexer.internal.RecordImpl;
 
 import static org.junit.Assert.*;
 
@@ -70,8 +71,8 @@ public class IndexerTest {
             assertNotNull(rec);
             assertEquals("1", rec.getPrivateId() );
             assertEquals("T1", rec.getTitle());
-            assertEquals(Boolean.TRUE, rec.getAttributes().get("Gender") );
-            assertEquals(32f, rec.getAttributes().get("Age") );
+            assertEquals(Boolean.TRUE, rec.getAttributes().get("Gender").getValueAsObject() );
+            assertEquals(32f, rec.getAttributes().get("Age").getValueAsObject() );
         }
         {
             addRec2();
@@ -80,15 +81,16 @@ public class IndexerTest {
             assertNotNull(rec);
             assertEquals("2", rec.getPrivateId() );
             assertEquals("T2", rec.getTitle());
-            assertEquals(Boolean.FALSE, rec.getAttributes().get("Gender") );
-            assertEquals(16f, rec.getAttributes().get("Age") );
+            assertEquals(Boolean.FALSE, rec.getAttributes().get("Gender").getValueAsObject() );
+            assertEquals(16f, rec.getAttributes().get("Age").getValueAsObject() );
         }
         System.out.print("addTwo Complete\n");
     }
 
 
     private void addRec2() {
-        Rec r = new Rec(2, "T2");
+        RecordImpl r = new RecordImpl("2");
+        r.setTitle("T2");
         r.put("Gender", false);
         r.put("Age", 16.0f);
 
@@ -97,7 +99,8 @@ public class IndexerTest {
 
 
     private void addRec1() {
-        Rec r = new Rec(1, "T1");
+        RecordImpl r = new RecordImpl("1");
+        r.setTitle("T1");
         r.put("Gender", true);
         r.put("Age", 32.0f);
 
@@ -109,7 +112,8 @@ public class IndexerTest {
         System.out.print("updateTwo\n");
 
         addRec1();
-        Rec r = new Rec(1, "T3");
+        RecordImpl r = new RecordImpl("1");
+        r.setTitle("T3");
         r.put("Gender", true);
         r.put("Age", 48.0f);
 
@@ -119,11 +123,12 @@ public class IndexerTest {
         assertNotNull(rec);
         assertEquals("1", rec.getPrivateId() );
         assertEquals("T3", rec.getTitle());
-        assertEquals(Boolean.TRUE, rec.getAttributes().get("Gender") );
-        assertEquals(48f, rec.getAttributes().get("Age") );
+        assertEquals(Boolean.TRUE, rec.getAttributes().get("Gender").getValueAsObject() );
+        assertEquals(48f, rec.getAttributes().get("Age").getValueAsObject() );
 
         addRec2();
-        r = new Rec(2, "T4");
+        r = new RecordImpl("2");
+        r.setTitle("T4");
         r.put("Gender", false);
         r.put("Age", 64.0f);
 
@@ -133,8 +138,8 @@ public class IndexerTest {
         assertNotNull(rec);
         assertEquals("2", rec.getPrivateId() );
         assertEquals("T4", rec.getTitle());
-        assertEquals(Boolean.FALSE, rec.getAttributes().get("Gender") );
-        assertEquals(64f, rec.getAttributes().get("Age") );
+        assertEquals(Boolean.FALSE, rec.getAttributes().get("Gender").getValueAsObject() );
+        assertEquals(64f, rec.getAttributes().get("Age").getValueAsObject() );
 
         System.out.print("updateTwo Complete\n");
     }
