@@ -30,12 +30,6 @@ import com.wwm.io.core.Authority;
 public final class Factory {
 
     /**
-     * For easily being able to get at the current transaction.
-     */
-    static private ThreadLocal<Transaction> currentTransaction = new ThreadLocal<Transaction>();
-
-
-    /**
      * Create a single Authoritative client with no peer
      */
     public static Client createClient() {
@@ -49,8 +43,6 @@ public final class Factory {
      */
     public static Client createClients() {
 
-    	
-    		
     	ClientImpl auth = new ClientImpl(Authority.Authoritative);
 
     	//FIXME: Must sort out so that each gets their connection info provided, and connect() is called on auth and nonAuth when needed (first request?) 
@@ -62,14 +54,5 @@ public final class Factory {
     
     public static RetrieveSpec createRetrieveSpec() {
         return new RetrieveSpecImpl();
-    }
-
-    public static void setCurrentTransaction( Transaction tx){
-        currentTransaction.set(tx);
-    }
-
-    /** Get the last transaction created within this Thread */
-    public static Transaction getCurrentTransaction(){
-        return currentTransaction.get();
     }
 }

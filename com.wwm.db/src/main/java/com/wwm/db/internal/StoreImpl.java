@@ -156,6 +156,13 @@ public class StoreImpl implements Store {
 		public int getVersion(Object obj) throws UnknownObjectException {
 			return client.getVersion(obj);
 		}
+
+		@Override
+		public String toString() {
+			return "Store [storeId=" + storeId + ", storeName="
+					+ storeName + ", client=" + client + "]";
+		}
+		
 		
 	}
 
@@ -515,5 +522,10 @@ public class StoreImpl implements Store {
 
 	public void tron(Logger log) {
 		// do nothing - backwards compat for Db1 port
+	}
+	
+	@Override
+	public String toString() {
+		return context.toString();
 	}
 }

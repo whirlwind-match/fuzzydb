@@ -12,11 +12,8 @@ package com.wwm.db.internal;
 
 import java.io.Serializable;
 
-import com.wwm.db.Factory;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.exceptions.UnknownObjectException;
 
 public class RefImpl<T> implements GenericRef<T>, Ref, Serializable, Comparable<RefImpl<T>> {
 	
@@ -97,12 +94,11 @@ public class RefImpl<T> implements GenericRef<T>, Ref, Serializable, Comparable<
 	 */
 	@Deprecated
 	public T get() {
-    	try {
-			return Factory.getCurrentTransaction().retrieve(this);
-		} catch (UnknownObjectException e) {
-			return null;
-		} catch (ArchException e){
-			throw new RuntimeException(e); // Unexpected.
-		}
+		throw new UnsupportedOperationException("get() not implemented but may do later");
+//    	try {
+//			return Factory.getCurrentTransaction().retrieve(this);
+//		} catch (UnknownObjectException e) {
+//			return null;
+//		}
 	}
 }

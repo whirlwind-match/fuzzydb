@@ -19,10 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import com.wwm.db.Factory;
+import org.slf4j.Logger;
+
 import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.AuthorityException;
 import com.wwm.db.exceptions.TransactionDisposedException;
@@ -58,6 +60,9 @@ import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Response;
 
 public class TransactionImpl implements Transaction {
+	
+	
+	static private final Logger log = LogFactory.getLogger(TransactionImpl.class);
 
 	private HashMap<String, ArrayList<MetaObject<?>>> created;
 	private ArrayList<MetaObject<?>> updated;
@@ -74,7 +79,7 @@ public class TransactionImpl implements Transaction {
 		this.store = store;
 		this.tid = store.getNextId();
 		this.namespace = namespace;
-		Factory.setCurrentTransaction(this);
+		log.debug("New transaction: {} on {}", tid, store);
 	}
 	
 	public ArchInStream newInputStream(byte[] data) throws IOException {
@@ -151,6 +156,8 @@ public class TransactionImpl implements Transaction {
 			}
 		}
 		
+		log.debug("Committed transaction: {}", tid);
+
 		store.clearCurrentTransaction(this);
 	}
 
@@ -223,6 +230,7 @@ public class TransactionImpl implements Transaction {
 				// silently ignore errors, no-one cares about a failed dispose
 			}
 		}
+		log.debug("Disposed (i.e. no commit) transaction: {}", tid);
 	}
 
 	public synchronized Object execute(String methodName, Ref ref, Object param) {
