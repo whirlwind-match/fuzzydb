@@ -14,7 +14,7 @@ package com.wwm.atom.impl;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

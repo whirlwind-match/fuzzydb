@@ -11,8 +11,6 @@
 package com.wwm.atom.impl;
 
 import java.util.Hashtable;
-import java.util.logging.Level;
-
 import javax.servlet.http.HttpServlet;
 
 import org.osgi.framework.BundleActivator;
@@ -27,7 +25,7 @@ import com.wwm.db.core.LogFactory;
 public class Activator implements BundleActivator {
 
 	private static final String PATH = "/fuzz";
-	private HttpServlet servlet = new FuzzAbderaServlet();
+	private final HttpServlet servlet = new FuzzAbderaServlet();
 	private ServiceTracker httpServiceTracker;
 	
 //	private ServiceRegistration reg;
@@ -53,7 +51,7 @@ public class Activator implements BundleActivator {
 					svc.registerServlet(PATH, servlet, props, null);
 					System.out.println("Registered servlet at: " + PATH);
 				} catch (Exception e) {
-					LogFactory.getLogger(Activator.class).log(Level.SEVERE, "Unhandled exception starting bundle: " 
+					LogFactory.getLogger(Activator.class).error("Unhandled exception starting bundle: " 
 							+ context.getBundle().getSymbolicName(), e );
 					throw new Error("Unhandled exception:", e);
 				}

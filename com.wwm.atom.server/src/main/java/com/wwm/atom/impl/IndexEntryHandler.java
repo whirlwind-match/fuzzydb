@@ -12,8 +12,7 @@ package com.wwm.atom.impl;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import org.apache.abdera.Abdera;
 import org.apache.abdera.factory.Factory;
@@ -55,7 +54,7 @@ public class IndexEntryHandler implements TypeHandler {
             throw new BadRequestException("Invalid Attribute Data:" + e.getMessage(), e);
 
         } catch (IndexerException e) {
-            log.log(Level.SEVERE, "Indexer Exception", e);
+            log.error("Indexer Exception", e);
             //			log.info("CREATE: Did UPDATE instead because record already existed: " + record.getPrivateRecordId() );
             // If profile exists, then try updating instead
             //			updateProfile(request, webServiceId, record);
@@ -67,7 +66,7 @@ public class IndexEntryHandler implements TypeHandler {
         try {
             IndexerFactory.getIndexer().deleteRecord(privateRecordId);
         } catch (IndexerException e) {
-            log.log(Level.SEVERE, "Indexer Exception", e);
+            log.error("Indexer Exception", e);
             throw new NotFoundException(); // Think this is okay
         }
     }

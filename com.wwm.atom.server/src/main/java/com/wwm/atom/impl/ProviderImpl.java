@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.atom.impl;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import com.wwm.abdera.util.server.BaseProviderImpl;
 import com.wwm.db.core.LogFactory;

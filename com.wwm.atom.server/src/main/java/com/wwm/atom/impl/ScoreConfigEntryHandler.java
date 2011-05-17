@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.atom.impl;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import org.apache.abdera.model.Document;
 import org.apache.abdera.model.Entry;

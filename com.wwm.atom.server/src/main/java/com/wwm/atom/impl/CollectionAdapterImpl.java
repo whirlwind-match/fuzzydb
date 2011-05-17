@@ -16,8 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 import org.apache.abdera.factory.Factory;
 import org.apache.abdera.model.Category;
@@ -160,7 +159,7 @@ public class CollectionAdapterImpl extends BaseCollectionAdapter {
         try {
             updateProfile(request, record);
         } catch (IndexerException e) {
-            log.log(Level.INFO, e.getMessage(), e);
+            log.info(e.getMessage(), e);
             throw new Error(e);
         }
     }
@@ -184,7 +183,7 @@ public class CollectionAdapterImpl extends BaseCollectionAdapter {
         String message = e.getMessage();
         // assert(message != null); // Exception must have a message as we're using it as a header which must be non-null
 
-        log.log(Level.INFO, message); // ,e );
+        log.info(message); // ,e );
 
         rc.addHeader( "Fuzz-Exception", message );
         rc.addHeader( "Fuzz-ExceptionClass", e.getClass().getSimpleName() );
@@ -193,7 +192,7 @@ public class CollectionAdapterImpl extends BaseCollectionAdapter {
 
     @Override
     protected void decorateErrorResponse(EmptyResponseContext rc, String error) {
-        log.log(Level.INFO, error);
+        log.info(error);
 
         rc.addHeader( "Fuzz-Error", error );
     }
