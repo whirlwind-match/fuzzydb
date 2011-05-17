@@ -10,7 +10,8 @@
  *****************************************************************************/
 package com.wwm.context;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+
 
 /**
  * Provides access to Request, Session and Application contexts
