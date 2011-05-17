@@ -10,9 +10,7 @@
  *****************************************************************************/
 package com.wwm.indexer.internal.xstream;
 
-import java.lang.reflect.Field;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
+import org.springframework.beans.DirectFieldAccessor;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -62,26 +60,7 @@ public class AttributeIdMapper implements Converter {
         final PathTrackingReader ptr = (PathTrackingReader) reader;
         
         // Dive in and get field we know is there!
-        PathTracker tracker = AccessController.doPrivileged(new PrivilegedAction<PathTracker>() {
-        	public PathTracker run() {
-        		try {
-        			Field trackerField = PathTrackingReader.class.getField("pathTracker");
-					return (PathTracker) trackerField.get(ptr);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					return null;
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-					return null;
-				} catch (SecurityException e) {
-					e.printStackTrace();
-					return null;
-				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
-					return null;
-				}
-        	}
-		});
+        PathTracker tracker = (PathTracker) new DirectFieldAccessor(ptr).getPropertyValue("pathTracker");
         // instead of PathTracker tracker = ptr.getPathTracker();
         
         String path = tracker.getPath().toString();
