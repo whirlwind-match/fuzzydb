@@ -32,5 +32,19 @@
             <artifactId>org.eclipse.osgi.services</artifactId>
             <version>3.1.200.v20071203</version>
         </dependency>
+        <dependency>
+        	<groupId>org.eclipse.jetty</groupId>
+        	<artifactId>jetty-servlet</artifactId>
+        	<version>7.2.2.v20101205</version>
+        	<type>jar</type>
+        	<scope>compile</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.eclipse.jetty.aggregate</groupId>
+        	<artifactId>jetty-servlet</artifactId>
+        	<version>7.2.2.v20101205</version>
+        	<type>jar</type>
+        	<scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
