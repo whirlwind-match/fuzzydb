@@ -71,14 +71,14 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 
     	IndexImplementationsService implService = table.getNamespace().getNamespaces().getIndexImplementationsService();
     	
-    	Collection<IndexImplementation> impls = implService.getIndexImplementations();
-    	for (IndexImplementation impl : impls) {
-			impl.detectIndex( this, conf );
+    	if (implService != null) {
+			Collection<IndexImplementation> impls = implService
+					.getIndexImplementations();
+			for (IndexImplementation impl : impls) {
+				impl.detectIndex(this, conf);
+			}
 		}
-
-        // Do some other things we want to do with the configuration...
-
-        // Export of decorators will be interesting.  a toString() function will probably
+		// Export of decorators will be interesting.  a toString() function will probably
         // end up checking it's thread to see what the current namespace is
         conf.exportDecorators( table.getNamespace().getClass().getName() );
 		
@@ -101,15 +101,19 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 
         // Now get the best index based on what the 'net' search is.  mergedScorers is likely to be the decider.
     	IndexImplementationsService implService = table.getNamespace().getNamespaces().getIndexImplementationsService();
-    	Collection<IndexImplementation> impls = implService.getIndexImplementations();
 
-    	Search search; // iterate over implementations to find one that can fulfil our search
-    	for (IndexImplementation impl : impls) {
-			search = impl.getSearch( searchSpec, mergedScorers, config, wantNominee, this);
-			if (search != null) return search;
+    	if (implService != null) {
+			Collection<IndexImplementation> impls = implService
+					.getIndexImplementations();
+			Search search; // iterate over implementations to find one that can fulfil our search
+			for (IndexImplementation impl : impls) {
+				search = impl.getSearch(searchSpec, mergedScorers, config,
+						wantNominee, this);
+				if (search != null)
+					return search;
+			}
 		}
-
-        return new DumbOrderedSearch<T>((SearchSpecImpl) searchSpec, config, wantNominee, table);
+		return new DumbOrderedSearch<T>((SearchSpecImpl) searchSpec, config, wantNominee, table);
     }
 	
     /**
