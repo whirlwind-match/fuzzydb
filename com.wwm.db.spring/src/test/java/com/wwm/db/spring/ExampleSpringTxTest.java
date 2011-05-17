@@ -52,19 +52,31 @@ public class ExampleSpringTxTest {
 	@Test 
 	public void createObjectSucceedInAtTransactionalViaInjectedDataOps(){
 
-		// Create an item
-		IndexedMap originalItem = new IndexedMap("Hello");
+		// Create several items
+		{
+			IndexedMap item = new IndexedMap("Short");
+			item.put("height", Integer.valueOf(141));
+			insertSomething(item);
+		}
+		
+		IndexedMap originalItem = new IndexedMap("Tall");
 		originalItem.put("height", Integer.valueOf(181));
 		GenericRef<IndexedMap> ref = insertSomething(originalItem);
 
+		{
+			IndexedMap item = new IndexedMap("Baby");
+			item.put("height", Integer.valueOf(30));
+			insertSomething(item);
+		}
+
 		// Retrieve by ref
 		IndexedMap item = retrieveByRef(ref);
-		assertThat(item.getKey(), equalTo("Hello"));
+		assertThat(item.getKey(), equalTo("Tall"));
 		assertThat(item.get("height"),equalTo((Object)Integer.valueOf(181)));
 		
 		// Do an index lookup
-		IndexedMap item2 = retrieveByKey("Hello");
-		assertThat(item2.getKey(), equalTo("Hello"));
+		IndexedMap item2 = retrieveByKey("Tall");
+		assertThat(item2.getKey(), equalTo("Tall"));
 		assertThat(item2.get("height"),equalTo((Object)Integer.valueOf(181)));
 		
 	}
