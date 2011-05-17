@@ -13,19 +13,17 @@ package com.wwm.indexer.test;
 import java.net.MalformedURLException;
 
 import com.wwm.context.JVMAppListener;
-import com.wwm.db.WWMDBProtocolHander;
 import com.wwm.indexer.Indexer;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.SearchResults;
-import com.wwm.indexer.exceptions.IndexerException;
 
 public class DBIndexerBuildAndQuery {
 
     Indexer indexer;
 
-    public static void main(String[] args) throws IndexerException, MalformedURLException {
+    public static void main(String[] args) throws MalformedURLException {
         JVMAppListener.getInstance().preRequest();
 
         DBIndexerBuildAndQuery t = new DBIndexerBuildAndQuery();
@@ -47,17 +45,17 @@ public class DBIndexerBuildAndQuery {
         t.floatQuery(60f);
     }
 
-    void connect(String storeUrl, String xmlpath) throws IndexerException, MalformedURLException {
+    void connect(String storeUrl, String xmlpath) throws MalformedURLException {
         System.out.print("connect\n");
         IndexerFactory.setCurrentStoreUrl(storeUrl);
         // Use store name as username as we use username as the store
         // in web service.
-        String storeName = WWMDBProtocolHander.getAsURL(storeUrl).getPath();
+//        String storeName = WWMDBProtocolHander.getAsURL(storeUrl).getPath();
 //        AtomFactory.setCredentials(storeName, "dummy");
         indexer = IndexerFactory.getIndexer();
     }
 
-    void addData(int number) throws IndexerException {
+    void addData(int number) {
         for (int i = 0; i < number; i++) {
             Record r = new Rec(i, "blah");
             boolean gender = (i % 2) == 1;
@@ -68,7 +66,7 @@ public class DBIndexerBuildAndQuery {
         }
     }
 
-    int boolCountQuery(Boolean gender) throws IndexerException {
+    int boolCountQuery(Boolean gender) {
         Record search = new Rec(-1, ""); // Not actually a rec
 
         if (gender != null) {
@@ -85,7 +83,7 @@ public class DBIndexerBuildAndQuery {
     }
 
 
-    int floatQuery(float age) throws IndexerException {
+    int floatQuery(float age) {
         Record search = new Rec(-1, ""); // Not actually a rec
         search.put("Age", age);
         SearchResults results = indexer.searchRecords(search.getAttributes(), "SimilarAge", 2000, 1000, 0.01f);

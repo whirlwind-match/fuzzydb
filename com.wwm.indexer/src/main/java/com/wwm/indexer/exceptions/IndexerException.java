@@ -16,7 +16,7 @@ package com.wwm.indexer.exceptions;
  * Exception.
  */
 @SuppressWarnings("serial")
-public class IndexerException extends Exception {
+public class IndexerException extends RuntimeException {
 
 	protected IndexerException() {
 		super();

@@ -32,7 +32,6 @@ import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.indexer.exceptions.IndexerException;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.model.attributes.DateAttribute;
@@ -217,7 +216,7 @@ public class ConversionFactory {
         return getConverter(attribute.getAttrId(), attribute).convert(name, attribute);
     }
 
-    public static IAttribute convert(int attrid, Attribute object) throws IndexerException {
+    public static IAttribute convert(int attrid, Attribute object) {
         return getConverter(attrid, object).convertToInternal(attrid, object);
     }
 

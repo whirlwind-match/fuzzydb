@@ -23,14 +23,13 @@ import com.wwm.util.DynamicRef;
 
 public class TableToPreferenceMapConverter implements Converter {
 
-    private DynamicRef<? extends AttrDefinitionMgr> mgr;
+    private final DynamicRef<? extends AttrDefinitionMgr> mgr;
 
 	public TableToPreferenceMapConverter(DynamicRef<? extends AttrDefinitionMgr> wrapper) {
 		mgr = wrapper;
 	}
 
-	@SuppressWarnings("unchecked")
-    public boolean canConvert(Class clazz) {
+    public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
         return clazz.equals(EnumPreferenceMap.class);
     }
 

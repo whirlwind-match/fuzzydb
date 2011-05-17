@@ -17,13 +17,12 @@ import com.wwm.context.JVMAppListener;
 import com.wwm.indexer.Indexer;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;
-import com.wwm.indexer.exceptions.IndexerException;
 
 public class DBIndexerTester {
 
     private Indexer indexer;
 
-    public static void main(String[] args) throws IndexerException, MalformedURLException {
+    public static void main(String[] args) throws MalformedURLException {
         JVMAppListener.getInstance().preRequest();
 
         DBIndexerTester t = new DBIndexerTester();
@@ -38,7 +37,7 @@ public class DBIndexerTester {
         t.updateTwo();
     }
 
-    void connect(String storeUrl, String xmlpath) throws IndexerException, MalformedURLException {
+    void connect(String storeUrl, String xmlpath) throws MalformedURLException {
         System.out.print("connect\n");
         IndexerFactory.setCurrentStoreUrl(storeUrl);
         // Use store name as username as we use username as the store
@@ -48,7 +47,7 @@ public class DBIndexerTester {
         indexer = IndexerFactory.getIndexer();
     }
 
-    void addTwo() throws IndexerException {
+    void addTwo() {
         System.out.print("addTwo\n");
         Rec r = new Rec(1, "T1");
         r.put("Gender", true);
@@ -75,7 +74,7 @@ public class DBIndexerTester {
         System.out.print("addTwo Complete\n");
     }
 
-    void updateTwo() throws IndexerException {
+    void updateTwo() {
         System.out.print("updateTwo\n");
         Rec r = new Rec(1, "T3");
         indexer.addRecord(r);

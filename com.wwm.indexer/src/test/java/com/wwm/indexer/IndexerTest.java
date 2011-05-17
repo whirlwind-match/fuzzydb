@@ -17,8 +17,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.wwm.context.JVMAppListener;
-import com.wwm.db.WWMDBProtocolHander;
-import com.wwm.indexer.exceptions.IndexerException;
 
 import static org.junit.Assert.*;
 
@@ -51,19 +49,19 @@ public class IndexerTest {
     }
 
 
-    static void connect() throws IndexerException, MalformedURLException {
+    static void connect() throws MalformedURLException {
         storeUrl = storeUrl + String.valueOf(System.currentTimeMillis());
         System.out.print("connect\n");
         IndexerFactory.setCurrentStoreUrl(storeUrl);
         // Use store name as username as we use username as the store
         // in web service.
-        String storeName = WWMDBProtocolHander.getAsURL(storeUrl).getPath();
+//        String storeName = WWMDBProtocolHander.getAsURL(storeUrl).getPath();
 //        AtomFactory.setCredentials(storeName, "dummy");
         indexer = IndexerFactory.getIndexer();
     }
 
     @Test
-    public void addTwo() throws IndexerException {
+    public void addTwo() {
         System.out.print("addTwo\n");
         {
             addRec1();
@@ -89,7 +87,7 @@ public class IndexerTest {
     }
 
 
-    private void addRec2() throws IndexerException {
+    private void addRec2() {
         Rec r = new Rec(2, "T2");
         r.put("Gender", false);
         r.put("Age", 16.0f);
@@ -98,7 +96,7 @@ public class IndexerTest {
     }
 
 
-    private void addRec1() throws IndexerException {
+    private void addRec1() {
         Rec r = new Rec(1, "T1");
         r.put("Gender", true);
         r.put("Age", 32.0f);
@@ -107,7 +105,7 @@ public class IndexerTest {
     }
 
     @Test
-    public void updateTwo() throws IndexerException {
+    public void updateTwo() {
         System.out.print("updateTwo\n");
 
         addRec1();

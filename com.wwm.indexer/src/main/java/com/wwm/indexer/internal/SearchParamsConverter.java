@@ -26,7 +26,6 @@ import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.db.converters.ConversionFactory;
 import com.wwm.indexer.db.converters.SearchConverter;
 import com.wwm.indexer.db.converters.UKPostcodeToVectorDerivation;
-import com.wwm.indexer.exceptions.IndexerException;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.NonIndexStringAttribute;
 import com.wwm.model.attributes.UnspecifiedTypeAttribute;
@@ -48,7 +47,7 @@ public class SearchParamsConverter {
      * No other conversions are done on a search that is based on a name, value map.
      * FIXME: Refactor this into it's own SearchConversion class including the conversions done.
      */
-    private Map<String, SearchConverter<? extends IAttribute>> searchConversions = new HashMap<String, SearchConverter<? extends IAttribute>>();
+    private final Map<String, SearchConverter<? extends IAttribute>> searchConversions = new HashMap<String, SearchConverter<? extends IAttribute>>();
 
     public SearchParamsConverter() {
         // Load the Attributes map
@@ -72,7 +71,7 @@ public class SearchParamsConverter {
     }
 
 
-    public void buildSearchAttributes(SearchSpec searchSpec, Map<String, Attribute> attributes) throws IndexerException {
+    public void buildSearchAttributes(SearchSpec searchSpec, Map<String, Attribute> attributes) {
         CardinalAttributeMap<IAttribute> attrs = AttrsFactory.getCardinalAttributeMap();
         for (Entry<String, Attribute> entry : attributes.entrySet()) {
             deriveSearchAttrs( attrs, entry.getKey(), entry.getValue() );
@@ -85,7 +84,7 @@ public class SearchParamsConverter {
     /**
      * Adds the internal representation of attr, to the index object.
      */
-    private void addInternalAttribute(CardinalAttributeMap<IAttribute> attrs, String name, Attribute value) throws IndexerException {
+    private void addInternalAttribute(CardinalAttributeMap<IAttribute> attrs, String name, Attribute value) {
         IAttribute attribute = getIAttribute(name, value);
         attrs.put(attribute.getAttrId(), attribute);
     }
@@ -93,7 +92,7 @@ public class SearchParamsConverter {
     /**
      * Perform the search conversion for this attr, if it exists
      */
-    private void deriveSearchAttrs(CardinalAttributeMap<IAttribute> attrs, String name, Attribute value) throws IndexerException {
+    private void deriveSearchAttrs(CardinalAttributeMap<IAttribute> attrs, String name, Attribute value) {
         SearchConverter<? extends IAttribute> conversion = searchConversions.get(name);
         if (conversion == null) {
             return;
@@ -114,7 +113,7 @@ public class SearchParamsConverter {
      *  FIXME: This is duplicate of code from RecordConverter.  There is notable overlap.
      *  Get IAttribute to give to database, given external types (beans?)
      */
-    private IAttribute getIAttribute(String name, Attribute value) throws IndexerException {
+    private IAttribute getIAttribute(String name, Attribute value) {
 
         int attrId = getAttrDefs().getAttrId(name); // Attribute must exist
 

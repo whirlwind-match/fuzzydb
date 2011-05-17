@@ -27,7 +27,7 @@ public interface Indexer extends IShutdown {
      *            Data to store in the index.
      * @throws IndexerException
      */
-    void addRecord(Record record) throws IndexerException;
+    void addRecord(Record record);
 
     /**
      * This method will delete the specified record. If it does not exist, this
@@ -37,9 +37,9 @@ public interface Indexer extends IShutdown {
      *            A unique integer identifying this record
      * @throws IndexerException
      */
-    void deleteRecord(int recordId) throws IndexerException;
+    void deleteRecord(int recordId);
 
-    void deleteRecord(String privateRecordId) throws IndexerException;
+    void deleteRecord(String privateRecordId);
 
     /**
      * This method performs a search using a {@link Record} as the 
@@ -59,7 +59,7 @@ public interface Indexer extends IShutdown {
      * @return A collection of records
      * @throws IndexerException
      */
-    public SearchResults searchRecords(Record record, String scorerConfig, int maxResults, int numResults, float minScore) throws IndexerException;
+    public SearchResults searchRecords(Record record, String scorerConfig, int maxResults, int numResults, float minScore);
 
     /**
      * This method performs a search using a map of search parameters.
@@ -80,7 +80,7 @@ public interface Indexer extends IShutdown {
      * @return A collection of records
      * @throws IndexerException
      */
-    SearchResults searchRecords(Map<String, Attribute> attributes, String scorerConfig, int maxResults, int numresults, float minScore) throws IndexerException;
+    SearchResults searchRecords(Map<String, Attribute> attributes, String scorerConfig, int maxResults, int numresults, float minScore);
 
     /**
      * Gets the next page of results from the current search.
@@ -92,7 +92,7 @@ public interface Indexer extends IShutdown {
      * @return
      * @throws IndexerException
      */
-    SearchResults searchNext(int searchId, int numresults) throws IndexerException;
+    SearchResults searchNext(int searchId, int numresults);
 
     /**
      * This method is similar to AddRecord but takes a collection of Records.
@@ -103,7 +103,7 @@ public interface Indexer extends IShutdown {
      *            A collection of record data
      * @throws IndexerException
      */
-    void addRecords(ArrayList<Record> records) throws IndexerException;
+    void addRecords(ArrayList<Record> records);
 
     /**
      * This method is similar to DeleteRecords but takes a collection of
@@ -113,9 +113,9 @@ public interface Indexer extends IShutdown {
      *            A collection of record Id's
      * @throws IndexerException
      */
-    void deleteRecords(ArrayList<Integer> recordIds) throws IndexerException;
+    void deleteRecords(ArrayList<Integer> recordIds);
 
-    void deleteRecordsByPrivateId(ArrayList<String> privateIds) throws IndexerException;
+    void deleteRecordsByPrivateId(ArrayList<String> privateIds);
 
     /**
      * This method is retrieves a record
@@ -124,13 +124,13 @@ public interface Indexer extends IShutdown {
      *            A unique string identifying this record
      * @throws IndexerException
      */
-    Record retrieveRecord(String recordId) throws IndexerException;
+    Record retrieveRecord(String recordId);
 
     /**
      * Get count of how many records we've inserted
      * @throws IndexerException 
      */
-	long getCount() throws IndexerException;
+	long getCount();
 
 
 }

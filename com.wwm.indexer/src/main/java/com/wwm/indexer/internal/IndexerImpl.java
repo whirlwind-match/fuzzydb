@@ -51,7 +51,7 @@ public class IndexerImpl implements Indexer {
     /* (non-Javadoc)
      * @see com.wwm.indexer.Indexer#addRecord(com.wwm.indexer.Record)
      */
-    public void addRecord(Record record) throws IndexerException {
+    public void addRecord(Record record) {
         Store currentStore = IndexerFactory.getCurrentStore();
 		Transaction tx = currentStore.getAuthStore().begin();
         StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, record.getPrivateId());
@@ -70,7 +70,7 @@ public class IndexerImpl implements Indexer {
     }
 
 
-    public Record retrieveRecord(String privateId) throws IndexerException {
+    public Record retrieveRecord(String privateId) {
         Store currentStore = IndexerFactory.getCurrentStore();
 		Transaction tx = currentStore.getStore().begin();
         StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateId);
@@ -88,7 +88,7 @@ public class IndexerImpl implements Indexer {
     /* (non-Javadoc)
      * @see com.wwm.indexer.Indexer#addRecords(java.util.ArrayList)
      */
-    public void addRecords(ArrayList<Record> records) throws IndexerException {
+    public void addRecords(ArrayList<Record> records) {
         Store currentStore = IndexerFactory.getCurrentStore();
 		Transaction tx = currentStore.getAuthStore().begin();
         Collection<Object> createdata = new ArrayList<Object>();
@@ -103,7 +103,7 @@ public class IndexerImpl implements Indexer {
     }
 
 
-    public void deleteRecord(String privateRecordId) throws IndexerException {
+    public void deleteRecord(String privateRecordId) {
     	Store currentStore = IndexerFactory.getCurrentStore();
 		Transaction tx = currentStore.getStore().getAuthStore().begin();
         StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateRecordId);
@@ -118,22 +118,21 @@ public class IndexerImpl implements Indexer {
     }
 
 
-    public void deleteRecord(int recordId) throws IndexerException {
+    public void deleteRecord(int recordId) {
         throw new UnsupportedOperationException();
     }
 
-    public void deleteRecords(ArrayList<Integer> recordIds) throws IndexerException {
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void deleteRecordsByPrivateId(ArrayList<String> privateIds)
-    throws IndexerException {
+    public void deleteRecords(ArrayList<Integer> recordIds) {
         throw new UnsupportedOperationException();
     }
 
 
-    public SearchResults searchRecords(Record record, String scorerConfig, int maxResults, int numResults, float minScore) throws IndexerException {
+    public void deleteRecordsByPrivateId(ArrayList<String> privateIds) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    public SearchResults searchRecords(Record record, String scorerConfig, int maxResults, int numResults, float minScore) {
         StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
         recordConverter.convertRecordToInternal(data, record);
         SearchSpec searchSpec = AttrsFactory.createSearchSpec(StandaloneWWIndexData.class);
@@ -142,7 +141,7 @@ public class IndexerImpl implements Indexer {
     }
     
 
-    public SearchResults searchRecords(Map<String, Attribute> attributes, String scorerConfig, int maxResults, int numResults, float minScore) throws IndexerException {
+    public SearchResults searchRecords(Map<String, Attribute> attributes, String scorerConfig, int maxResults, int numResults, float minScore) {
         SearchSpec searchSpec = AttrsFactory.createSearchSpec(StandaloneWWIndexData.class);
         searchParamsConverter.buildSearchAttributes(searchSpec, attributes);
         return doSearch(scorerConfig, maxResults, numResults, searchSpec);
@@ -150,7 +149,7 @@ public class IndexerImpl implements Indexer {
 
     
 	private SearchResults doSearch(String scorerConfig, int maxResults, int numResults,
-			SearchSpec searchSpec) throws IndexerException {
+			SearchSpec searchSpec) {
 		
         lastSearch++;
 		searchSpec.setTargetNumResults(maxResults);
@@ -167,11 +166,11 @@ public class IndexerImpl implements Indexer {
 
     
     
-    public SearchResults searchNext(int searchId, int numResults) throws IndexerException {
+    public SearchResults searchNext(int searchId, int numResults) {
         return buildResults(lastSearch, numResults);
     }
 
-    private SearchResults buildResults(int searchId, int numResults) throws IndexerException {
+    private SearchResults buildResults(int searchId, int numResults) {
         ResultIterator<Result<StandaloneWWIndexData>> query = searchSet.get(searchId);
         if (query == null) {
             throw new IndexerException("buildResults :: Unknown searchId :: " + searchId);
@@ -182,9 +181,6 @@ public class IndexerImpl implements Indexer {
         while (query.hasNext() ) {
             Result<StandaloneWWIndexData> result = query.next();
             StandaloneWWIndexData item = result.getItem();
-            if (result == null) {
-                break;
-            }
             SearchResultImpl sr = new SearchResultImpl(result.getScore(), item.getPrivateId());
             recordConverter.convertInternalToRecord(sr, item);
             results.addResult(sr);
@@ -201,7 +197,7 @@ public class IndexerImpl implements Indexer {
         // Do nowt
     }
     
-    public long getCount() throws IndexerException {
+    public long getCount() {
     	Transaction tx = IndexerFactory.getCurrentStore().begin();
 		long count = tx.count(StandaloneWWIndexData.class);
 		tx.dispose();

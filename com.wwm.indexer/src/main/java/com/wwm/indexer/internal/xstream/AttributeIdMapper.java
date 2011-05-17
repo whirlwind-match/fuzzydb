@@ -33,8 +33,7 @@ public class AttributeIdMapper implements Converter {
         this.attrDefMgrRef = attrDefs;
     }
 
-    @SuppressWarnings("unchecked")
-    public boolean canConvert(Class clazz) {
+    public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
         return clazz.equals(Integer.class);
     }
 

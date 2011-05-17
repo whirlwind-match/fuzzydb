@@ -20,16 +20,15 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class XmlNameMapper<T> implements Converter {
 
-	private Class<?> myclazz;
-	private TreeMap<String, T> mappeddata;
+	private final Class<T> myclazz;
+	private final TreeMap<String, T> mappeddata;
 
 	public XmlNameMapper(Class<T> myclazz, TreeMap<String, T> mappedData) {
 		this.myclazz = myclazz;
 		this.mappeddata = mappedData;
 	}
 
-	@SuppressWarnings("unchecked")
-	public boolean canConvert(Class clazz) {
+	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
 		return clazz.equals(myclazz);
 	}
 
