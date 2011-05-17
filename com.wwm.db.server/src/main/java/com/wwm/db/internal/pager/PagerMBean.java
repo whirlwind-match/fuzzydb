@@ -14,6 +14,18 @@ import java.util.Date;
 
 public interface PagerMBean {
 
+	public int getLoadedPages();
+	
+	public int getOutstandingPurges();
+	
+	public int getPurgeInterval();
+	
+	public void setPurgeInterval(int millisecs);
+	
+	public int getMinPagesPerPurge();
+	
+	public void setMinPagesPerPurge(int pages);
+	
 	// For example MBean
 	public Date getLastPurgeTime();
 

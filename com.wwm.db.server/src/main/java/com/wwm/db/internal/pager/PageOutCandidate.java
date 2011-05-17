@@ -10,22 +10,27 @@
  *****************************************************************************/
 package com.wwm.db.internal.pager;
 
-
-class PageScore implements Comparable<PageScore> {
+/**
+ * Records the cost of a purging a given page of a table, such that a pager can
+ * prioritise purging of pages from memory.  Lower cost pages are pages that
+ * are access less than higher cost pages and therefore better candidates
+ * for purging.
+ */
+class PageOutCandidate implements Comparable<PageOutCandidate> {
 	final PersistentPagedObject pageTable;
 
 	final long pageId;
 
-	final float score;
+	final float cost;
 
-	PageScore(float score, PersistentPagedObject pageTable, long pageId) {
-		this.score = score;
+	PageOutCandidate(float cost, PersistentPagedObject pageTable, long pageId) {
+		this.cost = cost;
 		this.pageTable = pageTable;
 		this.pageId = pageId;
 	}
 
-	public int compareTo(PageScore o) {
-		float dif = score - o.score;
+	public int compareTo(PageOutCandidate o) {
+		float dif = cost - o.cost;
 		if (dif < 0)
 			return -1;
 		if (dif > 0)
@@ -35,16 +40,14 @@ class PageScore implements Comparable<PageScore> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof PageScore) {
-			return this.compareTo((PageScore) obj) == 0;
+		if (obj instanceof PageOutCandidate) {
+			return this.compareTo((PageOutCandidate) obj) == 0;
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		// this ensures that we don't break hashCode rules where equal objects should have equal hashCodes
-		assert false : "hashCode not designed"; 
-		return 0; // any arbitrary constant will do 
+		throw new UnsupportedOperationException("Do not use with hashcode based collection");
 	}
 }

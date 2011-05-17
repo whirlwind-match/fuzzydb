@@ -39,7 +39,101 @@ import com.wwm.util.FastSemaphore;
  */
 public class Pager implements PagerMBean {
 
-	private static final int purgeInterval = 1; // millisecs;
+	private static final int MIN_PAGES_LOADED = 400;
+
+	private class PurgeList {
+		
+		private static final int REBUILD_INTERVAL = 100;
+
+		private volatile PageOutCandidate[] purgeList; // sorted array of pages to purge
+
+		private long lastBuiltPurgeList = 0;
+
+		private volatile int purgeListIndex = 0;
+		private float lowestPurgeCost = 0;
+
+		private long totalScoreTime = 0;
+
+		void updatePurgeList() {
+			// Only update if rebuild interval has passed, 
+			// and we've progressed through 10% of previous built list,
+			// and next item has a cost < double the lowest
+			if (System.currentTimeMillis() - lastBuiltPurgeList <= REBUILD_INTERVAL
+					&& purgeListIndex <= purgeList.length / 10
+					&& purgeList[purgeListIndex].cost <= 2*lowestPurgeCost) {
+				return;
+			}
+			
+			if (loadedPages == 0) return;
+			
+			long start = System.currentTimeMillis();
+
+			assert (Thread.holdsLock(pages));
+			purgeList = new PageOutCandidate[loadedPages];
+			int scoreIndex = 0;
+			// TreeMap<Float, ArrayList<PageTableId>> scores = new TreeMap<Float,
+			// ArrayList<PageTableId>>();
+			for (Map.Entry<PersistentPagedObject, HashSet<Long>> entries : pages.entrySet()) {
+				PersistentPagedObject pageTable = entries.getKey();
+				HashSet<Long> pageIds = entries.getValue();
+				
+				// INSERTED BY NEALE: 9May08 to deal with failure to flush old versions while in memory
+				// FIXME: Need to confirm that flushOldVersions works mid-transaction - it should do 
+				try {
+					pageTable.flushOldVersions( pageIds );
+				} catch (PagePurgedException e) {
+					throw new RuntimeException(e);
+				}
+				
+				for (Long pageId : pageIds) {
+					float cost = pageTable.calculatePurgeCost(pageId);
+					// ArrayList<PageTableId> al = scores.get(score);
+					// if (al == null) {
+					// al = new ArrayList<PageTableId>();
+					// scores.put(score, al);
+					// }
+					// al.add(new PageTableId(pageTable, pageId));
+					purgeList[scoreIndex++] = new PageOutCandidate(cost, pageTable, pageId);
+				}
+			}
+
+			Arrays.sort(purgeList);
+			purgeListIndex = 0;
+			lowestPurgeCost = purgeList[0].cost;
+			lastBuiltPurgeList = System.currentTimeMillis();
+
+			long duration = System.currentTimeMillis() - start;
+			totalScoreTime += duration;
+		}
+
+		/**
+		 * @return details for next page to purge, or null if there's nothing available to purge
+		 */
+		PageOutCandidate getNextPurgeItem() {
+			if (purgeList == null || loadedPages == 0) {
+				return null; // If we start up with low memory (try -Xmx=30M, this can happen. TODO. extract purgeList
+				// and operations such as getNextPurgeItem to another class we can test and see!
+			}
+			
+			// If we've reached the end of the current list, create a new one
+			if (purgeListIndex == purgeList.length) {
+				updatePurgeList();
+			}
+		
+			// still need to guard against nothing to purge
+			if (purgeListIndex >= purgeList.length) return null;
+			
+			return purgeList[purgeListIndex++]; // FIXME: AIOOBE here from lockElementForRead.  No multi-thread... seems to be ref change
+			/* Above issue caused running performance.TestReadWritePerf.testCreateManyAndUpdate	on Mac */
+		}
+
+	}
+
+	private final PurgeList purgeListObject = new PurgeList();
+	
+	private int minPagesPerPurge = 20;
+
+	private int purgeInterval = 3; // millisecs;
 
 	public final Database database;
 
@@ -51,18 +145,12 @@ public class Pager implements PagerMBean {
 
 	private int outstandingPurges = 0;
 
-	private MemoryAdvisor memoryAdvisor = new MemoryAdvisor( 10f, 12.5f, 15f );
+	private final MemoryAdvisor memoryAdvisor = new MemoryAdvisor( 10f, 12.5f, 15f );
 	
-	private FastSemaphore purgeLock = new FastSemaphore(1);
+	private final FastSemaphore purgeLock = new FastSemaphore(1);
 
-	private long totalScoreTime = 0;
 
-	private volatile PageScore[] purgeList; // sorted array of pages to purge
 
-	private volatile int purgeListIndex = 0;
-
-	private long lastBuiltPurgeList = 0;
-	private float lowestPurgeScore = 0;
 	
 	public Pager(Database database) {
 		this.database = database;
@@ -191,7 +279,7 @@ public class Pager implements PagerMBean {
 		return table.deleteFromStorage();
 	}
 
-	public void notifyPageLoaded() {
+	private void notifyPageLoaded() {
 		assert (Thread.holdsLock(pages));
 		loadedPages++;
 	}
@@ -226,67 +314,6 @@ public class Pager implements PagerMBean {
 	}
 
 	
-	private void updatePurgeList() {
-		if (loadedPages == 0) return;
-		
-		long start = System.currentTimeMillis();
-
-		assert (Thread.holdsLock(pages));
-		purgeList = new PageScore[loadedPages];
-		int scoreIndex = 0;
-		// TreeMap<Float, ArrayList<PageTableId>> scores = new TreeMap<Float,
-		// ArrayList<PageTableId>>();
-		for (Map.Entry<PersistentPagedObject, HashSet<Long>> entries : pages.entrySet()) {
-			PersistentPagedObject pageTable = entries.getKey();
-			HashSet<Long> pageIds = entries.getValue();
-			
-			// INSERTED BY NEALE: 9May08 to deal with failure to flush old versions while in memory
-			// FIXME: Need to confirm that flushOldVersions works mid-transaction - it should do 
-			try {
-				pageTable.flushOldVersions( pageIds );
-			} catch (PagePurgedException e) {
-				throw new RuntimeException(e);
-			}
-			
-			for (Long pageId : pageIds) {
-				float score = pageTable.calculatePurgeCost(pageId);
-				// ArrayList<PageTableId> al = scores.get(score);
-				// if (al == null) {
-				// al = new ArrayList<PageTableId>();
-				// scores.put(score, al);
-				// }
-				// al.add(new PageTableId(pageTable, pageId));
-				purgeList[scoreIndex++] = new PageScore(score, pageTable, pageId);
-			}
-		}
-
-		Arrays.sort(purgeList);
-		purgeListIndex = 0;
-		lowestPurgeScore = purgeList[0].score;
-		lastBuiltPurgeList = System.currentTimeMillis();
-
-		long duration = System.currentTimeMillis() - start;
-		totalScoreTime += duration;
-		System.out.println("Total scoring time: " + totalScoreTime + "ms");
-	}
-
-	private PageScore getNextPurgeItem() {
-		if (purgeList == null || loadedPages == 0) {
-			return null; // If we start up with low memory (try -Xmx=30M, this can happen. TODO. extract purgeList
-			// and operations such as getNextPurgeItem to another class we can test and see!
-		}
-		
-		// If we've reached the end of the current list, create a new one
-		if (purgeListIndex == purgeList.length) {
-			updatePurgeList();
-		}
-	
-		// still need to guard against nothing to purge
-		if (purgeListIndex >= purgeList.length) return null;
-		
-		return purgeList[purgeListIndex++]; // FIXME: AIOOBE here from lockElementForRead.  No multi-thread... seems to be ref change
-		/* Above issue caused running performance.TestReadWritePerf.testCreateManyAndUpdate	on Mac */
-	}
 
 	/**
 	 * Make an effort to create room for the number of requested pages.
@@ -302,31 +329,34 @@ public class Pager implements PagerMBean {
 		try {
 			memoryAdvisor.update();
 			if ( memoryAdvisor.isAboveHigh() ){
+				outstandingPurges = 0;
 				return; // if freeMem is above high water mark, we don't need to purge any
 			}
-			System.err.println("Need memory: " + memoryAdvisor.toString());
+			
+			// If we do need to purge
 			outstandingPurges += pagesNeeded;
 			
 			if ( isPurgeTooRecent() ) {
 				return;  // keep collecting them up if we did one recently.
 			}
+			System.err.println("Need memory: " + memoryAdvisor.toString());
 			lastPurgeTime = System.currentTimeMillis();
 
 			@SuppressWarnings("unused")
 			boolean forceGc = memoryAdvisor.isMemoryLow();
 			
+			if (outstandingPurges < minPagesPerPurge){
+				outstandingPurges = minPagesPerPurge;
+			}
+			
 			// FIXME: This is crude. We need to replace this with an adaptive
 			// loadedPagesTarget
 			if (memoryAdvisor.isMemoryLow()){
-				outstandingPurges += 1;
+				outstandingPurges += 10;
 			}
-
+			
 			synchronized (pages) {
-				if (System.currentTimeMillis() - lastBuiltPurgeList > 100
-						|| purgeListIndex > purgeList.length / 10
-						|| purgeList[purgeListIndex].score > 2*lowestPurgeScore) {
-					updatePurgeList();
-				}
+				purgeListObject.updatePurgeList();
 
 				if ( !purgeOutstandingPages()) {
 					forceGc = true;
@@ -348,23 +378,26 @@ public class Pager implements PagerMBean {
 	 */
 	private boolean purgeOutstandingPages() {
 		// assume GC is needed if this happened
-		if (loadedPages < 100){ return false; }
+		if (loadedPages < MIN_PAGES_LOADED){
+			outstandingPurges = 0;
+			return false; 
+		}
 		
-		System.out.println("Purging " + outstandingPurges + " pages. " + loadedPages + " pages loaded.");
+		System.out.println("Purging " + outstandingPurges + " pages. " + loadedPages + " pages current loaded. (" + pages.size() + ")");
 		StringBuilder purgeScores = new StringBuilder("Scores: ");
 		for (; outstandingPurges > 0; outstandingPurges--) {
-			PageScore score = getNextPurgeItem();
-			if (score == null){
+			PageOutCandidate candidate = purgeListObject.getNextPurgeItem();
+			if (candidate == null){
 				outstandingPurges--;// = 0; // EXPERIMENT: Outstanding otherwise keeps growing
 				return false;
 			}
-			PersistentPagedObject pageTable = score.pageTable;
-			long pageId = score.pageId;
+			PersistentPagedObject pageTable = candidate.pageTable;
+			long pageId = candidate.pageId;
 			try {
 				HashSet<Long> ids = pages.get(pageTable);
 				if (ids != null && ids.contains(pageId)) {	// make sure it's enqueued, deleted stores can cause pages to hang around
 					if (pageTable.tryPurgePage(pageId)) {
-						purgeScores.append( score.score ).append(", ");
+						purgeScores.append( candidate.cost ).append(", ");
 						boolean success = ids.remove(pageId);
 						assert(success);
 						if (ids.size() == 0) {
@@ -400,19 +433,32 @@ public class Pager implements PagerMBean {
 		return false;
 	}
 
-	// For example MBean
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.PagerMBean#getLastPurgeTime()
-	 */
 	public Date getLastPurgeTime() {
 		return new Date(lastPurgeTime);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.PagerMBean#getTotalScoreTime()
-	 */
 	public long getTotalScoreTime() {
-		return totalScoreTime;
+		return purgeListObject.totalScoreTime;
 	}
 
+	public int getMinPagesPerPurge() {
+		return minPagesPerPurge;
+	}
+
+	public int getOutstandingPurges() {
+		return outstandingPurges;
+	}
+	public int getLoadedPages() {
+		return loadedPages;
+	}
+	public int getPurgeInterval() {
+		return purgeInterval;
+	}
+	public void setMinPagesPerPurge(int pages) {
+		minPagesPerPurge = pages;
+	}
+	
+	public void setPurgeInterval(int millisecs) {
+		purgeInterval = millisecs;
+	}
 }
