@@ -12,6 +12,7 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import com.wwm.db.Client;
@@ -32,8 +33,18 @@ public class ReadWritePerfTest {
 	
 	static final int serverPort = 5002;
 	
+	static int randomReadsPerSecond = -1;
+	static int createAndSequentialReadPerSecond = -1;
+	static int createReadModReadPerSecond = -1; 
+	
 	ClassLoaderInterface cli = new DummyCli();
 	private final String storeName = "TestStore";
+	
+	@AfterClass
+	static public void showPerf() {
+		System.out.println("Random reads per second = " + randomReadsPerSecond);
+		System.out.println("Create and sequential reads per second = " + createAndSequentialReadPerSecond);
+	}
 
 	@Test public void testCreateManyAndRandomAccess() throws IOException {
 		final int outerLoops = 1;
@@ -149,12 +160,14 @@ public class ReadWritePerfTest {
 				Object o = t.retrieve( new RefImpl<Object>(slice, table,rand.nextInt(numObjects)) );
 			}
 
-			long testDuration = System.currentTimeMillis() - testStart;
+			long duration = System.currentTimeMillis() - testStart;
 
 			
-			System.out.println("Test duration: " + testDuration + "ms");
+			System.out.println("Test duration: " + duration + "ms");
 			System.out.println("Objects read: " + numReads );
-			System.out.println("Average read: " + testDuration/numReads + "ms");
+			System.out.println("Average read: " + duration/numReads + "ms");
+
+			randomReadsPerSecond = (int) (numReads * 1000 / duration);
 			database.close();
 		}
 		
@@ -163,7 +176,7 @@ public class ReadWritePerfTest {
 	}
 	
 
-	@Test public void testCreateManyAndReadBack() throws IOException {
+	@Test public void testCreateManyAndSequentialAccess() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerLoop = 1000;
 		final int numberOfLoops = 30;
@@ -223,18 +236,15 @@ public class ReadWritePerfTest {
 			int numObjects = numberPerLoop * numberOfLoops;
 			System.out.println(numObjects + " Objects created, read back and verified in " + duration + "ms");
 			System.out.println(" Ave = " + duration * 1000 / numObjects + "us");
+			createAndSequentialReadPerSecond = (int) (numObjects * 1000 / duration);
 			database.close();
-
-			long testDuration = System.currentTimeMillis() - testStart;
-			System.out.println("Test duration: " + testDuration + "ms");
-			
 		}
 
 	}
 	
 	@Test public void testCreateManyAndUpdate() throws IOException {
 		final int outerLoops = 1;
-		final int numberPerLoop = 1000;
+		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 5;
 
 
@@ -258,7 +268,7 @@ public class ReadWritePerfTest {
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
-				for (int j = 0; j < numberPerLoop; j++) {
+				for (int j = 0; j < numberPerTransaction; j++) {
 					
 					t.create(
 							new MutableString("1")
@@ -267,17 +277,17 @@ public class ReadWritePerfTest {
 				t.commit();
 			}
 	
-			System.out.println("Updating");
+			System.out.println("Updating in sequential order");
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
 				ArrayList<Ref> al = new ArrayList<Ref>();
-				for (int j = 0; j < numberPerLoop; j++) {
-					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerLoop + j);
+				for (int j = 0; j < numberPerTransaction; j++) {
+					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
 					al.add(ref);
 				}
 				Map<Ref, Object> map = t.retrieve(al);
-				for (int j = 0; j < numberPerLoop; j++) {
+				for (int j = 0; j < numberPerTransaction; j++) {
 					Ref ref = al.get(j);
 					final MutableString result = (MutableString) map.get(ref);
 					Assert.assertTrue(result.equals("1"));
@@ -287,26 +297,28 @@ public class ReadWritePerfTest {
 				t.commit();
 			}
 
-			System.out.println("Updating");
+			System.out.println("Updating in random order");
 			
+			// Create big array in random order
 			MTRandom rnd = new MTRandom();
 			ArrayList<Long> ali = new ArrayList<Long>();
-			for (long x = 0; x < numberOfLoops*numberPerLoop; x++) {
+			for (long x = 0; x < numberOfLoops*numberPerTransaction; x++) {
 				ali.add(x);
 			}
 			
 			Collections.shuffle(ali, rnd);
 			
+			// Go through the array in transacted chunks doing retrieve,update on each one
 			for (int i = 0; i < numberOfLoops; i++) {
 				ArrayList<Ref> al = new ArrayList<Ref>();
-				for (int j = 0; j < numberPerLoop; j++) {
+				for (int j = 0; j < numberPerTransaction; j++) {
 					Long oid = ali.remove(0);
 					RefImpl<?> ref = new RefImpl<Object>(1, 0, oid);
 					al.add(ref);
 				}
 				Transaction t = store.getAuthStore().begin();
 				Map<Ref, Object> map = t.retrieve(al);
-				for (int j = 0; j < numberPerLoop; j++) {
+				for (int j = 0; j < numberPerTransaction; j++) {
 					Ref ref = al.get(j);
 					final MutableString result = (MutableString) map.get(ref);
 					Assert.assertTrue(result.equals("2"));
@@ -316,17 +328,17 @@ public class ReadWritePerfTest {
 				t.commit();
 			}
 			
-			System.out.println("Reading back");
+			System.out.println("Reading back sequentially");
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
 				ArrayList<Ref> al = new ArrayList<Ref>();
-				for (int j = 0; j < numberPerLoop; j++) {
-					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerLoop + j);
+				for (int j = 0; j < numberPerTransaction; j++) {
+					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
 					al.add(ref);
 				}
 				Map<Ref, Object> map = t.retrieve(al);
-				for (int j = 0; j < numberPerLoop; j++) {
+				for (int j = 0; j < numberPerTransaction; j++) {
 					Ref ref = al.get(j);
 					MutableString result = (MutableString) map.get(ref);
 					Assert.assertTrue(result.equals("3"));
@@ -336,7 +348,7 @@ public class ReadWritePerfTest {
 			
 			long duration = System.currentTimeMillis() - start;
 	
-			int numObjects = numberPerLoop * numberOfLoops;
+			int numObjects = numberPerTransaction * numberOfLoops;
 			System.out.println(numObjects + " Objects created, read back, modified and verified in " + duration + "ms");
 			System.out.println(" Ave = " + duration * 1000 / numObjects + "us");
 			database.close();
