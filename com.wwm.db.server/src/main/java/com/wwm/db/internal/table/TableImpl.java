@@ -42,10 +42,9 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 						return true;
 					}
 				} catch (UnknownObjectException e) {
-					// This happens if this transaction allocated the oids but hasn't 
+					// FALLTHRU - This happens if this transaction allocated the oids but hasn't 
 					// written the Element yet, or never will.  Creates on same transaction would be
 					// good example.
-					return false; 					
 				}
 				currentOid++;
 			}
@@ -210,6 +209,10 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 
 	}
 
+	/**
+	 * @return true if current transaction can see the referenced object
+	 * @throws UnknownObjectException if oid was allocated but never used
+	 */
 	protected boolean canSeeLatestByOid(long oid) throws UnknownObjectException {
 		ElementReadOnly<T> element = table.lockElementForRead(oid);
 		boolean result = element.canSeeLatest();
