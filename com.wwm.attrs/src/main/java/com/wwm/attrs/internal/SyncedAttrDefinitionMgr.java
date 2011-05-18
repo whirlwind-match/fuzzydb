@@ -15,7 +15,6 @@ import java.io.Serializable;
 import com.wwm.context.ContextManager;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.marker.ITraceWanted;
 import com.wwm.util.DynamicRef;
@@ -72,8 +71,6 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
                 w.setObject(mgr);
             } catch (UnknownObjectException e) {
                 w.setObject( getFromStore( store ) );
-            } catch (ArchException e) {
-                throw new RuntimeException(e);
             }
         }
         return w;
@@ -86,17 +83,15 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      * visibility is 'package' as we use this to test that it is getting correctly stored
      */
     static SyncedAttrDefinitionMgr getFromStore(Store store) {
-        SyncedAttrDefinitionMgr mgr = null;
-        try {
-            mgr = store.getAuthStore().begin().retrieveFirstOf( SyncedAttrDefinitionMgr.class ); // Only ever want first, and no need for index this way
-            if (mgr == null){
-                mgr = new SyncedAttrDefinitionMgr( store );
-                Transaction tx = store.getAuthStore().begin();
-                tx.create(mgr);
-                tx.commit();
-            }
-        } catch (ArchException e) {
-            throw new RuntimeException(e); // FIXME: not sure what we'll get
+    	// Only ever want first, and no need for index this way
+        SyncedAttrDefinitionMgr mgr = store.getAuthStore().begin()
+        	.retrieveFirstOf( SyncedAttrDefinitionMgr.class ); 
+
+        if (mgr == null){
+            mgr = new SyncedAttrDefinitionMgr( store );
+            Transaction tx = store.getAuthStore().begin();
+            tx.create(mgr);
+            tx.commit();
         }
         mgr.setStore( store );
         return mgr;
@@ -110,12 +105,8 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
 
     @Override
     protected void syncToStoreInternal() {
-        try {
-            Transaction tx = store.getAuthStore().begin();
-            tx.update(this);
-            tx.commit();
-        } catch (ArchException e) {
-            throw new RuntimeException(e); // FIXME: Dunno what to expect
-        }
+        Transaction tx = store.getAuthStore().begin();
+        tx.update(this);
+        tx.commit();
     }
 }

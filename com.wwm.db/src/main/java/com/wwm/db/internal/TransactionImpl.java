@@ -56,6 +56,7 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
+import com.wwm.io.core.exceptions.CommandTimedOutException;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Response;
 
@@ -90,6 +91,10 @@ public class TransactionImpl implements Transaction {
 		return store.newOutputStream(out);
 	}
 	
+	/**
+	 * 
+	 * @throws CommandTimedOutException
+	 */
 	public Response execute(Command command) {
 		if (!started) {
 			if (command instanceof CommitCmd) {

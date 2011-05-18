@@ -13,8 +13,6 @@ package com.wwm.db.internal.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
 import com.wwm.db.internal.table.UserTable;
@@ -46,12 +44,7 @@ public class ServerAllocNewIdsTransaction extends ServerTransaction {
 		AllocNewIdsCmd cmd = (AllocNewIdsCmd)command;
 		String nameSpace = cmd.getNamespace();
 		Class<?> clazz = cmd.getClazz();
-		ServerStore store;
-		try {
-			store = stc.getRepository().getStore(command.getStoreId());
-		} catch (UnknownStoreException e) {
-			throw new RuntimeException(e);
-		}
+		ServerStore store = stc.getRepository().getStore(command.getStoreId());
 		Namespace namespace = store.getCreateNamespace(nameSpace);
 		UserTable<?> table = namespace.getCreateTable(clazz);
 		nextOid = table.allocNewIds(cmd.getCount());

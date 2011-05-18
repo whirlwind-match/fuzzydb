@@ -119,7 +119,7 @@ public class TxLogPlayback extends WorkerThread implements MessageSink {
 				log.info("    == Replaying Transaction log: " + file.getName() + " ==" );
 				play(file);
 			}
-		} catch (Throwable e){
+		} catch (Exception e){
 			log.error( "Unexpected Exception", e );
 			throw new RuntimeException(e);
 		} finally {

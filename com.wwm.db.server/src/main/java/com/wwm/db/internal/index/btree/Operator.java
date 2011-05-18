@@ -35,12 +35,7 @@ abstract class Operator<T> {
     }
 
     protected RefdNode getNode(GenericRef<NodeW> ref) {
-        NodeR node = null;
-        try {
-            node = table.getObject(ref);
-        } catch (UnknownObjectException e) {
-            throw new RuntimeException(e);
-        }
+        NodeR node = table.getObject(ref);
         if (node == null) {
             return null;
         }
@@ -48,25 +43,17 @@ abstract class Operator<T> {
     }
 
     protected RefdNode getRoot() {
-        try {
-            RootSentinel rs = (RootSentinel)table.getObject(tree.getSentinel());
-            GenericRef<NodeW> rootRef = rs.getRoot();
-            if (rootRef == null) {
-                return null;
-            }
-            return getNode(rootRef);
-        } catch (UnknownObjectException e) {
-            throw new RuntimeException(e);
+        RootSentinel rs = (RootSentinel)table.getObject(tree.getSentinel());
+        GenericRef<NodeW> rootRef = rs.getRoot();
+        if (rootRef == null) {
+            return null;
         }
+        return getNode(rootRef);
     }
 
     protected void setRoot(GenericRef<NodeW> ref) {
-        try {
-            RootSentinel rs = new RootSentinel(ref);
-            table.update(tree.getSentinel(), rs);
-        } catch (UnknownObjectException e) {
-            throw new RuntimeException(e);
-        }
+        RootSentinel rs = new RootSentinel(ref);
+        table.update(tree.getSentinel(), rs);
     }
 
     /**
