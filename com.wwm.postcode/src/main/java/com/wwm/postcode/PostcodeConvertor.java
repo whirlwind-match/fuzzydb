@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.dao.SimpleDAO;
+import com.wwm.util.StringUtils;
 
 /**
  * Rather piggy-in-the-middle implementation which sits bridging static instances and OSGi service objects.
@@ -29,7 +30,7 @@ public class PostcodeConvertor {
 	static private PostcodeService service;
 	static private SimpleDAO dao;
 			
-	private JibbleConvertor jibble;
+	private final JibbleConvertor jibble;
 
 	public static class LostDbConnection extends Exception {
 		private static final long serialVersionUID = 5523931674418224181L;
@@ -73,7 +74,8 @@ public class PostcodeConvertor {
 			return service.lookupFull(postcode);
 		}
 		log.debug("No PostcodeService present, falling back to jibble for {}", postcode);
-		assert postcode.indexOf(' ') == -1; // should have been stripped
+		postcode = StringUtils.stripSpaces(postcode);
+
 		int trimmedLength = postcode.length() - 3; // strip off tail
 		if (trimmedLength != 3 && trimmedLength != 4) return null;
 		

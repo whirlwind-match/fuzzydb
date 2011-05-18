@@ -17,6 +17,11 @@ import java.io.InputStreamReader;
 public class StringUtils {
 
 	public static String stripSpaces(String code) {
+		// exit without creating objects if no spaces found
+		if (code.indexOf(' ') < 0) {
+			return code;
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < code.length(); i++) {
 			char c = code.charAt(i);
