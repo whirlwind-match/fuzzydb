@@ -30,7 +30,9 @@ import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.client.AbderaClient;
 import org.apache.abdera.protocol.client.ClientResponse;
 import org.apache.abdera.protocol.client.util.BaseRequestEntity;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.wwm.abdera.util.AtomUtils;
@@ -39,6 +41,7 @@ import com.wwm.atom.client.AtomFactory;
 import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.EntryDecorator;
+import com.wwm.atom.impl.JettyServer;
 import com.wwm.util.NanoTimer;
 
 public abstract class BaseAtomTest {
@@ -47,6 +50,19 @@ public abstract class BaseAtomTest {
 
     protected String privateId = "10_50-" + String.valueOf(new Date().getTime()); // generate our own id
 
+    static private JettyServer server = new JettyServer();
+    
+    
+    @BeforeClass
+    static public void startServer() throws Exception {
+    	server.start();
+    }
+    
+    @AfterClass
+    static public void stopServer() throws Exception {
+    	server.stop();
+    }
+    
     
     // Static so we don't have huge db, as there is an instance of this test class per test method.
     //	static protected RandomPostcodeGenerator gen = new RandomPostcodeGenerator();
