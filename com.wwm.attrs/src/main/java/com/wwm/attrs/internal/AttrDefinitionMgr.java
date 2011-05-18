@@ -31,6 +31,7 @@ import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
 import com.wwm.db.core.LogFactory;
 import com.wwm.model.attributes.BooleanAttribute;
+import com.wwm.model.attributes.DateAttribute;
 import com.wwm.model.attributes.DistanceAttribute;
 import com.wwm.model.attributes.EnumAttribute;
 import com.wwm.model.attributes.FloatAttribute;
@@ -63,6 +64,7 @@ public class AttrDefinitionMgr implements Serializable {
         enumExclusiveValue, enumMultiValue,
         stringValue, vectorValue,
         floatRangePrefValue, locationPrefValue,
+        dateValue,
     }
 
     /**
@@ -84,6 +86,7 @@ public class AttrDefinitionMgr implements Serializable {
     private static final int VECTOR =           0x00000600;
     private static final int FLOAT_RANGE_PREF = 0x00000700;
     private static final int LOCATION_PREF = 	0x00000800;
+    private static final int DATE =             0x00000900;
 
     private static final int INDEX_MASK = 0x000000ff; // up to 256 attrs (of each type if we want)
     private int nextId = 0;
@@ -118,6 +121,8 @@ public class AttrDefinitionMgr implements Serializable {
             return AttrType.floatRangePrefValue;
         case LOCATION_PREF:
             return AttrType.locationPrefValue;
+        case DATE:
+    		return AttrType.dateValue;
         default:
             throw new RuntimeException("Type mapping needed.");
         }
@@ -241,6 +246,8 @@ public class AttrDefinitionMgr implements Serializable {
         } else if ( clazz.isAssignableFrom(RangePreference.class)
                 || clazz.isAssignableFrom(DistanceAttribute.class)) {
             return LOCATION_PREF;
+        } else if ( clazz.isAssignableFrom(DateAttribute.class)) {
+            return DATE;
         } else if ( clazz.isAssignableFrom(StringValue.class)) {
             return STRING;
         } else if ( clazz.isAssignableFrom(NonIndexStringAttribute.class)

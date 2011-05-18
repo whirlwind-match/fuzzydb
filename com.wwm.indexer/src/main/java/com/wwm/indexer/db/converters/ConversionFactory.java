@@ -155,6 +155,7 @@ public class ConversionFactory {
     	switch (type){
     	case unknownTypeValue: return StringConverter.getInstance();
     	case booleanValue: return BooleanConverter.getInstance();
+    	case dateValue: return DateConverter.getInstance();
     	case floatValue: return FloatConverter.getInstance();
     	case floatRangePrefValue: return FloatRangeConverter.getInstance();
     	case stringValue: return StringConverter.getInstance();
