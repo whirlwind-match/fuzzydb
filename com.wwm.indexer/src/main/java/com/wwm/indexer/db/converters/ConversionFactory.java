@@ -213,19 +213,19 @@ public class ConversionFactory {
      * @param attribute
      * @return
      */
-    public static Attribute convert(String name, IAttribute attribute) {
+    public static Attribute<?> convert(String name, IAttribute attribute) {
         return getConverter(attribute.getAttrId(), attribute).convert(name, attribute);
     }
 
-    public static IAttribute convert(int attrid, Attribute object) {
+    public static IAttribute convert(int attrid, Attribute<?> object) {
         return getConverter(attrid, object).convertToInternal(attrid, object);
     }
 
-    public static EnumeratedAttribute convert(String name, EnumDefinition def, EnumValue enumValue) {
+    public static EnumeratedAttribute<?> convert(String name, EnumDefinition def, EnumValue enumValue) {
         return getEnumConverter(enumValue.getAttrId(), enumValue).convert(name, def, enumValue);
     }
 
-    public static IAttribute convert(int attrid, EnumDefinition enumDef, EnumeratedAttribute enumAttr) {
+    public static IAttribute convert(int attrid, EnumDefinition enumDef, EnumeratedAttribute<?> enumAttr) {
         return getEnumConverter(attrid, enumAttr).convertToInternal(attrid, enumDef, enumAttr);
     }
 

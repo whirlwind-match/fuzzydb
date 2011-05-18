@@ -48,7 +48,7 @@ public class EnumElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		return new EnumAttribute( getName(), getEnumName(), getValue() );
 	}
 }

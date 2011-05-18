@@ -37,7 +37,7 @@ public class SimpleAttributeElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		return new NonIndexStringAttribute( getName(), getValue() );
 	}
 }

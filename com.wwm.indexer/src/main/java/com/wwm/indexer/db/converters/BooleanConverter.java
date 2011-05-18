@@ -38,7 +38,7 @@ public class BooleanConverter implements AttributeConverter {
         return new BooleanAttribute(name, ((BooleanValue)attribute).isTrue() );
     }
 
-    public BooleanValue convertToInternal(int attrid, Attribute object) {
+    public BooleanValue convertToInternal(int attrid, Attribute<?> object) {
     	if (object instanceof UnspecifiedTypeAttribute){
     		return new BooleanValue(attrid, ((UnspecifiedTypeAttribute) object).asBoolean());
     	}

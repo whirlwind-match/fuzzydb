@@ -43,7 +43,7 @@ public class MultiEnumConverter implements EnumeratedConverter {
         return new MultiEnumAttribute(name, enumDef.getName(), result);
     }
 
-    public EnumValue convertToInternal(int attrId, EnumDefinition enumDef, EnumeratedAttribute attr) {
+    public EnumValue convertToInternal(int attrId, EnumDefinition enumDef, EnumeratedAttribute<?> attr) {
         MultiEnumAttribute enumAttr = (MultiEnumAttribute) attr;
         return enumDef.getMultiEnum(enumAttr.getValues(), attrId);
     }

@@ -38,7 +38,7 @@ public class IntegerConverter implements AttributeConverter {
 		return new IntegerAttribute(name, f.intValue());
 	}
 
-	public FloatHave convertToInternal(int attrid, Attribute object) {
+	public FloatHave convertToInternal(int attrid, Attribute<?> object) {
 		
 		IntegerAttribute intAttr = (IntegerAttribute) object;
 		return new FloatHave(attrid, intAttr.getValue());

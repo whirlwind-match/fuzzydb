@@ -33,13 +33,13 @@ public class FloatRangeConverter implements AttributeConverter {
         return FloatRangeAttribute.class;
     }
 
-    public Attribute convert(String name, IAttribute attribute) {
+    public Attribute<?> convert(String name, IAttribute attribute) {
         FloatRangePreference pref = (FloatRangePreference) attribute;
         // NOTE: name=null, as we don't need to use it in this direction
         return new FloatRangeAttribute(name, pref.getMin(), pref.getPreferred(), pref.getMax());
     }
 
-    public FloatRangePreference convertToInternal(int attrid, Attribute object) {
+    public FloatRangePreference convertToInternal(int attrid, Attribute<?> object) {
         FloatRangeAttribute fr = (FloatRangeAttribute) object;
         return new FloatRangePreference(attrid, fr.getMin(), fr.getPref(), fr.getMax());
     }

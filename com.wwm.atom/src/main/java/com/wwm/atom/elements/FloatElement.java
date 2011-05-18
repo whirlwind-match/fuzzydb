@@ -37,7 +37,7 @@ public class FloatElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		return new FloatAttribute( getName(), getValue() );
 	}
 }

@@ -20,7 +20,7 @@ public interface Record {
     /**
      * @return A collection of attributes
      */
-    Map<String, Attribute> getAttributes();
+    Map<String, Attribute<?>> getAttributes();
 
     /**
      * @return A string containing additional information, not directly

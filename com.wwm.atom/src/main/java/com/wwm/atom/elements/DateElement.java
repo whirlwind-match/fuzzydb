@@ -58,7 +58,7 @@ public class DateElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		return new DateAttribute(getName(), getYear(), getMonth(), getDay() );
 	}
 }

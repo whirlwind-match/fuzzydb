@@ -39,7 +39,7 @@ public class FloatConverter implements AttributeConverter {
         return new FloatAttribute( name, ((FloatHave)attribute).getValue() );
     }
 
-    public FloatHave convertToInternal(int attrid, Attribute object) {
+    public FloatHave convertToInternal(int attrid, Attribute<?> object) {
     	if (object instanceof UnspecifiedTypeAttribute) {
             return new FloatHave(attrid, ((UnspecifiedTypeAttribute)object).asFloat() );
     	}

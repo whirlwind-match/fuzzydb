@@ -53,7 +53,7 @@ public class FloatRangeElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		return new FloatRangeAttribute(getName(), getMin(), getMax(), getPref() );
 	}
 

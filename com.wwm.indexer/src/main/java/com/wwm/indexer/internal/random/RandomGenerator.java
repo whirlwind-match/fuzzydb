@@ -13,5 +13,5 @@ package com.wwm.indexer.internal.random;
 import com.wwm.model.attributes.Attribute;
 
 public interface RandomGenerator {
-    Attribute next(String attrName);
+    Attribute<?> next(String attrName);
 }

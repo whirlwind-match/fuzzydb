@@ -87,8 +87,7 @@ public class RecordConverter {
      */
     public void convertRecordToInternal(StandaloneWWIndexData index, Record record) {
         index.setDescription(record.getTitle());
-        for (Object o : record.getAttributes().values()) {
-            Attribute attr = (Attribute) o;
+        for (Attribute<?> attr : record.getAttributes().values()) {
             addInternalAttribute(index, attr);
             addDerivedAttributes(index, attr);
         }
@@ -98,7 +97,7 @@ public class RecordConverter {
     /**
      * Adds the internal representation of attr, to the index object.
      */
-    private void addInternalAttribute(StandaloneWWIndexData index, Attribute attr) {
+    private void addInternalAttribute(StandaloneWWIndexData index, Attribute<?> attr) {
         String name = attr.getName();
         if (attr instanceof NonIndexedAttribute){
             // NOTE: Only String supported so far.
@@ -119,7 +118,7 @@ public class RecordConverter {
      * Iterate over inbound derivations that are configured for this attr,
      * and store them either as index attrs, or as strings.
      */
-    private void addDerivedAttributes(StandaloneWWIndexData index, Attribute attr) {
+    private void addDerivedAttributes(StandaloneWWIndexData index, Attribute<?> attr) {
         String name = attr.getName();
         List<InboundDerivation<?>> derivations = inboundDerivations.get(name);
         if (derivations == null) {
@@ -162,7 +161,7 @@ public class RecordConverter {
         for (int i = map.size(); i-- > 0;) {
             iterator.advance();
             String name = getAttrDefs().getAttrName(iterator.key());
-            Attribute value = new NonIndexStringAttribute(name, iterator.value());
+            NonIndexStringAttribute value = new NonIndexStringAttribute(name, iterator.value());
 			record.getAttributes().put(name, value );
             // new NonIndexStringAttribute(name, iterator.value() ) );
         }
@@ -172,14 +171,14 @@ public class RecordConverter {
     /** 
      *  Get IAttribute to give to database, given external types (beans?)
      */
-    private IAttribute getIAttribute(String name, Attribute value) {
+    private IAttribute getIAttribute(String name, Attribute<?> value) {
 
         int attrid = getAttrDefs().getAttrId(name, value.getClass());
         // Was ,null) and comment: // we're expecting the attribute to have been configured, so we pass null
         // Now. Supply class so can give it correct encoding
 
         if (value instanceof EnumeratedAttribute){
-            EnumeratedAttribute enumAttr = (EnumeratedAttribute) value;
+            EnumeratedAttribute<?> enumAttr = (EnumeratedAttribute<?>) value;
             EnumDefinition enumDef = getAttrDefs().getEnumDefinition(enumAttr.getEnumName());
             return ConversionFactory.convert(attrid, enumDef, enumAttr);
         } else {

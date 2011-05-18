@@ -80,7 +80,7 @@ public interface Indexer extends IShutdown {
      * @return A collection of records
      * @throws IndexerException
      */
-    SearchResults searchRecords(Map<String, Attribute> attributes, String scorerConfig, int maxResults, int numresults, float minScore);
+    SearchResults searchRecords(Map<String, Attribute<?>> attributes, String scorerConfig, int maxResults, int numresults, float minScore);
 
     /**
      * Gets the next page of results from the current search.

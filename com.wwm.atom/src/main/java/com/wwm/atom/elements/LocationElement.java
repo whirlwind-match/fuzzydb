@@ -39,7 +39,7 @@ public class LocationElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		return new LocationAttribute( getName(), getPostcode() );
 	}
 }

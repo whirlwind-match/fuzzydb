@@ -53,12 +53,12 @@ public class FuzzyRecordBuilder extends EntryDecorator {
 
 
     public void add(Record attributes) {
-        for (java.util.Map.Entry<String, Attribute> entry : attributes.getAttributes().entrySet() ) {
+        for (java.util.Map.Entry<String, Attribute<?>> entry : attributes.getAttributes().entrySet() ) {
             addAttribute( entry.getKey(), entry.getValue() );
         }
     }
 
-    private void addAttribute(String key, Attribute value) {
+    private void addAttribute(String key, Attribute<?> value) {
 
         //		System.out.println("adding: " + key + "=" + value );
         if (value instanceof FloatAttribute){
@@ -101,7 +101,7 @@ public class FuzzyRecordBuilder extends EntryDecorator {
 
         Entry root = doc.getRoot();
         List<Element> extensions = root.getExtensions(AbderaElementFactory.NS);
-        Map<String, Attribute> attributes = new HashMap<String, Attribute>();
+        Map<String, Attribute<?>> attributes = new HashMap<String, Attribute<?>>();
         for (Element element : extensions) {
             if (element instanceof FuzzyRecordProperties) {
                 FuzzyRecordProperties metadata = (FuzzyRecordProperties)element;
@@ -113,7 +113,7 @@ public class FuzzyRecordBuilder extends EntryDecorator {
                 AttributeElement attr = (AttributeElement)element;
                 //				BeanFactory bf = BeanFactory.getInstance();
                 //				Object object = bf.getObject(attr);
-                Attribute object = attr.getAttribute();
+                Attribute<?> object = attr.getAttribute();
                 System.out.println( attr.getName() + " : " + object );
                 attributes.put(attr.getName(), object);
             }
@@ -127,7 +127,7 @@ public class FuzzyRecordBuilder extends EntryDecorator {
      */
     public static Record getRecord(RequestContext request){
         RecordImpl record = new RecordImpl();
-        Map<String, Attribute> attributes = new HashMap<String, Attribute>();
+        Map<String, Attribute<?>> attributes = new HashMap<String, Attribute<?>>();
 
         // TODO: Consider changing to iterate over request parameters turning things like Postcode=CB4+2QW into
         // a new PostcodeAttribute("Postcode", "CB4 2QW");

@@ -141,7 +141,7 @@ public class IndexerImpl implements Indexer {
     }
     
 
-    public SearchResults searchRecords(Map<String, Attribute> attributes, String scorerConfig, int maxResults, int numResults, float minScore) {
+    public SearchResults searchRecords(Map<String, Attribute<?>> attributes, String scorerConfig, int maxResults, int numResults, float minScore) {
         SearchSpec searchSpec = AttrsFactory.createSearchSpec(StandaloneWWIndexData.class);
         searchParamsConverter.buildSearchAttributes(searchSpec, attributes);
         return doSearch(scorerConfig, maxResults, numResults, searchSpec);

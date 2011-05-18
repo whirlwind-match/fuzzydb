@@ -41,7 +41,7 @@ public class DateRangeConverter implements AttributeConverter {
 				new Date((long) pref.getMax()));
 	}
 
-	public FloatRangePreference convertToInternal(int attrid, Attribute object) {
+	public FloatRangePreference convertToInternal(int attrid, Attribute<?> object) {
 		DateRangeAttribute dr = (DateRangeAttribute) object;
 		return new FloatRangePreference(attrid, 
 				dr.getMin().getTime(),

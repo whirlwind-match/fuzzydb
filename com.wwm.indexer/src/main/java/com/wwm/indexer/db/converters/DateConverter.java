@@ -39,7 +39,7 @@ public class DateConverter implements AttributeConverter {
 		return new DateAttribute(name, date);
 	}
 
-	public FloatHave convertToInternal(int attrid, Attribute object) {
+	public FloatHave convertToInternal(int attrid, Attribute<?> object) {
 		DateAttribute dateValue = (DateAttribute) object;
 		float floatValue = dateValue.getValue().getTime();
 		return new FloatHave(attrid, floatValue);

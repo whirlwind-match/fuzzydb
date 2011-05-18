@@ -36,7 +36,7 @@ public class StringElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		// TODO Auto-generated method stub
 		return null;
 	}

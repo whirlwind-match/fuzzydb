@@ -37,7 +37,7 @@ public class Point3DConverter implements AttributeConverter {
 		return new Point3DAttribute(name, (EcefVector) attribute);
 	}
 
-	public EcefVector convertToInternal(int attrid, Attribute object) {
+	public EcefVector convertToInternal(int attrid, Attribute<?> object) {
 		Point3DAttribute p3d = (Point3DAttribute) object;
 		return new EcefVector(attrid, p3d.getPoint().getX(), p3d.getPoint().getY(), p3d.getPoint().getZ());
 	}

@@ -38,7 +38,7 @@ public class StringConverter implements AttributeConverter {
         return new NonIndexStringAttribute(name, ((StringValue) attribute).getValue() );
     }
 
-    public StringValue convertToInternal(int attrid, Attribute object) {
+    public StringValue convertToInternal(int attrid, Attribute<?> object) {
         return new StringValue(attrid, ((UnspecifiedTypeAttribute)object).getValue() );
     }
 }

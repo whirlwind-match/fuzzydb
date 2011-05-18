@@ -156,7 +156,7 @@ public class IndexEntryHandler implements TypeHandler {
         //		search.doSearch();
         //		search.setSearchType(matchStyle);
         //		search.setFilterOwnProfiles(false);
-        Map<String, Attribute> search = query.getAttributes();
+        Map<String, Attribute<?>> search = query.getAttributes();
 
 //        int pageNo = 0;
         int resultsPerPage = 10; // FIXME: Rob needs some paging support

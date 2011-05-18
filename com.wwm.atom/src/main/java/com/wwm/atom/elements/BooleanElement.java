@@ -37,7 +37,7 @@ public class BooleanElement extends AttributeElement {
 	}
 
 	@Override
-	public Attribute getAttribute() {
+	public Attribute<?> getAttribute() {
 		Boolean bool;
 		String value = getValue();
 		if ("yes".equals(value.toLowerCase())) {

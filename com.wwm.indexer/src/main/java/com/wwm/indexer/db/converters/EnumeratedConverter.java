@@ -18,11 +18,11 @@ public interface EnumeratedConverter {
 
     public Class<? extends EnumValue> getIAttributeClass();
 
-    public Class<? extends EnumeratedAttribute> getObjectClass();
+    public Class<? extends EnumeratedAttribute<?>> getObjectClass();
 
-    public EnumeratedAttribute convert(String name, EnumDefinition enumDef, EnumValue attribute);
+    public EnumeratedAttribute<?> convert(String name, EnumDefinition enumDef, EnumValue attribute);
 
     public EnumValue convertToInternal(int attrId, EnumDefinition enumDef,
-            EnumeratedAttribute attr);
+            EnumeratedAttribute<?> attr);
 
 }

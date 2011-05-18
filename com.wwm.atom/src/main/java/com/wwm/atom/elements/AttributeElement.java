@@ -30,5 +30,5 @@ public abstract class AttributeElement extends NamedElement {
 		super(factory, qname);
 	}
 
-	public abstract Attribute getAttribute();
+	public abstract Attribute<?> getAttribute();
 }

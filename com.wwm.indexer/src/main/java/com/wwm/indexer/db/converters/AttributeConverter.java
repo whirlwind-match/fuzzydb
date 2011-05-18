@@ -19,7 +19,7 @@ public interface AttributeConverter {
     Class<?> getObjectClass();
     Class<?> getIAttributeClass();
 
-    Attribute convert(String name, IAttribute attribute);
+    Attribute<?> convert(String name, IAttribute attribute);
     
     /**
      * 
@@ -28,5 +28,5 @@ public interface AttributeConverter {
      * @return
      * @throws AttributeException
      */
-    IAttribute convertToInternal(int attrid, Attribute object) throws AttributeException;
+    IAttribute convertToInternal(int attrid, Attribute<?> object) throws AttributeException;
 }

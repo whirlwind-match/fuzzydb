@@ -40,7 +40,7 @@ public class EnumConverter implements EnumeratedConverter {
                 enumDef.getValues().get(value.getEnumIndex()) );
     }
 
-    public EnumExclusiveValue convertToInternal(int attrId, EnumDefinition enumDef, EnumeratedAttribute attr) {
+    public EnumExclusiveValue convertToInternal(int attrId, EnumDefinition enumDef, EnumeratedAttribute<?> attr) {
         EnumAttribute enumAttr = (EnumAttribute) attr;
         return enumDef.getEnumValue(enumAttr.getValue(), attrId);
     }

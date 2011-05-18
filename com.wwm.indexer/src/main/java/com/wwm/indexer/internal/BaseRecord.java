@@ -23,13 +23,13 @@ import com.wwm.model.attributes.FloatAttribute;
  */
 public abstract class BaseRecord implements Record {
 
-    private Map<String, Attribute> attributes = new TreeMap<String, Attribute>();
+    private Map<String, Attribute<?>> attributes = new TreeMap<String, Attribute<?>>();
 
-	public Map<String, Attribute> getAttributes() {
+	public Map<String, Attribute<?>> getAttributes() {
 		return attributes;
 	}
 	
-    public void setAttributes(Map<String, Attribute> attributes) {
+    public void setAttributes(Map<String, Attribute<?>> attributes) {
         this.attributes = attributes;
     }
 
