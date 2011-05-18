@@ -1,21 +1,32 @@
 package com.wwm.db;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.springframework.context.Lifecycle;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.server.Database;
 import com.wwm.io.core.Authority;
 
 public class EmbeddedClientFactory implements ClientFactory {
 
+	
+	static private final Logger log = LogFactory.getLogger(EmbeddedClientFactory.class);
+	
 	private static EmbeddedClientFactory instance;
 	
 	private final Database database;
+	
+	/** If we find our HTTP server for web services, then we can start it */
+	private final Lifecycle httpServer;
 
 	private final ReceiverMessageSource databaseMessageSource;
 
@@ -38,6 +49,27 @@ public class EmbeddedClientFactory implements ClientFactory {
 		} catch (IOException e) {
 			throw new RuntimeException("Failure starting database:" + e.getMessage(), e);
 		}
+		
+		Class<?> cl; 
+		try {
+			cl = Class.forName("com.wwm.atom.impl.HttpServer");
+		} catch (ClassNotFoundException e) {
+			httpServer = null;
+			return; // not available
+		}
+		try {
+			Method m = cl.getMethod("getInstance");
+			httpServer = (Lifecycle) m.invoke(null);
+			// NOTE: The implementation will also want to use the embedded database 
+			// - it therefore shouldn't try got get a client instance until the first request 
+			httpServer.start(); 
+		} catch (InvocationTargetException e) {
+			log.warn("Can't start HttpServer", e);
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			log.error("Error getting HttpServer instance", e);
+			throw new RuntimeException(e);
+		}
 	}
 	
     /**
@@ -56,6 +88,9 @@ public class EmbeddedClientFactory implements ClientFactory {
     public synchronized void shutdownDatabase() {
     	instance = null;
     	database.close();
+    	if (httpServer != null && httpServer.isRunning()) {
+    		httpServer.stop();
+    	}
     }
 
 
