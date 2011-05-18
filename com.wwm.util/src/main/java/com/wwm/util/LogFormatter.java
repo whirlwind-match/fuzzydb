@@ -13,6 +13,13 @@ package com.wwm.util;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
+/** LogFormatter as used prior to move to SLF4J.
+ * 
+ * # Limit the message that are printed on the console to FINE and above.
+ * java.util.logging.ConsoleHandler.level = FINE
+ * java.util.logging.ConsoleHandler.formatter = com.wwm.util.LogFormatter
+ */
+@Deprecated
 public class LogFormatter extends Formatter {
 
     static private long startMillis;
