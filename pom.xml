@@ -30,6 +30,8 @@
         <module>com.wwm.postcode</module>
         <module>com.wwm.indexer</module>
         <module>com.wwm.db.spring</module>
-		<module>com.wwm.db.tests</module>
+	<module>com.wwm.db.tests</module>
+
+	<module>com.wwm.atom.build</module>
      </modules>
 </project>
