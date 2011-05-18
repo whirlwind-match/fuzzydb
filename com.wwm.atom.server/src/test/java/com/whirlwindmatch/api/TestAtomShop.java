@@ -26,7 +26,7 @@ public class TestAtomShop extends BaseAtomTest {
 
     private static final float defaultOfferValue = 0f;  // 0.8f
 
-    private String csvPath = "/com/whirlwindmatch/api/shopPostcodes.csv";
+    private final String csvPath = "/com/whirlwindmatch/api/shopPostcodes.csv";
 
 
     protected String privateId = "10_50-" + String.valueOf(new Date().getTime()); // generate our own id
@@ -47,7 +47,7 @@ public class TestAtomShop extends BaseAtomTest {
     	return entry;
     }
     
-    private static final float defaultPostcodeRange = 50f;  
+    private static final float defaultGeographicSearchDistance = 50f;  
 
     @Override
     protected void addAttrs(EntryDecorator builder) throws Exception {
@@ -56,7 +56,7 @@ public class TestAtomShop extends BaseAtomTest {
         // <wwm:Location name="location" {ukPostcode="CB4"} {lat="53.1" lon="0.1"} />
         if (postcode != null) {
         	builder.addSimpleAttribute("PostCode", postcode ); // getRandomFullPostcode());
-        	builder.addFloat("LocationRange", defaultPostcodeRange);
+        	builder.addFloat("LocationRange", defaultGeographicSearchDistance);
         }
 
 
@@ -69,7 +69,7 @@ public class TestAtomShop extends BaseAtomTest {
 
         // Rob's attrs
         builder.addFloat("OfferValue", defaultOfferValue);
-        // builder.addLocationPreference("PostCodeRange", 50f, "PostCode");
+        // builder.addLocationPreference("LocationRange", 50f, "PostCode");
     }
     
 	@Override

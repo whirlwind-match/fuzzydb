@@ -26,6 +26,8 @@ import org.apache.abdera.protocol.client.ClientResponse;
 import org.apache.abdera.protocol.client.RequestOptions;
 import org.apache.abdera.protocol.client.util.BaseRequestEntity;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.wwm.abdera.util.AtomUtils;
 import com.wwm.abdera.util.server.BadRequestException;
@@ -44,7 +46,10 @@ import com.wwm.atom.elements.AbderaElementFactory;
  */
 public class AtomFactory {
 
-    private static final String feedUriBase = "http://testmachine.local:9090/fuzz/feed"; 
+	
+	static private final Logger log = LoggerFactory.getLogger(AtomFactory.class);
+	
+    private static final String feedUriBase = "http://localhost:9090/fuzz/feed"; 
 
 
     static private String username;
@@ -132,7 +137,9 @@ public class AtomFactory {
 				if ("BadRequestException".equals(response.getHeader("Fuzz-ExceptionClass")) ) {
 					throw new BadRequestException( response.getHeader("Fuzz-Exception"));
 				}
-				AtomUtils.prettyPrint(response);
+		        if (log.isTraceEnabled()){
+		        	AtomUtils.prettyPrint(response);
+		        }
 			} catch (ParseException e) {
 				// Ignore this as we can't test content length as it's not set.  We have to try parse and ignore it
 			}

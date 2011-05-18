@@ -18,6 +18,7 @@ import org.apache.abdera.Abdera;
 import org.apache.abdera.model.Document;
 import org.apache.abdera.model.Element;
 import org.apache.abdera.model.Entry;
+import org.apache.abdera.parser.ParseException;
 import org.apache.abdera.protocol.client.ClientResponse;
 import org.apache.abdera.writer.Writer;
 import org.apache.abdera.writer.WriterOptions;
@@ -103,10 +104,11 @@ public class AtomUtils {
      */
 	public static void prettyPrint(ClientResponse response) {
 
-		if (response.getContentLength() > 0){
-			Document<Entry> docGot;
-			docGot = response.getDocument();
+		try {
+			Document<Entry> docGot = response.getDocument();
 			prettyPrint(docGot);
+		} catch (ParseException e) {
+			// Ignore empty doc
 		}
 	}
 }

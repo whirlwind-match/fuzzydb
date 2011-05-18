@@ -183,7 +183,7 @@ public class CollectionAdapterImpl extends BaseCollectionAdapter {
         String message = e.getMessage();
         // assert(message != null); // Exception must have a message as we're using it as a header which must be non-null
 
-        log.info(message); // ,e );
+        log.info(message);
 
         rc.addHeader( "Fuzz-Exception", message );
         rc.addHeader( "Fuzz-ExceptionClass", e.getClass().getSimpleName() );

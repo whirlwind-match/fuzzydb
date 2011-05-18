@@ -34,6 +34,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
 
 import com.wwm.abdera.util.AtomUtils;
 import com.wwm.abdera.util.server.BadRequestException;
@@ -41,16 +42,19 @@ import com.wwm.atom.client.AtomFactory;
 import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.EntryDecorator;
-import com.wwm.atom.impl.JettyServer;
+import com.wwm.atom.impl.HttpServer;
+import com.wwm.db.core.LogFactory;
 import com.wwm.util.NanoTimer;
 
 public abstract class BaseAtomTest {
+	
+	static private final Logger log = LogFactory.getLogger(BaseAtomTest.class);
 
     protected AbderaClient client = AtomFactory.getClient();
 
     protected String privateId = "10_50-" + String.valueOf(new Date().getTime()); // generate our own id
 
-    static private JettyServer server = new JettyServer();
+    static private HttpServer server = HttpServer.getInstance();
     
     
     @BeforeClass
@@ -74,6 +78,7 @@ public abstract class BaseAtomTest {
         {
             Entry entry = makeCreateEntry();
             location = AtomFactory.create(entry);
+            assertNotNull(location);
             System.out.println( "\n** Created entry. Location = " + location + "\n" );
         }
 
@@ -157,8 +162,10 @@ public abstract class BaseAtomTest {
 
         ClientResponse response;
         response = client.get(AtomFactory.getFeedUriBase() + getFeedQueryString(), AtomFactory.getOptions() );
-        AtomUtils.logHeaders(response);
-        AtomUtils.prettyPrint(response);
+        if (log.isTraceEnabled()){
+	        AtomUtils.logHeaders(response);
+	        AtomUtils.prettyPrint(response);
+        }
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
 
 
@@ -225,9 +232,11 @@ public abstract class BaseAtomTest {
 
 
         ClientResponse response;
-        response = client.get(AtomFactory.getFeedUriBase() + "?PostCode=CB2+3LL&PostCodeRange=30&numResults=100", AtomFactory.getOptions() );
-        AtomUtils.logHeaders(response);
-        AtomUtils.prettyPrint(response);
+        response = client.get(AtomFactory.getFeedUriBase() + "?PostCode=CB2+3LL&matchStyle=shopDefault&LocationRange=30&numResults=100", AtomFactory.getOptions() );
+        if (log.isTraceEnabled()){
+        	AtomUtils.logHeaders(response);
+        	AtomUtils.prettyPrint(response);
+        }
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
 
         Document<Feed> docGot = response.getDocument();
