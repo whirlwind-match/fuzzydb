@@ -2,7 +2,6 @@ package com.wwm.db;
 
 import java.io.IOException;
 import java.util.Collection;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.AbstractClient;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.Message;
@@ -80,7 +79,8 @@ public class DirectClient extends AbstractClient implements Client {
 					}
 
 					public void close() {
-						// TODO Auto-generated method stub
+						// TODO: should we interrupt here... better would be to standardise
+						// use of executors instead of too many of our own threads
 					}
 				};
 			}

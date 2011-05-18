@@ -59,7 +59,7 @@ public abstract class BaseDatabaseTest {
 
 		if (useEmbeddedDatabase) {
 			database = null;
-			client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
+			client = EmbeddedClientFactory.getInstance().createClient();
 		}
 		else {
 			database = startNewDatabase();
@@ -114,7 +114,7 @@ public abstract class BaseDatabaseTest {
 	protected void restartDatabase() throws IOException, UnknownHostException {
 		if (useEmbeddedDatabase) {
 			EmbeddedClientFactory.getInstance().shutdownDatabase();
-			client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
+			client = EmbeddedClientFactory.getInstance().createClient();
 		}
 		else {
 			database.close();

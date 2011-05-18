@@ -13,7 +13,7 @@ public class EmbeddedClientFactoryTest {
 	@Test
 	public void createStoreAgainstEmbeddedDatabaseShouldReturnNonNullStore() throws IOException {
 		
-		Client client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
+		Client client = EmbeddedClientFactory.getInstance().createClient();
 		
 		Store store = client.createStore("store@" + System.currentTimeMillis());
 
@@ -32,7 +32,7 @@ public class EmbeddedClientFactoryTest {
 		
 		assertNotNull(store);
 		
-		Client client = EmbeddedClientFactory.getInstance().createEmbeddedClient();
+		Client client = EmbeddedClientFactory.getInstance().createClient();
 		client.deleteStore(storeName);
 		EmbeddedClientFactory.getInstance().shutdownDatabase(); // TODO: do this via appropriate lifecycle hook for the application
 		

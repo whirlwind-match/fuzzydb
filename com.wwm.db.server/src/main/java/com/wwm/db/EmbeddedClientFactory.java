@@ -11,7 +11,7 @@ import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.server.Database;
 import com.wwm.io.core.Authority;
 
-public class EmbeddedClientFactory {
+public class EmbeddedClientFactory implements ClientFactory {
 
 	private static EmbeddedClientFactory instance;
 	
@@ -43,7 +43,7 @@ public class EmbeddedClientFactory {
     /**
      * Create an embedded client connected to a singleton database instance within same VM
      */
-    public Client createEmbeddedClient() {
+    public Client createClient() {
     	DirectClient client = new DirectClient(Authority.Authoritative, databaseMessageSource);
 		client.connect();
 		return client;
@@ -91,7 +91,7 @@ public class EmbeddedClientFactory {
 
 
 	private Store openEmbeddedStore(URL url) {
-		Client client = createEmbeddedClient();
+		Client client = createClient();
 		try {
 			return client.openStore(url.getPath().substring(1)); // FIXME: substring() to remove leading / should be tidier
 		} catch (UnknownStoreException e) {

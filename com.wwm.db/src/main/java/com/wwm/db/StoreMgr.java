@@ -10,6 +10,7 @@
  *****************************************************************************/
 package com.wwm.db;
 
+import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -110,39 +111,57 @@ public class StoreMgr implements IShutdown {
      * @return
      */
 	public Store openStore(URL url) {
-		if (StringUtils.hasLength(url.getHost())) {
-			Client client = getClient(url);
-			return client.openStore(url.getPath().substring(1), true);
-		}
-		return null; // FIXME: We want to be able to get an embedded instance here
+		Client client = getClient(url);
+		return client == null ? null : client.openStore(url.getPath().substring(1), true);
 	}
 
     /**
      * Internal util for getting cached client connection, unique for client:port (i.e. single
      * client shared for stores on same server)
+     * @return a connected Client
      */
     synchronized private Client getClient(URL url) {
         // NOTE: this can be inefficient, as it's only done once
         // for the first time for each new store
 
-        String server = url.getHost();
-        if (server == null || server.length() == 0) {
-            server = "127.0.0.1";
-        }
-        int port = (url.getPort() != -1) ? url.getPort() : Settings.getInstance().getPrimaryServerPort();
+    	String server = url.getHost();
+    	String key;
+    	if (StringUtils.hasLength(server)) {
+    		int port = getPort(url);
+    		key = server + ":" + port;
+    	}
+    	else {
+    		key = "[embedded]";
+    	}
 
-        String key = server + ":" + port;
         Client client = clientsByServer.get(key);
         if (client != null) {
             return client;
         }
 
-        InetSocketAddress addr = new InetSocketAddress(server, port);
-        client = Factory.createClient();
-        client.connect(addr);
-        clientsByServer.put(key, client);
-        return client;
+    	if (StringUtils.hasLength(server)) {
+	        InetSocketAddress addr = new InetSocketAddress(server, getPort(url));
+	        client = Factory.createClient();
+	        client.connect(addr);
+	        clientsByServer.put(key, client);
+	        return client;
+    	}
+    	else {
+    		try {
+				Class<?> cl = Class.forName("com.wwm.db.EmbeddedClientFactory");
+				Method m = cl.getMethod("getInstance");
+				ClientFactory factory = (ClientFactory) m.invoke(null);
+				return factory.createClient();
+			} catch (Exception e) {
+				return null;
+			}
+    	}
     }
+
+
+	private int getPort(URL url) {
+		return (url.getPort() != -1) ? url.getPort() : Settings.getInstance().getPrimaryServerPort();
+	}
 
 
     @Override
