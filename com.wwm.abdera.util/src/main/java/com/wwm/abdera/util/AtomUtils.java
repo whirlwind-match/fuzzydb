@@ -103,10 +103,10 @@ public class AtomUtils {
      */
 	public static void prettyPrint(ClientResponse response) {
 
-//		if (response.getContentLength() > 0){
+		if (response.getContentLength() > 0){
 			Document<Entry> docGot;
 			docGot = response.getDocument();
 			prettyPrint(docGot);
-//		}
+		}
 	}
 }
