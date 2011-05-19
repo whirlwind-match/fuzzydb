@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.indexer.internal;
+package com.wwm.attrs.internal;
 
 import java.io.EOFException;
 import java.io.File;
@@ -27,12 +27,8 @@ import com.wwm.attrs.XMLAliases;
 import com.wwm.attrs.bool.BooleanSplitConfiguration;
 import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.internal.ScoreConfiguration;
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
 import com.wwm.db.Store;
-import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.internal.xstream.AttributeIdMapper;
 import com.wwm.indexer.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.util.DynamicRef;
@@ -44,8 +40,7 @@ public class XStreamHelper {
 
     
 
-    public static XStream getScorerXStream() {
-        Store store = IndexerFactory.getCurrentStore();
+    public static XStream getScorerXStream(Store store) {
         DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
         XStream scorerXStream = new XStream();
         scorerXStream.registerConverter(new AttributeIdMapper(attrDefs));
@@ -54,8 +49,7 @@ public class XStreamHelper {
         return scorerXStream;
     }
 
-    public static XStream getIndexConfigXStream() {
-        Store store = IndexerFactory.getCurrentStore();
+    public static XStream getIndexConfigXStream(Store store) {
         DynamicRef<SyncedAttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
         XStream xs = new XStream();
         xs.registerConverter(new AttributeIdMapper(attrDefs));

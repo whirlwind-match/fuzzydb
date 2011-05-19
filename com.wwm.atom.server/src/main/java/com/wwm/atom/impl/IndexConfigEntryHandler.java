@@ -15,27 +15,17 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 
-import com.thoughtworks.xstream.XStream;
 import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.abdera.util.server.NotFoundException;
-import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.WWConfigHelper;
-import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
-import com.wwm.indexer.internal.XStreamHelper;
 
 public class IndexConfigEntryHandler implements TypeHandler {
 
     public void createEntry(RequestContext request, Document<Entry> doc) throws Exception {
 
-        XStream xs = XStreamHelper.getIndexConfigXStream();
-        xs.setClassLoader( this.getClass().getClassLoader() ); // We need it to use our classLoader, as it's own bundle won't help it :)
-
-        String content = doc.getRoot().getContent();
-        ManualIndexStrategy strategy = (ManualIndexStrategy) xs.fromXML(content);
-
-        Store store = IndexerFactory.getCurrentStore();
-        WWConfigHelper.updateIndexConfig( store, strategy );
+    	String content = doc.getRoot().getContent();
+        WWConfigHelper.updateIndexConfig( IndexerFactory.getCurrentStore(), content );
 
         Entry entry = doc.getRoot();
         entry.addLink(IndexerFactory.baseFeedUrl + "/" + entry.getId().toString(), "edit");

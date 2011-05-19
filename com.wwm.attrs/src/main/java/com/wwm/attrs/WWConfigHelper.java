@@ -10,11 +10,15 @@
  *****************************************************************************/
 package com.wwm.attrs;
 
+import org.slf4j.Logger;
+
+import com.thoughtworks.xstream.XStream;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.internal.ScoreConfiguration;
+import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
+import com.wwm.db.core.LogFactory;
 
 /**
  * Helper class for isolated CRUD ops on elements of WhirlwindConfiguration.
@@ -27,18 +31,28 @@ import com.wwm.db.core.exceptions.ArchException;
  */
 public class WWConfigHelper {
 
-    public static void updateScorerConfig(Store store, String name, ScoreConfiguration sc) {
-        Transaction tx = store.getAuthStore().begin();
+	
+	static private final Logger log = LogFactory.getLogger(WWConfigHelper.class);
+	
+    public static void updateScorerConfig(Store store, String content) {
+
+    	XStream xs = XStreamHelper.getScorerXStream(store);
+        xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
+        ScoreConfiguration sc = (ScoreConfiguration) xs.fromXML(content);
+
+    	Transaction tx = store.getAuthStore().begin();
         WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
         if (conf == null){
             conf = new WhirlwindConfiguration();
-            conf.getScoreConfigManager().setConfig(name, sc);
+            conf.getScoreConfigManager().setConfig(sc.getName(), sc);
             tx.create(conf);
         } else {
-            conf.getScoreConfigManager().setConfig(name, sc);
+            conf.getScoreConfigManager().setConfig(sc.getName(), sc);
             tx.update(conf);
         }
         tx.commit();
+        log.info("Updated scorer: " + sc.getName() + " in store: " + store.getStoreName());
+
     }
 
     public static void updateEnumDefinition(Store store, String name, EnumDefinition def) {
@@ -55,7 +69,11 @@ public class WWConfigHelper {
      * FIXME: This does not check if no change has been made.  Server side needs to have code to detect this
      * and avoid rebuilding an index for no reason (unless forced)
      */
-    public static void updateIndexConfig(Store store, ManualIndexStrategy strategy) {
+    public static void updateIndexConfig(Store store, String content) {
+    	XStream xs = XStreamHelper.getIndexConfigXStream(store);
+        xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
+        ManualIndexStrategy strategy = (ManualIndexStrategy) xs.fromXML(content);
+
         Transaction tx = store.getAuthStore().begin();
         WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
         if (conf == null){

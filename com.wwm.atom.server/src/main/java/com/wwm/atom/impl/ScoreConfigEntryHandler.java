@@ -17,15 +17,11 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 
-import com.thoughtworks.xstream.XStream;
 import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.abdera.util.server.NotFoundException;
 import com.wwm.attrs.WWConfigHelper;
-import com.wwm.attrs.internal.ScoreConfiguration;
-import com.wwm.db.Store;
 import com.wwm.db.core.LogFactory;
 import com.wwm.indexer.IndexerFactory;
-import com.wwm.indexer.internal.XStreamHelper;
 
 public class ScoreConfigEntryHandler implements TypeHandler {
 
@@ -33,20 +29,11 @@ public class ScoreConfigEntryHandler implements TypeHandler {
 
 	public void createEntry(RequestContext request, Document<Entry> doc) throws Exception {
 
-        XStream xs = XStreamHelper.getScorerXStream();
-        xs.setClassLoader( this.getClass().getClassLoader() ); // We need it to use our classLoader, as it's own bundle won't help it :)
-
-        String content = doc.getRoot().getContent();
-        ScoreConfiguration sc = (ScoreConfiguration) xs.fromXML(content);
-
-        Store store = IndexerFactory.getCurrentStore();
-        WWConfigHelper.updateScorerConfig( store, sc.getName(), sc );
-
+		String content = doc.getRoot().getContent();
+		WWConfigHelper.updateScorerConfig( IndexerFactory.getCurrentStore(), content );
 
         Entry entry = doc.getRoot();
         entry.addLink(IndexerFactory.baseFeedUrl + "/" + entry.getId().toString(), "edit");
-
-        log.info("Updated scorer: " + sc.getName() + " in store: " + store.getStoreName());
     }
 
     public void deleteEntry(RequestContext context, String privateRecordId) throws NotFoundException {

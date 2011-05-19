@@ -16,7 +16,8 @@ Export-Package: com.wwm.attrs,
  com.wwm.attrs.string,
  com.wwm.attrs.unused,
  com.wwm.attrs.userobjects,
- com.wwm.attrs.util
+ com.wwm.attrs.util,
+ com.wwm.indexer.internal.xstream
 Require-Bundle: com.wwm.db.core;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",
  com.wwm.db;bundle-version="1.0.0";visibility:=reexport,
