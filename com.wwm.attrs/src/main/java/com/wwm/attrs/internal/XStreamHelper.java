@@ -27,10 +27,10 @@ import com.wwm.attrs.XMLAliases;
 import com.wwm.attrs.bool.BooleanSplitConfiguration;
 import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
+import com.wwm.attrs.internal.xstream.AttributeIdMapper;
+import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
 import com.wwm.db.Store;
-import com.wwm.indexer.internal.xstream.AttributeIdMapper;
-import com.wwm.indexer.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.util.DynamicRef;
 
 

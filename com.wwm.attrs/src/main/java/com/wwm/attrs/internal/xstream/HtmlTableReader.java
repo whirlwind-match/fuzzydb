@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.indexer.internal.xstream;
+package com.wwm.attrs.internal.xstream;
 
 import java.util.ArrayList;
 
