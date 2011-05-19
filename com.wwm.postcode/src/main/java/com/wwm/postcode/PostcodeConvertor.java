@@ -77,7 +77,7 @@ public class PostcodeConvertor {
 		postcode = StringUtils.stripSpaces(postcode);
 
 		int trimmedLength = postcode.length() - 3; // strip off tail
-		if (trimmedLength != 3 && trimmedLength != 4) return null;
+		if (trimmedLength <2 || trimmedLength > 4) return null;
 		
 		postcode = postcode.substring(0, trimmedLength);
 		return jibble.lookupShort(postcode);

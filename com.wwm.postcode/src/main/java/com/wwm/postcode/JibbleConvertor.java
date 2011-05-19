@@ -16,17 +16,21 @@ import java.util.Set;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;
 
 public class JibbleConvertor {
 	
+	
+	static private final Logger log = LogFactory.getLogger(JibbleConvertor.class);
+	
 	private static final String jibbleFile = Settings.getInstance().getPostcodeRoot() + File.separatorChar + JibbleImporter.jibbleDataFile;
 	TreeMap<String, PostcodeResult> jibbleMap;
 
 	@SuppressWarnings("unchecked")
-	public JibbleConvertor(Logger log) {
+	public JibbleConvertor(Logger removeThis) {
 		log.info("Starting up JibbleConvertor using data: " + jibbleFile);
 		try {
 			jibbleMap = (TreeMap<String, PostcodeResult>)FileUtils.readObjectFromGZip(jibbleFile);
@@ -38,6 +42,7 @@ public class JibbleConvertor {
 	public PostcodeResult lookupShort(String prefix) {
 		if (prefix == null || jibbleMap == null) return null;
 		prefix = StringUtils.stripSpaces(prefix.toUpperCase());
+		log.debug("Jibble lookup: {}", prefix);
 		return jibbleMap.get(prefix);
 	}
 	
