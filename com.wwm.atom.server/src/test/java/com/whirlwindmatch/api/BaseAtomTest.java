@@ -356,7 +356,7 @@ public abstract class BaseAtomTest {
     }
 
     protected void configureScorers(){
-        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "classpath:/com/whirlwindmatch/api/shopScorerConfig.xml" );
+        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "classpath:/shopScorerConfig.xml" );
 
         assert scorerLocation != null;
     }

@@ -24,9 +24,11 @@ import com.wwm.util.CsvReader;
 
 public class TestAtomShop extends BaseAtomTest {
 
-    private static final float defaultOfferValue = 0f;  // 0.8f
 
-    private final String csvPath = "/com/whirlwindmatch/api/shopPostcodes.csv";
+	private static final float defaultOfferValue = 0f;  // 0.8f
+
+	private final String scorerConfigLocation = "classpath:/shopScorerConfig.xml";
+    private final String csvPath = "/shopPostcodes.csv";
 
 
     protected String privateId = "10_50-" + String.valueOf(new Date().getTime()); // generate our own id
@@ -87,7 +89,7 @@ public class TestAtomShop extends BaseAtomTest {
 
     @Override
 	protected void configureScorers(){
-        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "classpath:/com/whirlwindmatch/api/shopScorerConfig.xml" );
+        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", scorerConfigLocation );
 
         assert scorerLocation != null;
     }

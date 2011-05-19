@@ -26,8 +26,8 @@ import com.wwm.util.CsvReader;
 
 public class AtomPropertyTest extends BaseAtomTest {
 
-    private final String scorerConfigLocation = "classpath:/com/whirlwindmatch/api/propertyScorerConfig.xml";
-    private final String csvPath = "/com/whirlwindmatch/api/propertyTestData.csv";
+    private final String scorerConfigLocation = "classpath:/propertyScorerConfig.xml";
+    private final String csvPath = "/propertyTestData.csv";
 
 
     protected String privateId = "10_50-" + String.valueOf(new Date().getTime()); // generate our own id

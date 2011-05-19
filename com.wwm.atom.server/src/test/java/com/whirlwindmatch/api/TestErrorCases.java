@@ -62,7 +62,7 @@ public class TestErrorCases extends BaseAtomTest {
     @Override
 	protected void configureScorers(){
     	// Deliberately don't config scorers
-//        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "/com/whirlwindmatch/api/shopScorerConfig.xml" );
+//        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "/blahConfig.xml" );
 //        assert scorerLocation != null;
     }
 
