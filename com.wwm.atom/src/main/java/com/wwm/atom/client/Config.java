@@ -19,6 +19,9 @@ import java.io.InputStreamReader;
 
 import org.apache.abdera.i18n.iri.IRI;
 import org.apache.abdera.model.Entry;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.util.StringUtils;
@@ -60,7 +63,16 @@ public class Config {
 
 
     private static IRI writeConfig(String entryTitle, String indexConfigPath, String category) {
-        InputStream stream = classForLoadingResources.getResourceAsStream(indexConfigPath);
+		final ResourceLoader resourceLoader = new DefaultResourceLoader();
+		Resource resource = resourceLoader.getResource(indexConfigPath);
+		InputStream stream;
+		try {
+			stream = resource.getInputStream();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+//        InputStream stream = classForLoadingResources.getResourceAsStream(indexConfigPath);
         InputStreamReader r = new InputStreamReader(stream);
         String s = StringUtils.readToString(r);
         return writeStringConfig(entryTitle, category, s);
@@ -72,7 +84,7 @@ public class Config {
         try {
             stream = new FileInputStream(xmlFile);
         } catch (FileNotFoundException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
         InputStreamReader r = new InputStreamReader(stream);
         String s = StringUtils.readToString(r);

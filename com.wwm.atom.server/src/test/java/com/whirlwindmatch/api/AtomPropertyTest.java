@@ -26,6 +26,7 @@ import com.wwm.util.CsvReader;
 
 public class AtomPropertyTest extends BaseAtomTest {
 
+    private final String scorerConfigLocation = "classpath:/com/whirlwindmatch/api/propertyScorerConfig.xml";
     private final String csvPath = "/com/whirlwindmatch/api/propertyTestData.csv";
 
 
@@ -93,7 +94,7 @@ public class AtomPropertyTest extends BaseAtomTest {
     
     @Override
 	protected void configureScorers(){
-        IRI scorerLocation = Config.writeScorerConfig( "Scorer: PropertyDefault", "/com/whirlwindmatch/api/propertyScorerConfig.xml" );
+		IRI scorerLocation = Config.writeScorerConfig( "Scorer: PropertyDefault", scorerConfigLocation );
 
         assert scorerLocation != null;
     }

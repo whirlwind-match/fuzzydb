@@ -87,7 +87,7 @@ public class TestAtomShop extends BaseAtomTest {
 
     @Override
 	protected void configureScorers(){
-        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "/com/whirlwindmatch/api/shopScorerConfig.xml" );
+        IRI scorerLocation = Config.writeScorerConfig( "Scorer: Distance <5 miles", "classpath:/com/whirlwindmatch/api/shopScorerConfig.xml" );
 
         assert scorerLocation != null;
     }
