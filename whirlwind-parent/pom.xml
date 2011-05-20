@@ -239,7 +239,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -335,13 +335,13 @@
 
 	<dependencyManagement>
 		<dependencies>
-<!-- 			<dependency> -->
-<!-- 				<groupId>commons-logging</groupId> -->
-<!-- 				<artifactId>commons-logging</artifactId> -->
-<!-- 				<version>EXCLUDE-WE-USE-SLF4J</version> -->
-<!-- 				<type>jar</type> -->
-<!-- 				<scope>compile</scope> -->
-<!-- 			</dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>commons-logging</groupId> -->
+			<!-- <artifactId>commons-logging</artifactId> -->
+			<!-- <version>EXCLUDE-WE-USE-SLF4J</version> -->
+			<!-- <type>jar</type> -->
+			<!-- <scope>compile</scope> -->
+			<!-- </dependency> -->
 			<dependency>
 				<groupId>com.thoughtworks.xstream</groupId>
 				<artifactId>xstream</artifactId>
@@ -349,6 +349,26 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.eclipse.osgi</groupId>
+				<artifactId>org.eclipse.osgi</artifactId>
+				<version>3.5.0.v20090311-1300</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.osgi</groupId>
+				<artifactId>org.eclipse.osgi.services</artifactId>
+				<version>3.2.100.v20100503</version>
+				<scope>provided</scope>
+				<exclusions>
+					<exclusion>
+						<artifactId>org.osgi.foundation</artifactId>
+						<groupId>org.apache.felix</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 </project>

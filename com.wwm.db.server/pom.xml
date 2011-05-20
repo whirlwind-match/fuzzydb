@@ -26,17 +26,17 @@ Compiles against io.packet, but that artifact must be included into runtime scop
     	<scope>compile</scope>
     </dependency>
     <dependency>
-    	<groupId>org.eclipse</groupId>
-    	<artifactId>osgi</artifactId>
-    	<version>3.3.0-v20070530</version>
-    	<type>jar</type>
-    </dependency> 
-    <dependency>
     	<groupId>com.wwm</groupId>
     	<artifactId>com.wwm.io.packet</artifactId>
     	<version>1.0.0.CI-SNAPSHOT</version>
     	<type>jar</type>
     	<scope>provided</scope>
     </dependency>
-  </dependencies>
+    <dependency>
+    	<groupId>org.eclipse.osgi</groupId>
+    	<artifactId>org.eclipse.osgi</artifactId>
+    	<type>jar</type>
+    	<scope>provided</scope>
+    </dependency>
+    </dependencies>
 </project>
