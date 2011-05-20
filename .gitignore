@@ -6,6 +6,12 @@ target/
 .settings/
 .project
 
+# Ignore IDEA files
+*.iml
+*.ipr
+.idea/
+
+
 # Remnant of OSGi project configs under Eclipse - should eventually not generate a bin directory.
 bin/
 
