@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.attrs;
 
+import java.io.InputStream;
+
 import org.slf4j.Logger;
 
 import com.thoughtworks.xstream.XStream;
@@ -35,25 +37,34 @@ public class WWConfigHelper {
 	static private final Logger log = LogFactory.getLogger(WWConfigHelper.class);
 	
     public static void updateScorerConfig(Store store, String content) {
-
     	XStream xs = XStreamHelper.getScorerXStream(store);
         xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
         ScoreConfiguration sc = (ScoreConfiguration) xs.fromXML(content);
-
-    	Transaction tx = store.getAuthStore().begin();
-        WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
-        if (conf == null){
-            conf = new WhirlwindConfiguration();
-            conf.getScoreConfigManager().setConfig(sc.getName(), sc);
-            tx.create(conf);
-        } else {
-            conf.getScoreConfigManager().setConfig(sc.getName(), sc);
-            tx.update(conf);
-        }
-        tx.commit();
-        log.info("Updated scorer: " + sc.getName() + " in store: " + store.getStoreName());
-
+    	updateScorerConfigInternal(store, sc);
     }
+    
+	public static void updateScorerConfig(Store store, InputStream inputStream) {
+    	XStream xs = XStreamHelper.getScorerXStream(store);
+        xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
+        ScoreConfiguration sc = (ScoreConfiguration) xs.fromXML(inputStream);
+    	updateScorerConfigInternal(store, sc);
+	}
+	
+	private static void updateScorerConfigInternal(Store store,
+			ScoreConfiguration sc) {
+		Transaction tx = store.getAuthStore().begin();
+		WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
+		if (conf == null){
+			conf = new WhirlwindConfiguration();
+			conf.getScoreConfigManager().setConfig(sc.getName(), sc);
+			tx.create(conf);
+		} else {
+			conf.getScoreConfigManager().setConfig(sc.getName(), sc);
+			tx.update(conf);
+		}
+		tx.commit();
+		log.info("Updated scorer: " + sc.getName() + " in store: " + store.getStoreName());
+	}
 
     public static void updateEnumDefinition(Store store, String name, EnumDefinition def) {
         Transaction tx = store.getAuthStore().begin();
