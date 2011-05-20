@@ -13,9 +13,4 @@ public class WhirlwindExceptionTranslator implements
 
 		return null;
 	}
-
-	public DataAccessException translateExceptionIfPossible(ArchException e) {
-		return null;
-	}
-
 }

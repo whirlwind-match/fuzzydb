@@ -67,7 +67,7 @@ public class WhirlwindPlatformTransactionManager extends
 	private void throwTranslatedException(ArchException e) {
 		DataAccessException dataAccessException = exceptionTranslator
 				.translateExceptionIfPossible(e);
-		throw (dataAccessException != null) ? dataAccessException : new RuntimeException(e);
+		throw (dataAccessException != null) ? dataAccessException : e;
 	}
 
 	@Override
