@@ -1,0 +1,15 @@
+<com.wwm.attrs.simple.SimilarFloatValueScorer>
+
+	<scorerAttrId>Age</scorerAttrId>
+	<otherAttrId>Age</otherAttrId>
+	
+	<expectedRange>1e4f</expectedRange>
+	
+    <minScore>0</minScore>
+	<!-- <noScoreDirection>forwards</noScoreDirection>  -->
+    <filter>false</filter>
+	<weight>1.0</weight>
+	<scoreNull>false</scoreNull>
+	<scoreOnNull>0.0</scoreOnNull>
+
+</com.wwm.attrs.simple.SimilarFloatValueScorer>

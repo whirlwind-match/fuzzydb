@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Indexer GUI
+Bundle-SymbolicName: com.wwm.indexer.gui
+Bundle-Version: 1.0.0
+Bundle-Vendor: Whirlwind Match
+Require-Bundle: com.wwm.indexer;bundle-version="1.0.0",
+ com.wwm.db;bundle-version="1.0.0",
+ com.wwm.attrs;bundle-version="1.0.0",
+ com.wwm.atom;bundle-version="1.0.0",
+ com.wwm.util;bundle-version="1.0.0",
+ com.wwm.bundle.libs;bundle-version="1.0.0",
+ com.wwm.bundle.abdera;bundle-version="0.4.0",
+ com.wwm.util.gui;bundle-version="1.0.0"
+Export-Package: com.wwm.indexer.config,
+ com.wwm.indexer.demo,
+ com.wwm.indexer.demo.internal,
+ whirlwind.config.gui,
+ whirlwind.demo.actions,
+ whirlwind.demo.gui,
+ whirlwind.demo.gui.formatters,
+ whirlwind.demo.gui.resource,
+ whirlwind.demo.gui.searchselectors,
+ whirlwind.demo.gui.searchtabs,
+ whirlwind.demo.gui.util

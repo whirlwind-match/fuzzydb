@@ -1,0 +1,5 @@
+<com.wwm.attrs.simple.FloatSplitConfiguration>
+	<id>Age</id>
+	<priority>1.0</priority>
+	<expected>35.0</expected>
+</com.wwm.attrs.simple.FloatSplitConfiguration>

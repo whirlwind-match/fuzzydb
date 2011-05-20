@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScoreConfiguration name="Smoke">
+<!--
+    <mmmmm.... can of worms.... mmmm....>
+
+    Looks like a separate preference map might be a good idea.
+    
+    I quite like the idea of allowing it to be specified in an HTML table, and we parse the HTML table :)
+    That way people can visualise it as a table.
+-->
+	<EnumScoresMapScorer>
+		<scorerAttrId>Smoke</scorerAttrId>
+		<otherAttrId>Smoke</otherAttrId>
+		<filter>false</filter>
+		<weight>1.0</weight>
+	    <map scorerEnumDefinition="Smoke" otherEnumDefinition="Smoke">
+			<table border="1" cellpadding="2" cellspacing="2" width="100%">
+				<tbody>
+	<tr>
+      <th valign="top">searchAttr (down) /OtherAttr (across)</th>
+      <th valign="top">Non-smoker</th>
+      <th valign="top">Tolerates-smoker</th>
+      <th valign="top">Non-smoker-in-cars</th>
+      <th valign="top">Cigarette-smoker</th>
+      <th valign="top">Pipe-smoker</th>
+      <th valign="top">Cigar-smoker</th>
+    </tr>
+    <tr>
+      <th valign="top">Non-smoker</th>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">0.0</td>
+      <td valign="top">0.0</td>
+      <td valign="top">0.0</td>
+    </tr>
+    <tr>
+      <th valign="top">Tolerates-smoker </th>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0 </td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+    </tr>
+    <tr>
+      <th valign="top">Non-smoker-in-cars</th>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">0.0</td>
+      <td valign="top">0.0</td>
+      <td valign="top">0.0</td>
+    </tr>
+    <tr>
+      <th valign="top">Cigarette-smoker</th>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+    </tr>
+    <tr>
+      <th valign="top">Pipe-smoker</th>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+    </tr>
+    <tr>
+      <th valign="top">Cigar-smoker</th>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+      <td valign="top">1.0</td>
+    </tr>
+				</tbody>
+			</table>
+    	</map>
+	</EnumScoresMapScorer>
+</ScoreConfiguration>

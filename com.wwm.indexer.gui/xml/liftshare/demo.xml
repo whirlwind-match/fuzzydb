@@ -1,0 +1,46 @@
+<whirlwind.config.gui.WhirlwindDemoConfig>
+  <randomAttributes>
+     <string>Gender</string>
+     <string>wantGender</string>
+     <string>Age</string>
+     <string>LiftType</string>
+     <string>Smoke</string>
+     <string>DaysOfTheWeek</string>
+<!-- Postcode becomes Location in these cases
+     <string>StartLocation</string>
+     <string>EndLocation</string> 
+     -->
+     <string>StartPostcode</string>
+     <string>EndPostcode</string> 
+  </randomAttributes>
+
+  <randomGenerators>
+    <no-comparator/>
+    <entry> <string>Gender</string>              <value class="RandomGenerator">50_50_Boolean.xml</value> </entry>
+    <entry> <string>wantGender</string>          <value class="RandomGenerator">50_50_Boolean.xml</value> </entry>
+    <entry> <string>Age</string>                 <value class="RandomGenerator">0_99_Float.xml</value> </entry>
+    <entry> <string>LiftType</string>            <value class="RandomGenerator">LiftType.xml</value> </entry>
+    <entry> <string>Smoke</string>               <value class="RandomGenerator">Smoke.xml</value> </entry>
+    <entry> <string>DaysOfTheWeek</string>       <value class="RandomGenerator">DaysOfTheWeek.xml</value> </entry>
+<!-- Postcode becomes Location in these cases
+    <entry> <string>StartLocation</string>       <value class="RandomGenerator">Location.xml</value> </entry>
+    <entry> <string>EndLocation</string>         <value class="RandomGenerator">Location.xml</value> </entry>
+-->
+    <entry> <string>StartPostcode</string>       <value class="RandomGenerator">Postcode.xml</value> </entry>
+    <entry> <string>EndPostcode</string>         <value class="RandomGenerator">Postcode.xml</value> </entry>
+  </randomGenerators>
+  
+  <searchTabs>
+    <whirlwind.demo.gui.searchtabs.SearchTabXmlConfig>
+       <tabName>Results</tabName>
+       <tabClass>whirlwind.demo.gui.searchtabs.TablePane</tabClass>
+    </whirlwind.demo.gui.searchtabs.SearchTabXmlConfig>
+    <whirlwind.demo.gui.searchtabs.SearchTabXmlConfig>
+       <tabName>Map</tabName>
+       <tabClass>whirlwind.demo.gui.searchtabs.MapPane</tabClass>
+    </whirlwind.demo.gui.searchtabs.SearchTabXmlConfig>
+  </searchTabs>  
+    
+  <primaryScorerCfg>LiftShare</primaryScorerCfg>
+  
+</whirlwind.config.gui.WhirlwindDemoConfig>

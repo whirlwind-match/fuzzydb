@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScoreConfiguration name="DaysOfTheWeek">
+    <MultiEnumScorer name="Match Days of Week that are shared">
+        <scorerAttrId>DaysOfTheWeek</scorerAttrId>
+        <otherAttrId>DaysOfTheWeek</otherAttrId>
+        <filter>true</filter> <!-- Is this attribute a Filter? I.e Any non match is removed from the results -->
+        <weight>1.0</weight> <!--  How important is this Attribute to the overall Score -->
+        <scoreOnNull>1.0</scoreOnNull>
+    </MultiEnumScorer>
+</ScoreConfiguration>

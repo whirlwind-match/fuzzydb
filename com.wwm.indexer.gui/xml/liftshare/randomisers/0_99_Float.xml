@@ -1,0 +1,5 @@
+<com.wwm.indexer.internal.random.RandomFloat>
+	<min>0</min>
+	<max>99</max>
+	<nullPercent>0</nullPercent>
+</com.wwm.indexer.internal.random.RandomFloat>

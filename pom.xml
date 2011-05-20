@@ -28,10 +28,11 @@
         <module>com.wwm.expressions</module>
         <module>com.wwm.db.server</module>
         <module>com.wwm.postcode</module>
+	<module>com.wwm.atom.build</module>
         <module>com.wwm.indexer</module>
+        <module>com.wwm.indexer.gui</module>
         <module>com.wwm.db.spring</module>
 	<module>com.wwm.db.tests</module>
 
-	<module>com.wwm.atom.build</module>
      </modules>
 </project>

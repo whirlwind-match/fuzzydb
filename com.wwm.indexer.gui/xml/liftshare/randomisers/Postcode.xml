@@ -1,0 +1,5 @@
+<com.wwm.indexer.internal.random.RandomFullPostcode>
+<!-- doesn't support this at the mo' 
+<nullPercent>0</nullPercent>
+ -->
+</com.wwm.indexer.internal.random.RandomFullPostcode>

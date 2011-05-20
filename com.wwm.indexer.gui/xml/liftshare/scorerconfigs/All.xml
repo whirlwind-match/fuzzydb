@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScoreConfiguration name="All">
+	<!-- wantGender - Gender.xml -->
+	<BooleanScorer name="Gender preference">
+		<scorerAttrId>wantGender</scorerAttrId>
+		<otherAttrId>Gender</otherAttrId>
+		
+	    <minScore>0</minScore>
+		<!-- <noScoreDirection>forwards</noScoreDirection>  -->
+	    <filter>false</filter>
+		<weight>1.0</weight>
+		<scoreNull>false</scoreNull>
+		<scoreOnNull>0.0</scoreOnNull>
+	</BooleanScorer>
+
+	<!-- DaysOfWeek.xml-->
+    <MultiEnumScorer>
+        <scorerAttrId>DaysOfTheWeek</scorerAttrId>
+        <otherAttrId>DaysOfTheWeek</otherAttrId>
+        <filter>true</filter> <!-- Is this attribute a Filter? I.e Any non match is removed from the results -->
+        <weight>1.0</weight> <!--  How important is this Attribute to the overall Score -->
+        <scoreOnNull>1.0</scoreOnNull>
+    </MultiEnumScorer>
+
+	<!-- SimilarAge.xml-->
+	<SimilarFloatValueScorer>
+		<scorerAttrId>Age</scorerAttrId>
+		<otherAttrId>Age</otherAttrId>
+		
+		<expectedRange>1e4f</expectedRange>
+		
+	    <minScore>0</minScore>
+		<!-- <noScoreDirection>forwards</noScoreDirection>  -->
+	    <filter>false</filter>
+		<weight>1.0</weight>
+		<scoreNull>false</scoreNull>
+		<scoreOnNull>0.0</scoreOnNull>
+	</SimilarFloatValueScorer>
+	
+	<!-- LinearStartLocation.xml -->
+	<VectorDistanceScorer>
+	    <scorerAttrId>StartLocation</scorerAttrId>
+	    <otherAttrId>StartLocation</otherAttrId>
+	
+	    <minScore>0</minScore>
+	    <!-- <noScoreDirection>forwards</noScoreDirection>  -->
+	    <filter>false</filter>
+	    <weight>1.0</weight>
+	    <scoreNull>false</scoreNull>
+	    <scoreOnNull>0.0</scoreOnNull>
+	
+	    <scoreMapper class="LinearScoreMapper" />
+	    <range>5</range>
+	    <preferClose>false</preferClose>
+	</VectorDistanceScorer>	
+
+	<!-- LinearEndLocation.xml -->
+	<VectorDistanceScorer>
+	    <scorerAttrId>EndLocation</scorerAttrId>
+	    <otherAttrId>EndLocation</otherAttrId>
+	
+	    <minScore>0</minScore>
+	    <!-- <noScoreDirection>forwards</noScoreDirection>  -->
+	    <filter>false</filter>
+	    <weight>1.0</weight>
+	    <scoreNull>false</scoreNull>
+	    <scoreOnNull>0.0</scoreOnNull>
+	
+	    <scoreMapper class="LinearScoreMapper" />
+	    <range>5</range>
+	    <preferClose>false</preferClose>
+	</VectorDistanceScorer>
+</ScoreConfiguration>

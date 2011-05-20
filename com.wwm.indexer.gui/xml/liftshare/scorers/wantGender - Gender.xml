@@ -1,0 +1,13 @@
+<com.wwm.attrs.bool.BooleanScorer>
+
+	<scorerAttrId>wantGender</scorerAttrId>
+	<otherAttrId>Gender</otherAttrId>
+	
+    <minScore>0</minScore>
+	<!-- <noScoreDirection>forwards</noScoreDirection>  -->
+    <filter>false</filter>
+	<weight>1.0</weight>
+	<scoreNull>false</scoreNull>
+	<scoreOnNull>0.0</scoreOnNull>
+
+</com.wwm.attrs.bool.BooleanScorer>

@@ -1,0 +1,4 @@
+<com.wwm.indexer.internal.random.RandomBoolean>
+	<truePercent>50</truePercent>
+	<falsePercent>50</falsePercent>
+</com.wwm.indexer.internal.random.RandomBoolean>
