@@ -19,6 +19,13 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.wwm.atom</groupId>
+			<artifactId>com.wwm.atom.server</artifactId>
+			<version>1.0.0.CI-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.wwm.db</groupId>
 			<artifactId>com.wwm.db.server</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
