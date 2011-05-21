@@ -31,6 +31,7 @@ import com.wwm.indexer.Indexer;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.SearchResults;
+import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.indexer.exceptions.IndexerException;
 import com.wwm.model.attributes.Attribute;
 
@@ -93,9 +94,13 @@ public class IndexerImpl implements Indexer {
 		Transaction tx = currentStore.getAuthStore().begin();
         Collection<Object> createdata = new ArrayList<Object>();
         for (Record record : records) {
-            StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
-            recordConverter.convertRecordToInternal(data, record);
-            createdata.add(data);
+            try {
+				StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
+				recordConverter.convertRecordToInternal(data, record);
+				createdata.add(data);
+			} catch (AttributeException e) {
+				log.warn("Record skipped due to exception: " + e.getMessage());
+			}
         }
         tx.create(createdata);
         tx.commit();
@@ -133,11 +138,16 @@ public class IndexerImpl implements Indexer {
 
 
     public SearchResults searchRecords(Record record, String scorerConfig, int maxResults, int numResults, float minScore) {
-        StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
-        recordConverter.convertRecordToInternal(data, record);
-        SearchSpec searchSpec = AttrsFactory.createSearchSpec(StandaloneWWIndexData.class);
-        searchSpec.setAttributes( data );
-            return doSearch(scorerConfig, maxResults, numResults, searchSpec);
+        try {
+			StandaloneWWIndexData data = new StandaloneWWIndexData(record.getPrivateId());
+			recordConverter.convertRecordToInternal(data, record);
+			SearchSpec searchSpec = AttrsFactory.createSearchSpec(StandaloneWWIndexData.class);
+			searchSpec.setAttributes( data );
+			    return doSearch(scorerConfig, maxResults, numResults, searchSpec);
+		} catch (AttributeException e) {
+			log.warn("Record skipped due to exception: " + e.getMessage());
+			return null;
+		}
     }
     
 
