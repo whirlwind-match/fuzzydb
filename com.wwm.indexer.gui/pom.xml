@@ -33,4 +33,34 @@
 			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>whirlwind.demo.gui.WhirlWindDemo</mainClass>
+					<arguments>
+						<argument>xml/liftshare</argument>
+						<argument>wwmdb:/LiftshareStore</argument>
+					</arguments>
+					<systemProperties>
+<!-- 							<systemProperty> -->
+<!-- 								<key>key</key> -->
+<!-- 								<value>myvalue</value> -->
+<!-- 							</systemProperty> -->
+					</systemProperties>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
