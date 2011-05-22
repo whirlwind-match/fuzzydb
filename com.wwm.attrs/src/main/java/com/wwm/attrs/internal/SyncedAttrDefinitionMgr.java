@@ -22,8 +22,12 @@ import com.wwm.util.DynamicRef;
 /**
  * Extends AttrDefinitionMgr to allow it to store itself in a Db2 store.
  * 
- * There are some quirks here when it comes to operating a service, as we want to be able to ensure only
- * one instance exists.. so when we update from the database, we must replace a reference.
+ * Attributes are defined against a given Class for which a fuzzy search can be performed.  
+ * A separate {@link AttrDefinitionMgr} is stored for each fuzzy class in that store.
+ * 
+ * TODO: This currently looks like it was written on a Friday afternoon, as we should be storing
+ * a single instance per store which contains a map of the definitions for each class.
+ * i.e. REWRITE BELOW TO STORE A MAP KEYED ON CLASS, NOT KEYED ON STORE
  */
 public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serializable, ITraceWanted {
 
