@@ -5,7 +5,6 @@ import java.util.Date;
 
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.marker.ExpirableExec;
 
 public class SampleTransientObject implements ExpirableExec, Serializable{
@@ -24,13 +23,8 @@ public class SampleTransientObject implements ExpirableExec, Serializable{
 	}
 
 	public void onExpiry(Transaction t) {
-		try {
-			t.delete(dependant);
-			t.create(offspring);
-		} catch (ArchException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		t.delete(dependant);
+		t.create(offspring);
 	}
 
 	public Date getExpiryTime() {
