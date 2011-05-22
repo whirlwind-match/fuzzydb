@@ -17,7 +17,9 @@ import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.UncaughtExceptionLogger;
-import com.wwm.db.internal.pager.Pager;
+import com.wwm.db.internal.pager.NullPersister;
+import com.wwm.db.internal.pager.FileSerializingPagePersister;
+import com.wwm.db.internal.pager.PagePersister;
 import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.internal.server.txlog.TxLogWriter;
@@ -39,7 +41,7 @@ public final class Database implements DatabaseVersionState {
 
     // Ensure we log all uncaught exceptions for whole server.
     static { UncaughtExceptionLogger.initialise(); }
-
+    
     private final MessageSource messageSource;
     
     private final DummyCli cli = new DummyCli();
@@ -47,7 +49,7 @@ public final class Database implements DatabaseVersionState {
     private CommandProcessingPool commandProcessor;
     private Repository repository;
     private final ServerSetupProvider setup = new ServerSetupProvider();
-    private final Pager pager = new Pager(this);
+    private final PagePersister pager;
     private long latestDiskVersion = -1;
     private TxLogSink txLog;
     private final Semaphore shutdownFlag = new Semaphore(0);
@@ -106,9 +108,12 @@ public final class Database implements DatabaseVersionState {
     
     /**
      * Create a new database ready to process requests from this message source
+     * 
+     * @param isPersistent true if we page to disk and write use a tx log (TODO probably ought to be a persistence strategy)
      */
-    public Database(MessageSource messageSource) {
+    public Database(MessageSource messageSource, boolean isPersistent) {
     	this.messageSource = messageSource;
+    	this.pager = isPersistent ? new FileSerializingPagePersister(this) : new NullPersister(this);
     }
 
 
@@ -327,7 +332,7 @@ public final class Database implements DatabaseVersionState {
         return cli;
     }
 
-    public Pager getPager() {
+    public PagePersister getPager() {
         return pager;
     }
 

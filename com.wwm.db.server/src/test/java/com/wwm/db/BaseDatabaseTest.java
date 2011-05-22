@@ -102,7 +102,7 @@ public abstract class BaseDatabaseTest {
 	private Database startNewDatabase() throws IOException {
 		// NOTE: We use the single parameter version of InetSocketAddr
 		InetSocketAddress anyLocalAddress = new InetSocketAddress(serverPort);
-		Database db = new Database(new SocketListeningServer(anyLocalAddress));
+		Database db = new Database(new SocketListeningServer(anyLocalAddress), true);
 		IndexImplementationsService service = new IndexImplementationsService();
 //			service.add( new WhirlwindIndexImpl());
 		db.setIndexImplsService(service);

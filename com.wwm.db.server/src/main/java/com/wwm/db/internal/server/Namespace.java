@@ -26,7 +26,7 @@ import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.index.IndexedTable;
-import com.wwm.db.internal.pager.Pager;
+import com.wwm.db.internal.pager.PagePersister;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.table.TableFactory;
 import com.wwm.db.internal.table.UserTable;
@@ -172,7 +172,7 @@ public class Namespace implements Serializable {
 		}
 	}
 
-	public Pager getPager() {
+	public PagePersister getPager() {
 		return context.pager;
 	}
 

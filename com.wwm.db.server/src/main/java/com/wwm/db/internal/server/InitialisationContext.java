@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.server;
 
-import com.wwm.db.internal.pager.Pager;
+import com.wwm.db.internal.pager.PagePersister;
 
 /**
  * Holder for data that is passed through the initialisation tree to 
@@ -19,7 +19,7 @@ import com.wwm.db.internal.pager.Pager;
 public class InitialisationContext {
 	// NOTE: All must be final
 	public final Database database;
-	public final Pager pager;
+	public final PagePersister pager;
 	
 	public InitialisationContext(Database database) {
 		this.database = database;

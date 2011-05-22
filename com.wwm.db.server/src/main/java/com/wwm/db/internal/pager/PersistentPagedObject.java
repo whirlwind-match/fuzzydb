@@ -16,7 +16,7 @@ import com.wwm.db.internal.pager.Page.PagePurgedException;
 
 
 /**
- * Defines support required by {@linkplain Pager} to allow the data of a large object, such as a database table,
+ * Defines support required by {@linkplain FileSerializingPagePersister} to allow the data of a large object, such as a database table,
  * to be paged in and out from a persistent storage mechanism such as disk or remote memory.
  */
 public interface PersistentPagedObject {

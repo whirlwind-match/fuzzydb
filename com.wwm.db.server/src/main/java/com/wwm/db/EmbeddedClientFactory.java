@@ -43,7 +43,7 @@ public class EmbeddedClientFactory implements ClientFactory {
 	
 	private EmbeddedClientFactory() {
 		databaseMessageSource = new ReceiverMessageSource();
-		database = new Database(databaseMessageSource);
+		database = new Database(databaseMessageSource, true);
 		try {
 			database.startServer();
 		} catch (IOException e) {

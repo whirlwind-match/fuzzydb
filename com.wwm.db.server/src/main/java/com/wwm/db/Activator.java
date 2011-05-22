@@ -41,7 +41,7 @@ public class Activator implements BundleActivator {
 		int port = config.getListenPort();
 		
 		try {
-			db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)));
+			db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)), true);
 			
 			// Also want to register indexManager service, which probably should be in own bundle
 			IndexImplementationsService service = new IndexImplementationsService();

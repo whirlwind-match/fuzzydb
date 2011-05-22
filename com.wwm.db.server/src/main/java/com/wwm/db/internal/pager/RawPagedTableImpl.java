@@ -26,7 +26,7 @@ import com.wwm.db.internal.table.RawTable;
 
 /**
  * (NU) An implementation of {@link RawTable} that stores it's {@link Element} in {@link Page}s
- * managed by a {@link Pager}  
+ * managed by a {@link FileSerializingPagePersister}  
  * 
  * @param <T> what gets stored in the Elements
  */
@@ -48,7 +48,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 
 	private long nextOid = 0;
 
-	private transient Pager pager;
+	private transient PagePersister pager;
 	private transient TimeHistory loadTime;
 	private transient TimeHistory saveTime;
 	private transient Map<Long, Page<T>> pages;
@@ -126,7 +126,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		return forClass;
 	}
 
-	public Pager getPager() {
+	public PagePersister getPager() {
 		return pager;
 	}
 
@@ -293,7 +293,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 						// page needs loading!
 						// Create an empty page and lock it to prevent other
 						// threads from trying to load it
-						page = Page.blankPage(elementsPerPage, getPathForPage(pageId), this, pager.database, pageId
+						page = Page.blankPage(elementsPerPage, getPathForPage(pageId), this, pager.getDatabase(), pageId
 								* elementsPerPage);
 						pages.put(pageId, page);
 						try {

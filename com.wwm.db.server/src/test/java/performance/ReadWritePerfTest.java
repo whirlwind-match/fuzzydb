@@ -55,7 +55,7 @@ public class ReadWritePerfTest {
 
 		for (int count = 0; count < outerLoops; count++) {
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 			database.startServer();
 			
 			// Make client
@@ -116,7 +116,7 @@ public class ReadWritePerfTest {
 		if (false) // comment out this line to enable
 		{
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 
 			Client client = Factory.createClient();
 			client.connect(new InetSocketAddress(InetAddress.getLocalHost(), serverPort));
@@ -143,7 +143,7 @@ public class ReadWritePerfTest {
 		// RANDOM READS
 		{
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 			database.startServer();
 
 			Client client = Factory.createClient();
@@ -184,7 +184,7 @@ public class ReadWritePerfTest {
 
 		for (int count = 0; count < outerLoops; count++) {
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 			database.startServer();
 			
 			// Make client
@@ -250,7 +250,7 @@ public class ReadWritePerfTest {
 
 		for (int count = 0; count < outerLoops; count++) {
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
+			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 			database.startServer();
 			
 			// Make client

@@ -43,7 +43,7 @@ public class EchoPerfTest {
 	public void testEcho() throws IOException {
 		final int loops = 1000;
 		// Make server
-		Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)));
+		Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 		database.startServer();
 		
 		// Make client

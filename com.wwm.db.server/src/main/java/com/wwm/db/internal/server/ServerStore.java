@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.internal.pager.Pager;
+import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.ClassTokenCache;
 import com.wwm.io.core.impl.DummyCli;
@@ -223,7 +223,7 @@ public class ServerStore implements Serializable {
 		}
 		// Store loaded.  Now clean up any pages newer than this version
 		// FIXME: Need to also assert that there are no stores newer than this version
-		Pager.recursiveDeleteNewerPages(dir, store.getSavedDbVersion());
+		FileSerializingPagePersister.recursiveDeleteNewerPages(dir, store.getSavedDbVersion());
 
 		return store;
 	}

@@ -49,7 +49,7 @@ public class RunServer {
 		}
 		
 		try {
-			Database db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)));
+			Database db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)), true);
 			IndexImplementationsService service = new IndexImplementationsService();
 			db.setIndexImplsService(service);
 			db.startServer();
