@@ -19,6 +19,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.wwm.attrs</groupId>
+			<artifactId>com.wwm.attrs</artifactId>
+			<version>1.0.0.CI-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.wwm.db</groupId>
 			<artifactId>com.wwm.db.server</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
