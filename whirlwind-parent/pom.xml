@@ -104,6 +104,9 @@
 					<id>com.springsource.repository.bundles.milestone</id>
 					<name>SpringSource Enterprise Bundle Repository</name>
 					<url>http://repository.springsource.com/maven/bundles/milestone</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
 				</pluginRepository>
 			</pluginRepositories>
 
@@ -133,9 +136,12 @@
 				</repository>
 
 				<repository>
-					<id>om.springsource.repository.bundles.release</id>
+					<id>com.springsource.repository.bundles.release</id>
 					<name>SpringSource Enterprise Bundle Repository</name>
 					<url>http://repository.springsource.com/maven/bundles/release</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
 				</repository>
 
 
