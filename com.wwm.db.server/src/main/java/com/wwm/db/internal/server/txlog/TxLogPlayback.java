@@ -11,36 +11,23 @@
 package com.wwm.db.internal.server.txlog;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.concurrent.Semaphore;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.internal.comms.messages.BeginAndCommitCmd;
-import com.wwm.db.internal.comms.messages.CommitCmd;
-import com.wwm.db.internal.comms.messages.OkRsp;
 import com.wwm.db.internal.server.CommandProcessingPool;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.WorkerThread;
-import com.wwm.io.core.Message;
-import com.wwm.io.core.MessageSink;
-import com.wwm.io.core.layer2.PacketCodec;
-import com.wwm.io.core.layer2.SourcedMessageImpl;
-import com.wwm.io.core.messages.ErrorRsp;
-import com.wwm.io.core.messages.PacketMessage;
 
 /**
  * WorkerThread that plays back the transaction log and applies it to the database
  */
-public class TxLogPlayback extends WorkerThread implements MessageSink {
+public class TxLogPlayback extends WorkerThread {
 
 	static private Logger log = LogFactory.getLogger(TxLogPlayback.class);
 
 	private final Database database;
 	private final Semaphore finished = new Semaphore(0);
-	private final Semaphore executing = new Semaphore(0);
 	private final CommandProcessingPool commandProcessor;
 
 	
@@ -55,46 +42,6 @@ public class TxLogPlayback extends WorkerThread implements MessageSink {
 		finished.acquireUninterruptibly(); // we wait here until released() by run().
 	}
 	
-
-	private void play(File file) throws FileNotFoundException {
-		int playbackErrors = 0; // count the number of errors we get, and report it
-		
-		TxLogReader reader = new TxLogReader(file);
-		PacketCodec pc = new PacketCodec(reader, database.getCommsCli());
-		try {
-			for (;;) {
-				Collection<PacketMessage> messages = pc.read();
-				if (messages == null) return;
-				for (PacketMessage message : messages) {
-					
-					Message m = message.getMessage();
-					int storeId = m.getStoreId();
-					int cid = m.getCommandId();
-
-					if (m instanceof CommitCmd) {
-						CommitCmd cc = (CommitCmd)m;
-						int tid = cc.getTid();
-						m = new BeginAndCommitCmd(storeId, cid, tid, cc);
-					}
-					
-					try {
-						commandProcessor.execute(new SourcedMessageImpl(this, m, message.getPacket()));
-					} catch (Error e) {
-						playbackErrors++;
-					}
-					executing.acquireUninterruptibly();
-				}
-			}
-		} catch (IOException e) {
-			log.error("Error playing back TxLog", e);
-			return;
-		} finally {
-			if (playbackErrors > 0){
-				log.error("Errors found during playback: " + playbackErrors + " commands failed.");
-			}
-			pc.close();
-		}
-	}
 	
 	@Override
 	public void run() {
@@ -117,7 +64,8 @@ public class TxLogPlayback extends WorkerThread implements MessageSink {
 				}
 
 				log.info("    == Replaying Transaction log: " + file.getName() + " ==" );
-				play(file);
+				FilePacketStreamCommandPlayer player = new FilePacketStreamCommandPlayer(file, commandProcessor, database.getCommsCli());
+				player.run();
 			}
 		} catch (Exception e){
 			log.error( "Unexpected Exception", e );
@@ -126,24 +74,5 @@ public class TxLogPlayback extends WorkerThread implements MessageSink {
 			finished.release();
 		}
 		log.info("== Finished transaction log playback ==");
-	}
-
-	public void close() {
-		// do nothing 
-	}
-
-	/**
-	 * Receive response to having executed a command from the TxLog
-	 */
-	public void send(Message m) {
-		executing.release();
-		// always release, otherwise error will deadlock.
-		if (m instanceof ErrorRsp) {
-			ErrorRsp er = (ErrorRsp)m;
-			throw new RuntimeException(er.getError());
-		}
-		if (!(m instanceof OkRsp)) {
-			throw new RuntimeException();
-		}
 	}
 }
