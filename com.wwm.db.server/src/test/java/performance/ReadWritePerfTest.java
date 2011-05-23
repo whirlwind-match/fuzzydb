@@ -13,6 +13,7 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.wwm.db.Client;
@@ -38,7 +39,12 @@ public class ReadWritePerfTest {
 	static int createReadModReadPerSecond = -1; 
 	
 	ClassLoaderInterface cli = new DummyCli();
-	private final String storeName = "TestStore";
+	private String storeName;
+	
+	@Before
+	public void assignUniqueStoreName() {
+		storeName = "TestStore" + System.currentTimeMillis();
+	}
 	
 	@AfterClass
 	static public void showPerf() {
@@ -53,22 +59,17 @@ public class ReadWritePerfTest {
 		final int numObjects = outerLoops * numberPerTransaction * numberOfLoops;
 		Ref ref = null; // Last ref retrieved
 
-		for (int count = 0; count < outerLoops; count++) {
-			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
+		// Make server
+		Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
+		try {
 			database.startServer();
 			
 			// Make client
 			Client client = Factory.createClient();
 			client.connect(new InetSocketAddress(InetAddress.getLocalHost(), serverPort));
-
+	
 			long testStart = System.currentTimeMillis();
 			
-			try {
-				client.deleteStore(storeName);
-			} catch (UnknownStoreException e) { 
-				// OKAY FOR EMPTY DB fail("Not sure if this should happen or not"); 
-			}
 			Store store = client.createStore(storeName);
 			
 			long start = System.currentTimeMillis();
@@ -77,7 +78,7 @@ public class ReadWritePerfTest {
 				Transaction t = store.getAuthStore().begin();
 				for (int j = 0; j < numberPerTransaction; j++) {
 					ref = t.create(
-
+	
 					//		new String("Hello World " + i + ' ' + j)
 					//		new String("Hello World");
 							// approx 500 chars
@@ -92,19 +93,24 @@ public class ReadWritePerfTest {
 			long duration = System.currentTimeMillis() - start;
 	
 			System.out.println(numberPerTransaction * numberOfLoops + " Objects created in " + duration + "ms");
-			database.close();
-
+	
 			long testDuration = System.currentTimeMillis() - testStart;
 			System.out.println("Test duration: " + testDuration + "ms");
-			
-			try {
-				System.gc();
-				Thread.sleep(1000);
-				System.gc();
-			} catch (InterruptedException e) {
-				fail(); // shouldn't happen
-			}
+
+			client.deleteStore(storeName);
+		} finally {
+			database.close();
 		}
+		
+		try {
+			System.gc();
+			Thread.sleep(500);
+			System.gc();
+		} catch (InterruptedException e) {
+			fail(); // shouldn't happen
+		}
+
+		
 		
 		// if (true) return;  // Normal test ends here
 
@@ -116,7 +122,7 @@ public class ReadWritePerfTest {
 		if (false) // comment out this line to enable
 		{
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
+			database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 
 			Client client = Factory.createClient();
 			client.connect(new InetSocketAddress(InetAddress.getLocalHost(), serverPort));
@@ -143,7 +149,7 @@ public class ReadWritePerfTest {
 		// RANDOM READS
 		{
 			// Make server
-			Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
+			database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 			database.startServer();
 
 			Client client = Factory.createClient();
@@ -191,7 +197,6 @@ public class ReadWritePerfTest {
 			Client client = Factory.createClient();
 			client.connect(new InetSocketAddress(InetAddress.getLocalHost(), serverPort));
 
-			long testStart = System.currentTimeMillis();
 			
 			try {
 				client.deleteStore(storeName);
