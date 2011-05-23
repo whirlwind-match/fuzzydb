@@ -20,6 +20,7 @@ import com.wwm.db.core.UncaughtExceptionLogger;
 import com.wwm.db.internal.pager.NullPersister;
 import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.db.internal.pager.PagePersister;
+import com.wwm.db.internal.server.txlog.NullTxLogWriter;
 import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.internal.server.txlog.TxLogWriter;
@@ -51,9 +52,15 @@ public final class Database implements DatabaseVersionState {
     private final ServerSetupProvider setup = new ServerSetupProvider();
     private final PagePersister pager;
     private long latestDiskVersion = -1;
-    private TxLogSink txLog;
+    private final TxLogSink txLog;
     private final Semaphore shutdownFlag = new Semaphore(0);
     private boolean closed = false;
+    
+    /**
+     * True if changes should be written to disk (if false, it is still allowable to read, 
+     * such that start is always from a given state)
+     */
+    private final boolean persistChanges; 
 
     private MaintThread maintThread;
 
@@ -114,6 +121,12 @@ public final class Database implements DatabaseVersionState {
     public Database(MessageSource messageSource, boolean isPersistent) {
     	this.messageSource = messageSource;
     	this.pager = isPersistent ? new FileSerializingPagePersister(this) : new NullPersister(this);
+    	
+    	this.persistChanges = isPersistent; // TODO: Allow read and write persistence to be separate 
+    	// txLog on single core activity seems to be 10-20% (see SimpleIndex test logs when this true/false)
+    	// for heavily loaded server, this may bottleneck more.
+    	
+        txLog = persistChanges ? new TxLogWriter(setup.getTxDiskRoot(), cli) : new NullTxLogWriter();
     }
 
 
@@ -165,7 +178,6 @@ public final class Database implements DatabaseVersionState {
         repository.applyImports();
 
         // start new tx log
-        txLog = new TxLogWriter(setup.getTxDiskRoot(), cli);
         transactionCoordinator.useTxLog( txLog );
 
         commandProcessor.start();
@@ -177,10 +189,13 @@ public final class Database implements DatabaseVersionState {
     
     
     private void performMaintenence() {
+    	if (!persistChanges) {
+    		return;
+    	}
+	
         // delete stores
         repository.purgeDeletedStores(transactionCoordinator.getOldestTransactionVersion());
         pager.doMaintenance();
-//		System.gc();
         doSync();
     }
 
@@ -213,7 +228,12 @@ public final class Database implements DatabaseVersionState {
      * Rollover to a new txLog, so we've always got a new one ready
      */
     private void doSync() {
-        
+
+    	// We don't sync etc if we're not recording changes
+    	if (!persistChanges) {
+    		return;
+    	}
+	
 		long now = System.currentTimeMillis();
 
 		if (now - lastSync > syncPeriod) {
