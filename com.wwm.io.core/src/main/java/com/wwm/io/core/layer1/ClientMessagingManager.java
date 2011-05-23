@@ -83,6 +83,8 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 					}
 				}
 				return;
+			} catch (RuntimeException e) {
+				e.printStackTrace();
 			}
 			if (messages != null) {
 				for (SourcedMessage sm : messages) {
@@ -153,7 +155,6 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 					Constructor<? extends ArchException> constructor = serverException.getClass().getConstructor(String.class);
 					localException = constructor.newInstance(serverException.getMessage());
 					localException.initCause(serverException);
-					localException.setStackTrace(getStackTrace()); // set stack trace to here (rather than one set in newInstance()
 					throw localException;
 				} catch (InstantiationException e1) {
 					throw new RuntimeException(e1);
