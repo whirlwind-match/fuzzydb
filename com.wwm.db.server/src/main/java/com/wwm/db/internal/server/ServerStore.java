@@ -54,12 +54,18 @@ public class ServerStore implements Serializable {
 	 */
 	private long savedDbVersion = 0; 
 	
+	/**
+	 * 
+	 * @param storageBasePath - disk location, or null if no storage is available
+	 */
 	public ServerStore(String storageBasePath, String storeName, int storeId) {
 		this.storeName = storeName;
 		this.storeId = storeId;
 		
-		String diskName = makeDirForNewStore(storeName, storageBasePath);
-		this.path = storageBasePath + File.separatorChar + diskName;
+		if (storageBasePath != null) {
+			String diskName = makeDirForNewStore(storeName, storageBasePath);
+			this.path = storageBasePath + File.separatorChar + diskName;
+		}
 		
 		namespaces = new Namespaces(this);
 		pagerClassTokenCache = new ClassTokenCache(true);
@@ -130,6 +136,8 @@ public class ServerStore implements Serializable {
 	}
 
 	public boolean deletePersistentData() {
+		if (path==null) return true; // nothing to delete
+		
 		if (!namespaces.deletePersistentData()) return false;
 		if (!deleteTempDir()) return false;
 		

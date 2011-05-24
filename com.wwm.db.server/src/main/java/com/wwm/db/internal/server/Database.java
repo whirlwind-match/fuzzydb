@@ -300,7 +300,7 @@ public final class Database implements DatabaseVersionState {
                         repository.purgeDeletedStores(getCurrentDbVersion());
 
                         try {
-                            if (latestDiskVersion != getCurrentDbVersion()) {
+                            if (latestDiskVersion != getCurrentDbVersion() && persistChanges) {
                                 repository.save(setup.getReposDiskRoot());
                             }
                         } catch (IOException e) {
@@ -309,7 +309,7 @@ public final class Database implements DatabaseVersionState {
                         closed = true;
                     	log.info("===== Database shutdown complete =====");
                     }
-                    shutdownFlag.release(); // TODO(nu->ac): Pls explain why this is needed, and what effect it has?
+                    shutdownFlag.release(); // release to allow blocking close() to wait 
                 }
             }
         };

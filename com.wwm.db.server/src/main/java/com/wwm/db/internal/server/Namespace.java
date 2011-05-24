@@ -63,11 +63,13 @@ public class Namespace implements Serializable {
 
 		String dn = null;
 
-		File dir = null;
-		do {
-			dn = FileUtil.makeUniqueDiskName(new File(namespaces.getPath()), name.equals("") ? "_default" : name);
-			dir = new File(namespaces.getPath(), dn);
-		} while (!dir.mkdirs());
+		if (namespaces.getPath() != null){
+			File dir = null;
+			do {
+				dn = FileUtil.makeUniqueDiskName(new File(namespaces.getPath()), name.equals("") ? "_default" : name);
+				dir = new File(namespaces.getPath(), dn);
+			} while (!dir.mkdirs());
+		}
 
 		this.diskName = dn;
 	}

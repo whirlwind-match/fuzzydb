@@ -28,7 +28,7 @@ public class NullPersister implements PagePersister {
 	public String getPath() {
 		// TODO: get rid of concept of a path as it's disk specific and all over the place
 		// Return a relative path we'd want to delete 
-		return "wwm-db-temp/should-be-empty";
+		return null;
 	}
 
 	public void ensureCapacity(int numPages) {

@@ -22,6 +22,8 @@ public class EmbeddedClientFactory implements ClientFactory {
 	static private final Logger log = LogFactory.getLogger(EmbeddedClientFactory.class);
 	
 	private static EmbeddedClientFactory instance;
+
+	private static boolean isPersistent = false;
 	
 	private final Database database;
 	
@@ -30,6 +32,14 @@ public class EmbeddedClientFactory implements ClientFactory {
 
 	private final ReceiverMessageSource databaseMessageSource;
 
+	/**
+	 * WARNING: Temporary until persistent/non-persistent requirements better nailed down.
+	 * 
+	 * @param isPersistent Default is non-persistent.  Set to true if you want changes written to disk.
+	 */
+	public static void setPersistent(boolean isPersistent) {
+		EmbeddedClientFactory.isPersistent = isPersistent;
+	}
 	
 	
 	public static synchronized EmbeddedClientFactory getInstance() {
@@ -43,7 +53,7 @@ public class EmbeddedClientFactory implements ClientFactory {
 	
 	private EmbeddedClientFactory() {
 		databaseMessageSource = new ReceiverMessageSource();
-		database = new Database(databaseMessageSource, false);
+		database = new Database(databaseMessageSource, isPersistent);
 		try {
 			database.startServer();
 		} catch (IOException e) {
