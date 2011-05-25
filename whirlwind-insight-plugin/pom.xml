@@ -5,7 +5,7 @@
 	<artifactId>whirlwind-insight-plugin</artifactId>
 	<version>1.0.0.CI-SNAPSHOT</version>
 	<parent>
-		<groupId>com.wwm</groupId>
+		<groupId>org.fuzzydb</groupId>
 		<artifactId>whirlwind-parent-aspectj</artifactId>
 		<version>1.0.0.CI-SNAPSHOT</version>
 		<!-- empty to workaround 3.0.x warning: see http://jira.codehaus.org/browse/MNG-4687 -->
@@ -14,7 +14,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.wwm.db</groupId>
+			<groupId>org.fuzzydb.db</groupId>
 			<artifactId>com.wwm.db</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
 			<scope>provided</scope>

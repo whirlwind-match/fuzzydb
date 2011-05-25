@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.wwm.attrs</groupId>
+  <groupId>org.fuzzydb.attrs</groupId>
   <artifactId>com.wwm.attrs.compact</artifactId>
   <version>1.0.0.CI-SNAPSHOT</version>
   <parent>
   	<artifactId>whirlwind-parent</artifactId>
-  	<groupId>com.wwm</groupId>
+  	<groupId>org.fuzzydb</groupId>
   	<version>1.0.0.CI-SNAPSHOT</version>
   	
   </parent>
   <dependencies>
   	<dependency>
-  		<groupId>com.wwm.attrs</groupId>
+  		<groupId>org.fuzzydb.attrs</groupId>
   		<artifactId>com.wwm.attrs</artifactId>
   		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>

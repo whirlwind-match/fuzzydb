@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.wwm</groupId>
+	<groupId>org.fuzzydb</groupId>
 	<artifactId>whirlwind-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0.CI-SNAPSHOT</version>
