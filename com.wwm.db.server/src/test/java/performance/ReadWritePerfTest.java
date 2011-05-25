@@ -51,7 +51,8 @@ public class ReadWritePerfTest {
 		System.out.println("Create and sequential reads per second = " + createAndSequentialReadPerSecond);
 	}
 
-	@Test public void testCreateManyAndRandomAccess() throws IOException {
+	@Test(timeout=30000) 
+	public void testCreateManyAndRandomAccess() throws IOException {
 		final int outerLoops = 1;
 		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 10;
@@ -95,9 +96,18 @@ public class ReadWritePerfTest {
 	
 			long testDuration = System.currentTimeMillis() - testStart;
 			System.out.println("Test duration: " + testDuration + "ms");
-
+		} catch (IOException e) {
+			e.printStackTrace(); // Ensure we see it
+			throw e;
+		} catch (RuntimeException e) {
+			e.printStackTrace(); // Ensure we see it
+			throw e;
 		} finally {
-			database.close();
+			try {
+				database.close();
+			} catch (RuntimeException e) {
+				e.printStackTrace(); // Caution in finally to ensure any original exception gets through 
+			}
 		}
 		
 		try {
@@ -185,7 +195,8 @@ public class ReadWritePerfTest {
 	}
 	
 
-	@Test public void testCreateManyAndSequentialAccess() throws IOException {
+	@Test(timeout=30000) 
+	public void testCreateManyAndSequentialAccess() throws IOException {
 		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 30;
 
@@ -245,7 +256,8 @@ public class ReadWritePerfTest {
 		}
 	}
 	
-	@Test public void testCreateManyAndUpdate() throws IOException {
+	@Test(timeout=30000) 
+	public void testCreateManyAndUpdate() throws IOException {
 		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 5;
 
