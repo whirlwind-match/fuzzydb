@@ -37,7 +37,12 @@
 	    <module>com.wwm.abdera.util</module>
 		<module>com.wwm.atom</module>
         <module>com.wwm.atom.server</module>
-
-
      </modules>
+	 
+ 	<scm>
+		<url>http://github.com/whirlwind-match/whirlwind-db</url>
+		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
+		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
+	</scm>
+
 </project>

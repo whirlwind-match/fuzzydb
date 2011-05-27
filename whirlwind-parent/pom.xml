@@ -55,11 +55,12 @@
 		</developer>
 	</developers>
 
-	<scm>
-		<url>http://github.com/whirlwind-match/whirlwind-db</url>
+<!--	<scm>
+		<url>git://github.com/whirlwind-match/whirlwind-db.git</url>
 		<connection>scm:git:git@github.com:whirlwind-match/whirlwind-db.git</connection>
 		<developerConnection>scm:git:git@github.com:whirlwind-match/whirlwind-db.git</developerConnection>
 	</scm>
+	-->
 
 
 	<profiles>
