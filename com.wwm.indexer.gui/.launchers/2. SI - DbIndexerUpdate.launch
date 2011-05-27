@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.wwm.indexer/src/com/wwm/indexer/config/DbIndexerUpdate.java"/>
+<listEntry value="/org.fuzzydb.indexer/src/com/wwm/indexer/config/DbIndexerUpdate.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -10,7 +10,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.indexer.config.DbIndexerUpdate"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="xml/liftshare wwmdb:/LiftshareStore"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.wwm.indexer"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.fuzzydb.indexer"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-server -ea"/>
 </launchConfiguration>

@@ -2,7 +2,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fuzzydb.db</groupId>
-    <artifactId>com.wwm.db</artifactId>
+    <artifactId>org.fuzzydb.client</artifactId>
     <version>1.0.0.CI-SNAPSHOT</version>
 
     <parent>
@@ -17,27 +17,27 @@ NOTE: compiled against io.packet, but io.packet is set as provided scope and mus
     <dependencies>
         <dependency>
             <groupId>org.fuzzydb</groupId>
-            <artifactId>com.wwm.util</artifactId>
+            <artifactId>org.fuzzydb.util</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
-            <artifactId>com.wwm.db.core</artifactId>
+            <artifactId>org.fuzzydb.core</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
-            <artifactId>com.wwm.io.core</artifactId>
+            <artifactId>org.fuzzydb.io.core</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
-            <artifactId>com.wwm.expressions</artifactId>
+            <artifactId>org.fuzzydb.expressions</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>org.fuzzydb</groupId>
-        	<artifactId>com.wwm.io.packet</artifactId>
+        	<artifactId>org.fuzzydb.io.packet</artifactId>
         	<version>1.0.0.CI-SNAPSHOT</version>
         	<type>jar</type>
         	<scope>provided</scope>

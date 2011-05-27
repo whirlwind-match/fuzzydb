@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fuzzydb</groupId>
-  <artifactId>com.wwm.indexer</artifactId>
+  <artifactId>org.fuzzydb.indexer</artifactId>
   <version>1.0.0.CI-SNAPSHOT</version>
   <parent>
   	<artifactId>whirlwind-parent</artifactId>
@@ -12,22 +12,22 @@
   <dependencies>
   	<dependency>
   		<groupId>org.fuzzydb.db</groupId>
-  		<artifactId>com.wwm.db</artifactId>
+  		<artifactId>org.fuzzydb.client</artifactId>
   		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>org.fuzzydb.attrs</groupId>
-  		<artifactId>com.wwm.attrs</artifactId>
+  		<artifactId>org.fuzzydb.attrs</artifactId>
   		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>org.fuzzydb</groupId>
-  		<artifactId>com.wwm.postcode</artifactId>
+  		<artifactId>org.fuzzydb.postcode</artifactId>
   		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>org.fuzzydb.db</groupId>
-  		<artifactId>com.wwm.db.server</artifactId>
+  		<artifactId>org.fuzzydb.server</artifactId>
   		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
   </dependencies>

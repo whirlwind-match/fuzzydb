@@ -2,7 +2,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fuzzydb</groupId>
-    <artifactId>com.wwm.io.packet</artifactId>
+    <artifactId>org.fuzzydb.io.packet</artifactId>
     <version>1.0.0.CI-SNAPSHOT</version>
 
     <parent>
@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.fuzzydb</groupId>
-            <artifactId>com.wwm.db.core</artifactId>
+            <artifactId>org.fuzzydb.core</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
             <optional>false</optional>
         </dependency>
@@ -25,7 +25,7 @@
   	</dependency>
   	<dependency>
   		<groupId>org.fuzzydb</groupId>
-  		<artifactId>com.wwm.io.core</artifactId>
+  		<artifactId>org.fuzzydb.io.core</artifactId>
   		<version>1.0.0.CI-SNAPSHOT</version>
   	</dependency>
     </dependencies>

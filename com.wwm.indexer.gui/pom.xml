@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuzzydb</groupId>
-	<artifactId>com.wwm.indexer.gui</artifactId>
+	<artifactId>org.fuzzydb.indexer.gui</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<parent>
@@ -14,24 +14,24 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
-			<artifactId>com.wwm.indexer</artifactId>
+			<artifactId>org.fuzzydb.indexer</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>org.fuzzydb.atom</groupId>
-			<artifactId>com.wwm.atom</artifactId>
-			<version>1.0.0.CI-SNAPSHOT</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.fuzzydb.atom</groupId> -->
+<!-- 			<artifactId>org.fuzzydb.atom</artifactId> -->
+<!-- 			<version>1.0.0.CI-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
-			<artifactId>com.wwm.util.gui</artifactId>
+			<artifactId>org.fuzzydb.util.gui</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>org.fuzzydb.atom</groupId>
-			<artifactId>com.wwm.atom.server</artifactId>
-			<version>1.0.0.CI-SNAPSHOT</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.fuzzydb.atom</groupId> -->
+<!-- 			<artifactId>org.fuzzydb.atom.server</artifactId> -->
+<!-- 			<version>1.0.0.CI-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>
@@ -54,10 +54,6 @@
 						<argument>wwmdb:/LiftshareStore</argument>
 					</arguments>
 					<systemProperties>
-<!-- 							<systemProperty> -->
-<!-- 								<key>key</key> -->
-<!-- 								<value>myvalue</value> -->
-<!-- 							</systemProperty> -->
 					</systemProperties>
 				</configuration>
 			</plugin>

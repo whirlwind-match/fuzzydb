@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.fuzzydb.atom</groupId>
-	<artifactId>com.wwm.atom</artifactId>
+	<artifactId>org.fuzzydb.atom</artifactId>
 	<version>1.0.0.CI-SNAPSHOT</version>
 
 	<parent>
@@ -14,14 +14,13 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.fuzzydb.abdera</groupId>
-			<artifactId>com.wwm.abdera.util</artifactId>
+			<groupId>org.fuzzydb.atom</groupId>
+			<artifactId>org.fuzzydb.abdera.util</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
-			<optional>false</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
-			<artifactId>com.wwm.util</artifactId>
+			<artifactId>org.fuzzydb.util</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
 		<dependency>

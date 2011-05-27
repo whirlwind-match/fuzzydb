@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.wwm.indexer.gui/src/main/java/whirlwind/demo/gui/WhirlWindDemo.java"/>
+<listEntry value="/org.fuzzydb.indexer.gui/src/main/java/whirlwind/demo/gui/WhirlWindDemo.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -14,7 +14,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="whirlwind.demo.gui.WhirlWindDemo"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="xml/liftshare wwmdb:/LiftshareStore"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.wwm.indexer.gui"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.fuzzydb.indexer.gui"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -Xmx50M"/>
 </launchConfiguration>

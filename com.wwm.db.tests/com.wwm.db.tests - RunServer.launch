@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.wwm.db.tests"/>
+<listEntry value="/org.fuzzydb.db.tests"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
@@ -13,7 +13,7 @@
 <booleanAttribute key="org.eclipse.jdt.debug.ui.INCLUDE_EXTERNAL_JARS" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.db.RunServer"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.wwm.db.tests"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.fuzzydb.db.tests"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -Dcom.sun.management.jmxremote.port=27602 -Dcom.sun.management.jmxremote.authenticate=false -Djava.util.logging.config.file=${workspace_loc:com.wwm.db.tests}/logging.properties -Xmx50M -XX:+UseConcMarkSweepGC -XX:-PrintGCDetails -XX:-PrintTenuringDistribution"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -Dcom.sun.management.jmxremote.port=27602 -Dcom.sun.management.jmxremote.authenticate=false -Xmx50M -XX:+UseConcMarkSweepGC -XX:-PrintGCDetails -XX:-PrintTenuringDistribution"/>
 </launchConfiguration>

@@ -7,7 +7,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fuzzydb.db</groupId>
-  <artifactId>com.wwm.db.tests</artifactId>
+  <artifactId>org.fuzzydb.tests</artifactId>
   <name>Whirlwind Standalone Database Tests</name>
   <version>1.0.0.CI-SNAPSHOT</version>
 
@@ -22,19 +22,19 @@
     <dependencies>
     	<dependency>
     		<groupId>org.fuzzydb.db</groupId>
-    		<artifactId>com.wwm.db.server</artifactId>
+    		<artifactId>org.fuzzydb.server</artifactId>
     		<version>1.0.0.CI-SNAPSHOT</version>
     	</dependency>
         <dependency>
             <groupId>org.fuzzydb.db</groupId>
-            <artifactId>com.wwm.db.server</artifactId>
+            <artifactId>org.fuzzydb.server</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
     	<dependency>
     		<groupId>org.fuzzydb</groupId>
-    		<artifactId>com.wwm.io.packet</artifactId>
+    		<artifactId>org.fuzzydb.io.packet</artifactId>
     		<version>1.0.0.CI-SNAPSHOT</version>
     		<scope>test</scope>
     	</dependency>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.wwm.postcode/src/com/wwm/postcode/RandomPostcodeImporter.java"/>
+<listEntry value="/org.fuzzydb.postcode/src/com/wwm/postcode/RandomPostcodeImporter.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -9,7 +9,7 @@
 <booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.postcode.RandomPostcodeImporter"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.wwm.postcode"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.fuzzydb.postcode"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -Xmx400M -Dlikemynds.config.file=${workspace_loc:com.wwm.db1.live.launchers}/database.properties"/>
 </launchConfiguration>

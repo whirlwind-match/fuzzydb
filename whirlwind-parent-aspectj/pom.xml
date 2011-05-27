@@ -5,17 +5,17 @@
 	<artifactId>whirlwind-parent-aspectj</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0.CI-SNAPSHOT</version>
-	<name>AspectJ Parent</name>
-	<description>x</description>
-
+	<name>${project.artifactId}</name>
 
 	<parent>
 		<artifactId>whirlwind-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>
 		<version>1.0.0.CI-SNAPSHOT</version>
-		
 	</parent>
 
+	<properties>
+		<aspectj.version>1.6.8</aspectj.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -43,8 +43,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<properties>
-		<aspectj.version>1.6.8</aspectj.version>
-	</properties>
-
 </project>

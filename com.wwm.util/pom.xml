@@ -2,12 +2,23 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fuzzydb</groupId>
-    <artifactId>com.wwm.util</artifactId>
+    <artifactId>org.fuzzydb.util</artifactId>
     <version>1.0.0.CI-SNAPSHOT</version>
     <parent>
     	<artifactId>whirlwind-parent</artifactId>
     	<groupId>org.fuzzydb</groupId>
     	<version>1.0.0.CI-SNAPSHOT</version>
-    	
+    	<relativePath></relativePath>
     </parent>
+    <dependencies>
+    	<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-core</artifactId>
+    		<type>jar</type>
+    		<scope>compile</scope>
+    		<version>${spring.version}</version>
+    	</dependency>
+    </dependencies>
+    
+    
 </project>
