@@ -9,7 +9,7 @@
     <artifactId>com.wwm.build.aggregator</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0.CI-SNAPSHOT</version>
-    <name>com.wwm.build Multi Project</name>
+    <name>Master Aggregator</name>
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 
      <modules>
@@ -27,12 +27,17 @@
         <module>com.wwm.attrs.compact</module>
         <module>com.wwm.expressions</module>
         <module>com.wwm.db.server</module>
+		<module>com.wwm.db.tests</module>
+
         <module>com.wwm.postcode</module>
-	<module>com.wwm.atom.build</module>
         <module>com.wwm.indexer</module>
         <module>com.wwm.indexer.gui</module>
         <module>com.wwm.db.spring</module>
-	<module>com.wwm.db.tests</module>
+		
+	    <module>com.wwm.abdera.util</module>
+		<module>com.wwm.atom</module>
+        <module>com.wwm.atom.server</module>
+
 
      </modules>
 </project>
