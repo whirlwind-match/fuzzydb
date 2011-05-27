@@ -1,16 +1,14 @@
 package com.wwm.indexer.config;
 
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.InputStreamReader;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
@@ -49,6 +47,7 @@ import com.wwm.indexer.internal.random.RandomGenerator;
 import com.wwm.util.AsymptoticScoreMapper;
 import com.wwm.util.DynamicRef;
 import com.wwm.util.LinearScoreMapper;
+import com.wwm.util.ResourcePatternProcessor;
 
 
 public class XmlLoader {
@@ -71,35 +70,33 @@ public class XmlLoader {
 
     public XmlLoader(String xmlPath, WhirlwindConfiguration conf) {
 
-        Store store = IndexerFactory.getCurrentStore();
+    	xmlPath = "classpath:" + xmlPath;
+    	
+        final Store store = IndexerFactory.getCurrentStore();
 
-
-        // FIXME: Make both of the following do all files in teh directory (see below)
-
-        File[] configs = listXMLFiles(new File(xmlPath + "/scorerconfigs"));
-        for( File file: configs) {
-            String filename = file.getName();
-            String name = filename.substring(0, filename.indexOf('.'));
-            scorerCfgs.add(name);
-            try {
-				WWConfigHelper.updateScorerConfig(store, new FileInputStream(file));
-			} catch (FileNotFoundException e) {
-				// shouldn't happen
-				throw new RuntimeException(e);
+        new ResourcePatternProcessor(){
+			@Override
+			protected Closeable process(Resource resource) throws IOException {
+				String filename = resource.getFilename();
+				String name = filename.substring(0, filename.indexOf('.'));
+				scorerCfgs.add(name);
+				InputStream stream = resource.getInputStream();
+				WWConfigHelper.updateScorerConfig(store, stream);
+				return stream;
 			}
-        }
-
-        configs = listXMLFiles(new File(xmlPath + "/indexstrategies"));
-        for( File file: configs) {
+        
+        }.runWithResources(xmlPath + "/scorerconfigs/*.xml");
+        
+        new ResourcePatternProcessor(){
+			@Override
+			protected Closeable process(Resource resource) throws IOException {
 //            String filename = file.getName();
 //            String name = filename.substring(0, filename.indexOf('.'));
-            try {
-				WWConfigHelper.updateIndexConfig(store, new FileInputStream(file));
-			} catch (FileNotFoundException e) {
-				// shouldn't happen
-				throw new RuntimeException(e);
+				InputStream stream = resource.getInputStream();
+				WWConfigHelper.updateIndexConfig(store, stream);
+				return stream;
 			}
-        }
+        }.runWithResources(xmlPath + "/indexstrategies/*.xml");
 
 
         this.xmlPath = xmlPath;
@@ -116,7 +113,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ENUMS
         // ----------------------------------------------------------------
-        enumDefs = load(getEnumXStream(), EnumDefinition.class, xmlPath + File.separator + "enums");
+        enumDefs = load(getEnumXStream(), EnumDefinition.class, xmlPath + "/enums");
         for (Entry<String, EnumDefinition> entry : enumDefs.entrySet()) {
             String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
             conf.add(strippedName, entry.getValue());
@@ -126,7 +123,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ATTRIBUTES
         // ----------------------------------------------------------------
-        attributes = XmlLoader.load(new XStream(), Object.class, xmlPath + File.separator + "attributes");
+        attributes = XmlLoader.load(new XStream(), Object.class, xmlPath + "/attributes");
         for (Entry<String, Object> entry : attributes.entrySet()) {
             String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
             if (entry.getValue() instanceof Class) {
@@ -144,7 +141,7 @@ public class XmlLoader {
         //        XStream scorerXStream = new XStream();
         //        scorerXStream.registerConverter(new AttributeIdMapper(attrDefs));
         //        addOurAliases(scorerXStream);
-        //        scorers = XmlLoader.load(scorerXStream, Scorer.class, xmlPath + File.separator + "scorers");
+        //        scorers = XmlLoader.load(scorerXStream, Scorer.class, xmlPath + "/scorers");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -153,7 +150,7 @@ public class XmlLoader {
         //        XStream scorerCfgXStream = new XStream();
         //        scorerCfgXStream.registerConverter(new XmlNameMapper<Scorer>(Scorer.class, scorers));
         //        addOurAliases(scorerCfgXStream);
-        //        scorerCfgs = XmlLoader.load(scorerCfgXStream, ArrayList.class, xmlPath + File.separator + "scorercfgs");
+        //        scorerCfgs = XmlLoader.load(scorerCfgXStream, ArrayList.class, xmlPath + "/scorercfgs");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -162,7 +159,7 @@ public class XmlLoader {
         //        XStream splitterXStream = new XStream();
         //        splitterXStream.registerConverter(new AttributeIdMapper(attrDefs));
         //        splitterXStream.registerConverter(new XmlNameMapper<EnumDefinition>(EnumDefinition.class, enumDefs));
-        //        TreeMap<String, SplitConfiguration> splitters = XmlLoader.load(splitterXStream, SplitConfiguration.class, xmlPath + File.separator + "indexsplitters");
+        //        TreeMap<String, SplitConfiguration> splitters = XmlLoader.load(splitterXStream, SplitConfiguration.class, xmlPath + "/indexsplitters");
         //        // ----------------------------------------------------------------
         //
         //        // ----------------------------------------------------------------
@@ -171,7 +168,7 @@ public class XmlLoader {
         //        XStream strategyXStream = new XStream();
         //        strategyXStream.registerConverter(new XmlNameMapper<SplitConfiguration>(SplitConfiguration.class, splitters));
         //        addScorerAliases(strategyXStream);
-        //        strategyCfgs = XmlLoader.load(strategyXStream, ArrayList.class, xmlPath + File.separator + "indexstrategies");
+        //        strategyCfgs = XmlLoader.load(strategyXStream, ArrayList.class, xmlPath + "/indexstrategies");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -179,7 +176,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         XStream randXStream = new XStream();
         randXStream.registerConverter(new XmlNameMapper<EnumDefinition>(EnumDefinition.class, enumDefs));
-        randGenerators = XmlLoader.load(randXStream, RandomGenerator.class, xmlPath + File.separator + "randomisers");
+        randGenerators = XmlLoader.load(randXStream, RandomGenerator.class, xmlPath + "/randomisers");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -187,10 +184,12 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         try {
             XStream demoXStream = new XStream();
+            demoXStream.setClassLoader( getClass().getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
+
             demoXStream.registerConverter(new XmlNameMapper<RandomGenerator>(RandomGenerator.class, randGenerators));
             demoXStream.alias("RandomGenerator", RandomGenerator.class);
-            demoCfg = (WhirlwindDemoConfig) demoXStream.fromXML(new FileReader(xmlPath + "/demo.xml"));
-        } catch (FileNotFoundException e) { e.printStackTrace(); } // FIXME: Document this exception
+            demoCfg = (WhirlwindDemoConfig) demoXStream.fromXML(new DefaultResourceLoader().getResource(xmlPath + "/demo.xml").getInputStream());
+        } catch (IOException e) { throw new RuntimeException(e); }
         // ----------------------------------------------------------------
     }
 
@@ -318,37 +317,21 @@ public class XmlLoader {
         return xmlPath;
     }
 
-    public static <T> TreeMap<String, T> load(XStream xstream, Class<T> clazz, String xmlPath) {
-        TreeMap<String, T> result = new TreeMap<String, T>();
+    public static <T> TreeMap<String, T> load(final XStream xstream, final Class<T> clazz, String xmlPath) {
+        final TreeMap<String, T> result = new TreeMap<String, T>();
 
-        try {
-            File inputPath = new File(xmlPath);
-            if (!inputPath.exists()) {
-                throw new FileNotFoundException(inputPath.getPath());
-            }
-
-            for (File file : listXMLFiles(inputPath)) {
-                InputStreamReader reader = new InputStreamReader(new FileInputStream(file.getAbsoluteFile()));
-                result.put(file.getName(), clazz.cast(xstream.fromXML(reader)));
-                reader.close();
-
-            }
-        } catch (EOFException e) {
-            e.printStackTrace(); // TODO: check if this is supposed to be within the for loop!
-        } catch (Exception e) {
-            throw new Error(e);
-        }
+        new ResourcePatternProcessor(){
+			@Override
+			protected Closeable process(Resource resource) throws IOException {
+				InputStream stream = resource.getInputStream();
+				result.put(resource.getFilename(), clazz.cast(xstream.fromXML(stream)));
+				return stream;
+			}
+        }.runWithResources(xmlPath + "/*.xml");
+				
         return result;
     }
 
-    private static File[] listXMLFiles(File inputPath) {
-        FilenameFilter filter = new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".xml");
-            }
-        };
-        return inputPath.listFiles(filter);
-    }
 
     public DynamicRef<? extends AttrDefinitionMgr> getAttrDefs() {
         return attrDefs;

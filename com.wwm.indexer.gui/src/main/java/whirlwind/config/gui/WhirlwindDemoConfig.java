@@ -51,7 +51,7 @@ public class WhirlwindDemoConfig {
             return null;
         }
         try {
-            Class<?> clazz = ClassLoader.getSystemClassLoader().loadClass(className);
+            Class<?> clazz = getClass().getClassLoader().loadClass(className);
             Object o = clazz.newInstance();
             return (SearchTab) o;
         } catch (Exception e) {
