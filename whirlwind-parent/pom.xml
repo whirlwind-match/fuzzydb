@@ -57,8 +57,8 @@
 
 	<scm>
 		<url>http://github.com/whirlwind-match/whirlwind-db</url>
-		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
-		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
+		<connection>scm:git:git@github.com:whirlwind-match/whirlwind-db.git</connection>
+		<developerConnection>scm:git:git@github.com:whirlwind-match/whirlwind-db.git</developerConnection>
 	</scm>
 
 
@@ -78,20 +78,50 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>central</id>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>sonatype-nexus-snapshots</id>
+					<name>Sonatype Nexus Snapshots</name>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>sonatype-nexus-staging</id>
+					<name>Nexus Release Repository</name>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>staging</id>
 			<distributionManagement>
 				<site>
 					<id>staging</id>
-					<url>file:///${user.dir}/../maven/site</url>
+					<url>file:///${user.dir}/target/staging</url>
 				</site>
 				<repository>
 					<id>staging</id>
-					<url>file:///${user.dir}/../maven/releases</url>
+					<url>file:///${user.dir}/target/staging</url>
 				</repository>
 				<snapshotRepository>
 					<id>staging</id>
-					<url>file:///${user.dir}/../maven/snapshots</url>
-					<uniqueVersion>false</uniqueVersion>
+					<url>file:///${user.dir}/target/staging</url>
 				</snapshotRepository>
 			</distributionManagement>
 		</profile>
@@ -143,7 +173,6 @@
 						<enabled>false</enabled>
 					</snapshots>
 				</repository>
-
 
 				<repository>
 					<id>wwm-externals</id>
