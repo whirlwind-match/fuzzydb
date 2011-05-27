@@ -24,6 +24,7 @@ To run the UI having built as above, type
 You'll now be presented with a Java UI (no frills here ... yet).
 
 Try this:
+
     * Click "Random entries" to create 1000 random journeys - this should take around a second
     * Click "Search" - you'll see a page of results and the time it took to find them
     * Look on the Map tab.  You'll see a clearly random set of journeys with the start represented 
