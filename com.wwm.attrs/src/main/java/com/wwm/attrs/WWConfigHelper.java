@@ -85,7 +85,20 @@ public class WWConfigHelper {
         xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
         ManualIndexStrategy strategy = (ManualIndexStrategy) xs.fromXML(content);
 
-        Transaction tx = store.getAuthStore().begin();
+        updateIndexConfigInternal(store, strategy);
+    }
+
+    public static void updateIndexConfig(Store store, InputStream inputStream) {
+    	XStream xs = XStreamHelper.getIndexConfigXStream(store);
+        xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
+        ManualIndexStrategy strategy = (ManualIndexStrategy) xs.fromXML(inputStream);
+
+        updateIndexConfigInternal(store, strategy);
+    }
+
+	private static void updateIndexConfigInternal(Store store,
+			ManualIndexStrategy strategy) {
+		Transaction tx = store.getAuthStore().begin();
         WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
         if (conf == null){
             conf = new WhirlwindConfiguration();
@@ -96,5 +109,5 @@ public class WWConfigHelper {
             tx.update(conf);
         }
         tx.commit();
-    }
+	}
 }

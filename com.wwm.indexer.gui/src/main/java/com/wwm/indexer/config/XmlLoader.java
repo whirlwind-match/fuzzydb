@@ -14,10 +14,10 @@ import java.util.Map.Entry;
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.atom.client.Config;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.SplitConfiguration;
+import com.wwm.attrs.WWConfigHelper;
 import com.wwm.attrs.WhirlwindConfiguration;
 import com.wwm.attrs.bool.BooleanScorer;
 import com.wwm.attrs.bool.BooleanSplitConfiguration;
@@ -72,7 +72,6 @@ public class XmlLoader {
     public XmlLoader(String xmlPath, WhirlwindConfiguration conf) {
 
         Store store = IndexerFactory.getCurrentStore();
-        Config.setClassForLoadingResources(XmlLoader.class);
 
 
         // FIXME: Make both of the following do all files in teh directory (see below)
@@ -82,14 +81,24 @@ public class XmlLoader {
             String filename = file.getName();
             String name = filename.substring(0, filename.indexOf('.'));
             scorerCfgs.add(name);
-            Config.writeScorerConfig(name, file);
+            try {
+				WWConfigHelper.updateScorerConfig(store, new FileInputStream(file));
+			} catch (FileNotFoundException e) {
+				// shouldn't happen
+				throw new RuntimeException(e);
+			}
         }
 
         configs = listXMLFiles(new File(xmlPath + "/indexstrategies"));
         for( File file: configs) {
-            String filename = file.getName();
-            String name = filename.substring(0, filename.indexOf('.'));
-            Config.writeIndexConfig(name, file);
+//            String filename = file.getName();
+//            String name = filename.substring(0, filename.indexOf('.'));
+            try {
+				WWConfigHelper.updateIndexConfig(store, new FileInputStream(file));
+			} catch (FileNotFoundException e) {
+				// shouldn't happen
+				throw new RuntimeException(e);
+			}
         }
 
 
