@@ -29,11 +29,13 @@ public class WorkerThread extends Thread {
 	public WorkerThread(WorkerThreadManager manager) {
 		super("WorkerThread-" + getNextThreadNumber() );
 		this.manager = manager;
+		this.setDaemon(true);
 	}
 	
 	public WorkerThread(String name, WorkerThreadManager manager) {
 		super(name);
 		this.manager = manager;
+		this.setDaemon(true);
 	}
 
 	static private synchronized int getNextThreadNumber(){
