@@ -8,7 +8,7 @@
     <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.M1</version>
+    <version>1.0.0.CI-SNAPSHOT</version>
     <name>Master Aggregator</name>
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 	<url>http://www.fuzzydb.org</url>

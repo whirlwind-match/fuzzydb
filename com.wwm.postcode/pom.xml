@@ -2,18 +2,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuzzydb</groupId>
 	<artifactId>org.fuzzydb.postcode</artifactId>
-	<version>1.0.0.M1</version>
+	<version>1.0.0.CI-SNAPSHOT</version>
 	<parent>
 		<artifactId>whirlwind-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>
-		<version>1.0.0.M1</version>
+		<version>1.0.0.CI-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.client</artifactId>
-			<version>1.0.0.M1</version>
+			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
