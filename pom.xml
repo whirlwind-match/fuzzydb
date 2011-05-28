@@ -101,4 +101,39 @@
 			</distributionManagement>
 		</profile>
 	</profiles>
+	
+	
+	<developers>
+		<developer>
+			<name>Neale Upstone</name>
+			<organization>Whirlwind Match Limited</organization>
+			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Adrian Clarkson</name>
+			<organization>Whirlwind Match Limited</organization>
+			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jon Wilson</name>
+			<organization>Future Projects</organization>
+			<organizationUrl>http://www.future-projects.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jason Capstick</name>
+			<organization>Whirlwind Match Limited</organization>
+			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Adeline Darling</name>
+			<organization>The Late Night Partnership</organization>
+			<organizationUrl>www.adeline-darling.co.uk</organizationUrl>
+		</developer>
+		<developer>
+			<name>Rob Chant</name>
+			<organization>The Late Night Partnership</organization>
+			<organizationUrl>http://www.dbpractice.com</organizationUrl>
+		</developer>
+	</developers>
+
 </project>
