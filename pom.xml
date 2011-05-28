@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <!--
         NOTE: This is an aggregator POM (and therefore not the parent)
@@ -10,7 +8,7 @@
     <groupId>com.wwm</groupId>
     <artifactId>com.wwm.build.aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.M1</version>
+    <version>1.0.0.CI-SNAPSHOT</version>
     <name>Master Aggregator</name>
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 
@@ -46,54 +44,5 @@
 		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
 		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
 	</scm>
-	<profiles>
-		<profile>
-			<id>central</id>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>sonatype-nexus-snapshots</id>
-					<name>Sonatype Nexus Snapshots</name>
-					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-				</snapshotRepository>
-				<repository>
-					<id>sonatype-nexus-staging</id>
-					<name>Nexus Release Repository</name>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-				</repository>
-			</distributionManagement>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>staging</id>
-			<distributionManagement>
-				<site>
-					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
-				</site>
-				<repository>
-					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
-				</repository>
-				<snapshotRepository>
-					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>
-	</profiles>
+
 </project>
