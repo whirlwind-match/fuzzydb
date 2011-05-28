@@ -5,8 +5,8 @@
     -->
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.wwm</groupId>
-    <artifactId>com.wwm.build.aggregator</artifactId>
+    <groupId>org.fuzzydb</groupId>
+    <artifactId>org.fuzzydb.aggregator</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0.M1</version>
     <name>Master Aggregator</name>

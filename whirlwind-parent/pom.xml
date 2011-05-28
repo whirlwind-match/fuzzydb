@@ -11,7 +11,7 @@
 	<description>Parent POM for specifying common properties for Whirlwind Match open source projects.</description>
 	<url>https://github.com/whirlwind-match/whirlwind-db</url>
 	<inceptionYear>2004 or was it 2003</inceptionYear>
-
+	
 	<properties>
 		<junit.version>4.8.2</junit.version>
 		<org.mockito.version>1.8.4</org.mockito.version>
@@ -54,12 +54,17 @@
 		</developer>
 	</developers>
 
-<!--	<scm>
-		<url>git://github.com/whirlwind-match/whirlwind-db.git</url>
-		<connection>scm:git:git@github.com:whirlwind-match/whirlwind-db.git</connection>
-		<developerConnection>scm:git:git@github.com:whirlwind-match/whirlwind-db.git</developerConnection>
+	<licenses>
+		<license>
+			<name>Open Software License v. 3.0</name>
+			<url>http://opensource.org/licenses/OSL-3.0</url>
+		</license>
+	</licenses>
+ 	<scm>
+		<url>http://github.com/whirlwind-match/whirlwind-db</url>
+		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
+		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
 	</scm>
-	-->
 
 
 	<profiles>
