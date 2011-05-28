@@ -6,7 +6,7 @@
     
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.fuzzydb.db</groupId>
+  <groupId>org.fuzzydb</groupId>
   <artifactId>org.fuzzydb.tests</artifactId>
   <name>Whirlwind Standalone Database Tests</name>
   <version>1.0.0.CI-SNAPSHOT</version>
@@ -21,12 +21,12 @@
     </repositories>
     <dependencies>
     	<dependency>
-    		<groupId>org.fuzzydb.db</groupId>
+    		<groupId>org.fuzzydb</groupId>
     		<artifactId>org.fuzzydb.server</artifactId>
     		<version>1.0.0.CI-SNAPSHOT</version>
     	</dependency>
         <dependency>
-            <groupId>org.fuzzydb.db</groupId>
+            <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.server</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
             <type>test-jar</type>
