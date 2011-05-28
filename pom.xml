@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <!--
         NOTE: This is an aggregator POM (and therefore not the parent)
@@ -10,7 +8,7 @@
     <groupId>com.wwm</groupId>
     <artifactId>com.wwm.build.aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.CI-SNAPSHOT</version>
+    <version>1.0.0.M1</version>
     <name>Master Aggregator</name>
     <description>Master pom for managing the Whirlwind Match open source projects.</description>
 	<url>http://www.fuzzydb.org</url>
