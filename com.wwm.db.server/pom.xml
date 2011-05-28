@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fuzzydb</groupId>
   <artifactId>org.fuzzydb.server</artifactId>
-  <version>1.0.0.CI-SNAPSHOT</version>
+  <version>1.0.0.M1</version>
 
     <parent>
         <groupId>org.fuzzydb</groupId>
         <artifactId>whirlwind-parent-aspectj</artifactId>
-        <version>1.0.0.CI-SNAPSHOT</version>
+        <version>1.0.0.M1</version>
         
     </parent>
 
@@ -17,18 +17,18 @@ Compiles against io.packet, but that artifact must be included into runtime scop
     <dependency>
       <groupId>org.fuzzydb</groupId> 
       <artifactId>org.fuzzydb.client</artifactId>
-      <version>1.0.0.CI-SNAPSHOT</version>
+      <version>1.0.0.M1</version>
     </dependency>
     <dependency>
     	<groupId>org.fuzzydb.attrs</groupId>
     	<artifactId>org.fuzzydb.attrs</artifactId>
-    	<version>1.0.0.CI-SNAPSHOT</version>
+    	<version>1.0.0.M1</version>
     	<scope>compile</scope>
     </dependency>
     <dependency>
     	<groupId>org.fuzzydb</groupId>
     	<artifactId>org.fuzzydb.io.packet</artifactId>
-    	<version>1.0.0.CI-SNAPSHOT</version>
+    	<version>1.0.0.M1</version>
     	<type>jar</type>
     	<scope>provided</scope>
     </dependency>
