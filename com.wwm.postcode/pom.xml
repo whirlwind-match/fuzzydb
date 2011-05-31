@@ -12,7 +12,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
-			<artifactId>org.fuzzydb.client</artifactId>
+			<artifactId>org.fuzzydb.core</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

@@ -17,18 +17,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.util.Random;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 import java.util.zip.GZIPInputStream;
 
 import com.wwm.db.core.Settings;
-import com.wwm.db.dao.DaoWriteCollisionException;
-import com.wwm.db.dao.SimpleDAO;
-import com.wwm.db.userobjects.PostcodeUseCount;
 import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
-import com.wwm.stats.counters.Count;
-import com.wwm.util.MTRandom;
 import com.wwm.util.StringUtils;
 
 /**
@@ -36,7 +30,7 @@ import com.wwm.util.StringUtils;
  * @deprecated Now use efficient version supplied by PostcodeService.
  */
 @Deprecated
-public class PostZonConvertor extends Thread {
+public class PostZonConvertor {
 	private final Logger log;
 
 	private static final String fullFile = Settings.getInstance().getPostcodeRoot() + File.separatorChar + PostZonImporter.postzonDataDir;
@@ -57,88 +51,12 @@ public class PostZonConvertor extends Thread {
 	//		}
 	//	}
 
-	private volatile SimpleDAO dao;
-	private volatile long lookupCount=0;
-	private final Random random = new MTRandom();
-	private boolean threadShutdownCalled = false;
 
 	//HashMap<String, byte[]> longCache = new HashMap<String, byte[]>();
 
-	public PostZonConvertor(SimpleDAO dao, Logger log) {
-		super("PostcodeConvertor delayed committer");
-		super.setDaemon(true);
+	public PostZonConvertor(Logger log) {
 		this.log = log;
-		setDao(dao);
 		log.info("Starting up PostcodeConvertor");
-		if (dao != null) {
-			super.start();
-		}
-	}
-
-	public void shutdown() {
-		threadShutdownCalled = true;
-		if (dao == null) {
-			return;
-		}
-		try {
-			this.interrupt();
-			this.join();
-		} catch (InterruptedException e) { e.printStackTrace(); } // FIXME: Document this exception
-	}
-
-	@Override
-	public void run() {
-		setPriority(Thread.MAX_PRIORITY);
-
-		long committedCount=0;
-
-		for (;;) {
-			try {
-				Thread.sleep(1000 + random.nextInt(1000));
-			} catch (InterruptedException e) {
-				log.info("PostZonConverter interrupted - committing early");
-			}
-
-			long increment;
-			SimpleDAO safeDao;
-
-			synchronized (this) {
-				increment = lookupCount - committedCount;
-				safeDao = dao;
-			}
-			if (safeDao != null && increment > 0) {
-
-				try {
-					safeDao.begin();
-					Count puc = safeDao.retrieve(PostcodeUseCount.class, null);
-					if (puc != null) {
-						puc.setCount(puc.getCount()+increment);
-						safeDao.update(puc, null);
-						log.info("PostcodeUseCount is now " + puc.getCount());
-					} else {
-						puc = new PostcodeUseCount();
-						puc.setCount(1);
-						safeDao.create(puc, null);
-						log.warn("PostcodeUseCount not found in store, starting new count from 1");
-					}
-					safeDao.commit();
-					committedCount += increment;
-				} catch (DaoWriteCollisionException vme) {
-					log.info("Postcode count collision, will try again later");
-				} catch (Exception e) {
-					dao = null;
-					log.error("Unexpected exception", e);
-				}
-			}
-			// Check for call to shutdown and make sure ALL tokens have been committed
-			if (threadShutdownCalled == true && (committedCount == lookupCount || safeDao == null)) {
-				return;
-			}
-		}
-	}
-
-	public synchronized void setDao(SimpleDAO dao) {
-		this.dao = dao;
 	}
 
 
@@ -152,10 +70,6 @@ public class PostZonConvertor extends Thread {
 		postcode = StringUtils.stripSpaces(postcode.toUpperCase());
 		if (postcode.length() < PostcodeService.minPostcodeLen) {
 			return null;
-		}
-
-		if (dao == null) {
-			throw new LostDbConnection();
 		}
 
 		String filename = postcode.substring(0, postcode.length()-PostZonImporter.blocksize);
@@ -186,9 +100,6 @@ public class PostZonConvertor extends Thread {
 			ObjectInputStream ois = new ObjectInputStream(gzis);
 			TreeMap<String, PostcodeResult> subMap = (TreeMap<String, PostcodeResult>)ois.readObject();
 			PostcodeResult pr = subMap.get(postcode);
-			if (pr != null) {
-				lookupCount++;
-			}
 			return pr;
 		} catch (IOException e) {
 			log.error("Error reading full data: " + e);
