@@ -20,14 +20,15 @@ import com.wwm.db.marker.ITraceWanted;
 import com.wwm.util.DynamicRef;
 
 /**
- * Extends AttrDefinitionMgr to allow it to store itself in a Db2 store.
+ * Extends AttrDefinitionMgr to allow it to store itself in a Db2 store.<p>
  * 
- * Attributes are defined against a given Class for which a fuzzy search can be performed.  
- * A separate {@link AttrDefinitionMgr} is stored for each fuzzy class in that store.
+ * <strike>Not currently true: Attributes are defined against a given Class for which a fuzzy search can be performed.  
+ * A separate {@link AttrDefinitionMgr} is stored for each fuzzy class in that store.</strike><p>
  * 
- * TODO: This currently looks like it was written on a Friday afternoon, as we should be storing
- * a single instance per store which contains a map of the definitions for each class.
- * i.e. REWRITE BELOW TO STORE A MAP KEYED ON CLASS, NOT KEYED ON STORE
+ * NOTE: While we could create a key by which to select the relevant AttrDefinitionMgr for a given
+ * fuzzy index, we don't.  We currently store one instance which is shared across the Store.
+ * 
+ * This could lead to memory sparseness issues in cases where LayoutAttrMap is used.<p>
  */
 public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serializable, ITraceWanted {
 
@@ -82,9 +83,10 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
     
 
     /**
-     * Get instance of AttrDefinitionMgr from store, or create one in the store
+     * Get <b>first</b> instance of AttrDefinitionMgr from store, or create one in the store
      * if one didn't exist
-     * visibility is 'package' as we use this to test that it is getting correctly stored
+     * visibility is 'package' as we use this to test that it is getting correctly stored.<p>
+     * NOTE: We expect there to be only one and so does the server for now.
      */
     static SyncedAttrDefinitionMgr getFromStore(Store store) {
     	// Only ever want first, and no need for index this way
