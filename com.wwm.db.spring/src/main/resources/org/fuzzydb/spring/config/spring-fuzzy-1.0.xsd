@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns="http://www.fuzzydb.org/schema/spring"
+						xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:beans="http://www.springframework.org/schema/beans"
+						xmlns:tool="http://www.springframework.org/schema/tool"
+						xmlns:context="http://www.springframework.org/schema/context"
+						xmlns:repository="http://www.springframework.org/schema/data/repository"
+						targetNamespace="http://www.fuzzydb.org/schema/spring"
+						elementFormDefault="qualified" attributeFormDefault="unqualified"
+						xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<xsd:import namespace="http://www.springframework.org/schema/beans"/>
+	<xsd:import namespace="http://www.springframework.org/schema/tool"/>
+	<xsd:import namespace="http://www.springframework.org/schema/context"
+							schemaLocation="http://www.springframework.org/schema/context/spring-context.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/data/repository"
+							schemaLocation="http://www.springframework.org/schema/data/repository/spring-repository.xsd"/>
+
+	<xsd:element name="store" type="storeType">
+		<xsd:annotation>
+<!-- 			<xsd:documentation source="org.fuzzydb....FactoryBean"><![CDATA[ -->
+			<xsd:documentation ><![CDATA[
+Defines a Store - TODO: ADD MORE SCHEMA DOC :)
+			]]></xsd:documentation>
+			<xsd:appinfo>
+				<tool:annotation>
+					<tool:exports type="com.wwm.db.Store"/>
+				</tool:annotation>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+
+
+</xsd:schema>
