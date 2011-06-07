@@ -13,6 +13,8 @@
 
 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
 	
+	<!-- TODO: Allow Database bean to be defined and to be used by fuzzy:store for embedded
+	     if default bean name is used (must remember to keep specific i.e. not id='database') -->
 
 	<fuzzy:store id="store" url="wwmdb:/TravelDataStore" />
 <!-- 	<fuzzy:initialize store="store"> -->

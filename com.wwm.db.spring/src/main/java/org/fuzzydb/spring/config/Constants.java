@@ -1,4 +1,4 @@
-package org.springframework.data.document.mongodb.config;
+package org.fuzzydb.spring.config;
 
 public abstract class Constants {
 

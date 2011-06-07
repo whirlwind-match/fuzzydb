@@ -27,8 +27,7 @@
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.server</artifactId>
 			<version>1.0.0.CI-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>

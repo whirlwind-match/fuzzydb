@@ -1,6 +1,6 @@
 package org.fuzzydb.spring.config;
 
-import static org.springframework.data.document.mongodb.config.Constants.DEFAULT_STORE_ID;
+import static org.fuzzydb.spring.config.Constants.DEFAULT_STORE_ID;
 import static org.springframework.beans.factory.support.BeanDefinitionReaderUtils.*;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 
 import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Store;
-
+ 
 public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 
 	@Override

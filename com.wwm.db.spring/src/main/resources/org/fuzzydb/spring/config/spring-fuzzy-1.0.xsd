@@ -33,5 +33,19 @@ Defines a Store - TODO: ADD MORE SCHEMA DOC :)
 		</xsd:annotation>
 	</xsd:element>
 
-
+	<xsd:complexType name="storeType">
+		<xsd:attribute name="id" type="xsd:ID" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[
+The name of t]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="url" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[
+The Store url.  Default is wwmdb:/com.fuzzydb.DefaultStore
+							]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
 </xsd:schema>
