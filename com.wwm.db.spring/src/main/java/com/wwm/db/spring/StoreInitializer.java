@@ -16,7 +16,6 @@ public class StoreInitializer implements InitializingBean {
 	
 	static private final Logger log = LogFactory.getLogger(StoreInitializer.class);
 	
-	@Autowired
 	private Store store;
 	
 //	@Autowired
@@ -36,6 +35,11 @@ public class StoreInitializer implements InitializingBean {
 		log.info("Loaded scorer config: {}", resourcePath);
 	}
 
+	@Autowired
+	public void setStore(Store store) {
+		this.store = store;
+	}
+	
 	public void setResource(String resource) {
 		this.resourcePath = resource;
 	}

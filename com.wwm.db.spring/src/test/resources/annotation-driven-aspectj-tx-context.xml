@@ -16,24 +16,12 @@
 	<!-- TODO: Allow Database bean to be defined and to be used by fuzzy:store for embedded
 	     if default bean name is used (must remember to keep specific i.e. not id='database') -->
 
-	<fuzzy:store id="store" url="wwmdb:/TravelDataStore" />
-<!-- 	<fuzzy:initialize store="store"> -->
-<!-- 		<fuzzy:match-styles resources="classpath*:*-match-config.xml" />	 -->
-<!-- 	</fuzzy:initialize> -->
-	
 	<!-- <ww-db:embedded id="storeBean" store="wwmdb:/TravelDataStore" /> -->
-
-
-	<!-- TODO: We want to hide Client from apps, and instead handle Store as 
-		equiv of a DataSource -->
-<!-- 	<bean id="clientFactory" class="com.wwm.db.EmbeddedClientFactory" -->
-<!-- 		factory-method="getInstance" /> -->
-
-<!-- 	<bean id="store" factory-bean="clientFactory" factory-method="openStore"> -->
-<!-- 		<constructor-arg value="wwmdb:/TravelDataStore"/> -->
-<!-- 	</bean> -->
-
-	<bean class="com.wwm.db.spring.StoreInitializer" p:resource="classpath:propertyMatchingConfig.xml" />
+	<fuzzy:store/>
+	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
+	
+	<!-- TODO: Generate transaction manager by default if there is no bean defined
+	   or do <fuzzy:tx manager= store= > -->
 
 	<bean id="dataOperations" class="com.wwm.db.internal.CurrentTransactionDataOperationsProxy">
 		<constructor-arg ref="store"/>

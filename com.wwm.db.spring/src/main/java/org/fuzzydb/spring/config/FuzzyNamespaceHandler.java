@@ -5,7 +5,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
  * {@link NamespaceHandler} for FuzzyDB
- *
+ * 
  * @author Neale Upstone
  */
 public class FuzzyNamespaceHandler extends NamespaceHandlerSupport {
@@ -13,5 +13,6 @@ public class FuzzyNamespaceHandler extends NamespaceHandlerSupport {
 	public void init() {
 
 		registerBeanDefinitionParser("store", new FuzzyStoreConfigParser());
+		registerBeanDefinitionParser("initialize", new FuzzyInitializeConfigParser());
 	}
 }
