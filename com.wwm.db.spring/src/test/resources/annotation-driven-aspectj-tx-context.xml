@@ -16,8 +16,10 @@
 	<!-- TODO: Allow Database bean to be defined and to be used by fuzzy:store for embedded
 	     if default bean name is used (must remember to keep specific i.e. not id='database') -->
 
-	<!-- <ww-db:embedded id="storeBean" store="wwmdb:/TravelDataStore" /> -->
-	<fuzzy:store/>
+	<fuzzy:store id="justTesting" url="wwmdb:/TravelDataStore" />
+	 
+	<fuzzy:embedded-database />
+	
 	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
 	
 	<!-- TODO: Generate transaction manager by default if there is no bean defined

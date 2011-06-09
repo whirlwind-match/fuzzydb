@@ -16,6 +16,17 @@ import com.wwm.db.Store;
  
 public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 
+	/** Indicate if this instance should parse as embedded instance - replace url with defaults */
+	private final boolean embedded;
+
+	public FuzzyStoreConfigParser() {
+		this(false);
+	}
+	
+	public FuzzyStoreConfigParser(boolean embedded) {
+		this.embedded = embedded;
+	}
+
 	@Override
 	protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
 		String id = element.getAttribute("id");

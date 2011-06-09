@@ -13,6 +13,7 @@ public class FuzzyNamespaceHandler extends NamespaceHandlerSupport {
 	public void init() {
 
 		registerBeanDefinitionParser("store", new FuzzyStoreConfigParser());
+		registerBeanDefinitionParser("embedded-database", new FuzzyStoreConfigParser(true));
 		registerBeanDefinitionParser("initialize", new FuzzyInitializeConfigParser());
 	}
 }

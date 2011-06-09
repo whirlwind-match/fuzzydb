@@ -19,6 +19,20 @@
 	<xsd:import namespace="http://www.springframework.org/schema/data/repository"
 							schemaLocation="http://www.springframework.org/schema/data/repository/spring-repository.xsd"/>
 
+	<xsd:element name="embedded-database" type="storeType">
+		<xsd:annotation>
+			<xsd:documentation ><![CDATA[
+Creates an embedded in-memory database instance
+			]]></xsd:documentation>
+			<xsd:appinfo>
+				<tool:annotation>
+					<tool:exports type="com.wwm.db.Store"/>
+				</tool:annotation>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+
+
 	<xsd:element name="store" type="storeType">
 		<xsd:annotation>
 <!-- 			<xsd:documentation source="org.fuzzydb....FactoryBean"><![CDATA[ -->
@@ -41,7 +55,7 @@ Initialize a specified store (or the default if omitted) with indexing and match
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-<!-- 					<tool:exports type="com.wwm.db.Store"/> -->
+<!-- 					<tool:exports type="nowt"/> -->
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -53,6 +67,11 @@ Initialize a specified store (or the default if omitted) with indexing and match
 			<xsd:annotation>
 				<xsd:documentation><![CDATA[
 The name of the Store bean for the store to be initialised. If omitted, 'store' will be used.]]></xsd:documentation>
+				<xsd:appinfo>
+					<tool:annotation>
+						<tool:expected-type type="com.wwm.db.Store" />
+					</tool:annotation>
+				</xsd:appinfo>
 			</xsd:annotation>
 		</xsd:attribute>
 		<xsd:attribute name="match-styles" type="xsd:string" use="optional">
@@ -67,7 +86,7 @@ Spring resource pattern (e.g. classpath*:*-match-config.xml) for XML file contai
 
 
 	<xsd:complexType name="storeType">
-		<xsd:attribute name="store" type="xsd:ID" use="optional">
+		<xsd:attribute name="id" type="xsd:ID" use="optional">
 			<xsd:annotation>
 				<xsd:documentation><![CDATA[
 The name of the Store bean being defined. If omitted, 'store' will be used.]]></xsd:documentation>
