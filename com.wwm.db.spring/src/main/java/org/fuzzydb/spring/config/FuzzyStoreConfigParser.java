@@ -29,7 +29,7 @@ public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 
 	@Override
 	protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
-		String id = element.getAttribute("id");
+		String id = element.getAttribute(ID_ATTRIBUTE);
 		if (!StringUtils.hasText(id)) {
 			id = DEFAULT_STORE_ID;
 		}

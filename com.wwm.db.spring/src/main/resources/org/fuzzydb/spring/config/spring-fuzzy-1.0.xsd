@@ -61,7 +61,39 @@ Initialize a specified store (or the default if omitted) with indexing and match
 		</xsd:annotation>
 	</xsd:element>
 
-
+	<xsd:element name="tx-manager">
+		<xsd:complexType>
+		<xsd:annotation>
+<!-- 			<xsd:documentation source="org.fuzzydb....FactoryBean"><![CDATA[ -->
+			<xsd:documentation ><![CDATA[
+Create a Spring Transaction Manager
+			]]></xsd:documentation>
+			<xsd:appinfo>
+				<tool:annotation>
+					<tool:exports type="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager"/>
+				</tool:annotation>
+			</xsd:appinfo>
+		</xsd:annotation>
+			<xsd:attribute name="id" type="xsd:ID" use="optional">
+				<xsd:annotation>
+					<xsd:documentation><![CDATA[
+	The name of the transaction manager being defined. If omitted, 'transactionManger' will be used.]]></xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="store" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[
+The name of the Store to manage transactions for. If omitted, 'store' will be used.]]></xsd:documentation>
+				<xsd:appinfo>
+					<tool:annotation>
+						<tool:expected-type type="com.wwm.db.Store" />
+					</tool:annotation>
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	
 	<xsd:complexType name="initializeType">
 		<xsd:attribute name="store" type="xsd:string" use="optional">
 			<xsd:annotation>

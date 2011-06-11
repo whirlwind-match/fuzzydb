@@ -12,6 +12,7 @@
 
 
 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+	<fuzzy:tx-manager />
 	
 	<!-- TODO: Allow Database bean to be defined and to be used by fuzzy:store for embedded
 	     if default bean name is used (must remember to keep specific i.e. not id='database') -->
@@ -22,16 +23,9 @@
 	
 	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
 	
-	<!-- TODO: Generate transaction manager by default if there is no bean defined
-	   or do <fuzzy:tx manager= store= > -->
-
 	<bean id="dataOperations" class="com.wwm.db.internal.CurrentTransactionDataOperationsProxy">
 		<constructor-arg ref="store"/>
 	</bean>
 
-	<bean id="transactionManager" class="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager">
-		<constructor-arg ref="store"/>
-	</bean>
-	
 
 </beans>
