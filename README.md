@@ -1,3 +1,21 @@
+JOIN THE COMMUNITY!
+===================
+
+Resource for documentation are a bit thin on the ground, but there are some great places to go for ideas as to how use fuzzydb.
+
+The GUI example below is great for a bit of hands on play. We're aiming to get an online example up and running soon too.
+
+There are a couple of sites using the database.  Feel free to check out www.fridgemountain.com and www.likemynds.com for how it's used there.
+
+Our Mailing List
+----------------
+
+There's always a friendly response at hand on a mail group.  Any questions, and we're sure there are lots, do post them and we'll get them answered pronto.
+
+The mailing list is fuzzydb-users@googlegroups.com.  You can join at: https://groups.google.com/group/fuzzydb-users
+
+
+
 GETTING STARTED
 ===============
 
