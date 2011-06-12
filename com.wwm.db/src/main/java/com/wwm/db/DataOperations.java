@@ -37,13 +37,13 @@ public interface DataOperations {
 	 * @throws ArchException 
 	 * @see pushNamespace()
 	 */
-	public void setNamespace(String namespace);
+	void setNamespace(String namespace);
 	
 	
 	/**Get the current namespace this Transaction is using.
 	 * @return The namespace string.
 	 */
-	public String getNamespace();
+	String getNamespace();
 	
 	/**Sets the current namespace for this transaction.
 	 * The previous namespace is pushed onto a stack, for later retrieval.
@@ -51,7 +51,7 @@ public interface DataOperations {
 	 * @throws ArchException 
 	 * @see popNamepsace()
 	 */
-	public void pushNamespace(String namespace);
+	void pushNamespace(String namespace);
 	
 	/**Pops a previously stored namespace off the stack and restores it as the current namespace.
 	 * If no namespace was pushed this throws an API error.
@@ -59,70 +59,73 @@ public interface DataOperations {
 	 * @throws EmptyStackException 
 	 * 
 	 */
-	public void popNamespace() throws EmptyStackException;
+	void popNamespace() throws EmptyStackException;
+	
+	
+	 <E> Ref save(E obj);
 	
 	// Create api
 	
 	/**
 	 * @throws KeyCollisionException if {@link Key}(unique=true) is specified and there is a clash
 	 */
-	public <E> Ref create(E obj);
-	public <E> GenericRef<E> createGeneric(E obj);
-	public Ref[] create(Object[] objs);
-	public Ref[] create(Collection<Object> objs);
+	<E> Ref create(E obj);
+	<E> GenericRef<E> createGeneric(E obj);
+	Ref[] create(Object[] objs);
+	Ref[] create(Collection<Object> objs);
 	
 	// Retrieve api
 	/**
 	 * @throws UnknownObjectException if the object was not found (e.g. deleted by another transaction)
 	 */
-	public Object retrieve(Ref ref);
-	public <E> E retrieve(GenericRef<E> ref);
-	public <E> E refresh(E obj);	// check dirty flag and latest version, refresh if needed
-	public Map<Ref, Object> retrieve(Collection<Ref> refs);
+	Object retrieve(Ref ref);
+	<E> E retrieve(GenericRef<E> ref);
+	<E> E refresh(E obj);	// check dirty flag and latest version, refresh if needed
+	Map<Ref, Object> retrieve(Collection<Ref> refs);
 	
 	// Update api
-	public <E> void update(E obj);
-	public void update(Object[] objs);
-	public void update(Collection<Object> objs);
+	<E> void update(E obj);
+	void update(Object[] objs);
+	void update(Collection<Object> objs);
 	
 	// Modify api
-	public void modifyField(Object obj, String field, Object newval);
+	void modifyField(Object obj, String field, Object newval);
 	
-	public void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove);
-//	@Deprecated public void modifyAttributes(WhirlwindItem obj, StringAttributeMap add, Collection<String> remove);
-	public void modifyNomineeField(IAttributeContainer obj, String field, Object newval);
-	public void modifyNominee(IAttributeContainer obj, Object nominee);
+	void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove);
+//	@Deprecated void modifyAttributes(WhirlwindItem obj, StringAttributeMap add, Collection<String> remove);
+	void modifyNomineeField(IAttributeContainer obj, String field, Object newval);
+	void modifyNominee(IAttributeContainer obj, Object nominee);
 	
 	// Delete api
-	public void delete(Object obj);
-	public void delete(Ref ref);
-	public void delete(Ref[] ref);
-	public void delete(Collection<Ref> ref);
+	void delete(Object obj);
+	void delete(Ref ref);
+	void delete(Ref[] ref);
+	void delete(Collection<Ref> ref);
 	
 	// Stored Procedures
-	public Object execute(String methodName, Ref ref, Object param);
+	Object execute(String methodName, Ref ref, Object param);
 
 	// Querying - indexless
-	public <E> E retrieveFirstOf(Class<E> clazz);
+	<E> E retrieveFirstOf(Class<E> clazz);
 	
 	// Querying - standard index, retrieve all
-	public RetrieveSpecResult retrieve(RetrieveSpec spec);
-	public <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval);
-	public <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval);
+	RetrieveSpecResult retrieve(RetrieveSpec spec);
+	<E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval);
+	<E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval);
 	
 	// Querying - standard index, iterating
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize);
-	public <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
+	<E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
+	<E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize);
+	<E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
 	
 	// Searching - whirlwind index, iterating
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search);
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize);
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search);
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize);
+	<E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search);
+	<E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize);
+	<E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search);
+	<E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize);
 	
-	public <E> long count(Class<E> clazz);
-	public long getVersion(Ref ref);
-	public String[] listNamespaces();
+	<E> long count(Class<E> clazz);
+	long getVersion(Ref ref);
+	String[] listNamespaces();
 
 }

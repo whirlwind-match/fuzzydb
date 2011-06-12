@@ -55,7 +55,7 @@ import com.wwm.io.core.messages.Response;
  * @author Adrian Clarkson
  * @author Neale Upstone
  */
-public class StoreImpl implements Store {
+public final class StoreImpl implements Store {
 
 	private class StoreImplContext implements Helper {
 		private static final int maxIdsToRequest = 1024;
@@ -439,6 +439,10 @@ public class StoreImpl implements Store {
 	}
 
 	public void setNamespace(String namespace) {
+		throw new UnsupportedOperationException(); // to do
+	}
+
+	public <E> Ref save(E obj) {
 		throw new UnsupportedOperationException(); // to do
 	}
 

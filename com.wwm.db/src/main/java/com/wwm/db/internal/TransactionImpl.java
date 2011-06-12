@@ -425,6 +425,21 @@ public class TransactionImpl implements Transaction {
 		this.namespace = namespace;
 	}
 
+	public synchronized <E> Ref save(E obj) {
+		requiresAuth();
+		requiresActive();
+		try {
+			RefImpl<E> ref = getRef(obj);
+			MetaObject<E> meta = new MetaObject<E>(ref, getVersion(obj), obj);
+			addUpdated(meta);
+			return ref;
+		} catch (UnknownObjectException e) {
+			RefImpl<E> ref = store.getNextRef(namespace, obj);
+			MetaObject<E> mo = new MetaObject<E>(ref, 0, obj);
+			addCreated(mo);
+			return ref;
+		}
+	}
 	public synchronized <E> void update(E obj) {
 		requiresAuth();
 		requiresActive();

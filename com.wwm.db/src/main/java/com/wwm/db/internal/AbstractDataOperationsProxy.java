@@ -27,160 +27,164 @@ public abstract class AbstractDataOperationsProxy implements DataOperations {
 		getDataOperations().setNamespace(namespace);
 	}
 
-	public String getNamespace() {
+	public final String getNamespace() {
 		return getDataOperations().getNamespace();
 	}
 
-	public void pushNamespace(String namespace) {
+	public final void pushNamespace(String namespace) {
 		getDataOperations().pushNamespace(namespace);
 	}
 
-	public void popNamespace() throws EmptyStackException {
+	public final void popNamespace() throws EmptyStackException {
 		getDataOperations().popNamespace();
 	}
 
-	public <E> Ref create(E obj) {
+	public final <E> Ref create(E obj) {
 		return getDataOperations().create(obj);
 	}
 
-	public <E> GenericRef<E> createGeneric(E obj) {
+	public final <E> GenericRef<E> createGeneric(E obj) {
 		return getDataOperations().createGeneric(obj);
 	}
 
-	public Ref[] create(Object[] objs) {
+	public final Ref[] create(Object[] objs) {
 		return getDataOperations().create(objs);
 	}
 
-	public Ref[] create(Collection<Object> objs) {
+	public final Ref[] create(Collection<Object> objs) {
 		return getDataOperations().create(objs);
 	}
 
-	public Object retrieve(Ref ref) {
+	public final Object retrieve(Ref ref) {
 		return getDataOperations().retrieve(ref);
 	}
 
-	public <E> E retrieve(GenericRef<E> ref) {
+	public final <E> E retrieve(GenericRef<E> ref) {
 		return getDataOperations().retrieve(ref);
 	}
 
-	public <E> E refresh(E obj) {
+	public final <E> E refresh(E obj) {
 		return getDataOperations().refresh(obj);
 	}
 
-	public Map<Ref, Object> retrieve(Collection<Ref> refs) {
+	public final Map<Ref, Object> retrieve(Collection<Ref> refs) {
 		return getDataOperations().retrieve(refs);
 	}
 
-	public <E> void update(E obj) {
+	public final <E> Ref save(E obj) {
+		return getDataOperations().save(obj);
+	};
+	
+	public final <E> void update(E obj) {
 		getDataOperations().update(obj);
 	}
 
-	public void update(Object[] objs) {
+	public final void update(Object[] objs) {
 		getDataOperations().update(objs);
 	}
 
-	public void update(Collection<Object> objs) {
+	public final void update(Collection<Object> objs) {
 		getDataOperations().update(objs);
 	}
 
-	public void modifyField(Object obj, String field, Object newval) {
+	public final void modifyField(Object obj, String field, Object newval) {
 		getDataOperations().modifyField(obj, field, newval);
 	}
 
-	public void modifyAttributes(IWhirlwindItem obj,
+	public final void modifyAttributes(IWhirlwindItem obj,
 			CardinalAttributeMap<IAttribute> add, Collection<Long> remove) {
 		getDataOperations().modifyAttributes(obj, add, remove);
 	}
 
-	public void modifyNomineeField(IAttributeContainer obj, String field,
+	public final void modifyNomineeField(IAttributeContainer obj, String field,
 			Object newval) {
 		getDataOperations().modifyNomineeField(obj, field, newval);
 	}
 
-	public void modifyNominee(IAttributeContainer obj, Object nominee) {
+	public final void modifyNominee(IAttributeContainer obj, Object nominee) {
 		getDataOperations().modifyNominee(obj, nominee);
 	}
 
-	public void delete(Object obj) {
+	public final void delete(Object obj) {
 		getDataOperations().delete(obj);
 	}
 
-	public void delete(Ref ref) {
+	public final void delete(Ref ref) {
 		getDataOperations().delete(ref);
 	}
 
-	public void delete(Ref[] ref) {
+	public final void delete(Ref[] ref) {
 		getDataOperations().delete(ref);
 	}
 
-	public void delete(Collection<Ref> ref) {
+	public final void delete(Iterable<Ref> ref) {
 		getDataOperations().delete(ref);
 	}
 
-	public Object execute(String methodName, Ref ref, Object param) {
+	public final Object execute(String methodName, Ref ref, Object param) {
 		return getDataOperations().execute(methodName, ref, param);
 	}
 
-	public <E> E retrieveFirstOf(Class<E> clazz) {
+	public final <E> E retrieveFirstOf(Class<E> clazz) {
 		return getDataOperations().retrieveFirstOf(clazz);
 	}
 
-	public RetrieveSpecResult retrieve(RetrieveSpec spec) {
+	public final RetrieveSpecResult retrieve(RetrieveSpec spec) {
 		return getDataOperations().retrieve(spec);
 	}
 
-	public <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) {
+	public final <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) {
 		return getDataOperations().retrieve(clazz, keyfield, keyval);
 	}
 
-	public <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield,
+	public final <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield,
 			Comparable<?> keyval) {
 		return getDataOperations().retrieveAll(clazz, keyfield, keyval);
 	}
 
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index,
+	public final <E> ResultSet<E> query(Class<E> clazz, LogicExpr index,
 			LogicExpr expr) {
 		return getDataOperations().query(clazz, index, expr);
 	}
 
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index,
+	public final <E> ResultSet<E> query(Class<E> clazz, LogicExpr index,
 			LogicExpr expr, int fetchSize) {
 		return getDataOperations().query(clazz, index, expr, fetchSize);
 	}
 
-	public <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) {
+	public final <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) {
 		return getDataOperations().queryCount(clazz, index, expr);
 	}
 
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(
+	public final <E extends IAttributeContainer> ResultSet<Result<E>> query(
 			Class<E> resultClazz, SearchSpec search) {
 		return getDataOperations().query(resultClazz, search);
 	}
 
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(
+	public final <E extends IAttributeContainer> ResultSet<Result<E>> query(
 			Class<E> resultClazz, SearchSpec search, int fetchSize) {
 		return getDataOperations().query(resultClazz, search, fetchSize);
 	}
 
-	public <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz,
+	public final <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz,
 			SearchSpec search) {
 		return getDataOperations().queryNominee(resultClazz, search);
 	}
 
-	public <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz,
+	public final <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz,
 			SearchSpec search, int fetchSize) {
 		return getDataOperations().queryNominee(resultClazz, search, fetchSize);
 	}
 
-	public <E> long count(Class<E> clazz) {
+	public final <E> long count(Class<E> clazz) {
 		return getDataOperations().count(clazz);
 	}
 
-	public long getVersion(Ref ref) {
+	public final long getVersion(Ref ref) {
 		return getDataOperations().getVersion(ref);
 	}
 
-	public String[] listNamespaces() {
+	public final String[] listNamespaces() {
 		return getDataOperations().listNamespaces();
 	}
 }
