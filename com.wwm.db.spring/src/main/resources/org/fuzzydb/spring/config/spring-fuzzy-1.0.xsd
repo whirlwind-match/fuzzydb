@@ -35,9 +35,8 @@ Creates an embedded in-memory database instance
 
 	<xsd:element name="store" type="storeType">
 		<xsd:annotation>
-<!-- 			<xsd:documentation source="org.fuzzydb....FactoryBean"><![CDATA[ -->
 			<xsd:documentation ><![CDATA[
-Defines a Store - TODO: ADD MORE SCHEMA DOC :)
+Defines a connection to a given store for an embedded or TCP/IP hosted database.   
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
@@ -49,22 +48,14 @@ Defines a Store - TODO: ADD MORE SCHEMA DOC :)
 
 	<xsd:element name="initialize" type="initializeType">
 		<xsd:annotation>
-<!-- 			<xsd:documentation source="org.fuzzydb....FactoryBean"><![CDATA[ -->
 			<xsd:documentation ><![CDATA[
 Initialize a specified store (or the default if omitted) with indexing and matching configuration.
 			]]></xsd:documentation>
-			<xsd:appinfo>
-				<tool:annotation>
-<!-- 					<tool:exports type="nowt"/> -->
-				</tool:annotation>
-			</xsd:appinfo>
 		</xsd:annotation>
 	</xsd:element>
 
 	<xsd:element name="tx-manager">
-		<xsd:complexType>
 		<xsd:annotation>
-<!-- 			<xsd:documentation source="org.fuzzydb....FactoryBean"><![CDATA[ -->
 			<xsd:documentation ><![CDATA[
 Create a Spring Transaction Manager
 			]]></xsd:documentation>
@@ -74,10 +65,11 @@ Create a Spring Transaction Manager
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
+		<xsd:complexType>
 			<xsd:attribute name="id" type="xsd:ID" use="optional">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
-	The name of the transaction manager being defined. If omitted, 'transactionManger' will be used.]]></xsd:documentation>
+The name of the transaction manager being defined. If omitted, 'transactionManger' will be used.]]></xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
 			<xsd:attribute name="store" type="xsd:string" use="optional">
