@@ -216,7 +216,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
-	public synchronized void delete(Collection<Ref> refs) {
+	public synchronized void delete(Iterable<Ref> refs) {
 		requiresActive();
 		requiresAuth();
 		for (Ref ref : refs) {

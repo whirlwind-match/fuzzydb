@@ -100,7 +100,7 @@ public interface DataOperations {
 	void delete(Object obj);
 	void delete(Ref ref);
 	void delete(Ref[] ref);
-	void delete(Collection<Ref> ref);
+	void delete(Iterable<Ref> refs);
 	
 	// Stored Procedures
 	Object execute(String methodName, Ref ref, Object param);

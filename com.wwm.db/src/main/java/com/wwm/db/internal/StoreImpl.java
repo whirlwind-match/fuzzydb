@@ -338,7 +338,7 @@ public final class StoreImpl implements Store {
 		throw new UnsupportedOperationException(); // to do
 	}
 
-	public void delete(Collection<Ref> ref) {
+	public void delete(Iterable<Ref> ref) {
 		throw new UnsupportedOperationException(); // to do
 	}
 
