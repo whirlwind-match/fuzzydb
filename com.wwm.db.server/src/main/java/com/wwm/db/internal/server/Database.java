@@ -141,20 +141,8 @@ public final class Database implements DatabaseVersionState {
 			((ClassDefinitionRepositoryAware) messageSource).setCli(cli);
 		}
 			
-        // load latest valid repository
         log.info("========== Starting Server ==========");
-        Repository loaded = Repository.load(setup.getReposDiskRoot());
-        if (loaded != null) {
-        	repository = loaded;
-            latestDiskVersion = getCurrentDbVersion();
-            log.info("Loaded repository, version = " + latestDiskVersion);
-        } else {
-            log.info("No repository found. Saving a blank & retrying");
-        	repository = new Repository();
-        	repository.save(setup.getReposDiskRoot());
-        	repository = Repository.load(setup.getReposDiskRoot());
-            latestDiskVersion = getCurrentDbVersion();
-        }
+        loadOrCreateRepositoryAsNeeded();
 
         transactionCoordinator = new ServerTransactionCoordinator( this, repository);
         CommandExecutor commandExecutor = new CommandExecutor(transactionCoordinator, this);
@@ -184,6 +172,33 @@ public final class Database implements DatabaseVersionState {
         maintThread = new MaintThread(this);
         maintThread.start(); // note: Dangerous if Database is not final class, as thread would start before rest of ctor
         log.info("========== Server started (ver = " + repository.getVersion() + ") ===============");
+	}
+
+
+	/**
+	 * Initialise a repository either by loading one or creating one. 
+	 * <b>Always creates a new in memory one if persistChanges is false.
+	 */
+	private void loadOrCreateRepositoryAsNeeded() throws IOException {
+		if (!persistChanges) {
+        	repository = new Repository();
+            latestDiskVersion = getCurrentDbVersion();
+            log.info("In-memory mode. Non-persistent repository initialised");
+            return;
+		}
+		
+		Repository loaded = Repository.load(setup.getReposDiskRoot());
+        if (loaded != null) {
+        	repository = loaded;
+            latestDiskVersion = getCurrentDbVersion();
+            log.info("Loaded repository, version = " + latestDiskVersion);
+        } else {
+            log.info("No repository found. Saving a blank & retrying");
+        	repository = new Repository();
+        	repository.save(setup.getReposDiskRoot());
+        	repository = Repository.load(setup.getReposDiskRoot());
+            latestDiskVersion = getCurrentDbVersion();
+        }
 	}
 
     
