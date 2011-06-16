@@ -10,11 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.core;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.net.InetSocketAddress;
 import java.util.Properties;
@@ -27,7 +24,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 
@@ -422,7 +418,10 @@ public class Settings implements SettingsMBean {
         
 		}
 		catch (IOException e) {
-			throw new RuntimeException(e);
+			System.err.println("Exception " + e.getMessage() + 
+					" while loading properties from " +
+					resource.getDescription() +
+					". Continuing with defaults.");
 		} finally {
 			readConfiguration(); 
 		}
