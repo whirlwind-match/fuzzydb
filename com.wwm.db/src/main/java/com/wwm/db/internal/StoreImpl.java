@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
+import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Helper;
 import com.wwm.db.Ref;
@@ -31,17 +31,7 @@ import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
 import com.wwm.db.internal.comms.messages.BeginAndCommitCmd;
 import com.wwm.db.internal.comms.messages.CommitCmd;
-import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.ITraceWanted;
-import com.wwm.db.marker.IWhirlwindItem;
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.query.RetrieveSpec;
-import com.wwm.db.query.RetrieveSpecResult;
-import com.wwm.db.whirlwind.CardinalAttributeMap;
-import com.wwm.db.whirlwind.SearchSpec;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
 import com.wwm.io.core.Authority;
@@ -50,12 +40,12 @@ import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Response;
 
 /**
- * TODO: Operations on the current transaction are not yet implemented... but could be.
+ * Equivalent to a JDBC Connection on which transactions can be managed and operations performed.
  * 
  * @author Adrian Clarkson
  * @author Neale Upstone
  */
-public final class StoreImpl implements Store {
+public final class StoreImpl extends AbstractDataOperationsProxy implements Store {
 
 	private class StoreImplContext implements Helper {
 		private static final int maxIdsToRequest = 1024;
@@ -191,6 +181,11 @@ public final class StoreImpl implements Store {
 		this.peer = authPeer;
 	}
 	
+	@Override
+	protected DataOperations getDataOperations() {
+		return currentTransaction();
+	}
+	
 	public ArchInStream newInputStream(byte[] data) throws IOException {
 		return context.newInputStream(data);
 	}
@@ -310,151 +305,11 @@ public final class StoreImpl implements Store {
 		throw new UnsupportedOperationException(); // to do
 	}
 
-	public <E> long count(Class<E> clazz) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public Ref create(Object obj) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public Ref[] create(Object[] objs) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public Ref[] create(Collection<Object> objs) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void delete(Object obj) {
-		throw new UnsupportedOperationException(); // to do
-	}
-	
-	public void delete(Ref ref) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void delete(Ref[] ref) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void delete(Iterable<Ref> ref) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
 	public void dispose() {
 		throw new UnsupportedOperationException(); // to do
 	}
 
-	public Object execute(String methodName, Ref ref, Object param) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public String getNamespace() {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public long getVersion(Ref ref) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public String[] listNamespaces() {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void modifyField(Object obj, String field, Object newval) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void modifyNominee(IAttributeContainer obj, Object nominee) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void modifyNomineeField(IAttributeContainer obj, String field, Object newval) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void popNamespace() {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void pushNamespace(String namespace) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> E refresh(E obj) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public Object retrieve(Ref ref) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public Map<Ref, Object> retrieve(Collection<Ref> refs) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public RetrieveSpecResult retrieve(RetrieveSpec spec) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
 	public void setNamespace(String namespace) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public <E> Ref save(E obj) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void update(Object obj) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void update(Object[] objs) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void update(Collection<Object> objs) {
 		throw new UnsupportedOperationException(); // to do
 	}
 
@@ -487,18 +342,6 @@ public final class StoreImpl implements Store {
 	}
 
 	public void forceStart() {
-		throw new UnsupportedOperationException();
-	}
-
-	public <E> E retrieveFirstOf(Class<E> clazz) {
-		throw new UnsupportedOperationException();
-	}
-
-	public <E> GenericRef<E> createGeneric(E obj) {
-		throw new UnsupportedOperationException();
-	}
-
-	public <E> E retrieve(GenericRef<E> ref) {
 		throw new UnsupportedOperationException();
 	}
 

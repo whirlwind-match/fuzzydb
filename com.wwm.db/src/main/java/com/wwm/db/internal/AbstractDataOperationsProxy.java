@@ -7,6 +7,7 @@ import java.util.Map;
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
+import com.wwm.db.Transaction;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.query.Result;
@@ -18,6 +19,12 @@ import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.expressions.LogicExpr;
 
+/**
+ * Proxy for DataOperations interface to allow dynamic resolution of the target (e.g.
+ * target can be thread bound {@link Transaction}.
+ * 
+ * @author Neale Upstone
+ */
 public abstract class AbstractDataOperationsProxy implements DataOperations {
 
 	abstract protected DataOperations getDataOperations();
