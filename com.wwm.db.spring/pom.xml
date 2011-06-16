@@ -37,13 +37,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.fuzzydb</groupId>
-			<artifactId>org.fuzzydb.client</artifactId>
-			<version>1.0.0.CI-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
