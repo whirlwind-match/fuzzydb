@@ -11,13 +11,10 @@
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.db.dao.Db2ObjectDAO;
-import com.wwm.db.dao.SimpleDAO;
 import com.wwm.postcode.PostcodeConvertor;
 
 public class TempFactory {
-    private static final SimpleDAO dao = new Db2ObjectDAO("wwmdb:/com.wwm.stats");
-    private static final PostcodeConvertor converter = new PostcodeConvertor(dao);
+    private static final PostcodeConvertor converter = new PostcodeConvertor();
 
     public static PostcodeConvertor getPostcodeConverter() {
 		return converter;

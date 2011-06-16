@@ -18,13 +18,10 @@ import org.junit.Test;
 import junit.framework.Assert;
 
 import com.wwm.db.core.Settings;
-import com.wwm.db.dao.SimpleDAO;
 import com.wwm.postcode.PostcodeConvertor;
 import com.wwm.postcode.PostcodeResult;
 import com.wwm.postcode.RandomPostcodeGenerator;
 import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * These tests assume the postcode data has been built and installed into the correct location.
@@ -37,11 +34,9 @@ public class FullPostcodeConverterTest {
 
     @Before
     public void setUp() throws Exception {
-//        SimpleDAO dao = new Db2ObjectDAO("wwmdb:/postcode");
-        SimpleDAO dao = mock(SimpleDAO.class);
 
         Settings.getInstance().setPostcodeRoot("data");
-        convertor = new PostcodeConvertor(dao);
+        convertor = new PostcodeConvertor();
     }
 
     @Test

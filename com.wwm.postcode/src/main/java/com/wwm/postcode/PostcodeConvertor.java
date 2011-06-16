@@ -13,7 +13,6 @@ package com.wwm.postcode;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.dao.SimpleDAO;
 import com.wwm.util.StringUtils;
 
 /**
@@ -28,7 +27,6 @@ public class PostcodeConvertor {
 
 	private static Logger log = LogFactory.getLogger(PostcodeConvertor.class);
 	static private PostcodeService service;
-	static private SimpleDAO dao;
 			
 	private final JibbleConvertor jibble;
 
@@ -36,14 +34,12 @@ public class PostcodeConvertor {
 		private static final long serialVersionUID = 5523931674418224181L;
 	}
 	
-	public PostcodeConvertor(SimpleDAO dao) {
-		setDao(dao);
+	public PostcodeConvertor() {
 		jibble = new JibbleConvertor(log);
 	}
 	
 	public static void setService(PostcodeService service) {
 		PostcodeConvertor.service = service;
-		service.setDao(dao);
 	}
 	
     public void shutdown() {
@@ -52,13 +48,6 @@ public class PostcodeConvertor {
     	}
     }
 	
-    public synchronized void setDao(SimpleDAO dao) {
-		PostcodeConvertor.dao = dao;
-    	if (service != null) {
-    		service.setDao(dao);
-    	}
-	}
-
 	public PostcodeResult lookupShort(String prefix) {
 		return jibble.lookupShort(prefix);
 	}

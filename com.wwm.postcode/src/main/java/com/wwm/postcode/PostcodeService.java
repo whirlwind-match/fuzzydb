@@ -10,18 +10,11 @@
  *****************************************************************************/
 package com.wwm.postcode;
 
-import com.wwm.db.dao.SimpleDAO;
-
 public interface PostcodeService {
 
 	public static final int minPostcodeLen = 5;
 
-
-	public void setDao(SimpleDAO dao);
-
-	
 	public PostcodeResult lookupFull(String postcode);
-
 	
 	public void shutdown();
 
