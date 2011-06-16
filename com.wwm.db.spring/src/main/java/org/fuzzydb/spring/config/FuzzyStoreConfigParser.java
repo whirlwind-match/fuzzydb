@@ -4,7 +4,9 @@ import static org.fuzzydb.spring.config.Constants.DEFAULT_STORE_ID;
 import static org.springframework.beans.factory.support.BeanDefinitionReaderUtils.*;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.AutowireCandidateQualifier;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractBeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -63,7 +65,15 @@ public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 	    		.addConstructorArgValue(storeUrl);
 	    builder.getRawBeanDefinition().setFactoryBeanName(clientFactoryRef);
 	    builder.getRawBeanDefinition().setFactoryMethodName("openStore");
+	    String storeName = getStoreName(storeUrl);
+		builder.getRawBeanDefinition().addQualifier(new AutowireCandidateQualifier(Qualifier.class, storeName));
 		return builder.getBeanDefinition();
+	}
+
+	private String getStoreName(String storeUrl) {
+		int index = storeUrl.indexOf('/');
+		String storeName = index < 0 ? storeUrl : storeUrl.substring(index + 1);
+		return storeName;
 	}
 
 }

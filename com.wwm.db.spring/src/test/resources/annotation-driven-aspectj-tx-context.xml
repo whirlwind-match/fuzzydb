@@ -17,15 +17,12 @@
 	<!-- TODO: Allow Database bean to be defined and to be used by fuzzy:store for embedded
 	     if default bean name is used (must remember to keep specific i.e. not id='database') -->
 
+	<!-- Try something on this store and you should get UnknownTransactionException as tx-manager
+	     defaults to store -->
 	<fuzzy:store id="justTesting" url="wwmdb:/TravelDataStore" />
 	 
 	<fuzzy:embedded-database />
 	
 	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
-	
-	<bean id="dataOperations" class="com.wwm.db.internal.CurrentTransactionDataOperationsProxy">
-		<constructor-arg ref="store"/>
-	</bean>
-
 
 </beans>
