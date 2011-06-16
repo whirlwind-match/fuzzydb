@@ -15,22 +15,14 @@ import com.wwm.db.core.exceptions.ArchException;
 @SuppressWarnings("serial")
 public class UnknownTransactionException extends ArchException {
 
-	private final int tid;
-
 	public UnknownTransactionException() {
-		tid = -1;
 	}
 	
 	public UnknownTransactionException(int tid) {
-		this.tid = tid;
-	}
-
-	public int getTid() {
-		return tid;
+		super("Unknown Transaction (" + tid + ")");
 	}
 	
-	@Override
-	public String toString() {
-		return "Unknown Transaction (" + tid + ")";
+	public UnknownTransactionException(String message) {
+		super(message);
 	}
 }
