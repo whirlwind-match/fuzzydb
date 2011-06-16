@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
+import com.wwm.db.exceptions.UnknownObjectException;
 
 /**
  * A Repository implementation that performs no conversion.
@@ -47,7 +48,12 @@ public class RawFuzzyRepository<T> implements CrudRepository<T, GenericRef<T>> {
 	}
 
 	public boolean exists(GenericRef<T> id) {
-		throw new UnsupportedOperationException("not yet implemented");
+		try {
+			T obj = persister.retrieve(id);
+			return obj != null;
+		} catch (UnknownObjectException e){
+			return false;
+		}
 	}
 
 	public Iterable<T> findAll() {
