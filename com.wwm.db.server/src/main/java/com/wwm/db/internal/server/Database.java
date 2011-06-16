@@ -57,10 +57,10 @@ public final class Database implements DatabaseVersionState {
     private boolean closed = false;
     
     /**
-     * True if changes should be written to disk (if false, it is still allowable to read, 
-     * such that start is always from a given state)
+     * True if disk should be used for persistence.  False will not attempt to 
+     * read from disk even if a repository may exist.
      */
-    private final boolean persistChanges; 
+    private final boolean isPersistent; 
 
     private MaintThread maintThread;
 
@@ -120,13 +120,14 @@ public final class Database implements DatabaseVersionState {
      */
     public Database(MessageSource messageSource, boolean isPersistent) {
     	this.messageSource = messageSource;
-    	this.pager = isPersistent ? new FileSerializingPagePersister(this) : new NullPersister(this);
     	
-    	this.persistChanges = isPersistent; // TODO: Allow read and write persistence to be separate 
+    	this.pager = isPersistent ? new FileSerializingPagePersister(this) : new NullPersister(this);
+
+    	this.isPersistent = isPersistent; // TODO: Allow read and write persistence to be separate 
     	// txLog on single core activity seems to be 10-20% (see SimpleIndex test logs when this true/false)
     	// for heavily loaded server, this may bottleneck more.
     	
-        txLog = persistChanges ? new TxLogWriter(setup.getTxDiskRoot(), cli) : new NullTxLogWriter();
+        txLog = isPersistent ? new TxLogWriter(setup.getTxDiskRoot(), cli) : new NullTxLogWriter();
     }
 
 
@@ -159,8 +160,10 @@ public final class Database implements DatabaseVersionState {
         // FIXME: Probably want to make sure that TxLogs play back against existing stores, rather than against
         // stores that have been imported.  Repository should keep stores offline until applyImports() is called.
         // play back tx log
-        TxLogPlayback txPlay = new TxLogPlayback(this, commandProcessor);
-        txPlay.playback();
+        if (isPersistent) {
+	        TxLogPlayback txPlay = new TxLogPlayback(this, commandProcessor);
+	        txPlay.playback();
+        }
         
         // Apply any imported stores
         repository.applyImports();
@@ -180,31 +183,36 @@ public final class Database implements DatabaseVersionState {
 	 * <b>Always creates a new in memory one if persistChanges is false.
 	 */
 	private void loadOrCreateRepositoryAsNeeded() throws IOException {
-		if (!persistChanges) {
-        	repository = new Repository();
-            latestDiskVersion = getCurrentDbVersion();
-            log.info("In-memory mode. Non-persistent repository initialised");
-            return;
+		if (!isPersistent) {
+			repository = new Repository();
+			latestDiskVersion = getCurrentDbVersion();
+			log.info("In-memory mode. Non-persistent repository initialised");
+			return;
 		}
 		
+		// See if we have a repository to load, and use it if found
 		Repository loaded = Repository.load(setup.getReposDiskRoot());
-        if (loaded != null) {
-        	repository = loaded;
-            latestDiskVersion = getCurrentDbVersion();
-            log.info("Loaded repository, version = " + latestDiskVersion);
-        } else {
-            log.info("No repository found. Saving a blank & retrying");
-        	repository = new Repository();
-        	repository.save(setup.getReposDiskRoot());
-        	repository = Repository.load(setup.getReposDiskRoot());
-            latestDiskVersion = getCurrentDbVersion();
-        }
+		if (loaded != null) {
+			repository = loaded;
+			latestDiskVersion = getCurrentDbVersion();
+			log.info("Loaded repository, version = " + latestDiskVersion);
+			if (!isPersistent) {
+				log.info("Non-persisting mode.  No changes will be saved");
+			}
+			return;
+		}
+		
+        log.info("No repository found. Saving a blank & retrying");
+    	repository = new Repository();
+    	repository.save(setup.getReposDiskRoot());
+    	repository = Repository.load(setup.getReposDiskRoot());
+        latestDiskVersion = getCurrentDbVersion();
 	}
 
     
     
     private void performMaintenence() {
-    	if (!persistChanges) {
+    	if (!isPersistent) {
     		return;
     	}
 	
@@ -245,7 +253,7 @@ public final class Database implements DatabaseVersionState {
     private void doSync() {
 
     	// We don't sync etc if we're not recording changes
-    	if (!persistChanges) {
+    	if (!isPersistent) {
     		return;
     	}
 	
@@ -315,7 +323,7 @@ public final class Database implements DatabaseVersionState {
                         repository.purgeDeletedStores(getCurrentDbVersion());
 
                         try {
-                            if (latestDiskVersion != getCurrentDbVersion() && persistChanges) {
+                            if (latestDiskVersion != getCurrentDbVersion() && isPersistent) {
                                 repository.save(setup.getReposDiskRoot());
                             }
                         } catch (IOException e) {
