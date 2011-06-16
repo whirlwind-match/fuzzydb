@@ -27,6 +27,7 @@ import com.wwm.db.Store;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.exceptions.UnknownTransactionException;
 import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
 import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
 import com.wwm.db.internal.comms.messages.BeginAndCommitCmd;
@@ -183,7 +184,11 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 	
 	@Override
 	protected DataOperations getDataOperations() {
-		return currentTransaction();
+		Transaction transaction = currentTransaction();
+		if (transaction == null) {
+			throw new UnknownTransactionException("Store " + getStoreName() + " does not have an active transaction.");
+		}
+		return transaction;
 	}
 	
 	public ArchInStream newInputStream(byte[] data) throws IOException {
