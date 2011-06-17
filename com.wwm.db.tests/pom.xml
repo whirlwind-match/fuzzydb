@@ -1,30 +1,25 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <artifactId>whirlwind-parent</artifactId>
-    <groupId>org.fuzzydb</groupId>
-    <version>1.0.0.CI-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.fuzzydb</groupId>
-  <artifactId>org.fuzzydb.tests</artifactId>
-  <name>Whirlwind Standalone Database Tests</name>
-  <version>1.0.0.CI-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.fuzzydb</groupId>
+    <artifactId>org.fuzzydb.tests</artifactId>
+    <name>Whirlwind Standalone Database Tests</name>
+    <version>1.0.0.CI-SNAPSHOT</version>
 
-    <repositories>
-        <!-- For resolving parent if not checked out -->
-        <repository>
-            <id>wwm-snapshots</id>
-            <name>Whirlwind at SourceForge.net</name>
-            <url>http://whirlwind.svn.sourceforge.net/svnroot/whirlwind/maven/snapshots/</url>
-        </repository>
-    </repositories>
+    <parent>
+        <artifactId>whirlwind-parent</artifactId>
+        <groupId>org.fuzzydb</groupId>
+        <version>1.0.0.CI-SNAPSHOT</version>
+        <relativePath></relativePath>
+    </parent>
+
     <dependencies>
-    	<dependency>
-    		<groupId>org.fuzzydb</groupId>
-    		<artifactId>org.fuzzydb.server</artifactId>
-    		<version>1.0.0.CI-SNAPSHOT</version>
-    	</dependency>
+        <dependency>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.server</artifactId>
+            <version>1.0.0.CI-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.server</artifactId>
@@ -32,11 +27,11 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
-    	<dependency>
-    		<groupId>org.fuzzydb</groupId>
-    		<artifactId>org.fuzzydb.io.packet</artifactId>
-    		<version>1.0.0.CI-SNAPSHOT</version>
-    		<scope>test</scope>
-    	</dependency>
+        <dependency>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.io.packet</artifactId>
+            <version>1.0.0.CI-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
