@@ -10,19 +10,19 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <description>
+        Context defining two data sources (stores): with bean ids store and justTesting.
+    </description>
 
 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
-	<fuzzy:tx-manager />
 	
-	<!-- TODO: Allow Database bean to be defined and to be used by fuzzy:store for embedded
-	     if default bean name is used (must remember to keep specific i.e. not id='database') -->
+    <!-- Store bean id in each of the following defaults to 'store' -->	 
+	<fuzzy:embedded-database />
+	<fuzzy:tx-manager />
+	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
 
 	<!-- Try something on this store and you should get UnknownTransactionException as tx-manager
 	     defaults to store -->
 	<fuzzy:store id="justTesting" url="wwmdb:/TravelDataStore" />
-	 
-	<fuzzy:embedded-database />
-	
-	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
 
 </beans>
