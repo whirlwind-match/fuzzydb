@@ -1,22 +1,24 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-    <!--
-        NOTE: This is an aggregator POM (and therefore not the parent)
-    -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.aggregator</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0.CI-SNAPSHOT</version>
-    <name>Master Aggregator</name>
-    <description>Master pom for managing the Whirlwind Match open source projects.</description>
-	<url>http://www.fuzzydb.org</url>
 
-     <modules>
+    <name>whirlwind-db</name>
+    <description>
+        Whirlwind is a fuzzy matching database engine capable of providing human-like search results that make life 
+        much easier for users of websites searching for things like cars, houses, people and jobs
+    </description>
+    <url>http://www.fuzzydb.org</url>
+
+    <modules>
         <module>whirlwind-parent</module>
         <module>whirlwind-parent-aspectj</module>
-        
+
         <module>com.wwm.util</module>
         <module>com.wwm.util.gui</module>
         <module>com.wwm.util.servlet</module>
@@ -28,30 +30,40 @@
         <module>com.wwm.attrs.compact</module>
         <module>com.wwm.expressions</module>
         <module>com.wwm.db.server</module>
-		<module>com.wwm.db.tests</module>
+        <module>com.wwm.db.tests</module>
 
         <module>com.wwm.postcode</module>
         <module>com.wwm.indexer</module>
         <module>com.wwm.indexer.gui</module>
         <module>com.wwm.db.spring</module>
-		
-	    <module>com.wwm.abdera.util</module>
-		<module>com.wwm.atom</module>
+
+        <module>com.wwm.abdera.util</module>
+        <module>com.wwm.atom</module>
         <module>com.wwm.atom.server</module>
-     </modules>
-	 
-	<licenses>
-		<license>
-			<name>Open Software License v. 3.0</name>
-			<url>http://opensource.org/licenses/OSL-3.0</url>
-		</license>
-	</licenses>
- 	<scm>
-		<url>http://github.com/whirlwind-match/whirlwind-db</url>
-		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
-		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
-	</scm>
-	<profiles>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <stagingDirectory>/dev/wwm/whirlwind-match.github.com/site</stagingDirectory>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <distributionManagement>
+        <site>
+            <id>staging</id>
+            <url>file:///${user.dir}/target/staging</url>
+        </site>
+    </distributionManagement>
+
+    <profiles>
 		<profile>
 			<id>central</id>
 			<distributionManagement>
@@ -66,74 +78,103 @@
 					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
 			</distributionManagement>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>staging</id>
-			<distributionManagement>
-				<site>
-					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
-				</site>
-				<repository>
-					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
-				</repository>
-				<snapshotRepository>
-					<id>staging</id>
-					<url>file:///${user.dir}/target/staging</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>
-	</profiles>
-	
-	
-	<developers>
-		<developer>
-			<name>Neale Upstone</name>
-			<organization>Whirlwind Match Limited</organization>
-			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Adrian Clarkson</name>
-			<organization>Whirlwind Match Limited</organization>
-			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Jon Wilson</name>
-			<organization>Future Projects</organization>
-			<organizationUrl>http://www.future-projects.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Jason Capstick</name>
-			<organization>Whirlwind Match Limited</organization>
-			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Adeline Darling</name>
-			<organization>The Late Night Partnership</organization>
-			<organizationUrl>www.adeline-darling.co.uk</organizationUrl>
-		</developer>
-		<developer>
-			<name>Rob Chant</name>
-			<organization>The Late Night Partnership</organization>
-			<organizationUrl>http://www.dbpractice.com</organizationUrl>
-		</developer>
-	</developers>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>staging</id>
+            <distributionManagement>
+                <site>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/target/staging</url>
+                </site>
+                <repository>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/target/staging</url>
+                </repository>
+                <snapshotRepository>
+                    <id>staging</id>
+                    <url>file:///${user.dir}/target/staging</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
+    <organization>
+        <name>Whirlwind Match Limited</name>
+        <url>http://www.whirlwindmatch.com</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Open Software License v. 3.0</name>
+            <url>http://opensource.org/licenses/OSL-3.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>http://github.com/whirlwind-match/whirlwind-db</url>
+        <connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
+        <developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
+    </scm>
+    <mailingLists>
+        <mailingList>
+            <name>fuzzydb-users</name>
+            <subscribe>http://groups.google.com/group/fuzzydb-users/subscribe</subscribe>
+            <post>fuzzydb-users@googlegroups.com</post>
+            <archive>http://groups.google.com/group/fuzzydb-users</archive>
+        </mailingList>
+    </mailingLists>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/whirlwind-match/whirlwind-db/issues/</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>Neale Upstone</name>
+            <organization>Whirlwind Match Limited</organization>
+            <organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Adrian Clarkson</name>
+            <organization>Whirlwind Match Limited</organization>
+            <organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Jon Wilson</name>
+            <organization>Future Projects</organization>
+            <organizationUrl>http://www.future-projects.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Jason Capstick</name>
+            <organization>Whirlwind Match Limited</organization>
+            <organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Adeline Darling</name>
+            <organization>The Late Night Partnership</organization>
+            <organizationUrl>www.adeline-darling.co.uk</organizationUrl>
+        </developer>
+        <developer>
+            <name>Rob Chant</name>
+            <organization>The Late Night Partnership</organization>
+            <organizationUrl>http://www.dbpractice.com</organizationUrl>
+        </developer>
+    </developers>
 
 </project>

@@ -22,51 +22,12 @@
 		<spring.version>3.0.5.RELEASE</spring.version>
 	</properties>
 
-	<developers>
-		<developer>
-			<name>Neale Upstone</name>
-			<organization>Whirlwind Match Limited</organization>
-			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Adrian Clarkson</name>
-			<organization>Whirlwind Match Limited</organization>
-			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Jon Wilson</name>
-			<organization>Future Projects</organization>
-			<organizationUrl>http://www.future-projects.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Jason Capstick</name>
-			<organization>Whirlwind Match Limited</organization>
-			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
-		</developer>
-		<developer>
-			<name>Adeline Darling</name>
-			<organization>The Late Night Partnership</organization>
-			<organizationUrl>www.adeline-darling.co.uk</organizationUrl>
-		</developer>
-		<developer>
-			<name>Rob Chant</name>
-			<organization>The Late Night Partnership</organization>
-			<organizationUrl>http://www.dbpractice.com</organizationUrl>
-		</developer>
-	</developers>
-
-	<licenses>
-		<license>
-			<name>Open Software License v. 3.0</name>
-			<url>http://opensource.org/licenses/OSL-3.0</url>
-		</license>
-	</licenses>
-	<scm>
-		<url>http://github.com/whirlwind-match/whirlwind-db</url>
-		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
-		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
-	</scm>
-
+    <distributionManagement>
+        <site>
+            <id>staging</id>
+            <url>file:///${user.dir}/target/staging</url>
+        </site>
+    </distributionManagement>
 
 	<profiles>
 		<profile>
@@ -202,7 +163,10 @@
 			<plugins>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>2.0</version>
+					<version>2.3</version>
+                    <configuration>
+                        <stagingDirectory>/dev/wwm/whirlwind-match.github.com/site</stagingDirectory>
+                    </configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -210,6 +174,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -272,6 +237,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8</version>
 				<executions>
 					<execution>
 						<id>javadoc</id>
@@ -285,6 +251,7 @@
 
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
+                <version>2.6</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.wagon</groupId>
@@ -293,18 +260,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-release-plugin</artifactId> -->
-			<!-- <dependencies> -->
-			<!-- <dependency> -->
-			<!-- <groupId>com.google.scm.svnjava</groupId> -->
-			<!-- <artifactId>maven-scm-provider-svnjava</artifactId> -->
-			<!-- <version>1.2</version> -->
-			<!-- </dependency> -->
-			<!-- </dependencies> -->
-			<!-- </plugin> -->
-
-			<!-- -->
 
 			<!-- <plugin> -->
 			<!-- <groupId>org.apache.maven.plugins</groupId> -->
@@ -399,4 +354,66 @@
 
 		</dependencies>
 	</dependencyManagement>
+	
+    <organization>
+        <name>Whirlwind Match Limited</name>
+        <url>http://www.whirlwindmatch.com</url>
+    </organization>
+	<licenses>
+		<license>
+			<name>Open Software License v. 3.0</name>
+			<url>http://opensource.org/licenses/OSL-3.0</url>
+		</license>
+	</licenses>
+	<scm>
+		<url>http://github.com/whirlwind-match/whirlwind-db</url>
+		<connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
+		<developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
+	</scm>
+    <mailingLists>
+        <mailingList>
+            <name>fuzzydb-users</name>
+            <subscribe>http://groups.google.com/group/fuzzydb-users/subscribe</subscribe>
+            <post>fuzzydb-users@googlegroups.com</post>
+            <archive>http://groups.google.com/group/fuzzydb-users</archive>
+        </mailingList>
+    </mailingLists>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/whirlwind-match/whirlwind-db/issues/</url>
+    </issueManagement>
+		
+	<developers>
+		<developer>
+			<name>Neale Upstone</name>
+			<organization>Whirlwind Match Limited</organization>
+			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Adrian Clarkson</name>
+			<organization>Whirlwind Match Limited</organization>
+			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jon Wilson</name>
+			<organization>Future Projects</organization>
+			<organizationUrl>http://www.future-projects.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jason Capstick</name>
+			<organization>Whirlwind Match Limited</organization>
+			<organizationUrl>http://www.whirlwindmatch.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Adeline Darling</name>
+			<organization>The Late Night Partnership</organization>
+			<organizationUrl>www.adeline-darling.co.uk</organizationUrl>
+		</developer>
+		<developer>
+			<name>Rob Chant</name>
+			<organization>The Late Night Partnership</organization>
+			<organizationUrl>http://www.dbpractice.com</organizationUrl>
+		</developer>
+	</developers>
 </project>

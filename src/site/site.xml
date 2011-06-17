@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd"
+  name="${project.name}">
+
+	<bannerLeft>
+		<href>http://static.fuzzydb.org/site/
+		</href>
+        <src>http://www.whirlwindmatch.com/imgs/logo.png</src>
+	</bannerLeft>
+
+    <bannerRight>
+		<name>${project.name}</name>
+	</bannerRight>
+
+	<poweredBy>
+		<logo name="" href="" img="" />
+	</poweredBy>
+
+	<version position="left"/>
+
+	<!--
+	<skin>
+		<groupId>org.springframework.maven.skins</groupId>
+		<artifactId>maven-spring-skin</artifactId>
+		<version>1.0.5</version>
+	</skin>
+	-->
+	
+	<body>
+		<links>
+			<item name="Home"
+				href="http://static.fuzzydb.org/site/index.html" />
+		</links>
+
+		<menu name="Documentation" inherit="none">
+			<item name="Home" href="index.html" />
+			<item name="Getting Started" href="https://github.com/whirlwind-match/whirlwind-db/wiki/" />
+			<item name="Issue Tracking" href="https://github.com/whirlwind-match/whirlwind-db/issues/" />
+			<!-- <item name="API" href="apidocs/index.html" /> -->
+		</menu>
+
+
+        <!-- Provide names for the modules so we don't get the defaults longhand, and then rename
+		<menu ref="modules" />
+		-->
+		<menu ref="reports" inheritAsRef="true"/>
+
+	</body>
+
+</project>
