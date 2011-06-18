@@ -1,14 +1,16 @@
 package com.wwm.db.spring;
 
+import java.io.InputStream;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
-
 import com.wwm.attrs.WWConfigHelper;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.Store;
+import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
 
 public class StoreInitializer implements InitializingBean {
@@ -24,13 +26,25 @@ public class StoreInitializer implements InitializingBean {
 	
 	
 	public void afterPropertiesSet() throws Exception {
-		// FIXME: Remove everything to do with the next 3 lines!
+		// FIXME: Remove everything to do with the next 2 lines!
         JVMAppListener.getInstance().setSingleSession();
         JVMAppListener.getInstance().preRequest();
-//        IndexerFactory.setCurrentStoreUrl("wwmdb:/" + store.getStoreName()); // TODO: Should be able to ask store for it's URL... ?
         
 		Resource resource = new DefaultResourceLoader().getResource(resourcePath);
-		WWConfigHelper.updateScorerConfig(store, resource.getInputStream());
+		final InputStream inputStream = resource.getInputStream();
+		
+		// TODO: Review.  Is there any reason not to use a provided/default txMgr ?   
+//		new TransactionTemplate(new WhirlwindPlatformTransactionManager(store)).execute( new TransactionCallback<Object>() {
+//			public Void doInTransaction(TransactionStatus status) {
+//				WWConfigHelper.updateScorerConfig(store, inputStream);
+//				return null;
+//			}
+//		});
+
+		Transaction tx = store.begin();
+		WWConfigHelper.updateScorerConfig(store, inputStream);
+		tx.commit();
+
 		
 		log.info("Loaded scorer config: {}", resourcePath);
 	}

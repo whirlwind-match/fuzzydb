@@ -13,8 +13,8 @@ package com.wwm.attrs.internal;
 import java.io.Serializable;
 
 import com.wwm.context.ContextManager;
+import com.wwm.db.DataOperations;
 import com.wwm.db.Store;
-import com.wwm.db.Transaction;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.marker.ITraceWanted;
 import com.wwm.util.DynamicRef;
@@ -40,9 +40,9 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      * Transient, as we don't try serialising a store to itself!
      * This should be set after we've created or retrieved from store.
      */
-    transient Store store; // For when we write attr defs to database.
+    transient DataOperations store; // For when we write attr defs to database.
 
-    private SyncedAttrDefinitionMgr(Store store) {
+    private SyncedAttrDefinitionMgr(DataOperations store) {
         this.store = store;
     }
 
@@ -51,7 +51,6 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      * Responsible for getting the up to date AttrDefinitionMgr for the supplied store.
      * This method should be used whenever other threads may also be modifying the ADM, otherwise, we
      * may have a version and find that another thread has committed it.
-     * @return
      */
     public static synchronized DynamicRef<SyncedAttrDefinitionMgr> getInstance( Store store ) {
     	
@@ -69,9 +68,8 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
             w.setObject(mgr);
         }
         else { // If already have it, refresh it
-            Transaction tx = store.getAuthStore().begin();
             try {
-            	SyncedAttrDefinitionMgr mgr = tx.refresh( w.getObject() );
+            	SyncedAttrDefinitionMgr mgr = store.refresh( w.getObject() );
                 mgr.setStore( store );
                 w.setObject(mgr);
             } catch (UnknownObjectException e) {
@@ -90,14 +88,11 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      */
     static SyncedAttrDefinitionMgr getFromStore(Store store) {
     	// Only ever want first, and no need for index this way
-        SyncedAttrDefinitionMgr mgr = store.getAuthStore().begin()
-        	.retrieveFirstOf( SyncedAttrDefinitionMgr.class ); 
+        SyncedAttrDefinitionMgr mgr = store.retrieveFirstOf( SyncedAttrDefinitionMgr.class ); 
 
         if (mgr == null){
             mgr = new SyncedAttrDefinitionMgr( store );
-            Transaction tx = store.getAuthStore().begin();
-            tx.create(mgr);
-            tx.commit();
+            store.create(mgr);
         }
         mgr.setStore( store );
         return mgr;
@@ -111,8 +106,6 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
 
     @Override
     protected void syncToStoreInternal() {
-        Transaction tx = store.getAuthStore().begin();
-        tx.update(this);
-        tx.commit();
+        store.update(this);
     }
 }

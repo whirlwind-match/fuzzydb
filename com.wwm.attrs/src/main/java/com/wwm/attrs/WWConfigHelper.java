@@ -19,7 +19,6 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.db.Store;
-import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
 
 /**
@@ -52,27 +51,23 @@ public class WWConfigHelper {
 	
 	private static void updateScorerConfigInternal(Store store,
 			ScoreConfiguration sc) {
-		Transaction tx = store.getAuthStore().begin();
-		WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
+		WhirlwindConfiguration conf = store.retrieveFirstOf(WhirlwindConfiguration.class);
 		if (conf == null){
 			conf = new WhirlwindConfiguration();
 			conf.getScoreConfigManager().setConfig(sc.getName(), sc);
-			tx.create(conf);
+			store.create(conf);
 		} else {
 			conf.getScoreConfigManager().setConfig(sc.getName(), sc);
-			tx.update(conf);
+			store.update(conf);
 		}
-		tx.commit();
 		log.info("Updated scorer: " + sc.getName() + " in store: " + store.getStoreName());
 	}
 
     public static void updateEnumDefinition(Store store, String name, EnumDefinition def) {
-        Transaction tx = store.getAuthStore().begin();
-        WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
+        WhirlwindConfiguration conf = store.retrieveFirstOf(WhirlwindConfiguration.class);
 
         conf.add(name, def);
-        tx.update(conf);
-        tx.commit();
+        store.update(conf);
     }
 
     /**
@@ -98,16 +93,14 @@ public class WWConfigHelper {
 
 	private static void updateIndexConfigInternal(Store store,
 			ManualIndexStrategy strategy) {
-		Transaction tx = store.getAuthStore().begin();
-        WhirlwindConfiguration conf = tx.retrieveFirstOf(WhirlwindConfiguration.class);
+        WhirlwindConfiguration conf = store.retrieveFirstOf(WhirlwindConfiguration.class);
         if (conf == null){
             conf = new WhirlwindConfiguration();
             conf.addStrategy(strategy);
-            tx.create(conf);
+            store.create(conf);
         } else {
             conf.addStrategy(strategy);
-            tx.update(conf);
+            store.update(conf);
         }
-        tx.commit();
 	}
 }
