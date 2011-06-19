@@ -36,5 +36,10 @@ Compiles against io.packet, but that artifact must be included into runtime scop
 		    <groupId>org.eclipse</groupId>
 		    <artifactId>osgi</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
     </dependencies>
 </project>
