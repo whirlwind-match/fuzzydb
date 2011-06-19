@@ -1,11 +1,8 @@
 package com.wwm.db.spring.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
-import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
-import com.wwm.db.exceptions.UnknownObjectException;
 
 /**
  * A Repository implementation that performs no conversion.
@@ -18,65 +15,24 @@ import com.wwm.db.exceptions.UnknownObjectException;
  *
  * @param <T>
  */
-public class RawFuzzyRepository<T> implements CrudRepository<T, GenericRef<T>> {
-
-	@Autowired
-	private DataOperations persister;
-	
-	private final Class<T> type;
+public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, GenericRef<T>> implements CrudRepository<T, GenericRef<T>> {
 
 	public RawFuzzyRepository(Class<T> type) {
-		this.type = type;
-	}
-	
-	
-	public T save(T entity) {
-		persister.save(entity);
-		return entity;
+		super(type);
 	}
 
-	public Iterable<T> save(Iterable<? extends T> entities) {
-
-		for (T entity : entities) {
-			persister.save(entity);
-		}
-		return (Iterable<T>) entities;
+	@Override
+	protected T fromInternal(T internal) {
+		return internal;
 	}
 
-	public T findOne(GenericRef<T> id) {
-		return persister.retrieve(id);
+	@Override
+	protected T toInternal(T external) {
+		return external;
 	}
 
-	public boolean exists(GenericRef<T> id) {
-		try {
-			T obj = persister.retrieve(id);
-			return obj != null;
-		} catch (UnknownObjectException e){
-			return false;
-		}
-	}
-
-	public Iterable<T> findAll() {
-		throw new UnsupportedOperationException("not yet implemented");
-	}
-
-	public long count() {
-		return persister.count(type);
-	}
-
-	public void delete(GenericRef<T> id) {
-		persister.delete(id);
-	}
-
-	public void delete(T entity) {
-		persister.delete(entity);
-	}
-
-	public void delete(Iterable<? extends T> entities) {
-		persister.delete(entities);
-	}
-
-	public void deleteAll() {
-		throw new UnsupportedOperationException("not yet implemented");
+	@Override
+	protected GenericRef<T> toInternalId(GenericRef<T> id) {
+		return id;
 	}
 }
