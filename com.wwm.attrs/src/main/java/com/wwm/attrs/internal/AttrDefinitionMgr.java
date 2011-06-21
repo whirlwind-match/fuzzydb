@@ -31,6 +31,7 @@ import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
 import com.wwm.db.core.LogFactory;
+import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.model.attributes.DateAttribute;
 import com.wwm.model.attributes.DistanceAttribute;
@@ -180,13 +181,41 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         case STRING:
             return String.class;
 //        case VECTOR:
-//            return VvectorValue;
+//            return VectorValue;
 //        case FLOAT_RANGE_PREF:
 //            return FloatRangePrefValue;
 //        case LOCATION_PREF:
 //            return LocationPrefValue;
         case DATE:
     		return Date.class;
+        default:
+            throw new RuntimeException("Type mapping needed.");
+        }
+	}
+
+	public Class<? extends IAttribute> getDbClass(int attrId) {
+        switch (attrId & ATTR_CLASS_MASK) {
+        case UNKNOWN_CLASS:
+        	return null;
+        case BOOLEAN:
+            return BooleanValue.class;
+        case FLOAT:
+            return FloatHave.class;
+        case ENUM_EXCLUSIVE:
+            return EnumExclusiveValue.class;
+        case ENUM_MULTI:
+            return EnumMultipleValue.class;
+        case STRING:
+            return StringValue.class;
+        case VECTOR:
+            return EcefVector.class;
+        case FLOAT_RANGE_PREF:
+            return FloatRangePreference.class;
+        case LOCATION_PREF:
+        	// This got deprecated
+            throw new IllegalStateException("Location preference attribute not supported for mapping");
+//        case DATE:
+//    		return TODO;
         default:
             throw new RuntimeException("Type mapping needed.");
         }

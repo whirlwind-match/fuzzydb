@@ -1,6 +1,7 @@
 package com.wwm.attrs;
 
 import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.db.whirlwind.internal.IAttribute;
 
 /**
  * A service to maintain a mapping between numerical identifiers and string values
@@ -34,6 +35,13 @@ public interface AttributeDefinitionService {
 	 */
 	Class<?> getExternalClass(int attrId);
 
+	/**
+	 * Return the class that is used within the database to encode this attibute.
+	 * 
+	 * @param attrId - id within the database
+	 * @return Class<?> e.g. BooleanValue.class, Enum ... etc
+	 */
+	Class<? extends IAttribute> getDbClass(int attrId);
 
 	/**
 	 * Return an EnumDefinition given a name for the EnumDefinition.
