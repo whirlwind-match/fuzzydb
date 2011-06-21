@@ -1,6 +1,5 @@
 package com.wwm.db.spring.repository;
 
-
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.GenericRef;
@@ -77,11 +75,10 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 
 	private void addConvertedAttribute(BlobStoringWhirlwindItem result,
 			String key, Object value) {
+
 		int id = attrDefinitionService.getAttrId(key, value.getClass());
-		
-		// FIXME: rather missing something more generic :)
-		result.getAttributeMap().put(id, new BooleanValue(0, (Boolean) value)); // fake boolean for fun
-		
+		IAttribute attr = converter.convert(value, attrDefinitionService.getDbClass(id));
+		result.getAttributeMap().put(id, attr);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -27,7 +27,6 @@ import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
-import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -78,7 +77,10 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		verify(persister, times(1)).save(wwItemCaptor.capture());
 		IAttributeMap<IAttribute> attrs = wwItemCaptor.getValue().getAttributeMap();
 		assertThat((BooleanValue)attrs.findAttr(isMaleId),equalTo(new BooleanValue(isMaleId,false)));
-//		assertThat((FloatHave)attrs.findAttr(ageId),equalTo(new FloatHave(ageId,1.1f)));
+		FloatHave attr = (FloatHave)attrs.findAttr(ageId);
+//		assertThat(attr,equalTo(new FloatHave(ageId,1.1f))); //- fails - need to investigate why
+		assertEquals(ageId, attr.getAttrId());
+		assertEquals(1.1f, attr.getValue(), 0f);
 		
 	}
 	
@@ -101,7 +103,6 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	}
 	
 	
-	
 	private BlobStoringWhirlwindItem getWWItem() {
 		BlobStoringWhirlwindItem item = new BlobStoringWhirlwindItem("somePrimaryKey");
 		item.getAttributeMap().putAttr(new BooleanValue(isMaleId, true));
@@ -110,15 +111,13 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	}
 
 
-
 	public static class FuzzyItem {
 		
 		Map<String, Object> attributes = new HashMap<String,Object>();
 		
 		void populateTestData() {
 			attributes.put("isMale", Boolean.FALSE);
-//			attributes.put("age", 1.1f);
+			attributes.put("age", 1.1f);
 		}
-		
 	}
 }
