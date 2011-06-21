@@ -212,10 +212,12 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         }
 
         if ( clazz.isAssignableFrom(BooleanValue.class)
-                || clazz.isAssignableFrom(BooleanAttribute.class)) {
+                || clazz.isAssignableFrom(BooleanAttribute.class)
+        		|| clazz.isAssignableFrom(Boolean.class)) {
             return BOOLEAN;
         } else if ( clazz.isAssignableFrom(FloatHave.class)
-                || clazz.isAssignableFrom(FloatAttribute.class)) {
+                || clazz.isAssignableFrom(FloatAttribute.class) 
+            	|| clazz.isAssignableFrom(Float.class)) {
             return FLOAT;
         } else if ( clazz.isAssignableFrom(FloatRangePreference.class)
                 || clazz.isAssignableFrom(FloatRangeAttribute.class)) {

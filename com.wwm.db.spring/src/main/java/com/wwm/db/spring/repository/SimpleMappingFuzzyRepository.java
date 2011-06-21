@@ -6,11 +6,13 @@ import java.util.Map.Entry;
 
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.GenericRef;
+import com.wwm.db.whirlwind.internal.IAttribute;
 
 /**
  * A simple (PoC) Repository implementation that performs a minimal conversion to get attributes
@@ -35,7 +37,24 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 
 	@Override
 	protected T fromInternal(BlobStoringWhirlwindItem internal) {
-		throw new UnsupportedOperationException(); // Need to implement converters next
+		T result = createInstance();
+		Map<String,Object> externalMap = getAttrsField(result);
+		
+		for( IAttribute attr : internal.getAttributeMap()) {
+			addConvertedAttribute(externalMap, attr);
+		}
+		
+		return result;
+	}
+
+	private void addConvertedAttribute(Map<String, Object> externalMap,
+			IAttribute attr) {
+		
+		String key = attrDefinitionService.getAttrName(attr.getAttrId());
+		Converter<BooleanValue, Boolean> toBooleanConverter = new AttrToBooleanConverter();
+		Object value = toBooleanConverter.convert((BooleanValue) attr);
+		
+		externalMap.put(key, value);
 	}
 
 	@Override
@@ -52,8 +71,8 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			String key, Object value) {
 		int id = attrDefinitionService.getAttrId(key, value.getClass());
 		
-		
-		result.getAttributeMap().put(id, new BooleanValue(0, false)); // fake boolean for fun
+		// FIXME: rather missing something more generic :)
+		result.getAttributeMap().put(id, new BooleanValue(0, (Boolean) value)); // fake boolean for fun
 		
 	}
 
@@ -61,6 +80,14 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	private Map<String, Object> getAttrsField(T external) {
 		Object attrs = new DirectFieldAccessor(external).getPropertyValue("attributes"); // TODO: make annotated
 		return (Map<String, Object>) attrs;
+	}
+
+	private T createInstance() {
+		try {
+			return type.newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
