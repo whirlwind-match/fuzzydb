@@ -34,7 +34,6 @@ import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.attrs.internal.xstream.XmlNameMapper;
 import com.wwm.attrs.location.LocationAndRangeScorer;
 import com.wwm.attrs.location.PathDeviationScorer;
-import com.wwm.attrs.location.RangePreferenceScorer;
 import com.wwm.attrs.location.VectorDistanceScorer;
 import com.wwm.attrs.simple.FloatRangePreferenceScorer;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
@@ -256,7 +255,6 @@ public class XmlLoader {
 
         xStream.alias("LocationAndRangeScorer", LocationAndRangeScorer.class);
         xStream.alias("PathDeviationScorer", PathDeviationScorer.class);
-        xStream.alias("RangePreferenceScorer", RangePreferenceScorer.class);
         xStream.alias("VectorDistanceScorer", VectorDistanceScorer.class);
 
         xStream.alias("SeatsScorer", SeatsScorer.class);

@@ -97,8 +97,6 @@ public abstract class CompactAttrCodec {
 			return isConstraint ? bytes.getByte( index + LENGTH_OFFSET ) : EnumCodec.EXCLUSIVE_ENUM_SIZE;
 		case floatValue:
 			return isConstraint ? bytes.getByte( index + LENGTH_OFFSET ) : FloatCodec.FLOAT_SIZE;
-		case locationPrefValue:
-			return isConstraint ? bytes.getByte( index + LENGTH_OFFSET ) : LocationPrefCodec.LOCATION_PREF_SIZE;
 		
 		case floatRangePrefValue: // could have fixed size
 			// FALLTHRU

@@ -50,10 +50,8 @@ public class CodecManager {
 			return EnumMultiValueCodec.getInstance();
 		case vectorValue:
 			return EcefVectorCodec.getInstance();
-		case locationPrefValue:
-			return LocationPrefCodec.getInstance();
-			default:
-				return null;
+		default:
+			return null;
 		}
 	}
 
@@ -74,10 +72,8 @@ public class CodecManager {
 			return EnumMultiConstraintCodec.getInstance();
 		case vectorValue:
 			return DimensionRangeCodec.getInstance();
-		case locationPrefValue:
-			return DimensionRangeCodec.getInstance();
-			default:
-				return null;
+		default:
+			return null;
 		}
 	}
 

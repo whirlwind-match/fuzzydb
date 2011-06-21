@@ -18,7 +18,6 @@ import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.location.RangePreference;
 import com.wwm.attrs.simple.FloatHave;
 
 /**
@@ -83,12 +82,6 @@ public class AttrIdClassMapper {
         currentAttrNameMap.put("scorerRangeAttrId", FloatHave.class);
         currentAttrNameMap.put("otherAttrId", EcefVector.class);
         scorerNameMap.put("LocationAndRangeScorer", currentAttrNameMap);
-
-        // RangePreferenceScorer
-        currentAttrNameMap = new HashMap<String,Class<?>>(2); // expect 2 entries
-        currentAttrNameMap.put("scorerAttrId", RangePreference.class);
-        currentAttrNameMap.put("otherAttrId", EcefVector.class);
-        scorerNameMap.put("RangePreferenceScorer", currentAttrNameMap);
 
         // VectorDistanceScorer
         currentAttrNameMap = new HashMap<String,Class<?>>(2); // expect 2 entries

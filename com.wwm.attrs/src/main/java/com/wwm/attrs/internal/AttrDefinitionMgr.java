@@ -26,7 +26,6 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.location.RangePreference;
 import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
@@ -34,7 +33,6 @@ import com.wwm.db.core.LogFactory;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.model.attributes.DateAttribute;
-import com.wwm.model.attributes.DistanceAttribute;
 import com.wwm.model.attributes.EnumAttribute;
 import com.wwm.model.attributes.FloatAttribute;
 import com.wwm.model.attributes.FloatRangeAttribute;
@@ -65,7 +63,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         booleanValue, floatValue,
         enumExclusiveValue, enumMultiValue,
         stringValue, vectorValue,
-        floatRangePrefValue, locationPrefValue,
+        floatRangePrefValue,
         dateValue,
     }
 
@@ -87,8 +85,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
     private static final int STRING =           0x00000500;
     private static final int VECTOR =           0x00000600;
     private static final int FLOAT_RANGE_PREF = 0x00000700;
-    private static final int LOCATION_PREF = 	0x00000800;
-    private static final int DATE =             0x00000900;
+    private static final int DATE =             0x00000800;
 
     private static final int INDEX_MASK = 0x000000ff; // up to 256 attrs (of each type if we want)
     private int nextId = 0;
@@ -121,8 +118,6 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return AttrType.vectorValue;
         case FLOAT_RANGE_PREF:
             return AttrType.floatRangePrefValue;
-        case LOCATION_PREF:
-            return AttrType.locationPrefValue;
         case DATE:
     		return AttrType.dateValue;
         default:
@@ -211,9 +206,6 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return EcefVector.class;
         case FLOAT_RANGE_PREF:
             return FloatRangePreference.class;
-        case LOCATION_PREF:
-        	// This got deprecated
-            throw new IllegalStateException("Location preference attribute not supported for mapping");
 //        case DATE:
 //    		return TODO;
         default:
@@ -289,9 +281,6 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         } else if ( clazz.isAssignableFrom(EcefVector.class)
                 || clazz.isAssignableFrom(Point3DAttribute.class)) {
             return VECTOR;
-        } else if ( clazz.isAssignableFrom(RangePreference.class)
-                || clazz.isAssignableFrom(DistanceAttribute.class)) {
-            return LOCATION_PREF;
         } else if ( clazz.isAssignableFrom(DateAttribute.class)) {
             return DATE;
         } else if ( clazz.isAssignableFrom(StringValue.class)) {

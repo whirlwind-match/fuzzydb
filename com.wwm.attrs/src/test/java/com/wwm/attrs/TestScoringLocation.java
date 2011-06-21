@@ -20,8 +20,8 @@ import com.wwm.attrs.dimensions.DimensionsRangeConstraint;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.location.RangePreference;
-import com.wwm.attrs.location.RangePreferenceScorer;
+import com.wwm.attrs.location.LocationAndRangeScorer;
+import com.wwm.attrs.simple.FloatHave;
 import com.wwm.db.whirlwind.SearchSpec.SearchMode;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
@@ -36,29 +36,31 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestScoringLocation {
     
-    private int locId = 1;
-    private int locWantId = 2;
+    private int locPosId = 1;
+    private int locWantId = 1;
+    private int locWantRangeId = 3;
     
-	private EcefVector point1 = EcefVector.fromDegs(locId, 55, -5);
-	private RangePreference area1 = new RangePreference(locWantId, point1, 100, true);
-	private EcefVector point2 = EcefVector.fromDegs(locId, 54, -5);
-	private RangePreference area2 = new RangePreference(locWantId, point2, 100, true);
-	private EcefVector point3 = EcefVector.fromDegs(locId, 53, -5);
-	private RangePreference area3 = new RangePreference(locWantId,point3, 100, true);
+	private EcefVector point1 = EcefVector.fromDegs(locPosId, 55, -5);
+	private EcefVector point2 = EcefVector.fromDegs(locPosId, 54, -5);
+	private EcefVector point3 = EcefVector.fromDegs(locPosId, 53, -5);
+
+	private FloatHave range100 = new FloatHave(locWantRangeId, 100f);
+	private FloatHave range1 = new FloatHave(locWantRangeId, 1f);
 	
 	private ScoreConfiguration scoreConfig = new com.wwm.attrs.internal.ScoreConfiguration();
 
 	
     @Before
 	public void setUpConfig() throws Exception {
-        scoreConfig.add( new RangePreferenceScorer( locWantId, locId, new LinearScoreMapper() ) ); 
+        scoreConfig.add( new LocationAndRangeScorer( locPosId, locWantRangeId, locPosId, new LinearScoreMapper() ) ); 
     }
 
 	@Test
 	public void testSamePoint() {
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
-		search.putAttr(area1);
+		search.putAttr(point1);
+		search.putAttr(range100);
 		profile.putAttr(point1);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
@@ -69,7 +71,8 @@ public class TestScoringLocation {
 	public void testInRange() {
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
-		search.putAttr(area1);
+		search.putAttr(point1);
+		search.putAttr(range100);
 		profile.putAttr(point2);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
@@ -81,7 +84,8 @@ public class TestScoringLocation {
 	public void testOutOfRange() {
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
-		search.putAttr(area1);
+		search.putAttr(point1);
+		search.putAttr(range100);
 		profile.putAttr(point3);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
@@ -92,10 +96,10 @@ public class TestScoringLocation {
 	public void test2SamePoint() {
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
-		search.putAttr(area1);
 		search.putAttr(point1);
+		search.putAttr(range100);
 		profile.putAttr(point1);
-		profile.putAttr(area1);
+		profile.putAttr(range100);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
 		Assert.assertEquals(1f / 1.1f, score.total(), 0.001f);
@@ -106,9 +110,9 @@ public class TestScoringLocation {
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
 		search.putAttr(point1);
-		search.putAttr(area1);
+		search.putAttr(range100);
 		profile.putAttr(point2);
-		profile.putAttr(area2);
+		profile.putAttr(range100);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() > 0f);
@@ -119,56 +123,56 @@ public class TestScoringLocation {
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
 		search.putAttr(point1);
-		search.putAttr(area1);
+		search.putAttr(range100);
 		profile.putAttr(point3);
-		profile.putAttr(area3);
+		profile.putAttr(range100);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() == 0f);
 	}
 
 	@Test public void test2OneInOneOut() {
-		RangePreference area2small = new RangePreference(locWantId, point2, 10, true);
+		FloatHave range2small = new FloatHave(locWantRangeId, 10f);
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
 		search.putAttr(point1);
-		search.putAttr(area1);
+		search.putAttr(range100);
 		profile.putAttr(point2);
-		profile.putAttr(area2small);
+		profile.putAttr(range2small);
 		ItemScore score = new ItemScore();
 		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() == 0f);
 	}
 	
 	@Test public void testInNode() {
-	    DimensionsRangeConstraint lbv = new DimensionsRangeConstraint(locId, 
+	    DimensionsRangeConstraint lbv = new DimensionsRangeConstraint(locPosId, 
 	            new Point3D(-1f,-1f,-1f), new Point3D(1f,1f,0f) );
 		IConstraintMap node = AttributeMapFactory.newConstraintMap();
 		node.putAttr(lbv);
 
 		{
 			IAttributeMap<IAttribute> search1 = AttributeMapFactory.newInstance(IAttribute.class);
-			RangePreference areainside1 = new RangePreference(locWantId, 
-					new EcefVector(locWantId, -0.8f,-0.8f,-0.8f), 100, true);
+			EcefVector areainside1 = new EcefVector(locWantId, -0.8f,-0.8f,-0.8f);
 			search1.putAttr(areainside1);
+			search1.putAttr(range100);
 			ItemScore score1 = new ItemScore();
 			scoreConfig.scoreSearchToNodeBothWays(score1, node, SearchMode.TwoWay, search1);
 			Assert.assertTrue(score1.total() == 1f);
 		}
 		{
 			IAttributeMap<IAttribute> search2 = AttributeMapFactory.newInstance(IAttribute.class);
-			RangePreference areainside2 = new RangePreference(locWantId, 
-					new EcefVector(locWantId, 0.8f,0.8f,-0.8f), 100, true);
+			EcefVector areainside2 = new EcefVector(locWantId, 0.8f,0.8f,-0.8f);
 			search2.putAttr(areainside2);
+			search2.putAttr(range100);
 			ItemScore score2 = new ItemScore();
 			scoreConfig.scoreSearchToNodeBothWays(score2, node, SearchMode.TwoWay, search2);
 			Assert.assertTrue(score2.total() == 1f);
 		}
 		{
 			IAttributeMap<IAttribute> search2 = AttributeMapFactory.newInstance(IAttribute.class);
-			RangePreference areainside2 = new RangePreference(locWantId,
-					new EcefVector(locWantId, 0.8f,-0.8f,-0.1f), 1, true);
+			EcefVector areainside2 = new EcefVector(locWantId, 0.8f,-0.8f,-0.1f);
 			search2.putAttr(areainside2);
+			search2.putAttr(range1); // NOTE: smaller range
 			ItemScore score2 = new ItemScore();
 			scoreConfig.scoreSearchToNodeBothWays(score2, node, SearchMode.TwoWay, search2);
 			Assert.assertTrue(score2.total() == 1f);
@@ -176,37 +180,37 @@ public class TestScoringLocation {
 		
 	}
 	@Test public void testOutNode() {
-	    DimensionsRangeConstraint lbv = new DimensionsRangeConstraint(locId, 
+	    DimensionsRangeConstraint lbv = new DimensionsRangeConstraint(locPosId, 
 	            new Point3D(-1f,-1f,-1f), new Point3D(1f,1f,0f));
 		IConstraintMap node = AttributeMapFactory.newConstraintMap();
 		node.putAttr(lbv);
 
 		{
 			IAttributeMap<IAttribute> search1 = AttributeMapFactory.newInstance(IAttribute.class);
-			RangePreference areainside1 = new RangePreference(locWantId,
-					new EcefVector(locWantId, -0.8f,-0.8f,0.8f), 100, true);
+			EcefVector areainside1 = new EcefVector(locWantId, -0.8f,-0.8f,0.8f);
 			search1.putAttr(areainside1);
+			search1.putAttr(range100);
 			ItemScore score1 = new ItemScore();
 			scoreConfig.scoreSearchToNodeBothWays(score1, node, SearchMode.TwoWay, search1);
-			Assert.assertTrue(score1.total() == 0f);
+			Assert.assertEquals(0f, score1.total(), 0f);
 		}
 		{
 			IAttributeMap<IAttribute> search2 = AttributeMapFactory.newInstance(IAttribute.class);
-			RangePreference areainside2 = new RangePreference(locWantId,
-					new EcefVector(locWantId, 0.8f,0.8f,0.8f), 100, true);
+			EcefVector areainside2 = new EcefVector(locWantId, 0.8f,0.8f,0.8f);
 			search2.putAttr(areainside2);
+			search2.putAttr(range100);
 			ItemScore score2 = new ItemScore();
 			scoreConfig.scoreSearchToNodeBothWays(score2, node, SearchMode.TwoWay, search2);
-			Assert.assertTrue(score2.total() == 0f);
+			Assert.assertEquals(0f, score2.total(), 0f);
 		}
 		{
 			IAttributeMap<IAttribute> search2 = AttributeMapFactory.newInstance(IAttribute.class);
-			RangePreference areainside2 = new RangePreference(locWantId,
-					new EcefVector(locWantId, 0.8f,-0.8f,0.1f), 100, true);
+			EcefVector areainside2 = new EcefVector(locWantId, 0.8f,-0.8f,0.1f);
 			search2.putAttr(areainside2);
+			search2.putAttr(range100);
 			ItemScore score2 = new ItemScore();
 			scoreConfig.scoreSearchToNodeBothWays(score2, node, SearchMode.TwoWay, search2);
-			Assert.assertTrue(score2.total() == 0f);
+			Assert.assertEquals(0f, score2.total(), 0f);
 		}
 		
 	}
@@ -235,22 +239,22 @@ public class TestScoringLocation {
 	
 	@Test public void testDistance() {
 		{
-			EcefVector point1 = EcefVector.fromDegs(locId, 0f, 0f);
-			EcefVector point2 = EcefVector.fromDegs(locId, 0f, 1f);
+			EcefVector point1 = EcefVector.fromDegs(locPosId, 0f, 0f);
+			EcefVector point2 = EcefVector.fromDegs(locPosId, 0f, 1f);
 			
 			float dist = point1.distance(point2);
 			Assert.assertTrue(dist > 68f && dist < 71f);
 		}
 		{
-			EcefVector point1 = EcefVector.fromDegs(locId, 90f, 0f);
-			EcefVector point2 = EcefVector.fromDegs(locId, 90f, 1f);
+			EcefVector point1 = EcefVector.fromDegs(locPosId, 90f, 0f);
+			EcefVector point2 = EcefVector.fromDegs(locPosId, 90f, 1f);
 			
 			float dist = point1.distance(point2);
 			Assert.assertTrue(dist > -0.001f && dist < 0.001f);
 		}
 		{
-			EcefVector point1 = EcefVector.fromDegs(locId, 90f, 0f);
-			EcefVector point2 = EcefVector.fromDegs(locId, 89f, 180f);
+			EcefVector point1 = EcefVector.fromDegs(locPosId, 90f, 0f);
+			EcefVector point2 = EcefVector.fromDegs(locPosId, 89f, 180f);
 			
 			float dist = point1.distance(point2);
 			Assert.assertTrue(dist > 68f && dist < 71f);
@@ -282,7 +286,7 @@ public class TestScoringLocation {
 	
 	@Test public void testLocationConversion1() {
 		
-		EcefVector v1 = EcefVector.fromDegs(locId, 0, 0);
+		EcefVector v1 = EcefVector.fromDegs(locPosId, 0, 0);
 		
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
@@ -293,7 +297,7 @@ public class TestScoringLocation {
 
 	@Test public void testLocationConversion2() {
 		
-		EcefVector v1 = EcefVector.fromDegs(locId, 90 , 0);
+		EcefVector v1 = EcefVector.fromDegs(locPosId, 90 , 0);
 		
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
@@ -304,7 +308,7 @@ public class TestScoringLocation {
 
 	@Test public void testLocationConversion3() {
 		
-		EcefVector v1 = EcefVector.fromDegs(locId, 0, 90);
+		EcefVector v1 = EcefVector.fromDegs(locPosId, 0, 90);
 		
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
@@ -315,7 +319,7 @@ public class TestScoringLocation {
 
 	@Test public void testLocationConversion4() {
 		
-		EcefVector v1 = EcefVector.fromDegs(locId, 27, 42);
+		EcefVector v1 = EcefVector.fromDegs(locPosId, 27, 42);
 		
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
@@ -326,7 +330,7 @@ public class TestScoringLocation {
 	
 	@Test public void testLocationConversionNearNorthPole() {
 		
-		EcefVector v1 = EcefVector.fromDegs(locId, 89.0f , 0);
+		EcefVector v1 = EcefVector.fromDegs(locPosId, 89.0f , 0);
 		
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();
@@ -337,7 +341,7 @@ public class TestScoringLocation {
 
 	@Test public void testLocationConversionNearSouthPole() {
 		
-		EcefVector v1 = EcefVector.fromDegs(locId, -89.0f , 0);
+		EcefVector v1 = EcefVector.fromDegs(locPosId, -89.0f , 0);
 		
 		double lat = v1.getLatDegs();
 		double lon = v1.getLonDegs();

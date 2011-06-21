@@ -10,7 +10,6 @@ import com.wwm.attrs.enums.MultiEnumScorer;
 import com.wwm.attrs.enums.SeatsScorer;
 import com.wwm.attrs.location.LocationAndRangeScorer;
 import com.wwm.attrs.location.PathDeviationScorer;
-import com.wwm.attrs.location.RangePreferenceScorer;
 import com.wwm.attrs.location.VectorDistanceScorer;
 import com.wwm.attrs.simple.FloatRangePreferenceScorer;
 import com.wwm.attrs.simple.SimilarFloatValueScorer;
@@ -41,7 +40,6 @@ public class XMLAliases {
 
         scorerAliases.put("LocationAndRangeScorer", LocationAndRangeScorer.class);
         scorerAliases.put("PathDeviationScorer", PathDeviationScorer.class);
-        scorerAliases.put("RangePreferenceScorer", RangePreferenceScorer.class);
         scorerAliases.put("VectorDistanceScorer", VectorDistanceScorer.class);
 
         scorerAliases.put("SeatsScorer", SeatsScorer.class);

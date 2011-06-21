@@ -188,12 +188,10 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 
 		case floatValue:
 			return getFloatSpace(attrId, 1);
-		case floatRangePrefValue: // FALLTHRU
+			
+		case floatRangePrefValue:  // FALLTHRU
+		case vectorValue:
 			return getFloatSpace(attrId, 3);
-		case vectorValue: // FALLTHRU
-			return getFloatSpace(attrId, 3);
-		case locationPrefValue:
-			return getFloatSpace(attrId, 4);
 		default:
 			return -1; // Not implemented yet
 		}
@@ -211,12 +209,10 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 
 		case floatValue:
 			return getFloatSpace(attrId, 2);
+
 		case floatRangePrefValue: // FALLTHRU
+		case vectorValue:
 			return getFloatSpace(attrId, 6);
-		case vectorValue: // FALLTHRU
-			return getFloatSpace(attrId, 6);
-		case locationPrefValue:
-			return getFloatSpace(attrId, 8);
 		default:
 			return -1;
 		}
