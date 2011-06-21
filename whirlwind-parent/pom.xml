@@ -123,6 +123,13 @@
 					</snapshots>
 					<id>springsource-milestone</id>
 				</repository>
+				<repository>
+					<id>dirty-mockito</id>
+					<url>http://dirty-mockito.googlecode.com/svn/maven2/releases</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
 			</repositories>
 		</profile>
 		<profile>
@@ -284,6 +291,13 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>${org.mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>dirty-mockito</groupId>
+			<artifactId>dirty-mockito</artifactId>
+			<version>0.4</version>
 			<scope>test</scope>
 		</dependency>
 
