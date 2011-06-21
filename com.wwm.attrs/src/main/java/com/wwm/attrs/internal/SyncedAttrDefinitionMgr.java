@@ -51,7 +51,8 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      * Responsible for getting the up to date AttrDefinitionMgr for the supplied store.
      * This method should be used whenever other threads may also be modifying the ADM, otherwise, we
      * may have a version and find that another thread has committed it.
-     * @return
+     * @return DynamicRef (a poor version of AtomicReference).  If we've already returned
+     * the ADM for this store before, then we always re-use the same (so all threads see the update)
      */
     public static synchronized DynamicRef<SyncedAttrDefinitionMgr> getInstance( Store store ) {
     	

@@ -11,6 +11,7 @@
 package com.wwm.attrs.internal;
 
 
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
@@ -89,7 +90,7 @@ public class CartmanStringAttributeMapImpl extends AttributeMap<IAttribute> impl
 		putAttr( attr );
 	}
 
-	private AttrDefinitionMgr getAttrDefinitions() {
+	private AttributeDefinitionService getAttrDefinitions() {
 		SyncedAttrDefinitionMgr adm = SyncedAttrDefinitionMgr.getInstance( store ).getObject();
 		return adm;
 	}

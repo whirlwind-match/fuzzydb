@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.wwm.attrs.internal.AttrDefinitionMgr;
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.Client;
@@ -143,7 +143,7 @@ public abstract class BaseDatabaseTest {
 	 * as this gets refreshed after modifications, so they need to see the mods.
 	 * getInstance() actually does a Transaction.refresh(adm)
 	 */
-	protected AttrDefinitionMgr getAttrMgr() {
+	protected AttributeDefinitionService getAttrMgr() {
 		return SyncedAttrDefinitionMgr.getInstance(store).getObject();
 	}
 }

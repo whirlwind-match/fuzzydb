@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 
 
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
@@ -52,7 +53,7 @@ import com.wwm.model.attributes.Point3DAttribute;
  * 2) Looking up attrIds and class given the string name of that attribute (perf critical)
  * 3) Looking up string name of attribute, given attribute id (perf critical)
  */
-public class AttrDefinitionMgr implements Serializable {
+public class AttrDefinitionMgr implements Serializable, AttributeDefinitionService {
 
     static final Logger log = LogFactory.getLogger(AttrDefinitionMgr.class);
 
@@ -144,14 +145,6 @@ public class AttrDefinitionMgr implements Serializable {
         throw new RuntimeException("PBC Error");
     }
 
-    /**
-     * Get an attribute ID for this attribute name and clazz
-     * 
-     * This will throw an Error if an attempt is made to re-use a name with
-     * a different class.
-     * 
-     * @param clazz - null allowed
-     */
     public int getAttrId(String attrName, Class<?> clazz) {
 
         int overlay = getAttributeClassCode(clazz);
@@ -171,13 +164,6 @@ public class AttrDefinitionMgr implements Serializable {
         return attrId;
     }
 
-    /**
-     * Return an EnumDefinition given a name for the EnumDefinition.
-     * Once we have this, we can then create enum values, by supplying
-     * an attribute name and value string.
-     *    EnumDefinition def = attrDefMgr.getEnumDefinition( "SmokingStates" );
-     *    EnumValue = def.getValue( "Smoke", "GivingUp" );
-     */
     public EnumDefinition getEnumDefinition(String defName) {
         assert defName != null;
         EnumDefinition def = defs.get(defName);
@@ -306,10 +292,6 @@ public class AttrDefinitionMgr implements Serializable {
         return def.setMgr(this);
     }
 
-    /**
-     * Associate this attrId with given enumDef, if not already done so.
-     * Returns quickly if already done.
-     */
 	public void associateAttrToEnumDef(int attrId, EnumDefinition enumDef) {
 		if (attrIdsToDef.get(attrId) != null){
 			return; // already associated
