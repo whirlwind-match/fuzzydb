@@ -113,6 +113,7 @@ public class ConversionFactory {
             throw new RuntimeException(e);
         }
     }
+    
     @SuppressWarnings("unchecked")
     public void load(String xmlPath) {
         try {
@@ -188,7 +189,7 @@ public class ConversionFactory {
      * @param attribute
      * @return
      */
-    public static Attribute<?> convert(String name, IAttribute attribute) {
+    public Attribute<?> convert(String name, IAttribute attribute) {
         return getConverter(attribute.getAttrId(), attribute).convert(name, attribute);
     }
 
@@ -196,7 +197,7 @@ public class ConversionFactory {
         return getConverter(attrid, object).convertToInternal(attrid, object);
     }
 
-    public static EnumeratedAttribute<?> convert(String name, EnumDefinition def, EnumValue enumValue) {
+    public EnumeratedAttribute<?> convert(String name, EnumDefinition def, EnumValue enumValue) {
         return getEnumConverter(enumValue.getAttrId(), enumValue).convert(name, def, enumValue);
     }
 

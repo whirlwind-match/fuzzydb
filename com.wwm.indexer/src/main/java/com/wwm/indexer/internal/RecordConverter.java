@@ -150,9 +150,9 @@ public class RecordConverter {
             if (attr instanceof EnumValue){
                 EnumValue enumValue = (EnumValue) attr;
                 EnumDefinition def = getAttrDefs().getEnumDef(enumValue.getEnumDefId());
-                record.getAttributes().put(name, ConversionFactory.convert(name, def, enumValue));
+                record.getAttributes().put(name, ConversionFactory.getInstance().convert(name, def, enumValue));
             } else {
-                record.getAttributes().put(name, ConversionFactory.convert(name, attr));
+                record.getAttributes().put(name, ConversionFactory.getInstance().convert(name, attr));
             }
         }
 
