@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
+import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
 import com.wwm.db.exceptions.UnknownObjectException;
@@ -21,10 +22,10 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	@Autowired
 	private DataOperations persister;
-	
+
 	protected final Class<T> type;
-	
-	
+
+
 	public AbstractConvertingRepository(Class<T> type) {
 		super();
 		this.type = type;
@@ -37,7 +38,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	@SuppressWarnings("unchecked")
 	public Iterable<T> save(Iterable<? extends T> entities) {
-	
+
 		for (T entity : entities) {
 			persister.save(toInternal(entity));
 		}
@@ -73,13 +74,17 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		persister.delete(toInternal(entity));
 	}
 
-	public void delete(Iterable<? extends T> entities) {
+	public final void delete(Iterable<? extends T> entities) {
 		throw new UnsupportedOperationException("not yet implemented");
-//		persister.delete(entities); // FIXME: Need converting iterator (must be one already surely!)
+		//		persister.delete(entities); // FIXME: Need converting iterator (must be one already surely!)
 	}
 
-	public void deleteAll() {
+	public final void deleteAll() {
 		throw new UnsupportedOperationException("not yet implemented");
+	}
+
+	protected final DataOperations getPersister() {
+		return persister;
 	}
 
 	/**
@@ -88,14 +93,14 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * @param internal raw object that has been retrieved from database
 	 * @return converted type
 	 */
-	abstract protected T fromInternal(I internal); 
+	abstract protected T fromInternal(I internal);
 
 	/**
 	 * Encode the persisted object to its' internal representation
 	 * @param external the object that is being persisted to the database
 	 * @return an object suitable for persisting
 	 */
-	abstract protected I toInternal(T external); 
+	abstract protected I toInternal(T external);
 
 	abstract protected GenericRef<I> toInternalId(ID id);
 
