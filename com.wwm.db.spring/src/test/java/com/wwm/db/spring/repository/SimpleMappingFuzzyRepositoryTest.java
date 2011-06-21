@@ -97,7 +97,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		verify(persister, times(1)).retrieve(ArgumentCaptor.forClass(GenericRef.class).capture());
 		Map<String, Object> map = x.attributes;
 		assertEquals(Boolean.TRUE, map.get("isMale"));
-//		assertEquals(2.2f, map.get("age"));
+		assertEquals(2.2f, map.get("age"));
 	}
 	
 	
@@ -105,7 +105,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	private BlobStoringWhirlwindItem getWWItem() {
 		BlobStoringWhirlwindItem item = new BlobStoringWhirlwindItem("somePrimaryKey");
 		item.getAttributeMap().putAttr(new BooleanValue(isMaleId, true));
-//		item.getAttributeMap().putAttr(new FloatHave(ageId, 2.2f));
+		item.getAttributeMap().putAttr(new FloatHave(ageId, 2.2f));
 		return item;
 	}
 

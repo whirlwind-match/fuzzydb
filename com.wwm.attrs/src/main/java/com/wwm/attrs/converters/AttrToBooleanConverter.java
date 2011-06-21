@@ -1,4 +1,4 @@
-package com.wwm.db.spring.repository;
+package com.wwm.attrs.converters;
 
 import org.springframework.core.convert.converter.Converter;
 

@@ -164,7 +164,36 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         return attrId;
     }
 
-    public EnumDefinition getEnumDefinition(String defName) {
+
+	public Class<?> getExternalClass(int attrId) {
+        switch (attrId & ATTR_CLASS_MASK) {
+        case UNKNOWN_CLASS:
+        	return Object.class;
+        case BOOLEAN:
+            return Boolean.class;
+        case FLOAT:
+            return Float.class;
+//        case ENUM_EXCLUSIVE:
+//            return EnumExclusiveValue;
+//        case ENUM_MULTI:
+//            return EnumMultiValue;
+        case STRING:
+            return String.class;
+//        case VECTOR:
+//            return VvectorValue;
+//        case FLOAT_RANGE_PREF:
+//            return FloatRangePrefValue;
+//        case LOCATION_PREF:
+//            return LocationPrefValue;
+        case DATE:
+    		return Date.class;
+        default:
+            throw new RuntimeException("Type mapping needed.");
+        }
+	}
+
+
+	public EnumDefinition getEnumDefinition(String defName) {
         assert defName != null;
         EnumDefinition def = defs.get(defName);
         if (def != null) {
@@ -344,5 +373,4 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
     public String toString() {
         return "attrids: " + ids.toString();
     }
-
 }

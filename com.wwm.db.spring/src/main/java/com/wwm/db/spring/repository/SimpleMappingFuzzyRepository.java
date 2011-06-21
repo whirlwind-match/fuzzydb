@@ -6,10 +6,10 @@ import java.util.Map.Entry;
 
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
+import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.GenericRef;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -27,6 +27,17 @@ import com.wwm.db.whirlwind.internal.IAttribute;
  * @param <ID> the type for the external id
  */
 public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> {
+
+	// WIP: This should be configured and injected by XML namespace code
+	private WhirlwindConversionService converter;
+	{ 
+		converter = new WhirlwindConversionService();
+		try {
+			converter.afterPropertiesSet();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	@Autowired
 	private AttributeDefinitionService attrDefinitionService;
@@ -47,13 +58,10 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		return result;
 	}
 
-	private void addConvertedAttribute(Map<String, Object> externalMap,
-			IAttribute attr) {
+	private void addConvertedAttribute(Map<String, Object> externalMap, IAttribute attr) {
 		
 		String key = attrDefinitionService.getAttrName(attr.getAttrId());
-		Converter<BooleanValue, Boolean> toBooleanConverter = new AttrToBooleanConverter();
-		Object value = toBooleanConverter.convert((BooleanValue) attr);
-		
+		Object value = converter.convert(attr, attrDefinitionService.getExternalClass(attr.getAttrId()));
 		externalMap.put(key, value);
 	}
 

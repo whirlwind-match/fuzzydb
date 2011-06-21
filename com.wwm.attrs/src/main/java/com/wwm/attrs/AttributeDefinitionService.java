@@ -24,6 +24,15 @@ public interface AttributeDefinitionService {
 	int getAttrId(String attrName);
 
 	String getAttrName(int attrId);
+	
+	/**
+	 * Return the class used to represent this attribute in Java. Some of these
+	 * are JDK value object classes, and others are classes defined for use
+	 * with Whirlwind (e.g. FloatRange)
+	 * @param attrId - id within the database
+	 * @return Class<?> e.g. Boolean.class, Float.class
+	 */
+	Class<?> getExternalClass(int attrId);
 
 
 	/**
