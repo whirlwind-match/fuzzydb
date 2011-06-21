@@ -1,6 +1,6 @@
 /instance/org.eclipse.core.resources/refresh.enabled=true
 /instance/org.eclipse.core.resources/version=1
-/instance/org.eclipse.jdt.ui/content_assist_favorite_static_members=org.hamcrest.CoreMatchers.*;org.junit.Assert.*;org.mockito.Mockito.*
+/instance/org.eclipse.jdt.ui/content_assist_favorite_static_members=org.hamcrest.CoreMatchers.*;org.junit.Assert.*;org.mockito.Mockito.*;org.mockito.Matchers.*
 /instance/org.eclipse.wst.validation/confirmDialog=true
 /instance/org.eclipse.wst.validation/DELEGATES_PREFERENCE=delegateValidatorList
 /instance/org.eclipse.wst.validation/override=true
