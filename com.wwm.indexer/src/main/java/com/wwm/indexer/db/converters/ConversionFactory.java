@@ -48,13 +48,19 @@ import com.wwm.model.attributes.Point3DAttribute;
 
 public class ConversionFactory {
 
-    public static Map<Integer, AttributeConverter> idConverters = new TreeMap<Integer, AttributeConverter>();
-    public static Map<String, AttributeConverter> classConverters = new TreeMap<String, AttributeConverter>();
+	static private final ConversionFactory instance = new ConversionFactory();
+	
+	public static ConversionFactory getInstance() {
+		return instance;
+	}
+	
+    private Map<Integer, AttributeConverter> idConverters = new TreeMap<Integer, AttributeConverter>();
+    private Map<String, AttributeConverter> classConverters = new TreeMap<String, AttributeConverter>();
 
-    public static Map<Integer, EnumeratedConverter> enumIdConverters = new TreeMap<Integer, EnumeratedConverter>();
-    public static Map<String, EnumeratedConverter> enumClassConverters = new TreeMap<String, EnumeratedConverter>();
+    private Map<Integer, EnumeratedConverter> enumIdConverters = new TreeMap<Integer, EnumeratedConverter>();
+    private Map<String, EnumeratedConverter> enumClassConverters = new TreeMap<String, EnumeratedConverter>();
  
-    static {
+    {
 
         // ---------------------------------------
         // Default Converters
@@ -99,22 +105,22 @@ public class ConversionFactory {
 
     }
 
-    public static void save(String xmlPath) {
+    public void save(String xmlPath) {
         try {
             new XStream().toXML(idConverters, new FileWriter(xmlPath + File.separator + "idconverters.xml"));
             new XStream().toXML(classConverters, new FileWriter(xmlPath + File.separator + "classConverters.xml"));
         } catch (IOException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
     @SuppressWarnings("unchecked")
-    public static void load(String xmlPath) {
+    public void load(String xmlPath) {
         try {
             FileReader reader = new FileReader(xmlPath + File.separator + "idconverters.xml");
             idConverters = (TreeMap<Integer, AttributeConverter>) new XStream().fromXML(reader);
             classConverters = (TreeMap<String, AttributeConverter>) new XStream().fromXML(new FileReader(xmlPath + File.separator + "classConverters.xml"));
         } catch (FileNotFoundException e) {
-            throw new Error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -125,23 +131,6 @@ public class ConversionFactory {
     	// need 'idConverters' to be hand set.
     	AttributeConverter c = getConverterFromAttrType(attrId);
     	return c;
-
-    	// FIXME: remvoe this after testing
-//    	// Try Attribute Id
-//        AttributeConverter c = idConverters.get(attrId);
-//        if (c != null) {
-//            return c;
-//        }
-//
-//        // Try Default Class conversion
-//        c = classConverters.get(value.getClass().getSimpleName());
-//        if (c != null) {
-//            // Add the converter to the id converters to ensure they are symmetrical
-//            register(attrId, c);
-//            return c;
-//        }
-//
-//        throw new UnsupportedOperationException( "Unknown convertion for Attribute " + attrId + " of type " + value.getClass().getSimpleName());
     }
     
     /**
@@ -187,20 +176,6 @@ public class ConversionFactory {
             return c;
         }
 
-        // FIXME: this is old and can go after some testing. 
-//    	// Try Attribute Id
-//        EnumeratedConverter c = enumIdConverters.get(attrId);
-//        if (c != null) {
-//            return c;
-//        }
-//        // Try Default Class conversion
-//        c = enumClassConverters.get(value.getClass().getSimpleName());
-//        if (c != null) {
-//            // Add the converter to the id converters to ensure they are symmetrical
-//            register(attrId, c);
-//            return c;
-//        }
-
         throw new UnsupportedOperationException( "Unknown convertion for Attribute " + attrId + " of type " + value.getClass().getSimpleName());
     }
 
@@ -217,7 +192,7 @@ public class ConversionFactory {
         return getConverter(attribute.getAttrId(), attribute).convert(name, attribute);
     }
 
-    public static IAttribute convert(int attrid, Attribute<?> object) {
+    public IAttribute convert(int attrid, Attribute<?> object) {
         return getConverter(attrid, object).convertToInternal(attrid, object);
     }
 
@@ -225,11 +200,12 @@ public class ConversionFactory {
         return getEnumConverter(enumValue.getAttrId(), enumValue).convert(name, def, enumValue);
     }
 
-    public static IAttribute convert(int attrid, EnumDefinition enumDef, EnumeratedAttribute<?> enumAttr) {
+    public IAttribute convert(int attrid, EnumDefinition enumDef, EnumeratedAttribute<?> enumAttr) {
         return getEnumConverter(attrid, enumAttr).convertToInternal(attrid, enumDef, enumAttr);
     }
 
-    public static Class<?> getIAttributeClass(int attrid, Class<?> clazz) {
+    @Deprecated // want to get rid of idConverters as we can do on class alone
+    public Class<?> getIAttributeClass(int attrid, Class<?> clazz) {
         AttributeConverter c = idConverters.get(attrid);
         if (c != null) {
             return c.getIAttributeClass();
@@ -245,7 +221,7 @@ public class ConversionFactory {
     }
 
 
-    private static void register(Class<?> clazz, AttributeConverter converter) {
+    private void register(Class<?> clazz, AttributeConverter converter) {
         if (converter.getIAttributeClass() != clazz && converter.getObjectClass() != clazz) {
             throw new UnsupportedOperationException("Converter " + converter.getClass().getSimpleName() + " is not valid for class " + clazz.getSimpleName());
         }
@@ -256,7 +232,7 @@ public class ConversionFactory {
         classConverters.put(clazz.getSimpleName(), converter);
     }
 
-    private static void registerEnum(Class<?> clazz, EnumeratedConverter converter) {
+    private void registerEnum(Class<?> clazz, EnumeratedConverter converter) {
         if (converter.getIAttributeClass() != clazz && converter.getObjectClass() != clazz) {
             throw new UnsupportedOperationException("Converter " + converter.getClass().getSimpleName() + " is not valid for class " + clazz.getSimpleName());
         }
@@ -268,18 +244,11 @@ public class ConversionFactory {
     }
 
 
-    public static void register(int attrId, AttributeConverter converter) {
+    public void register(int attrId, AttributeConverter converter) {
         idConverters.put(attrId, converter);
     }
 
-    public static void register(int attrId, EnumeratedConverter converter) {
+    public void register(int attrId, EnumeratedConverter converter) {
         enumIdConverters.put(attrId, converter);
     }
-
-    //    public static void register(int attrId, String name) {
-    //        if (classConverters.get(name) != null) {
-    //            throw new UnsupportedOperationException("Unknown convert type " + name);
-    //        }
-    //        idConverters.put(attrId, classConverters.get(name));
-    //    }
 }

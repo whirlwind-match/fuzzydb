@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumValue;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
@@ -180,14 +181,14 @@ public class RecordConverter {
         if (value instanceof EnumeratedAttribute){
             EnumeratedAttribute<?> enumAttr = (EnumeratedAttribute<?>) value;
             EnumDefinition enumDef = getAttrDefs().getEnumDefinition(enumAttr.getEnumName());
-            return ConversionFactory.convert(attrid, enumDef, enumAttr);
+            return ConversionFactory.getInstance().convert(attrid, enumDef, enumAttr);
         } else {
-            return ConversionFactory.convert(attrid, value);
+            return ConversionFactory.getInstance().convert(attrid, value);
         }
     }
 
 
-	private AttrDefinitionMgr getAttrDefs() {
+	private AttributeDefinitionService getAttrDefs() {
 		return attrDefsRef.getObject();
 	}
 }

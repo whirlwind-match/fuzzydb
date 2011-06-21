@@ -63,7 +63,7 @@ public class DbIndexerUpdate {
             t.commit();
 
             // Save XML as not stored in DB yet
-            ConversionFactory.save(xmlPath);
+            ConversionFactory.getInstance().save(xmlPath);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,9 +83,9 @@ public class DbIndexerUpdate {
                     throw new UnsupportedOperationException("Unknown Enum definition "  + enumspec.enumdef + " For attribute " + strippedName);
                 }
                 if (EnumMultipleValue.class.isAssignableFrom(enumspec.clazz)) {
-                    ConversionFactory.register(attrid, new MultiEnumConverter());
+                    ConversionFactory.getInstance().register(attrid, new MultiEnumConverter());
                 } else {
-                    ConversionFactory.register(attrid, new EnumConverter());
+                    ConversionFactory.getInstance().register(attrid, new EnumConverter());
                 }
             }
         }

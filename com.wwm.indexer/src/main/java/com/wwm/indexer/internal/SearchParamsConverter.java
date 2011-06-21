@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.AttrsFactory;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
@@ -124,11 +125,11 @@ public class SearchParamsConverter {
             String str = ((UnspecifiedTypeAttribute)value).getValue();
             return enumDef.getEnumValue(str, attrId);
         } else {
-            return ConversionFactory.convert(attrId, value);
+            return ConversionFactory.getInstance().convert(attrId, value);
         }
     }
 
-	private AttrDefinitionMgr getAttrDefs() {
+	private AttributeDefinitionService getAttrDefs() {
 		return attrDefsRef.getObject();
 	}
 
