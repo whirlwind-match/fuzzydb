@@ -129,6 +129,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         return getAttrId(attrName, null);
     }
 
+    // FIXME: Create a map for this lookup
     public String getAttrName(int attrId) {
 
         for(Entry<String, Integer> entry : ids.entrySet()) {
@@ -136,9 +137,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
                 return entry.getKey();
             }
         }
-
-        //	FIXME : (jc)Should throw a Arch exception?  - (nu) Not really.  it's a programming error.  Don't want to declare/catch exceptions for programming errors.
-        throw new RuntimeException("PBC Error");
+        throw new RuntimeException("Unknown attribute id: " + attrId);
     }
 
     public int getAttrId(String attrName, Class<?> clazz) {
@@ -150,8 +149,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         if (attrId != null) {
             if (clazz != null && (attrId & ATTR_CLASS_MASK) != overlay ) {
                 throw new RuntimeException( "Cannot re-use the same name with a different class:" + attrName );
+                // FIXME: Except we can: Boolean / BooleanConstraint...?
             }
-            // FIXME: Except we can: Boolean / BooleanConstraint...?
             return attrId;
         }
 
@@ -177,8 +176,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return String.class;
 //        case VECTOR:
 //            return VectorValue;
-//        case FLOAT_RANGE_PREF:
-//            return FloatRangePrefValue;
+        case FLOAT_RANGE_PREF:
+            return float[].class;
 //        case LOCATION_PREF:
 //            return LocationPrefValue;
         case DATE:
@@ -270,7 +269,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             	|| clazz.isAssignableFrom(Float.class)) {
             return FLOAT;
         } else if ( clazz.isAssignableFrom(FloatRangePreference.class)
-                || clazz.isAssignableFrom(FloatRangeAttribute.class)) {
+                || clazz.isAssignableFrom(FloatRangeAttribute.class)
+                || clazz.isAssignableFrom(float[].class)) {
             return FLOAT_RANGE_PREF;
         } else if ( clazz.isAssignableFrom(EnumExclusiveValue.class)
                 || clazz.isAssignableFrom(EnumAttribute.class)) {
@@ -294,10 +294,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         }
 
         log.error("ADM: Unknown class: " + clazz.getCanonicalName());
-        assert false : "Need to migrate use of class to a recognised type: " + clazz.getCanonicalName();
         return UNKNOWN_CLASS;
-        // FIXME: Default for Jas
-        //		throw new UnsupportedOperationException();
     }
 
 

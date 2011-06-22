@@ -9,9 +9,11 @@ public class WhirlwindConversionService extends GenericConversionService impleme
 		// from db to Java
 		addConverter(new AttrToBooleanConverter());
 		addConverter(new AttrToFloatConverter());
+		addConverter(new AttrToFloatArrayConverter());
 		
 		// from Java to db
 		addConverter(new BooleanToAttrConverter());
 		addConverter(new FloatToAttrConverter());
+		addConverter(new FloatArrayToAttrConverter());
 	}
 }
