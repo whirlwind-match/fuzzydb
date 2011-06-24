@@ -23,7 +23,7 @@ import org.springframework.beans.DirectFieldAccessor;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
+import com.wwm.attrs.internal.NonPersistentAttrDefinitionMgr;
 import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
@@ -37,17 +37,12 @@ import com.wwm.db.whirlwind.internal.IAttributeMap;
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleMappingFuzzyRepositoryTest  {
 	
-	@SuppressWarnings("serial")
-	public class SimpleAttrDefinitionManager extends AttrDefinitionMgr {
-	}
-
-
 	private SimpleMappingFuzzyRepository<FuzzyItem> repo;
 	
 	@Mock
 	private DataOperations persister;
 
-	private final AttributeDefinitionService attrDefinitionService = new SimpleAttrDefinitionManager();
+	private final AttributeDefinitionService attrDefinitionService = new NonPersistentAttrDefinitionMgr();
 	
 	// prime the attribute mappings so we know what ids to look for
 	private final int isMaleId = attrDefinitionService.getAttrId("isMale", Boolean.class);
