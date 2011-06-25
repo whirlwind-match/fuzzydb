@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004-2008 Whirlwind Match Limited. All rights reserved.
+ * Copyright (c) 2004-2011 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 

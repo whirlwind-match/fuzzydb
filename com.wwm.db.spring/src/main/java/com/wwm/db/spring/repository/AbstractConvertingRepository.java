@@ -1,11 +1,15 @@
 package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.ReflectionUtils.FieldCallback;
 
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
@@ -20,19 +24,36 @@ import com.wwm.db.internal.whirlwind.RefAware;
  * @param <T> the external representation
  * @param <ID> the external ID type
  */
-public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements CrudRepository<T,ID> {
+public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements CrudRepository<T,ID>, InitializingBean {
 
 	@Autowired
 	private DataOperations persister;
 
 	protected final Class<T> type;
 
+	private Field idField;
 
 	public AbstractConvertingRepository(Class<T> type) {
 		super();
 		this.type = type;
 	}
 
+	/**
+	 * Initialise access to ref
+	 */
+	public void afterPropertiesSet() throws Exception {
+		ReflectionUtils.doWithFields(type, new FieldCallback() {
+			public void doWith(Field field) throws IllegalArgumentException,
+					IllegalAccessException {
+				if (field.isAnnotationPresent(Id.class) && field.getType().isAssignableFrom(GenericRef.class)) {
+					ReflectionUtils.makeAccessible(field);
+					idField = field;
+				}
+			}
+		});
+	}
+	
+	
 	public T save(T entity) {
 		Ref ref = persister.save(toInternal(entity));
 		setRefIfSupported(entity, ref);
@@ -40,8 +61,14 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	private void setRefIfSupported(T entity, Ref ref) {
-		if (entity instanceof RefAware) {
-			((RefAware) entity).setRef((GenericRef<T>)ref);
+		if (idField != null) {
+			try {
+				idField.set(entity, ref);
+			} catch (IllegalArgumentException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 

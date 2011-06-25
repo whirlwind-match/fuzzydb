@@ -1,5 +1,6 @@
 package com.wwm.db.spring.repository;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 
@@ -15,31 +16,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wwm.db.GenericRef;
-import com.wwm.db.internal.whirlwind.RefAware;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/fuzzy-repository-context.xml"})
 public class FuzzyRepositoryTest {
 	
-	public static class FuzzyItem implements RefAware<FuzzyItem> {
+	public static class FuzzyItem {
 		
 		Map<String, Object> attributes = new HashMap<String,Object>();
 		
-		@Id // Not doing anything with this yet. Instead using RefAware 
+		@Id
 		private GenericRef<FuzzyItem> ref;
 		
 		void populateTestData() {
 			attributes.put("isMale", Boolean.FALSE);
 			attributes.put("age", 1.1f);
 			attributes.put("ageRange", new float[]{25f, 30f, 38f});
-		}
-
-		public void setImmutable() {
-			throw new UnsupportedOperationException();
-		}
-
-		public void setRef(GenericRef<FuzzyItem> ref) {
-			this.ref = ref;
 		}
 
 		public GenericRef<FuzzyItem> getRef() {
@@ -59,12 +51,13 @@ public class FuzzyRepositoryTest {
 		// Check a ref got assigned when we saved item
 		assertNotNull(ref);
 		
-		// Retreive by ref		
-		FuzzyItem result = getItem(ref);
-		
-		// And check ref got assigned, and is not same object
-		assertNotNull(result.getRef());
-		assertNotSame(result, item);
+		{
+			// Retrieve by ref		
+			FuzzyItem result = getItem(ref);
+			// And check ref got assigned, and is not same object
+			assertNotNull(result.getRef());
+			assertNotSame(result, item);
+		}
 	}
 
 
@@ -80,6 +73,10 @@ public class FuzzyRepositoryTest {
 		return repo.findOne(ref);
 	}
 
+	@Transactional 
+	private FuzzyItem updateItem(FuzzyItem item) {
+		return repo.save(item);
+	}
 
 	
 }
