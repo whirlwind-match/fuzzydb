@@ -8,7 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.internal.whirlwind.RefAware;
 
 /**
  * 
@@ -32,21 +34,31 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	public T save(T entity) {
-		persister.save(toInternal(entity));
+		Ref ref = persister.save(toInternal(entity));
+		setRefIfSupported(entity, ref);
 		return entity;
+	}
+
+	private void setRefIfSupported(T entity, Ref ref) {
+		if (entity instanceof RefAware) {
+			((RefAware) entity).setRef((GenericRef<T>)ref);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public Iterable<T> save(Iterable<? extends T> entities) {
 
 		for (T entity : entities) {
-			persister.save(toInternal(entity));
+			save(entity);
 		}
 		return (Iterable<T>) entities;
 	}
 
 	public T findOne(ID id) {
-		return fromInternal(persister.retrieve(toInternalId(id)));
+		GenericRef<I> ref = toInternalId(id);
+		T entity = fromInternal(persister.retrieve(ref));
+		setRefIfSupported(entity, ref);
+		return entity;
 	}
 
 	public boolean exists(ID id) {
