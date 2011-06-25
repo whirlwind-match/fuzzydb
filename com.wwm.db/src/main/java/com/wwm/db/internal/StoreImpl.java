@@ -127,7 +127,7 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 		}
 
 		public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-			return new GenericRefImpl<E>(getRef(obj));
+			return new RefImpl<E>(getRef(obj));
 		}
 		
 		public int getVersion(Object obj) throws UnknownObjectException {
@@ -327,7 +327,7 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 	}
 
 	public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-		return new GenericRefImpl<E>(getRef(obj));
+		return (RefImpl<E>)getRef(obj);
 	}
 	
 	public int getVersion(Object obj) throws UnknownObjectException {

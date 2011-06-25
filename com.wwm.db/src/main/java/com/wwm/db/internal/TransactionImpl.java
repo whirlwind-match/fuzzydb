@@ -486,7 +486,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-		return new GenericRefImpl<E>(getRef(obj));
+		return (RefImpl<E>)getRef(obj);
 	}
 	
 	public synchronized int getVersion(Object obj) throws UnknownObjectException {
@@ -515,7 +515,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	public <E> GenericRef<E> createGeneric(E obj) {
-		return new GenericRefImpl<E>(create(obj));
+		return (RefImpl<E>)create(obj);
 	}
 
 	@SuppressWarnings("unchecked")

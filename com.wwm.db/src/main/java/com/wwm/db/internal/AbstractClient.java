@@ -121,7 +121,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	        }
 	
 	        public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-	            return new GenericRefImpl<E>(getRef(obj));
+	            return (RefImpl<E>)getRef(obj);
 	        }
 	    } // end of inner class ClientImplContext
 
@@ -274,7 +274,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 
 	public synchronized <E> GenericRef<E> getGenericRef(E obj)
 			throws UnknownObjectException {
-			    return new GenericRefImpl<E>(getRef(obj));
+				return (RefImpl<E>)getRef(obj);
 			}
 
 	public int getVersion(Object obj) throws UnknownObjectException {
