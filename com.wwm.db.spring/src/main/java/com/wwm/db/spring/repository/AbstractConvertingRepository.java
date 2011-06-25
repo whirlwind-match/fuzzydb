@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mapping.model.MappingException;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
@@ -51,24 +52,47 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 				}
 			}
 		});
+		if (idField == null) {
+			throw new MappingException(type.getCanonicalName() + " must have an @Id field of type GenericRef");
+		}
 	}
 	
-	
+	/**
+	 * [Should be on interface javadoc] If the field annotated with {@link Id} is set, then this is an update, and
+	 * and update is therefore done, otherwise a fresh instance is created.
+	 * 
+	 * NOTE: For now, the old object is deleted and it's ref becomes stale.  A new object with new Ref is created.
+	 * (i.e. new {@link Id}).
+	 */
 	public T save(T entity) {
-		Ref ref = persister.save(toInternal(entity));
-		setRefIfSupported(entity, ref);
+		I toWrite = toInternal(entity);
+		GenericRef<T> existingRef = getRef(entity);
+		if (existingRef != null) {
+			// FIXME: Need detached entity support (see https://github.com/whirlwind-match/whirlwind-db/issues/41)
+			persister.delete(existingRef);
+		}
+		Ref ref = persister.save(toWrite);
+		setRef(entity, ref);
 		return entity;
 	}
 
-	private void setRefIfSupported(T entity, Ref ref) {
-		if (idField != null) {
-			try {
-				idField.set(entity, ref);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			}
+	private void setRef(Object entity, Ref ref) {
+		try {
+			idField.set(entity, ref);
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private <R> GenericRef<R> getRef(R entity) {
+		try {
+			return (GenericRef<R>) idField.get(entity);
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -83,8 +107,13 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	public T findOne(ID id) {
 		GenericRef<I> ref = toInternalId(id);
-		T entity = fromInternal(persister.retrieve(ref));
-		setRefIfSupported(entity, ref);
+		T entity;
+		try {
+			entity = fromInternal(persister.retrieve(ref));
+		} catch (UnknownObjectException e) {
+			return null;
+		}
+		setRef(entity, ref);
 		return entity;
 	}
 

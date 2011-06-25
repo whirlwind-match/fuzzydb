@@ -3,6 +3,7 @@ package com.wwm.db.spring.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +58,25 @@ public class FuzzyRepositoryTest {
 			// And check ref got assigned, and is not same object
 			assertNotNull(result.getRef());
 			assertNotSame(result, item);
+		}
+		
+		{
+			// Now modify a field
+			item.attributes.put("newAttribute", 21f);
+			FuzzyItem updated = updateItem(item);
+			// Will be true when merge supported. assertEquals("ref should be same for same object", ref, updated.getRef());
+			FuzzyItem missing = getItem(ref);
+			assertNull(missing);
+			ref = updated.ref; // TODO: remove when merge supported (https://github.com/whirlwind-match/whirlwind-db/issues/41)
+		}
+
+		{
+			// Retrieve by ref and check newAttribute exists		
+			FuzzyItem result = getItem(ref);
+			// And check ref got assigned, and is not same object
+			assertNotNull(result.getRef());
+			assertNotSame(result, item);
+			assertEquals(21f, result.attributes.get("newAttribute"));
 		}
 	}
 
