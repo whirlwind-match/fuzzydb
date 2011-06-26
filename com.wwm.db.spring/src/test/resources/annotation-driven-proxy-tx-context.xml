@@ -17,6 +17,6 @@
     <!-- Store bean id in each of the following defaults to 'store' -->	 
 	<fuzzy:embedded-database />
 	<fuzzy:tx-manager />
-	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
+	<fuzzy:initialize match-styles="classpath:*MatchingConfig.xml" />	
 
 </beans>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScoreConfiguration name="similarPeople">
+
+    <EnumMatchScorer>
+        <scorerAttrId>newspapers</scorerAttrId>
+        <otherAttrId>newspapers</otherAttrId>
+        <weight>0.7</weight>
+    </EnumMatchScorer>        
+
+    <EnumMatchScorer>
+        <scorerAttrId>education</scorerAttrId>
+        <otherAttrId>education</otherAttrId>
+        <weight>0.7</weight>
+    </EnumMatchScorer>        
+
+    <SimilarFloatValueScorer>
+        <scorerAttrId>salary</scorerAttrId>
+        <otherAttrId>salary</otherAttrId>
+        <expectedRange>2e4f</expectedRange> <!-- Within 20k -->
+    </SimilarFloatValueScorer>
+
+    <SimilarFloatValueScorer>
+        <scorerAttrId>age</scorerAttrId>
+        <otherAttrId>age</otherAttrId>
+        <expectedRange>20</expectedRange> 
+        <weight>0.7</weight>
+    </SimilarFloatValueScorer>
+
+</ScoreConfiguration>

@@ -19,7 +19,7 @@
     <!-- Store bean id in each of the following defaults to 'store' -->	 
 	<fuzzy:embedded-database />
 	<fuzzy:tx-manager />
-	<fuzzy:initialize match-styles="classpath:propertyMatchingConfig.xml" />	
+	<fuzzy:initialize match-styles="classpath:*MatchingConfig.xml" />	
 
 	<!-- Try something on this store and you should get UnknownTransactionException as tx-manager
 	     defaults to store -->
