@@ -20,6 +20,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.DirectFieldAccessor;
+import org.springframework.data.annotation.Id;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
@@ -59,6 +60,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		repo = new SimpleMappingFuzzyRepository<FuzzyItem>(FuzzyItem.class);
 		new DirectFieldAccessor(repo).setPropertyValue("persister", persister);
 		new DirectFieldAccessor(repo).setPropertyValue("attrDefinitionService", attrDefinitionService);
+		repo.afterPropertiesSet();
 	}
 	
 	@Test
@@ -116,6 +118,9 @@ public class SimpleMappingFuzzyRepositoryTest  {
 
 
 	public static class FuzzyItem {
+		
+		@Id
+		GenericRef<FuzzyItem> ref;
 		
 		Map<String, Object> attributes = new HashMap<String,Object>();
 		
