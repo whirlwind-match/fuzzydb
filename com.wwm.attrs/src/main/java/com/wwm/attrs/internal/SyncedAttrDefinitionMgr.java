@@ -91,8 +91,10 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      */
     static SyncedAttrDefinitionMgr getFromStore(Store store) {
     	// Only ever want first, and no need for index this way
-        SyncedAttrDefinitionMgr mgr = store.getAuthStore().begin()
-        	.retrieveFirstOf( SyncedAttrDefinitionMgr.class ); 
+        Transaction readTx = store.getAuthStore().begin();
+		SyncedAttrDefinitionMgr mgr = readTx
+            .retrieveFirstOf( SyncedAttrDefinitionMgr.class );
+        readTx.dispose();
 
         if (mgr == null){
             mgr = new SyncedAttrDefinitionMgr( store );
