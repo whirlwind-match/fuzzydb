@@ -19,7 +19,7 @@ import org.slf4j.Logger;
  * @author ac
  *
  */
-public interface Store extends Transaction {
+public interface Store extends DataOperations, Helper {
 
 	/**Begins a new Transaction.
 	 * The actual transaction is not guaranteed to begin until data is read by the application, or write transactions are comitted.

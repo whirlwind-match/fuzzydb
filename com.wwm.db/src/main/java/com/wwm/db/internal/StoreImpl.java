@@ -306,14 +306,6 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 		throw new UnsupportedOperationException(); // to do
 	}
 
-	public void commit() {
-		throw new UnsupportedOperationException(); // to do
-	}
-
-	public void dispose() {
-		throw new UnsupportedOperationException(); // to do
-	}
-
 	public void setNamespace(String namespace) {
 		throw new UnsupportedOperationException(); // to do
 	}
@@ -344,14 +336,6 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 
 	public void addToMetaCache(MetaObject<?> mo) {
 		context.addToMetaCache(mo);	
-	}
-
-	public void forceStart() {
-		throw new UnsupportedOperationException();
-	}
-
-	public Store getStore() {
-		return this;
 	}
 
 	public void troff() {

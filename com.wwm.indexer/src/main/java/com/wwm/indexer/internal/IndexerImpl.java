@@ -73,7 +73,7 @@ public class IndexerImpl implements Indexer {
 
     public Record retrieveRecord(String privateId) {
         Store currentStore = IndexerFactory.getCurrentStore();
-		Transaction tx = currentStore.getStore().begin();
+		Transaction tx = currentStore.begin();
         StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateId);
         tx.dispose();
         if (data == null) {
@@ -110,7 +110,7 @@ public class IndexerImpl implements Indexer {
 
     public void deleteRecord(String privateRecordId) {
     	Store currentStore = IndexerFactory.getCurrentStore();
-		Transaction tx = currentStore.getStore().getAuthStore().begin();
+		Transaction tx = currentStore.getAuthStore().begin();
         StandaloneWWIndexData data = tx.retrieve(StandaloneWWIndexData.class, StandaloneWWIndexData.sPrivateId, privateRecordId);
         if (data == null) {
             tx.dispose();
@@ -167,7 +167,7 @@ public class IndexerImpl implements Indexer {
 
 		Store currentStore = IndexerFactory.getCurrentStore();
 		log.info("Searching on store: "+ currentStore.getStoreName() + " using matchStyle: " + scorerConfig );
-		Transaction tx = currentStore.getStore().begin();
+		Transaction tx = currentStore.begin();
 		ResultSet<Result<StandaloneWWIndexData>> query;
 		query = tx.query(StandaloneWWIndexData.class, searchSpec);
 		searchSet.put(lastSearch, query.iterator());
