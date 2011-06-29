@@ -106,6 +106,10 @@ public interface DataOperations {
 	Object execute(String methodName, Ref ref, Object param);
 
 	// Querying - indexless
+	/**
+	 * Useful when you expect only one object
+	 * @return the earliest created item, or null if nothing found
+	 */
 	<E> E retrieveFirstOf(Class<E> clazz);
 	
 	// Querying - standard index, retrieve all

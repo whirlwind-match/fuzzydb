@@ -6,8 +6,11 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
+import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
+import com.wwm.db.TransactionCallback;
+import com.wwm.db.TransactionTemplate;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
@@ -244,6 +247,40 @@ public class CRUDTest extends BaseDatabaseTest {
 			String s = t.retrieveFirstOf(String.class);
 			assertNull(s);
 		}
+	}
+	
+	
+	@Test public void transactionTemplateCommits() {
+
+		Ref ref = new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref>() {
+			public Ref doInTransaction(DataOperations ops) {
+				return ops.create(new String("Hello World"));
+			}
+		});
+		
+		Transaction t = store.begin();
+		String s = t.retrieveFirstOf(String.class);
+		assertEquals("Hello World", s);
+		assertEquals(ref, t.getRef(s));
+		t.dispose();
+	}
+	
+	@Test public void transactionTemplateRollsbackOnException() {
+
+		try {
+			Ref ref = new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref>() {
+				public Ref doInTransaction(DataOperations ops) {
+					Ref result = ops.create(new String("Hello World"));
+					throw new RuntimeException("Whoops, something went wrong");
+				}
+			});
+		} catch (RuntimeException e) {
+			// we expect this, now need to check commit didn't happen
+		}
+		
+		Transaction t = store.begin();
+		String s = t.retrieveFirstOf(String.class);
+		assertNull(s);
 	}
 	
 	/**
