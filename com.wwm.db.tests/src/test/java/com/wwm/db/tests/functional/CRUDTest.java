@@ -274,6 +274,7 @@ public class CRUDTest extends BaseDatabaseTest {
 					throw new RuntimeException("Whoops, something went wrong");
 				}
 			});
+			fail();
 		} catch (RuntimeException e) {
 			// we expect this, now need to check commit didn't happen
 		}
@@ -282,6 +283,21 @@ public class CRUDTest extends BaseDatabaseTest {
 		String s = t.retrieveFirstOf(String.class);
 		assertNull(s);
 	}
+
+	@Test public void transactionTemplateShouldFailIfTxAlreadyInProgress() {
+		store.begin();
+		try {
+			new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref>() {
+				public Ref doInTransaction(DataOperations ops) {
+					return ops.create(new String("Hello World"));
+				}
+			});
+			fail();
+		} catch (IllegalStateException e) {
+			// we expect this, now need to check commit didn't happen
+		}
+	}
+
 	
 	/**
      * Test that when an object is retreived multiple times, that we get

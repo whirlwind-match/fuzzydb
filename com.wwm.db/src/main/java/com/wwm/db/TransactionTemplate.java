@@ -1,5 +1,7 @@
 package com.wwm.db;
 
+import org.springframework.util.Assert;
+
 /**
  * Our own TransactionTemplate implementation for ensuring that transactions
  * are either committed or disposed().
@@ -15,6 +17,7 @@ public class TransactionTemplate {
 	}
 
 	public <T> T execute(TransactionCallback<T> callback) {
+		Assert.state(store.currentTransaction() == null, "Transaction already in progress. Cannot nest transactions in same thread.");
 		Transaction tx = null;
 		try {
 			tx = store.begin();
