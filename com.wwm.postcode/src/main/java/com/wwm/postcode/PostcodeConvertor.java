@@ -42,12 +42,6 @@ public class PostcodeConvertor {
 		PostcodeConvertor.service = service;
 	}
 	
-    public void shutdown() {
-    	if (service != null) {
-    		service.shutdown();
-    	}
-    }
-	
 	public PostcodeResult lookupShort(String prefix) {
 		return jibble.lookupShort(prefix);
 	}

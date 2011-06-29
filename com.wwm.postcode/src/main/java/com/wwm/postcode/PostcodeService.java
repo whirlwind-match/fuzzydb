@@ -15,7 +15,5 @@ public interface PostcodeService {
 	public static final int minPostcodeLen = 5;
 
 	public PostcodeResult lookupFull(String postcode);
-	
-	public void shutdown();
 
 }
