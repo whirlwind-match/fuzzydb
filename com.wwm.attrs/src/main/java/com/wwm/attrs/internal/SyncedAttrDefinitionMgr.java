@@ -73,6 +73,7 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
             Transaction tx = store.getAuthStore().begin();
             try {
             	SyncedAttrDefinitionMgr mgr = tx.refresh( w.getObject() );
+            	tx.dispose();
                 mgr.setStore( store );
                 w.setObject(mgr);
             } catch (UnknownObjectException e) {
