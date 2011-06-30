@@ -1,21 +1,20 @@
 package com.wwm.db.spring.repository;
 
-import java.util.Map;
 
-public class SimpleAttributeMatchQuery implements AttributeMatchQuery {
+public class SimpleAttributeMatchQuery<QT> implements AttributeMatchQuery<QT> {
 
-	private final Map<String, Object> attributes;
+	private final QT attributes;
 	private final String matchStyle;
 	private final int maxResults;
 
-	public SimpleAttributeMatchQuery(Map<String, Object> attributes,
+	public SimpleAttributeMatchQuery(QT attributes,
 			String matchStyle, int maxResults) {
 		this.attributes = attributes;
 		this.matchStyle = matchStyle;
 		this.maxResults = maxResults;
 	}
 
-	public Map<String, Object> getAttributes() {
+	public QT getQueryTarget() {
 		return attributes;
 	}
 	

@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -81,10 +82,22 @@ public class FuzzyRepositoryTest {
 		}
 		
 		{
-			Map<String, Object> exactMatchMap = new HashMap<String,Object>(item.attributes);
-			AttributeMatchQuery query = new SimpleAttributeMatchQuery(exactMatchMap, "similarPeople", 10);
-			Iterator<FuzzyItem> items = repo.findMatchesFor(query);
+			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(item, "similarPeople", 10);
+			List<FuzzyItem> items = doQuery(query);
+//			assertThat(items.size(), equalTo(3)); // TODO: Fix this, and get scores too
 		}
+	}
+
+
+	@Transactional(readOnly=true) 
+	private List<FuzzyItem> doQuery(AttributeMatchQuery<FuzzyItem> query) {
+		Iterator<FuzzyItem> items = repo.findMatchesFor(query);
+		assertNotNull(items);
+		List<FuzzyItem> list = new LinkedList<FuzzyItem>();
+		for (FuzzyItem fuzzyItem : list) {
+			list.add(fuzzyItem);
+		}
+		return list;
 	}
 
 

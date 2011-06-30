@@ -1,5 +1,6 @@
 package com.wwm.db.spring.repository;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -8,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.converters.WhirlwindConversionService;
+import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.GenericRef;
+import com.wwm.db.query.Result;
+import com.wwm.db.query.ResultIterator;
+import com.wwm.db.query.ResultSet;
+import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 
 /**
@@ -22,7 +28,6 @@ import com.wwm.db.whirlwind.internal.IAttribute;
  * @author Neale Upstone
  *
  * @param <T> the type being stored (Must contain a field: Map<String,Object> attributes for the fuzzy data)
- * @param <ID> the type for the external id
  */
 public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> {
 
@@ -100,5 +105,26 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	protected final GenericRef<BlobStoringWhirlwindItem> toInternalId(GenericRef<T> id) {
 		// Externally we ref as GenericRef<T>  and we are using the real ref here
 		return (GenericRef<BlobStoringWhirlwindItem>) id;
+	}
+	
+	@Override
+	protected Iterator<T> findMatchesInternal(BlobStoringWhirlwindItem internal, String matchStyle, int maxResults) {
+		SearchSpec spec = new SearchSpecImpl(BlobStoringWhirlwindItem.class, matchStyle);
+		spec.setAttributes(internal);
+		ResultSet<Result<BlobStoringWhirlwindItem>> resultsInternal = getPersister().query(BlobStoringWhirlwindItem.class, spec);
+		final ResultIterator<Result<BlobStoringWhirlwindItem>> resultIterator = resultsInternal.iterator();
+		Iterator<T> iterator = new Iterator<T>() {
+			public boolean hasNext() {
+				return resultIterator.hasNext();
+			}
+			public T next() {
+				return fromInternal(resultIterator.next().getItem());
+			}
+			public void remove() {
+				resultIterator.remove(); // Generally we'd not expect this to be supported
+				
+			}
+		};
+		return iterator;
 	}
 }

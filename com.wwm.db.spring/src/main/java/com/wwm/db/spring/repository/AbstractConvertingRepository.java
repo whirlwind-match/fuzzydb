@@ -153,9 +153,13 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 	
 	
-	public Iterator<T> findMatchesFor(AttributeMatchQuery query) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<T> findMatchesFor(AttributeMatchQuery<T> query) {
+		I internal = toInternal(query.getQueryTarget());
+		return findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
+	}
+
+	protected Iterator<T> findMatchesInternal(I internal, String matchStyle, int maxResults) {
+		throw new UnsupportedOperationException("Override to provide an implementation");
 	}
 
 	protected final DataOperations getPersister() {
