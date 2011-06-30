@@ -28,7 +28,7 @@ public interface Client extends Authority, Helper {
      * @throws ArchException
      * @throws IOException
      */
-    public void connect();
+    void connect();
 
     /**Connect to the specified server.
      * If a port is specified thsi is used. Otherwise the port is taken from the configuration file. If there is no file the default settings are used.
@@ -37,7 +37,7 @@ public interface Client extends Authority, Helper {
      * @throws ArchException
      * @throws IOException
      */
-    public void connect(String server);
+    void connect(String server);
 
     /**Connect to the specified server and port.
      * @param addr The full address of the server and port to conect to.
@@ -45,7 +45,7 @@ public interface Client extends Authority, Helper {
      * @throws ArchException
      * @throws IOException
      */
-    public void connect(InetSocketAddress addr);
+    void connect(InetSocketAddress addr);
 
 
     /**Creates a new store and returns an access object. An individual transaction is created and committed for this operation.
@@ -54,19 +54,19 @@ public interface Client extends Authority, Helper {
      * @return
      * @throws ArchException
      */
-    public Store createStore(String storeName);
+    Store createStore(String storeName);
 
     /**Obtain a list of Stores. An individual transaction is used (and disposed of) for this operation.
      * The response is Authoritative only if this Client is Authoritative.
      * @return
      * @throws ArchException
      */
-    public Collection<String> listStores();
+    Collection<String> listStores();
 
-    public Collection<String> listDbClasses();
-    public Class<?> getDbClass(String name);
-    public Collection<Class<?>> getDbClasses();
-    public Collection<String> getNamespaces(Class<?> dbClass);
+    Collection<String> listDbClasses();
+    Class<?> getDbClass(String name);
+    Collection<Class<?>> getDbClasses();
+    Collection<String> getNamespaces(Class<?> dbClass);
 
     /**
      * Opens the specified Store.
@@ -75,7 +75,7 @@ public interface Client extends Authority, Helper {
      * @return the Store.
      * @throws ArchException
      */
-    public Store openStore(String storeName);
+    Store openStore(String storeName);
 
     /**
      * Opens the specified Store.  If the Store does not exist, then it is created,
@@ -86,7 +86,7 @@ public interface Client extends Authority, Helper {
      * @return the Store.
      * @throws ArchException
      */
-    public Store openStore(String storeName, boolean canCreate);
+    Store openStore(String storeName, boolean canCreate);
 
 
     /**Deletes the specified Store. An individual transaction is created and committed for this operation.
@@ -94,14 +94,14 @@ public interface Client extends Authority, Helper {
      * @param storeName The Store to delete.
      * @throws ArchException
      */
-    public void deleteStore(String storeName);
+    void deleteStore(String storeName);
 
     /**Returns an Authoritative version of this client.
      * This is guaranteed to be a low cost operation, the intended use is for applications to toggle between authoritative and non-authoritative Client views with this function.
      * If this client is already Authoritative, it safely returns a reference to this client.
      * @return the Authoritative client view.
      */
-    public Client getAuthClient();
+    Client getAuthClient();
 
     /**Returns a Non-Authoritative version of this client.
      * This is guaranteed to be a low cost operation, the intended use is for applications to toggle between authoritative and non-authoritative Client views with this function.
@@ -109,13 +109,13 @@ public interface Client extends Authority, Helper {
      * If there is only a single client (i.e. no peer), then it returns that client. 
      * @return the Non-Authoritative client view.
      */
-    public Client getNonAuthClient();
+    Client getNonAuthClient();
 
     /**
      * Shuts down the server.
      * @throws ArchException
      */
-    public void shutdownServer();
+    void shutdownServer();
 
     // FIXME =============== ADRIAN PLEASE REVIEW BELOW (and in ClientImpl) ==================
     /**
@@ -123,9 +123,9 @@ public interface Client extends Authority, Helper {
      * @param forceGC - force a garbage collection before checking memory usage.
      * @throws ArchException
      */
-    public ServerStats getStats(boolean forceGC);
+    ServerStats getStats(boolean forceGC);
 
-    public void disconnect();
+    void disconnect();
 
-    public boolean isConnected();
+    boolean isConnected();
 }

@@ -21,9 +21,9 @@ public interface Helper {
 	 * @return a Ref for the Object
 	 * @throws UnknownObjectException
 	 */
-	public <E> Ref getRef(E obj) throws UnknownObjectException;
+	<E> Ref getRef(E obj) throws UnknownObjectException;
 	
-	public <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException;
+	<E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException;
 	
 	/**Gets the version number of the specified object.
 	 * This returns the version of the presented object, not the version of the newest variant in the database.
@@ -37,6 +37,6 @@ public interface Helper {
 	 * @return the version number
 	 * @throws UnknownObjectException
 	 */
-	public int getVersion(Object obj) throws UnknownObjectException;
+	int getVersion(Object obj) throws UnknownObjectException;
 
 }

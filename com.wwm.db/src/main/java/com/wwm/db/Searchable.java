@@ -19,15 +19,15 @@ import com.wwm.db.whirlwind.SearchSpec;
 public interface Searchable {
 
 	// Searching - whirlwind index, iterating
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search)
+	<E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search)
 			throws ArchException;
 
-	public <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize)
+	<E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize)
 			throws ArchException;
 
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search);
+	<E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search);
 
-	public <E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize)
+	<E extends Object> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize)
 			throws ArchException;
 
 }

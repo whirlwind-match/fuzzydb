@@ -14,15 +14,19 @@ import com.wwm.db.core.exceptions.ArchException;
 
 public interface Transaction extends DataOperations, Authority, Helper {
 	
-	//public void rollback();
-	public void commit();
+	/**
+	 * Attempt to commit the transaction.
+	 */
+	void commit();
+	
 	/**Immediately marks this transaction as unusable. Further API calls will fail. The resources associated with this
 	 * transaction will be released quickly rather than taking time to time out.
 	 * Any queries and searches associated with this transaction are also disposed.
+	 * On a write transaction, this is can be considered the same as 'rollback'.
 	 */
-	public void dispose();
+	void dispose();
 	
-	public Store getStore();
+	Store getStore();
 	
 	//public boolean canCommit();
 	
@@ -31,23 +35,6 @@ public interface Transaction extends DataOperations, Authority, Helper {
 	 * Useful for unit testing to create overlapping transactions, as otherwise transaction start time is undefined.
 	 * @throws ArchException
 	 */
-	public void forceStart();
-	
-		
-//	This has been removed becuase its useless. Even if we could support switching from a non-auth to an auth transaction, the database view (version) would be the same so it would have no effect.	
-//	/**Returns an Authoritative version of this Transaction.
-//	 * This is guaranteed to be a low cost operation, the intended use is for applications to toggle between authoritative and non-authoritative Transaction views with this function.
-//	 * If this Transaction is already Authoritative, it safely returns a reference to this Transaction.
-//	 * @return the Authoritative store view.
-//	 */
-//	public Store getAuthTransaction();
-//	
-//	/**Returns a Non-Authoritative version of this Transaction.
-//	 * This is guaranteed to be a low cost operation, the intended use is for applications to toggle between authoritative and non-authoritative Transaction views with this function.
-//	 * If this Transaction is already Non-Authoritative, it safely returns a reference to this Transaction.
-//	 * @return the Non-Authoritative store view.
-//	 */
-//	public Store getNonAuthTransaction();
-	
+	void forceStart();
 		
 }

@@ -13,6 +13,6 @@ package com.wwm.db;
 // This might get hidden....
 
 public interface MetaData {
-	public Ref getRef();
-	public int getVersion();
+	Ref getRef();
+	int getVersion();
 }

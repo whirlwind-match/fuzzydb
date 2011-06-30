@@ -19,5 +19,5 @@ public interface Authority {
 	 * This function always returns true in slaveless systems where no non-auth server is available.
 	 * @return true if the object is authoritative.
 	 */
-	public boolean isAuthoritative();
+	boolean isAuthoritative();
 }

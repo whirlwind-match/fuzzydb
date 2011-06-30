@@ -22,25 +22,25 @@ import com.wwm.expressions.LogicExpr;
 public interface Queryable extends Searchable {
 
 	// Retrieve api
-	public abstract Object retrieve(Ref ref);
+	Object retrieve(Ref ref);
 
-	public abstract Map<Ref, Object> retrieve(Collection<Ref> refs);
+	Map<Ref, Object> retrieve(Collection<Ref> refs);
 
 	// Querying - standard index, retrieve all
-	public abstract RetrieveSpecResult retrieve(RetrieveSpec spec);
+	RetrieveSpecResult retrieve(RetrieveSpec spec);
 
-	public abstract <E> E retrieve(Class<E> clazz, String keyfield, Object keyval);
+	<E> E retrieve(Class<E> clazz, String keyfield, Object keyval);
 
-	public abstract <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Object keyval);
+	<E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Object keyval);
 
 	// Querying - standard index, iterating
-	public abstract <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
+	<E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
 
-	public abstract <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize)
+	<E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize)
 			throws ArchException;
 
-	public abstract <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
+	<E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
 
-	public abstract <E> long count(Class<E> clazz);
+	<E> long count(Class<E> clazz);
 
 }
