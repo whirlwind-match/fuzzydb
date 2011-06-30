@@ -2,6 +2,7 @@ package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.whirlwind.RefAware;
 
 /**
  * 
@@ -25,7 +25,7 @@ import com.wwm.db.internal.whirlwind.RefAware;
  * @param <T> the external representation
  * @param <ID> the external ID type
  */
-public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements CrudRepository<T,ID>, InitializingBean {
+public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements CrudRepository<T,ID>, InitializingBean, WhirlwindSearch<T> {
 
 	@Autowired
 	private DataOperations persister;
@@ -86,6 +86,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private <R> GenericRef<R> getRef(R entity) {
 		try {
 			return (GenericRef<R>) idField.get(entity);
@@ -149,6 +150,12 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	public final void deleteAll() {
 		throw new UnsupportedOperationException("not yet implemented");
+	}
+	
+	
+	public Iterator<T> findMatchesFor(AttributeMatchQuery query) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected final DataOperations getPersister() {

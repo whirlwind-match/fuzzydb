@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class FuzzyRepositoryTest {
 		
 		{
 			// Now modify a field
-			item.attributes.put("newAttribute", 21f);
+			item.attributes.put("salary", 21000f);
 			FuzzyItem updated = updateItem(item);
 			// Will be true when merge supported. assertEquals("ref should be same for same object", ref, updated.getRef());
 			FuzzyItem missing = getItem(ref);
@@ -76,7 +77,13 @@ public class FuzzyRepositoryTest {
 			// And check ref got assigned, and is not same object
 			assertNotNull(result.getRef());
 			assertNotSame(result, item);
-			assertEquals(21f, result.attributes.get("newAttribute"));
+			assertEquals(21000f, result.attributes.get("salary"));
+		}
+		
+		{
+			Map<String, Object> exactMatchMap = new HashMap<String,Object>(item.attributes);
+			AttributeMatchQuery query = new SimpleAttributeMatchQuery(exactMatchMap, "similarPeople", 10);
+			Iterator<FuzzyItem> items = repo.findMatchesFor(query);
 		}
 	}
 
