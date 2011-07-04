@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
@@ -27,6 +29,8 @@ import com.wwm.db.exceptions.UnknownObjectException;
  */
 public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements CrudRepository<T,ID>, InitializingBean, WhirlwindSearch<T> {
 
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private DataOperations persister;
 
@@ -69,6 +73,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		GenericRef<T> existingRef = getRef(entity);
 		if (existingRef != null) {
 			// FIXME: Need detached entity support (see https://github.com/whirlwind-match/whirlwind-db/issues/41)
+			log.debug("save() - update detected, with no merge support so doing delete/create instead on {}", existingRef);
 			persister.delete(existingRef);
 		}
 		Ref ref = persister.save(toWrite);
