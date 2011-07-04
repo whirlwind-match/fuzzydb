@@ -1,9 +1,12 @@
 package com.wwm.db.spring.repository;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -85,7 +88,7 @@ public class FuzzyRepositoryTest {
 			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(item, "similarPeople", 10);
 			List<FuzzyItem> items = doQuery(query);
 			// TODO: Fix this, and get scores too
-//			assertThat(items.size(), equalTo(3)); 
+			assertThat(items.size(), equalTo(1)); 
 		}
 	}
 
@@ -94,8 +97,10 @@ public class FuzzyRepositoryTest {
 	private List<FuzzyItem> doQuery(AttributeMatchQuery<FuzzyItem> query) {
 		Iterator<FuzzyItem> items = repo.findMatchesFor(query);
 		assertNotNull(items);
+		
 		List<FuzzyItem> list = new LinkedList<FuzzyItem>();
-		for (FuzzyItem fuzzyItem : list) {
+		for (Iterator<FuzzyItem> iterator = items; iterator.hasNext();) {
+			FuzzyItem fuzzyItem = iterator.next();
 			list.add(fuzzyItem);
 		}
 		return list;
