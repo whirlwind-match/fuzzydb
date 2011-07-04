@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ScoreConfiguration name="similarPeople">
 
+    <BooleanScorer>
+        <scorerAttrId>isMale</scorerAttrId>
+        <otherAttrId>isMale</otherAttrId>
+        <weight>0.7</weight>
+    </BooleanScorer>
+
     <EnumMatchScorer>
         <scorerAttrId>newspapers</scorerAttrId>
         <otherAttrId>newspapers</otherAttrId>
@@ -25,5 +31,12 @@
         <expectedRange>20</expectedRange> 
         <weight>0.7</weight>
     </SimilarFloatValueScorer>
+
+    <FloatRangePreferenceScorer>
+        <scorerAttrId>ageRange</scorerAttrId>
+        <otherAttrId>age</otherAttrId>
+        <weight>0.7</weight>
+    </FloatRangePreferenceScorer>
+
 
 </ScoreConfiguration>

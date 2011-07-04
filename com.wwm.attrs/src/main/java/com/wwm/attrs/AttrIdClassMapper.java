@@ -19,6 +19,7 @@ import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.location.EcefVector;
 import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatRangePreference;
 
 /**
  * Maintains maps to give us lookup of required class when we want to lookup
@@ -72,7 +73,7 @@ public class AttrIdClassMapper {
 
         // FloatRangePreferenceScorer
         currentAttrNameMap = new HashMap<String,Class<?>>(2); // expect 2 entries
-        currentAttrNameMap.put("scorerAttrId", FloatHave.class);
+        currentAttrNameMap.put("scorerAttrId", FloatRangePreference.class);
         currentAttrNameMap.put("otherAttrId", FloatHave.class);
         scorerNameMap.put("FloatRangePreferenceScorer", currentAttrNameMap);
 
