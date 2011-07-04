@@ -23,7 +23,11 @@ import com.wwm.util.ScoreMapper;
 
 
 /**
+ * scoreAttrId = FloatRangePreference
+ * otherAttrId = FloatHave
+ * 
  * @author Neale
+ * 
  */
 public class FloatRangePreferenceScorer extends TwoAttrScorer {
 
