@@ -70,7 +70,7 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
             w.setObject(mgr);
         }
         else { // If already have it, refresh it
-            Transaction tx = store.getAuthStore().begin();
+            Transaction tx = beginTx(store);
             try {
             	SyncedAttrDefinitionMgr mgr = tx.refresh( w.getObject() );
             	tx.dispose();
@@ -92,20 +92,25 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      */
     static SyncedAttrDefinitionMgr getFromStore(Store store) {
     	// Only ever want first, and no need for index this way
-        Transaction readTx = store.getAuthStore().begin();
+        Transaction readTx = beginTx(store);
 		SyncedAttrDefinitionMgr mgr = readTx
             .retrieveFirstOf( SyncedAttrDefinitionMgr.class );
         readTx.dispose();
 
         if (mgr == null){
             mgr = new SyncedAttrDefinitionMgr( store );
-            Transaction tx = store.getAuthStore().begin();
+            Transaction tx = beginTx(store);
             tx.create(mgr);
             tx.commit();
         }
         mgr.setStore( store );
         return mgr;
     }
+
+
+	private static Transaction beginTx(Store store) {
+		return store.getAuthStore().begin();
+	}
 
 
     private void setStore(Store store) {

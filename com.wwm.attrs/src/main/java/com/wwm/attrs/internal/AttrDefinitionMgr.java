@@ -52,6 +52,8 @@ import com.wwm.model.attributes.Point3DAttribute;
  *    done when initialising or modifying configurations (currently less than once per month)
  * 2) Looking up attrIds and class given the string name of that attribute (perf critical)
  * 3) Looking up string name of attribute, given attribute id (perf critical)
+ * 
+ * TODO: Rename to AttributeDefinitions to reflect that it's a rich object
  */
 public class AttrDefinitionMgr implements Serializable, AttributeDefinitionService {
 
@@ -137,25 +139,29 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
                 return entry.getKey();
             }
         }
-        throw new RuntimeException("Unknown attribute id: " + attrId);
+        throw new IllegalArgumentException("Unknown attribute id: " + attrId);
     }
 
-    public int getAttrId(String attrName, Class<?> clazz) {
-
-        int overlay = getAttributeClassCode(clazz);
-
+    public Integer getExistingAttrId(String attrName, Class<?> clazz) {
         // See if we already know this one
         Integer attrId = ids.get( attrName );
         if (attrId != null) {
+        	int overlay = getAttributeClassCode(clazz);
             if (clazz != null && (attrId & ATTR_CLASS_MASK) != overlay ) {
-                throw new RuntimeException( "Cannot re-use the same name with a different class:" + attrName );
+                throw new IllegalStateException( "Cannot re-use the same name with a different class:" + attrName );
                 // FIXME: Except we can: Boolean / BooleanConstraint...?
             }
-            return attrId;
         }
+        return attrId;
+    }
+    
+   	public int getAttrId(String attrName, Class<?> clazz) {
 
-        // Okay.. don't have it.  So assign next one of a given type.
-        attrId = getNextId(attrName, overlay);
+   		Integer attrId = getExistingAttrId(attrName, clazz);
+   		if (attrId == null) {
+        	int overlay = getAttributeClassCode(clazz);
+        	attrId = getNextId(attrName, overlay);
+   		}
         return attrId;
     }
 

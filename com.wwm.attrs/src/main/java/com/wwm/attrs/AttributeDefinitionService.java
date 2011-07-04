@@ -11,19 +11,37 @@ import com.wwm.db.whirlwind.internal.IAttribute;
  */
 public interface AttributeDefinitionService {
 
+    /**
+     * Read-only attempt to get an attribute id.  Once an 
+     * attribute is defined for a store, it is immutable, 
+     * so we can cache this value.
+     * 
+     * @return null if there is no association defined
+	 * @throws IllegalStateException if the attribute name is already in use
+	 * for a different type.  
+     */
+//WIP    public Integer getExistingAttrId(String attrName, Class<?> clazz);
+
 	/**
 	 * Get the numerical attribute identifier for the given attribute
 	 * name as an object of the given type.
 	 * 
 	 * @param clazz - null allowed
 	 * 
-	 * @throws RuntimeException if the attribute name is already in use
+	 * @throws IllegalStateException if the attribute name is already in use
 	 * for a different type.  
 	 */
 	int getAttrId(String attrName, Class<?> clazz);
 	
 	int getAttrId(String attrName);
 
+	/**
+	 * Get the textual name for the given attribute 
+	 * @param attrId id of the already allocated attribute 
+	 * @return String name for this attribute
+	 * @throws IllegalArgumentException if there is no attribute registered
+	 * for the supplied attributeId
+	 */
 	String getAttrName(int attrId);
 	
 	/**
