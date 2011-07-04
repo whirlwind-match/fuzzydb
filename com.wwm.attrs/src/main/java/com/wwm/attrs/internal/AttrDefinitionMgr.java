@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.slf4j.Logger;
+import org.springframework.util.Assert;
 
 
 import com.wwm.attrs.AttributeDefinitionService;
@@ -56,6 +57,11 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
 
     static final Logger log = LogFactory.getLogger(AttrDefinitionMgr.class);
 
+    /**
+     * Allow modifications to be illegal when we want to operate read only.
+     */
+    transient boolean readOnly = false;
+    
     private static final long serialVersionUID = 1L;
 
     public enum AttrType {
@@ -91,12 +97,6 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
     private int nextId = 0;
     private int nextEnumDef = 0;
     private transient boolean syncDisabled = false;
-
-
-    // This should only be used by unit tests. Something like SyncedAttrDefinitionMgr should be used instead.
-    protected AttrDefinitionMgr() {
-        super();
-    }
 
 
 
@@ -299,6 +299,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
 
 
     private int getNextId(String attrName, int overlay) {
+		Assert.state(readOnly==false, "Cannot create attribute definitions here. Attribute '" + attrName + "' must be configured elsewhere");
         Integer attrId;
         synchronized(ids) {
             // First, re-check that no one else created it before we synchronized
@@ -320,6 +321,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
     }
 
     private EnumDefinition getNextEnumDef(String defName) {
+		Assert.state(readOnly==false, "Cannot create attribute definitions here. Enum '" + defName + "' must be configured elsewhere");
         EnumDefinition def;
         synchronized(defs) {
             // First re-check it's not already there (we've only just synced, so two thread might both have gone for it
@@ -343,13 +345,15 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
 			return; // already associated
 		}
 		synchronized (attrIdsToDef) {
+			Assert.state(readOnly==false, "Cannot create attribute definitions here. " +
+					"Enum association: " + attrId + " -> " + enumDef.getName() + " must be configured elsewhere");
 			attrIdsToDef.put(attrId, enumDef);
 			syncToStore();
 		}
 
 		
 	}
-	
+
 	public EnumDefinition getEnumDefForAttrId( int attrId ){
 		return attrIdsToDef.get(attrId);
 	}
@@ -384,6 +388,13 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         syncToStore();
     }
 
+    /**
+     * Set as true to cause IllegalStateException on attempts to mutate state
+     */
+    public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+    
     @Override
     public String toString() {
         return "attrids: " + ids.toString();

@@ -24,7 +24,7 @@ import org.springframework.data.annotation.Id;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.internal.NonPersistentAttrDefinitionMgr;
+import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
@@ -43,7 +43,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	@Mock
 	private DataOperations persister;
 
-	private final AttributeDefinitionService attrDefinitionService = new NonPersistentAttrDefinitionMgr();
+	private final AttributeDefinitionService attrDefinitionService = new AttrDefinitionMgr();
 	
 	// prime the attribute mappings so we know what ids to look for
 	private final int isMaleId = attrDefinitionService.getAttrId("isMale", Boolean.class);
