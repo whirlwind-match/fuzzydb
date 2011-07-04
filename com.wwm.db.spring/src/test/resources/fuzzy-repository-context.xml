@@ -20,7 +20,9 @@
 	<fuzzy:initialize match-styles="classpath*:*MatchingConfig.xml" />	
 
 	<!-- This is in memory only too! -->
-	<bean id="attributeDefinitionService" class="com.wwm.attrs.internal.NonPersistentAttrDefinitionMgr"/>
+	<bean id="attributeDefinitionService" class="com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr">
+        <constructor-arg ref="store"/>
+    </bean>
 
 	<bean id="repository" class="com.wwm.db.spring.repository.SimpleMappingFuzzyRepository">
 		<constructor-arg value="com.wwm.db.spring.repository.FuzzyRepositoryTest.FuzzyItem"/>

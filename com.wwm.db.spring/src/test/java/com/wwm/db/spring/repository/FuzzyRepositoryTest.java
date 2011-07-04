@@ -84,7 +84,8 @@ public class FuzzyRepositoryTest {
 		{
 			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(item, "similarPeople", 10);
 			List<FuzzyItem> items = doQuery(query);
-//			assertThat(items.size(), equalTo(3)); // TODO: Fix this, and get scores too
+			// TODO: Fix this, and get scores too
+//			assertThat(items.size(), equalTo(3)); 
 		}
 	}
 
@@ -117,6 +118,4 @@ public class FuzzyRepositoryTest {
 	private FuzzyItem updateItem(FuzzyItem item) {
 		return repo.save(item);
 	}
-
-	
 }
