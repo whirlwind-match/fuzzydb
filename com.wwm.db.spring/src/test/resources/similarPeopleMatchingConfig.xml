@@ -36,6 +36,11 @@
         <scorerAttrId>ageRange</scorerAttrId>
         <otherAttrId>age</otherAttrId>
         <weight>0.7</weight>
+        <scoreMapper class="AsymptoticScoreMapper">
+            <squareness>3</squareness> 
+            <inverseValueAtBoundary>2.5</inverseValueAtBoundary> 
+            <!--  == 1/Value at Boundary I.e 1/0.4 = 2.5 --> 
+        </scoreMapper>
     </FloatRangePreferenceScorer>
 
 
