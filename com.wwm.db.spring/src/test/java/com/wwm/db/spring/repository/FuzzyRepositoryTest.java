@@ -6,8 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,8 +37,8 @@ public class FuzzyRepositoryTest {
 		
 		void populateTestData() {
 			attributes.put("isMale", Boolean.FALSE);
-			attributes.put("age", 1.1f);
-			attributes.put("ageRange", new float[]{25f, 30f, 38f});
+			attributes.put("age", 30f);
+			attributes.put("ageRange", new float[]{25f, 30f, 38f}); // A perfect match for own age
 		}
 
 		public GenericRef<FuzzyItem> getRef() {
@@ -94,7 +92,7 @@ public class FuzzyRepositoryTest {
 			assertThat(items.size(), equalTo(1));
 			Result<FuzzyItem> firstResult = items.get(0);
 			printScores(firstResult);
-			assertTrue("Score matching against self should be 1", firstResult.getScore().total() > 0.5f); // FIXME: Why is score low?
+			assertEquals("Score matching against self should be 1", 1f, firstResult.getScore().total(), 0.0001f );
 		}
 	}
 

@@ -43,14 +43,15 @@
         <otherAttrId>age</otherAttrId>
         <weight>0.7</weight>
         <!-- Simple linear scorer falls off to zero at edge of range --> 
-        <!-- <scoreMapper class="LinearScoreMapper" /> -->
+        <scoreMapper class="LinearScoreMapper" />
         
         <!-- Asymptotic scorer tends to zero at infinity -->
-        <scoreMapper class="AsymptoticScoreMapper">
-            <squareness>3</squareness> 
-            <inverseValueAtBoundary>2.5</inverseValueAtBoundary> <!-- Will become valueAtBoundary once migrated away from XStream for reading this -->
+<!--         <scoreMapper class="AsymptoticScoreMapper"> -->
+<!--             <squareness>3</squareness>  -->
+            <!-- Will become valueAtBoundary once migrated away from XStream for reading this -->
+<!--              <inverseValueAtBoundary>2.5</inverseValueAtBoundary>  -->
             <!-- i.e. score is 40% at boundary --> 
-        </scoreMapper>
+<!--         </scoreMapper> -->
     </FloatRangePreferenceScorer>
 
 
