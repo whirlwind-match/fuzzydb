@@ -1,5 +1,10 @@
 package com.wwm.db.spring.repository;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -52,7 +57,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 
 	@Override
 	protected T fromInternal(BlobStoringWhirlwindItem internal) {
-		T result = createInstance();
+		T result = createInstance(internal);
 		Map<String,Object> externalMap = getAttrsField(result);
 		
 		for( IAttribute attr : internal.getAttributeMap()) {
@@ -76,6 +81,17 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		for (Entry<String, Object> item : externalMap.entrySet()) {
 			addConvertedAttribute(result, item.getKey(), item.getValue());
 		}
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(external);
+			oos.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		byte[] bytes = baos.toByteArray();
+		result.setBlob(bytes);
 		return result;
 	}
 
@@ -93,8 +109,12 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		return (Map<String, Object>) attrs;
 	}
 
-	private T createInstance() {
+	private T createInstance(BlobStoringWhirlwindItem internal) {
 		try {
+		if (internal.getBlob() != null) {
+			ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(internal.getBlob()));
+			return (T) ois.readObject();
+		}
 			return type.newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -111,6 +131,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	@Override
 	protected Iterator<Result<T>> findMatchesInternal(BlobStoringWhirlwindItem internal, String matchStyle, int maxResults) {
 		SearchSpec spec = new SearchSpecImpl(BlobStoringWhirlwindItem.class, matchStyle);
+		spec.setTargetNumResults(maxResults);
 		spec.setAttributes(internal);
 		ResultSet<Result<BlobStoringWhirlwindItem>> resultsInternal = getPersister().query(BlobStoringWhirlwindItem.class, spec);
 		final ResultIterator<Result<BlobStoringWhirlwindItem>> resultIterator = resultsInternal.iterator();

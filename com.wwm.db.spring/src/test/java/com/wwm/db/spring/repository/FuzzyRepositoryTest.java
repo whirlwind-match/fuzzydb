@@ -6,17 +6,20 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,32 +31,39 @@ import com.wwm.model.attributes.Score;
 @ContextConfiguration({"classpath:/fuzzy-repository-context.xml"})
 public class FuzzyRepositoryTest {
 	
-	public static class FuzzyItem {
-		
-		Map<String, Object> attributes = new HashMap<String,Object>();
-		
-		@Id
-		private GenericRef<FuzzyItem> ref;
-		
-		void populateTestData() {
-			attributes.put("isMale", Boolean.FALSE);
-			attributes.put("age", 30f);
-			attributes.put("ageRange", new float[]{25f, 30f, 38f}); // A perfect match for own age
-		}
-
-		public GenericRef<FuzzyItem> getRef() {
-			return ref;
+	
+	private Set<GenericRef<FuzzyItem>> toDelete;
+	
+	@Autowired
+	private SimpleMappingFuzzyRepository<FuzzyItem> repo;
+	
+	
+	@Before
+	public void initTest(){
+		toDelete = new HashSet<GenericRef<FuzzyItem>>();
+	}
+	
+	@After
+	public void deleteFuzzyItems() {
+		for (GenericRef<FuzzyItem> ref : toDelete) {
+			try {
+				deleteOne(ref);
+			} catch (EmptyResultDataAccessException e) {
+				// ignore this exception as it's just an item we deleted during our test
+			}
 		}
 	}
 
-	@Autowired
-	private SimpleMappingFuzzyRepository<FuzzyItem> repo;
+	@Transactional
+	private void deleteOne(GenericRef<FuzzyItem> ref) {
+		repo.delete(ref);
+	}
 	
 	@Test 
 	public void createObjectSucceedInAtTransactionalViaInjectedDataOps(){
 		// the action
-		FuzzyItem item = saveSomething();
-		GenericRef<FuzzyItem> ref = item.getRef();
+		FuzzyItem matt = createMatt();
+		GenericRef<FuzzyItem> ref = matt.getRef();
 
 		// Check a ref got assigned when we saved item
 		assertNotNull(ref);
@@ -63,17 +73,17 @@ public class FuzzyRepositoryTest {
 			FuzzyItem result = getItem(ref);
 			// And check ref got assigned, and is not same object
 			assertNotNull(result.getRef());
-			assertNotSame(result, item);
+			assertNotSame(result, matt);
 		}
 		
 		{
 			// Now modify a field
-			item.attributes.put("salary", 21000f);
-			FuzzyItem updated = updateItem(item);
+			matt.setAttr("salary", 21000f);
+			FuzzyItem updated = updateItem(matt);
 			// Will be true when merge supported. assertEquals("ref should be same for same object", ref, updated.getRef());
 			FuzzyItem missing = getItem(ref);
 			assertNull(missing);
-			ref = updated.ref; // TODO: remove when merge supported (https://github.com/whirlwind-match/whirlwind-db/issues/41)
+			ref = updated.getRef(); // TODO: remove when merge supported (https://github.com/whirlwind-match/whirlwind-db/issues/41)
 		}
 
 		{
@@ -81,14 +91,13 @@ public class FuzzyRepositoryTest {
 			FuzzyItem result = getItem(ref);
 			// And check ref got assigned, and is not same object
 			assertNotNull(result.getRef());
-			assertNotSame(result, item);
-			assertEquals(21000f, result.attributes.get("salary"));
+			assertNotSame(result, matt);
+			assertEquals(21000f, result.getAttr("salary"));
 		}
 		
 		{
-			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(item, "similarPeople", 10);
+			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
 			List<Result<FuzzyItem>> items = doQuery(query);
-			// TODO: Fix this, and get scores too
 			assertThat(items.size(), equalTo(1));
 			Result<FuzzyItem> firstResult = items.get(0);
 			printScores(firstResult);
@@ -96,16 +105,38 @@ public class FuzzyRepositoryTest {
 		}
 	}
 
+	@Test 
+	public void matchesForAPersonAreInOrder(){
+		// the action
+		FuzzyItem matt = createMatt();
+		GenericRef<FuzzyItem> ref = matt.getRef();
 
-	private void printScores(Result<FuzzyItem> firstResult) {
-		Score score = firstResult.getScore();
+		// Check a ref got assigned when we saved item
+		assertNotNull(ref);
+		
+		createMorePeople();
+		
+		{
+			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
+			List<Result<FuzzyItem>> items = doQuery(query);
+			assertThat(items.size(), equalTo(3));
+
+			for (Result<FuzzyItem> result : items) {
+				printScores(result);
+			}
+		}
+	}
+
+
+	static public void printScores(Result<?> result) {
+		Score score = result.getScore();
+		System.out.println("Item: " + result.getItem().toString() + ", score = " + score.total());
 		Collection<String> scorerAttrNames = score.getScorerAttrNames();
 		
 		for (String attr : scorerAttrNames) {
 			System.out.println(attr + " : fwd=" + score.getForwardsScore(attr) + ", rev=" + score.getReverseScore(attr));
 		}
 	}
-
 
 	@Transactional(readOnly=true) 
 	private List<Result<FuzzyItem>> doQuery(AttributeMatchQuery<FuzzyItem> query) {
@@ -121,20 +152,50 @@ public class FuzzyRepositoryTest {
 	}
 
 
-	@Transactional 
-	private FuzzyItem saveSomething() {
-		FuzzyItem external = new FuzzyItem();
-		external.populateTestData();
-		return repo.save(external);
-	}
-
 	@Transactional(readOnly=true) 
 	private FuzzyItem getItem(GenericRef<FuzzyItem> ref) {
 		return repo.findOne(ref);
 	}
 
+	/**
+	 * Always use this when saving so that we've got all the refs we need to delete after the test
+	 * @return 
+	 */
+	private FuzzyItem saveOne(FuzzyItem item) {
+		item = repo.save(item);
+		toDelete.add(item.getRef());
+		return item;
+	}
+
 	@Transactional 
 	private FuzzyItem updateItem(FuzzyItem item) {
-		return repo.save(item);
+		item = repo.save(item);
+		toDelete.add(item.getRef());
+		return item;
+	}
+	
+	@Transactional 
+	private FuzzyItem createMatt() {
+		FuzzyItem matt = new FuzzyItem("Matt");
+		matt.setAttr("isMale", Boolean.TRUE);
+		matt.setAttr("age", 32f);
+		matt.setAttr("ageRange", new float[]{25f, 32f, 38f}); // A perfect match for own age
+		return saveOne(matt);
+	}
+
+	@Transactional
+	private void createMorePeople() {
+		
+		FuzzyItem angelina = new FuzzyItem("Angelina");
+		angelina.setAttr("isMale", Boolean.FALSE);
+		angelina.setAttr("age", 35f);
+		angelina.setAttr("ageRange", new float[]{30f, 37f, 50f});
+		saveOne(angelina);
+
+		FuzzyItem brad = new FuzzyItem("Brad");
+		brad.setAttr("isMale", Boolean.FALSE);
+		brad.setAttr("age", 37f);
+		brad.setAttr("ageRange", new float[]{22f, 30f, 40f});
+		saveOne(brad);
 	}
 }

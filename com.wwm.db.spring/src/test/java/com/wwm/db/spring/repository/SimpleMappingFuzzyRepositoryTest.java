@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,7 +118,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	}
 
 
-	public static class FuzzyItem {
+	public static class FuzzyItem implements Serializable {
 		
 		@Id
 		GenericRef<FuzzyItem> ref;

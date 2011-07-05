@@ -1,7 +1,5 @@
 package com.wwm.db.spring.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.wwm.db.GenericRef;
 
 /**
@@ -15,7 +13,7 @@ import com.wwm.db.GenericRef;
  *
  * @param <T>
  */
-public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, GenericRef<T>> implements CrudRepository<T, GenericRef<T>> {
+public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, GenericRef<T>> {
 
 	public RawFuzzyRepository(Class<T> type) {
 		super(type);
