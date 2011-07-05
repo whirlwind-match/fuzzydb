@@ -2,8 +2,8 @@ package com.wwm.stats.counters;
 
 public interface Count {
 
-	public long getCount();
+	long getCount();
 
-	public void setCount(long count);
+	void setCount(long count);
 
 }

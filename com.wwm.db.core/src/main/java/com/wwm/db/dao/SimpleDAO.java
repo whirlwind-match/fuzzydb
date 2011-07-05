@@ -13,7 +13,7 @@ package com.wwm.db.dao;
 
 public interface SimpleDAO {
 
-	void begin() throws Exception;
+	void begin();
 
 	/**
 	 * 
@@ -21,18 +21,18 @@ public interface SimpleDAO {
 	 * @param key
 	 * @return ref - reference to be used when updating
 	 */
-	Object create( Object object, Object key ) throws Exception;
+	Object create( Object object, Object key );
 
 	/**
 	 * Update object into database against Db's reference (ref)
 	 * @param object
 	 * @param ref
 	 */
-	void update(Object object, Object ref) throws Exception;
+	void update(Object object, Object ref);
 
-	<T> T retrieve(Class<T> clazz, Object key) throws Exception;
+	<T> T retrieve(Class<T> clazz, Object key);
 
-	void commit() throws Exception, DaoWriteCollisionException;
+	void commit() throws DaoWriteCollisionException;
 
 	
 

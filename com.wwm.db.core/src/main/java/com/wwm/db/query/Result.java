@@ -13,6 +13,6 @@ package com.wwm.db.query;
 import com.wwm.model.attributes.Score;
 
 public interface Result<E extends Object> {
-	public E getItem();
-	public Score getScore();
+	E getItem();
+	Score getScore();
 }

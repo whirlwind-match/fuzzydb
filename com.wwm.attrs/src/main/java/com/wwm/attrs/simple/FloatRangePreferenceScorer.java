@@ -27,7 +27,6 @@ import com.wwm.util.ScoreMapper;
  * otherAttrId = FloatHave
  * 
  * @author Neale
- * 
  */
 public class FloatRangePreferenceScorer extends TwoAttrScorer {
 
@@ -76,9 +75,6 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
         
         FloatConstraint bc = (FloatConstraint)na;
 
-        if (bc == null) {
-            return;
-        }
         float branchMin = bc.getMin();
         float branchMax = bc.getMax();
 //        float myMin = want.getMin();

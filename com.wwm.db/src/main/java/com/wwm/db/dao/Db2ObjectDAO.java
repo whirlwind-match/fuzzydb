@@ -51,11 +51,11 @@ public class Db2ObjectDAO implements SimpleDAO {
     }
 
 
-    public void begin() throws Exception {
+    public void begin() {
         tx = store.getAuthStore().begin();
     }
 
-    public void commit() throws Exception, DaoWriteCollisionException {
+    public void commit() throws DaoWriteCollisionException {
         try {
             tx.commit();
         } catch (WriteCollisionException e){
@@ -63,16 +63,16 @@ public class Db2ObjectDAO implements SimpleDAO {
         }
     }
 
-    public Object create(Object object, Object key) throws Exception {
+    public Object create(Object object, Object key) {
         assert(key == null); // Key is ignored. If specified...
         return tx.create( object );
     }
 
-    public <T> T retrieve(Class<T> clazz, Object key) throws Exception {
+    public <T> T retrieve(Class<T> clazz, Object key) {
         return tx.retrieveFirstOf(clazz); // NOTE: ignoring key
     }
 
-    public void update(Object object, Object ref) throws Exception {
+    public void update(Object object, Object ref) {
         tx.update( object );
     }
 

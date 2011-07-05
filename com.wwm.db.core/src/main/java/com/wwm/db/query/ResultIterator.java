@@ -12,10 +12,8 @@ package com.wwm.db.query;
 
 import java.util.Iterator;
 
-import com.wwm.db.core.exceptions.ArchException;
-
 
 public interface ResultIterator <E> extends Iterator<E> {
-	public void dispose();
-    public long count();
+	void dispose();
+    long count();
 }
