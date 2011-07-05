@@ -12,6 +12,7 @@ import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.GenericRef;
+import com.wwm.db.internal.ResultImpl;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;
 import com.wwm.db.query.ResultSet;
@@ -108,21 +109,25 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	}
 	
 	@Override
-	protected Iterator<T> findMatchesInternal(BlobStoringWhirlwindItem internal, String matchStyle, int maxResults) {
+	protected Iterator<Result<T>> findMatchesInternal(BlobStoringWhirlwindItem internal, String matchStyle, int maxResults) {
 		SearchSpec spec = new SearchSpecImpl(BlobStoringWhirlwindItem.class, matchStyle);
 		spec.setAttributes(internal);
 		ResultSet<Result<BlobStoringWhirlwindItem>> resultsInternal = getPersister().query(BlobStoringWhirlwindItem.class, spec);
 		final ResultIterator<Result<BlobStoringWhirlwindItem>> resultIterator = resultsInternal.iterator();
-		Iterator<T> iterator = new Iterator<T>() {
+
+		Iterator<Result<T>> iterator = new Iterator<Result<T>>() {
 			public boolean hasNext() {
 				return resultIterator.hasNext();
 			}
-			public T next() {
-				return fromInternal(resultIterator.next().getItem());
+			public Result<T> next() {
+				Result<BlobStoringWhirlwindItem> resultInternal = resultIterator.next();
+				
+				Result<T> result = new ResultImpl<T>(fromInternal(resultInternal.getItem()), resultInternal.getScore());
+				return result;
 			}
+
 			public void remove() {
 				resultIterator.remove(); // Generally we'd not expect this to be supported
-				
 			}
 		};
 		return iterator;

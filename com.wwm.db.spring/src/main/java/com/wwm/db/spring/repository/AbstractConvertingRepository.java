@@ -18,6 +18,7 @@ import com.wwm.db.DataOperations;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.query.Result;
 
 /**
  * 
@@ -158,12 +159,12 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 	
 	
-	public Iterator<T> findMatchesFor(AttributeMatchQuery<T> query) {
+	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
 		I internal = toInternal(query.getQueryTarget());
 		return findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
 	}
 
-	protected Iterator<T> findMatchesInternal(I internal, String matchStyle, int maxResults) {
+	protected Iterator<Result<T>> findMatchesInternal(I internal, String matchStyle, int maxResults) {
 		throw new UnsupportedOperationException("Override to provide an implementation");
 	}
 

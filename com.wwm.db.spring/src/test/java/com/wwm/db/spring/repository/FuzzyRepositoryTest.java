@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wwm.db.GenericRef;
+import com.wwm.db.query.Result;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/fuzzy-repository-context.xml"})
@@ -86,21 +88,24 @@ public class FuzzyRepositoryTest {
 		
 		{
 			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(item, "similarPeople", 10);
-			List<FuzzyItem> items = doQuery(query);
+			List<Result<FuzzyItem>> items = doQuery(query);
 			// TODO: Fix this, and get scores too
-			assertThat(items.size(), equalTo(1)); 
+			assertThat(items.size(), equalTo(1));
+			Result<FuzzyItem> firstResult = items.get(0);
+			System.out.println(firstResult.getScore().getScorerAttrNames());
+			assertTrue("Score matching against self should be 1", firstResult.getScore().total() > 0.5f); // FIXME: Why is score low?
 		}
 	}
 
 
 	@Transactional(readOnly=true) 
-	private List<FuzzyItem> doQuery(AttributeMatchQuery<FuzzyItem> query) {
-		Iterator<FuzzyItem> items = repo.findMatchesFor(query);
+	private List<Result<FuzzyItem>> doQuery(AttributeMatchQuery<FuzzyItem> query) {
+		Iterator<Result<FuzzyItem>> items = repo.findMatchesFor(query);
 		assertNotNull(items);
 		
-		List<FuzzyItem> list = new LinkedList<FuzzyItem>();
-		for (Iterator<FuzzyItem> iterator = items; iterator.hasNext();) {
-			FuzzyItem fuzzyItem = iterator.next();
+		List<Result<FuzzyItem>> list = new LinkedList<Result<FuzzyItem>>();
+		for (Iterator<Result<FuzzyItem>> iterator = items; iterator.hasNext();) {
+			Result<FuzzyItem> fuzzyItem = iterator.next();
 			list.add(fuzzyItem);
 		}
 		return list;
