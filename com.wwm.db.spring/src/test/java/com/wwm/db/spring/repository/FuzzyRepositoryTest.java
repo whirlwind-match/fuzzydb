@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -21,9 +22,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.wwm.db.GenericRef;
 import com.wwm.db.query.Result;
+import com.wwm.model.attributes.Score;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/fuzzy-repository-context.xml"})
@@ -92,8 +93,18 @@ public class FuzzyRepositoryTest {
 			// TODO: Fix this, and get scores too
 			assertThat(items.size(), equalTo(1));
 			Result<FuzzyItem> firstResult = items.get(0);
-			System.out.println(firstResult.getScore().getScorerAttrNames());
+			printScores(firstResult);
 			assertTrue("Score matching against self should be 1", firstResult.getScore().total() > 0.5f); // FIXME: Why is score low?
+		}
+	}
+
+
+	private void printScores(Result<FuzzyItem> firstResult) {
+		Score score = firstResult.getScore();
+		Collection<String> scorerAttrNames = score.getScorerAttrNames();
+		
+		for (String attr : scorerAttrNames) {
+			System.out.println(attr + " : fwd=" + score.getForwardsScore(attr) + ", rev=" + score.getReverseScore(attr));
 		}
 	}
 

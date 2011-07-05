@@ -101,7 +101,7 @@ public class VectorDistanceScorer extends TwoAttrScorer {
                 float convertedScore = scoreMapper.getScore( scoreFactor );
 
                 score.add(this, convertedScore, d);
-                score.setScorerAttribute("Distance", distance );
+                score.setScorerAttribute(d,"Distance", distance );
             }
             return;
         } else {

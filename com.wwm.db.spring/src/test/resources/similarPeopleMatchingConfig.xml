@@ -2,30 +2,35 @@
 <ScoreConfiguration name="similarPeople">
 
     <BooleanScorer>
+        <name>isSameSex</name>
         <scorerAttrId>isMale</scorerAttrId>
         <otherAttrId>isMale</otherAttrId>
         <weight>0.7</weight>
     </BooleanScorer>
 
     <EnumMatchScorer>
+        <name>newspapers</name>
         <scorerAttrId>newspapers</scorerAttrId>
         <otherAttrId>newspapers</otherAttrId>
         <weight>0.7</weight>
     </EnumMatchScorer>        
 
     <EnumMatchScorer>
+        <name>education</name>
         <scorerAttrId>education</scorerAttrId>
         <otherAttrId>education</otherAttrId>
         <weight>0.7</weight>
     </EnumMatchScorer>        
 
     <SimilarFloatValueScorer>
+        <name>similarSalary</name>
         <scorerAttrId>salary</scorerAttrId>
         <otherAttrId>salary</otherAttrId>
         <expectedRange>2e4f</expectedRange> <!-- Within 20k -->
     </SimilarFloatValueScorer>
 
     <SimilarFloatValueScorer>
+        <name>similarAge</name>
         <scorerAttrId>age</scorerAttrId>
         <otherAttrId>age</otherAttrId>
         <expectedRange>20</expectedRange> 
@@ -33,6 +38,7 @@
     </SimilarFloatValueScorer>
 
     <FloatRangePreferenceScorer>
+        <name>ageRangeMatch</name>
         <scorerAttrId>ageRange</scorerAttrId>
         <otherAttrId>age</otherAttrId>
         <weight>0.7</weight>

@@ -3,21 +3,15 @@ package com.wwm.model.attributes;
 import java.util.Collection;
 
 public interface Score {
-    public float total();
-    public float forwardsTotal();
-    public float reverseTotal();
+    float total();
+    float forwardsTotal();
+    float reverseTotal();
 
-    /**
-     * Set an attribute.  This is to be used for at least, Distance, but, in
-     * something like PathDeviationScorer, could be used to record:
-     * DriverDistance, TotalDetour
-     */
-    public void setScorerAttribute(String name, float value);
-
-    public float getScorerAttributeAsFloat(String name);
+    float getForwardsScore(String name);
+    float getReverseScore(String name);
 
     /**
      * Return available annotations
      */
-    public Collection<String> getScorerAttrNames();
+    Collection<String> getScorerAttrNames();
 }

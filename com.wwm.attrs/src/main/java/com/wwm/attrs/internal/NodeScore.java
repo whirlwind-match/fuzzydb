@@ -10,9 +10,16 @@
  *****************************************************************************/
 package com.wwm.attrs.internal;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
+
+import org.springframework.util.Assert;
 
 
 import com.wwm.attrs.Score;
@@ -40,6 +47,11 @@ public class NodeScore extends Score implements Serializable {
     // currently don't, as ScoreConfiguration stores scorers in a list, not a map
     protected transient HashMap<Scorer, Float> forwardsScores;
     protected transient HashMap<Scorer, Float> reverseScores;
+    
+    // these are populated on transmission to the client
+    protected HashMap<String, Float> labelledForwardsScores; 
+    protected HashMap<String, Float> labelledReverseScores; 
+    
 		
 	/**Create a new score, with the initial value 1.
 	 * 
@@ -175,5 +187,64 @@ public class NodeScore extends Score implements Serializable {
 			}
 		}
 		return true;
+	}
+	
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		getLabelledForwardScores();
+		populate(labelledForwardsScores, forwardsScores);
+
+		labelledReverseScores = new HashMap<String, Float>();
+		populate(labelledReverseScores, reverseScores);
+
+		out.defaultWriteObject();
+	}
+
+	private Map<String,Float> getLabelledForwardScores() {
+		if (labelledForwardsScores == null){
+			labelledForwardsScores = new HashMap<String, Float>();
+		}
+		return labelledForwardsScores;
+	}
+
+	private Map<String,Float> getLabelledReverseScores() {
+		if (labelledReverseScores == null){
+			labelledReverseScores = new HashMap<String, Float>();
+		}
+		return labelledReverseScores;
+	}
+
+	private void populate(HashMap<String, Float> dest, HashMap<Scorer, Float> src) {
+		for (Entry<Scorer, Float> entry : src.entrySet()) {
+			String name = entry.getKey().getName();
+			if (name == null){
+				name = String.valueOf(entry.getKey().getScorerAttrId());
+			}
+			dest.put(name, entry.getValue());
+		}
+	}
+	
+	public Collection<String> getScorerAttrNames() {
+		Assert.state(labelledForwardsScores != null, "Cannot call getScorerAttrNames() on server");
+		
+		HashSet<String> result = new HashSet<String>(labelledForwardsScores.keySet());
+		result.addAll(labelledReverseScores.keySet());
+		return result;
+	}
+	
+	/**
+	 * This is supported server side by creating a dummy scorer instance
+	 */
+	@Override
+	public void setScorerAttribute(Direction d, String name, float value) {
+		Map<String,Float> map = d == Direction.forwards ? getLabelledForwardScores() : getLabelledReverseScores();
+		map.put(name, value);
+	}
+
+	public float getForwardsScore(String name) {
+		return getLabelledForwardScores().get(name);
+	}
+
+	public float getReverseScore(String name) {
+		return getLabelledReverseScores().get(name);
 	}
 }

@@ -212,7 +212,7 @@ public class IndexEntryHandler implements TypeHandler {
         Score score = result.getScore();
         for (String name: score.getScorerAttrNames()){
             if (name.equals("Distance")) {
-                builder.addFloat("Distance", score.getScorerAttributeAsFloat("Distance"));
+                builder.addFloat("Distance", score.getForwardsScore("Distance"));
             }
         }
     }

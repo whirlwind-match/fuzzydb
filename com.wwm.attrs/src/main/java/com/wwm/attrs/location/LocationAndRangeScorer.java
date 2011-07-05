@@ -191,7 +191,7 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
         float distance = location.distance(want);	// actual distance in miles
         float prefDistance = ((FloatHave) rangeAttr).getValue();
         scoreDistance(score, d, prefDistance, distance, preferClose);
-        score.setScorerAttribute("Distance", distance );
+        score.setScorerAttribute(d, "Distance", distance );
     }
 
     /**

@@ -13,8 +13,6 @@ package com.wwm.attrs;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 
@@ -31,9 +29,6 @@ public abstract class Score implements com.wwm.model.attributes.Score, Comparabl
     protected float forwardsLinear;
     protected float reverseLinear;
     private boolean linearKnown;
-
-    private float distance = -1f; // for use by scorers which score between two EcefVectors
-    // NOTE: This is a hard-coded approach to keep Score from bloating, for now.
 
 
     /** Number of scores added that didn't match */
@@ -180,27 +175,19 @@ public abstract class Score implements com.wwm.model.attributes.Score, Comparabl
      * something like PathDeviationScorer, could be used to record:
      * DriverDistance, TotalDetour
      */
-    public void setScorerAttribute(String name, float value) {
-        // NOTE: Hard coded for single case for now
-        if (!name.equals("Distance")){
-            throw new RuntimeException("Invalid Attribute:" + name );
-        }
-        distance = value;
+    public void setScorerAttribute(Direction d, String name, float value){
+    	throw new UnsupportedOperationException();
     }
+    
+	public float getForwardsScore(String name) {
+    	throw new UnsupportedOperationException();
+	}
 
-    public float getScorerAttributeAsFloat(String name){
-        // NOTE: Hard coded for single case for now
-        if (!name.equals("Distance")){
-            throw new RuntimeException("Invalid Attribute:" + name );
-        }
-        return distance;
-    }
+	public float getReverseScore(String name) {
+    	throw new UnsupportedOperationException();
+	}
 
-    /**
-     * Return available annotations
-     */
-    public Collection<String> getScorerAttrNames(){
-        // NOTE: Hard coded for single case for now
-        return (distance >= 0) ? Arrays.asList("Distance") : new ArrayList<String>();
-    }
+	public Collection<String> getScorerAttrNames() {
+    	throw new UnsupportedOperationException();
+	}
 }

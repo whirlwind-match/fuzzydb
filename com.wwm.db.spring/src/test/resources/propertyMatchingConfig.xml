@@ -2,18 +2,21 @@
 <ScoreConfiguration name="propertyDefault">
 
     <EnumMatchScorer>
+        <name>area</name>
         <scorerAttrId>area</scorerAttrId>
         <otherAttrId>area</otherAttrId>
         <weight>0.7</weight>
     </EnumMatchScorer>        
 
     <EnumMatchScorer>
+        <name>propertyType</name>
         <scorerAttrId>propertyType</scorerAttrId>
         <otherAttrId>propertyType</otherAttrId>
         <weight>0.7</weight>
     </EnumMatchScorer>        
 
     <SimilarFloatValueScorer>
+        <name>price</name>
         <scorerAttrId>price</scorerAttrId>
         <otherAttrId>price</otherAttrId>
         <expectedRange>1e5f</expectedRange> <!-- Within 100k (dollars?) -->
@@ -22,12 +25,11 @@
 
     <!-- bedrooms scorer -->
     <SimilarFloatValueScorer>
+        <name>bedrooms</name>
         <scorerAttrId>bedrooms</scorerAttrId>
         <otherAttrId>bedrooms</otherAttrId>
         <expectedRange>1.9</expectedRange>  <!-- +/- 1 room -->
         <weight>0.7</weight>
     </SimilarFloatValueScorer>
-
-
 
 </ScoreConfiguration>
