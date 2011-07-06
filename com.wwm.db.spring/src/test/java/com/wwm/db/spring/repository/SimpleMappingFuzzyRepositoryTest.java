@@ -25,6 +25,7 @@ import org.springframework.data.annotation.Id;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
+import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
@@ -58,9 +59,14 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	
 	@Before
 	public void injectMocksManually() throws Exception {
+		WhirlwindConversionService converter = new WhirlwindConversionService();
+		new DirectFieldAccessor(converter).setPropertyValue("attrDefinitionService", attrDefinitionService);
+		converter.afterPropertiesSet();
+		
 		repo = new SimpleMappingFuzzyRepository<FuzzyItem>(FuzzyItem.class);
 		new DirectFieldAccessor(repo).setPropertyValue("persister", persister);
 		new DirectFieldAccessor(repo).setPropertyValue("attrDefinitionService", attrDefinitionService);
+		new DirectFieldAccessor(repo).setPropertyValue("converter", converter);
 		repo.afterPropertiesSet();
 	}
 	
