@@ -146,11 +146,14 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         // See if we already know this one
         Integer attrId = ids.get( attrName );
         if (attrId != null) {
+        	// If we do, it's okay if the supplied class is recognised as
+        	// specifically for that type
         	int overlay = getAttributeClassCode(clazz);
-            if (clazz != null && (attrId & ATTR_CLASS_MASK) != overlay ) {
-                throw new IllegalStateException( "Cannot re-use the same name with a different class:" + attrName );
-                // FIXME: Except we can: Boolean / BooleanConstraint...?
-            }
+        	if (clazz != null && (attrId & ATTR_CLASS_MASK) != overlay ) {
+	        	Class<?> externalClass = getExternalClass(attrId);
+	        	Assert.state(externalClass.equals(clazz), "Attribute : " + attrName + " already defined with class: " 
+	        				+ externalClass.getName() + ".  Cannot redefine using class " + clazz.getName());
+        	}
         }
         return attrId;
     }
@@ -174,10 +177,10 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return Boolean.class;
         case FLOAT:
             return Float.class;
-//        case ENUM_EXCLUSIVE:
-//            return EnumExclusiveValue;
-//        case ENUM_MULTI:
-//            return EnumMultiValue;
+        case ENUM_EXCLUSIVE:
+            return String.class;
+        case ENUM_MULTI:
+            return String[].class;
         case STRING:
             return String.class;
 //        case VECTOR:
