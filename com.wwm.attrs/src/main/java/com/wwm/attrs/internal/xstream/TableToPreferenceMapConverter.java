@@ -10,11 +10,17 @@
  *****************************************************************************/
 package com.wwm.attrs.internal.xstream;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.springframework.core.io.DefaultResourceLoader;
+
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.wwm.attrs.WWConfigHelper;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumPreferenceMap;
@@ -30,7 +36,7 @@ public class TableToPreferenceMapConverter implements Converter {
 	}
 
     public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
-        return clazz.equals(EnumPreferenceMap.class);
+        return clazz.equals(EnumPreferenceMap.class) || clazz.equals(HtmlTableReader.class);
     }
 
     public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
@@ -40,14 +46,50 @@ public class TableToPreferenceMapConverter implements Converter {
 
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
 		
-		final EnumDefinition scorerEnumDef = mgr.getObject().getEnumDefinition( reader.getAttribute("scorerEnumDefinition") );
-		final EnumDefinition otherEnumDef = mgr.getObject().getEnumDefinition( reader.getAttribute("otherEnumDefinition") );
-		
-		// Read into a table
-		HtmlTableReader table = new HtmlTableReader(reader);
-		table.read();
+		String node = reader.getNodeName();
 
-		// Create a preference map and write to it
+		if (node.equals("map")) {
+			// Determine what the rows and columns mean
+			final EnumDefinition scorerEnumDef = mgr.getObject().getEnumDefinition( reader.getAttribute("scorerEnumDefinition") );
+			final EnumDefinition otherEnumDef = mgr.getObject().getEnumDefinition( reader.getAttribute("otherEnumDefinition") );
+			
+			// If a URL return the HtmlTableReader element from parsing that
+			String url = reader.getAttribute("url");
+
+			HtmlTableReader table = (url != null) ? readUrl(url) : readInlineTable(reader);
+			return getTableAsEnumPreferenceMap(scorerEnumDef, otherEnumDef, table);
+		}
+		else {
+			// For a raw HTML document, we return the reader result, which then gets processed the line above
+			return readInlineTable(reader);
+		}
+		
+		
+    }
+
+
+	private HtmlTableReader readUrl(String url) {
+		InputStream inputStream = null;
+		try {
+			inputStream = new DefaultResourceLoader().getResource(url).getInputStream();
+			return WWConfigHelper.readEnumDefs(mgr, inputStream);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			try {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (IOException e) {
+				// do nothing
+			}
+		}
+	}
+
+	private EnumPreferenceMap getTableAsEnumPreferenceMap( 
+			final EnumDefinition scorerEnumDef, final EnumDefinition otherEnumDef, HtmlTableReader table) {
+		
 		final EnumPreferenceMap map = new EnumPreferenceMap();
 		table.foreachCell( new CellCallback(){
 			public void doCell(int row, String rowHeading, int col, String colHeading, String value) {
@@ -55,7 +97,12 @@ public class TableToPreferenceMapConverter implements Converter {
 				EnumExclusiveValue otherAttr = otherEnumDef.getEnumValue(colHeading, -1); 
 				map.add(scorerAttr, otherAttr, Float.valueOf(value));
 			}});
-		
 		return map;
-    }
+	}
+
+	private HtmlTableReader readInlineTable(HierarchicalStreamReader reader) {
+		HtmlTableReader table = new HtmlTableReader(reader);
+		table.read();
+		return table;
+	}
 }

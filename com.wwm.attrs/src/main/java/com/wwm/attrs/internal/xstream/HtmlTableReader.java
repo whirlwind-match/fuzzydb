@@ -12,6 +12,8 @@ package com.wwm.attrs.internal.xstream;
 
 import java.util.ArrayList;
 
+import org.springframework.util.Assert;
+
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 
 /**
@@ -35,10 +37,33 @@ public class HtmlTableReader {
 	}
 
 	public void read() {
-		// first nodes are <map> and <table> 
-		reader.moveDown();
-		reader.moveDown();
-
+		String initialNode = reader.getNodeName();
+		Assert.isTrue(initialNode.equals("map") || initialNode.equals("html"), 
+				"Expecting to look for table either within <html> or <map>, not <" + initialNode + ">");
+		int depth = 0;
+		// navigate to tbody
+		boolean there = false;
+		while( there == false) {
+			String node = reader.getNodeName();
+			// move down for all things we want, otherwise down/up to skip
+			if (node.equals("html")
+					|| node.equals("map") 
+					|| node.equals("body") 
+					) {
+				reader.moveDown();
+				depth++;
+			} 
+			else if (node.equals("table")){
+				reader.moveDown();
+				depth++;
+				there = true;
+			}
+			else {
+				reader.moveUp();
+				reader.moveDown();
+			} 
+		}
+		
 		String node = reader.getNodeName();
 		
 
@@ -48,9 +73,10 @@ public class HtmlTableReader {
 			throw new Error("Expecting tbody within table");
 		}
 		
-		reader.moveUp();
-		reader.moveUp();
-		
+		for( ; depth > 0; depth--) {
+			reader.moveUp();
+		}
+		Assert.isTrue(reader.getNodeName().equals(initialNode));
 	}
 
 	/**

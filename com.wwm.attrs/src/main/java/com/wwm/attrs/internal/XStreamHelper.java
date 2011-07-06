@@ -29,6 +29,7 @@ import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
 import com.wwm.attrs.internal.xstream.AttributeIdMapper;
 import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
+import com.wwm.attrs.internal.xstream.UrlToPreferenceMapConverter;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
 import com.wwm.db.Store;
 import com.wwm.util.DynamicRef;
@@ -42,12 +43,16 @@ public class XStreamHelper {
 
     public static XStream getScorerXStream(Store store) {
         DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
-        XStream scorerXStream = new XStream();
+        return getScorerXStream(attrDefs);
+    }
+
+	public static XStream getScorerXStream(DynamicRef<? extends AttrDefinitionMgr> attrDefs) {
+		XStream scorerXStream = new XStream();
         scorerXStream.registerConverter(new AttributeIdMapper(attrDefs));
         scorerXStream.registerConverter( new TableToPreferenceMapConverter(attrDefs));
         addScorerAliases(scorerXStream);
         return scorerXStream;
-    }
+	}
 
     public static XStream getIndexConfigXStream(Store store) {
         DynamicRef<SyncedAttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);

@@ -22,6 +22,14 @@
         <scoreOnNull>1.0</scoreOnNull>
     </MultiEnumScorer>
 
+	<EnumScoresMapScorer>
+		<scorerAttrId>Smoke</scorerAttrId>
+		<otherAttrId>Smoke</otherAttrId>
+		<filter>false</filter>
+		<weight>1.0</weight>
+	    <map scorerEnumDefinition="Smoke" otherEnumDefinition="Smoke" url="classpath:xml/liftshare/scorerConfigs/smokeEnumMap.html"/>
+	</EnumScoresMapScorer>
+	
 	<!-- SimilarAge.xml-->
 	<SimilarFloatValueScorer>
 		<scorerAttrId>Age</scorerAttrId>

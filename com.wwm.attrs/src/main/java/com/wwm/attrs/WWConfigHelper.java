@@ -16,11 +16,14 @@ import org.slf4j.Logger;
 
 import com.thoughtworks.xstream.XStream;
 import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.internal.XStreamHelper;
+import com.wwm.attrs.internal.xstream.HtmlTableReader;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
+import com.wwm.util.DynamicRef;
 
 /**
  * Helper class for isolated CRUD ops on elements of WhirlwindConfiguration.
@@ -48,6 +51,18 @@ public class WWConfigHelper {
         xs.setClassLoader( WWConfigHelper.class.getClassLoader() ); // OSGi: We need it to use our classLoader, as it's own bundle won't help it :)
         ScoreConfiguration sc = (ScoreConfiguration) xs.fromXML(inputStream);
     	updateScorerConfigInternal(store, sc);
+	}
+
+	/**
+	 * Expects XHTML input with 1 table in it
+	 */
+	public static HtmlTableReader readEnumDefs(DynamicRef<? extends AttrDefinitionMgr> mgr, InputStream inputStream) {
+    	XStream xs = XStreamHelper.getScorerXStream(mgr);
+        xs.setClassLoader( WWConfigHelper.class.getClassLoader() );
+        xs.alias("html", HtmlTableReader.class);
+        HtmlTableReader map = (HtmlTableReader) xs.fromXML(inputStream);
+    	
+    	return map;
 	}
 	
 	private static void updateScorerConfigInternal(Store store,
