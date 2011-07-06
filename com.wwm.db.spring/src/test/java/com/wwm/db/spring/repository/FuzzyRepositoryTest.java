@@ -119,11 +119,11 @@ public class FuzzyRepositoryTest {
 		{
 			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
 			List<Result<FuzzyItem>> items = doQuery(query);
-			assertThat(items.size(), equalTo(3));
 
 			for (Result<FuzzyItem> result : items) {
 				printScores(result);
 			}
+			assertThat(items.size(), equalTo(3));
 		}
 	}
 
@@ -134,7 +134,7 @@ public class FuzzyRepositoryTest {
 		Collection<String> scorerAttrNames = score.getScorerAttrNames();
 		
 		for (String attr : scorerAttrNames) {
-			System.out.println(attr + " : fwd=" + score.getForwardsScore(attr) + ", rev=" + score.getReverseScore(attr));
+			System.out.println("    " + attr + " : fwd=" + score.getForwardsScore(attr) + ", rev=" + score.getReverseScore(attr));
 		}
 	}
 
@@ -180,6 +180,7 @@ public class FuzzyRepositoryTest {
 		matt.setAttr("isMale", Boolean.TRUE);
 		matt.setAttr("age", 32f);
 		matt.setAttr("ageRange", new float[]{25f, 32f, 38f}); // A perfect match for own age
+		matt.setAttr("salary", 500000f);
 		return saveOne(matt);
 	}
 
@@ -190,12 +191,14 @@ public class FuzzyRepositoryTest {
 		angelina.setAttr("isMale", Boolean.FALSE);
 		angelina.setAttr("age", 35f);
 		angelina.setAttr("ageRange", new float[]{30f, 37f, 50f});
+		angelina.setAttr("salary", 500000f);
 		saveOne(angelina);
 
 		FuzzyItem brad = new FuzzyItem("Brad");
 		brad.setAttr("isMale", Boolean.FALSE);
 		brad.setAttr("age", 37f);
 		brad.setAttr("ageRange", new float[]{22f, 30f, 40f});
+		brad.setAttr("salary", 550000f);
 		saveOne(brad);
 	}
 }

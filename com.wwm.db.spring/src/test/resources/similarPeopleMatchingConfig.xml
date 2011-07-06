@@ -26,7 +26,8 @@
         <name>similarSalary</name>
         <scorerAttrId>salary</scorerAttrId>
         <otherAttrId>salary</otherAttrId>
-        <expectedRange>2e4f</expectedRange> <!-- Within 20k -->
+        <expectedRange>5e4f</expectedRange> <!-- Within 50k -->
+        <weight>0.7</weight>
     </SimilarFloatValueScorer>
 
     <SimilarFloatValueScorer>
@@ -36,23 +37,5 @@
         <expectedRange>20</expectedRange> 
         <weight>0.7</weight>
     </SimilarFloatValueScorer>
-
-    <FloatRangePreferenceScorer>
-        <name>ageRangeMatch</name>
-        <scorerAttrId>ageRange</scorerAttrId>
-        <otherAttrId>age</otherAttrId>
-        <weight>0.7</weight>
-        <!-- Simple linear scorer falls off to zero at edge of range --> 
-        <scoreMapper class="LinearScoreMapper" />
-        
-        <!-- Asymptotic scorer tends to zero at infinity -->
-<!--         <scoreMapper class="AsymptoticScoreMapper"> -->
-<!--             <squareness>3</squareness>  -->
-            <!-- Will become valueAtBoundary once migrated away from XStream for reading this -->
-<!--              <inverseValueAtBoundary>2.5</inverseValueAtBoundary>  -->
-            <!-- i.e. score is 40% at boundary --> 
-<!--         </scoreMapper> -->
-    </FloatRangePreferenceScorer>
-
 
 </ScoreConfiguration>
