@@ -33,8 +33,8 @@ public class StoreInitializer implements InitializingBean {
         Resource[] resources = resolver.getResources(resourcePath);
 
         for (Resource resource : resources) {
+        	log.info("Loading match style from: {}", resource.getURL());
         	WWConfigHelper.updateScorerConfig(store, resource.getInputStream());
-        	log.info("Loaded match style from: {}", resource.getURL());
 		}
 	}
 
