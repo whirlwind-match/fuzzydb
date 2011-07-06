@@ -16,7 +16,7 @@ import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.server.Database;
 import com.wwm.io.core.Authority;
 
-public class EmbeddedClientFactory implements ClientFactory {
+public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 
 	
 	static private final Logger log = LogFactory.getLogger(EmbeddedClientFactory.class);
@@ -142,5 +142,20 @@ public class EmbeddedClientFactory implements ClientFactory {
 		} catch (UnknownStoreException e) {
 			return client.createStore(url.getPath().substring(1)); // FIXME: substring() to remove leading / should be tidier
 		}
+	}
+
+
+	public void start() {
+	}
+
+
+	public void stop() {
+		shutdownDatabase();
+		instance = null;
+	}
+
+
+	public boolean isRunning() {
+		return !isDatabaseClosed();
 	}
 }
