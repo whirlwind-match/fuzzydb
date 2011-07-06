@@ -12,7 +12,12 @@ package com.wwm.attrs.internal.xstream;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.ConfigurablePropertyAccessor;
+import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -20,8 +25,10 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.path.Path;
 import com.wwm.attrs.WWConfigHelper;
 import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.attrs.enums.EnumExclusiveScorerPreference;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumPreferenceMap;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
@@ -46,6 +53,10 @@ public class TableToPreferenceMapConverter implements Converter {
 
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
 		
+		ConfigurablePropertyAccessor contextBean = PropertyAccessorFactory.forDirectFieldAccess(context);
+		Map<Path,Object> map = (Map<Path, Object>) contextBean.getPropertyValue("values");
+		EnumExclusiveScorerPreference object = (EnumExclusiveScorerPreference) map.get(new Path("/ScoreConfiguration/EnumScoresMapScorer"));
+		
 		String node = reader.getNodeName();
 
 		if (node.equals("map")) {
@@ -57,7 +68,7 @@ public class TableToPreferenceMapConverter implements Converter {
 			String url = reader.getAttribute("url");
 
 			HtmlTableReader table = (url != null) ? readUrl(url) : readInlineTable(reader);
-			return getTableAsEnumPreferenceMap(scorerEnumDef, otherEnumDef, table);
+			return getTableAsEnumPreferenceMap(object.getScorerAttrId(), object.getOtherAttrId(), scorerEnumDef, otherEnumDef, table);
 		}
 		else {
 			// For a raw HTML document, we return the reader result, which then gets processed the line above
@@ -88,13 +99,13 @@ public class TableToPreferenceMapConverter implements Converter {
 	}
 
 	private EnumPreferenceMap getTableAsEnumPreferenceMap( 
-			final EnumDefinition scorerEnumDef, final EnumDefinition otherEnumDef, HtmlTableReader table) {
+			final int scorerAttrId, final int otherAttrId, final EnumDefinition scorerEnumDef, final EnumDefinition otherEnumDef, HtmlTableReader table) {
 		
 		final EnumPreferenceMap map = new EnumPreferenceMap();
 		table.foreachCell( new CellCallback(){
 			public void doCell(int row, String rowHeading, int col, String colHeading, String value) {
-				EnumExclusiveValue scorerAttr = scorerEnumDef.getEnumValue(rowHeading, -1); 
-				EnumExclusiveValue otherAttr = otherEnumDef.getEnumValue(colHeading, -1); 
+				EnumExclusiveValue scorerAttr = scorerEnumDef.getEnumValue(rowHeading, scorerAttrId); 
+				EnumExclusiveValue otherAttr = otherEnumDef.getEnumValue(colHeading, otherAttrId); 
 				map.add(scorerAttr, otherAttr, Float.valueOf(value));
 			}});
 		return map;

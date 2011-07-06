@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.converters.WhirlwindConversionService;
+import com.wwm.attrs.enums.EnumExclusiveValue;
+import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.GenericRef;
@@ -23,6 +25,8 @@ import com.wwm.db.query.ResultIterator;
 import com.wwm.db.query.ResultSet;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
+import com.wwm.model.attributes.EnumAttribute;
+import com.wwm.model.attributes.MultiEnumAttribute;
 
 /**
  * A simple (PoC) Repository implementation that performs a minimal conversion to get attributes
@@ -37,17 +41,9 @@ import com.wwm.db.whirlwind.internal.IAttribute;
  */
 public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> {
 
-	// WIP: This should be configured and injected by XML namespace code
-	private WhirlwindConversionService converter;
-	{ 
-		converter = new WhirlwindConversionService();
-		try {
-			converter.afterPropertiesSet();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
+	@Autowired
+	private WhirlwindConversionService converter; 
+	
 	@Autowired
 	private AttributeDefinitionService attrDefinitionService;
 
@@ -99,8 +95,25 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			String key, Object value) {
 
 		int id = attrDefinitionService.getAttrId(key, value.getClass());
-		IAttribute attr = converter.convert(value, attrDefinitionService.getDbClass(id));
+		Class<? extends IAttribute> dbClass = attrDefinitionService.getDbClass(id);
+		// If can't convert as is, wrap the value based on the db class
+		if (!converter.canConvert(value.getClass(), dbClass)) {
+			// TODO: Generalize this as part of using TypeDescriptor base converters
+			value = wrapValue(key, value, dbClass);
+		}
+		IAttribute attr = converter.convert(value, dbClass);
 		result.getAttributeMap().put(id, attr);
+	}
+
+	
+	private Object wrapValue(String key, Object value, Class<? extends IAttribute> dbClass) {
+		if (dbClass.equals(EnumExclusiveValue.class)) {
+			return new EnumAttribute(key, null, (String)value);
+		}
+		if (dbClass.equals(EnumMultipleValue.class)) {
+			return new MultiEnumAttribute(key, null, (String[])value);
+		}
+		return value;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -109,6 +122,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		return (Map<String, Object>) attrs;
 	}
 
+	@SuppressWarnings("unchecked")
 	private T createInstance(BlobStoringWhirlwindItem internal) {
 		try {
 		if (internal.getBlob() != null) {

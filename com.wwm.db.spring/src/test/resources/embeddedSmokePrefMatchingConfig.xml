@@ -12,9 +12,7 @@
 					<title>Various enum preferences</title>
 				</head>
 				<body>
-					<table id="smokePrefMap" scorerEnumDefinition="smoke"
-						otherEnumDefinition="smoke" border="1" cellpadding="2"
-						cellspacing="2" width="100%">
+					<table border="1" cellpadding="2" cellspacing="2" width="100%">
 						<tbody>
 							<tr>
 								<th valign="top">searchAttr (down) /OtherAttr (across)</th>
@@ -81,7 +79,6 @@
 							</tr>
 						</tbody>
 					</table>
-
 				</body>
 			</html>
 		</map>

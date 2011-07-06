@@ -13,6 +13,6 @@
 		<otherAttrId>smoke</otherAttrId>
 		<filter>false</filter>
 		<weight>1.0</weight>
-	    <map scorerEnumDefinition="Smoke" otherEnumDefinition="Smoke" url="classpath:/smokeEnumMap.html"/>
+	    <map scorerEnumDefinition="smokeDef" otherEnumDefinition="smokeDef" url="classpath:/smokeEnumMap.html"/>
 	</EnumScoresMapScorer>
 </ScoreConfiguration>
