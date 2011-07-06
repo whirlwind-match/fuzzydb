@@ -108,10 +108,10 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	
 	private Object wrapValue(String key, Object value, Class<? extends IAttribute> dbClass) {
 		if (dbClass.equals(EnumExclusiveValue.class)) {
-			return new EnumAttribute(key, null, (String)value);
+			return new EnumAttribute(key, "not used", (String)value);
 		}
 		if (dbClass.equals(EnumMultipleValue.class)) {
-			return new MultiEnumAttribute(key, null, (String[])value);
+			return new MultiEnumAttribute(key, "not used", (String[])value);
 		}
 		return value;
 	}
