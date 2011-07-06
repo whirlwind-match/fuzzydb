@@ -10,6 +10,7 @@
  *****************************************************************************/
 package com.wwm.attrs.internal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.wwm.attrs.AttributeDefinitionService;
@@ -46,7 +47,8 @@ public class CurrentTxAttrDefinitionMgr implements AttributeDefinitionService {
 
 	private Store store; 
 
-    private CurrentTxAttrDefinitionMgr(Store store) {
+	@Autowired
+    public CurrentTxAttrDefinitionMgr(Store store) {
         this.store = store;
     }
 

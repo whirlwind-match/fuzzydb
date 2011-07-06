@@ -19,9 +19,14 @@
 	<fuzzy:tx-manager />
 	<fuzzy:initialize match-styles="classpath*:*MatchingConfig.xml" />	
 
-	<bean id="attributeDefinitionService" class="com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr">
-        <constructor-arg ref="store"/>
-    </bean>
+
+	<!-- All of below will be the following one line:
+			<fuzzy:repository class="com.wwm.db.spring.repository.FuzzyItem"/>
+	 -->
+
+	<bean id="attributeDefinitionService" class="com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr"/>
+
+	<bean id="conversionService" class="com.wwm.attrs.converters.WhirlwindConversionService"/>
 
 	<bean id="repository" class="com.wwm.db.spring.repository.SimpleMappingFuzzyRepository">
 		<constructor-arg value="com.wwm.db.spring.repository.FuzzyItem"/>
