@@ -29,7 +29,6 @@ import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
 import com.wwm.attrs.internal.xstream.AttributeIdMapper;
 import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
-import com.wwm.attrs.internal.xstream.UrlToPreferenceMapConverter;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
 import com.wwm.db.Store;
 import com.wwm.util.DynamicRef;
