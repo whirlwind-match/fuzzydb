@@ -37,5 +37,14 @@
         <expectedRange>20</expectedRange> 
         <weight>0.7</weight>
     </SimilarFloatValueScorer>
+    
+	<EnumScoresMapScorer>
+        <name>compatibleSmoking</name>
+		<scorerAttrId>smoke</scorerAttrId>
+		<otherAttrId>smoke</otherAttrId>
+		<filter>false</filter>
+		<weight>0.7</weight>
+	    <map scorerEnumDefinition="smokeDef" otherEnumDefinition="smokeDef" url="classpath:/smokeEnumMap.html"/>
+	</EnumScoresMapScorer>
 
 </ScoreConfiguration>
