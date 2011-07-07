@@ -41,6 +41,6 @@
     </whirlwind.demo.gui.searchtabs.SearchTabXmlConfig>
   </searchTabs>  
     
-  <primaryScorerCfg>LiftShare</primaryScorerCfg>
+  <primaryScorerCfg>All</primaryScorerCfg>
   
 </whirlwind.config.gui.WhirlwindDemoConfig>

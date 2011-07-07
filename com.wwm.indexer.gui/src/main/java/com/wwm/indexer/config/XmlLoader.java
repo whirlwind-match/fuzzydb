@@ -89,8 +89,6 @@ public class XmlLoader {
         new ResourcePatternProcessor(){
 			@Override
 			protected Closeable process(Resource resource) throws IOException {
-//            String filename = file.getName();
-//            String name = filename.substring(0, filename.indexOf('.'));
 				InputStream stream = resource.getInputStream();
 				WWConfigHelper.updateIndexConfig(store, stream);
 				return stream;
@@ -135,39 +133,15 @@ public class XmlLoader {
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
-        // SCORERS
-        // ----------------------------------------------------------------
-        //        XStream scorerXStream = new XStream();
-        //        scorerXStream.registerConverter(new AttributeIdMapper(attrDefs));
-        //        addOurAliases(scorerXStream);
-        //        scorers = XmlLoader.load(scorerXStream, Scorer.class, xmlPath + "/scorers");
-        // ----------------------------------------------------------------
-
-        // ----------------------------------------------------------------
-        // SCORERCFGS
-        // ----------------------------------------------------------------
-        //        XStream scorerCfgXStream = new XStream();
-        //        scorerCfgXStream.registerConverter(new XmlNameMapper<Scorer>(Scorer.class, scorers));
-        //        addOurAliases(scorerCfgXStream);
-        //        scorerCfgs = XmlLoader.load(scorerCfgXStream, ArrayList.class, xmlPath + "/scorercfgs");
-        // ----------------------------------------------------------------
-
-        // ----------------------------------------------------------------
         // SPLITTERS
         // ----------------------------------------------------------------
-        //        XStream splitterXStream = new XStream();
-        //        splitterXStream.registerConverter(new AttributeIdMapper(attrDefs));
-        //        splitterXStream.registerConverter(new XmlNameMapper<EnumDefinition>(EnumDefinition.class, enumDefs));
-        //        TreeMap<String, SplitConfiguration> splitters = XmlLoader.load(splitterXStream, SplitConfiguration.class, xmlPath + "/indexsplitters");
-        //        // ----------------------------------------------------------------
-        //
         //        // ----------------------------------------------------------------
         //        // INDEX STRATEGIES
         //        // ----------------------------------------------------------------
         //        XStream strategyXStream = new XStream();
         //        strategyXStream.registerConverter(new XmlNameMapper<SplitConfiguration>(SplitConfiguration.class, splitters));
         //        addScorerAliases(strategyXStream);
-        //        strategyCfgs = XmlLoader.load(strategyXStream, ArrayList.class, xmlPath + "/indexstrategies");
+        //        strategyCfgs = XmlLoader.load(strategyXStream, ArrayList.class, xmlPath + "/indexstrategies/*.xml");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------

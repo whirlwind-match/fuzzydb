@@ -1,6 +1,0 @@
-<linked-list class="java.util.ArrayList">
-	<Scorer>wantGender - Gender.xml</Scorer>
-    <Scorer>SimilarAge.xml</Scorer>
-    <Scorer>LinearStartLocation.xml</Scorer>
-    <Scorer>LinearEndLocation.xml</Scorer>
-</linked-list>
