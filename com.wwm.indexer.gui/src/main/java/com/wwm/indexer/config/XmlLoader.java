@@ -4,15 +4,15 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
+
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.SplitConfiguration;
@@ -121,9 +121,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ATTRIBUTES
         // ----------------------------------------------------------------
-        String resources = xmlPath + "/attributes/*.xml";
-        DynamicRef<? extends AttributeDefinitionService> attrDefService = attrDefs;
-		attributes = (TreeMap<String, Object>) XStreamHelper.loadAttributeDefs(resources, attrDefService);
+        attributes = (TreeMap<String, Object>) XStreamHelper.loadAttributeDefs(xmlPath + "/attributes/*.xml", attrDefs);
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------

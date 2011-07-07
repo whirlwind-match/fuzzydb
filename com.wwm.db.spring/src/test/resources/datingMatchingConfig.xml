@@ -8,12 +8,12 @@
         <weight>0.7</weight>
     </BooleanScorer>
 
-    <EnumMatchScorer>
+    <MultiEnumScorer>
         <name>newspapers</name>
         <scorerAttrId>newspapers</scorerAttrId>
         <otherAttrId>newspapers</otherAttrId>
         <weight>0.7</weight>
-    </EnumMatchScorer>        
+    </MultiEnumScorer>        
 
     <SimilarFloatValueScorer>
         <name>similarSalary</name>
