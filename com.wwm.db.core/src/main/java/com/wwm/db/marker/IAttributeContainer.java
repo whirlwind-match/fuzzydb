@@ -21,7 +21,6 @@ public interface IAttributeContainer {
 
 	/**
 	 * All attribute maps sent to the server must be able to deliver a representation that the server expects
-	 * FIXME: This isn't actually used on the server, as other interfaces provide this functionality
 	 */
 	IAttributeMap<IAttribute> getAttributeMap();
 
