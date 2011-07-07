@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 
 import com.thoughtworks.xstream.XStream;
 import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.attrs.internal.xstream.HtmlTableReader;
@@ -56,7 +55,7 @@ public class WWConfigHelper {
 	/**
 	 * Expects XHTML input with 1 table in it
 	 */
-	public static HtmlTableReader readEnumDefs(DynamicRef<? extends AttrDefinitionMgr> mgr, InputStream inputStream) {
+	public static HtmlTableReader readEnumDefs(DynamicRef<? extends AttributeDefinitionService> mgr, InputStream inputStream) {
     	XStream xs = XStreamHelper.getScorerXStream(mgr);
         xs.setClassLoader( WWConfigHelper.class.getClassLoader() );
         xs.alias("html", HtmlTableReader.class);

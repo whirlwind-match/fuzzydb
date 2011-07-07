@@ -1,0 +1,11 @@
+<EnumDefinition name="newspapers">
+    <string>Guardian</string>
+    <string>Times</string>
+    <string>Sun</string>
+
+    <string>Daily Mail</string>
+    <string>New York Times</string>
+    <string>LA Times</string>
+    
+    <!-- Remember to update size in the splitConfiguration -->
+</EnumDefinition>

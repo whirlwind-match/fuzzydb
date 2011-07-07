@@ -298,7 +298,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         		|| clazz.isAssignableFrom(LocationAttribute.class)		// i.e. the Postcode, which doesn't go in the index
                 || clazz.isAssignableFrom(IntegerRangeAttribute.class)  // TODO: Need to add support for this including codecs (for now, use FloatRange..)
                 || clazz.isAssignableFrom(Date.class)  // FIXME: Need to add DateAttribute and converters to/from Float
-                || clazz.isAssignableFrom(String.class)) {
+                || clazz.isAssignableFrom(String[].class)
+        		|| clazz.isAssignableFrom(String.class)) {
             return UNKNOWN_CLASS; // actually it's known and non-indexed
         }
 
@@ -364,7 +365,9 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
 	}
 
 	public EnumDefinition getEnumDefForAttrId( int attrId ){
-		return attrIdsToDef.get(attrId);
+		EnumDefinition enumDefinition = attrIdsToDef.get(attrId);
+		enumDefinition.setMgr(this);
+		return enumDefinition;
 	}
 
     final public void syncToStore() {

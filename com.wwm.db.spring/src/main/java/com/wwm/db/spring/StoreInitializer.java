@@ -1,5 +1,10 @@
 package com.wwm.db.spring;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +13,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.WWConfigHelper;
+import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.context.JVMAppListener;
@@ -18,7 +24,8 @@ import com.wwm.util.DynamicRef;
 /**
  * Intialise store with attribute and scorer configuration.
  * 
- * By default will look in classpath:/attribute/*.xml for attribute definitions.
+ * By default will look in classpath*:/attribute/*.xml for attribute definitions,
+ * and classpath*:/enums/*.xml for enum definitions
  * 
  * @author Neale Upstone
  *
@@ -45,8 +52,19 @@ public class StoreInitializer implements InitializingBean {
         
         // Init by convention for now
         DynamicRef<? extends AttributeDefinitionService> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
-        XStreamHelper.loadAttributeDefs(autoResourceBase + "/attributes/*.xml", attrDefs);
+        Map<String, Object> loadAttributeDefs = XStreamHelper.loadAttributeDefs(autoResourceBase + "/attributes/*.xml", attrDefs);
         
+        TreeMap<String, EnumDefinition> loadEnumDefs = XStreamHelper.loadEnumDefs(autoResourceBase + "/enums/*.xml", attrDefs);
+        
+        for (Entry<String, EnumDefinition> def : loadEnumDefs.entrySet()) {
+        	// recreate with ADS
+			EnumDefinition value = def.getValue();
+			EnumDefinition newDef = attrDefs.getObject().getEnumDefinition(value.getName());
+			ArrayList<String> values = def.getValue().getValues();
+			newDef.getMultiEnum((String[]) values.toArray(new String[values.size()]), -1);
+		}
+        
+
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources(resourcePath);
 

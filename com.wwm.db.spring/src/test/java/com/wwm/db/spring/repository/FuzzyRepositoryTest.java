@@ -184,6 +184,7 @@ public class FuzzyRepositoryTest {
 		matt.setAttr("ageRange", new float[]{25f, 32f, 38f}); // A perfect match for own age
 		matt.setAttr("salary", 500000f);
 		matt.setAttr("smoke", "Cigar-smoker");
+		matt.setAttr("newspapers", new String[]{"LA Times", "New York Times"});
 		return saveOne(matt);
 	}
 

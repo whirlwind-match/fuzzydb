@@ -13,40 +13,22 @@ import org.springframework.core.io.Resource;
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.SplitConfiguration;
 import com.wwm.attrs.WWConfigHelper;
 import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.bool.BooleanScorer;
-import com.wwm.attrs.bool.BooleanSplitConfiguration;
-import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
+import com.wwm.attrs.XMLAliases;
 import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.enums.EnumExclusiveScorerExclusive;
-import com.wwm.attrs.enums.EnumExclusiveScorerPreference;
-import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
-import com.wwm.attrs.enums.MultiEnumScorer;
-import com.wwm.attrs.enums.SeatsScorer;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.attrs.internal.xstream.AttributeIdMapper;
 import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.attrs.internal.xstream.XmlNameMapper;
-import com.wwm.attrs.location.LocationAndRangeScorer;
-import com.wwm.attrs.location.PathDeviationScorer;
-import com.wwm.attrs.location.VectorDistanceScorer;
-import com.wwm.attrs.simple.FloatRangePreferenceScorer;
-import com.wwm.attrs.simple.FloatSplitConfiguration;
-import com.wwm.attrs.simple.SimilarFloatValueScorer;
-import com.wwm.attrs.simple.WeightedSumScorer;
 import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.internal.random.RandomGenerator;
-import com.wwm.util.AsymptoticScoreMapper;
 import com.wwm.util.DynamicRef;
-import com.wwm.util.LinearScoreMapper;
 import com.wwm.util.ResourcePatternProcessor;
 
 
@@ -111,11 +93,13 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ENUMS
         // ----------------------------------------------------------------
-        enumDefs = XStreamHelper.loadResources(getEnumXStream(), EnumDefinition.class, xmlPath + "/enums/*.xml");
-        for (Entry<String, EnumDefinition> entry : enumDefs.entrySet()) {
-            String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
-            conf.add(strippedName, entry.getValue());
-        }
+        enumDefs = XStreamHelper.loadEnumDefs(xmlPath + "/enums/*.xml", attrDefs);
+        
+		for (Entry<String, EnumDefinition> entry : enumDefs.entrySet()) {
+			String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
+			conf.add(strippedName, entry.getValue());
+		}  
+
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -158,18 +142,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
     }
 
-	public static XStream getEnumXStream() {
-        Store store = IndexerFactory.getCurrentStore();
-        DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
-        XStream xs = new XStream();
-        xs.registerConverter(new AttributeIdMapper(attrDefs));
-        addEnumAliases(xs);
-        return xs;
-    }
-
-
-
-    public static XStream getScorerXStream() {
+	public static XStream getScorerXStream() {
         Store store = IndexerFactory.getCurrentStore();
         DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
         XStream scorerXStream = new XStream();
@@ -184,72 +157,17 @@ public class XmlLoader {
         DynamicRef<SyncedAttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
         XStream xs = new XStream();
         xs.registerConverter(new AttributeIdMapper(attrDefs));
-        addIndexConfigAliases(xs);
+        XMLAliases.applyIndexConfigAliases(xs);
         return xs;
     }
 
 
-    static private void addEnumAliases(XStream xStream) {
-        // ScoreConfiguration
-        xStream.alias("EnumDefinition", EnumDefinition.class);
-        xStream.useAttributeFor(EnumDefinition.class, "name");
-        // ensure contained elements are added to scorersList
-        xStream.addImplicitCollection(EnumDefinition.class, "strValues");
-    }
-
     static private void addScorerAliases(XStream xStream) {
-        // ScoreConfiguration
-        xStream.alias("ScoreConfiguration", ScoreConfiguration.class);
-        xStream.useAttributeFor(ScoreConfiguration.class, "name");
-        // ensure contained elements are added to scorersList
-        xStream.addImplicitCollection(ScoreConfiguration.class, "scorersList");
+        XMLAliases.applyScorerAliases(xStream);
 
-        // Scorers
-        xStream.alias("Scorer", Scorer.class);
-        xStream.useAttributeFor(Scorer.class, "name");
-
-        xStream.alias("BooleanScorer", BooleanScorer.class);
-        xStream.alias("EnumExclusiveScorerExclusive", EnumExclusiveScorerExclusive.class);
-        xStream.alias("EnumMatchScorer", EnumExclusiveScorerExclusive.class);
-        xStream.alias("EnumScoresMapScorer", EnumExclusiveScorerPreference.class);
-        
-        xStream.alias("MultiEnumScorer", MultiEnumScorer.class);
-        
-        xStream.alias("SimilarFloatValueScorer", SimilarFloatValueScorer.class);
-        xStream.alias("FloatRangePreferenceScorer", FloatRangePreferenceScorer.class);
-        xStream.alias("WeightedSumScorer", WeightedSumScorer.class);
-
-        xStream.alias("LocationAndRangeScorer", LocationAndRangeScorer.class);
-        xStream.alias("PathDeviationScorer", PathDeviationScorer.class);
-        xStream.alias("VectorDistanceScorer", VectorDistanceScorer.class);
-
-        xStream.alias("SeatsScorer", SeatsScorer.class);
-        xStream.alias("PathDeviationScorer", PathDeviationScorer.class);
-
-        
-        xStream.alias("LinearScoreMapper", LinearScoreMapper.class);
-        xStream.alias("AsymptoticScoreMapper", AsymptoticScoreMapper.class);
     }
 
-
-    static private void addIndexConfigAliases(XStream xStream) {
-        // IndexStrategy
-        xStream.alias("ManualPriorities", ManualIndexStrategy.class);
-        xStream.useAttributeFor(ManualIndexStrategy.class, "name");
-        // ensure contained elements are added to splitConfigurations
-        xStream.addImplicitCollection(ManualIndexStrategy.class, "splitConfigurations");
-
-        // Split config stuff
-        xStream.alias("Splitter", SplitConfiguration.class);
-        xStream.alias("BooleanSplitConfiguration", BooleanSplitConfiguration.class);
-        xStream.alias("DimensionSplitConfiguration", DimensionSplitConfiguration.class);
-        xStream.alias("EnumExclusiveSplitConfiguration", EnumExclusiveSplitConfiguration.class);
-        // xStream.alias("EnumMultiValueSplitConfiguration", EnumMultiValueSplitConfiguration.class);
-        xStream.alias("FloatSplitConfiguration", FloatSplitConfiguration.class);
-        // xStream.alias("RangeSplitConfiguration", RangeSplitConfiguration.class);
-    }
-
-    public TreeMap<String, Object> getAttributes() {
+	public TreeMap<String, Object> getAttributes() {
         return attributes;
     }
 

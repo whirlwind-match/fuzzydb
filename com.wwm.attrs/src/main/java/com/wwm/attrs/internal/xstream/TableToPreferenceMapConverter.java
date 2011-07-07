@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.ConfigurablePropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -26,19 +24,19 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.path.Path;
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.WWConfigHelper;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveScorerPreference;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumPreferenceMap;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.util.DynamicRef;
 
 public class TableToPreferenceMapConverter implements Converter {
 
-    private final DynamicRef<? extends AttrDefinitionMgr> mgr;
+    private final DynamicRef<? extends AttributeDefinitionService> mgr;
 
-	public TableToPreferenceMapConverter(DynamicRef<? extends AttrDefinitionMgr> wrapper) {
+	public TableToPreferenceMapConverter(DynamicRef<? extends AttributeDefinitionService> wrapper) {
 		mgr = wrapper;
 	}
 
@@ -54,6 +52,7 @@ public class TableToPreferenceMapConverter implements Converter {
 	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
 		
 		ConfigurablePropertyAccessor contextBean = PropertyAccessorFactory.forDirectFieldAccess(context);
+		@SuppressWarnings("unchecked")
 		Map<Path,Object> map = (Map<Path, Object>) contextBean.getPropertyValue("values");
 		EnumExclusiveScorerPreference object = (EnumExclusiveScorerPreference) map.get(new Path("/ScoreConfiguration/EnumScoresMapScorer"));
 		

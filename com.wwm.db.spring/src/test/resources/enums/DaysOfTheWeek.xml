@@ -1,0 +1,10 @@
+<EnumDefinition name="DaysOfTheWeek">
+    <string>Mon</string>
+    <string>Tue</string>
+    <string>Wed</string>
+    <string>Thr</string>
+    <string>Fri</string>
+    <string>Sat</string>
+    <string>Sun</string>
+    <!-- Remember to update size in the splitConfiguration -->    
+</EnumDefinition>

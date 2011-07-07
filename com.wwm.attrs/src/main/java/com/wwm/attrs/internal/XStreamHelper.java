@@ -20,23 +20,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.springframework.core.io.Resource;
 
 import com.thoughtworks.xstream.XStream;
 import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.ManualIndexStrategy;
-import com.wwm.attrs.Scorer;
-import com.wwm.attrs.SplitConfiguration;
 import com.wwm.attrs.XMLAliases;
-import com.wwm.attrs.bool.BooleanSplitConfiguration;
-import com.wwm.attrs.dimensions.DimensionSplitConfiguration;
-import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
+import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.internal.xstream.AttributeIdMapper;
 import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
-import com.wwm.attrs.simple.FloatSplitConfiguration;
 import com.wwm.db.Store;
 import com.wwm.util.DynamicRef;
 import com.wwm.util.ResourcePatternProcessor;
@@ -53,11 +47,11 @@ public class XStreamHelper {
         return getScorerXStream(attrDefs);
     }
 
-	public static XStream getScorerXStream(DynamicRef<? extends AttrDefinitionMgr> attrDefs) {
+	public static XStream getScorerXStream(DynamicRef<? extends AttributeDefinitionService> attrDefs) {
 		XStream scorerXStream = new XStream();
         scorerXStream.registerConverter(new AttributeIdMapper(attrDefs));
         scorerXStream.registerConverter( new TableToPreferenceMapConverter(attrDefs));
-        addScorerAliases(scorerXStream);
+        XMLAliases.applyScorerAliases(scorerXStream);
         return scorerXStream;
 	}
 
@@ -65,47 +59,22 @@ public class XStreamHelper {
         DynamicRef<SyncedAttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
         XStream xs = new XStream();
         xs.registerConverter(new AttributeIdMapper(attrDefs));
-        addIndexConfigAliases(xs);
+        XMLAliases.applyIndexConfigAliases(xs);
         return xs;
     }
 
-
-    static private void addScorerAliases(XStream xStream) {
-        // ScoreConfiguration
-        xStream.alias("ScoreConfiguration", ScoreConfiguration.class);
-        xStream.useAttributeFor(ScoreConfiguration.class, "name");
-        // ensure contained elements are added to scorersList
-        xStream.addImplicitCollection(ScoreConfiguration.class, "scorersList");
-
-        // Scorers
-        xStream.alias("Scorer", Scorer.class);
-        xStream.useAttributeFor(Scorer.class, "name");
-
-        
-        // Add all the scorer aliases
-        for (Entry<String, Class<?>> entry : XMLAliases.getScorerAliases().entrySet() ) {
-			xStream.alias(entry.getKey(), entry.getValue());
-		}
+	public static XStream getEnumXStream(Store store) {
+        DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
+        return getEnumXStream(attrDefs);
     }
 
-
-    static private void addIndexConfigAliases(XStream xStream) {
-        // IndexStrategy
-        xStream.alias("ManualPriorities", ManualIndexStrategy.class);
-        xStream.useAttributeFor(ManualIndexStrategy.class, "name");
-        // ensure contained elements are added to splitConfigurations
-        xStream.addImplicitCollection(ManualIndexStrategy.class, "splitConfigurations");
-
-        // Split config stuff
-        xStream.alias("Splitter", SplitConfiguration.class);
-        xStream.alias("BooleanSplitConfiguration", BooleanSplitConfiguration.class);
-        xStream.alias("DimensionSplitConfiguration", DimensionSplitConfiguration.class);
-        xStream.alias("EnumExclusiveSplitConfiguration", EnumExclusiveSplitConfiguration.class);
-        // xStream.alias("EnumMultiValueSplitConfiguration", EnumMultiValueSplitConfiguration.class);
-        xStream.alias("FloatSplitConfiguration", FloatSplitConfiguration.class);
-        // xStream.alias("RangeSplitConfiguration", RangeSplitConfiguration.class);
-    }
-
+	public static XStream getEnumXStream(
+			DynamicRef<? extends AttributeDefinitionService> attrDefs) {
+		XStream xs = new XStream();
+        xs.registerConverter(new AttributeIdMapper(attrDefs));
+        XMLAliases.applyEnumAliases(xs);
+        return xs;
+	}
 
 
     public static <T> TreeMap<String, T> load(XStream xstream, Class<T> clazz, String xmlPath) {
@@ -159,9 +128,9 @@ public class XStreamHelper {
 				
 	    return result;
 	}
-
 	public static Map<String, Object> loadAttributeDefs(String resources,
 			DynamicRef<? extends AttributeDefinitionService> attrDefService) {
+		AttributeDefinitionService ads = attrDefService.getObject();
 		
 		XStream xstream = new XStream();
 		xstream.alias("EnumAttributeSpec", EnumAttributeSpec.class);
@@ -170,14 +139,22 @@ public class XStreamHelper {
 	    for (Entry<String, Object> entry : loaded.entrySet()) {
 	        String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
 	        if (entry.getValue() instanceof Class) {
-	        	attrDefService.getObject().getAttrId(strippedName, (Class<?>) entry.getValue());
+	        	ads.getAttrId(strippedName, (Class<?>) entry.getValue());
 	        } else if (entry.getValue() instanceof EnumAttributeSpec) {
 	            EnumAttributeSpec enumspec = (EnumAttributeSpec) entry.getValue();
-	            attrDefService.getObject().getAttrId(strippedName, enumspec.clazz);
+	            int attrId = ads.getAttrId(strippedName, enumspec.clazz);
+	            EnumDefinition enumDefinition = ads.getEnumDefinition(enumspec.enumdef);
+	            ads.associateAttrToEnumDef(attrId, enumDefinition);
 	        }
 	    }
 	    return loaded;
 	}
 
+	public static TreeMap<String, EnumDefinition> loadEnumDefs(String resources,
+			DynamicRef<? extends AttributeDefinitionService> attrDefService) {
+		XStream enumXStream = XStreamHelper.getEnumXStream(attrDefService);
+		TreeMap<String, EnumDefinition> enumDefs = XStreamHelper.loadResources(enumXStream, EnumDefinition.class, resources);
+        return enumDefs;
 
+	}
 }
