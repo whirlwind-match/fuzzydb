@@ -66,15 +66,18 @@ public class DumbOrderedSearch<T> implements Search {
         this.nominee = nominee;
         this.config = config;
 
+        if ( log.isInfoEnabled() ){
+        	log.info( "New Search: threshold = " + spec.getScoreThreshold()
+        			+ ", targetNumResults = " + spec.getTargetNumResults()
+        			+ ", searchType = " + spec.getScorerConfig() );
+        }
+
+        NanoTimer timer = new NanoTimer();
         resultsQ = new ResultsQ(spec.getMaxNonMatches(), spec.getScoreThreshold(), spec.getTargetNumResults());
 
-        fillResultsQ();
+        fillResultsQ(); // FIXME: This should be on demand until we have sufficient results, and remembe where we got to
 
-        if ( log.isInfoEnabled() ){
-            log.info( "New Search: threshold = " + spec.getScoreThreshold()
-                    + ", targetNumResults = " + spec.getTargetNumResults()
-                    + ", searchType = " + spec.getScorerConfig() );
-        }
+        logResults(timer);
     }
 
     private void fillResultsQ() {
@@ -88,6 +91,7 @@ public class DumbOrderedSearch<T> implements Search {
                 resultsQ.add(newItem);
             }
             if (indexed++ > INDEX_ABORT_LIMIT) {
+            	log.warn("Aborted dumb search after " + INDEX_ABORT_LIMIT +" items.  Perhaps you want the accelerator pack ;)");
                 break; // FIXME: Need to inform user/upper layers that limit was reached
             }
         }
@@ -114,22 +118,21 @@ public class DumbOrderedSearch<T> implements Search {
      */
     public ArrayList<NextItem> getNextResults(int limit)
     {
-        NanoTimer timer = new NanoTimer();
         ArrayList<NextItem> results = new ArrayList<NextItem>();
         while (results.size() < limit) {
 
             // If the result q is empty, return what we've got as that's the end.
             if  (resultsQ.isEmpty()) {
-                logResults(timer, results);
+            	logResults(results);
                 return results;
             }
             results.add( resultsQ.pop() );
         }
-        logResults(timer, results);
+    	logResults(results);
         return results;
     }
 
-    private void logResults(NanoTimer timer, ArrayList<NextItem> results) {
+    private void logResults(NanoTimer timer) {
 
         float t = timer.getMillis();
 
@@ -137,15 +140,13 @@ public class DumbOrderedSearch<T> implements Search {
             searchStartTime = System.currentTimeMillis();
         }
 
-
         // Log some info about the work done
         if ( log.isInfoEnabled() ) {
-            log.info( "# results: " + results.size()
-                    + ", Time (ms): " + timer.getMillis()
+            log.info( "Queued " + resultsQ.size() +
+            		" results.  Time (ms): " + timer.getMillis()
             );
         }
 
-        totalResults += results.size();
         searchTime += t;
         searchCount++;
 
@@ -163,6 +164,17 @@ public class DumbOrderedSearch<T> implements Search {
             searchCount = 0;
             totalResults = 0;
         }
+    }
+
+    private void logResults(ArrayList<NextItem> results) {
+
+        // Log some info about the work done
+        if ( log.isInfoEnabled() ) {
+            log.info( "# results: " + results.size()
+            );
+        }
+
+        totalResults += results.size();
     }
 
 
