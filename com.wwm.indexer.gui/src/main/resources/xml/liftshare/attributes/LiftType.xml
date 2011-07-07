@@ -1,4 +1,4 @@
-<com.wwm.indexer.internal.EnumAttributeSpec>
+<EnumAttributeSpec>
 	<clazz>com.wwm.attrs.enums.EnumValue</clazz>
 	<enumdef>LiftType</enumdef>
-</com.wwm.indexer.internal.EnumAttributeSpec>
+</EnumAttributeSpec>

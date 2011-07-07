@@ -10,16 +10,23 @@
  *****************************************************************************/
 package com.wwm.attrs.internal;
 
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.springframework.core.io.Resource;
+
 import com.thoughtworks.xstream.XStream;
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.SplitConfiguration;
@@ -32,6 +39,7 @@ import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
 import com.wwm.db.Store;
 import com.wwm.util.DynamicRef;
+import com.wwm.util.ResourcePatternProcessor;
 
 
 public class XStreamHelper {
@@ -131,6 +139,45 @@ public class XStreamHelper {
         };
         return inputPath.listFiles(filter);
     }
+
+	/**
+	 * De-Xstream the resources of type clazz from the specfied resource wildcard
+	 * @param resources e.g. classpath:enums/*.xml
+	 * @return
+	 */
+	public static <T> TreeMap<String, T> loadResources(final XStream xstream, final Class<T> clazz, String resources) {
+	    final TreeMap<String, T> result = new TreeMap<String, T>();
+	
+	    new ResourcePatternProcessor(){
+			@Override
+			protected Closeable process(Resource resource) throws IOException {
+				InputStream stream = resource.getInputStream();
+				result.put(resource.getFilename(), clazz.cast(xstream.fromXML(stream)));
+				return stream;
+			}
+	    }.runWithResources(resources);
+				
+	    return result;
+	}
+
+	public static Map<String, Object> loadAttributeDefs(String resources,
+			DynamicRef<? extends AttributeDefinitionService> attrDefService) {
+		
+		XStream xstream = new XStream();
+		xstream.alias("EnumAttributeSpec", EnumAttributeSpec.class);
+
+		TreeMap<String, Object> loaded = loadResources(xstream, Object.class, resources);
+	    for (Entry<String, Object> entry : loaded.entrySet()) {
+	        String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
+	        if (entry.getValue() instanceof Class) {
+	        	attrDefService.getObject().getAttrId(strippedName, (Class<?>) entry.getValue());
+	        } else if (entry.getValue() instanceof EnumAttributeSpec) {
+	            EnumAttributeSpec enumspec = (EnumAttributeSpec) entry.getValue();
+	            attrDefService.getObject().getAttrId(strippedName, enumspec.clazz);
+	        }
+	    }
+	    return loaded;
+	}
 
 
 }

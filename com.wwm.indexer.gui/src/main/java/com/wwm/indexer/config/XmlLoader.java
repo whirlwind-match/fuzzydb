@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.SplitConfiguration;
@@ -29,6 +30,7 @@ import com.wwm.attrs.enums.SeatsScorer;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
+import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.attrs.internal.xstream.AttributeIdMapper;
 import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.attrs.internal.xstream.XmlNameMapper;
@@ -41,7 +43,6 @@ import com.wwm.attrs.simple.SimilarFloatValueScorer;
 import com.wwm.attrs.simple.WeightedSumScorer;
 import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
-import com.wwm.indexer.internal.EnumAttributeSpec;
 import com.wwm.indexer.internal.random.RandomGenerator;
 import com.wwm.util.AsymptoticScoreMapper;
 import com.wwm.util.DynamicRef;
@@ -110,7 +111,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ENUMS
         // ----------------------------------------------------------------
-        enumDefs = load(getEnumXStream(), EnumDefinition.class, xmlPath + "/enums/*.xml");
+        enumDefs = XStreamHelper.loadResources(getEnumXStream(), EnumDefinition.class, xmlPath + "/enums/*.xml");
         for (Entry<String, EnumDefinition> entry : enumDefs.entrySet()) {
             String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
             conf.add(strippedName, entry.getValue());
@@ -120,16 +121,9 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ATTRIBUTES
         // ----------------------------------------------------------------
-        attributes = XmlLoader.load(new XStream(), Object.class, xmlPath + "/attributes/*.xml");
-        for (Entry<String, Object> entry : attributes.entrySet()) {
-            String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
-            if (entry.getValue() instanceof Class) {
-                attrDefs.getObject().getAttrId(strippedName, (Class<?>) entry.getValue());
-            } else if (entry.getValue() instanceof EnumAttributeSpec) {
-                EnumAttributeSpec enumspec = (EnumAttributeSpec) entry.getValue();
-                attrDefs.getObject().getAttrId(strippedName, enumspec.clazz);
-            }
-        }
+        String resources = xmlPath + "/attributes/*.xml";
+        DynamicRef<? extends AttributeDefinitionService> attrDefService = attrDefs;
+		attributes = (TreeMap<String, Object>) XStreamHelper.loadAttributeDefs(resources, attrDefService);
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -149,7 +143,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         XStream randXStream = new XStream();
         randXStream.registerConverter(new XmlNameMapper<EnumDefinition>(EnumDefinition.class, enumDefs));
-        randGenerators = XmlLoader.load(randXStream, RandomGenerator.class, xmlPath + "/randomisers/*.xml");
+        randGenerators = XStreamHelper.loadResources(randXStream, RandomGenerator.class, xmlPath + "/randomisers/*.xml");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -166,7 +160,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
     }
 
-    public static XStream getEnumXStream() {
+	public static XStream getEnumXStream() {
         Store store = IndexerFactory.getCurrentStore();
         DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
         XStream xs = new XStream();
@@ -288,27 +282,6 @@ public class XmlLoader {
     public String getXmlPath() {
         return xmlPath;
     }
-
-    /**
-     * De-Xstream the resources of type clazz from the specfied resource wildcard
-     * @param resources e.g. classpath:enums/*.xml
-     * @return
-     */
-    public static <T> TreeMap<String, T> load(final XStream xstream, final Class<T> clazz, String resources) {
-        final TreeMap<String, T> result = new TreeMap<String, T>();
-
-        new ResourcePatternProcessor(){
-			@Override
-			protected Closeable process(Resource resource) throws IOException {
-				InputStream stream = resource.getInputStream();
-				result.put(resource.getFilename(), clazz.cast(xstream.fromXML(stream)));
-				return stream;
-			}
-        }.runWithResources(resources);
-				
-        return result;
-    }
-
 
     public DynamicRef<? extends AttrDefinitionMgr> getAttrDefs() {
         return attrDefs;
