@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.UncaughtExceptionLogger;
+import com.wwm.db.internal.index.IndexImplementation;
 import com.wwm.db.internal.pager.NullPersister;
 import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.db.internal.pager.PagePersister;
@@ -128,7 +129,32 @@ public final class Database implements DatabaseVersionState {
     	// for heavily loaded server, this may bottleneck more.
     	
         txLog = isPersistent ? new TxLogWriter(setup.getTxDiskRoot(), cli) : new NullTxLogWriter();
+        
+		installAccPackIfAvailable();
+
     }
+
+	private void installAccPackIfAvailable() {
+		Class<?> cl; 
+		try {
+			cl = Class.forName("com.wwm.db.server.whirlwind.WhirlwindIndexImpl");
+		} catch (ClassNotFoundException e) {
+			return;
+		}
+		try {
+			log.info("** Accelerator Pack detected. Enabling **");
+			IndexImplementation index = (IndexImplementation) cl.newInstance(); 
+			addIndexImplementation(index);
+			return;
+		} catch (InstantiationException e) {
+			log.warn("Can't create " + cl.getName(), e);
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			log.error("Error getting index instance", e);
+			throw new RuntimeException(e);
+		}
+	}
+
 
 
     /**
@@ -389,5 +415,14 @@ public final class Database implements DatabaseVersionState {
 
 	public void setIndexImplsService(IndexImplementationsService indexImplsService) {
 		this.indexImplsService = indexImplsService;
+	}
+
+
+	public void addIndexImplementation(IndexImplementation index) {
+		if (indexImplsService == null) {
+			indexImplsService = new IndexImplementationsService();
+		}
+		indexImplsService.add(index);
+		
 	}
 }

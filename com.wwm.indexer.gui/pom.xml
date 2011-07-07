@@ -23,6 +23,19 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>accPack</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.wwm.db</groupId>
+					<artifactId>com.wwm.db.server.whirlwind</artifactId>
+					<version>1.0.0.CI-SNAPSHOT</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
