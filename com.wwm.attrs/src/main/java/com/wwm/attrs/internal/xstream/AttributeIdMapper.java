@@ -20,14 +20,29 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.path.PathTracker;
 import com.thoughtworks.xstream.io.path.PathTrackingReader;
 import com.wwm.attrs.AttrIdClassMapper;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.util.DynamicRef;
 
+/**
+ * Given access to an {@link AttributeDefinitionService}, 
+ * convert
+ *  
+ * <pre> &lt;ParentClass>
+ *     &lt;fieldName>attrName&lt;/fieldName>
+ * &lt;/ParentClass>
+ * 
+ * into an attrId supplied by resolving the required class from 
+ * AttrIdClassMapper.getAttrClass("ParentClass", "fieldName"), and then
+ * using that class to get the attrId for attrName.
+ * </pre>
+ * 
+ * @author Neale Upstone
+ */
 public class AttributeIdMapper implements Converter {
 
-    private final DynamicRef<? extends AttrDefinitionMgr> attrDefMgrRef;
+    private final DynamicRef<? extends AttributeDefinitionService> attrDefMgrRef;
 
-    public AttributeIdMapper(DynamicRef<? extends AttrDefinitionMgr> attrDefs) {
+    public AttributeIdMapper(DynamicRef<? extends AttributeDefinitionService> attrDefs) {
         this.attrDefMgrRef = attrDefs;
     }
 
@@ -44,7 +59,7 @@ public class AttributeIdMapper implements Converter {
     // is a string, and use that to look up an attributeId.
     // FIXME: Problem: getAttrId( str, clazz) must first have been called, otherwise
     // the class of the object is not known.
-    // This could be overcome by having XML specify attribute as <attr:name="Postcode" value="PostcodeAttribute">
+    // This could be overcome by having XML specify attribute as <attr name="Postcode" value="PostcodeAttribute">
     public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context) {
         String attrName = reader.getValue();
 

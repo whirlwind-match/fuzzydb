@@ -112,7 +112,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ENUMS
         // ----------------------------------------------------------------
-        enumDefs = load(getEnumXStream(), EnumDefinition.class, xmlPath + "/enums");
+        enumDefs = load(getEnumXStream(), EnumDefinition.class, xmlPath + "/enums/*.xml");
         for (Entry<String, EnumDefinition> entry : enumDefs.entrySet()) {
             String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
             conf.add(strippedName, entry.getValue());
@@ -122,7 +122,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         // ATTRIBUTES
         // ----------------------------------------------------------------
-        attributes = XmlLoader.load(new XStream(), Object.class, xmlPath + "/attributes");
+        attributes = XmlLoader.load(new XStream(), Object.class, xmlPath + "/attributes/*.xml");
         for (Entry<String, Object> entry : attributes.entrySet()) {
             String strippedName = entry.getKey().substring(0, entry.getKey().length() - 4);// Strip off .xml name
             if (entry.getValue() instanceof Class) {
@@ -175,7 +175,7 @@ public class XmlLoader {
         // ----------------------------------------------------------------
         XStream randXStream = new XStream();
         randXStream.registerConverter(new XmlNameMapper<EnumDefinition>(EnumDefinition.class, enumDefs));
-        randGenerators = XmlLoader.load(randXStream, RandomGenerator.class, xmlPath + "/randomisers");
+        randGenerators = XmlLoader.load(randXStream, RandomGenerator.class, xmlPath + "/randomisers/*.xml");
         // ----------------------------------------------------------------
 
         // ----------------------------------------------------------------
@@ -315,7 +315,12 @@ public class XmlLoader {
         return xmlPath;
     }
 
-    public static <T> TreeMap<String, T> load(final XStream xstream, final Class<T> clazz, String xmlPath) {
+    /**
+     * De-Xstream the resources of type clazz from the specfied resource wildcard
+     * @param resources e.g. classpath:enums/*.xml
+     * @return
+     */
+    public static <T> TreeMap<String, T> load(final XStream xstream, final Class<T> clazz, String resources) {
         final TreeMap<String, T> result = new TreeMap<String, T>();
 
         new ResourcePatternProcessor(){
@@ -325,7 +330,7 @@ public class XmlLoader {
 				result.put(resource.getFilename(), clazz.cast(xstream.fromXML(stream)));
 				return stream;
 			}
-        }.runWithResources(xmlPath + "/*.xml");
+        }.runWithResources(resources);
 				
         return result;
     }

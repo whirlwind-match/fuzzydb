@@ -18,11 +18,32 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
+/**
+ * Given a map of strings to objects of class T, will substitute an entry
+ * for the object.
+ * 
+ * e.g. <pre>
+ * &lt;com.wwm.indexer.internal.random.RandomEnum>
+ *   &lt;enumdef>Smoke.xml&lt;/enumdef>
+ *   &lt;nullPercent>0&lt;/nullPercent>
+ * &lt;/com.wwm.indexer.internal.random.RandomEnum></pre>
+ * 
+ * Will use this converter to select the enumDef labelled Smoke.xml from
+ * the map supplied to the constructor.
+ * 
+ * @author Neale Upstone
+ *
+ * @param <T>
+ */
 public class XmlNameMapper<T> implements Converter {
 
 	private final Class<T> myclazz;
 	private final TreeMap<String, T> mappeddata;
 
+	/**
+	 * @param myclazz desired class
+	 * @param mappedData Map resourceName -> resourceObject
+	 */
 	public XmlNameMapper(Class<T> myclazz, TreeMap<String, T> mappedData) {
 		this.myclazz = myclazz;
 		this.mappeddata = mappedData;
