@@ -197,6 +197,7 @@ public class FuzzyRepositoryTest {
 		angelina.setAttr("ageRange", new float[]{30f, 37f, 50f});
 		angelina.setAttr("salary", 500000f);
 		angelina.setAttr("smoke", "Cigarette-smoker");
+		angelina.setAttr("newspapers", new String[]{"Guardian", "New York Times"});
 		saveOne(angelina);
 
 		FuzzyItem brad = new FuzzyItem("Brad");
