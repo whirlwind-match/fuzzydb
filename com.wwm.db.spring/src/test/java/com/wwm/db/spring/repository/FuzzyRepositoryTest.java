@@ -37,7 +37,7 @@ public class FuzzyRepositoryTest {
 	private Set<GenericRef<FuzzyItem>> toDelete;
 	
 	@Autowired
-	private SimpleMappingFuzzyRepository<FuzzyItem> repo;
+	private FuzzyRepository<FuzzyItem> repo;
 	
 	
 	@Before

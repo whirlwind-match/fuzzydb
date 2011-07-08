@@ -39,7 +39,7 @@ import com.wwm.model.attributes.MultiEnumAttribute;
  *
  * @param <T> the type being stored (Must contain a field: Map<String,Object> attributes for the fuzzy data)
  */
-public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> {
+public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> implements FuzzyRepository<T> {
 
 	@Autowired
 	private WhirlwindConversionService converter; 
