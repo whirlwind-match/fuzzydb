@@ -480,15 +480,10 @@ public class TransactionImpl implements Transaction {
 		return store.isAuthoritative();
 	}
 
-	@SuppressWarnings("unchecked") 
 	public synchronized <T> RefImpl<T> getRef(T obj) throws UnknownObjectException {
 		return (RefImpl<T>)store.getRef(obj);
 	}
 
-	public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-		return (RefImpl<E>)getRef(obj);
-	}
-	
 	public synchronized int getVersion(Object obj) throws UnknownObjectException {
 		return store.getVersion(obj);
 	}

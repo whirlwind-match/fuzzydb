@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 import com.wwm.db.Client;
 import com.wwm.db.GenericRef;
 import com.wwm.db.Helper;
-import com.wwm.db.Ref;
 import com.wwm.db.ServerStats;
 import com.wwm.db.Store;
 import com.wwm.db.core.LogFactory;
@@ -110,19 +109,17 @@ public abstract class AbstractClient implements Cloneable, Client {
 	            throw new UnknownObjectException();
 	        }
 	
-	        public Ref getRef(Object obj) throws UnknownObjectException {
+	        @SuppressWarnings("unchecked")
+			public <E> GenericRef<E> getRef(E obj) throws UnknownObjectException {
 	            synchronized (metaMap) {
 	                MetaObject<?> mo = metaMap.find(obj);
 	                if (mo != null) {
-	                    return mo.getRef();
+	                    return (GenericRef<E>) mo.getRef();
 	                }
 	            }
 	            throw new UnknownObjectException();
 	        }
 	
-	        public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-	            return (RefImpl<E>)getRef(obj);
-	        }
 	    } // end of inner class ClientImplContext
 
 	private final int lazyFlushCount = 100;
@@ -268,14 +265,9 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    return authority == Authority.Authoritative;
 	}
 
-	public Ref getRef(Object obj) throws UnknownObjectException {
+	public <E> GenericRef<E> getRef(E obj) throws UnknownObjectException {
 	    return context.getRef(obj);
 	}
-
-	public synchronized <E> GenericRef<E> getGenericRef(E obj)
-			throws UnknownObjectException {
-				return (RefImpl<E>)getRef(obj);
-			}
 
 	public int getVersion(Object obj) throws UnknownObjectException {
 	    return context.getVersion(obj);

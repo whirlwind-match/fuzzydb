@@ -23,8 +23,6 @@ public interface Helper {
 	 */
 	<E> Ref getRef(E obj) throws UnknownObjectException;
 	
-	<E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException;
-	
 	/**Gets the version number of the specified object.
 	 * This returns the version of the presented object, not the version of the newest variant in the database.
 	 * The version is unknown if the object has not been added to the database, or it is a clone of a database object. An exception is thrown in this case.

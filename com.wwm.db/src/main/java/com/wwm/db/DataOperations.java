@@ -131,5 +131,11 @@ public interface DataOperations {
 	<E> long count(Class<E> clazz);
 	long getVersion(Ref ref);
 	String[] listNamespaces();
+	
+	/**
+	 * Retrieve the reference/id of this persisted object.
+	 * Will throw UnknownObjectException if the object is detached or not yet persisted
+	 */
+	<E> GenericRef<E> getRef(E object);
 
 }

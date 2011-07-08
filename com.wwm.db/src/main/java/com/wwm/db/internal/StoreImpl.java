@@ -122,14 +122,10 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 			client.addToMetaCache(mo);
 		}
 
-		public Ref getRef(Object obj) throws UnknownObjectException {
+		public <E> GenericRef<E> getRef(E obj) throws UnknownObjectException {
 			return client.getRef(obj);
 		}
 
-		public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-			return new RefImpl<E>(getRef(obj));
-		}
-		
 		public int getVersion(Object obj) throws UnknownObjectException {
 			return client.getVersion(obj);
 		}
@@ -306,25 +302,17 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 		throw new UnsupportedOperationException(); // to do
 	}
 
-	public void setNamespace(String namespace) {
-		throw new UnsupportedOperationException(); // to do
-	}
-
 	public boolean isAuthoritative() {
 		return authority==Authority.Authoritative;
 	}
 
-	public Ref getRef(Object obj) throws UnknownObjectException {
-		return context.getRef(obj);
-	}
-
-	public synchronized <E> GenericRef<E> getGenericRef(E obj)  throws UnknownObjectException {
-		return (RefImpl<E>)getRef(obj);
-	}
-	
 	public int getVersion(Object obj) throws UnknownObjectException {
 		return context.getVersion(obj);
 	}
+
+	public final <E> GenericRef<E> getRef(E object) {
+		return context.getRef(object);
+	};
 
 	public final StoreImplContext getContext() {
 		return context;
