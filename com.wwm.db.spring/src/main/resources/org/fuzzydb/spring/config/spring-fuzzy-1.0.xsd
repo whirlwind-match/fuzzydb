@@ -132,6 +132,12 @@ The Store url.  Default is wwmdb:/com.fuzzydb.DefaultStore
 <!--  		<xsd:complexContent> -->
 <!-- 			<xsd:extension base="repository:repository"> -->
 <!-- 				<xsd:attributeGroup ref="repository:transactional-repository-attributes" /> -->
+				<xsd:attribute name="id" type="xsd:ID" use="optional">
+					<xsd:annotation>
+						<xsd:documentation><![CDATA[
+	The name of the repository being defined. If omitted, 'repository' will be used.]]></xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
 				<xsd:attribute name="class" type="repository:classType">
 					<xsd:annotation>
 						<xsd:documentation><![CDATA[
