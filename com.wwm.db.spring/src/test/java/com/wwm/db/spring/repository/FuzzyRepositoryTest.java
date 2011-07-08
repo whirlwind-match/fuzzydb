@@ -82,10 +82,7 @@ public class FuzzyRepositoryTest {
 			// Now modify a field
 			matt.setAttr("salary", 21000f);
 			FuzzyItem updated = updateItem(matt);
-			// Will be true when merge supported. assertEquals("ref should be same for same object", ref, updated.getRef());
-			FuzzyItem missing = getItem(ref);
-			assertNull(missing);
-			ref = updated.getRef(); // TODO: remove when merge supported (https://github.com/whirlwind-match/whirlwind-db/issues/41)
+			assertEquals("ref should be same for same object", ref, updated.getRef());
 		}
 
 		{

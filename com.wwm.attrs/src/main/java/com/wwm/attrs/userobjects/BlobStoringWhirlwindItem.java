@@ -19,7 +19,6 @@ import java.io.Serializable;
 
 import com.wwm.attrs.AttrsFactory;
 import com.wwm.db.annotations.Key;
-import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.internal.AttributeCache;
@@ -76,11 +75,12 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
 
     @SuppressWarnings("unchecked")
     public IAttributeMap<IAttribute> getAttributeMap() {
-        return (IAttributeMap<IAttribute>)attrs;  // Server side.  Sound aim to eliminate this.
+        return (IAttributeMap<IAttribute>)attrs;  // Server side.  Should aim to eliminate this.
     }
 
-    public void setAttributeMap(IAttributeContainer attrs) {
-        throw new UnsupportedOperationException();
+    @SuppressWarnings("unchecked")
+	public void setAttributeMap(IAttributeMap<IAttribute> attrs) {
+        this.attrs = (CardinalAttributeMap<IAttribute>)attrs;
     }
 
     public void setBlob(byte[] blob) {

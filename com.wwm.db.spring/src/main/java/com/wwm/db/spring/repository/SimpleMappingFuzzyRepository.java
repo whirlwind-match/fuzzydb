@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,6 +42,8 @@ import com.wwm.model.attributes.MultiEnumAttribute;
  */
 public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> implements FuzzyRepository<T> {
 
+	private static final String ATTRIBUTES_FIELD_NAME = "attributes";
+
 	@Autowired
 	private WhirlwindConversionService converter; 
 	
@@ -52,7 +55,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	}
 
 	@Override
-	protected T fromInternal(BlobStoringWhirlwindItem internal) {
+	protected T fromInternal(BlobStoringWhirlwindItem internal, GenericRef<BlobStoringWhirlwindItem> ref) {
 		T result = createInstance(internal);
 		Map<String,Object> externalMap = getAttrsField(result);
 		
@@ -60,6 +63,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			addConvertedAttribute(externalMap, attr);
 		}
 		
+		setRef(result, ref);
 		return result;
 	}
 
@@ -118,8 +122,12 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> getAttrsField(T external) {
-		Object attrs = new DirectFieldAccessor(external).getPropertyValue("attributes"); // TODO: make annotated
-		return (Map<String, Object>) attrs;
+		DirectFieldAccessor directFieldAccessor = new DirectFieldAccessor(external);
+		if (directFieldAccessor.isReadableProperty(ATTRIBUTES_FIELD_NAME)) {
+			Object attrs = directFieldAccessor.getPropertyValue(ATTRIBUTES_FIELD_NAME); // TODO: make annotated
+			return (Map<String, Object>) attrs;
+		}
+		return Collections.EMPTY_MAP;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -143,6 +151,11 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	}
 	
 	@Override
+	protected Class<BlobStoringWhirlwindItem> getInternalType() {
+		return BlobStoringWhirlwindItem.class;
+	}
+	
+	@Override
 	protected Iterator<Result<T>> findMatchesInternal(BlobStoringWhirlwindItem internal, String matchStyle, int maxResults) {
 		SearchSpec spec = new SearchSpecImpl(BlobStoringWhirlwindItem.class, matchStyle);
 		spec.setTargetNumResults(maxResults);
@@ -157,7 +170,9 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			public Result<T> next() {
 				Result<BlobStoringWhirlwindItem> resultInternal = resultIterator.next();
 				
-				Result<T> result = new ResultImpl<T>(fromInternal(resultInternal.getItem()), resultInternal.getScore());
+				BlobStoringWhirlwindItem item = resultInternal.getItem();
+				T external = fromInternal(item, null);// FIXME !! getPersister().getRef(item));
+				Result<T> result = new ResultImpl<T>(external, resultInternal.getScore());
 				return result;
 			}
 
@@ -166,5 +181,15 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			}
 		};
 		return iterator;
+	}
+	
+	@Override
+	protected BlobStoringWhirlwindItem merge(BlobStoringWhirlwindItem toWrite,
+			GenericRef<BlobStoringWhirlwindItem> existingRef) {
+		
+		BlobStoringWhirlwindItem existing = getPersister().retrieve(existingRef);
+		existing.setBlob(toWrite.getBlob());
+		existing.setAttributeMap(toWrite.getAttributeMap());
+		return existing;
 	}
 }

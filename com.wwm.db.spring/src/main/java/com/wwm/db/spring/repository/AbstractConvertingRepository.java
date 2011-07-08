@@ -67,21 +67,36 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * 
 	 * NOTE: For now, the old object is deleted and it's ref becomes stale.  A new object with new Ref is created.
 	 * (i.e. new {@link Id}).
+	 * <p>
+	 * 
+	 * {@inheritDoc}
 	 */
 	public T save(T entity) {
 		I toWrite = toInternal(entity);
-		GenericRef<T> existingRef = getRef(entity);
+		GenericRef<I> existingRef = getRef(entity);
 		if (existingRef != null) {
-			// FIXME: Need detached entity support (see https://github.com/whirlwind-match/whirlwind-db/issues/41)
-			log.debug("save() - update detected, with no merge support so doing delete/create instead on {}", existingRef);
-			persister.delete(existingRef);
+			I merged = merge(toWrite, existingRef); 
+			try {
+				persister.update(merged);
+				return entity;
+			} catch (UnknownObjectException e) {
+				log.warn("save() - update of detached entity detected, with no merge support so doing delete/create instead on {}", existingRef);
+				persister.delete(existingRef);
+			}
 		}
 		Ref ref = persister.save(toWrite);
 		setRef(entity, ref);
 		return entity;
 	}
 
-	private void setRef(Object entity, Ref ref) {
+	/**
+	 * Should do anything needed to merge an existing back in with
+	 * existingRef from the current transaction
+	 */
+	abstract protected I merge(I toWrite, GenericRef<I> existingRef); 
+	
+	
+	protected void setRef(T entity, Ref ref) {
 		try {
 			idField.set(entity, ref);
 		} catch (IllegalArgumentException e) {
@@ -92,9 +107,9 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	@SuppressWarnings("unchecked")
-	private <R> GenericRef<R> getRef(R entity) {
+	protected GenericRef<I> getRef(T entity) {
 		try {
-			return (GenericRef<R>) idField.get(entity);
+			return (GenericRef<I>) idField.get(entity);
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
@@ -115,7 +130,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		GenericRef<I> ref = toInternalId(id);
 		T entity;
 		try {
-			entity = fromInternal(persister.retrieve(ref));
+			entity = fromInternal(persister.retrieve(ref), ref);
 		} catch (UnknownObjectException e) {
 			return null;
 		}
@@ -137,7 +152,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	public long count() {
-		return persister.count(type);
+		return persister.count(getInternalType());
 	}
 
 	public void delete(ID id) {
@@ -158,7 +173,8 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 	
 	public T findFirst() {
-		return persister.retrieveFirstOf(type);
+		I internalResult = persister.retrieveFirstOf(getInternalType());
+		return internalResult == null ? null : fromInternal(internalResult, persister.getRef(internalResult));
 	}
 	
 	
@@ -179,17 +195,21 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * Decode the internal representation (e.g. a binary buffer) to the type for this repository
 	 * 
 	 * @param internal raw object that has been retrieved from database
+	 * @param ref 
 	 * @return converted type
 	 */
-	abstract protected T fromInternal(I internal);
+	abstract protected T fromInternal(I internal, GenericRef<I> ref);
 
 	/**
-	 * Encode the persisted object to its' internal representation
+	 * Encode the persisted object to its' internal representation.
+	 * 
 	 * @param external the object that is being persisted to the database
 	 * @return an object suitable for persisting
 	 */
 	abstract protected I toInternal(T external);
 
 	abstract protected GenericRef<I> toInternalId(ID id);
+	
+	abstract protected Class<I> getInternalType();
 
 }

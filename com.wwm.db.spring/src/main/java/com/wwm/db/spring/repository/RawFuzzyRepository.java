@@ -20,7 +20,7 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Ge
 	}
 
 	@Override
-	protected T fromInternal(T internal) {
+	protected T fromInternal(T internal, GenericRef<T> ref) {
 		return internal;
 	}
 
@@ -33,4 +33,15 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Ge
 	protected GenericRef<T> toInternalId(GenericRef<T> id) {
 		return id;
 	}
+	
+	@Override
+	protected Class<T> getInternalType() {
+		return type;
+	}
+	
+	@Override
+	protected T merge(T toWrite, com.wwm.db.GenericRef<T> existingRef) {
+		return toWrite;
+	}
+	;
 }
