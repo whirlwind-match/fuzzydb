@@ -35,7 +35,7 @@ public class StoreInitializer implements InitializingBean {
 	
 	static private final Logger log = LogFactory.getLogger(StoreInitializer.class);
 	
-	private String autoResourceBase = "classpath*:";
+	private String autoResourceBase = "classpath*:/fuzzy/";
 	
 	private Store store;
 	
@@ -52,9 +52,9 @@ public class StoreInitializer implements InitializingBean {
         
         // Init by convention for now
         DynamicRef<? extends AttributeDefinitionService> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
-        Map<String, Object> loadAttributeDefs = XStreamHelper.loadAttributeDefs(autoResourceBase + "/attributes/*.xml", attrDefs);
+        Map<String, Object> loadAttributeDefs = XStreamHelper.loadAttributeDefs(autoResourceBase + "attributes/*.xml", attrDefs);
         
-        TreeMap<String, EnumDefinition> loadEnumDefs = XStreamHelper.loadEnumDefs(autoResourceBase + "/enums/*.xml", attrDefs);
+        TreeMap<String, EnumDefinition> loadEnumDefs = XStreamHelper.loadEnumDefs(autoResourceBase + "enums/*.xml", attrDefs);
         
         for (Entry<String, EnumDefinition> def : loadEnumDefs.entrySet()) {
         	// recreate with ADS
@@ -66,6 +66,9 @@ public class StoreInitializer implements InitializingBean {
         
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        if (resourcePath == null) {
+        	resourcePath = autoResourceBase + "matchers/*.xml";
+        }
         Resource[] resources = resolver.getResources(resourcePath);
 
         for (Resource resource : resources) {

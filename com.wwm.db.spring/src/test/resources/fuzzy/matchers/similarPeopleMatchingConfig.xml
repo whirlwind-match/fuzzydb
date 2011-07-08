@@ -44,7 +44,7 @@
 		<otherAttrId>smoke</otherAttrId>
 		<filter>false</filter>
 		<weight>0.7</weight>
-	    <map scorerEnumDefinition="smokeDef" otherEnumDefinition="smokeDef" url="classpath:/smokeEnumMap.html"/>
+	    <map scorerEnumDefinition="smokeDef" otherEnumDefinition="smokeDef" url="classpath:/fuzzy/matchers/smokeEnumMap.html"/>
 	</EnumScoresMapScorer>
 
 </ScoreConfiguration>

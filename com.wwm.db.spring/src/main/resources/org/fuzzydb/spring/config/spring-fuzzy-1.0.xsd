@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsd:schema xmlns="http://www.fuzzydb.org/schema/spring"
-						xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:beans="http://www.springframework.org/schema/beans"
-						xmlns:tool="http://www.springframework.org/schema/tool"
-						xmlns:context="http://www.springframework.org/schema/context"
-						xmlns:repository="http://www.springframework.org/schema/data/repository"
-						targetNamespace="http://www.fuzzydb.org/schema/spring"
-						elementFormDefault="qualified" attributeFormDefault="unqualified"
-						xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:tool="http://www.springframework.org/schema/tool"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	targetNamespace="http://www.fuzzydb.org/schema/spring"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<xsd:import namespace="http://www.springframework.org/schema/beans"/>
-	<xsd:import namespace="http://www.springframework.org/schema/tool"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans" />
+	<xsd:import namespace="http://www.springframework.org/schema/tool" />
 	<xsd:import namespace="http://www.springframework.org/schema/context"
-							schemaLocation="http://www.springframework.org/schema/context/spring-context.xsd"/>
+		schemaLocation="http://www.springframework.org/schema/context/spring-context.xsd" />
 	<xsd:import namespace="http://www.springframework.org/schema/data/repository"
-							schemaLocation="http://www.springframework.org/schema/data/repository/spring-repository.xsd"/>
+		schemaLocation="http://www.springframework.org/schema/data/repository/spring-repository.xsd" />
 
 	<xsd:element name="embedded-database" type="storeType">
 		<xsd:annotation>
-			<xsd:documentation ><![CDATA[
+			<xsd:documentation><![CDATA[
 Creates an embedded in-memory database instance
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="com.wwm.db.Store"/>
+					<tool:exports type="com.wwm.db.Store" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -35,12 +33,12 @@ Creates an embedded in-memory database instance
 
 	<xsd:element name="store" type="storeType">
 		<xsd:annotation>
-			<xsd:documentation ><![CDATA[
+			<xsd:documentation><![CDATA[
 Defines a connection to a given store for an embedded or TCP/IP hosted database.   
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="com.wwm.db.Store"/>
+					<tool:exports type="com.wwm.db.Store" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -48,7 +46,7 @@ Defines a connection to a given store for an embedded or TCP/IP hosted database.
 
 	<xsd:element name="initialize" type="initializeType">
 		<xsd:annotation>
-			<xsd:documentation ><![CDATA[
+			<xsd:documentation><![CDATA[
 Initialize a specified store (or the default if omitted) with indexing and matching configuration.
 			]]></xsd:documentation>
 		</xsd:annotation>
@@ -56,12 +54,13 @@ Initialize a specified store (or the default if omitted) with indexing and match
 
 	<xsd:element name="tx-manager">
 		<xsd:annotation>
-			<xsd:documentation ><![CDATA[
+			<xsd:documentation><![CDATA[
 Create a Spring Transaction Manager
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager"/>
+					<tool:exports
+						type="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -73,19 +72,19 @@ The name of the transaction manager being defined. If omitted, 'transactionMange
 				</xsd:annotation>
 			</xsd:attribute>
 			<xsd:attribute name="store" type="xsd:string" use="optional">
-			<xsd:annotation>
-				<xsd:documentation><![CDATA[
+				<xsd:annotation>
+					<xsd:documentation><![CDATA[
 The name of the Store to manage transactions for. If omitted, 'store' will be used.]]></xsd:documentation>
-				<xsd:appinfo>
-					<tool:annotation>
-						<tool:expected-type type="com.wwm.db.Store" />
-					</tool:annotation>
-				</xsd:appinfo>
-			</xsd:annotation>
-		</xsd:attribute>
+					<xsd:appinfo>
+						<tool:annotation>
+							<tool:expected-type type="com.wwm.db.Store" />
+						</tool:annotation>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:attribute>
 		</xsd:complexType>
 	</xsd:element>
-	
+
 	<xsd:complexType name="initializeType">
 		<xsd:attribute name="store" type="xsd:string" use="optional">
 			<xsd:annotation>
@@ -98,11 +97,12 @@ The name of the Store bean for the store to be initialised. If omitted, 'store' 
 				</xsd:appinfo>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="match-styles" type="xsd:string" use="optional">
+		<xsd:attribute name="match-styles" type="xsd:string"
+			use="optional">
 			<xsd:annotation>
 				<xsd:documentation><![CDATA[
-Spring resource pattern (e.g. classpath*:*-match-config.xml) for XML file containing match styles to write to the store.
-							]]></xsd:documentation>
+Spring resource pattern (e.g. classpath*:*-match-config.xml) for XML file containing match styles to write to the store.<p>
+By default, the path classpath*:/fuzzy/matchers/*.xml will be used.]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
 	</xsd:complexType>
@@ -124,4 +124,38 @@ The Store url.  Default is wwmdb:/com.fuzzydb.DefaultStore
 			</xsd:annotation>
 		</xsd:attribute>
 	</xsd:complexType>
+
+
+	<!-- TODO. Don't extend repository:repository for now, just implement as 
+		our simple case -->
+	<xsd:complexType name="fuzzyRepository">
+<!--  		<xsd:complexContent> -->
+<!-- 			<xsd:extension base="repository:repository"> -->
+<!-- 				<xsd:attributeGroup ref="repository:transactional-repository-attributes" /> -->
+				<xsd:attribute name="class" type="repository:classType">
+					<xsd:annotation>
+						<xsd:documentation><![CDATA[
+The type that will be persisted by this repository]]></xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+ 
+<!-- 			</xsd:extension> -->
+<!-- 		</xsd:complexContent> -->
+ 	</xsd:complexType>
+
+	<xsd:element name="repository" type="fuzzyRepository">
+			<xsd:annotation>
+			<xsd:documentation><![CDATA[
+An implementation of FuzzyRepository for persisting and searching on the specified entity class]]></xsd:documentation>
+		</xsd:annotation>
+	
+	</xsd:element>
+
+	<!-- <xsd:element name="repositories"> <xsd:complexType> <xsd:complexContent> 
+		<xsd:extension base="repository:repositories"> <xsd:sequence> <xsd:element 
+		name="repository" minOccurs="0" maxOccurs="unbounded" type="fuzzyRepository" 
+		/> </xsd:sequence> <xsd:attributeGroup ref="repository:transactional-repository-attributes" 
+		/> </xsd:extension> </xsd:complexContent> </xsd:complexType> </xsd:element> -->
+
+
 </xsd:schema>

@@ -14,23 +14,12 @@
         Context defining a fuzzy repository
     </description>
 
-	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
 	<fuzzy:embedded-database />
 	<fuzzy:tx-manager />
-	<fuzzy:initialize match-styles="classpath*:*MatchingConfig.xml" />	
+	<fuzzy:initialize />	
 
-
-	<!-- All of below will be the following one line:
-			<fuzzy:repository class="com.wwm.db.spring.repository.FuzzyItem"/>
-	 -->
-
-	<bean id="attributeDefinitionService" class="com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr"/>
-
-	<bean id="conversionService" class="com.wwm.attrs.converters.WhirlwindConversionService"/>
-
-	<bean id="repository" class="com.wwm.db.spring.repository.SimpleMappingFuzzyRepository">
-		<constructor-arg value="com.wwm.db.spring.repository.FuzzyItem"/>
-	</bean>
-
-
+	<!-- This will become fuzzy:repositories with classpath scanning as per Spring Data standard -->
+	<fuzzy:repository class="com.wwm.db.spring.repository.FuzzyItem" />
+	
 </beans>

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mapping.model.MappingException;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
@@ -28,7 +27,7 @@ import com.wwm.db.query.Result;
  * @param <T> the external representation
  * @param <ID> the external ID type
  */
-public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements CrudRepository<T,ID>, InitializingBean, WhirlwindSearch<T> {
+public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean, WhirlwindSearch<T> {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -156,6 +155,10 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	public final void deleteAll() {
 		throw new UnsupportedOperationException("not yet implemented");
+	}
+	
+	public T findFirst() {
+		return persister.retrieveFirstOf(type);
 	}
 	
 	
