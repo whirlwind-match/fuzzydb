@@ -1,10 +1,12 @@
 package org.fuzzydb.spring.config;
 
 import static org.fuzzydb.spring.config.Constants.DEFAULT_REPO_ID;
-import static org.springframework.beans.factory.support.BeanDefinitionReaderUtils.registerWithGeneratedName;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.AutowireCandidateQualifier;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractBeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -42,13 +44,18 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
 		
 		// Conversion service default
-	    BeanDefinitionBuilder conversionServiceBuilder = BeanDefinitionBuilder.genericBeanDefinition(WhirlwindConversionService.class);
-	    registerWithGeneratedName(conversionServiceBuilder.getBeanDefinition(), parserContext.getRegistry());      
+		if (!parserContext.getRegistry().containsBeanDefinition("whirlwindConversionService")) {
+		    BeanDefinitionBuilder conversionServiceBuilder = BeanDefinitionBuilder.genericBeanDefinition(WhirlwindConversionService.class);
+		    BeanDefinitionHolder def = new BeanDefinitionHolder(conversionServiceBuilder.getBeanDefinition(), "whirlwindConversionService");
+		    registerBeanDefinition(def, parserContext.getRegistry());      
+		}
 
 		// Conversion service default
-	    BeanDefinitionBuilder attributeDefinitionServiceBuilder = BeanDefinitionBuilder.genericBeanDefinition(CurrentTxAttrDefinitionMgr.class);
-	    registerWithGeneratedName(attributeDefinitionServiceBuilder.getBeanDefinition(), parserContext.getRegistry());      
-
+		if (!parserContext.getRegistry().containsBeanDefinition("attributeDefinitionService")) {
+		    BeanDefinitionBuilder attributeDefinitionServiceBuilder = BeanDefinitionBuilder.genericBeanDefinition(CurrentTxAttrDefinitionMgr.class);
+		    BeanDefinitionHolder def = new BeanDefinitionHolder(attributeDefinitionServiceBuilder.getBeanDefinition(), "attributeDefinitionService");
+		    registerBeanDefinition(def, parserContext.getRegistry());      
+		}
 	    
 	    
 	    // Build the repository for class
@@ -56,6 +63,8 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 	    
 	    BeanDefinitionBuilder repositoryBuilder = BeanDefinitionBuilder.genericBeanDefinition(SimpleMappingFuzzyRepository.class);
 	    repositoryBuilder.addConstructorArgValue(persistedClass);
+	    // TODO: Look at best practice for qualifying repositories
+	    repositoryBuilder.getRawBeanDefinition().addQualifier(new AutowireCandidateQualifier(Qualifier.class, resolveId(element, null, parserContext)));
 
 		return repositoryBuilder.getBeanDefinition();
 	}
