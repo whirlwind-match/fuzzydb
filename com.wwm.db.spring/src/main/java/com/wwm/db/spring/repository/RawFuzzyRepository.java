@@ -43,5 +43,9 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Ge
 	protected T merge(T toWrite, com.wwm.db.GenericRef<T> existingRef) {
 		return toWrite;
 	}
-	;
+	
+	@Override
+	protected void selectNamespace() {
+		// deliberately empty for Raw
+	}
 }

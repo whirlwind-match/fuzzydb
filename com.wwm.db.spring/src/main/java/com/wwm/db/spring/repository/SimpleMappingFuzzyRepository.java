@@ -192,4 +192,9 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		existing.setAttributeMap(toWrite.getAttributeMap());
 		return existing;
 	}
+
+	protected void selectNamespace() {
+		getPersister().setNamespace(type.getCanonicalName());
+	}
+
 }

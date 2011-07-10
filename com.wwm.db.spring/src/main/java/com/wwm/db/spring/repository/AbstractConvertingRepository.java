@@ -72,6 +72,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * {@inheritDoc}
 	 */
 	public T save(T entity) {
+		selectNamespace();
 		I toWrite = toInternal(entity);
 		GenericRef<I> existingRef = getRef(entity);
 		if (existingRef != null) {
@@ -127,6 +128,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	public T findOne(ID id) {
+		selectNamespace();
 		GenericRef<I> ref = toInternalId(id);
 		T entity;
 		try {
@@ -139,6 +141,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	public boolean exists(ID id) {
+		selectNamespace();
 		try {
 			I obj = persister.retrieve(toInternalId(id));
 			return obj != null;
@@ -152,14 +155,17 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	public long count() {
+		selectNamespace();
 		return persister.count(getInternalType());
 	}
 
 	public void delete(ID id) {
+		selectNamespace();
 		persister.delete(toInternalId(id));
 	}
 
 	public void delete(T entity) {
+		selectNamespace();
 		persister.delete(toInternal(entity));
 	}
 
@@ -173,12 +179,14 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 	
 	public T findFirst() {
+		selectNamespace();
 		I internalResult = persister.retrieveFirstOf(getInternalType());
 		return internalResult == null ? null : fromInternal(internalResult, persister.getRef(internalResult));
 	}
 	
 	
 	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
+		selectNamespace();
 		I internal = toInternal(query.getQueryTarget());
 		return findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
 	}
@@ -212,4 +220,10 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	
 	abstract protected Class<I> getInternalType();
 
+	/**
+	 * Allows namespace to be selected for the type of repository,
+	 * which allows the same namespace to be selected for a whole
+	 * class hierarchy.
+	 */
+	abstract protected void selectNamespace();
 }
