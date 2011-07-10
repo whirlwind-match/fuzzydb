@@ -140,12 +140,16 @@ public class FuzzyRepositoryTest {
 	@Transactional(readOnly=true) 
 	private List<Result<FuzzyItem>> doQuery(AttributeMatchQuery<FuzzyItem> query) {
 		Iterator<Result<FuzzyItem>> items = repo.findMatchesFor(query);
+		return toList(items);
+	}
+
+	public static <T> List<T> toList(Iterator<T> items) {
 		assertNotNull(items);
 		
-		List<Result<FuzzyItem>> list = new LinkedList<Result<FuzzyItem>>();
-		for (Iterator<Result<FuzzyItem>> iterator = items; iterator.hasNext();) {
-			Result<FuzzyItem> fuzzyItem = iterator.next();
-			list.add(fuzzyItem);
+		List<T> list = new LinkedList<T>();
+		for (Iterator<T> iterator = items; iterator.hasNext();) {
+			T item = iterator.next();
+			list.add(item);
 		}
 		return list;
 	}
