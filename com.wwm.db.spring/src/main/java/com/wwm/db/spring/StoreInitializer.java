@@ -22,10 +22,15 @@ import com.wwm.db.core.LogFactory;
 import com.wwm.util.DynamicRef;
 
 /**
- * Intialise store with attribute and scorer configuration.
- * 
+ * Initialise store with attribute and scorer configuration.
+ * <p>
  * By default will look in classpath*:/attribute/*.xml for attribute definitions,
- * and classpath*:/enums/*.xml for enum definitions
+ * and classpath*:/enums/*.xml for enum definitions.
+ * <p>
+ * This will target the 'default' namespace within the store.
+ * <p>
+ * Future support will allow different fuzzy indexes configurations
+ * within the same store.
  * 
  * @author Neale Upstone
  *

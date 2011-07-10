@@ -61,8 +61,11 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 	    // Build the repository for class
 	    String persistedClass = element.getAttribute("class");
 	    
+	    String useDefaultNamespace = element.getAttribute("useDefaultNamespace");
+	    
 	    BeanDefinitionBuilder repositoryBuilder = BeanDefinitionBuilder.genericBeanDefinition(SimpleMappingFuzzyRepository.class);
 	    repositoryBuilder.addConstructorArgValue(persistedClass);
+	    repositoryBuilder.addConstructorArgValue( useDefaultNamespace.equals("true") );
 	    // TODO: Look at best practice for qualifying repositories
 	    repositoryBuilder.getRawBeanDefinition().addQualifier(new AutowireCandidateQualifier(Qualifier.class, resolveId(element, null, parserContext)));
 

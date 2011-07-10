@@ -144,6 +144,13 @@ The Store url.  Default is wwmdb:/com.fuzzydb.DefaultStore
 The type that will be persisted by this repository]]></xsd:documentation>
 					</xsd:annotation>
 				</xsd:attribute>
+				<xsd:attribute name="useDefaultNamespace" type="xsd:boolean" use="optional">
+					<xsd:annotation>
+						<xsd:documentation><![CDATA[
+Defaults to false. This must be set true for the one repository where fuzzy attributes will be in use.  This restriction is
+expected to be relaxed in a future release]]></xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
  
 <!-- 			</xsd:extension> -->
 <!-- 		</xsd:complexContent> -->

@@ -22,6 +22,6 @@
 	<fuzzy:initialize />	
 
 	<!-- This will become fuzzy:repositories with classpath scanning as per Spring Data standard -->
-	<fuzzy:repository id="fuzzyItemRepository" class="com.wwm.db.spring.repository.FuzzyItem" />
+	<fuzzy:repository id="fuzzyItemRepository" class="com.wwm.db.spring.repository.FuzzyItem" useDefaultNamespace="true" />
 	
 </beans>

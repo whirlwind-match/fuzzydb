@@ -50,8 +50,16 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	@Autowired
 	private AttributeDefinitionService attrDefinitionService;
 
+	private final boolean useDefaultNamespace;
+	
 	public SimpleMappingFuzzyRepository(Class<T> type) {
 		super(type);
+		useDefaultNamespace = false;
+	}
+
+	public SimpleMappingFuzzyRepository(Class<T> type, boolean useDefaultNamespace) {
+		super(type);
+		this.useDefaultNamespace = useDefaultNamespace;
 	}
 
 	@Override
@@ -193,8 +201,10 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		return existing;
 	}
 
+	@Override
 	protected void selectNamespace() {
-		getPersister().setNamespace(type.getCanonicalName());
-	}
-
+		getPersister().setNamespace(
+				useDefaultNamespace ? "" : type.getCanonicalName()
+				);
+	}	
 }
