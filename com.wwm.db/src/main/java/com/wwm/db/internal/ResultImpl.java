@@ -31,4 +31,9 @@ public class ResultImpl<E extends Object> implements Result<E> {
 	public Score getScore() {
 		return score;
 	}
+	
+	@Override
+	public String toString() {
+		return "score: " + score.total() + ", item: " + item.toString();
+	}
 }
