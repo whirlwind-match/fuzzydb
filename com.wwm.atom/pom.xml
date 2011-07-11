@@ -3,24 +3,24 @@
 
 	<groupId>org.fuzzydb.atom</groupId>
 	<artifactId>org.fuzzydb.atom</artifactId>
-	<version>1.0.0.CI-SNAPSHOT</version>
+	<version>1.0.0.M2</version>
 
 	<parent>
 		<artifactId>whirlwind-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>
-		<version>1.0.0.CI-SNAPSHOT</version>
+		<version>1.0.0.M2</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.fuzzydb.atom</groupId>
 			<artifactId>org.fuzzydb.abdera.util</artifactId>
-			<version>1.0.0.CI-SNAPSHOT</version>
+			<version>1.0.0.M2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.util</artifactId>
-			<version>1.0.0.CI-SNAPSHOT</version>
+			<version>1.0.0.M2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

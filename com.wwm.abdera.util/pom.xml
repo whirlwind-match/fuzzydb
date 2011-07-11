@@ -3,13 +3,13 @@
     <groupId>org.fuzzydb.atom</groupId>
     <artifactId>org.fuzzydb.abdera.util</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0.CI-SNAPSHOT</version>
+    <version>1.0.0.M2</version>
     <name>com.wwm.abdera.util</name>
 
     <parent>
         <artifactId>whirlwind-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
-        <version>1.0.0.CI-SNAPSHOT</version>
+        <version>1.0.0.M2</version>
     </parent>
 
 

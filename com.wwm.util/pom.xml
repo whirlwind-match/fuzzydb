@@ -2,11 +2,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.util</artifactId>
-    <version>1.0.0.CI-SNAPSHOT</version>
+    <version>1.0.0.M2</version>
     <parent>
     	<artifactId>whirlwind-parent</artifactId>
     	<groupId>org.fuzzydb</groupId>
-    	<version>1.0.0.CI-SNAPSHOT</version>
+    	<version>1.0.0.M2</version>
     	<relativePath />
     </parent>
     <dependencies>
