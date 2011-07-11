@@ -3,13 +3,13 @@
 	<groupId>org.fuzzydb</groupId>
 	<artifactId>whirlwind-parent-aspectj</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0.M2</version>
+	<version>1.0.0.M3-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 
 	<parent>
 		<artifactId>whirlwind-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>
-		<version>1.0.0.M2</version>
+		<version>1.0.0.M3-SNAPSHOT</version>
 	</parent>
 
 	<properties>

@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.client</artifactId>
-    <version>1.0.0.M2</version>
+    <version>1.0.0.M3-SNAPSHOT</version>
 
     <parent>
         <artifactId>whirlwind-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
-        <version>1.0.0.M2</version>
+        <version>1.0.0.M3-SNAPSHOT</version>
         
     </parent>
 
@@ -17,27 +17,27 @@ NOTE: compiled against io.packet, but io.packet is set as provided scope and mus
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.util</artifactId>
-            <version>1.0.0.M2</version>
+            <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.core</artifactId>
-            <version>1.0.0.M2</version>
+            <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.io.core</artifactId>
-            <version>1.0.0.M2</version>
+            <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.expressions</artifactId>
-            <version>1.0.0.M2</version>
+            <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>org.fuzzydb</groupId>
         	<artifactId>org.fuzzydb.io.packet</artifactId>
-        	<version>1.0.0.M2</version>
+        	<version>1.0.0.M3-SNAPSHOT</version>
         	<type>jar</type>
         	<scope>provided</scope>
         </dependency>

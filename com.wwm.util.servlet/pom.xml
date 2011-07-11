@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fuzzydb</groupId>
   <artifactId>org.fuzzydb.util.servlet</artifactId>
-  <version>1.0.0.M2</version>
+  <version>1.0.0.M3-SNAPSHOT</version>
 
     <parent>
         <artifactId>whirlwind-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
-        <version>1.0.0.M2</version>
+        <version>1.0.0.M3-SNAPSHOT</version>
         
     </parent>
 
@@ -15,7 +15,7 @@
         <dependency>
         	<groupId>org.fuzzydb</groupId>
         	<artifactId>org.fuzzydb.util</artifactId>
-        	<version>1.0.0.M2</version>
+        	<version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>javax.servlet</groupId>

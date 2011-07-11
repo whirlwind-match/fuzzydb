@@ -3,11 +3,11 @@
 	<parent>
 		<groupId>org.fuzzydb</groupId>
 		<artifactId>whirlwind-parent-aspectj</artifactId>
-		<version>1.0.0.M2</version>
+		<version>1.0.0.M3-SNAPSHOT</version>
 	</parent>
 	<groupId>org.fuzzydb</groupId>
 	<artifactId>org.fuzzydb.spring</artifactId>
-	<version>1.0.0.M2</version>
+	<version>1.0.0.M3-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>Provides integration with Spring transaction management</description>
 
@@ -20,19 +20,19 @@
 		<dependency>
 			<groupId>org.fuzzydb.attrs</groupId>
 			<artifactId>org.fuzzydb.attrs</artifactId>
-			<version>1.0.0.M2</version>
+			<version>1.0.0.M3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.server</artifactId>
-			<version>1.0.0.M2</version>
+			<version>1.0.0.M3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.server</artifactId>
-			<version>1.0.0.M2</version>
+			<version>1.0.0.M3-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.io.packet</artifactId>
-			<version>1.0.0.M2</version>
+			<version>1.0.0.M3-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>

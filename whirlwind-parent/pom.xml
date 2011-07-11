@@ -5,7 +5,7 @@
 	<groupId>org.fuzzydb</groupId>
 	<artifactId>whirlwind-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0.M2</version>
+	<version>1.0.0.M3-SNAPSHOT</version>
 
 	<name>Whirlwind parent POM</name>
 	<description>Parent POM for specifying common properties for Whirlwind Match open source projects.</description>
