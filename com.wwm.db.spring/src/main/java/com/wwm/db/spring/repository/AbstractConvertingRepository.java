@@ -14,7 +14,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.query.Result;
@@ -50,14 +50,14 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		ReflectionUtils.doWithFields(type, new FieldCallback() {
 			public void doWith(Field field) throws IllegalArgumentException,
 					IllegalAccessException {
-				if (field.isAnnotationPresent(Id.class) && field.getType().isAssignableFrom(GenericRef.class)) {
+				if (field.isAnnotationPresent(Id.class) && field.getType().isAssignableFrom(Ref.class)) {
 					ReflectionUtils.makeAccessible(field);
 					idField = field;
 				}
 			}
 		});
 		if (idField == null) {
-			throw new MappingException(type.getCanonicalName() + " must have an @Id field of type GenericRef");
+			throw new MappingException(type.getCanonicalName() + " must have an @Id field of type Ref");
 		}
 	}
 	
@@ -74,7 +74,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	public T save(T entity) {
 		selectNamespace();
 		I toWrite = toInternal(entity);
-		GenericRef<I> existingRef = getRef(entity);
+		Ref<I> existingRef = getRef(entity);
 		if (existingRef != null) {
 			I merged = merge(toWrite, existingRef); 
 			try {
@@ -94,7 +94,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * Should do anything needed to merge an existing back in with
 	 * existingRef from the current transaction
 	 */
-	abstract protected I merge(I toWrite, GenericRef<I> existingRef); 
+	abstract protected I merge(I toWrite, Ref<I> existingRef); 
 	
 	
 	protected void setRef(T entity, Ref ref) {
@@ -108,9 +108,9 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	@SuppressWarnings("unchecked")
-	protected GenericRef<I> getRef(T entity) {
+	protected Ref<I> getRef(T entity) {
 		try {
-			return (GenericRef<I>) idField.get(entity);
+			return (Ref<I>) idField.get(entity);
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
@@ -129,7 +129,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	public T findOne(ID id) {
 		selectNamespace();
-		GenericRef<I> ref = toInternalId(id);
+		Ref<I> ref = toInternalId(id);
 		T entity;
 		try {
 			entity = fromInternal(persister.retrieve(ref), ref);
@@ -206,7 +206,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * @param ref 
 	 * @return converted type
 	 */
-	abstract protected T fromInternal(I internal, GenericRef<I> ref);
+	abstract protected T fromInternal(I internal, Ref<I> ref);
 
 	/**
 	 * Encode the persisted object to its' internal representation.
@@ -216,7 +216,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 */
 	abstract protected I toInternal(T external);
 
-	abstract protected GenericRef<I> toInternalId(ID id);
+	abstract protected Ref<I> toInternalId(ID id);
 	
 	abstract protected Class<I> getInternalType();
 

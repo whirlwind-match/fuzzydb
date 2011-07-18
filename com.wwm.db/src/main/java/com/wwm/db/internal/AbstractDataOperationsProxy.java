@@ -5,7 +5,6 @@ import java.util.EmptyStackException;
 import java.util.Map;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.marker.IAttributeContainer;
@@ -50,7 +49,7 @@ public abstract class AbstractDataOperationsProxy implements DataOperations {
 		return getDataOperations().create(obj);
 	}
 
-	public final <E> GenericRef<E> createGeneric(E obj) {
+	public final <E> Ref<E> createGeneric(E obj) {
 		return getDataOperations().createGeneric(obj);
 	}
 
@@ -62,11 +61,7 @@ public abstract class AbstractDataOperationsProxy implements DataOperations {
 		return getDataOperations().create(objs);
 	}
 
-	public final Object retrieve(Ref ref) {
-		return getDataOperations().retrieve(ref);
-	}
-
-	public final <E> E retrieve(GenericRef<E> ref) {
+	public final <E> E retrieve(Ref<E> ref) {
 		return getDataOperations().retrieve(ref);
 	}
 

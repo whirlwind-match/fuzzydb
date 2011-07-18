@@ -12,7 +12,7 @@ package com.wwm.db.internal.index.btree.node;
 
 import java.util.TreeMap;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.index.btree.BranchNodeW;
 import com.wwm.db.internal.index.btree.PendingOperations;
@@ -70,7 +70,7 @@ class BranchNode extends Node implements BranchNodeW {
 		children.put(key, ref);
 	}
 
-	public void setRight(GenericRef ref) {
+	public void setRight(Ref ref) {
 		rightChild = (RefImpl) ref;
 	}
 

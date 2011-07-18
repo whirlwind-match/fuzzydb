@@ -12,16 +12,16 @@ package com.wwm.db.internal.index.btree.node;
 
 import java.io.Serializable;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.internal.index.btree.NodeW;
 
 public class RootSentinel extends Node implements Serializable, Cloneable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	final GenericRef<NodeW> root;
+	final Ref<NodeW> root;
 	
-	public RootSentinel(GenericRef<NodeW> root) {
+	public RootSentinel(Ref<NodeW> root) {
 		this.root = root;
 	}
 
@@ -30,7 +30,7 @@ public class RootSentinel extends Node implements Serializable, Cloneable {
 		throw new UnsupportedOperationException();
 	}
 
-	public GenericRef<NodeW> getRoot() {
+	public Ref<NodeW> getRoot() {
 		return root;
 	}
 }

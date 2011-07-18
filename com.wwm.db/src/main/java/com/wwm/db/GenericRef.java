@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db;
 
-public interface GenericRef<E> extends Ref {
+public interface GenericRef<E> extends Ref<E> {
 
-	public E get();
+//	public E get();
 }

@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
@@ -48,7 +48,7 @@ public class BtreeLookup<T> {
         } catch (UnknownObjectException e) {
             throw new RuntimeException("Missing root in index", e);
         }
-        GenericRef<NodeW> rootRef = rs.getRoot();
+        Ref<NodeW> rootRef = rs.getRoot();
         if (rootRef == null) {
             return null;
         }

@@ -13,7 +13,7 @@ package com.wwm.db.internal.index.btree;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.index.btree.node.NodeFactory;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
@@ -25,7 +25,7 @@ abstract class Operator<T> {
     protected final IndexPointerStyle style;
     protected final Table<NodeW, NodeW> table;
 
-    private final HashMap<GenericRef<? extends NodeR>, NodeW> writeBehind = new HashMap<GenericRef<? extends NodeR>, NodeW>();
+    private final HashMap<Ref<? extends NodeR>, NodeW> writeBehind = new HashMap<Ref<? extends NodeR>, NodeW>();
 
     protected Operator(BTree<T> tree) {
         super();
@@ -34,7 +34,7 @@ abstract class Operator<T> {
         this.table = tree.getTable();
     }
 
-    protected RefdNode getNode(GenericRef<NodeW> ref) {
+    protected RefdNode getNode(Ref<NodeW> ref) {
         NodeR node = table.getObject(ref);
         if (node == null) {
             return null;
@@ -44,14 +44,14 @@ abstract class Operator<T> {
 
     protected RefdNode getRoot() {
         RootSentinel rs = (RootSentinel)table.getObject(tree.getSentinel());
-        GenericRef<NodeW> rootRef = rs.getRoot();
+        Ref<NodeW> rootRef = rs.getRoot();
         if (rootRef == null) {
             return null;
         }
         return getNode(rootRef);
     }
 
-    protected void setRoot(GenericRef<NodeW> ref) {
+    protected void setRoot(Ref<NodeW> ref) {
         RootSentinel rs = new RootSentinel(ref);
         table.update(tree.getSentinel(), rs);
     }
@@ -62,7 +62,7 @@ abstract class Operator<T> {
      * @param ln
      * @return
      */
-    protected LeafNodeW getWritable(GenericRef<? extends NodeR> ref, LeafNodeR ln) {
+    protected LeafNodeW getWritable(Ref<? extends NodeR> ref, LeafNodeR ln) {
         NodeW n = writeBehind.get(ref);
         if (n != null) {
             return (LeafNodeW) n;
@@ -72,7 +72,7 @@ abstract class Operator<T> {
         return cloned;
     }
 
-    protected BranchNodeW getWritable(GenericRef<? extends NodeR> ref, BranchNodeR bn) {
+    protected BranchNodeW getWritable(Ref<? extends NodeR> ref, BranchNodeR bn) {
         NodeW n = writeBehind.get(ref);
         if (n != null) {
             return (BranchNodeW) n;
@@ -86,10 +86,10 @@ abstract class Operator<T> {
         return NodeFactory.newLeafNode();
     }
 
-    protected GenericRef<NodeW> createNear(GenericRef<? extends NodeW> nearestRef, BranchNodeR parentNode, NodeW newNode) {
-        GenericRef<NodeW> ref = null;
+    protected Ref<NodeW> createNear(Ref<? extends NodeW> nearestRef, BranchNodeR parentNode, NodeW newNode) {
+        Ref<NodeW> ref = null;
         if (nearestRef != null) {
-            ref = table.allocOneRefNear((GenericRef<NodeW>) nearestRef, parentNode==null?null:parentNode.getChildOids());
+            ref = table.allocOneRefNear((Ref<NodeW>) nearestRef, parentNode==null?null:parentNode.getChildOids());
         } else {
             ref = table.allocOneRef();
         }
@@ -97,16 +97,16 @@ abstract class Operator<T> {
         return ref;
     }
 
-    protected void update(GenericRef<? extends NodeW> ref, NodeW updatedNode) {
+    protected void update(Ref<? extends NodeW> ref, NodeW updatedNode) {
         writeBehind.put(ref, updatedNode);
     }
 
     void flush() {
-        for (Entry<GenericRef<? extends NodeR>, NodeW> entry : writeBehind.entrySet()) {
-        	GenericRef<? extends NodeR> ref = entry.getKey();
+        for (Entry<Ref<? extends NodeR>, NodeW> entry : writeBehind.entrySet()) {
+        	Ref<? extends NodeR> ref = entry.getKey();
             NodeW node = entry.getValue();
             try {
-                table.createUpdate((GenericRef<NodeW>) ref, node);
+                table.createUpdate((Ref<NodeW>) ref, node);
             } catch (UnknownObjectException e) {
                 throw new RuntimeException("Error in Index Flush", e);
             }

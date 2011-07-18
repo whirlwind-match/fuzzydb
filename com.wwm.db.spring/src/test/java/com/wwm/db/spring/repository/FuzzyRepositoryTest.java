@@ -24,7 +24,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.query.Result;
 import com.wwm.model.attributes.Score;
 
@@ -34,7 +34,7 @@ import com.wwm.model.attributes.Score;
 public class FuzzyRepositoryTest {
 	
 	
-	private Set<GenericRef<FuzzyItem>> toDelete;
+	private Set<Ref<FuzzyItem>> toDelete;
 	
 	@Autowired
 	private FuzzyRepository<FuzzyItem> repo;
@@ -42,12 +42,12 @@ public class FuzzyRepositoryTest {
 	
 	@Before
 	public void initTest(){
-		toDelete = new HashSet<GenericRef<FuzzyItem>>();
+		toDelete = new HashSet<Ref<FuzzyItem>>();
 	}
 	
 	@After
 	public void deleteFuzzyItems() {
-		for (GenericRef<FuzzyItem> ref : toDelete) {
+		for (Ref<FuzzyItem> ref : toDelete) {
 			try {
 				deleteOne(ref);
 			} catch (EmptyResultDataAccessException e) {
@@ -57,7 +57,7 @@ public class FuzzyRepositoryTest {
 	}
 
 	@Transactional
-	private void deleteOne(GenericRef<FuzzyItem> ref) {
+	private void deleteOne(Ref<FuzzyItem> ref) {
 		repo.delete(ref);
 	}
 	
@@ -65,7 +65,7 @@ public class FuzzyRepositoryTest {
 	public void createObjectSucceedInAtTransactionalViaInjectedDataOps(){
 		// the action
 		FuzzyItem matt = createMatt();
-		GenericRef<FuzzyItem> ref = matt.getRef();
+		Ref<FuzzyItem> ref = matt.getRef();
 
 		// Check a ref got assigned when we saved item
 		assertNotNull(ref);
@@ -108,7 +108,7 @@ public class FuzzyRepositoryTest {
 	public void matchesForAPersonAreInOrder(){
 		// the action
 		FuzzyItem matt = createMatt();
-		GenericRef<FuzzyItem> ref = matt.getRef();
+		Ref<FuzzyItem> ref = matt.getRef();
 
 		// Check a ref got assigned when we saved item
 		assertNotNull(ref);
@@ -156,7 +156,7 @@ public class FuzzyRepositoryTest {
 
 
 	@Transactional(readOnly=true) 
-	private FuzzyItem getItem(GenericRef<FuzzyItem> ref) {
+	private FuzzyItem getItem(Ref<FuzzyItem> ref) {
 		return repo.findOne(ref);
 	}
 

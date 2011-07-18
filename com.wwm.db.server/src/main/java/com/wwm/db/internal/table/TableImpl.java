@@ -13,7 +13,7 @@ package com.wwm.db.internal.table;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.pager.Element;
@@ -105,17 +105,17 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return table.allocNewIds(count);
 	}
 
-	public synchronized GenericRef<RT> allocOneRef() {
+	public synchronized Ref<RT> allocOneRef() {
 		long oid = table.allocOneRef();
 		return new RefImpl<RT>(getSlice(), tableId, oid);
 	}
 
-	public synchronized GenericRef<RT> allocOneRefNear(GenericRef<RT> nearRef, long[] others) {
+	public synchronized Ref<RT> allocOneRefNear(Ref<RT> nearRef, long[] others) {
 		long oid = table.allocOneRefNear(((RefImpl<RT>) nearRef).getOid(), others);
 		return new RefImpl<RT>(getSlice(), tableId, oid);
 	}
 	
-	public void create(GenericRef<RT> ref, T object) {
+	public void create(Ref<RT> ref, T object) {
 		if (!initialised){ initialise(); }
 		long oid = ((RefImpl<RT>) ref).getOid();
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
@@ -125,7 +125,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		incrementCount();
 	}
 
-	public void delete(GenericRef<RT> ref) throws UnknownObjectException {
+	public void delete(Ref<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		long oid = ((RefImpl<RT>) ref).getOid();
@@ -140,7 +140,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return table.deletePersistentData();
 	}
 
-	public T getObject(GenericRef<RT> ref) throws UnknownObjectException {
+	public T getObject(Ref<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		long oid = ((RefImpl<RT>) ref).getOid();
@@ -176,7 +176,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		initialised = true;
 	}
 
-	public void update(GenericRef<RT> ref, T object) throws UnknownObjectException {
+	public void update(Ref<RT> ref, T object) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		Element<T> element = table.lockElementForWrite(((RefImpl<RT>) ref).getOid());
@@ -185,7 +185,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		table.unlockElementForWrite(element);
 	}
 
-	public void createUpdate(GenericRef<RT> ref, T object) throws UnknownObjectException {
+	public void createUpdate(Ref<RT> ref, T object) throws UnknownObjectException {
 		if (doesElementExist(ref)) {
 			update(ref, object);
 		} else {
@@ -193,14 +193,14 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		}
 	}
 	
-	public boolean doesElementExist(GenericRef<RT> ref) {
+	public boolean doesElementExist(Ref<RT> ref) {
 		if (!initialised){ initialise(); }
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		long elementId = ((RefImpl<RT>) ref).getOid();
 		return table.doesElementExist(elementId);
 	}
 
-	public boolean canSeeLatest(GenericRef<RT> ref) throws UnknownObjectException {
+	public boolean canSeeLatest(Ref<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		long oid = ((RefImpl<RT>) ref).getOid();
@@ -225,7 +225,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return new TableIterator();
 	}
 
-	public T getObjectNonIO(GenericRef<RT> ref) throws UnknownObjectException {
+	public T getObjectNonIO(Ref<RT> ref) throws UnknownObjectException {
 		if (!initialised){ initialise(); }
 		assert( ((RefImpl<RT>) ref).getTable() == tableId);
 		// FIXME make this method do what its supposed to!
@@ -237,7 +237,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		return slice;
 	}
 
-	public GenericRef<RT> allocOneRefNear(GenericRef<RT> nearRef) {
+	public Ref<RT> allocOneRefNear(Ref<RT> nearRef) {
 		return allocOneRefNear(nearRef, null);
 	}
 

@@ -21,7 +21,6 @@ import java.util.Stack;
 
 import org.slf4j.Logger;
 
-import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
@@ -338,14 +337,14 @@ public class TransactionImpl implements Transaction {
 		return retrieve(getRef(obj));
 	}
 
-	public synchronized Object retrieve(Ref ref) {
+	public synchronized <E> E retrieve(Ref<E> ref) {
 		requiresActive();
 		Command cmd = new RetrieveByRefCmd(store.getStoreId(), store.getNextId(), tid, ref);
 		RetrieveSingleRsp rsp = (RetrieveSingleRsp) execute(cmd);
 		
 		MetaObject<?> mo = (MetaObject<?>)rsp.getCompactedObject();
 		
-		return receiveObject(mo);
+		return (E) receiveObject(mo);
 	}
 
 	private <E> E receiveObject(MetaObject<E> mo) {
@@ -509,13 +508,8 @@ public class TransactionImpl implements Transaction {
 		return receiveObject(mo);
 	}
 
-	public <E> GenericRef<E> createGeneric(E obj) {
+	public <E> Ref<E> createGeneric(E obj) {
 		return (RefImpl<E>)create(obj);
-	}
-
-	@SuppressWarnings("unchecked")
-	public <E> E retrieve(GenericRef<E> ref) {
-		return (E) retrieve((Ref)ref);
 	}
 
 	public StoreImpl getStore() {

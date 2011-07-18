@@ -31,7 +31,7 @@ import com.wwm.attrs.simple.FloatHave;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.DataOperations;
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -101,13 +101,13 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		
 		// mock
 		BlobStoringWhirlwindItem internal = getWWItem();
-		when(persister.retrieve((GenericRef<BlobStoringWhirlwindItem>) anyObject())).thenReturn(internal);
+		when(persister.retrieve((Ref<BlobStoringWhirlwindItem>) anyObject())).thenReturn(internal);
 
 		// the action
 		FuzzyItem result = repo.findOne(new RefImpl<SimpleMappingFuzzyRepositoryTest.FuzzyItem>(0, 0, 0));
 		
 		// verify
-		verify(persister, times(1)).retrieve(ArgumentCaptor.forClass(GenericRef.class).capture());
+		verify(persister, times(1)).retrieve(ArgumentCaptor.forClass(Ref.class).capture());
 		Map<String, Object> map = result.attributes;
 		assertEquals(Boolean.TRUE, map.get("isMale"));
 		assertEquals(2.2f, map.get("age"));
@@ -127,7 +127,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	public static class FuzzyItem implements Serializable {
 		
 		@Id
-		GenericRef<FuzzyItem> ref;
+		Ref<FuzzyItem> ref;
 		
 		Map<String, Object> attributes = new HashMap<String,Object>();
 		

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.index.btree.BranchNodeW.SplitOut;
 import com.wwm.db.internal.index.btree.node.NodeFactory;
@@ -43,11 +43,11 @@ class Insertor<T> extends Operator<T> {
     }
 
 
-    private SplitResult insertIntoNode(BranchNodeR parentNode, GenericRef<BranchNodeW> parentRef, RefdNode node, PendingOperations ops) {
+    private SplitResult insertIntoNode(BranchNodeR parentNode, Ref<BranchNodeW> parentRef, RefdNode node, PendingOperations ops) {
 
         SplitResult splitResult = null;
         NodeR n = node.node;
-        GenericRef ref = node.ref;
+        Ref ref = node.ref;
 
 
         // Insert into Leaf Node
@@ -58,8 +58,8 @@ class Insertor<T> extends Operator<T> {
                 // Splitting a leaf node. This node becomes new right node.
                 LeafNodeW leftLeaf = NodeFactory.newLeafNode();
                 leftLeaf.insertPeerData(leaf.splitOutLeft());
-                GenericRef<? extends NodeW> nearestRef = (parentRef == null) ? ref : parentRef;
-                GenericRef leftLeafRef = createNear(nearestRef, parentNode, leftLeaf);
+                Ref<? extends NodeW> nearestRef = (parentRef == null) ? ref : parentRef;
+                Ref leftLeafRef = createNear(nearestRef, parentNode, leftLeaf);
                 splitResult = new SplitResult(leftLeaf.getMaxKey(), (RefImpl) leftLeafRef);
             }
             update(ref, leaf);
@@ -153,7 +153,7 @@ class Insertor<T> extends Operator<T> {
             }
             // Splitting a branch node. This node becomes new right child
             SplitOut so = bnw.splitOutLeft();
-            GenericRef<NodeW> newRef = createNear(parentRef, parentNode, so.node);
+            Ref<NodeW> newRef = createNear(parentRef, parentNode, so.node);
             splitResult = new SplitResult(so.key, (RefImpl) newRef);
         }
 
@@ -165,7 +165,7 @@ class Insertor<T> extends Operator<T> {
         return splitResult;
     }
 
-    public void insert(Comparable<Object> key, GenericRef ref, Object object) {
+    public void insert(Comparable<Object> key, Ref ref, Object object) {
         HashMap<Comparable<Object>, ArrayList<Object>> inserts = new HashMap<Comparable<Object>, ArrayList<Object>>();
         ArrayList<Object> al = new ArrayList<Object>();
         if (style == IndexPointerStyle.Copy) {
@@ -185,7 +185,7 @@ class Insertor<T> extends Operator<T> {
             // Special case - no root. Create single leafnode
             LeafNodeW ln = NodeFactory.newLeafNode();
             ln.insertData(style, ops);
-            GenericRef<NodeW> rootRef = table.allocOneRef();
+            Ref<NodeW> rootRef = table.allocOneRef();
             table.create(rootRef, ln);
             setRoot(rootRef);
             return;
@@ -198,7 +198,7 @@ class Insertor<T> extends Operator<T> {
             BranchNodeW newRoot = NodeFactory.newBranchNode();
             newRoot.setRight(root.ref); // old root becomes the new right node
             newRoot.addLeft(sr.key, sr.newLeft);
-            GenericRef<NodeW> newRootRef = createNear(sr.newLeft, null, newRoot);
+            Ref<NodeW> newRootRef = createNear(sr.newLeft, null, newRoot);
             setRoot(newRootRef);
         }
     }
@@ -217,7 +217,7 @@ class Insertor<T> extends Operator<T> {
             // Special case - no root. Create single leafnode
             LeafNodeW ln = NodeFactory.newLeafNode();
             ln.insertData(style, ops);
-            GenericRef<NodeW> rootRef = table.allocOneRef();
+            Ref<NodeW> rootRef = table.allocOneRef();
             table.create(rootRef, ln);
             setRoot(rootRef);
             return;
@@ -230,7 +230,7 @@ class Insertor<T> extends Operator<T> {
             BranchNodeW newRoot = NodeFactory.newBranchNode();
             newRoot.setRight(root.ref); // old root becomes the new right node
             newRoot.addLeft(sr.key, sr.newLeft);
-            GenericRef<NodeW> newRootRef = createNear(sr.newLeft, null, newRoot);
+            Ref<NodeW> newRootRef = createNear(sr.newLeft, null, newRoot);
             setRoot(newRootRef);
         }
     }

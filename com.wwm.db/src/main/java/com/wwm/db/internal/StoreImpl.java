@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.GenericRef;
 import com.wwm.db.Helper;
 import com.wwm.db.Ref;
 import com.wwm.db.Store;
@@ -122,7 +121,7 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 			client.addToMetaCache(mo);
 		}
 
-		public <E> GenericRef<E> getRef(E obj) throws UnknownObjectException {
+		public <E> Ref<E> getRef(E obj) throws UnknownObjectException {
 			return client.getRef(obj);
 		}
 
@@ -310,7 +309,7 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 		return context.getVersion(obj);
 	}
 
-	public final <E> GenericRef<E> getRef(E object) {
+	public final <E> Ref<E> getRef(E object) {
 		return context.getRef(object);
 	};
 

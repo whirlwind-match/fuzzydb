@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.annotations.Key;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -59,7 +59,7 @@ public class ExampleSpringFuzzyTest {
 		// Create an item
 		IndexedMap originalItem = new IndexedMap("Hello");
 		originalItem.put("height", Integer.valueOf(181));
-		GenericRef<IndexedMap> ref = insertSomething(originalItem);
+		Ref<IndexedMap> ref = insertSomething(originalItem);
 
 		// Retrieve by ref
 		IndexedMap item = retrieveByRef(ref);
@@ -74,12 +74,12 @@ public class ExampleSpringFuzzyTest {
 	}
 
 	@Transactional 
-	private GenericRef<IndexedMap> insertSomething(IndexedMap item) {
+	private Ref<IndexedMap> insertSomething(IndexedMap item) {
 		return dataOperations.createGeneric(item);
 	}
 	
 	@Transactional(readOnly=true)
-	private <T> T retrieveByRef(GenericRef<T> ref) {
+	private <T> T retrieveByRef(Ref<T> ref) {
 		return dataOperations.retrieve(ref);
 	}
 

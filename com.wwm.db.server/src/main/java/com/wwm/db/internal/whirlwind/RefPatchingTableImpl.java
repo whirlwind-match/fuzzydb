@@ -12,7 +12,7 @@ package com.wwm.db.internal.whirlwind;
 
 
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.table.RawTable;
@@ -34,7 +34,7 @@ public class RefPatchingTableImpl<T extends RefAware<T>> extends TableImpl<T,T> 
 	}
 
 	@Override
-	public T getObject(GenericRef<T> ref) throws UnknownObjectException {
+	public T getObject(Ref<T> ref) throws UnknownObjectException {
 		T object = super.getObject(ref);
 		if (object != null){
 			object.setRef(ref);
@@ -43,7 +43,7 @@ public class RefPatchingTableImpl<T extends RefAware<T>> extends TableImpl<T,T> 
 	}
 
 	@Override
-	public T getObjectNonIO(GenericRef<T> ref) throws UnknownObjectException {
+	public T getObjectNonIO(Ref<T> ref) throws UnknownObjectException {
 		T object = super.getObjectNonIO(ref);
 		if (object != null){
 			object.setRef(ref);

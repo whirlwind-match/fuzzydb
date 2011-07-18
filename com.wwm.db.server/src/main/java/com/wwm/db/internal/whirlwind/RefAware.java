@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.whirlwind;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 
 /**
  * Interface that is exposed on objects where we need them to know their own
@@ -23,7 +23,7 @@ import com.wwm.db.GenericRef;
  */
 public interface RefAware<T> extends Immutable { // NOTE: Immutable is just for testing (ask Neale if he can remember why)
 
-	public void setRef( GenericRef<T> ref);
+	public void setRef( Ref<T> ref);
 	
-	public GenericRef<T> getRef();
+	public Ref<T> getRef();
 }

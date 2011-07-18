@@ -12,10 +12,9 @@ package com.wwm.db.internal;
 
 import java.io.Serializable;
 
-import com.wwm.db.GenericRef;
 import com.wwm.db.Ref;
 
-public class RefImpl<T> implements GenericRef<T>, Ref, Serializable, Comparable<RefImpl<T>> {
+public class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImpl<T>> {
 	
 	private static final long serialVersionUID = 1L;
 	protected long oid;  // could go past 32 bit, as we could be using single slice to long web page hits... 10 million hits per day only lasts just over a year 

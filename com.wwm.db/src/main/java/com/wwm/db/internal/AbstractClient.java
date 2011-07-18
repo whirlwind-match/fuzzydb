@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
 import com.wwm.db.Client;
-import com.wwm.db.GenericRef;
 import com.wwm.db.Helper;
+import com.wwm.db.Ref;
 import com.wwm.db.ServerStats;
 import com.wwm.db.Store;
 import com.wwm.db.core.LogFactory;
@@ -110,11 +110,11 @@ public abstract class AbstractClient implements Cloneable, Client {
 	        }
 	
 	        @SuppressWarnings("unchecked")
-			public <E> GenericRef<E> getRef(E obj) throws UnknownObjectException {
+			public <E> Ref<E> getRef(E obj) throws UnknownObjectException {
 	            synchronized (metaMap) {
 	                MetaObject<?> mo = metaMap.find(obj);
 	                if (mo != null) {
-	                    return (GenericRef<E>) mo.getRef();
+	                    return (Ref<E>) mo.getRef();
 	                }
 	            }
 	            throw new UnknownObjectException();
@@ -265,7 +265,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    return authority == Authority.Authoritative;
 	}
 
-	public <E> GenericRef<E> getRef(E obj) throws UnknownObjectException {
+	public <E> Ref<E> getRef(E obj) throws UnknownObjectException {
 	    return context.getRef(obj);
 	}
 

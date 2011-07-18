@@ -69,8 +69,8 @@ public interface DataOperations {
 	/**
 	 * @throws KeyCollisionException if {@link Key}(unique=true) is specified and there is a clash
 	 */
-	<E> Ref create(E obj);
-	<E> GenericRef<E> createGeneric(E obj);
+	<E> Ref<E> create(E obj);
+	<E> Ref<E> createGeneric(E obj);
 	Ref[] create(Object[] objs);
 	Ref[] create(Collection<Object> objs);
 	
@@ -78,8 +78,7 @@ public interface DataOperations {
 	/**
 	 * @throws UnknownObjectException if the object was not found (e.g. deleted by another transaction)
 	 */
-	Object retrieve(Ref ref);
-	<E> E retrieve(GenericRef<E> ref);
+	<E> E retrieve(Ref<E> ref);
 	<E> E refresh(E obj);	// check dirty flag and latest version, refresh if needed
 	Map<Ref, Object> retrieve(Collection<Ref> refs);
 	
@@ -136,6 +135,6 @@ public interface DataOperations {
 	 * Retrieve the reference/id of this persisted object.
 	 * Will throw UnknownObjectException if the object is detached or not yet persisted
 	 */
-	<E> GenericRef<E> getRef(E object);
+	<E> Ref<E> getRef(E object);
 
 }

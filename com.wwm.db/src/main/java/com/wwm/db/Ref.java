@@ -15,6 +15,6 @@ import java.io.Serializable;
 /** 
  * A Client-side reference to a database object.
  */
-public interface Ref extends Serializable {
+public interface Ref<E> extends Serializable {
 	
 }

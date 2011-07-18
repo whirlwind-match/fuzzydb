@@ -1,6 +1,6 @@
 package com.wwm.db.spring.repository;
 
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 
 /**
  * A Repository implementation that performs no conversion.
@@ -13,14 +13,14 @@ import com.wwm.db.GenericRef;
  *
  * @param <T>
  */
-public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, GenericRef<T>> {
+public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Ref<T>> {
 
 	public RawFuzzyRepository(Class<T> type) {
 		super(type);
 	}
 
 	@Override
-	protected T fromInternal(T internal, GenericRef<T> ref) {
+	protected T fromInternal(T internal, Ref<T> ref) {
 		return internal;
 	}
 
@@ -30,7 +30,7 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Ge
 	}
 
 	@Override
-	protected GenericRef<T> toInternalId(GenericRef<T> id) {
+	protected Ref<T> toInternalId(Ref<T> id) {
 		return id;
 	}
 	
@@ -40,7 +40,7 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Ge
 	}
 	
 	@Override
-	protected T merge(T toWrite, com.wwm.db.GenericRef<T> existingRef) {
+	protected T merge(T toWrite, com.wwm.db.Ref<T> existingRef) {
 		return toWrite;
 	}
 	

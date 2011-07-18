@@ -19,7 +19,7 @@ import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
-import com.wwm.db.GenericRef;
+import com.wwm.db.Ref;
 import com.wwm.db.internal.ResultImpl;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;
@@ -40,7 +40,7 @@ import com.wwm.model.attributes.MultiEnumAttribute;
  *
  * @param <T> the type being stored (Must contain a field: Map<String,Object> attributes for the fuzzy data)
  */
-public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, GenericRef<T>> implements FuzzyRepository<T> {
+public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, Ref<T>> implements FuzzyRepository<T> {
 
 	private static final String ATTRIBUTES_FIELD_NAME = "attributes";
 
@@ -63,7 +63,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	}
 
 	@Override
-	protected T fromInternal(BlobStoringWhirlwindItem internal, GenericRef<BlobStoringWhirlwindItem> ref) {
+	protected T fromInternal(BlobStoringWhirlwindItem internal, Ref<BlobStoringWhirlwindItem> ref) {
 		T result = createInstance(internal);
 		Map<String,Object> externalMap = getAttrsField(result);
 		
@@ -153,9 +153,9 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected final GenericRef<BlobStoringWhirlwindItem> toInternalId(GenericRef<T> id) {
-		// Externally we ref as GenericRef<T>  and we are using the real ref here
-		return (GenericRef<BlobStoringWhirlwindItem>) id;
+	protected final Ref<BlobStoringWhirlwindItem> toInternalId(Ref<T> id) {
+		// Externally we ref as Ref<T>  and we are using the real ref here
+		return (Ref<BlobStoringWhirlwindItem>) id;
 	}
 	
 	@Override
@@ -193,7 +193,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	
 	@Override
 	protected BlobStoringWhirlwindItem merge(BlobStoringWhirlwindItem toWrite,
-			GenericRef<BlobStoringWhirlwindItem> existingRef) {
+			Ref<BlobStoringWhirlwindItem> existingRef) {
 		
 		BlobStoringWhirlwindItem existing = getPersister().retrieve(existingRef);
 		existing.setBlob(toWrite.getBlob());
