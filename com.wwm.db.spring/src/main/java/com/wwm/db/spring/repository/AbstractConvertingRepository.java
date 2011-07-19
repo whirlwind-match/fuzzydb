@@ -1,20 +1,11 @@
 package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.Iterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mapping.model.MappingException;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.util.ReflectionUtils.FieldCallback;
 
-import com.wwm.db.DataOperations;
-import com.wwm.db.Ref;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.query.Result;
@@ -27,40 +18,13 @@ import com.wwm.db.query.Result;
  * @param <T> the external representation
  * @param <ID> the external ID type
  */
-public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean, WhirlwindSearch<T> {
+public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> extends AbstractCRUDRepository<I, T, ID> implements WhirlwindCrudRepository<T,ID>, InitializingBean, WhirlwindSearch<T> {
 
-	private Logger log = LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	private DataOperations persister;
-
-	protected final Class<T> type;
-
-	private Field idField;
-
 	public AbstractConvertingRepository(Class<T> type) {
-		super();
-		this.type = type;
+		super(type);
 	}
 
-	/**
-	 * Initialise access to ref
-	 */
-	public void afterPropertiesSet() throws Exception {
-		ReflectionUtils.doWithFields(type, new FieldCallback() {
-			public void doWith(Field field) throws IllegalArgumentException,
-					IllegalAccessException {
-				if (field.isAnnotationPresent(Id.class) && field.getType().isAssignableFrom(Ref.class)) {
-					ReflectionUtils.makeAccessible(field);
-					idField = field;
-				}
-			}
-		});
-		if (idField == null) {
-			throw new MappingException(type.getCanonicalName() + " must have an @Id field of type Ref");
-		}
-	}
-	
 	/**
 	 * [Should be on interface javadoc] If the field annotated with {@link Id} is set, then this is an update, and
 	 * and update is therefore done, otherwise a fresh instance is created.
@@ -150,15 +114,6 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		}
 	}
 
-	public Iterable<T> findAll() {
-		throw new UnsupportedOperationException("not yet implemented");
-	}
-
-	public long count() {
-		selectNamespace();
-		return persister.count(getInternalType());
-	}
-
 	public void delete(ID id) {
 		selectNamespace();
 		persister.delete(toInternalId(id));
@@ -174,17 +129,6 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		//		persister.delete(entities); // FIXME: Need converting iterator (must be one already surely!)
 	}
 
-	public final void deleteAll() {
-		throw new UnsupportedOperationException("not yet implemented");
-	}
-	
-	public T findFirst() {
-		selectNamespace();
-		I internalResult = persister.retrieveFirstOf(getInternalType());
-		return internalResult == null ? null : fromInternal(internalResult, persister.getRef(internalResult));
-	}
-	
-	
 	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
 		selectNamespace();
 		I internal = toInternal(query.getQueryTarget());
@@ -195,35 +139,5 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		throw new UnsupportedOperationException("Override to provide an implementation");
 	}
 
-	protected final DataOperations getPersister() {
-		return persister;
-	}
 
-	/**
-	 * Decode the internal representation (e.g. a binary buffer) to the type for this repository
-	 * 
-	 * @param internal raw object that has been retrieved from database
-	 * @param ref 
-	 * @return converted type
-	 */
-	abstract protected T fromInternal(I internal, Ref<I> ref);
-
-	/**
-	 * Encode the persisted object to its' internal representation.
-	 * 
-	 * @param external the object that is being persisted to the database
-	 * @return an object suitable for persisting
-	 */
-	abstract protected I toInternal(T external);
-
-	abstract protected Ref<I> toInternalId(ID id);
-	
-	abstract protected Class<I> getInternalType();
-
-	/**
-	 * Allows namespace to be selected for the type of repository,
-	 * which allows the same namespace to be selected for a whole
-	 * class hierarchy.
-	 */
-	abstract protected void selectNamespace();
 }
