@@ -1,13 +1,18 @@
 package com.wwm.db.spring.repository;
 
-
-public class SimpleAttributeMatchQuery<QT> implements AttributeMatchQuery<QT> {
+/**
+ * A SubjectMatchQuery looks for the best matches for a provided subject, according to the
+ * requested match style.
+ *  
+ * @author Neale Upstone
+ */
+public class SubjectMatchQuery<QT> implements AttributeMatchQuery<QT> {
 
 	private final QT attributes;
 	private final String matchStyle;
 	private final int maxResults;
 
-	public SimpleAttributeMatchQuery(QT attributes,
+	public SubjectMatchQuery(QT attributes,
 			String matchStyle, int maxResults) {
 		this.attributes = attributes;
 		this.matchStyle = matchStyle;

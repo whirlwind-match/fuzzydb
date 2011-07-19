@@ -95,7 +95,7 @@ public class FuzzyRepositoryTest {
 		}
 		
 		{
-			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
+			AttributeMatchQuery<FuzzyItem> query = new SubjectMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
 			List<Result<FuzzyItem>> items = doQuery(query);
 			assertThat(items.size(), equalTo(1));
 			Result<FuzzyItem> firstResult = items.get(0);
@@ -116,7 +116,7 @@ public class FuzzyRepositoryTest {
 		createMorePeople();
 		
 		{
-			AttributeMatchQuery<FuzzyItem> query = new SimpleAttributeMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
+			AttributeMatchQuery<FuzzyItem> query = new SubjectMatchQuery<FuzzyItem>(matt, "similarPeople", 10);
 			List<Result<FuzzyItem>> items = doQuery(query);
 
 			for (Result<FuzzyItem> result : items) {
