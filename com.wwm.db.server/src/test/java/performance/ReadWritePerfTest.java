@@ -51,7 +51,7 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 10;
 		final int numObjects = numberPerTransaction * numberOfLoops;
-		Ref ref = null; // Last ref retrieved
+		Ref<String> ref = null; // Last ref retrieved
 
 		{
 			long start = System.currentTimeMillis();
@@ -161,14 +161,14 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
-				ArrayList<Ref> al = new ArrayList<Ref>();
+				ArrayList<Ref<Object>> al = new ArrayList<Ref<Object>>();
 				for (int j = 0; j < numberPerTransaction; j++) {
-					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
+					RefImpl<Object> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
 					al.add(ref);
 				}
-				Map<Ref, Object> map = t.retrieve(al);
+				Map<Ref<Object>, Object> map = t.retrieve(al);
 				for (int j = 0; j < numberPerTransaction; j++) {
-					Ref ref = al.get(j);
+					Ref<Object> ref = al.get(j);
 					String result = (String) map.get(ref);
 					Assert.assertEquals("Hello World " + (i*numberPerTransaction + j), result);
 				}
@@ -207,14 +207,14 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
-				ArrayList<Ref> al = new ArrayList<Ref>();
+				ArrayList<Ref<Object>> al = new ArrayList<Ref<Object>>();
 				for (int j = 0; j < numberPerTransaction; j++) {
-					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
+					RefImpl<Object> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
 					al.add(ref);
 				}
-				Map<Ref, Object> map = t.retrieve(al);
+				Map<Ref<Object>, Object> map = t.retrieve(al);
 				for (int j = 0; j < numberPerTransaction; j++) {
-					Ref ref = al.get(j);
+					Ref<Object> ref = al.get(j);
 					final MutableString result = (MutableString) map.get(ref);
 					Assert.assertTrue(result.equals("1"));
 					result.value = "2";
@@ -236,16 +236,16 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 			
 			// Go through the array in transacted chunks doing retrieve,update on each one
 			for (int i = 0; i < numberOfLoops; i++) {
-				ArrayList<Ref> al = new ArrayList<Ref>();
+				ArrayList<Ref<Object>> al = new ArrayList<Ref<Object>>();
 				for (int j = 0; j < numberPerTransaction; j++) {
 					Long oid = ali.remove(0);
-					RefImpl<?> ref = new RefImpl<Object>(1, 0, oid);
+					RefImpl<Object> ref = new RefImpl<Object>(1, 0, oid);
 					al.add(ref);
 				}
 				Transaction t = store.getAuthStore().begin();
-				Map<Ref, Object> map = t.retrieve(al);
+				Map<Ref<Object>, Object> map = t.retrieve(al);
 				for (int j = 0; j < numberPerTransaction; j++) {
-					Ref ref = al.get(j);
+					Ref<Object> ref = al.get(j);
 					final MutableString result = (MutableString) map.get(ref);
 					Assert.assertTrue(result.equals("2"));
 					result.value = "3";
@@ -258,14 +258,14 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
-				ArrayList<Ref> al = new ArrayList<Ref>();
+				ArrayList<Ref<Object>> al = new ArrayList<Ref<Object>>();
 				for (int j = 0; j < numberPerTransaction; j++) {
-					RefImpl<?> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
+					RefImpl<Object> ref = new RefImpl<Object>(1, 0, i*numberPerTransaction + j);
 					al.add(ref);
 				}
-				Map<Ref, Object> map = t.retrieve(al);
+				Map<Ref<Object>, Object> map = t.retrieve(al);
 				for (int j = 0; j < numberPerTransaction; j++) {
-					Ref ref = al.get(j);
+					Ref<Object> ref = al.get(j);
 					MutableString result = (MutableString) map.get(ref);
 					Assert.assertTrue(result.equals("3"));
 				}

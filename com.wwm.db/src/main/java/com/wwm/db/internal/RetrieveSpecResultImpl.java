@@ -36,12 +36,12 @@ public class RetrieveSpecResultImpl implements RetrieveSpecResult, Serializable 
 		Map<Object, MetaObject<?>> submap = map.get(clazz);
 		if (submap == null) return null;
 		
-		MetaObject mo = submap.get(key);
+		MetaObject<E> mo = (MetaObject<E>) submap.get(key);
 		
 		if (mo == null) {
 			return null;
 		}
-		return (E)mo.getObject();
+		return mo.getObject();
 	}
 	
 	public void addAllToMetaCache(StoreImpl store) {

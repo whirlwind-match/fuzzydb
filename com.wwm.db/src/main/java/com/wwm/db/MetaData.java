@@ -12,7 +12,7 @@ package com.wwm.db;
 
 // This might get hidden....
 
-public interface MetaData {
-	Ref getRef();
+public interface MetaData<T> {
+	Ref<T> getRef();
 	int getVersion();
 }

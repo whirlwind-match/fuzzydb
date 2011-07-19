@@ -172,7 +172,7 @@ public class TransactionImpl implements Transaction {
 		return rsp.getCount();
 	}
 
-	public synchronized <E> Ref create(E obj) {
+	public synchronized <E> Ref<E> create(E obj) {
 		requiresActive();
 		requiresAuth();
 		RefImpl<E> ref = store.getNextRef(namespace, obj);
@@ -377,18 +377,18 @@ public class TransactionImpl implements Transaction {
 //		return inflated;
 //	}
 
-	public synchronized Map<Ref, Object> retrieve(Collection<Ref> refs) {
+	public synchronized <E> Map<Ref<E>, E> retrieve(Collection<Ref<E>> refs) {
 		requiresActive();
-		Command cmd = new RetrieveByRefsCmd(store.getStoreId(), store.getNextId(), tid, refs);
+		RetrieveByRefsCmd<E> cmd = new RetrieveByRefsCmd<E>(store.getStoreId(), store.getNextId(), tid, refs);
 		RetrieveMultiRsp rsp = (RetrieveMultiRsp) execute(cmd);
 		
-		Object[] mos = rsp.getCompactedObjects();
+		MetaObject<E>[] mos = (MetaObject<E>[]) rsp.getCompactedObjects();
 		//Object obj = receiveObject(rsp.getCompactedObject());
-		HashMap<Ref, Object> result = new HashMap<Ref, Object>();
+		HashMap<Ref<E>, E> result = new HashMap<Ref<E>, E>();
 		for (int i = 0; i < mos.length; i++) {
-			MetaObject<?> mo = (MetaObject<?>)mos[i];
-			Ref ref = mo.getRef();
-			Object o = receiveObject(mo);
+			MetaObject<E> mo = mos[i];
+			Ref<E> ref = mo.getRef();
+			E o = receiveObject(mo);
 			result.put(ref, o);
 		}
 		return result;
@@ -424,7 +424,7 @@ public class TransactionImpl implements Transaction {
 		this.namespace = namespace;
 	}
 
-	public synchronized <E> Ref save(E obj) {
+	public synchronized <E> Ref<E> save(E obj) {
 		requiresAuth();
 		requiresActive();
 		try {
@@ -506,10 +506,6 @@ public class TransactionImpl implements Transaction {
 			return null;
 		}
 		return receiveObject(mo);
-	}
-
-	public <E> Ref<E> createGeneric(E obj) {
-		return (RefImpl<E>)create(obj);
 	}
 
 	public StoreImpl getStore() {

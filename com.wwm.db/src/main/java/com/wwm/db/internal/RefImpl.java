@@ -14,12 +14,12 @@ import java.io.Serializable;
 
 import com.wwm.db.Ref;
 
-public class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImpl<T>> {
+public final class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImpl<T>> {
 	
 	private static final long serialVersionUID = 1L;
-	protected long oid;  // could go past 32 bit, as we could be using single slice to long web page hits... 10 million hits per day only lasts just over a year 
-    protected int table;
-	protected int slice;
+	protected final long oid;  // could go past 32 bit, as we could be using single slice to log web page hits... 10 million hits per day only lasts just over a year 
+    protected final int table;
+	protected final int slice;
 	
 	public RefImpl(int slice, int table, long oid) {
 		this.slice = slice;
@@ -33,18 +33,13 @@ public class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImpl<T>> 
 		oid = ref.oid;
 	}
 
-	@SuppressWarnings("unchecked") // deliberately unchecked cast here
-	public RefImpl(Ref ref) {
+	public RefImpl(Ref<T> ref) {
 		RefImpl<T> ri = (RefImpl<T>)ref;
 		slice = ri.slice;
 		table = ri.table;
 		oid = ri.oid;
 	}
 	
-	public void delete() {
-		throw new UnsupportedOperationException();
-	}
-
 	public long getOid() {
 		return oid;
 	}
@@ -86,18 +81,5 @@ public class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImpl<T>> 
 	@Override
 	public String toString() {
 		return table + ":" + oid;  // slice + ":" + table + ":" + oid;   
-	}
-	
-	/**
-	 * @deprecated - well Adrian said we weren't implementing it.. soo...
-	 */
-	@Deprecated
-	public T get() {
-		throw new UnsupportedOperationException("get() not implemented but may do later");
-//    	try {
-//			return Factory.getCurrentTransaction().retrieve(this);
-//		} catch (UnknownObjectException e) {
-//			return null;
-//		}
 	}
 }

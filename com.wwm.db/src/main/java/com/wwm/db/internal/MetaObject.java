@@ -20,7 +20,7 @@ import com.wwm.db.MetaData;
  * This is never exposed to the client, so RefImpl is used throughout to avoid class-cast checks on
  * the server.
  */
-public class MetaObject<T> implements MetaData, Serializable {
+public class MetaObject<T> implements MetaData<T>, Serializable {
 	private static final long serialVersionUID = 1L;
 	private RefImpl<T> ref;
 	/** Sequential object version incremented on each update of the object */

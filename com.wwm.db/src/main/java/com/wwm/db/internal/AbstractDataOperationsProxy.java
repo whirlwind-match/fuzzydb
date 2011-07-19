@@ -45,12 +45,8 @@ public abstract class AbstractDataOperationsProxy implements DataOperations {
 		getDataOperations().popNamespace();
 	}
 
-	public final <E> Ref create(E obj) {
+	public final <E> Ref<E> create(E obj) {
 		return getDataOperations().create(obj);
-	}
-
-	public final <E> Ref<E> createGeneric(E obj) {
-		return getDataOperations().createGeneric(obj);
 	}
 
 	public final Ref[] create(Object[] objs) {
@@ -69,11 +65,11 @@ public abstract class AbstractDataOperationsProxy implements DataOperations {
 		return getDataOperations().refresh(obj);
 	}
 
-	public final Map<Ref, Object> retrieve(Collection<Ref> refs) {
+	public final <E> Map<Ref<E>, E> retrieve(Collection<Ref<E>> refs) {
 		return getDataOperations().retrieve(refs);
 	}
 
-	public final <E> Ref save(E obj) {
+	public final <E> Ref<E> save(E obj) {
 		return getDataOperations().save(obj);
 	};
 	

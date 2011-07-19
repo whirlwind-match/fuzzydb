@@ -29,8 +29,8 @@ public class CRUDTest extends BaseDatabaseTest {
 	ClassLoaderInterface cli = new DummyCli();
 
 	@Test public void testCreate2ObjectsNamespaced() {
-		Ref ref1 = null;
-		Ref ref2 = null;
+		Ref<String> ref1 = null;
+		Ref<String> ref2 = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -65,12 +65,12 @@ public class CRUDTest extends BaseDatabaseTest {
 		
 		{
 			Transaction t = store.begin();
-			Object o = t.retrieve(ref1);
-			String s = (String) o;
+			String o = t.retrieve(ref1);
+			String s = o;
 			assertEquals("Hello World 1", s);
 			assertEquals(1, t.getVersion(s));
 			o = t.retrieve(ref2);
-			s = (String) o;
+			s = o;
 			assertEquals("Hello World 2", s);
 			assertEquals(1, t.getVersion(s));
     		t.dispose();
@@ -78,12 +78,12 @@ public class CRUDTest extends BaseDatabaseTest {
 		
 		// Test multi retrieve
 		{
-			ArrayList<Ref> refs = new ArrayList<Ref>();
+			ArrayList<Ref<String>> refs = new ArrayList<Ref<String>>();
 			refs.add(ref1);
 			refs.add(ref2);
 
 			Transaction t = store.begin();
-			Map<Ref, Object> result = t.retrieve(refs);
+			Map<Ref<String>, String> result = t.retrieve(refs);
 			
 			assertTrue(result.containsKey(ref1));
 			assertTrue(result.containsKey(ref2));
@@ -94,7 +94,7 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 	
 	@Test public void testCreateObject() {
-		Ref ref = null;
+		Ref<String> ref = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -104,15 +104,15 @@ public class CRUDTest extends BaseDatabaseTest {
 		
 		{
 			Transaction t = store.begin();
-			Object o = t.retrieve(ref);
-			String s = (String) o;
+			String o = t.retrieve(ref);
+			String s = o;
 			assertEquals("Hello World", s);
 		}
 	}
 
 
 	@Test public void testDeleteObject() {
-		Ref ref = null;
+		Ref<String> ref = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -122,8 +122,8 @@ public class CRUDTest extends BaseDatabaseTest {
 		
 		{
 			Transaction t = store.begin();
-			Object o = t.retrieve(ref);
-			String s = (String) o;
+			String o = t.retrieve(ref);
+			String s = o;
 			assertEquals("Hello World", s);
 			t.dispose();
 		}
@@ -147,7 +147,7 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 	
 	@Test public void testDoubleDeleteObject() {
-		Ref ref = null;
+		Ref<String> ref = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -178,7 +178,7 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 
 	@Test public void testRetrieveFirstOf() {
-		Ref ref = null;
+		Ref<String> ref = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -195,8 +195,8 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 	
 	@Test public void testRetrieveFirstOfAfterDelete() {
-		Ref ref1 = null;
-		Ref ref2 = null;
+		Ref<String> ref1 = null;
+		Ref<String> ref2 = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -228,7 +228,7 @@ public class CRUDTest extends BaseDatabaseTest {
 	}
 
 	@Test public void testRetrieveFirstOfNullAfterDelete() {
-		Ref ref1 = null;
+		Ref<String> ref1 = null;
 		
 		{
 			Transaction t = store.getAuthStore().begin();
@@ -252,8 +252,8 @@ public class CRUDTest extends BaseDatabaseTest {
 	
 	@Test public void transactionTemplateCommits() {
 
-		Ref ref = new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref>() {
-			public Ref doInTransaction(DataOperations ops) {
+		Ref<String> ref = new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref<String>>() {
+			public Ref<String> doInTransaction(DataOperations ops) {
 				return ops.create(new String("Hello World"));
 			}
 		});
@@ -265,12 +265,13 @@ public class CRUDTest extends BaseDatabaseTest {
 		t.dispose();
 	}
 	
+	@SuppressWarnings("unused")
 	@Test public void transactionTemplateRollsbackOnException() {
 
 		try {
-			Ref ref = new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref>() {
-				public Ref doInTransaction(DataOperations ops) {
-					Ref result = ops.create(new String("Hello World"));
+			Ref<String> ref = new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref<String>>() {
+				public Ref<String> doInTransaction(DataOperations ops) {
+					Ref <String>result = ops.create(new String("Hello World"));
 					throw new RuntimeException("Whoops, something went wrong");
 				}
 			});
@@ -287,8 +288,8 @@ public class CRUDTest extends BaseDatabaseTest {
 	@Test public void transactionTemplateShouldFailIfTxAlreadyInProgress() {
 		store.begin();
 		try {
-			new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref>() {
-				public Ref doInTransaction(DataOperations ops) {
+			new TransactionTemplate(store.getAuthStore()).execute( new TransactionCallback<Ref<String>>() {
+				public Ref<String> doInTransaction(DataOperations ops) {
 					return ops.create(new String("Hello World"));
 				}
 			});
@@ -308,17 +309,15 @@ public class CRUDTest extends BaseDatabaseTest {
     	for(int count=0; count < 10; count++) {
     		Transaction wt = store.getAuthStore().begin();	// start write transaction
     		SampleObject newObject = new SampleObject(count);
-    		Ref rval = wt.create(newObject);	// add object to DB
+    		Ref<SampleObject> rval = wt.create(newObject);	// add object to DB
     		wt.commit();	// Commit the transaction, it will rollback otherwise
     		
     		Transaction t = store.begin();       // start readonly transaction
-    		Object result = t.retrieve(rval);    // get the object using the ref the WT gave us
-    		SampleObject so = (SampleObject)result;
+    		SampleObject so = t.retrieve(rval);    // get the object using the ref the WT gave us
     		assertTrue(so.getTest() == count);	 // make sure field value is same
     		assertTrue(t.getRef(so).equals(rval));
     
-    		Object result2 = t.retrieve(rval);   // get the object using the ref the WT gave us
-    		SampleObject so2 = (SampleObject)result2;
+    		SampleObject so2 = t.retrieve(rval);   // get the object using the ref the WT gave us
     		assertTrue(so2.getTest() == count);	 // make sure field value is same
     		assertTrue(so != so2);	             // Different instance please!
     		assertTrue(!so.equals(so2));
@@ -332,7 +331,7 @@ public class CRUDTest extends BaseDatabaseTest {
     
     	for(int count=0; count < 10; count++) {
     		
-    		Ref ref;
+    		Ref<SampleObject> ref;
     		
     		{	// Write new object
     			Transaction wt = store.getAuthStore().begin();	// start write transaction
@@ -394,7 +393,7 @@ public class CRUDTest extends BaseDatabaseTest {
 	@Test public void testTransactionOverlap() {
 		allowOverlappedTx();
 		
-		Ref ref = null;
+		Ref<MutableString> ref = null;
 		
 		// Create it
 		{
@@ -409,7 +408,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		// Update it
 		{
 			Transaction t = store.getAuthStore().begin();
-			MutableString s = (MutableString)t.retrieve(ref);
+			MutableString s = t.retrieve(ref);
 			assertEquals(new MutableString("Hello World"), s);
 			assertEquals(1, t.getVersion(s));
 			s.value = "Hello World Updated";
@@ -446,7 +445,7 @@ public class CRUDTest extends BaseDatabaseTest {
 
     	for(int count=0; count<10; count++) {
     		
-    		Ref ref;
+    		Ref<SampleObject> ref;
     		
     		{	// Write new object
     			Transaction wt = store.getAuthStore().begin();	// start write transaction
@@ -489,7 +488,7 @@ public class CRUDTest extends BaseDatabaseTest {
     }
 
     @Test public void testUpdateObject() {
-		Ref ref = null;
+		Ref<MutableString> ref = null;
 		
 		// Create it
 		{
@@ -501,7 +500,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		// Update it
 		{
 			Transaction t = store.getAuthStore().begin();
-			MutableString s = (MutableString)t.retrieve(ref);
+			MutableString s = t.retrieve(ref);
 			assertEquals(new MutableString("Hello World"), s);
 			assertEquals(1, t.getVersion(s));
 			s.value = "Hello World Updated";
@@ -533,7 +532,7 @@ public class CRUDTest extends BaseDatabaseTest {
 
     @Test public void testUpdateOverlap() {
 		allowOverlappedTx();
-		Ref ref = null;
+		Ref<MutableString> ref = null;
 		
 		// Create it
 		{
@@ -548,7 +547,7 @@ public class CRUDTest extends BaseDatabaseTest {
 		// Update it
 		{
 			Transaction t = store.getAuthStore().begin();
-			MutableString s = (MutableString)t.retrieve(ref);
+			MutableString s = t.retrieve(ref);
 			assertEquals(new MutableString("Hello World"), s);
 			assertEquals(1, t.getVersion(s));
 			s.value = "Hello World Updated";
@@ -592,7 +591,7 @@ public class CRUDTest extends BaseDatabaseTest {
     
         for(int count=0; count < 10; count++) {
             
-            Ref ref;
+            Ref<SampleObject> ref;
             
             {   // Write new object
                 Transaction wt = store.getAuthStore().begin();  // start write transaction
@@ -632,7 +631,7 @@ public class CRUDTest extends BaseDatabaseTest {
 
     @Test public void testVersion() {
     
-    	Ref ref = null;
+    	Ref<SampleObject> ref = null;
     	
     	for(int count=0; count < 10; count++) {
     		{	// Write new object

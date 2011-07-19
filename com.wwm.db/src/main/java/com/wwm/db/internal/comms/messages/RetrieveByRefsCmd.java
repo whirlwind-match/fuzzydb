@@ -16,17 +16,17 @@ import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
 
 @SuppressWarnings("serial")
-public class RetrieveByRefsCmd extends TransactionCommand {
-	private final RefImpl<?>[] refs;
+public class RetrieveByRefsCmd<T> extends TransactionCommand {
+	private final RefImpl<T>[] refs;
 
-	public RetrieveByRefsCmd(int storeId, int cid, int tid, Collection<Ref> refs) {
+	public RetrieveByRefsCmd(int storeId, int cid, int tid, Collection<Ref<T>> refs) {
 		super(storeId, cid, tid);
 		// Following involves a seemingly unnecessary System.arrayCopy
 		// but we'd rather do on client that server.
 		this.refs = refs.toArray( new RefImpl[0] );
 	}
 
-	public RefImpl<?>[] getRefs() {
+	public RefImpl<T>[] getRefs() {
 		return refs;
 	}
 

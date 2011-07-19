@@ -75,7 +75,7 @@ public class ExampleSpringFuzzyTest {
 
 	@Transactional 
 	private Ref<IndexedMap> insertSomething(IndexedMap item) {
-		return dataOperations.createGeneric(item);
+		return dataOperations.create(item);
 	}
 	
 	@Transactional(readOnly=true)

@@ -62,7 +62,7 @@ public interface DataOperations {
 	void popNamespace() throws EmptyStackException;
 	
 	
-	 <E> Ref save(E obj);
+	 <E> Ref<E> save(E obj);
 	
 	// Create api
 	
@@ -70,7 +70,6 @@ public interface DataOperations {
 	 * @throws KeyCollisionException if {@link Key}(unique=true) is specified and there is a clash
 	 */
 	<E> Ref<E> create(E obj);
-	<E> Ref<E> createGeneric(E obj);
 	Ref[] create(Object[] objs);
 	Ref[] create(Collection<Object> objs);
 	
@@ -80,7 +79,7 @@ public interface DataOperations {
 	 */
 	<E> E retrieve(Ref<E> ref);
 	<E> E refresh(E obj);	// check dirty flag and latest version, refresh if needed
-	Map<Ref, Object> retrieve(Collection<Ref> refs);
+	<E> Map<Ref<E>, E> retrieve(Collection<Ref<E>> refs);
 	
 	// Update api
 	<E> void update(E obj);
