@@ -71,7 +71,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			addConvertedAttribute(externalMap, attr);
 		}
 		
-		setRef(result, ref);
+		setId(result, ref);
 		return result;
 	}
 

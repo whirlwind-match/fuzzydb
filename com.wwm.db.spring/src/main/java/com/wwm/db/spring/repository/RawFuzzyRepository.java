@@ -1,5 +1,9 @@
 package com.wwm.db.spring.repository;
 
+import java.io.Serializable;
+
+import org.springframework.util.Assert;
+
 import com.wwm.db.Ref;
 
 /**
@@ -17,6 +21,7 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Re
 
 	public RawFuzzyRepository(Class<T> type) {
 		super(type);
+		Assert.isAssignable(Serializable.class, type, "Items being persisted by Raw repositories must be Serializable. ");
 	}
 
 	@Override

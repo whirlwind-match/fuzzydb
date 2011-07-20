@@ -14,9 +14,8 @@ import org.springframework.util.ReflectionUtils.FieldCallback;
 
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
 
-public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> {
+public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean {
 
 	protected Logger log = LoggerFactory.getLogger(getClass());
 
@@ -33,20 +32,20 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> {
 	}
 
 	/**
-	 * Initialise access to ref
+	 * Initialise access to id field
 	 */
 	public void afterPropertiesSet() throws Exception {
 		ReflectionUtils.doWithFields(type, new FieldCallback() {
 			public void doWith(Field field) throws IllegalArgumentException,
 					IllegalAccessException {
-				if (field.isAnnotationPresent(Id.class) && field.getType().isAssignableFrom(Ref.class)) {
+				if (field.isAnnotationPresent(Id.class)) {
 					ReflectionUtils.makeAccessible(field);
 					idField = field;
 				}
 			}
 		});
 		if (idField == null) {
-			throw new MappingException(type.getCanonicalName() + " must have an @Id field of type Ref");
+			throw new MappingException(type.getCanonicalName() + " must have an @Id annotated field");
 		}
 	}
 
@@ -100,7 +99,40 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> {
 	 */
 	abstract protected I toInternal(T external);
 
-	abstract protected Ref<I> toInternalId(ID id);
-	
 
+	protected void setId(T entity, Ref<I> ref) {
+		try {
+			idField.set(entity, ref);
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	protected ID getId(T entity) {
+		try {
+			return (ID) idField.get(entity);
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public Iterable<T> save(Iterable<? extends T> entities) {
+	
+		for (T entity : entities) {
+			save(entity);
+		}
+		return (Iterable<T>) entities;
+	}
+
+	public void delete(Iterable<? extends T> entities) {
+		for (T entity : entities) {
+			delete(entity);
+		}
+	}
 }
