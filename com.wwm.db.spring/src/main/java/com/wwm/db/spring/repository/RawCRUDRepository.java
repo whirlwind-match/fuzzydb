@@ -14,14 +14,11 @@ public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> exten
 	}
 
 	public void delete(ID id) {
-		// TODO Auto-generated method stub
-		
+		persister.delete(findOne(id));
 	}
 
 	public void delete(T entity) {
-		
-		// TODO Auto-generated method stub
-		
+		persister.delete(entity); // TODO: This will be fine for attached entities.. detached will need to use ID field and a new delete by key feature
 	}
 
 	public boolean exists(ID id) {
