@@ -382,11 +382,11 @@ public class TransactionImpl implements Transaction {
 		RetrieveByRefsCmd<E> cmd = new RetrieveByRefsCmd<E>(store.getStoreId(), store.getNextId(), tid, refs);
 		RetrieveMultiRsp rsp = (RetrieveMultiRsp) execute(cmd);
 		
-		MetaObject<E>[] mos = (MetaObject<E>[]) rsp.getCompactedObjects();
+		Object[] mos = rsp.getCompactedObjects();
 		//Object obj = receiveObject(rsp.getCompactedObject());
 		HashMap<Ref<E>, E> result = new HashMap<Ref<E>, E>();
 		for (int i = 0; i < mos.length; i++) {
-			MetaObject<E> mo = mos[i];
+			MetaObject<E> mo = (MetaObject<E>) mos[i];
 			Ref<E> ref = mo.getRef();
 			E o = receiveObject(mo);
 			result.put(ref, o);
