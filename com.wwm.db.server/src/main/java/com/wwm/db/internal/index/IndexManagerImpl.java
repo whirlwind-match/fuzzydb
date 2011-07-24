@@ -14,9 +14,10 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-import org.slf4j.Logger;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.slf4j.Logger;
+import org.springframework.util.StringUtils;
+
 import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
@@ -129,7 +130,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
      * then call initialise on all indexes.
      */
     private void initIndexes() {
-        getLog().info(" Initialising All Indexes on Classtable '" + table.getStoredClass().getName() + "'... ");
+        getLog().info(" Initialising All Indexes for '" + describeTable() + "'... ");
 
         // iterate over whole list calling initialise()
         // this will ensure that they are built
@@ -139,7 +140,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
             index.initialise();
         }
 
-        getLog().info(" Completed Indexes '" + table.getStoredClass().getName() + "' - ");
+        getLog().info(" Completed Indexes for '" + describeTable() + "' - ");
                 //				+ table.size() + " item" + ((table.size()==1)?"":"s")
 //                + " inserted");
 
@@ -155,14 +156,22 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
      */
     @Override
 	public void detectNewIndexes() {
-        getLog().info(" Detecting Indexes on Classtable '" + table.getStoredClass().getName() + "'... ");
+        getLog().info(" Detecting Indexes for '" + describeTable() + "'... ");
 
         checkWWIndex();
 
         detectSimpleIndexes();
-        getLog().info(" Completed Index detection on Classtable '" + table.getStoredClass().getName() + "'... ");
+        getLog().info(" Completed Index detection for '" + describeTable() + "'... ");
 
     }
+
+	private String describeTable() {
+		String namespace = table.getNamespace().getName();
+		if (!StringUtils.hasLength(namespace)) {
+			namespace = "(default)";
+		}
+		return namespace + " : " + table.getStoredClass().getName();
+	}
 
 	private void detectSimpleIndexes() {
 		// Detect fields on clazz and update index if not already in existence
