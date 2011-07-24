@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.data.annotation.Id;
+
 import com.wwm.db.annotations.Key;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.index.btree.BTree;
@@ -63,8 +65,9 @@ public class Indexes implements Serializable {
 
         for (final Field field : fields) {
             Key k = field.getAnnotation(Key.class);
+            Id id = field.getAnnotation(Id.class); // equates to Key(unique=true)
 
-            if (k!=null) {
+            if (k != null || id != null) {
                 rval = true;
                 String fieldName = field.getName();
                 Map<String, BTree<?>> fieldIndexes = indexes.get(forClass);
@@ -73,16 +76,27 @@ public class Indexes implements Serializable {
                     indexes.put(forClass, fieldIndexes);
                 }
                 if (!fieldIndexes.containsKey(fieldName)) {
-                    IndexKeyUniqueness unique = k.unique() ? IndexKeyUniqueness.UniqueKey : IndexKeyUniqueness.MultiKey;
-                    IndexPointerStyle style = (k.type()==null||k.type()==Key.Mode.Value) ? IndexPointerStyle.Copy : IndexPointerStyle.Reference;
-
-                    BTree<FC> btree = new BTree<FC>(namespace, forClass, fieldName, unique, style);
-                    fieldIndexes.put(fieldName, btree);
+                	if (id != null) {
+                		addBTree(forClass, fieldName, fieldIndexes, IndexKeyUniqueness.UniqueKey, IndexPointerStyle.Copy);
+                	}
+                	else {
+	                    IndexKeyUniqueness unique = k.unique() ? IndexKeyUniqueness.UniqueKey : IndexKeyUniqueness.MultiKey;
+	                    IndexPointerStyle style = (k.type()==null||k.type()==Key.Mode.Value) ? IndexPointerStyle.Copy : IndexPointerStyle.Reference;
+	                    addBTree(forClass, fieldName, fieldIndexes, unique, style);
+                	}
                 }
             }
         }
         return rval;
     }
+
+	private <FC> void addBTree(Class<FC> forClass, String fieldName, Map<String, BTree<?>> fieldIndexes, 
+			IndexKeyUniqueness unique, IndexPointerStyle style) {
+		
+		BTree<FC> btree = new BTree<FC>(namespace, forClass, fieldName, unique, style);
+		fieldIndexes.put(fieldName, btree);
+	}
+	
     /*
 	void ObjectVersion retrieve(Class<?> ofClass, String fieldName, Comparable key) {
 

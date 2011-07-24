@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.slf4j.Logger;
+import org.springframework.data.annotation.Id;
 import org.springframework.util.StringUtils;
 
 import com.wwm.db.exceptions.KeyCollisionException;
@@ -176,7 +177,8 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 	private void detectSimpleIndexes() {
 		// Detect fields on clazz and update index if not already in existence
         for (Field f: table.getStoredClass().getDeclaredFields()) {
-            if ( f.isAnnotationPresent(com.wwm.db.annotations.Key.class) ) {
+            if ( f.isAnnotationPresent(com.wwm.db.annotations.Key.class)
+            		|| f.isAnnotationPresent(Id.class)) {
                 getLog().info(" - Simple Index '" + table.getStoredClass() + "$" + f.getName() + "(" + f.getType().getSimpleName() + ")'");
                 //			createIndex(f);
             }
