@@ -46,7 +46,8 @@ public class BtreeLookup<T> {
         try {
             rs = (RootSentinel) table.getObject(btree.getSentinel());
         } catch (UnknownObjectException e) {
-            throw new RuntimeException("Missing root in index", e);
+        	return null; // TODO: Review this change! .. was:
+            // throw new RuntimeException("Missing root in index", e);
         }
         Ref<NodeW> rootRef = rs.getRoot();
         if (rootRef == null) {

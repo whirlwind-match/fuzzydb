@@ -127,12 +127,16 @@ public class Indexes implements Serializable {
 
         // Find the indexes for this class that are unique and do a lookup
         Map<String, BTree<?>> fieldIndexes = indexes.get(forClass);
+        if (fieldIndexes == null) {
+        	return;
+        }
+        
 		for (Entry<String, BTree<?>> entry : fieldIndexes.entrySet() ) {
 			String fieldName = entry.getKey();
 			BTree<E> bTree = (BTree<E>) entry.getValue();
 			if (bTree.getUnique() == IndexKeyUniqueness.UniqueKey
 					&& bTree.contains(mo)) {
-				throw new KeyCollisionException("Cannot insert. " + fieldName); // TODO: could be more helpful and give value, but need to extract it from mo
+				throw new KeyCollisionException("Cannot insert. Key collission on field: " + fieldName); // TODO: could be more helpful and give value, but need to extract it from mo
 			}
 		}
     }
