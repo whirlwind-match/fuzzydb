@@ -26,8 +26,9 @@ public interface Index<T> {
 	void initialise();
 
 	/**
-	 * Check if we can insert this object
-	 * @return
+	 * Check if we can insert this object. If we can't we throw {@link KeyCollisionException}
+	 * 
+	 * @throws KeyCollisionException
 	 */
 	public void testInsert(RefImpl<T> ref, T o) throws KeyCollisionException;
 

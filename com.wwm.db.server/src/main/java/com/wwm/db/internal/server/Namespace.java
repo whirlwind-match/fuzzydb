@@ -81,6 +81,7 @@ public class Namespace implements Serializable {
 	public <T> void testCanCreate(MetaObject<T> mo) throws ObjectExistsException, KeyCollisionException {
 		RefImpl<T> ref = mo.getRef();
 		getTable(ref).testCanCreate(mo);
+		indexes.testCanAdd(mo);
 	}
 
 	public <T> void testCanUpdate(MetaObject<T> mo) throws UnknownObjectException, WriteCollisionException, KeyCollisionException {

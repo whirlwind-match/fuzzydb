@@ -109,6 +109,11 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
         insertor.insert(key, ref, mo);
         insertor.flush();
     }
+    
+    public boolean contains(MetaObject<T> mo) {
+    	Comparable<Object> value = getFieldValue(mo.getObject());
+    	return get(value) != null;
+    }
 
     public MetaObject<T> get(Comparable<?> key) {
         BtreeLookup<T> lookup = new BtreeLookup<T>(this);

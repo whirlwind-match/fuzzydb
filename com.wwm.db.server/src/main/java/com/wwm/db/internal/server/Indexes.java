@@ -15,11 +15,13 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 
 import com.wwm.db.annotations.Key;
+import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.index.btree.BTree;
 import com.wwm.db.internal.index.btree.IndexKeyUniqueness;
@@ -120,6 +122,21 @@ public class Indexes implements Serializable {
         CurrentTransactionHolder.setTransactionMode(Mode.Normal);
     }
 
+	public <E> void testCanAdd(MetaObject<E> mo) {
+        Class<?> forClass = mo.getObject().getClass();
+
+        // Find the indexes for this class that are unique and do a lookup
+        Map<String, BTree<?>> fieldIndexes = indexes.get(forClass);
+		for (Entry<String, BTree<?>> entry : fieldIndexes.entrySet() ) {
+			String fieldName = entry.getKey();
+			BTree<E> bTree = (BTree<E>) entry.getValue();
+			if (bTree.getUnique() == IndexKeyUniqueness.UniqueKey
+					&& bTree.contains(mo)) {
+				throw new KeyCollisionException("Cannot insert. " + fieldName); // TODO: could be more helpful and give value, but need to extract it from mo
+			}
+		}
+    }
+    
     @SuppressWarnings("unchecked") // for (Class<E>) cast
 	public <E> void add(MetaObject<E> mo) {
 
