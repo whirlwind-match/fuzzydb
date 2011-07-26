@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Semaphore;
 
 import com.wwm.db.core.Settings;
 import com.wwm.db.exceptions.UnknownTransactionException;
@@ -25,7 +26,6 @@ import com.wwm.db.internal.server.PersistentServerTransaction.Key;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
-import com.wwm.util.FastSemaphore;
 
 /**
  * This class coordinates the assignment of 'write privileges' between worker threads.
@@ -39,7 +39,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 	private static final int transactionTimeoutSecs = Settings.getInstance().getTransactionTimeToLiveSecs();
 	private static final int transactionInactivityTimeoutSecs = Settings.getInstance().getTransactionInactivityTimeoutSecs();
 	
-	private final FastSemaphore exclusiveLock = new FastSemaphore(1);
+	private final Semaphore exclusiveLock = new Semaphore(1);
 	private Thread privilegedThread = null;
 	private final DatabaseVersionState dbVersionState;
 	private final Repository repository;

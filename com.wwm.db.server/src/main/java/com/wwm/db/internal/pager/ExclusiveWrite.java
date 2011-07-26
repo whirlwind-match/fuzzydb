@@ -13,9 +13,9 @@ package com.wwm.db.internal.pager;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 
 import com.wwm.db.internal.server.WorkerThread;
-import com.wwm.util.FastSemaphore;
 
 /**
  * A synchronization class. This controls access to a resource. It allows multiple threads to access for read, but only
@@ -27,7 +27,7 @@ import com.wwm.util.FastSemaphore;
 public class ExclusiveWrite {
 	private static final int MAX_PERMITS = Integer.MAX_VALUE;
 
-	private final FastSemaphore lock = new FastSemaphore(MAX_PERMITS);
+	private final Semaphore lock = new Semaphore(MAX_PERMITS);
 
 	private final Set<Thread> readLocks = Collections.synchronizedSet(new HashSet<Thread>());
 

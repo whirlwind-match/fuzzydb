@@ -17,13 +17,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import com.wwm.db.internal.pager.Page.PagePurgedException;
 import com.wwm.db.internal.server.Database;
-import com.wwm.util.FastSemaphore;
 
 /**
  * A backing store for {@link Page}s that manages:
@@ -147,7 +147,7 @@ public class FileSerializingPagePersister implements PagePersister, PagerMBean {
 
 	private final MemoryAdvisor memoryAdvisor = new MemoryAdvisor( 10f, 12.5f, 15f );
 	
-	private final FastSemaphore purgeLock = new FastSemaphore(1);
+	private final Semaphore purgeLock = new Semaphore(1);
 
 
 
