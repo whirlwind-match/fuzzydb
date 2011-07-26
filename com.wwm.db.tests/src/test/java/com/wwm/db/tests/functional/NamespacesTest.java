@@ -13,7 +13,6 @@ import org.junit.Test;
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 
 
@@ -27,7 +26,7 @@ public class NamespacesTest extends BaseDatabaseTest {
 	private static final String NAMESPACE2 = "NS2_" + System.currentTimeMillis();
 
 
-	@Test public void testCreate2ObjectsNamespaced() throws ArchException {
+	@Test public void testCreate2ObjectsNamespaced() {
 		Ref<String> ref1 = null;
 		Ref<String> ref2 = null;
 		
@@ -89,7 +88,7 @@ public class NamespacesTest extends BaseDatabaseTest {
 	}
 
 
-    @Test public void testListNamespaces() throws ArchException {
+    @Test public void testListNamespaces() {
 
     	
     	Transaction t = store.getAuthStore().begin();
