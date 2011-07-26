@@ -31,10 +31,10 @@ class Insertor<T> extends Operator<T> {
         final Comparable<Object> key;	// max key of newLeft
         final RefImpl<NodeW> newLeft;
 
-        SplitResult(final Comparable<Object> key, final RefImpl newLeft) {
+        SplitResult(final Comparable<Object> key, final Ref<NodeW> newLeft) {
             super();
             this.key = key;
-            this.newLeft = newLeft;
+            this.newLeft = (RefImpl<NodeW>) newLeft;
         }
     }
 
@@ -47,7 +47,7 @@ class Insertor<T> extends Operator<T> {
 
         SplitResult splitResult = null;
         NodeR n = node.node;
-        Ref ref = node.ref;
+        Ref<? extends NodeW> ref = node.ref;
 
 
         // Insert into Leaf Node
@@ -59,8 +59,8 @@ class Insertor<T> extends Operator<T> {
                 LeafNodeW leftLeaf = NodeFactory.newLeafNode();
                 leftLeaf.insertPeerData(leaf.splitOutLeft());
                 Ref<? extends NodeW> nearestRef = (parentRef == null) ? ref : parentRef;
-                Ref leftLeafRef = createNear(nearestRef, parentNode, leftLeaf);
-                splitResult = new SplitResult(leftLeaf.getMaxKey(), (RefImpl) leftLeafRef);
+                Ref<NodeW> leftLeafRef = createNear(nearestRef, parentNode, leftLeaf);
+                splitResult = new SplitResult(leftLeaf.getMaxKey(), leftLeafRef);
             }
             update(ref, leaf);
             return splitResult;
@@ -103,7 +103,7 @@ class Insertor<T> extends Operator<T> {
             PendingOperations po = nodeOps.extractLeft(key);
             if (po.getPendingOpCount() > 0) {
                 RefdNode child = getNode(entry.getValue());
-                SplitResult sr = insertIntoNode(bnw == null ? bnr : bnw, ref, child, po);
+                SplitResult sr = insertIntoNode(bnw == null ? bnr : bnw, (Ref<BranchNodeW>) ref, child, po);
                 if (sr != null) {
                     if (bnw == null) {
                         bnw = getWritable(ref, bnr);
@@ -127,7 +127,7 @@ class Insertor<T> extends Operator<T> {
         // right child?
         if (nodeOps != null && nodeOps.getPendingOpCount() > 0) {
             RefdNode child = getNode(bnr.getRightChild());
-            SplitResult sr = insertIntoNode(bnw == null ? bnr : bnw, ref, child, nodeOps);
+            SplitResult sr = insertIntoNode(bnw == null ? bnr : bnw, (Ref<BranchNodeW>) ref, child, nodeOps);
             if (sr != null) {
                 if (bnw == null) {
                     bnw = getWritable(ref, bnr);
@@ -154,7 +154,7 @@ class Insertor<T> extends Operator<T> {
             // Splitting a branch node. This node becomes new right child
             SplitOut so = bnw.splitOutLeft();
             Ref<NodeW> newRef = createNear(parentRef, parentNode, so.node);
-            splitResult = new SplitResult(so.key, (RefImpl) newRef);
+            splitResult = new SplitResult(so.key, (RefImpl<NodeW>) newRef);
         }
 
 
