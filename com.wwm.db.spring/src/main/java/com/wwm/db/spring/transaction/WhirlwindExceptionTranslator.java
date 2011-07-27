@@ -1,10 +1,12 @@
 package com.wwm.db.spring.transaction;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
 import com.wwm.db.core.exceptions.ArchException;
+import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.exceptions.UnknownObjectException;
 
 public class WhirlwindExceptionTranslator implements
@@ -28,6 +30,9 @@ public class WhirlwindExceptionTranslator implements
 
 		if (ex instanceof UnknownObjectException) {
 			return new EmptyResultDataAccessException(1);
+		}
+		if (ex instanceof KeyCollisionException) {
+			return new DuplicateKeyException(ex.getMessage());
 		}
 
 		return null; // can't translate
