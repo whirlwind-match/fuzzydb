@@ -1,0 +1,4 @@
+<com.wwm.db.spring.repository.PrimaryKeyedItem>
+    <email>one@one.com</email>
+    <passHash>sdfsdfsdf</passHash>
+</com.wwm.db.spring.repository.PrimaryKeyedItem>
