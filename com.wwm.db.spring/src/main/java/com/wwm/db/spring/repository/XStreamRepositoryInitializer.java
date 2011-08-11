@@ -74,7 +74,6 @@ public class XStreamRepositoryInitializer<T, ID extends Serializable> {
 	
 	private void save(final T object) {
 		new TransactionTemplate(transactionManager).execute(new TransactionCallback<T>() {
-			@Override
 			public T doInTransaction(TransactionStatus status) {
 				return repo.save(object);
 			}
@@ -83,7 +82,6 @@ public class XStreamRepositoryInitializer<T, ID extends Serializable> {
 	
 	private void save(final ArrayList<T> objects) {
 		new TransactionTemplate(transactionManager).execute(new TransactionCallback<Iterable<T>>() {
-			@Override
 			public Iterable<T> doInTransaction(TransactionStatus status) {
 				return repo.save(objects);
 			}
