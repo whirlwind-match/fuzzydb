@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.repository.CrudRepository;
@@ -19,7 +20,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.thoughtworks.xstream.XStream;
 import com.wwm.util.ResourcePatternProcessor;
 
-public class XStreamRepositoryInitializer<T, ID extends Serializable> {
+public class XStreamRepositoryInitializer<T, ID extends Serializable> implements InitializingBean {
 
 	private static final Logger log = LoggerFactory.getLogger(XStreamRepositoryInitializer.class);
 	
@@ -44,7 +45,7 @@ public class XStreamRepositoryInitializer<T, ID extends Serializable> {
 		this.resources = resources;
 	}
 
-	public void initialise() {
+	public void afterPropertiesSet() {
 		final XStream xStream = new XStream();
 		xStream.aliasType("objects", ArrayList.class);
 

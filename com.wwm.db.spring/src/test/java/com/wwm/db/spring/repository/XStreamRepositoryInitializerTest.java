@@ -56,7 +56,7 @@ public class XStreamRepositoryInitializerTest {
 				.forRepository(repo);
 		initializer.setResources("classpath:/keyedItem.xml");
 		initializer.setTransactionManager(transactionManager);
-		initializer.initialise();
+		initializer.afterPropertiesSet();
 
 		// verify
 		List<PrimaryKeyedItem> capturedValues = captor.getAllValues();
@@ -81,7 +81,7 @@ public class XStreamRepositoryInitializerTest {
 				.forRepository(repo);
 		initializer.setResources("classpath:/keyedItems.xml");
 		initializer.setTransactionManager(transactionManager);
-		initializer.initialise();
+		initializer.afterPropertiesSet();
 
 		// verify
 		List<Iterable<PrimaryKeyedItem>> capturedValues = listCaptor.getAllValues();
