@@ -29,6 +29,35 @@
         </site>
     </distributionManagement>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>com.springsource.repository.bundles.milestone</id>
+            <name>SpringSource Enterprise Bundle Repository</name>
+            <url>http://repository.springsource.com/maven/bundles/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <repositories>
+        <repository>
+            <id>jboss</id>
+            <url>http://repository.jboss.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <name>Spring Framework Milestone Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>springsource-milestone</id>
+        </repository>
+    </repositories>
+
 	<profiles>
 		<profile>
 			<id>strict</id>
@@ -93,45 +122,6 @@
 			</distributionManagement>
 		</profile>
 
-		<profile>
-			<id>bootstrap</id>
-
-			<pluginRepositories>
-				<pluginRepository>
-					<id>com.springsource.repository.bundles.milestone</id>
-					<name>SpringSource Enterprise Bundle Repository</name>
-					<url>http://repository.springsource.com/maven/bundles/milestone</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</pluginRepository>
-			</pluginRepositories>
-
-			<repositories>
-				<repository>
-					<id>jboss</id>
-					<url>http://repository.jboss.org/maven2</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<name>Spring Framework Milestone Repository</name>
-					<url>http://maven.springframework.org/milestone</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-					<id>springsource-milestone</id>
-				</repository>
-				<repository>
-					<id>dirty-mockito</id>
-					<url>http://dirty-mockito.googlecode.com/svn/maven2/releases</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-		</profile>
 		<profile>
 			<!-- Move into full build when template.mf have been created -->
 			<id>osgi</id>
@@ -298,13 +288,6 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>${org.mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>dirty-mockito</groupId>
-			<artifactId>dirty-mockito</artifactId>
-			<version>0.4</version>
 			<scope>test</scope>
 		</dependency>
 
