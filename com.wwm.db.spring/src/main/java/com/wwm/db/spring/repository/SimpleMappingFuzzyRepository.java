@@ -171,21 +171,13 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		ResultSet<Result<BlobStoringWhirlwindItem>> resultsInternal = getPersister().query(BlobStoringWhirlwindItem.class, spec);
 		final ResultIterator<Result<BlobStoringWhirlwindItem>> resultIterator = resultsInternal.iterator();
 
-		Iterator<Result<T>> iterator = new Iterator<Result<T>>() {
-			public boolean hasNext() {
-				return resultIterator.hasNext();
-			}
-			public Result<T> next() {
-				Result<BlobStoringWhirlwindItem> resultInternal = resultIterator.next();
+		Iterator<Result<T>> iterator = new ConvertingIterator<Result<BlobStoringWhirlwindItem>,Result<T>>(resultIterator) {
+			protected Result<T> convert(Result<BlobStoringWhirlwindItem> internal) {
 				
-				BlobStoringWhirlwindItem item = resultInternal.getItem();
+				BlobStoringWhirlwindItem item = internal.getItem();
 				T external = fromInternal(item, null);// FIXME !! getPersister().getRef(item));
-				Result<T> result = new ResultImpl<T>(external, resultInternal.getScore());
+				Result<T> result = new ResultImpl<T>(external, internal.getScore());
 				return result;
-			}
-
-			public void remove() {
-				resultIterator.remove(); // Generally we'd not expect this to be supported
 			}
 		};
 		return iterator;

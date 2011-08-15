@@ -1,5 +1,6 @@
 package com.wwm.db.spring.repository;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.springframework.data.annotation.Id;
@@ -103,6 +104,22 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		persister.delete(toInternal(entity));
 	}
 
+	@Override
+	public Iterable<T> findAll() {
+		final Collection<T> all = persister.retrieveAll(type, null, null);
+		return new Iterable<T>(){
+
+			public Iterator<T> iterator() {
+				return new ConvertingIterator<I,T>((Iterator<I>) all.iterator()) {
+					
+					protected T convert(I internal) {
+						return fromInternal(internal, null);
+					}
+				};
+			}
+		};
+	}
+	
 	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
 		selectNamespace();
 		I internal = toInternal(query.getQueryTarget());
