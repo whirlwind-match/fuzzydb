@@ -1,6 +1,5 @@
 package com.wwm.db.spring.repository;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 import org.springframework.data.annotation.Id;
@@ -9,6 +8,7 @@ import org.springframework.data.mapping.model.MappingException;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.query.Result;
+import com.wwm.db.query.ResultSet;
 
 /**
  * 
@@ -106,11 +106,11 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 
 	@Override
 	public Iterable<T> findAll() {
-		final Collection<T> all = persister.retrieveAll(type, null, null);
+		final ResultSet<I> all = persister.query(getInternalType(), null, null);
 		return new Iterable<T>(){
 
 			public Iterator<T> iterator() {
-				return new ConvertingIterator<I,T>((Iterator<I>) all.iterator()) {
+				return new ConvertingIterator<I,T>(all.iterator()) {
 					
 					protected T convert(I internal) {
 						return fromInternal(internal, null);
@@ -129,6 +129,4 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 	protected Iterator<Result<T>> findMatchesInternal(I internal, String matchStyle, int maxResults) {
 		throw new UnsupportedOperationException("Override to provide an implementation");
 	}
-
-
 }
