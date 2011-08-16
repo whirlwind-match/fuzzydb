@@ -2,11 +2,11 @@ package com.wwm.db.tests.functional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
-
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
@@ -90,7 +90,7 @@ public class IndexIteratorsTest extends BaseDatabaseTest {
 		int resultCount = 0;
 		for (SampleKeyedObject o : results)
 		{
-			assertTrue(o.getMyvalue() > 42);
+			assertTrue( "results should all be > 42. Got:" + o.getMyvalue() , o.getMyvalue() > 42);
 			assertTrue( t.getVersion(o) != 0);
 			resultCount++;
 		}
@@ -109,11 +109,8 @@ public class IndexIteratorsTest extends BaseDatabaseTest {
 		ResultSet<SampleKeyedObject> results = t.query(SampleKeyedObject.class, le, null);
 
 		int resultCount = 0;
-		for (SampleKeyedObject o : results)
-		{
-			assertTrue(o.getMyvalue() > 42);
-			assertTrue( t.getVersion(o) != 0);
-			resultCount++;
+		for (@SuppressWarnings("unused") SampleKeyedObject o : results) {
+			fail();
 		}
 
 		assertEquals(0, resultCount);
@@ -121,4 +118,30 @@ public class IndexIteratorsTest extends BaseDatabaseTest {
         t.dispose();
 	}
 	
+	@Test 
+	public void nullIndexExpressionShouldReturnAll() throws SecurityException, NoSuchFieldException {
+		
+		Transaction wt = store.getAuthStore().begin();
+		wt.create(new SampleKeyedObject(40));
+		wt.create(new SampleKeyedObject(41));
+		wt.create(new SampleKeyedObject(42));
+		wt.create(new SampleKeyedObject(43));
+		wt.create(new SampleKeyedObject(44));
+		wt.commit();
+		
+		Transaction t = store.begin();
+		LogicExpr le = null;
+		ResultSet<SampleKeyedObject> results = t.query(SampleKeyedObject.class, le, null);
+
+		int resultCount = 0;
+		for (SampleKeyedObject o : results)
+		{
+			assertTrue( t.getVersion(o) != 0);
+			resultCount++;
+		}
+
+		assertEquals(5, resultCount);
+		
+        t.dispose();
+	}
 }

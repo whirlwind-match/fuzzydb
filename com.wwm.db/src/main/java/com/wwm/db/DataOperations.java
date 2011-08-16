@@ -116,8 +116,24 @@ public interface DataOperations {
 	<E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval);
 	
 	// Querying - standard index, iterating
+	/**
+	 * @param clazz - the class against which the query is run
+	 * @param index - a Logic expression for a field that is indexed (can be null - returns all)
+	 * @param expr - a filtering expression (can be null)
+	 */
 	<E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr);
+	/**
+	 * @param clazz - the class against which the query is run
+	 * @param index - a Logic expression for a field that is indexed (can be null - returns all)
+	 * @param expr - a filtering expression (can be null)
+	 * @param fetchSize - number of results per fetch from the server
+	 */
 	<E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize);
+	/**
+	 * @param clazz - the class against which the query is run
+	 * @param index - a Logic expression for a field that is indexed (can be null - returns all)
+	 * @param expr - a filtering expression (can be null)
+	 */
 	<E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr);
 	
 	// Searching - whirlwind index, iterating
