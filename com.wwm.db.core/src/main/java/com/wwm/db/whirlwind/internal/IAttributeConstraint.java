@@ -33,29 +33,24 @@ public interface IAttributeConstraint extends IAttribute, Cloneable {
 
 	/**
 	 * Check if the given value satisfies this constraint
-	 * @param value
 	 * @return true if value satisfies this constraint (this must include correct behaviour for value=null)
 	 */
 	public boolean consistent(IAttribute value);
 
 	/**
 	 * Expand the constraint to just include the specified value.
-	 * @param value
 	 */
 	public boolean expand(IAttribute value);
 
 	/**
 	 * Check if the constraint already covers the given constraint (not sure how this differs from consistent)
 	 * NOTE: We think this is always !Consistent()
-	 * @param value
-	 * @return
 	 */
 	public boolean isExpandedBy(IAttribute value);
 
 	
 	/**
 	 * Test whether the range of values covered includes the 'not specified' case.
-	 * @return
 	 */
 	public boolean isIncludesNotSpecified();
 

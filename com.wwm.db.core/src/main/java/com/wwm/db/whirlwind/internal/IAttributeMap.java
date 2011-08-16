@@ -38,7 +38,6 @@ public interface IAttributeMap<T extends IAttribute> extends Iterable<T>, Clonea
 	
 	/**
 	 * number of items in the map (didn't want to implement whole of Collection interface)
-	 * @return
 	 */
 	public int size();
 	
@@ -46,7 +45,6 @@ public interface IAttributeMap<T extends IAttribute> extends Iterable<T>, Clonea
 
 	/**
 	 * Determine if these attributes are consistent with the supplied constraint
-	 * @param splitId 
 	 * @return true if consistent
 	 */
 	public boolean consistentFor(IAttributeConstraint constraint, int splitId);

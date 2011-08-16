@@ -19,7 +19,6 @@ public interface IAttribute extends Serializable, Cloneable, com.archopolis.db.w
 
     /**
      * Return the Attribute ID
-     * @return
      */
     int getAttrId();
     
@@ -29,8 +28,6 @@ public interface IAttribute extends Serializable, Cloneable, com.archopolis.db.w
 	 * TODO: FInd out why this isn't using Comparable interface...
 	 * Called to compare attribute values for possible substitution.
 	 * Always called with the same type (attribute id)
-	 * @param rhs
-	 * @return
 	 */
 	public int compareAttribute(IAttribute rhs);
 
@@ -40,7 +37,6 @@ public interface IAttribute extends Serializable, Cloneable, com.archopolis.db.w
     /**
      * Ensure that the attribute is a DB2 API attribute, allowing DB1 API attrs to
      * be migrated.
-     * @return
      */
 	Object getAsDb2Attribute();
 }
