@@ -15,8 +15,6 @@ public class BitUtils {
 
 	/**
 	 * Get the indexes of the values
-	 * @param bitfield
-	 * @return
 	 */
 	public static short[] bitFieldToIndexArray(long bitfield) {
 		int entries = countBitsSet( bitfield );
@@ -33,8 +31,6 @@ public class BitUtils {
 
 	/**
 	 * Get the indexes of the values
-	 * @param bitfield
-	 * @return
 	 */
 	public static short[] bitFieldToIndexArray(int bitfield) {
 		int entries = countBitsSet( bitfield );
@@ -74,8 +70,6 @@ public class BitUtils {
 
 	/**
 	 * Encode a set of shorts into a bitfield as a long
-	 * @param bitfield
-	 * @return
 	 */
 	public static long indexArrayToLongBits(short[] values) {
 		long bitfield = 0;

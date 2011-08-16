@@ -44,7 +44,6 @@ public abstract class SessionContextMgrBase {
 
     /**
      * Private Constructor
-     * @param session
      */
     protected SessionContextMgrBase(SessionContext session, Logger log) {
         this.log = log;
@@ -85,9 +84,6 @@ public abstract class SessionContextMgrBase {
     /**
      * Get the relevant instance of the object from the session, and if there isn't one, create
      * and instance and put it in the session.
-     * @param <T>
-     * @param serviceClass
-     * @return
      */
     protected <T extends IShutdown> T getServiceInternal(Class<T> serviceClass) {
 

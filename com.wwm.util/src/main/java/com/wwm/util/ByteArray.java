@@ -120,7 +120,6 @@ public class ByteArray implements Serializable, Cloneable {
 	
 	/**
 	 * Development-time check to ensure developer has allocated capacity.
-	 * @param lastIndexToWrite
 	 */
 	private void assertCapacity(int lastIndexToWrite) {
 		assert( lastIndexToWrite < bytes.length );
@@ -149,7 +148,6 @@ public class ByteArray implements Serializable, Cloneable {
 
 	/**
 	 * Get the byte at index
-	 * @return
 	 */
 	final public byte getByte(int index) {
 		return bytes[index];
@@ -162,7 +160,6 @@ public class ByteArray implements Serializable, Cloneable {
 
 	/**
 	 * Get the int from the bytes starting at index
-	 * @return
 	 */
 	final public int getInt(int index) {
 		return ((bytes[index + 3] & 0xFF) << 0) +
@@ -173,7 +170,6 @@ public class ByteArray implements Serializable, Cloneable {
 
 	/**
 	 * Get the long from the bytes starting at index
-	 * @return
 	 */
 	public long getLong(int index) {
 		return ((bytes[index + 7] & 0xFFL) << 0) +
@@ -188,7 +184,6 @@ public class ByteArray implements Serializable, Cloneable {
 
 	/**
 	 * Get the float from the bytes starting at index
-	 * @return
 	 */
 	final public float getFloat( int index) {
 		int i = ((bytes[index + 3] & 0xFF) << 0) +

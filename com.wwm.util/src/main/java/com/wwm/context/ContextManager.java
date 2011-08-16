@@ -56,7 +56,6 @@ public class ContextManager {
 
     /**
      * For internal use, as we want to make RequestContext.getCurrentSessionContext() package scope
-     * @return
      */
     public static SessionContext getSession() {
         return getCurrentSessionContext();
@@ -64,7 +63,6 @@ public class ContextManager {
 
     /**
      * get the user object that has been associated with the current request (usually a HttpServletRequest)
-     * @return
      */
     public static Object getUserRequestContext() {
         return getCurrentRequestContext().userRequestObject;
@@ -76,7 +74,6 @@ public class ContextManager {
      * used elsewhere if possible.
      * In a web environment, this should be ServletRequestWrapper( HttpServletRequest )
      * TODO: Make a nice wrapper supporting get/set to save having to cast the result everywhere.
-     * @param user
      */
     public static void setUserRequestObject(Object context) {
         getCurrentRequestContext().userRequestObject = context;
@@ -84,7 +81,6 @@ public class ContextManager {
 
     /**
      * Get the current application context (i.e. for the current thread)
-     * @return
      */
     public static SessionContext getCurrentSessionContext() {
         return getCurrentRequestContext().sessionContext;
@@ -92,7 +88,6 @@ public class ContextManager {
 
     /**
      * Get the current application context (i.e. for the current thread)
-     * @return
      */
     public static ApplicationContext getCurrentAppContext() {
         return getCurrentRequestContext().appContext;
@@ -100,7 +95,6 @@ public class ContextManager {
 
     /**
      * Return whichever is the valid request context.
-     * @return
      */
     public static RequestContext getCurrentRequestContext() {
         if (globalRequestContext != null) {
@@ -135,6 +129,4 @@ public class ContextManager {
     public static void initForThread(ApplicationContext applicationContext, SessionContext sessionContext, Object request) {
         getCurrentRequestContext().initForThread(applicationContext, sessionContext, request);
     }
-
-
 }

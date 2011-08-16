@@ -19,38 +19,23 @@ public interface IDimensions extends Serializable {
 	static public int DIMENSIONS = 0;
     /**
      * @param dimension Which dimension
-     * @return
      */
     public float getDimension(int dimension);
 
     /**
      * Get the number of dimensions this item has
-     * @return
      */
     public int getNumDimensions();
     
-    /**
-     * @param axis
-     * @param val
-     */
     public void setDimension(int dimension, float val);
     
     /**
      * Get string representation of this value, given the attribute ID so that it can find the Decorator.
-     * @param attrId
      */
     public String toString( int attrId );
 
-    /**
-     * @param dimension
-     * @param val
-     */
     public void setDimensionIfLower(int dimension, float val);
 
-    /**
-     * @param dimension
-     * @param val
-     */
     public void setDimensionIfHigher(int dimension, float val);
 
 	public boolean expandDown(IDimensions val);

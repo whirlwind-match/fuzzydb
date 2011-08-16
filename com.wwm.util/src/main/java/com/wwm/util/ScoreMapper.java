@@ -16,7 +16,6 @@ public interface ScoreMapper {
      * get the mapped score (between 0 and 1 inclusive) for the given scoreFactor
      * @param scoreFactor float <= 1.0 (negative values allowed)
      * Negative values indicate outside of preferred range.
-     * @return
      */
     float getScore(float scoreFactor);
 

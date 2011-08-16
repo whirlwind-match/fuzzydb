@@ -76,8 +76,6 @@ public class JVMAppListener  {
      * can be retrieved during servicing of the request.
      * The good news about ThreadLocals is that they are tied to the Thread instance, so when
      * the Thread is destroyed, so is the data we have tied to that thread.
-     * 
-     * @param request
      */
     public void preRequest() {
         if (singleSessionForAllThreads) {

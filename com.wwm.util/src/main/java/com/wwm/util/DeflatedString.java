@@ -61,7 +61,6 @@ public class DeflatedString {
 	/** Encode the specified string to the Deflated string format.
 	 * @param value The String to encode 
 	 * @return A byte array coded with DeflatedString's internal format
-	 * @see decode()
 	 */
 	public static byte[] encode(String value) {
 		byte[] rval;
@@ -104,19 +103,20 @@ public class DeflatedString {
 		return rval;
 	}
 	
-	/**Get the raw encoded data
+	/**
+	 * Get the raw encoded data
 	 * @return A byte array coded with DeflatedString's internal format
-	 * @see decode()
 	 */
 	public byte[] getCoded() {
 		return encodedData;
 	}
 	
-	/**Decode the byte array to a String. The byte array must be in DeflatedString format, or else an exception is thrown.
+	/**
+	 * Decode the byte array to a String. The byte array must be in DeflatedString format, or else an exception is thrown.
 	 * @param data The coded data to decode
 	 * @return A String
 	 * @throws DataFormatException The data is not in the correct format.
-	 * @see encode(), getCoded()
+	 * @see #getCoded()
 	 */
 	public static String decode(byte[] data) throws DataFormatException {
 		try {
@@ -163,21 +163,24 @@ public class DeflatedString {
 		}
 	}
 	
-	/**Determine if real compression was used to encode the string.
+	/**
+	 * Determine if real compression was used to encode the string.
 	 * @return true if the internal format is deflated, false if it is UTF8, null, or empty coded
 	 */
 	public boolean isCompressed() {
 		return (encodedData != null && encodedData[0]==DEFLATE_CODED);
 	}
 	
-	/**Sets the value of this object. The supplied String is encoded and stored, the previous value is overwritten.
+	/**
+	 * Sets the value of this object. The supplied String is encoded and stored, the previous value is overwritten.
 	 * @param value The String to encode
 	 */
 	public void set(String value) {
 		encodedData = encode(value);
 	}
 	
-	/**Decodes the String value from the compressed internal buffer.
+	/**
+	 * Decodes the String value from the compressed internal buffer.
 	 * @return The decoded String
 	 * @throws DataFormatException The data is corrupt
 	 */

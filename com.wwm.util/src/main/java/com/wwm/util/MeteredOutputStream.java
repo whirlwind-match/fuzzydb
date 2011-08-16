@@ -59,16 +59,17 @@ public class MeteredOutputStream extends OutputStream {
 		byteCount++;
 	}
 
-	/**Gets the number of bytes written to the stream since the filter was constructed, or the count was reset.
+	/**
+	 * Gets the number of bytes written to the stream since the filter was constructed, or the count was reset.
 	 * @return The number of bytes written
-	 * @see resetByteCount()
+	 * @see #resetByteCount()
 	 */
 	public long getByteCount() {
 		return byteCount;
 	}
 	
-	/**Resets the byte counter to zero.
-	 * 
+	/**
+	 * Resets the byte counter to zero.
 	 */
 	public void resetByteCount() {
 		byteCount = 0;

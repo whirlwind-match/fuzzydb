@@ -37,7 +37,7 @@ public class AsymptoticFalloff {
      * If x is zero, the value is 1.0.
      * If x is 1.0, the value is 0.5.
      * As x -> infinity, value -> 0.0.
-     * @param double x - (double as it'll get promoted when doing pow() func anyway)
+     * @param x - (double as it'll get promoted when doing pow() func anyway)
      * @return float - falloff function result.
      */
     public static float getValue( double x ) {

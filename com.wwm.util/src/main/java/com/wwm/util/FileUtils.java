@@ -29,8 +29,7 @@ public class FileUtils {
 	/**
 	 * WARNING: Currently throws Error (should be IOException
 	 * @param fileName
-	 * @return
-	 * @throws java.lang.Error
+	 * @throws RuntimeException if file not found
 	 */
 	static public Object readObjectFromGZip(String fileName) {
 		// FIXME: Do finally { blah.close().. etc }
