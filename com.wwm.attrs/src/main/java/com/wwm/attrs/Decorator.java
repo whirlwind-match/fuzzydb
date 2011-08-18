@@ -17,7 +17,7 @@ import com.wwm.attrs.bool.IBooleanValue;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.internal.BaseAttribute;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 
 
 
@@ -53,8 +53,8 @@ public class Decorator implements Serializable, IDecorator {
         if ( attr instanceof IBooleanValue){
             return String.valueOf( ((IBooleanValue)attr).isTrue() );
         }
-        else if ( attr instanceof FloatHave){
-        	return String.valueOf( ((FloatHave)attr).getValue() );
+        else if ( attr instanceof FloatValue){
+        	return String.valueOf( ((FloatValue)attr).getValue() );
         }
         else if (attr instanceof EnumExclusiveValue) {
         	// default in case decorator not configured

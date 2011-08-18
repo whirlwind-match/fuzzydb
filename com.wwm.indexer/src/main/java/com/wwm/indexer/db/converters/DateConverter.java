@@ -12,7 +12,7 @@ package com.wwm.indexer.db.converters;
 
 import java.util.Date;
 
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.DateAttribute;
@@ -26,8 +26,8 @@ public class DateConverter implements AttributeConverter {
     	return instance;
     }
 
-	public Class<FloatHave> getIAttributeClass() {
-		return FloatHave.class;
+	public Class<FloatValue> getIAttributeClass() {
+		return FloatValue.class;
 	}
 
 	public Class<DateAttribute> getObjectClass() {
@@ -35,14 +35,14 @@ public class DateConverter implements AttributeConverter {
 	}
 
 	public DateAttribute convert(String name, IAttribute attribute) {
-		Date date = new Date((long) ((FloatHave) attribute).getValue());
+		Date date = new Date((long) ((FloatValue) attribute).getValue());
 		return new DateAttribute(name, date);
 	}
 
-	public FloatHave convertToInternal(int attrid, Attribute<?> object) {
+	public FloatValue convertToInternal(int attrid, Attribute<?> object) {
 		DateAttribute dateValue = (DateAttribute) object;
 		float floatValue = dateValue.getValue().getTime();
-		return new FloatHave(attrid, floatValue);
+		return new FloatValue(attrid, floatValue);
 	}
 
 }

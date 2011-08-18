@@ -11,7 +11,7 @@
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.IntegerAttribute;
@@ -25,8 +25,8 @@ public class IntegerConverter implements AttributeConverter {
     	return instance;
     }
 
-	public Class<FloatHave> getIAttributeClass() {
-		return FloatHave.class;
+	public Class<FloatValue> getIAttributeClass() {
+		return FloatValue.class;
 	}
 
 	public Class<IntegerAttribute> getObjectClass() {
@@ -34,14 +34,14 @@ public class IntegerConverter implements AttributeConverter {
 	}
 
 	public IntegerAttribute convert(String name, IAttribute attribute) {
-		Float f = ((FloatHave) attribute).getValue();
+		Float f = ((FloatValue) attribute).getValue();
 		return new IntegerAttribute(name, f.intValue());
 	}
 
-	public FloatHave convertToInternal(int attrid, Attribute<?> object) {
+	public FloatValue convertToInternal(int attrid, Attribute<?> object) {
 		
 		IntegerAttribute intAttr = (IntegerAttribute) object;
-		return new FloatHave(attrid, intAttr.getValue());
+		return new FloatValue(attrid, intAttr.getValue());
 	}
 
 }

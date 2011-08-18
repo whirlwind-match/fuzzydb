@@ -21,7 +21,7 @@ import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.location.EcefVector;
 import com.wwm.attrs.location.LocationAndRangeScorer;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.SearchSpec.SearchMode;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
@@ -44,8 +44,8 @@ public class TestScoringLocation {
 	private EcefVector point2 = EcefVector.fromDegs(locPosId, 54, -5);
 	private EcefVector point3 = EcefVector.fromDegs(locPosId, 53, -5);
 
-	private FloatHave range100 = new FloatHave(locWantRangeId, 100f);
-	private FloatHave range1 = new FloatHave(locWantRangeId, 1f);
+	private FloatValue range100 = new FloatValue(locWantRangeId, 100f);
+	private FloatValue range1 = new FloatValue(locWantRangeId, 1f);
 	
 	private ScoreConfiguration scoreConfig = new com.wwm.attrs.internal.ScoreConfiguration();
 
@@ -132,7 +132,7 @@ public class TestScoringLocation {
 	}
 
 	@Test public void test2OneInOneOut() {
-		FloatHave range2small = new FloatHave(locWantRangeId, 10f);
+		FloatValue range2small = new FloatValue(locWantRangeId, 10f);
 		IAttributeMap<IAttribute> search = AttributeMapFactory.newInstance(IAttribute.class);
 		IAttributeMap<IAttribute> profile = AttributeMapFactory.newInstance(IAttribute.class);
 		search.putAttr(point1);

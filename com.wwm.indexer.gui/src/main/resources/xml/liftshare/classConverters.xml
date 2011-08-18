@@ -25,7 +25,7 @@
     <com.wwm.indexer.db.converters.FloatConverter/>
   </entry>
   <entry>
-    <string>FloatHave</string>
+    <string>FloatValue</string>
     <com.wwm.indexer.db.converters.FloatConverter/>
   </entry>
   <entry>

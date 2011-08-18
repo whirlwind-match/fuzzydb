@@ -24,7 +24,7 @@ import com.wwm.util.ScoreMapper;
 
 /**
  * scoreAttrId = FloatRangePreference
- * otherAttrId = FloatHave
+ * otherAttrId = FloatValue
  * 
  * @author Neale
  */
@@ -130,7 +130,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
 		}
 
 //        IAttributeConstraint bNa = na;
-        FloatHave otherAttr = (FloatHave) searchAttrs.findAttr(otherAttrId);
+        FloatValue otherAttr = (FloatValue) searchAttrs.findAttr(otherAttrId);
 
         // If there is no Attr Data then we only score null 
         if (otherAttr == null) {
@@ -172,7 +172,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
 		assert( wantAttr.getAttrId() == scorerAttrId );
 
 		// This is the have that we're going to score our want against.
-		FloatHave have = (FloatHave)c.findAttr( otherAttrId );
+		FloatValue have = (FloatValue)c.findAttr( otherAttrId );
         // Ignore if not scoring null
         if (have == null) {
             score.addNull(this, d);

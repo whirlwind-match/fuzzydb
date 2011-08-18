@@ -2,11 +2,11 @@ package com.wwm.attrs.converters;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 
-public class AttrToFloatConverter implements Converter<FloatHave, Float> {
+public class AttrToFloatConverter implements Converter<FloatValue, Float> {
 
-	public Float convert(FloatHave source) {
+	public Float convert(FloatValue source) {
 		return source.getValue();
 	}
 }

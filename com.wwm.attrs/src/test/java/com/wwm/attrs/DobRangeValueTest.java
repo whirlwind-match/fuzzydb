@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.wwm.attrs.simple.FloatConstraint;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 
 /**
  * @author Neale
@@ -27,8 +27,8 @@ public class DobRangeValueTest {
 
     private int id = 1; 
 
-    FloatHave dob;
-    FloatHave splitDob;
+    FloatValue dob;
+    FloatValue splitDob;
     
     FloatConstraint low; 
     FloatConstraint high;
@@ -42,10 +42,10 @@ public class DobRangeValueTest {
 
         GregorianCalendar cal = new GregorianCalendar();
         cal.set(1970, Calendar.OCTOBER, 22);
-        dob = new FloatHave(id, cal.getTimeInMillis() ); 
+        dob = new FloatValue(id, cal.getTimeInMillis() ); 
 
         cal.set(1980, Calendar.JANUARY, 1);
-        splitDob = new FloatHave( id, cal.getTimeInMillis() );
+        splitDob = new FloatValue( id, cal.getTimeInMillis() );
 
         low = new FloatConstraint( id, Float.MIN_VALUE, splitDob.getValue() );
         high = new FloatConstraint( id, splitDob.getValue(), Float.MAX_VALUE );

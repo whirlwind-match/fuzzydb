@@ -99,15 +99,15 @@ public class FloatConstraint extends BranchConstraint /* implements IRange */ {
 	 */
     @Override
 	public String toString(){
-        return new FloatHave(attrId, getMin() ).toString() + "-" 
-        + new FloatHave(attrId, getMax() ).toString(); 
+        return new FloatValue(attrId, getMin() ).toString() + "-" 
+        + new FloatValue(attrId, getMax() ).toString(); 
     }
 
 
 	@Override
 	protected boolean expandNonNull(IAttribute value) {
 		boolean expanded = false;
-		float v = ((FloatHave) value).getValue();
+		float v = ((FloatValue) value).getValue();
 		if (v < min) {
 			min = v;
 			expanded = true;
@@ -137,7 +137,7 @@ public class FloatConstraint extends BranchConstraint /* implements IRange */ {
 	@Override
 	public boolean isExpandedByNonNull(IAttribute value) {
 		boolean rval = false;
-		float v = ((FloatHave) value).getValue();
+		float v = ((FloatValue) value).getValue();
 		if (min > v) {
 			rval = true;
 		}

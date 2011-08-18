@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 
 import com.wwm.attrs.Decorator;
 import com.wwm.attrs.internal.BaseAttribute;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 
 
 
@@ -42,7 +42,7 @@ public class AgeDecorator extends Decorator {
 	 */
 	@Override
 	public String getValueString(BaseAttribute attr) {
-        FloatHave val = (FloatHave)attr;
+        FloatValue val = (FloatValue)attr;
         
         GregorianCalendar today = new GregorianCalendar();
         int year = today.get(Calendar.YEAR);

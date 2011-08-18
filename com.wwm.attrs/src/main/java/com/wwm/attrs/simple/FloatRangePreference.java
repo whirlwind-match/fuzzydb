@@ -165,9 +165,9 @@ public class FloatRangePreference extends Attribute implements IFloatRangePrefer
 	public String toString(){
 //      return AttributeIdMap.instance.getName(attrId) + ":" 
         return "AttrId(" + attrId + "):" 
-        + new FloatHave( attrId, getMin() ) 
-        + " -> " + new FloatHave( attrId, getPreferred() ) + " <- " 
-        + new FloatHave( attrId, getMax() );
+        + new FloatValue( attrId, getMin() ) 
+        + " -> " + new FloatValue( attrId, getPreferred() ) + " <- " 
+        + new FloatValue( attrId, getMax() );
     }
     
 

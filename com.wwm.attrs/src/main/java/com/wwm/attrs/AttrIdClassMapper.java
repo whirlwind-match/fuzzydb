@@ -18,7 +18,7 @@ import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.attrs.simple.FloatRangePreference;
 
 /**
@@ -74,13 +74,13 @@ public class AttrIdClassMapper {
         // FloatRangePreferenceScorer
         currentAttrNameMap = new HashMap<String,Class<?>>(2); // expect 2 entries
         currentAttrNameMap.put("scorerAttrId", FloatRangePreference.class);
-        currentAttrNameMap.put("otherAttrId", FloatHave.class);
+        currentAttrNameMap.put("otherAttrId", FloatValue.class);
         scorerNameMap.put("FloatRangePreferenceScorer", currentAttrNameMap);
 
         // LocationAndRangeScorer
         currentAttrNameMap = new HashMap<String,Class<?>>(3); // expect 3 entries
         currentAttrNameMap.put("scorerAttrId", EcefVector.class);
-        currentAttrNameMap.put("scorerRangeAttrId", FloatHave.class);
+        currentAttrNameMap.put("scorerRangeAttrId", FloatValue.class);
         currentAttrNameMap.put("otherAttrId", EcefVector.class);
         scorerNameMap.put("LocationAndRangeScorer", currentAttrNameMap);
 
@@ -92,8 +92,8 @@ public class AttrIdClassMapper {
 
         // SimilarFloatValueScorer
         currentAttrNameMap = new HashMap<String,Class<?>>(2); // expect 2 entries
-        currentAttrNameMap.put("scorerAttrId", FloatHave.class);
-        currentAttrNameMap.put("otherAttrId", FloatHave.class);
+        currentAttrNameMap.put("scorerAttrId", FloatValue.class);
+        currentAttrNameMap.put("otherAttrId", FloatValue.class);
         scorerNameMap.put("SimilarFloatValueScorer", currentAttrNameMap);
 
         // PathDeviationScorer
@@ -114,9 +114,9 @@ public class AttrIdClassMapper {
 
         // WeightedSumScorer
         currentAttrNameMap = new HashMap<String,Class<?>>(3); // expect 3 entries
-        currentAttrNameMap.put("scorerAttrId", FloatHave.class);
-        currentAttrNameMap.put("otherAttrId", FloatHave.class);
-        currentAttrNameMap.put("scoreAttr3Id", FloatHave.class);
+        currentAttrNameMap.put("scorerAttrId", FloatValue.class);
+        currentAttrNameMap.put("otherAttrId", FloatValue.class);
+        currentAttrNameMap.put("scoreAttr3Id", FloatValue.class);
         scorerNameMap.put("WeightedSumScorer", currentAttrNameMap);
     }
 
@@ -145,7 +145,7 @@ public class AttrIdClassMapper {
 
         // FloatSplitConfiguration
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry
-        currentAttrNameMap.put("id", FloatHave.class);
+        currentAttrNameMap.put("id", FloatValue.class);
         scorerNameMap.put("FloatSplitConfiguration", currentAttrNameMap);
 
         // RangeSplitConfiguration - TODO: Migrate to DB2, or discard

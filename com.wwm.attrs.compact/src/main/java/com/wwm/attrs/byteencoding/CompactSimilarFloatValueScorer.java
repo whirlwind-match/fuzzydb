@@ -17,7 +17,7 @@ import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.TwoAttrScorer;
 import com.wwm.attrs.simple.FloatConstraint;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
@@ -85,7 +85,7 @@ public class CompactSimilarFloatValueScorer extends TwoAttrScorer {
     	}
 
 		// This is the same attribute in the other container
-		FloatHave other = (FloatHave)searchAttrs.findAttr( scorerAttrId );
+		FloatValue other = (FloatValue)searchAttrs.findAttr( scorerAttrId );
 		if (other == null) return; // If no matching have, we score 1.0f
 	
 		FloatConstraint fc = (FloatConstraint)constraint;
@@ -146,14 +146,14 @@ public class CompactSimilarFloatValueScorer extends TwoAttrScorer {
     	
 		assert( scoreAttr.getAttrId() == scorerAttrId );
 
-		FloatHave scoreVal = (FloatHave) scoreAttr;
+		FloatValue scoreVal = (FloatValue) scoreAttr;
 		FloatConstraint bc = (FloatConstraint)na;
 
 		scoreConstraint(score, d, scoreVal, bc);
     }
 
 
-	private void scoreConstraint(Score score, Score.Direction d, FloatHave scoreVal, FloatConstraint bc) {
+	private void scoreConstraint(Score score, Score.Direction d, FloatValue scoreVal, FloatConstraint bc) {
 		float s;
 		if (bc == null) {
 			return;

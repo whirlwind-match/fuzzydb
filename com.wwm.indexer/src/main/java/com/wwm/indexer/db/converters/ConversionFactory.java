@@ -28,7 +28,7 @@ import com.wwm.attrs.enums.EnumValue;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.AttrDefinitionMgr.AttrType;
 import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -81,7 +81,7 @@ public class ConversionFactory {
 
         FloatConverter floatConverter = FloatConverter.getInstance();
         register(FloatAttribute.class, floatConverter);
-        register(FloatHave.class, floatConverter);
+        register(FloatValue.class, floatConverter);
  
         FloatRangeConverter floatRangeConverter = FloatRangeConverter.getInstance();
         register(FloatRangeAttribute.class, floatRangeConverter);
@@ -99,9 +99,9 @@ public class ConversionFactory {
 
         // Non symmetrical classes. I.e IAttribute already defined above
         // Need to register reverse convert against attribute Id
-        register(DateAttribute.class, DateConverter.getInstance() ); // uses FloatHave
+        register(DateAttribute.class, DateConverter.getInstance() ); // uses FloatValue
         register(DateRangeAttribute.class, DateRangeConverter.getInstance() ); // uses FloatRangePreference
-        register(IntegerAttribute.class, IntegerConverter.getInstance() ); // uses FloatHave
+        register(IntegerAttribute.class, IntegerConverter.getInstance() ); // uses FloatValue
 
     }
 

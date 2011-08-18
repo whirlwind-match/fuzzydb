@@ -15,7 +15,7 @@ import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.Store;
 import com.wwm.db.whirlwind.AttributeRemapper;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
@@ -62,7 +62,7 @@ public class CartmanStringAttributeMapImpl extends AttributeMap<IAttribute> impl
 			putAttr( attr );
 		}
 		else if ( attr1 instanceof FloatAttribute) {
-			IAttribute attr = new FloatHave( attrId, ((FloatAttribute) attr1).getValue());
+			IAttribute attr = new FloatValue( attrId, ((FloatAttribute) attr1).getValue());
 			putAttr( attr );
 		}
 		else if ( attr1 instanceof EnumAttribute) {

@@ -15,7 +15,7 @@ import java.util.TreeMap;
 
 import com.wwm.attrs.IDecorator;
 import com.wwm.attrs.bool.IBooleanValue;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 
 
 
@@ -64,8 +64,8 @@ public class GlobalDecorators {
             return String.valueOf( ((IBooleanValue)attr).isTrue() );
         }
 
-        if ( attr instanceof FloatHave){
-            return String.valueOf( ((FloatHave)attr).getValue() );
+        if ( attr instanceof FloatValue){
+            return String.valueOf( ((FloatValue)attr).getValue() );
         }
 
     	int attrIndex = AttrDefinitionMgr.getAttrIndex(attr.getAttrId());

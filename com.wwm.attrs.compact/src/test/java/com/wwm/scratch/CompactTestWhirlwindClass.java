@@ -13,7 +13,7 @@ package com.wwm.scratch;
 import java.io.Serializable;
 
 import com.wwm.attrs.byteencoding.CompactAttrMap;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.internal.AttributeCache;
@@ -44,7 +44,7 @@ public class CompactTestWhirlwindClass implements IWhirlwindItem, Serializable {
 	}
 	
 	public Object getFloat(int attrId) {
-		FloatHave attr = (FloatHave) attrs.findAttr(attrId);
+		FloatValue attr = (FloatValue) attrs.findAttr(attrId);
 		return attr.getValue();
 	}
 	

@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 
 import com.wwm.attrs.AttrsFactory;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
@@ -42,11 +42,11 @@ public class TestWhirlwindClass implements IWhirlwindItem, Serializable {
 
 	
 	public void setFloat( int attrId, float f ) {
-		attrs.put(attrId, new FloatHave(attrId, f));
+		attrs.put(attrId, new FloatValue(attrId, f));
 	}
 	
 	public Object getFloat(int attrId) {
-		FloatHave attr = (FloatHave) attrs.get(attrId);
+		FloatValue attr = (FloatValue) attrs.get(attrId);
 		return attr.getValue();
 	}
 	

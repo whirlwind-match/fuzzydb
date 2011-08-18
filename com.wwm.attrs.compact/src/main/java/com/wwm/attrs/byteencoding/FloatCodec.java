@@ -11,7 +11,7 @@
 package com.wwm.attrs.byteencoding;
 
 
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.FloatAttribute;
 import com.wwm.util.ByteArray;
@@ -47,8 +47,8 @@ public class FloatCodec extends CompactAttrCodec {
 		setAttrId(bytes, i, attrId);
 		if (value instanceof FloatAttribute) {
 			bytes.putFloat(i + FLOAT_VALUE_OFFSET, ((FloatAttribute)value).getValue());
-		} else if (value instanceof FloatHave) {
-			bytes.putFloat(i + FLOAT_VALUE_OFFSET, ((FloatHave) value).getValue());
+		} else if (value instanceof FloatValue) {
+			bytes.putFloat(i + FLOAT_VALUE_OFFSET, ((FloatValue) value).getValue());
 		} else { // assume Float
 			bytes.putFloat(i + FLOAT_VALUE_OFFSET, ((Float)value) );
 		}
@@ -61,7 +61,7 @@ public class FloatCodec extends CompactAttrCodec {
 		int attrId = getAttrId( getHeaderWord( bytes, index) );
 		
 		float floatValue = bytes.getFloat(index + FLOAT_VALUE_OFFSET);
-		IAttribute attr = new FloatHave( attrId, floatValue );
+		IAttribute attr = new FloatValue( attrId, floatValue );
 		
 		return attr;
 	}

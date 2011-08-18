@@ -27,7 +27,7 @@ import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.DataOperations;
@@ -84,8 +84,8 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		verify(persister, times(1)).save(wwItemCaptor.capture());
 		IAttributeMap<IAttribute> attrs = wwItemCaptor.getValue().getAttributeMap();
 		assertThat((BooleanValue)attrs.findAttr(isMaleId),equalTo(new BooleanValue(isMaleId,false)));
-		FloatHave attr = (FloatHave)attrs.findAttr(ageId);
-		assertThat(attr,equalTo(new FloatHave(ageId,1.1f)));
+		FloatValue attr = (FloatValue)attrs.findAttr(ageId);
+		assertThat(attr,equalTo(new FloatValue(ageId,1.1f)));
 		FloatRangePreference floatPref = (FloatRangePreference) attrs.findAttr(ageRangeId);
 		assertEquals(ageRangeId, floatPref.getAttrId());
 		assertEquals(25f, floatPref.getMin(), 0f);
@@ -116,7 +116,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	private BlobStoringWhirlwindItem getWWItem() {
 		BlobStoringWhirlwindItem item = new BlobStoringWhirlwindItem("somePrimaryKey");
 		item.getAttributeMap().putAttr(new BooleanValue(isMaleId, true));
-		item.getAttributeMap().putAttr(new FloatHave(ageId, 2.2f));
+		item.getAttributeMap().putAttr(new FloatValue(ageId, 2.2f));
 		item.getAttributeMap().putAttr(new FloatRangePreference(ageRangeId, 1.2f, 2.3f, 3.4f));
 		return item;
 	}

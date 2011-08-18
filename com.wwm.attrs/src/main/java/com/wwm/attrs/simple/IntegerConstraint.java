@@ -93,8 +93,8 @@ public class IntegerConstraint extends BranchConstraint /* implements IRange */ 
 	 */
     @Override
 	public String toString(){
-        return new FloatHave(attrId, getMin() ).toString() + "-" 
-        + new FloatHave(attrId, getMax() ).toString(); 
+        return new FloatValue(attrId, getMin() ).toString() + "-" 
+        + new FloatValue(attrId, getMax() ).toString(); 
     }
 
 

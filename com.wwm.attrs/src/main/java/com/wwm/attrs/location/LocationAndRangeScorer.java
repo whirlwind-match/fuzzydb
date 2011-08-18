@@ -17,7 +17,7 @@ import com.wwm.attrs.dimensions.DimensionsRangeConstraint;
 import com.wwm.attrs.internal.IConstraintMap;
 import com.wwm.attrs.internal.TwoAttrScorer;
 import com.wwm.attrs.simple.FloatConstraint;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
@@ -29,7 +29,7 @@ import com.wwm.util.ScoreMapper;
  * FIXME: This needs reviewing cf RangePreference, as splitters might work differently.
  * 
  * Different approach to scoring, based on having <code>EcefVector location</code>
- * and <code>FloatHave prefDistance</code> attributes in the search, to score against
+ * and <code>FloatValue prefDistance</code> attributes in the search, to score against
  * the EcefVector in "other".
  * @author Neale
  */
@@ -67,7 +67,7 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
         assert( scoreLocAttr.getAttrId() == scorerAttrId );
         assert( scoreLocAttr instanceof EcefVector );
         assert( rangeAttr.getAttrId() == scorerRangeAttrId );
-        assert( rangeAttr instanceof FloatHave );
+        assert( rangeAttr instanceof FloatValue );
 
 
         // Find constraint in node
@@ -99,7 +99,7 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
 
         assert(distance >= 0); // not consistent means that it's outside the box (>= as could round to 0)
 
-        float prefDistance = ((FloatHave) rangeAttr).getValue();
+        float prefDistance = ((FloatValue) rangeAttr).getValue();
         scoreDistance(score, d, prefDistance, distance, preferClose);
         return;
     }
@@ -179,7 +179,7 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
         assert( scoreLocAttr.getAttrId() == scorerAttrId );
         assert( scoreLocAttr instanceof EcefVector );
         assert( rangeAttr.getAttrId() == scorerRangeAttrId );
-        assert( rangeAttr instanceof FloatHave );
+        assert( rangeAttr instanceof FloatValue );
 
         // We must be scoring a search to an item or an Item to a search
         EcefVector want = (EcefVector)scoreLocAttr;
@@ -189,7 +189,7 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
         }
 
         float distance = location.distance(want);	// actual distance in miles
-        float prefDistance = ((FloatHave) rangeAttr).getValue();
+        float prefDistance = ((FloatValue) rangeAttr).getValue();
         scoreDistance(score, d, prefDistance, distance, preferClose);
         score.setScorerAttribute(d, "Distance", distance );
     }

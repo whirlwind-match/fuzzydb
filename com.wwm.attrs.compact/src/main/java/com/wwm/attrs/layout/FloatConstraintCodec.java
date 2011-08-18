@@ -11,7 +11,7 @@
 package com.wwm.attrs.layout;
 
 import com.wwm.attrs.simple.FloatConstraint;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 
@@ -63,7 +63,7 @@ public class FloatConstraintCodec extends LayoutConstraintCodec {
 	
 	@Override
 	protected boolean expandInternal(LayoutConstraintMap map, IAttribute attr, int attrId) {
-		float v = ((FloatHave) attr).getValue();
+		float v = ((FloatValue) attr).getValue();
 		int index = map.getIndexQuick(attrId);
 
 		float min = map.getFloats()[index + FLOAT_MIN_VALUE_OFFSET];

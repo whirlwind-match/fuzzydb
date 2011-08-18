@@ -84,7 +84,7 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
 
         assert( attr.getAttrId() == scorerAttrId );
 
-        FloatHave scoreVal = (FloatHave) attr;
+        FloatValue scoreVal = (FloatValue) attr;
         FloatConstraint bc = (FloatConstraint)na;
 
         scoreConstraint(score, d, scoreVal, bc);
@@ -104,7 +104,7 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
         }
 
         // This is the same attribute in the other container
-        FloatHave other = (FloatHave)searchAttrs.findAttr( scorerAttrId );
+        FloatValue other = (FloatValue)searchAttrs.findAttr( scorerAttrId );
         if (other == null) {
             return; // If no matching have, we score 1.0f
         }
@@ -121,10 +121,10 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
             return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
         }
 
-        FloatHave scoreVal = (FloatHave) scoreAttr;
+        FloatValue scoreVal = (FloatValue) scoreAttr;
 
         // This is the same attribute in the other container
-        FloatHave other = (FloatHave)c.findAttr( scorerAttrId );
+        FloatValue other = (FloatValue)c.findAttr( scorerAttrId );
         if (other == null){
             return; // If no matching have, we score 1.0f FIXME: So why don't we add 1.0f ?
         }
@@ -132,7 +132,7 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
     }
 
 
-    private void scoreConstraint(Score score, Score.Direction d, FloatHave scoreVal, FloatConstraint bc) {
+    private void scoreConstraint(Score score, Score.Direction d, FloatValue scoreVal, FloatConstraint bc) {
         float s;
         if (bc == null) {
             return;

@@ -49,7 +49,7 @@ public class CompactFloatPreferenceScorer extends com.wwm.attrs.simple.FloatRang
 //		assert( wantAttr.getAttrId() == scorerAttrId );
 //
 //		// This is the have that we're going to score our want against.
-//		FloatHave have = (FloatHave)c.findAttr( otherAttrId );
+//		FloatValue have = (FloatValue)c.findAttr( otherAttrId );
 //        // Ignore if not scoring null
 //        if (have == null) {
 //            score.addNull(this, d);

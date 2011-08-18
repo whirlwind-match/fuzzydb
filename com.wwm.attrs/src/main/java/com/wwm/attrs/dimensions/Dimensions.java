@@ -13,7 +13,7 @@ package com.wwm.attrs.dimensions;
 import java.util.Arrays;
 
 
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.model.dimensions.IDimensions;
 
 /**
@@ -123,10 +123,10 @@ public class Dimensions implements IDimensions, Cloneable {
         StringBuffer str = new StringBuffer();
         for (int i = 0; i < values.length; i++) {
             if (i < values.length - 1) {
-                str.append(new FloatHave(attrId, values[i]).toString()).append(",");
+                str.append(new FloatValue(attrId, values[i]).toString()).append(",");
             }
             else {
-                str.append( new FloatHave(attrId, values[i]).toString());
+                str.append( new FloatValue(attrId, values[i]).toString());
             }
         }
         return str.toString();

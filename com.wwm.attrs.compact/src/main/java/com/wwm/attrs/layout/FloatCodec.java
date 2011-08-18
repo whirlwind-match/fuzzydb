@@ -11,7 +11,7 @@
 package com.wwm.attrs.layout;
 
 import com.wwm.attrs.simple.FloatConstraint;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 
@@ -42,7 +42,7 @@ class FloatCodec extends LayoutAttrCodec<IAttribute> {
 	public IAttribute getDecoded(LayoutAttrMap<IAttribute> map, int attrId) {
 		int index = map.getIndexQuick(attrId);
 		float value = map.getFloats()[index];
-		return new FloatHave(attrId, value);
+		return new FloatValue(attrId, value);
 	}
 	
 	@Override

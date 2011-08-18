@@ -30,7 +30,7 @@ import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.enums.EnumValue;
 import com.wwm.attrs.internal.EnumAttributeSpec;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.config.XmlLoader;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;
@@ -139,7 +139,7 @@ public class SearchPane extends JPanel {
 
             if (o instanceof Class) {
                 Class<?> clazz = (Class<?>) o;
-                if (clazz.equals(FloatHave.class)) {
+                if (clazz.equals(FloatValue.class)) {
                     data = new FloatSearchData(name);
                 } else if (clazz.equals(BooleanValue.class)) {
                     data = new BooleanSearchData(name);

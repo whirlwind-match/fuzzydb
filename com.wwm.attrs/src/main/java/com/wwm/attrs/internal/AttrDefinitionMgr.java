@@ -27,7 +27,7 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.simple.FloatHave;
+import com.wwm.attrs.simple.FloatValue;
 import com.wwm.attrs.simple.FloatRangePreference;
 import com.wwm.attrs.string.StringValue;
 import com.wwm.db.core.LogFactory;
@@ -203,7 +203,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         case BOOLEAN:
             return BooleanValue.class;
         case FLOAT:
-            return FloatHave.class;
+            return FloatValue.class;
         case ENUM_EXCLUSIVE:
             return EnumExclusiveValue.class;
         case ENUM_MULTI:
@@ -273,7 +273,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
                 || clazz.isAssignableFrom(BooleanAttribute.class)
         		|| clazz.isAssignableFrom(Boolean.class)) {
             return BOOLEAN;
-        } else if ( clazz.isAssignableFrom(FloatHave.class)
+        } else if ( clazz.isAssignableFrom(FloatValue.class)
                 || clazz.isAssignableFrom(FloatAttribute.class) 
             	|| clazz.isAssignableFrom(Float.class)) {
             return FLOAT;

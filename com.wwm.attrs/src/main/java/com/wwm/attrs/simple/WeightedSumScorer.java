@@ -45,13 +45,13 @@ public class WeightedSumScorer extends TwoAttrScorer {
             return;
         }
         
-        FloatHave weight1 = (FloatHave) scoreAttrs.findAttr(getScorerAttrId());
-        FloatHave weight2 = (FloatHave) scoreAttrs.findAttr(getOtherAttrId());
-        FloatHave weight3 = (FloatHave) scoreAttrs.findAttr(scoreAttr3Id);
+        FloatValue weight1 = (FloatValue) scoreAttrs.findAttr(getScorerAttrId());
+        FloatValue weight2 = (FloatValue) scoreAttrs.findAttr(getOtherAttrId());
+        FloatValue weight3 = (FloatValue) scoreAttrs.findAttr(scoreAttr3Id);
         
-        FloatHave val1 = (FloatHave) c.findAttr(getScorerAttrId());
-        FloatHave val2 = (FloatHave) c.findAttr(getOtherAttrId());
-        FloatHave val3 = (FloatHave) c.findAttr(scoreAttr3Id);
+        FloatValue val1 = (FloatValue) c.findAttr(getScorerAttrId());
+        FloatValue val2 = (FloatValue) c.findAttr(getOtherAttrId());
+        FloatValue val3 = (FloatValue) c.findAttr(scoreAttr3Id);
         
         float scoreVal = weight1.value * val1.value + weight2.value * val2.value + weight3.value * val3.value;
         
@@ -66,9 +66,9 @@ public class WeightedSumScorer extends TwoAttrScorer {
     @Override
     public void scoreSearchToNode(Score score, Direction d, IConstraintMap c, IAttributeMap<? extends IAttribute> scoreAttrs) {
 
-        FloatHave weight1 = (FloatHave) scoreAttrs.findAttr(getScorerAttrId());
-        FloatHave weight2 = (FloatHave) scoreAttrs.findAttr(getOtherAttrId());
-        FloatHave weight3 = (FloatHave) scoreAttrs.findAttr(scoreAttr3Id);
+        FloatValue weight1 = (FloatValue) scoreAttrs.findAttr(getScorerAttrId());
+        FloatValue weight2 = (FloatValue) scoreAttrs.findAttr(getOtherAttrId());
+        FloatValue weight3 = (FloatValue) scoreAttrs.findAttr(scoreAttr3Id);
         
         IAttributeConstraint annotation1 = c.findAttr(getScorerAttrId());
         IAttributeConstraint annotation2 = c.findAttr(getOtherAttrId());
