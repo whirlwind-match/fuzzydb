@@ -67,9 +67,26 @@ public abstract class BaseAttribute implements Serializable, Cloneable {
    public String getAttrName() {
 	   return GlobalDecorators.getInstance().getAttrName( this.getAttrId() );
    }
-   
-   @Override
-   public int hashCode() {
-	   return attrId;
-   }
+
+    @Override
+    public int hashCode() {
+    	final int prime = 31;
+    	int result = 1;
+    	result = prime * result + attrId;
+    	return result;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if (this == obj)
+    		return true;
+    	if (obj == null)
+    		return false;
+    	if (getClass() != obj.getClass())
+    		return false;
+    	BaseAttribute other = (BaseAttribute) obj;
+    	if (attrId != other.attrId)
+    		return false;
+    	return true;
+    }
 }

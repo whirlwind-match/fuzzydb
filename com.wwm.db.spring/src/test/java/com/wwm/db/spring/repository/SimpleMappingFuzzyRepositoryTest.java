@@ -85,9 +85,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		IAttributeMap<IAttribute> attrs = wwItemCaptor.getValue().getAttributeMap();
 		assertThat((BooleanValue)attrs.findAttr(isMaleId),equalTo(new BooleanValue(isMaleId,false)));
 		FloatHave attr = (FloatHave)attrs.findAttr(ageId);
-//		assertThat(attr,equalTo(new FloatHave(ageId,1.1f))); //- fails - need to investigate why
-		assertEquals(ageId, attr.getAttrId());
-		assertEquals(1.1f, attr.getValue(), 0f);
+		assertThat(attr,equalTo(new FloatHave(ageId,1.1f)));
 		FloatRangePreference floatPref = (FloatRangePreference) attrs.findAttr(ageRangeId);
 		assertEquals(ageRangeId, floatPref.getAttrId());
 		assertEquals(25f, floatPref.getMin(), 0f);

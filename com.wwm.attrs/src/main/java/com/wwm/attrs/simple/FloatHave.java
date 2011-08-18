@@ -17,7 +17,7 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 /**
  * @author Neale
  */
-public class FloatHave extends Attribute implements Comparable<FloatHave>, IFloat {
+public class FloatHave extends Attribute<FloatHave> implements Comparable<FloatHave>, IFloat {
 
     private static final long serialVersionUID = 3257285842249857075L;
     protected float value;
@@ -86,4 +86,26 @@ public class FloatHave extends Attribute implements Comparable<FloatHave>, IFloa
     public Object getAsDb2Attribute() {
         return new Float(value);
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Float.floatToIntBits(value);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FloatHave other = (FloatHave) obj;
+		if (Float.floatToIntBits(value) != Float.floatToIntBits(other.value))
+			return false;
+		return true;
+	}
 }
