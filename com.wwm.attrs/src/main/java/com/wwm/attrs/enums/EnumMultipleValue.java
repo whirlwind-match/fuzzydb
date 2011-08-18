@@ -195,10 +195,28 @@ public class EnumMultipleValue extends EnumValue implements Serializable, Compar
     }
 
     @Override
-    public boolean equals(Object obj) {
-        EnumMultipleValue e = (EnumMultipleValue)obj;
-        return
-        compareTo(e)== 0 &&
-        super.equals(obj);
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((bits == null) ? 0 : bits.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EnumMultipleValue other = (EnumMultipleValue) obj;
+		if (bits == null) {
+			if (other.bits != null)
+				return false;
+		}
+		else if (!bits.equals(other.bits))
+			return false;
+		return true;
+	}
 }

@@ -85,15 +85,15 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		IAttributeMap<IAttribute> attrs = wwItemCaptor.getValue().getAttributeMap();
 		assertThat((BooleanValue)attrs.findAttr(isMaleId),equalTo(new BooleanValue(isMaleId,false)));
 		FloatValue attr = (FloatValue)attrs.findAttr(ageId);
-		assertThat(attr,equalTo(new FloatValue(ageId,1.1f)));
+
+		assertThat(attr, equalTo(new FloatValue(ageId,1.1f)));
+
 		FloatRangePreference floatPref = (FloatRangePreference) attrs.findAttr(ageRangeId);
-		assertEquals(ageRangeId, floatPref.getAttrId());
-		assertEquals(25f, floatPref.getMin(), 0f);
-		assertEquals(30f, floatPref.getPreferred(), 0f);
-		
+		assertThat(floatPref, equalTo(new FloatRangePreference(ageRangeId, 25f, 30f, 38f)));
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Test 
 	public void shouldConvertToMapEntriesOnRetrieve() {
 		
@@ -124,6 +124,8 @@ public class SimpleMappingFuzzyRepositoryTest  {
 
 	public static class FuzzyItem implements Serializable {
 		
+		private static final long serialVersionUID = 1L;
+
 		@Id
 		Ref<FuzzyItem> ref;
 		
