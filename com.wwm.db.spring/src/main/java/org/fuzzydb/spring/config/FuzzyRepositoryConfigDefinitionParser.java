@@ -1,14 +1,16 @@
 package org.fuzzydb.spring.config;
 
+import org.fuzzydb.spring.config.SimpleFuzzyRepositoryConfiguration.FuzzyRepositoryConfiguration;
 import org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser;
 import org.w3c.dom.Element;
 
-public class FuzzyRepositoryConfigDefinitionParser extends AbstractRepositoryConfigDefinitionParser<GlobalFuzzyRepositoryConfigInformation,SingleFuzzyRepositoryConfigInformation> {
+public class FuzzyRepositoryConfigDefinitionParser 
+		extends AbstractRepositoryConfigDefinitionParser<SimpleFuzzyRepositoryConfiguration,FuzzyRepositoryConfiguration> {
+
 
 	@Override
-	protected GlobalFuzzyRepositoryConfigInformation getGlobalRepositoryConfigInformation(Element element) {
-		// TODO Auto-generated method stub
-		return null;
+	protected SimpleFuzzyRepositoryConfiguration getGlobalRepositoryConfigInformation(Element element) {
+		return new SimpleFuzzyRepositoryConfiguration(element);
 	}
 
 }

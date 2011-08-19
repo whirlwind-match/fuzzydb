@@ -17,5 +17,6 @@ public class FuzzyNamespaceHandler extends NamespaceHandlerSupport {
 		registerBeanDefinitionParser("initialize", new FuzzyInitializeConfigParser());
 		registerBeanDefinitionParser("tx-manager", new FuzzyTxManagerConfigParser());
 		registerBeanDefinitionParser("repository", new FuzzyRepositoryConfigParser());
+		registerBeanDefinitionParser("repositories", new FuzzyRepositoryConfigDefinitionParser());
 	}
 }
