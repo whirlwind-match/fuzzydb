@@ -1,5 +1,7 @@
 package com.wwm.db.spring.repository;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -26,7 +28,12 @@ public class FuzzyRepositoriesConfigTest {
 	public void repositoryShouldBeCreatedForInterface() {
 //		assertThat( repo.getClass(), IsInstanceOf.instanceOf(RawCRUDRepository.class)); // TODO: it's a proxy, so need to  
 		assertTrue( repo instanceof CrudRepository);
-		
+
+		repo.save(new PrimaryKeyedItem("email", "passhash"));
+
+		PrimaryKeyedItem item = repo.findOne("email");
+		assertThat(item.getPassHash(), is("passhash"));
+
 		// TODO: assert repo is configured correctly and that proxy behaviour is as expected
 	}
 

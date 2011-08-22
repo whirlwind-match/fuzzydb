@@ -11,6 +11,11 @@
 	<category name="org.springframework.data">
 		<level value="DEBUG"/>
 	</category>
+    
+    <category name="org.springframework.transaction">
+        <level value="DEBUG"/>
+    </category>
+    
 	<category name="org.springframework">
 		<level value="WARN"/>
 	</category>

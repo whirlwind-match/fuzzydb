@@ -32,7 +32,6 @@ public class FuzzyEntityInformation<T, ID extends Serializable>
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public ID getId(T entity) {
 		try {
 			return (ID) idField.get(entity);
@@ -44,7 +43,6 @@ public class FuzzyEntityInformation<T, ID extends Serializable>
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public Class<ID> getIdType() {
 		return (Class<ID>) idField.getType();
 	}

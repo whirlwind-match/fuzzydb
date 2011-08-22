@@ -9,6 +9,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mapping.model.MappingException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
@@ -31,6 +32,11 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		this.type = type;
 	}
 
+	public AbstractCRUDRepository(Class<T> type, DataOperations persister) {
+		this.type = type;
+		this.persister = persister;
+	}
+
 	/**
 	 * Initialise access to id field
 	 */
@@ -50,19 +56,23 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	}
 
 
+	@Transactional(readOnly=true)
 	public Iterable<T> findAll() {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
+	@Transactional(readOnly=true)
 	public long count() {
 		selectNamespace();
 		return persister.count(getInternalType());
 	}
 
+	@Transactional
 	public final void deleteAll() {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
+	@Transactional(readOnly=true)
 	public T findFirst() {
 		selectNamespace();
 		I internalResult = persister.retrieveFirstOf(getInternalType());
@@ -121,6 +131,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		}
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked")
 	public Iterable<T> save(Iterable<? extends T> entities) {
 	
@@ -130,6 +141,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		return (Iterable<T>) entities;
 	}
 
+	@Transactional
 	public void delete(Iterable<? extends T> entities) {
 		for (T entity : entities) {
 			delete(entity);

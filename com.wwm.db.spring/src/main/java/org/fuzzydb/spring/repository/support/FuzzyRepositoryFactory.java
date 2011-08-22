@@ -7,14 +7,20 @@ import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
+import com.wwm.db.DataOperations;
 import com.wwm.db.spring.repository.RawCRUDRepository;
 
 
 public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
 
+	private DataOperations persister;
+
+    public FuzzyRepositoryFactory(DataOperations persister) {
+		this.persister = persister;
+	}
 
 
-    @Override
+	@Override
     protected Object getTargetRepository(RepositoryMetadata metadata) {
 
         return createTargetRepository(metadata);
@@ -29,7 +35,14 @@ public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
         
         // depending on interface .. create diff 5implementations
         if (CrudRepository.class.isAssignableFrom(repositoryInterface)) {
-        	return new RawCRUDRepository(metadata.getDomainClass());
+        	RawCRUDRepository crudRepository = new RawCRUDRepository(metadata.getDomainClass(), persister);
+        	try {
+				crudRepository.afterPropertiesSet();
+			}
+			catch (Exception e) {
+				throw new IllegalStateException(e); // need to clarify this
+			}
+			return crudRepository;
         } else {
             throw new UnsupportedOperationException("Cannot (yet) create repository for interface: " + metadata.getRepositoryInterface());
         }
