@@ -16,12 +16,14 @@
 
 	<context:annotation-config />
 	
-	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
-	<fuzzy:embedded-database />
-	<fuzzy:tx-manager />
-	<fuzzy:initialize />	
+<!-- 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" /> -->
+<!-- 	<fuzzy:embedded-database /> -->
+<!-- 	<fuzzy:tx-manager /> -->
+<!-- 	<fuzzy:initialize />	 -->
+
+    <bean class="com.wwm.db.spring.transaction.WhirlwindExceptionTranslator" />
 	
-    <fuzzy:repositories base-package="org.fuzzydb.spring">
+    <fuzzy:repositories base-package="com.wwm.db.spring.examples">
     </fuzzy:repositories>    
     
 </beans>

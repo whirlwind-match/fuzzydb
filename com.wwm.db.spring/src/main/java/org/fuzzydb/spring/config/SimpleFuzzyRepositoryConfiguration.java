@@ -1,5 +1,7 @@
 package org.fuzzydb.spring.config;
 
+import org.springframework.data.repository.config.AutomaticRepositoryConfigInformation;
+import org.springframework.data.repository.config.ManualRepositoryConfigInformation;
 import org.springframework.data.repository.config.RepositoryConfig;
 import org.springframework.data.repository.config.SingleRepositoryConfigInformation;
 import org.w3c.dom.Element;
@@ -22,20 +24,40 @@ public class SimpleFuzzyRepositoryConfiguration  extends
 
 	@Override
 	public FuzzyRepositoryConfiguration getAutoconfigRepositoryInformation(String interfaceName) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AutomaticFuzzyRepositoryConfigInformation(interfaceName, this);
 	}
 
 	@Override
 	public String getNamedQueriesLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return "classpath*:/fuzzy/dummy-named-queries.properties"; // This should get ignored by Data Commons if left at default
 	}
 
 	@Override
 	protected FuzzyRepositoryConfiguration createSingleRepositoryConfigInformationFor(Element element) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ManualFuzzyRepositoryConfigInformation(element, this);
 	}
+	
+	
+    private static class AutomaticFuzzyRepositoryConfigInformation
+    	extends AutomaticRepositoryConfigInformation<SimpleFuzzyRepositoryConfiguration>
+    	implements FuzzyRepositoryConfiguration {
 
+		public AutomaticFuzzyRepositoryConfigInformation(String interfaceName,
+				SimpleFuzzyRepositoryConfiguration parent) {
+
+			super(interfaceName, parent);
+		}
+    }
+
+
+    private static class ManualFuzzyRepositoryConfigInformation extends
+        ManualRepositoryConfigInformation<SimpleFuzzyRepositoryConfiguration>
+        implements FuzzyRepositoryConfiguration {
+    
+        public ManualFuzzyRepositoryConfigInformation(Element element,
+                SimpleFuzzyRepositoryConfiguration parent) {
+        
+            super(element, parent);
+        }
+    }
 }
