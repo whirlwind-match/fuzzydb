@@ -15,6 +15,20 @@ import com.wwm.db.core.exceptions.ArchException;
 public class WhirlwindPlatformTransactionManager extends
 		AbstractPlatformTransactionManager {
 
+	private class TransactionHolder {
+
+		private Transaction transaction = null;
+		
+		public Transaction getTransaction() {
+			return transaction;
+		}
+
+		public void setTransaction(Transaction transaction) {
+			this.transaction = transaction;
+		}
+	}
+
+	
 	private static final long serialVersionUID = 1L;
 
 	private final WhirlwindExceptionTranslator exceptionTranslator = new WhirlwindExceptionTranslator();
@@ -32,9 +46,7 @@ public class WhirlwindPlatformTransactionManager extends
 
 	@Override
 	protected Object doGetTransaction() throws TransactionException {
-		// If there isn't a current transaction for this thread then create one
-		Transaction current = store.currentTransaction();
-		return current != null ? current : store.begin();
+		return new TransactionHolder(); 
 	}
 
 	@Override
@@ -44,12 +56,10 @@ public class WhirlwindPlatformTransactionManager extends
 				definition.getIsolationLevel() == TransactionDefinition.ISOLATION_DEFAULT,
 				"Whirlwind only supports ISOLATION_DEFAULT");
 
-		// NOTHING TO DO FOR NOW. Whirlwind starts the transaction lazily
-		// We could forceStart() but this would be inappropriate as it would consume server resources
-		// earlier than necessary.  Transaction.forceStart() is used mainly for testing.
 		
-		// At this point we know if the transaction is read-only, so, with some changes to TransactionImpl, could
-		// demote to read-only
+		TransactionHolder th = (TransactionHolder)transaction;
+		Assert.isNull(th.getTransaction());
+		th.setTransaction(store.begin());
 	}
 
 	@Override
@@ -57,11 +67,18 @@ public class WhirlwindPlatformTransactionManager extends
 			throws TransactionException {
 
 		try {
-			Transaction t = (Transaction) status.getTransaction();
-			t.commit();
+			TransactionHolder th = (TransactionHolder) status.getTransaction();
+			th.getTransaction().commit();
+			th.setTransaction(null);
 		} catch (ArchException e) {
 			throwTranslatedException(e);
 		}
+	}
+	
+	@Override
+	protected boolean isExistingTransaction(Object transaction) throws TransactionException {
+		TransactionHolder th = (TransactionHolder)transaction;
+		return th.getTransaction() != null && th.getTransaction().equals(store.currentTransaction());
 	}
 
 	private void throwTranslatedException(ArchException e) {
@@ -73,8 +90,9 @@ public class WhirlwindPlatformTransactionManager extends
 	@Override
 	protected void doRollback(DefaultTransactionStatus status)
 			throws TransactionException {
-		Transaction t = (Transaction) status.getTransaction();
-		t.dispose();
+		TransactionHolder th = (TransactionHolder)status.getTransaction();
+		th.getTransaction().dispose();
+		th.setTransaction(null);
 	}
 
 	public DataOperations getDataOps() {
