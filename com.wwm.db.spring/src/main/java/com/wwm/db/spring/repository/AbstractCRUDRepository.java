@@ -40,7 +40,8 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	/**
 	 * Initialise access to id field
 	 */
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
+		
 		ReflectionUtils.doWithFields(type, new FieldCallback() {
 			public void doWith(Field field) throws IllegalArgumentException,
 					IllegalAccessException {

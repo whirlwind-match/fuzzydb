@@ -26,7 +26,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 	}
 	
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		super.afterPropertiesSet();
 		 if (!idField.getType().isAssignableFrom(Ref.class)) {
 			 throw new MappingException(type.getCanonicalName() + " must have an @Id annotated field of type Ref");

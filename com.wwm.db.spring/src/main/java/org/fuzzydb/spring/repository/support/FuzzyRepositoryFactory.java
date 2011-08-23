@@ -33,15 +33,10 @@ public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
 
         Class<?> repositoryInterface = metadata.getRepositoryInterface();
         
-        // depending on interface .. create diff 5implementations
+        // depending on interface .. create diff implementations
         if (CrudRepository.class.isAssignableFrom(repositoryInterface)) {
         	RawCRUDRepository crudRepository = new RawCRUDRepository(metadata.getDomainClass(), persister);
-        	try {
-				crudRepository.afterPropertiesSet();
-			}
-			catch (Exception e) {
-				throw new IllegalStateException(e); // need to clarify this
-			}
+			crudRepository.afterPropertiesSet();
 			return crudRepository;
         } else {
             throw new UnsupportedOperationException("Cannot (yet) create repository for interface: " + metadata.getRepositoryInterface());
