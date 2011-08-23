@@ -17,4 +17,4 @@ bin/
 
 # Eclipse WTP is a pain in creating a manifest if we haven't
 */src/main/java/META-INF/
-
+*/src/META-INF/
