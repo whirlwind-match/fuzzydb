@@ -8,7 +8,9 @@ import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
 import com.wwm.db.DataOperations;
+import com.wwm.db.spring.repository.FuzzyRepository;
 import com.wwm.db.spring.repository.RawCRUDRepository;
+import com.wwm.db.spring.repository.SimpleMappingFuzzyRepository;
 
 
 public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
@@ -34,24 +36,36 @@ public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
         Class<?> repositoryInterface = metadata.getRepositoryInterface();
         
         // depending on interface .. create diff implementations
+        if (FuzzyRepository.class.isAssignableFrom(repositoryInterface)) {
+        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainClass(), true, persister);
+        	repo.afterPropertiesSet();
+        	return repo;
+        }
+        
         if (CrudRepository.class.isAssignableFrom(repositoryInterface)) {
         	RawCRUDRepository crudRepository = new RawCRUDRepository(metadata.getDomainClass(), persister);
 			crudRepository.afterPropertiesSet();
 			return crudRepository;
-        } else {
-            throw new UnsupportedOperationException("Cannot (yet) create repository for interface: " + metadata.getRepositoryInterface());
-        }
+        } 
+
+        throw new UnsupportedOperationException("Cannot (yet) create repository for interface: " + metadata.getRepositoryInterface());
     }
 
 
     @Override
     protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
 
-        if (CrudRepository.class.isAssignableFrom(metadata.getRepositoryInterface())) {
-            return RawCRUDRepository.class;
-        } else {
-            throw new UnsupportedOperationException("Cannot (yet) create repository for interface: " + metadata.getRepositoryInterface());
+        Class<?> repositoryInterface = metadata.getRepositoryInterface();
+
+        if (FuzzyRepository.class.isAssignableFrom(repositoryInterface)) {
+        	return SimpleMappingFuzzyRepository.class;
         }
+        
+    	if (CrudRepository.class.isAssignableFrom(repositoryInterface)) {
+            return RawCRUDRepository.class;
+        }
+
+    	throw new UnsupportedOperationException("Cannot (yet) create repository for interface: " + metadata.getRepositoryInterface());
     }
 
 

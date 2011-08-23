@@ -4,7 +4,9 @@ import java.util.Iterator;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mapping.model.MappingException;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.query.Result;
@@ -25,6 +27,10 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		super(type);
 	}
 	
+	public AbstractConvertingRepository(Class<T> type, DataOperations persister) {
+		super(type, persister);
+	}
+
 	@Override
 	public void afterPropertiesSet() {
 		super.afterPropertiesSet();
@@ -43,6 +49,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 	 * 
 	 * {@inheritDoc}
 	 */
+	@Transactional
 	public T save(T entity) {
 		selectNamespace();
 		I toWrite = toInternal(entity);
@@ -70,7 +77,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 	
 	abstract protected Ref<I> toInternalId(ID id);
 	
-
+	@Transactional(readOnly=true)
 	public T findOne(ID id) {
 		selectNamespace();
 		Ref<I> ref = toInternalId(id);
@@ -84,6 +91,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		return entity;
 	}
 
+	@Transactional(readOnly=true)
 	public boolean exists(ID id) {
 		selectNamespace();
 		try {
@@ -94,17 +102,20 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		}
 	}
 
+	@Transactional
 	public void delete(ID id) {
 		selectNamespace();
 		persister.delete(toInternalId(id));
 	}
 
+	@Transactional
 	public void delete(T entity) {
 		selectNamespace();
 		persister.delete(toInternal(entity));
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Iterable<T> findAll() {
 		final ResultSet<I> all = persister.query(getInternalType(), null, null);
 		return new Iterable<T>(){
@@ -120,6 +131,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		};
 	}
 	
+	@Transactional(readOnly=true)
 	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
 		selectNamespace();
 		I internal = toInternal(query.getQueryTarget());

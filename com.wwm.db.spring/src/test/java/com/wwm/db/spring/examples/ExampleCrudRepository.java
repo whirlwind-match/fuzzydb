@@ -9,7 +9,7 @@ import com.wwm.db.spring.repository.PrimaryKeyedItem;
  * 
  *  @author Neale Upstone
  */
-public interface SimpleCrudRepository extends CrudRepository<PrimaryKeyedItem, String> {
+public interface ExampleCrudRepository extends CrudRepository<PrimaryKeyedItem, String> {
 
 	
 }

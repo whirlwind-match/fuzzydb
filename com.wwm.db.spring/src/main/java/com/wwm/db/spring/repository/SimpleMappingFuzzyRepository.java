@@ -19,6 +19,7 @@ import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
 import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
+import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.ResultImpl;
 import com.wwm.db.query.Result;
@@ -59,6 +60,11 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 
 	public SimpleMappingFuzzyRepository(Class<T> type, boolean useDefaultNamespace) {
 		super(type);
+		this.useDefaultNamespace = useDefaultNamespace;
+	}
+
+	public SimpleMappingFuzzyRepository(Class<T> type, boolean useDefaultNamespace, DataOperations persister) {
+		super(type, persister);
 		this.useDefaultNamespace = useDefaultNamespace;
 	}
 

@@ -12,7 +12,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.wwm.db.spring.examples.SimpleCrudRepository;
+import com.wwm.db.spring.examples.ExampleFuzzyRepository;
+import com.wwm.db.spring.examples.ExampleCrudRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/fuzzy-repositories-context.xml"})
@@ -21,12 +22,13 @@ public class FuzzyRepositoriesConfigTest {
 	
 	
 	@Autowired
-	private SimpleCrudRepository repo;
+	private ExampleCrudRepository repo;
 	
+	@Autowired 
+	private ExampleFuzzyRepository fuzzyRepo;
 	
 	@Test 
 	public void repositoryShouldBeCreatedForInterface() {
-//		assertThat( repo.getClass(), IsInstanceOf.instanceOf(RawCRUDRepository.class)); // TODO: it's a proxy, so need to  
 		assertTrue( repo instanceof CrudRepository);
 
 		repo.save(new PrimaryKeyedItem("email", "passhash"));
@@ -37,4 +39,13 @@ public class FuzzyRepositoriesConfigTest {
 		// TODO: assert repo is configured correctly and that proxy behaviour is as expected
 	}
 
+	@Test 
+	public void fuzzyRepositoryShouldBeCreatedForInterface() {
+		assertTrue( fuzzyRepo instanceof FuzzyRepository);
+
+		fuzzyRepo.save(new FuzzyItem("some description"));
+
+		FuzzyItem item = fuzzyRepo.findFirst();
+		assertThat(item.getDescription(), is("some description"));
+	}
 }
