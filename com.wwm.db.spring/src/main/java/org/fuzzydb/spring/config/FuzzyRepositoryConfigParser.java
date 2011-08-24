@@ -2,9 +2,9 @@ package org.fuzzydb.spring.config;
 
 import static org.fuzzydb.spring.config.Constants.DEFAULT_REPO_ID;
 
+import org.fuzzydb.spring.repository.support.FuzzyRepositorySupport;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.AutowireCandidateQualifier;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-import com.wwm.attrs.converters.WhirlwindConversionService;
-import com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr;
 import com.wwm.db.spring.repository.SimpleMappingFuzzyRepository;
  
 public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
@@ -43,20 +41,7 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 	@Override
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
 		
-		// Conversion service default
-		if (!parserContext.getRegistry().containsBeanDefinition("whirlwindConversionService")) {
-		    BeanDefinitionBuilder conversionServiceBuilder = BeanDefinitionBuilder.genericBeanDefinition(WhirlwindConversionService.class);
-		    BeanDefinitionHolder def = new BeanDefinitionHolder(conversionServiceBuilder.getBeanDefinition(), "whirlwindConversionService");
-		    registerBeanDefinition(def, parserContext.getRegistry());      
-		}
-
-		// Conversion service default
-		if (!parserContext.getRegistry().containsBeanDefinition("attributeDefinitionService")) {
-		    BeanDefinitionBuilder attributeDefinitionServiceBuilder = BeanDefinitionBuilder.genericBeanDefinition(CurrentTxAttrDefinitionMgr.class);
-		    BeanDefinitionHolder def = new BeanDefinitionHolder(attributeDefinitionServiceBuilder.getBeanDefinition(), "attributeDefinitionService");
-		    registerBeanDefinition(def, parserContext.getRegistry());      
-		}
-	    
+		FuzzyRepositorySupport.registerFuzzySupportBeans(parserContext);
 	    
 	    // Build the repository for class
 	    String persistedClass = element.getAttribute("class");

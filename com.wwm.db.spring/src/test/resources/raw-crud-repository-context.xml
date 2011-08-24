@@ -15,13 +15,13 @@
     </description>
 
 	<context:annotation-config />
-	
-	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
-	<fuzzy:embedded-database />
-	<fuzzy:tx-manager />
 
 	<bean id="rawCrudRepository" class="com.wwm.db.spring.repository.RawCRUDRepository">
 		<constructor-arg value="com.wwm.db.spring.repository.PrimaryKeyedItem"/>
 	</bean>
+	
+	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager" />
+	<fuzzy:embedded-database />
+	<fuzzy:tx-manager />
 	
 </beans>

@@ -7,6 +7,8 @@ import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
+import com.wwm.attrs.AttributeDefinitionService;
+import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.db.DataOperations;
 import com.wwm.db.spring.repository.FuzzyRepository;
 import com.wwm.db.spring.repository.RawCRUDRepository;
@@ -15,10 +17,17 @@ import com.wwm.db.spring.repository.SimpleMappingFuzzyRepository;
 
 public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
 
+	private AttributeDefinitionService attributeDefinitionService;
+	
+	private WhirlwindConversionService conversionService;
+
 	private DataOperations persister;
 
-    public FuzzyRepositoryFactory(DataOperations persister) {
+	
+    public FuzzyRepositoryFactory(DataOperations persister, AttributeDefinitionService attributeDefinitionService, WhirlwindConversionService conversionService) {
 		this.persister = persister;
+		this.attributeDefinitionService = attributeDefinitionService;
+		this.conversionService = conversionService;
 	}
 
 
@@ -37,7 +46,8 @@ public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
         
         // depending on interface .. create diff implementations
         if (FuzzyRepository.class.isAssignableFrom(repositoryInterface)) {
-        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainClass(), true, persister);
+        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainClass(), true, 
+        			persister, conversionService, attributeDefinitionService);
         	repo.afterPropertiesSet();
         	return repo;
         }

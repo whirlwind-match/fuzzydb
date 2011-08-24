@@ -63,9 +63,12 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		this.useDefaultNamespace = useDefaultNamespace;
 	}
 
-	public SimpleMappingFuzzyRepository(Class<T> type, boolean useDefaultNamespace, DataOperations persister) {
+	public SimpleMappingFuzzyRepository(Class<T> type, boolean useDefaultNamespace, DataOperations persister, 
+			WhirlwindConversionService conversionService, AttributeDefinitionService attributeDefinitionService) {
 		super(type, persister);
 		this.useDefaultNamespace = useDefaultNamespace;
+		this.converter = conversionService;
+		this.attrDefinitionService = attributeDefinitionService;
 	}
 
 	@Override

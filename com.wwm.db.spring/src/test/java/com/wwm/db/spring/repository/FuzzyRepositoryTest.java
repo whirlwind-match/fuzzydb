@@ -22,7 +22,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.wwm.db.Ref;
 import com.wwm.db.query.Result;
@@ -39,6 +42,9 @@ public class FuzzyRepositoryTest {
 	@Autowired
 	private FuzzyRepository<FuzzyItem> repo;
 	
+	@Autowired
+	private PlatformTransactionManager transactionManager;
+	
 	
 	@Before
 	public void initTest(){
@@ -49,18 +55,13 @@ public class FuzzyRepositoryTest {
 	public void deleteFuzzyItems() {
 		for (Ref<FuzzyItem> ref : toDelete) {
 			try {
-				deleteOne(ref);
+				repo.delete(ref);
 			} catch (EmptyResultDataAccessException e) {
 				// ignore this exception as it's just an item we deleted during our test
 			}
 		}
 	}
 
-	@Transactional
-	private void deleteOne(Ref<FuzzyItem> ref) {
-		repo.delete(ref);
-	}
-	
 	@Test 
 	public void createObjectSucceedInAtTransactionalViaInjectedDataOps(){
 		// the action
@@ -72,7 +73,7 @@ public class FuzzyRepositoryTest {
 		
 		{
 			// Retrieve by ref		
-			FuzzyItem result = getItem(ref);
+			FuzzyItem result = repo.findOne(ref);
 			// And check ref got assigned, and is not same object
 			assertNotNull(result.getRef());
 			assertNotSame(result, matt);
@@ -87,7 +88,7 @@ public class FuzzyRepositoryTest {
 
 		{
 			// Retrieve by ref and check newAttribute exists		
-			FuzzyItem result = getItem(ref);
+			FuzzyItem result = repo.findOne(ref);
 			// And check ref got assigned, and is not same object
 			assertNotNull(result.getRef());
 			assertNotSame(result, matt);
@@ -137,10 +138,16 @@ public class FuzzyRepositoryTest {
 		}
 	}
 
-	@Transactional(readOnly=true) 
-	private List<Result<FuzzyItem>> doQuery(AttributeMatchQuery<FuzzyItem> query) {
-		Iterator<Result<FuzzyItem>> items = repo.findMatchesFor(query);
-		return toList(items);
+	private List<Result<FuzzyItem>> doQuery(final AttributeMatchQuery<FuzzyItem> query) {
+		
+		return new TransactionTemplate(transactionManager).execute(new TransactionCallback<List<Result<FuzzyItem>>>() {
+			@Override
+			public List<Result<FuzzyItem>> doInTransaction(TransactionStatus status) {
+				
+				Iterator<Result<FuzzyItem>> items = repo.findMatchesFor(query);
+				return toList(items);
+			}
+		});
 	}
 
 	public static <T> List<T> toList(Iterator<T> items) {
@@ -155,11 +162,6 @@ public class FuzzyRepositoryTest {
 	}
 
 
-	@Transactional(readOnly=true) 
-	private FuzzyItem getItem(Ref<FuzzyItem> ref) {
-		return repo.findOne(ref);
-	}
-
 	/**
 	 * Always use this when saving so that we've got all the refs we need to delete after the test
 	 * @return 
@@ -170,14 +172,12 @@ public class FuzzyRepositoryTest {
 		return item;
 	}
 
-	@Transactional 
 	private FuzzyItem updateItem(FuzzyItem item) {
 		item = repo.save(item);
 		toDelete.add(item.getRef());
 		return item;
 	}
 	
-	@Transactional 
 	private FuzzyItem createMatt() {
 		FuzzyItem matt = new FuzzyItem("Matt");
 		matt.setAttr("isMale", Boolean.TRUE);
@@ -189,7 +189,6 @@ public class FuzzyRepositoryTest {
 		return saveOne(matt);
 	}
 
-	@Transactional
 	private void createMorePeople() {
 		
 		FuzzyItem angelina = new FuzzyItem("Angelina");

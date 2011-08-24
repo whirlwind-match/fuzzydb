@@ -16,7 +16,7 @@
 
 	<context:annotation-config />
 	
-<!-- 	<tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" /> -->
+<!-- 	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager" /> -->
 	<fuzzy:embedded-database />
 	<fuzzy:tx-manager />
 <!-- 	<fuzzy:initialize />	 -->

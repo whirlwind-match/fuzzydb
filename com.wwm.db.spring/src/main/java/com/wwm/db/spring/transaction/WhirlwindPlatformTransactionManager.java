@@ -17,8 +17,12 @@ public class WhirlwindPlatformTransactionManager extends
 
 	private class TransactionHolder {
 
-		private Transaction transaction = null;
+		private Transaction transaction;
 		
+		public TransactionHolder(Transaction currentTransaction) {
+			this.transaction = currentTransaction;
+		}
+
 		public Transaction getTransaction() {
 			return transaction;
 		}
@@ -46,7 +50,7 @@ public class WhirlwindPlatformTransactionManager extends
 
 	@Override
 	protected Object doGetTransaction() throws TransactionException {
-		return new TransactionHolder(); 
+		return new TransactionHolder(store.currentTransaction()); 
 	}
 
 	@Override

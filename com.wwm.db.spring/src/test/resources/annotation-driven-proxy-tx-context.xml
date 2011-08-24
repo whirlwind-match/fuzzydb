@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
-
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:fuzzy="http://www.fuzzydb.org/schema/spring"
+	xsi:schemaLocation="http://www.fuzzydb.org/schema/spring http://static.fuzzydb.org/schema/spring/spring-fuzzy-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <description>
         Context for proxy based transaction management.  Note: @Transactional will not work unless via
@@ -18,5 +21,11 @@
 	<fuzzy:embedded-database />
 	<fuzzy:tx-manager />
 	<fuzzy:initialize match-styles="classpath:*MatchingConfig.xml" />	
+
+	<!-- Try something on this store and you should get UnknownTransactionException as tx-manager
+	     defaults to store -->
+	<fuzzy:store id="justTesting" url="wwmdb:/TravelDataStore" />
+    
+    <bean class="com.wwm.db.spring.NativeWhirlwindServiceImpl" />
 
 </beans>

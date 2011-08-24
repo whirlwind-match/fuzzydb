@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mapping.model.MappingException;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wwm.db.DataOperations;
@@ -131,7 +132,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		};
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional(readOnly=true, propagation=Propagation.MANDATORY)
 	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
 		selectNamespace();
 		I internal = toInternal(query.getQueryTarget());
