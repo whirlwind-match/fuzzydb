@@ -49,7 +49,7 @@ public abstract class BaseAttribute implements Serializable, Cloneable {
         // TODO CATCH ERROR WHERE attrId wasn't created
         if (attrId == 0) {
 //            attrId = AttributeIdMap.instance.getId( this.getClass().getName() );
-			throw new RuntimeException("AttrId was not set");
+//			throw new RuntimeException("AttrId was not set");
         }
         return attrId;
     }
