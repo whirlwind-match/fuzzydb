@@ -141,7 +141,6 @@ public class FuzzyRepositoryTest {
 	private List<Result<FuzzyItem>> doQuery(final AttributeMatchQuery<FuzzyItem> query) {
 		
 		return new TransactionTemplate(transactionManager).execute(new TransactionCallback<List<Result<FuzzyItem>>>() {
-			@Override
 			public List<Result<FuzzyItem>> doInTransaction(TransactionStatus status) {
 				
 				Iterator<Result<FuzzyItem>> items = repo.findMatchesFor(query);

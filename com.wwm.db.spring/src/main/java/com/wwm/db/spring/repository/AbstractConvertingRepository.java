@@ -124,6 +124,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 			public Iterator<T> iterator() {
 				return new ConvertingIterator<I,T>(all.iterator()) {
 					
+					@Override
 					protected T convert(I internal) {
 						return fromInternal(internal, null);
 					}

@@ -57,7 +57,8 @@ public class StoreInitializer implements InitializingBean {
         
         // Init by convention for now
         DynamicRef<? extends AttributeDefinitionService> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
-        Map<String, Object> loadAttributeDefs = XStreamHelper.loadAttributeDefs(autoResourceBase + "attributes/*.xml", attrDefs);
+        @SuppressWarnings("unused")
+		Map<String, Object> loadAttributeDefs = XStreamHelper.loadAttributeDefs(autoResourceBase + "attributes/*.xml", attrDefs);
         
         TreeMap<String, EnumDefinition> loadEnumDefs = XStreamHelper.loadEnumDefs(autoResourceBase + "enums/*.xml", attrDefs);
         

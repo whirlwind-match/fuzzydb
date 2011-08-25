@@ -19,6 +19,7 @@ import com.wwm.db.Store;
 public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 
 	/** Indicate if this instance should parse as embedded instance - replace url with defaults */
+	@SuppressWarnings("unused") // TODO
 	private final boolean embedded;
 
 	public FuzzyStoreConfigParser() {

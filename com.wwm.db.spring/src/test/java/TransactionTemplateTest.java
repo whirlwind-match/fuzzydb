@@ -26,8 +26,8 @@ public class TransactionTemplateTest extends BaseDatabaseTest {
 		
 		final WhirlwindPlatformTransactionManager tm = new WhirlwindPlatformTransactionManager(store);
 
-		Ref ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref>() {
-			public Ref doInTransaction(TransactionStatus status) {
+		Ref<TestIndexClass> ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref<TestIndexClass>>() {
+			public Ref<TestIndexClass> doInTransaction(TransactionStatus status) {
 				return tm.getDataOps().create(new TestIndexClass(1));
 			}
 		});
@@ -70,10 +70,10 @@ public class TransactionTemplateTest extends BaseDatabaseTest {
 
 	}
 
-	private Ref createOpFollowedByException(
+	private Ref<TestIndexClass> createOpFollowedByException(
 			final WhirlwindPlatformTransactionManager tm) {
-		Ref ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref>() {
-			public Ref doInTransaction(TransactionStatus status) {
+		Ref<TestIndexClass> ref = new TransactionTemplate(tm).execute(new TransactionCallback<Ref<TestIndexClass>>() {
+			public Ref<TestIndexClass> doInTransaction(TransactionStatus status) {
 				tm.getDataOps().create(new TestIndexClass(1));
 				throw new RuntimeException("Deliberate exception. Should cause rollback");
 			}

@@ -30,6 +30,7 @@ public class SimpleFuzzyRepositoryConfiguration  extends
 		return "classpath*:/fuzzy/dummy-named-queries.properties"; // This should get ignored by Data Commons if left at default
 	}
 
+	@Override
 	protected FuzzyRepositoryConfiguration createSingleRepositoryConfigInformationFor(Element element) {
 		return new ManualFuzzyRepositoryConfigInformation(element, this);
 	}

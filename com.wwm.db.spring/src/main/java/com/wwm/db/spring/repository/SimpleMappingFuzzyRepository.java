@@ -181,6 +181,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		final ResultIterator<Result<BlobStoringWhirlwindItem>> resultIterator = resultsInternal.iterator();
 
 		Iterator<Result<T>> iterator = new ConvertingIterator<Result<BlobStoringWhirlwindItem>,Result<T>>(resultIterator) {
+			@Override
 			protected Result<T> convert(Result<BlobStoringWhirlwindItem> internal) {
 				
 				BlobStoringWhirlwindItem item = internal.getItem();
