@@ -23,25 +23,15 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 	
 	private static EmbeddedClientFactory instance;
 
-	private static boolean isPersistent = false;
+	private boolean isPersistent = false;
 	
-	private final Database database;
+	private Database database;
 	
 	/** If we find our HTTP server for web services, then we can start it */
-	private final Lifecycle httpServer;
+	private Lifecycle httpServer;
 
 	private final ReceiverMessageSource databaseMessageSource;
 
-	/**
-	 * WARNING: Temporary until persistent/non-persistent requirements better nailed down.
-	 * 
-	 * @param isPersistent Default is non-persistent.  Set to true if you want changes written to disk.
-	 */
-	public static void setPersistent(boolean isPersistent) {
-		EmbeddedClientFactory.isPersistent = isPersistent;
-	}
-	
-	
 	public static synchronized EmbeddedClientFactory getInstance() {
 		if (instance == null) {
 			instance = new EmbeddedClientFactory();
@@ -53,7 +43,18 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 	
 	private EmbeddedClientFactory() {
 		databaseMessageSource = new ReceiverMessageSource();
-		database = new Database(databaseMessageSource, isPersistent);
+	}
+
+
+	/**
+	 * Start the database if not already started
+	 */
+	private synchronized void startDatabase() {
+		if (database != null) {
+			return;
+		}
+
+		database = new Database(databaseMessageSource, isPersistent());
 		try {
 			database.startServer();
 		} catch (IOException e) {
@@ -92,6 +93,7 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
      * Create an embedded client connected to a singleton database instance within same VM
      */
     public Client createClient() {
+    	startDatabase();
     	DirectClient client = new DirectClient(Authority.Authoritative, databaseMessageSource);
 		client.connect();
 		return client;
@@ -102,8 +104,8 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
     }
     
     public synchronized void shutdownDatabase() {
-    	instance = null;
     	database.close();
+    	database = null;
     	if (httpServer != null && httpServer.isRunning()) {
     		httpServer.stop();
     	}
@@ -163,5 +165,15 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 
 	public boolean isRunning() {
 		return !isDatabaseClosed();
+	}
+
+
+	public boolean isPersistent() {
+		return isPersistent;
+	}
+
+
+	public void setPersistent(boolean isPersistent) {
+		this.isPersistent = isPersistent;
 	}
 }

@@ -32,12 +32,12 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 
 	@BeforeClass
 	static public void setPersistent() {
-		EmbeddedClientFactory.setPersistent(true);
+		EmbeddedClientFactory.getInstance().setPersistent(true);
 	}
 	
 	@AfterClass
 	static public void setNonPersistent() {
-		EmbeddedClientFactory.setPersistent(false);
+		EmbeddedClientFactory.getInstance().setPersistent(false);
 	}
 	
 	@AfterClass

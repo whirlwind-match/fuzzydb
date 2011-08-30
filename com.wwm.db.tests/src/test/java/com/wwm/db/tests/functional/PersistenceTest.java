@@ -22,13 +22,13 @@ public class PersistenceTest extends BaseDatabaseTest {
 
 	@BeforeClass 
 	static public void setPersitent() {
-		EmbeddedClientFactory.setPersistent(true);
+		EmbeddedClientFactory.getInstance().setPersistent(true);
 	}
 	
 	// NOTE: Assumes that default is false
 	@AfterClass
 	static public void setNonPersistent() {
-		EmbeddedClientFactory.setPersistent(false);
+		EmbeddedClientFactory.getInstance().setPersistent(false);
 	}
 	
 	
