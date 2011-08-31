@@ -206,7 +206,7 @@ public final class StoreImpl extends AbstractDataOperationsProxy implements Stor
 			BeginAndCommitCmd bacc = (BeginAndCommitCmd) m;
 			CommitCmd cc = (CommitCmd) bacc.getPayload();
 			if (cc.getUpdated() != null && cc.getUpdated().get(0).getObject() instanceof ITraceWanted){
-				System.err.println( (receiving ? "<- " : "-> " ) +
+				log.trace( (receiving ? "<- " : "-> " ) +
 					cc.getUpdated().get(0) );
 //							"*** Set breakpoint here: (PacketCodec.java:234)");
 //					new Exception().printStackTrace();
