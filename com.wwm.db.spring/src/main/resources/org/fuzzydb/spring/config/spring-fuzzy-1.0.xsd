@@ -123,7 +123,13 @@ The Store url.  Default is wwmdb:/com.fuzzydb.DefaultStore
 							]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-	</xsd:complexType>
+        <xsd:attribute name="persistent" type="xsd:boolean" use="optional" default="false">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[
+Set to true to persist data on disk]]></xsd:documentation><!-- FIXME: Not applicable for use in fuzzy:store -->
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
 
 
 	<!-- TODO. Don't extend repository:repository for now, just implement as 

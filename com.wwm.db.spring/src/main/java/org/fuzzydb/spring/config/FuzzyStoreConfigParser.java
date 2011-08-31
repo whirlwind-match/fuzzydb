@@ -18,17 +18,6 @@ import com.wwm.db.Store;
  
 public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 
-	/** Indicate if this instance should parse as embedded instance - replace url with defaults */
-	@SuppressWarnings("unused") // TODO
-	private final boolean embedded;
-
-	public FuzzyStoreConfigParser() {
-		this(false);
-	}
-	
-	public FuzzyStoreConfigParser(boolean embedded) {
-		this.embedded = embedded;
-	}
 
 	@Override
 	protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
@@ -50,10 +39,13 @@ public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 	 */
 	@Override
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+
+		String persistAttribute = element.getAttribute("persistent");
+;		boolean persist = (StringUtils.hasText(persistAttribute)) ? Boolean.valueOf(persistAttribute) : false;
 		
 		// Need to create the embedded client factory if we want embedded
 	    BeanDefinitionBuilder embeddedFactoryBuilder = BeanDefinitionBuilder.genericBeanDefinition(EmbeddedClientFactory.class)
-	    		.setFactoryMethod("getInstance");
+	    		.setFactoryMethod("getInstance").addPropertyValue("persistent", persistAttribute);
 
 	    String clientFactoryRef = registerWithGeneratedName(embeddedFactoryBuilder.getBeanDefinition(), parserContext.getRegistry());      
 
