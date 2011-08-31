@@ -19,15 +19,10 @@ import com.wwm.model.dimensions.IPoint3D;
 
 public class EcefVector extends Value3D {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 3258134652223828787L;
     public static final float EARTHCIRCUMFERENCE = 24901.55f;
     public static final float EARTHDIAMETER = EARTHCIRCUMFERENCE / (float)Math.PI;
 
-    private static int distanceCount = 0;
-    private static float distancetime = 0f;
 
     /**
      * Default constructor so we can use class.newInstance()
@@ -141,9 +136,6 @@ public class EcefVector extends Value3D {
      */
     public final float distance(EcefVector vector) {
 
-        long start = System.currentTimeMillis();
-
-
         assert(vector.getMag2() > 0.9999);
         assert(vector.getMag2() < 1.0001);
         assert(getMag2() > 0.9999);
@@ -163,13 +155,13 @@ public class EcefVector extends Value3D {
 
         float straightDistance = (float) ecefToMiles( Math.sqrt(x*x+y*y+z*z) );
 
-        distancetime += System.currentTimeMillis() - start;
-        distanceCount++;
-        if (distanceCount > 1e6) {
-            System.out.println("EcevVector.distance() called 1m times, total cost: " + distancetime + "ms");
-            distancetime = 0f;
-            distanceCount = 0;
-        }
+//        distancetime += System.currentTimeMillis() - start;
+//        distanceCount++;
+//        if (distanceCount > 1e6) {
+//            System.out.println("EcevVector.distance() called 1m times, total cost: " + distancetime + "ms");
+//            distancetime = 0f;
+//            distanceCount = 0;
+//        }
 
         // The above acos can work on values close to 1 with the data getting underflowed. So we correct for this
         // error by reverting to straight line distance, to avoid ever returning a distance smaller than the point-constraint scorer saw.
