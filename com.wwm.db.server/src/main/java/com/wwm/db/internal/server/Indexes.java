@@ -136,7 +136,7 @@ public class Indexes implements Serializable {
 			BTree<E> bTree = (BTree<E>) entry.getValue();
 			if (bTree.getUnique() == IndexKeyUniqueness.UniqueKey
 					&& bTree.contains(mo)) {
-				throw new KeyCollisionException("Cannot insert. Key collission on field: " + fieldName); // TODO: could be more helpful and give value, but need to extract it from mo
+				throw new KeyCollisionException("Cannot insert. Key collision on field: " + fieldName); // TODO: could be more helpful and give value, but need to extract it from mo
 			}
 		}
     }
