@@ -2,6 +2,7 @@ package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
 
+import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 
 import com.wwm.db.Ref;
@@ -25,7 +26,15 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Re
 	}
 
 	@Override
-	protected T fromInternal(T internal, Ref<T> ref) {
+	public void afterPropertiesSet() {
+		super.afterPropertiesSet();
+		 if (!idField.getType().isAssignableFrom(Ref.class)) {
+			 throw new MappingException(type.getCanonicalName() + " must have an @Id annotated field of type Ref");
+		 }
+	}
+
+	@Override
+	protected T fromInternal(T internal) {
 		return internal;
 	}
 
@@ -37,6 +46,11 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Re
 	@Override
 	protected Ref<T> toInternalId(Ref<T> id) {
 		return id;
+	}
+	
+	@Override
+	protected Ref<T> toExternalId(Ref<T> ref) {
+		return ref;
 	}
 	
 	@Override

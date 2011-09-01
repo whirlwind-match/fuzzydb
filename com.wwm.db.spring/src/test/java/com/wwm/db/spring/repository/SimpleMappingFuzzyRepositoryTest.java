@@ -73,6 +73,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	@Test
 	public void shouldConvertToWWItemOnSave() {
 		// mocks
+		when(persister.save((FuzzyItem)anyObject())).thenReturn(new RefImpl<FuzzyItem>(1,2,3));
 		
 		
 		// the action
@@ -102,7 +103,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		when(persister.retrieve((Ref<BlobStoringWhirlwindItem>) anyObject())).thenReturn(internal);
 
 		// the action
-		FuzzyItem result = repo.findOne(new RefImpl<SimpleMappingFuzzyRepositoryTest.FuzzyItem>(0, 0, 0));
+		FuzzyItem result = repo.findOne("1_1_1");
 		
 		// verify
 		verify(persister, times(1)).retrieve(ArgumentCaptor.forClass(Ref.class).capture());
@@ -127,7 +128,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		private static final long serialVersionUID = 1L;
 
 		@Id
-		Ref<FuzzyItem> ref;
+		String ref;
 		
 		Map<String, Object> attributes = new HashMap<String,Object>();
 		

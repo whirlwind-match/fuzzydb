@@ -1,9 +1,9 @@
 package com.wwm.db.spring.repository;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mapping.model.MappingException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,7 @@ import com.wwm.db.query.ResultSet;
  * @param <T> the external representation
  * @param <ID> the external ID type
  */
-public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extends AbstractCRUDRepository<I, T, ID> implements WhirlwindSearch<T> {
+public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> extends AbstractCRUDRepository<I, T, ID> implements WhirlwindSearch<T> {
 
 	
 	public AbstractConvertingRepository(Class<T> type) {
@@ -30,14 +30,6 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 	
 	public AbstractConvertingRepository(Class<T> type, DataOperations persister) {
 		super(type, persister);
-	}
-
-	@Override
-	public void afterPropertiesSet() {
-		super.afterPropertiesSet();
-		 if (!idField.getType().isAssignableFrom(Ref.class)) {
-			 throw new MappingException(type.getCanonicalName() + " must have an @Id annotated field of type Ref");
-		 }
 	}
 
 	/**
@@ -66,9 +58,12 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 			}
 		}
 		Ref<I> ref = persister.save(toWrite);
-		setId(entity, ref);
+		
+		setId(entity, toExternalId(ref));
 		return entity;
 	}
+
+	abstract protected ID toExternalId(Ref<I> ref);
 
 	/**
 	 * Should do anything needed to merge an existing back in with
@@ -84,11 +79,11 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 		Ref<I> ref = toInternalId(id);
 		T entity;
 		try {
-			entity = fromInternal(persister.retrieve(ref), ref);
+			entity = fromInternal(persister.retrieve(ref));
 		} catch (UnknownObjectException e) {
 			return null;
 		}
-		setId(entity, ref);
+		setId(entity, toExternalId(ref));
 		return entity;
 	}
 
@@ -126,7 +121,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Ref<T>> extend
 					
 					@Override
 					protected T convert(I internal) {
-						return fromInternal(internal, null);
+						return fromInternal(internal);
 					}
 				};
 			}

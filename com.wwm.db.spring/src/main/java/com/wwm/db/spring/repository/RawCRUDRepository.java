@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.Ref;
 
 public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> extends AbstractCRUDRepository<T,T,ID> {
 
@@ -40,7 +39,7 @@ public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> exten
 	}
 
 	@Override
-	protected T fromInternal(T internal, Ref<T> ref) {
+	protected T fromInternal(T internal) {
 		return internal;
 	}
 

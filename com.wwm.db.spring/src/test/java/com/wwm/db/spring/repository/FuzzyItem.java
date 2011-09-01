@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 
-import com.wwm.db.Ref;
-
 public class FuzzyItem implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -17,7 +15,7 @@ public class FuzzyItem implements Serializable {
 	private Map<String, Object> attributes = new HashMap<String,Object>();
 	
 	@Id
-	private Ref<FuzzyItem> ref;
+	private String ref;
 
 	
 	/**
@@ -42,7 +40,7 @@ public class FuzzyItem implements Serializable {
 		return description;
 	}
 	
-	public Ref<FuzzyItem> getRef() {
+	public String getRef() {
 		return ref;
 	}
 	

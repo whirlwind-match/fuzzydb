@@ -1,8 +1,8 @@
 package com.wwm.db.spring.repository;
 
 
-import com.wwm.db.Ref;
+import java.io.Serializable;
 
-public interface FuzzyRepository<T> extends WhirlwindCrudRepository<T, Ref<T>>, WhirlwindSearch<T> {
+public interface FuzzyRepository<T, ID extends Serializable> extends WhirlwindCrudRepository<T, ID>, WhirlwindSearch<T> {
 
 }

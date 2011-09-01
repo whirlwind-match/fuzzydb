@@ -21,6 +21,7 @@ import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
+import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.ResultImpl;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;
@@ -41,7 +42,7 @@ import com.wwm.model.attributes.MultiEnumAttribute;
  *
  * @param <T> the type being stored (Must contain a field: Map<String,Object> attributes for the fuzzy data)
  */
-public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, Ref<T>> implements FuzzyRepository<T> {
+public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepository<BlobStoringWhirlwindItem, T, String> implements FuzzyRepository<T,String> {
 
 	private static final String ATTRIBUTES_FIELD_NAME = "attributes";
 
@@ -72,7 +73,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	}
 
 	@Override
-	protected T fromInternal(BlobStoringWhirlwindItem internal, Ref<BlobStoringWhirlwindItem> ref) {
+	protected T fromInternal(BlobStoringWhirlwindItem internal) {
 		T result = createInstance(internal);
 		Map<String,Object> externalMap = getAttrsField(result);
 		
@@ -80,7 +81,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			addConvertedAttribute(externalMap, attr);
 		}
 		
-		setId(result, ref);
+		setId(result, internal.getPrimaryKey());
 		return result;
 	}
 
@@ -160,13 +161,17 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	protected final Ref<BlobStoringWhirlwindItem> toInternalId(Ref<T> id) {
+	protected final Ref<BlobStoringWhirlwindItem> toInternalId(String id) {
 		// Externally we ref as Ref<T>  and we are using the real ref here
-		return (Ref<BlobStoringWhirlwindItem>) id;
+		return RefImpl.valueOf(id);
 	}
 	
+	@Override
+	protected String toExternalId(Ref<BlobStoringWhirlwindItem> ref) {
+		return ((RefImpl<BlobStoringWhirlwindItem>) ref).asString();
+	}
+
 	@Override
 	protected Class<BlobStoringWhirlwindItem> getInternalType() {
 		return BlobStoringWhirlwindItem.class;
@@ -185,7 +190,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			protected Result<T> convert(Result<BlobStoringWhirlwindItem> internal) {
 				
 				BlobStoringWhirlwindItem item = internal.getItem();
-				T external = fromInternal(item, null);// FIXME !! getPersister().getRef(item));
+				T external = fromInternal(item);
 				Result<T> result = new ResultImpl<T>(external, internal.getScore());
 				return result;
 			}
@@ -208,5 +213,5 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		getPersister().setNamespace(
 				useDefaultNamespace ? "" : type.getCanonicalName()
 				);
-	}	
+	}
 }

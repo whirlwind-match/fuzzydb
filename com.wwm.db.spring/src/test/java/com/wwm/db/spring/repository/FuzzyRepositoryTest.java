@@ -37,10 +37,10 @@ import com.wwm.model.attributes.Score;
 public class FuzzyRepositoryTest {
 	
 	
-	private Set<Ref<FuzzyItem>> toDelete;
+	private Set<String> toDelete;
 	
 	@Autowired
-	private FuzzyRepository<FuzzyItem> repo;
+	private FuzzyRepository<FuzzyItem, String> repo;
 	
 	@Autowired
 	private PlatformTransactionManager transactionManager;
@@ -48,12 +48,12 @@ public class FuzzyRepositoryTest {
 	
 	@Before
 	public void initTest(){
-		toDelete = new HashSet<Ref<FuzzyItem>>();
+		toDelete = new HashSet<String>();
 	}
 	
 	@After
 	public void deleteFuzzyItems() {
-		for (Ref<FuzzyItem> ref : toDelete) {
+		for (String ref : toDelete) {
 			try {
 				repo.delete(ref);
 			} catch (EmptyResultDataAccessException e) {
@@ -66,7 +66,7 @@ public class FuzzyRepositoryTest {
 	public void createObjectSucceedInAtTransactionalViaInjectedDataOps(){
 		// the action
 		FuzzyItem matt = createMatt();
-		Ref<FuzzyItem> ref = matt.getRef();
+		String ref = matt.getRef();
 
 		// Check a ref got assigned when we saved item
 		assertNotNull(ref);
@@ -109,7 +109,7 @@ public class FuzzyRepositoryTest {
 	public void matchesForAPersonAreInOrder(){
 		// the action
 		FuzzyItem matt = createMatt();
-		Ref<FuzzyItem> ref = matt.getRef();
+		String ref = matt.getRef();
 
 		// Check a ref got assigned when we saved item
 		assertNotNull(ref);

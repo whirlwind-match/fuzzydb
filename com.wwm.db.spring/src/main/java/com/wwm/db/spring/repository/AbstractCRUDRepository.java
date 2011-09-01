@@ -14,7 +14,6 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.Ref;
 
 public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean {
 
@@ -77,7 +76,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	public T findFirst() {
 		selectNamespace();
 		I internalResult = persister.retrieveFirstOf(getInternalType());
-		return internalResult == null ? null : fromInternal(internalResult, persister.getRef(internalResult));
+		return internalResult == null ? null : fromInternal(internalResult);
 	}
 
 	protected final DataOperations getPersister() {
@@ -97,10 +96,9 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	 * Decode the internal representation (e.g. a binary buffer) to the type for this repository
 	 * 
 	 * @param internal raw object that has been retrieved from database
-	 * @param ref 
 	 * @return converted type
 	 */
-	abstract protected T fromInternal(I internal, Ref<I> ref);
+	abstract protected T fromInternal(I internal);
 
 	/**
 	 * Encode the persisted object to its' internal representation.
@@ -111,7 +109,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	abstract protected I toInternal(T external);
 
 
-	protected void setId(T entity, Ref<I> ref) {
+	protected void setId(T entity, ID ref) {
 		try {
 			idField.set(entity, ref);
 		} catch (IllegalArgumentException e) {

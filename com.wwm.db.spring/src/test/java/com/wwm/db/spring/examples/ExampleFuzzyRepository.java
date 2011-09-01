@@ -8,7 +8,7 @@ import com.wwm.db.spring.repository.FuzzyRepository;
  * 
  *  @author Neale Upstone
  */
-public interface ExampleFuzzyRepository extends FuzzyRepository<FuzzyItem> {
+public interface ExampleFuzzyRepository extends FuzzyRepository<FuzzyItem,String> {
 
 	
 }

@@ -24,7 +24,7 @@ public class RepositoryContextLoadTest {
 		context.refresh();
 		context.start();
 		
-		FuzzyRepository<?> repo = context.getBean(FuzzyRepository.class);
+		FuzzyRepository<?,?> repo = context.getBean(FuzzyRepository.class);
 		assertNotNull(repo);
 		
 		context.close();
