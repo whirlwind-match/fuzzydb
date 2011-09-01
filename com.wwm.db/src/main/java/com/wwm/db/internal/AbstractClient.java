@@ -93,6 +93,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	            return ArchOutStream.newOutputStream(out, storeId, ctc);
 	        }
 	
+	        // TODO: Extract this to own class which can then be independently tested for correct behaviour
 	        public void addToMetaCache(MetaObject<?> mo) {
 	            synchronized (metaMap) {
 	                metaMap.add(mo);
