@@ -12,6 +12,8 @@ package com.wwm.db.internal;
 
 import java.io.Serializable;
 
+import org.springframework.util.Assert;
+
 import com.wwm.db.Ref;
 
 public final class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImpl<T>> {
@@ -81,5 +83,26 @@ public final class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImp
 	@Override
 	public String toString() {
 		return table + ":" + oid;  // slice + ":" + table + ":" + oid;   
+	}
+	
+	/**
+	 * For conversion to String
+	 */
+	public String asString() {
+		return slice + "_" + table + "_" + oid;
+	}
+
+	/**
+	 * For conversion from String
+	 */
+	static public <E> Ref<E> valueOf(String refAsString) {
+		String[] parts = refAsString.split("_");
+		Assert.state(parts.length == 3, "Illegal ref ");
+		
+		int p1 = Integer.valueOf(parts[0]);
+		int p2 = Integer.valueOf(parts[1]);
+		int p3 = Integer.valueOf(parts[2]);
+		
+		return new RefImpl<E>(p1, p2, p3);
 	}
 }

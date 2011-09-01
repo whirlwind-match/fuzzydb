@@ -25,6 +25,9 @@ public class WhirlwindConversionService extends GenericConversionService impleme
 		addConverter(new FloatArrayToAttrConverter());
 		addConverter(new EnumAttributeToEnumExclusiveValueConverter(attrDefinitionService));
 		addConverter(new MultiEnumAttributeToEnumMultipleValueConverter(attrDefinitionService));
+		
+		addConverter(new StringToRefConverter());
+		addConverter(new RefToStringConverter());
 	}
 	
 	
