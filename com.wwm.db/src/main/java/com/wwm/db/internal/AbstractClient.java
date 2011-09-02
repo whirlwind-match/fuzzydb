@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
@@ -58,7 +59,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	
 	        private ClientConnectionManager connection = null;
 	        private final ClassLoaderInterface cli = new DummyCli();
-	        private int nextId = 1;
+	        private AtomicInteger nextId = new AtomicInteger(0);
 	        private final Map<String, StoreImpl> stores = new HashMap<String, StoreImpl>();
 	        private final MetaMap metaMap = new MetaMap();
 	        private final ClassTokenCache ctc = new ClassTokenCache(false);
@@ -79,8 +80,8 @@ public abstract class AbstractClient implements Cloneable, Client {
 	            return connection;
 	        }
 	
-	        public synchronized int getNextId() {
-	            return nextId++;
+	        public int getNextId() {
+	            return nextId.incrementAndGet();
 	        }
 	
 	        public Map<String, StoreImpl> getStores() {
@@ -97,29 +98,23 @@ public abstract class AbstractClient implements Cloneable, Client {
 	
 	        // TODO: Extract this to own class which can then be independently tested for correct behaviour
 	        public void addToMetaCache(MetaObject<?> mo) {
-	            synchronized (metaMap) {
-	                metaMap.add(mo);
-	            }
+                metaMap.add(mo);
 	        }
 	
 	        public int getVersion(Object obj) throws UnknownObjectException {
-	            synchronized (metaMap) {
-	                MetaObject<?> mo = metaMap.find(obj);
-	                if (mo != null) {
-	                    return mo.getVersion();
-	                }
-	            }
+                MetaObject<?> mo = metaMap.find(obj);
+                if (mo != null) {
+                    return mo.getVersion();
+                }
 	            throw new UnknownObjectException();
 	        }
 	
 	        @SuppressWarnings("unchecked")
 			public <E> Ref<E> getRef(E obj) throws UnknownObjectException {
-	            synchronized (metaMap) {
-	                MetaObject<?> mo = metaMap.find(obj);
-	                if (mo != null) {
-	                    return (Ref<E>) mo.getRef();
-	                }
-	            }
+                MetaObject<?> mo = metaMap.find(obj);
+                if (mo != null) {
+                    return (Ref<E>) mo.getRef();
+                }
 	            throw new UnknownObjectException();
 	        }
 	
@@ -216,6 +211,14 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Opens the named store.  If this store was created or opened already from
+	 * this session, then the cached knowledge will be used.
+	 * When commands are flushed, if the store was deleted, then this
+	 * will fail.
+	 * A store being deleted will rarely happen other than in tests, so
+	 * this is by far the better approach than hitting the server every time.
+	 */
 	public Store openStore(String storeName) {
 	    Map<String, StoreImpl> stores = context.getStores();
 	    synchronized (stores) {

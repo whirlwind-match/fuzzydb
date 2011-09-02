@@ -21,7 +21,7 @@ public class MetaMap extends ReferenceQueue<Object> {
 
 	private HashMap<MetaMapKey, MetaObject<?>> map = new HashMap<MetaMapKey, MetaObject<?>>();
 	
-	public <E> void add(MetaObject<E> mo) {
+	synchronized public <E> void add(MetaObject<E> mo) {
 		flush();
 		if (mo == null) return;
 		MetaMapKey mmk = new MetaMapKey(mo.getObject(), this);
@@ -36,7 +36,7 @@ public class MetaMap extends ReferenceQueue<Object> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked") // cast is safe as we know what's happening internally
-	public <E> MetaObject<E> find(E o) {
+	synchronized public <E> MetaObject<E> find(E o) {
 		flush();
 		MetaMapKey mmk = new MetaMapKey(o, this);
 		MetaObject<E> entry = (MetaObject<E>) map.get(mmk);
