@@ -91,9 +91,10 @@ public class DirectClient extends AbstractClient implements Client {
 			}
 			
 		};
-		context.setConnection(connection);
+		setConnection(connection);
 		connection.setDaemon(true);
 		connection.start();
 
 	}
+
 }

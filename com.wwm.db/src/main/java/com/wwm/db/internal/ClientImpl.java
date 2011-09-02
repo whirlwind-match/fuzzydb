@@ -40,7 +40,7 @@ public class ClientImpl extends AbstractClient {
     @Override
 	public void connect(InetSocketAddress addr) {
         try {
-            context.setConnection(new ClientConnectionManagerImpl(addr, context.getCli()));
+            setConnection(new ClientConnectionManagerImpl(addr, getCli()));
         } catch (IOException e) {
             throw new CommsErrorException(e);
         }

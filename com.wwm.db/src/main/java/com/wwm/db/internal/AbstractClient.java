@@ -37,7 +37,9 @@ import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.ClassTokenCache;
 import com.wwm.io.core.impl.DummyCli;
 import com.wwm.io.core.layer1.ClientConnectionManager;
+import com.wwm.io.core.layer1.ClientMessagingManager;
 import com.wwm.io.core.messages.Command;
+import com.wwm.io.core.messages.Response;
 
 /**
  * Provides operations and knows if this is Authoritative or NonAuthoritative
@@ -52,7 +54,7 @@ public abstract class AbstractClient implements Cloneable, Client {
     // Ensure we log all uncaught exceptions for all client apps
     static { UncaughtExceptionLogger.initialise(); }
 
-	protected static class ClientImplContext implements Helper {
+	private static class ClientImplContext implements Helper {
 	
 	        private ClientConnectionManager connection = null;
 	        private final ClassLoaderInterface cli = new DummyCli();
@@ -132,8 +134,6 @@ public abstract class AbstractClient implements Cloneable, Client {
 
 	/**
 	 * Construct client and it's peer
-	 * @param context
-	 * @param authority
 	 */
 	public AbstractClient(Authority authority) {
 		super();
@@ -167,7 +167,8 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    Map<String, StoreImpl> stores = context.getStores();
 	    synchronized (stores) {
 	        CreateStoreCmd cmd = new CreateStoreCmd(getNextId(), storeName);
-	        CreateStoreRsp rsp = (CreateStoreRsp) context.getConnection().execute(Authority.Authoritative, cmd);
+	        Assert.state(isAuthoritative(), "Can only create stores from an authoritative client"); 
+	        CreateStoreRsp rsp = (CreateStoreRsp) executeCmd(cmd); //context.getConnection().execute(Authority.Authoritative, cmd);
 	        log.info("Created store: {}", storeName);
 	        // All failures result in the lower layers throwing an exception.
 	        assert(rsp.getNewStoreName().equals(storeName));
@@ -186,8 +187,13 @@ public abstract class AbstractClient implements Cloneable, Client {
 
 	public Collection<String> listStores() {
 	    ListStoresCmd cmd = new ListStoresCmd(getNextId());
-	    ListStoresRsp rsp = (ListStoresRsp) context.getConnection().execute(authority, cmd);
+	    ListStoresRsp rsp = (ListStoresRsp) executeCmd(cmd);
 	    return rsp.getStoreNames();
+	}
+
+
+	protected Response executeCmd(Command cmd) {
+		return context.getConnection().execute(authority, cmd);
 	}
 
 	public Collection<String> listDbClasses() {
@@ -216,7 +222,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	        StoreImpl store = stores.get(storeName);
 	        if (store == null) {
 	            OpenStoreCmd cmd = new OpenStoreCmd(getNextId(), storeName);
-	            OpenStoreRsp rsp = (OpenStoreRsp) context.getConnection().execute(authority, cmd);
+	            OpenStoreRsp rsp = (OpenStoreRsp) executeCmd(cmd);
 	            assert(rsp.getOpenedStoreName().equals(storeName));
 	            store = new StoreImpl(rsp.getOpenedStoreId(), storeName, this);
 	            stores.put(storeName, store);
@@ -249,7 +255,8 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    synchronized (stores) {
 	        stores.remove(storeName);
 	        DeleteStoreCmd cmd = new DeleteStoreCmd(getNextId(), storeName);
-	        context.getConnection().execute(Authority.Authoritative, cmd);
+	        Assert.state(isAuthoritative(), "Can only delete stores from an authoritative client"); 
+	        executeCmd(cmd);
 	    }
 	}
 
@@ -300,7 +307,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	private synchronized void lazyFlushDisposed() {
 	    if (disposedTransactions.size() + disposedQueries.size() >= lazyFlushCount) {
 	        Command cmd = new DisposeCmd(getNextId(), disposedTransactions, disposedQueries);
-	        getConnection().execute(authority, cmd);
+	        executeCmd(cmd);
 	    }
 	}
 
@@ -309,7 +316,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	}
 
 	public void shutdownServer() {
-	    context.getConnection().execute(authority, new ShutdownCmd(getNextId()));
+	    executeCmd(new ShutdownCmd(getNextId()));
 	}
 
 	public ServerStats getStats(boolean forceGC) {
@@ -320,6 +327,11 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    //		 FIXME: Adrian: Is this correct
 	    context.getConnection().close();
 	    context.setConnection(null);
+	}
+
+
+	protected void setConnection(ClientMessagingManager connection) {
+		context.setConnection(connection);
 	}
 
 	public boolean isConnected() {
