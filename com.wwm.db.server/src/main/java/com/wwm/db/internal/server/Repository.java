@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
@@ -106,8 +109,8 @@ public final class Repository implements Serializable {
 	 */
 	private final Map<Integer, String> deletedStores = new HashMap<Integer, String>();
 	
-	private long version = 0;
-	private int nextStoreId = 1;
+	private AtomicLong version = new AtomicLong(0);
+	private AtomicInteger nextStoreId = new AtomicInteger(1);
 
 	// Transient data - needs to be initialised by initTransientData()
 	private transient InitialisationContext context;
@@ -188,7 +191,7 @@ public final class Repository implements Serializable {
 			if (!fileOrDir.isDirectory()) {
 				continue;
 			}
-			ServerStore store = ServerStore.tryLoad(fileOrDir, version);
+			ServerStore store = ServerStore.tryLoad(fileOrDir, version.get());
 			if (store != null) {
 				addFoundStore(store);
 			} else {
@@ -219,7 +222,7 @@ public final class Repository implements Serializable {
 			}
 			// otherwise add it
 			log.info("Store is current and active, putting it online: " + store.toString() );
-			assert( id < nextStoreId );
+			assert( id < nextStoreId.get() );
 			idStoreMap.put(id, store);
 			return;
 		}
@@ -233,7 +236,7 @@ public final class Repository implements Serializable {
 			}
 			// otherwise add it
 			log.info("Loaded current store: " + storeName + " (id = " + id + ")" );
-			assert( id < nextStoreId );
+			assert( id < nextStoreId.get() );
 			idStoreMap.put(id, store);
 			return;
 		}
@@ -243,11 +246,11 @@ public final class Repository implements Serializable {
 		// - Deal with latest dbVersion issues on this store.
 		if (!currentStores.containsKey(storeName)) {
 			log.info("Found new store: " + store + ".  Importing with new id: " + nextStoreId);
-			id = nextStoreId++;
+			id = nextStoreId.getAndIncrement();
 			store.setStoreId(id);
 			idStoreMap.put(id, store);
 			currentStores.put(storeName, id);
-			if (store.getSavedDbVersion() > version) { // record if we need to advance version after txLogs...
+			if (store.getSavedDbVersion() > version.get()) { // record if we need to advance version after txLogs...
 				minVersionAtStartup = Math.max(minVersionAtStartup, store.getSavedDbVersion());
 			}
 		}
@@ -274,12 +277,12 @@ public final class Repository implements Serializable {
 		}
 	}
 
-	public synchronized void upissue() {
-		version++;
+	public void upissue() {
+		version.incrementAndGet();
 	}
 
-	public synchronized long getVersion() {
-		return version;
+	public  long getVersion() {
+		return version.get();
 	}
 	
 	/**Create a new store.
@@ -293,11 +296,11 @@ public final class Repository implements Serializable {
 		assert(!currentStores.containsKey(storeName));
 		assert(!idStoreMap.containsKey(nextStoreId));
 		
-		ServerStore store = new ServerStore(context.pager.getPath(), storeName, nextStoreId);
-		currentStores.put(storeName, nextStoreId);
-		idStoreMap.put(nextStoreId, store);
+		ServerStore store = new ServerStore(context.pager.getPath(), storeName, nextStoreId.get());
+		currentStores.put(storeName, nextStoreId.get());
+		idStoreMap.put(nextStoreId.get(), store);
 		store.initTransientData(context);
-		return nextStoreId++;
+		return nextStoreId.getAndIncrement();
 	}
 
 	/**Delete a store.
@@ -410,7 +413,7 @@ public final class Repository implements Serializable {
 	 * include the db versions of those stores that were imported.
 	 */
 	void applyImports() {
-		version = Math.max(version, minVersionAtStartup);
-		purgeDeletedStores(version); // we can now do this, as all tx's have run.
+		version.set(Math.max(version.get(), minVersionAtStartup));
+		purgeDeletedStores(version.get()); // we can now do this, as all tx's have run.
 	}
 }
