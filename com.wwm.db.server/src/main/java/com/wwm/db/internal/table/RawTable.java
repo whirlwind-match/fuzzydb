@@ -67,6 +67,11 @@ public interface RawTable<T> {
     public void createElement(Element<T> element);
     public boolean doesElementExist(long elementId);
 
+    /**
+     * reserve space, and return the starting oid of the batch
+     * <p>
+     * Implementation must be thread-safe
+     */
     public long allocNewIds(int count);
     public long allocOneRef();
     public long allocOneRefNear(long nearOid, long[] others);

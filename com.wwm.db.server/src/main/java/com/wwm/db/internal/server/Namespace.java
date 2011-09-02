@@ -12,9 +12,9 @@ package com.wwm.db.internal.server;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.slf4j.Logger;
 
 import com.wwm.attrs.WhirlwindConfiguration;
@@ -50,8 +50,8 @@ public class Namespace implements Serializable {
 	private final Namespaces namespaces;
 	private final Indexes indexes = new Indexes(this); // FIXME: Move to IndexManagerImpl - we associate indices with a type
 
-	private final Map<String, UserTable<?>> nameToTableMap = new HashMap<String, UserTable<?>>();
-	private final Map<Integer, UserTable<?>> idToTableMap = new HashMap<Integer, UserTable<?>>();
+	private final ConcurrentHashMap<String, UserTable<?>> nameToTableMap = new ConcurrentHashMap<String, UserTable<?>>();
+	private final ConcurrentHashMap<Integer, UserTable<?>> idToTableMap = new ConcurrentHashMap<Integer, UserTable<?>>();
 
 	private final AttributeCache attributeCache = new AttributeCache();
 
@@ -130,19 +130,19 @@ public class Namespace implements Serializable {
 
 
 	@SuppressWarnings("unchecked")
-	public synchronized <T> UserTable<T> getTable(RefImpl<T> ref) {
+	public <T> UserTable<T> getTable(RefImpl<T> ref) {
 		int tableId = ref.getTable();
 		return (UserTable<T>) idToTableMap.get(tableId);
 	}
 
 	@SuppressWarnings("unchecked")
-	public synchronized <E> UserTable<E> getTable(Class<E> clazz) {
+	public <E> UserTable<E> getTable(Class<E> clazz) {
 		String className = clazz.getName();
 		return (UserTable<E>) nameToTableMap.get(className);
 	}
 
 	@SuppressWarnings("unchecked")
-	public synchronized <E> UserTable<E> getCreateTable(Class<E> clazz) {
+	public <E> UserTable<E> getCreateTable(Class<E> clazz) {
 		String className = clazz.getName();
 		UserTable<E> table = (UserTable<E>) nameToTableMap.get(className);
 		if (table == null) {

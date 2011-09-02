@@ -12,6 +12,7 @@ package com.wwm.db.internal.table;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
@@ -81,7 +82,7 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 
 	private transient boolean initialised = false; // Lazy initialisation: always reset to false when read back from persistent store. 
 
-	private long elementCount = 0;
+	private AtomicLong elementCount = new AtomicLong(0);
 
 	
 	public TableImpl(RawTable<T> table, int tableId) {
@@ -89,28 +90,28 @@ public class TableImpl<RT,T> implements Serializable, Table<RT,T> {
 		this.tableId = tableId;
 	}
 	
-	private synchronized void incrementCount() {
-		elementCount++;
+	private void incrementCount() {
+		elementCount.incrementAndGet();
 	}
 
-	private synchronized void decrementCount() {
-		elementCount--;
+	private void decrementCount() {
+		elementCount.decrementAndGet();
 	}
 
-	public synchronized long getElementCount() {
-		return elementCount;
+	public long getElementCount() {
+		return elementCount.get();
 	}
 	
-	public synchronized long allocNewIds(int count) {
+	public long allocNewIds(int count) {
 		return table.allocNewIds(count);
 	}
 
-	public synchronized Ref<RT> allocOneRef() {
+	public Ref<RT> allocOneRef() {
 		long oid = table.allocOneRef();
 		return new RefImpl<RT>(getSlice(), tableId, oid);
 	}
 
-	public synchronized Ref<RT> allocOneRefNear(Ref<RT> nearRef, long[] others) {
+	public Ref<RT> allocOneRefNear(Ref<RT> nearRef, long[] others) {
 		long oid = table.allocOneRefNear(((RefImpl<RT>) nearRef).getOid(), others);
 		return new RefImpl<RT>(getSlice(), tableId, oid);
 	}

@@ -94,7 +94,7 @@ public class ServerStore implements Serializable {
 	 * @param tableId
 	 * @return
 	 */
-	public synchronized Namespace getNamespace(RefImpl<?> ref) {
+	public Namespace getNamespace(RefImpl<?> ref) {
 		int tableId = ref.getTable();
 		return namespaces.getNamespaceFromTableId(tableId);
 	}

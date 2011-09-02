@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
@@ -100,7 +101,7 @@ public class PersistentServerTransaction extends ServerTransaction {
     private Date lastUsedTime = new Date();
     private final Key key;
     private final ServerStore store;
-    private int busy = 0;
+    private AtomicInteger busy = new AtomicInteger(0);
 
     /** Searches in progress FIXME (NU->AC): We currently don't time these out :) */
     private final Map<TupleKey<MessageSink, Integer>, Search> searches
@@ -292,17 +293,17 @@ public class PersistentServerTransaction extends ServerTransaction {
     }
 
 
-    public synchronized void markIdle() {
-        busy--;
-        assert(busy >= 0);
+    public void markIdle() {
+        int b = busy.decrementAndGet();
+        assert(b >= 0);
     }
 
-    public synchronized void markBusy() {
-        busy++;
+    public void markBusy() {
+        busy.incrementAndGet();
     }
 
-    public synchronized boolean isBusy() {
-        return busy > 0;
+    public boolean isBusy() {
+        return busy.get() > 0;
     }
 
 

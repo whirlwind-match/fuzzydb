@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.server;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
@@ -22,12 +24,12 @@ public class WorkerThread extends Thread {
 	
 	static private Logger log = LogFactory.getLogger(WorkerThread.class);
 	
-	static private int threadNumber = 0;
+	static private AtomicInteger threadNumber = new AtomicInteger(0);
 
 	private final WorkerThreadManager manager;
 	
 	public WorkerThread(WorkerThreadManager manager) {
-		super("WorkerThread-" + getNextThreadNumber() );
+		super("WorkerThread-" + threadNumber.incrementAndGet() );
 		this.manager = manager;
 		this.setDaemon(true);
 	}
@@ -38,10 +40,6 @@ public class WorkerThread extends Thread {
 		this.setDaemon(true);
 	}
 
-	static private synchronized int getNextThreadNumber(){
-		return threadNumber++;
-	}
-	
 	@Override
 	public void run() {
 		// removed by Neale: super.run() is for when you supply (Runnable target), but we do our own.		

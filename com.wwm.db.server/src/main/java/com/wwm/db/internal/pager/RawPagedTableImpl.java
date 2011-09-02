@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.pager.Page.PagePurgedException;
@@ -46,7 +47,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		setModulus();
 	}
 
-	private long nextOid = 0;
+	private AtomicLong nextOid = new AtomicLong(0);
 
 	private transient PagePersister pager;
 	private transient TimeHistory loadTime;
@@ -476,9 +477,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 	}
 
 	public long allocNewIds(int count) {
-		long rval = nextOid;
-		nextOid += count;
-		return rval;
+		return nextOid.getAndAdd(count);
 	}
 
 	// private Long allocOneRefNear(long oid) {
@@ -531,7 +530,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 	}
 
 	public long getNextOid() {
-		return nextOid;
+		return nextOid.get();
 	}
 
 	static private void setModulus() {
