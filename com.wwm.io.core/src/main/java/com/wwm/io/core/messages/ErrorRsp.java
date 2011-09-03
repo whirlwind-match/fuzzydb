@@ -24,4 +24,9 @@ public class ErrorRsp extends Response {
 	public ArchException getError() {
 		return e;
 	}
+	
+	@Override
+	public String toString() {
+		return e.getClass().getSimpleName() + " : " + e.getMessage();
+	}
 }

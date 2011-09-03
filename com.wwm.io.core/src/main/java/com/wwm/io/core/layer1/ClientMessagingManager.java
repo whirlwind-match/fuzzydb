@@ -8,6 +8,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.Authority;
@@ -29,6 +32,9 @@ import com.wwm.io.core.messages.Response;
  */
 public abstract class ClientMessagingManager extends Thread implements ClientConnectionManager {
 
+	
+	protected final Logger log = LogFactory.getLogger(this.getClass());
+	
 	private static final int MILLIS_PER_SEC = 1000;
 	private static final int TIMEOUT = 1000;
 
@@ -112,6 +118,7 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 	}
 
 	public final Response execute(Authority authority, Command command) {
+		log.trace("Executing command {}...", command);
 		int cid = command.getCommandId();
 		Response response = null;
 		
@@ -125,6 +132,7 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 	
 		try {
 			getMessageInterface(authority).send(command);
+			log.trace("Sent command {}...", command);
 		} catch (IOException e) {
 			removePendingCommand(cid);
 			close();
@@ -144,10 +152,12 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 			throw new CommandTimedOutException(command);
 		} catch (InterruptedException e) {
 			Thread.interrupted();
+			log.trace("Interrupted after sending {}.  Trying to receive...", command);
 			response = removePendingCommand(cid);
 			if (response instanceof ErrorRsp) {
 				ErrorRsp er = (ErrorRsp) response;
 				ArchException serverException = er.getError();
+				log.debug("Sent command resulted in error: {}", er);
 	
 				// Generate local exception of same class as the server exception.
 				ArchException localException;
@@ -173,6 +183,7 @@ public abstract class ClientMessagingManager extends Thread implements ClientCon
 			if (response==null) {
 				throw new ConnectionLostException();	// a null response indicates a lost connection
 			} else {
+				log.trace("Received response {}", response);
 				return response;
 			}
 			//trace.trace(response);
