@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
@@ -33,29 +34,20 @@ public abstract class BaseDatabaseTest {
 
 	protected final String storeName = "TestStore";
 
-	private Database database;
+	private static Database database;
 	
 	// TODO: make client, store and attrMgr private and use getClient, getStore etc so that they're read only
-	protected Client client; 
+	protected static Client client; 
 	protected Store store;
 	
 	
 	@BeforeClass
-	static public void tweakSettings()	{
+	static public void tweakSettings() throws IOException {
 		// These affect transaction scavenging.
 		Settings.getInstance().setTransactionInactivityTimeoutSecs(30);
 		Settings.getInstance().setTransactionTimeToLiveSecs(30);
 		// And this is us waiting for server to respond .. which should usually be < 1 sec even with paging.
 		Settings.getInstance().setCommandTimeoutSecs(25);
-	}
-	
-	
-	/**
-	 * setUp - Establish database with empty store, ready to use.
-	 */
-	@Before
-	public void setUpDatabase() throws Exception {
-		JVMAppListener.getInstance().preRequest();
 
 		if (useEmbeddedDatabase) {
 			database = null;
@@ -66,19 +58,33 @@ public abstract class BaseDatabaseTest {
 			// Make client
 			client = Factory.createClient();
 			client.connect(new InetSocketAddress(defaultAddress, serverPort));
-			
 		}
-		
+	}
+	
+	
+	/**
+	 * setUp - Establish database with empty store, ready to use.
+	 */
+	@Before
+	public void createStore() {
+		JVMAppListener.getInstance().preRequest();
+
+		store = client.createStore(storeName);
+	}
+  
+	/**
+	 * setUp - Establish database with empty store, ready to use.
+	 */
+	@After
+	public void deleteStore() {
 
 		try {
 			client.deleteStore(storeName);
 		} catch (UnknownStoreException e) {
 			// ignore
 		}
-		
-		store = client.createStore(storeName);
 	}
-  
+
 	/**
 	 * call this in tests where you're going to use overlapped Txs
 	 */
@@ -87,8 +93,8 @@ public abstract class BaseDatabaseTest {
 	}
 	
 	
-	@After
-	public void closeDatabase() throws Exception {
+	@AfterClass
+	static public void closeDatabase() throws Exception {
 		if (useEmbeddedDatabase) {
 			EmbeddedClientFactory.getInstance().shutdownDatabase();
 		}
@@ -99,7 +105,7 @@ public abstract class BaseDatabaseTest {
 		}
 	}
 	
-	private Database startNewDatabase() throws IOException {
+	static private Database startNewDatabase() throws IOException {
 		// NOTE: We use the single parameter version of InetSocketAddr
 		InetSocketAddress anyLocalAddress = new InetSocketAddress(serverPort);
 		Database db = new Database(new SocketListeningServer(anyLocalAddress), true);
