@@ -20,6 +20,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Semaphore;
 
+import org.slf4j.Logger;
+
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.db.exceptions.UnknownTransactionException;
 import com.wwm.db.internal.server.PersistentServerTransaction.Key;
@@ -36,6 +39,9 @@ import com.wwm.io.core.messages.Command;
  */
 public class ServerTransactionCoordinator extends Thread implements TransactionCoordinator {
 
+	
+	static private final Logger log = LogFactory.getLogger(ServerTransactionCoordinator.class);
+	
 	private static final int transactionTimeoutSecs = Settings.getInstance().getTransactionTimeToLiveSecs();
 	private static final int transactionInactivityTimeoutSecs = Settings.getInstance().getTransactionInactivityTimeoutSecs();
 	
@@ -192,6 +198,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 			try {
 				txLog.write(dbVersionState.getCurrentDbVersion(), command);
 				txLog.flush();
+				log.trace("Txlog version {}: wrote {}", dbVersionState.getCurrentDbVersion(), command);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
