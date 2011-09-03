@@ -2,7 +2,6 @@ package performance;
 
 
 import static org.junit.Assert.fail;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,29 +47,33 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 
 	@Test(timeout=30000) 
 	public void testCreateManyAndRandomAccess() throws IOException {
-		final int numberPerTransaction = 1000;
-		final int numberOfLoops = 10;
-		final int numObjects = numberPerTransaction * numberOfLoops;
-		Ref<String> ref = null; // Last ref retrieved
+		final int numberPerCreate = 1;
+		final String[] toCommit = new String[numberPerCreate];
+		final int numberOfCreates = 1000 / numberPerCreate;
+		final int numberOfLoops = 3;
+		final int numObjects = numberOfCreates * numberOfLoops * numberPerCreate;
+		Ref<String> ref[] = null; // Last ref retrieved
+		
 
 		{
 			long start = System.currentTimeMillis();
 			
 			for (int i = 0; i < numberOfLoops; i++) {
 				Transaction t = store.getAuthStore().begin();
-				for (int j = 0; j < numberPerTransaction; j++) {
-					ref = t.create(
-	
-					//		new String("Hello World " + i + ' ' + j)
-							// approx 500 chars
-							new String("Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf asdf asdf as f")
-					);
+				for (int j = 0; j < numberOfCreates; j++) {
+					for (int k = 0; k < numberPerCreate; k++) {
+						toCommit[k] = 
+								//		new String("Hello World " + i + ' ' + j);
+								// approx 500 chars
+								new String("Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf Hello World, and all who sail in her and all that asdf asdf asdf asdf asfd asf asdf asdf asf asf asdf asdf as f");
+					}
+					ref = t.create(toCommit);
 				}
 				t.commit();
 			}
 	
 			long duration = System.currentTimeMillis() - start;
-			System.out.println(numberPerTransaction * numberOfLoops + " Objects created in " + duration + "ms");
+			System.out.println(numObjects + " Objects created in " + duration + "ms");
 		}
 		
 		//====================================
@@ -88,7 +91,7 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 		
 		// if (true) return;  // Normal test ends here
 
-		RefImpl<?> ri = (RefImpl<?>)ref;
+		RefImpl<?> ri = (RefImpl<?>)ref[0];
 		int slice = ri.getSlice();
 		int table = ri.getTable();
 		
