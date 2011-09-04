@@ -36,6 +36,7 @@ import com.wwm.io.core.ArchOutStream;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.ClassTokenCache;
+import com.wwm.io.core.exceptions.ConnectionLostException;
 import com.wwm.io.core.impl.DummyCli;
 import com.wwm.io.core.layer1.ClientConnectionManager;
 import com.wwm.io.core.layer1.ClientMessagingManager;
@@ -188,7 +189,11 @@ public abstract class AbstractClient implements Cloneable, Client {
 
 
 	protected Response executeCmd(Command cmd) {
-		return context.getConnection().execute(authority, cmd);
+		ClientConnectionManager connection = context.getConnection();
+		if (connection == null) {
+			throw new ConnectionLostException();
+		}
+		return connection.execute(authority, cmd);
 	}
 
 	public Collection<String> listDbClasses() {

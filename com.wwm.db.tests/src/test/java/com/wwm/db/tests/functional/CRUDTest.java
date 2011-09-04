@@ -3,6 +3,7 @@ package com.wwm.db.tests.functional;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
@@ -370,12 +371,14 @@ public class CRUDTest extends BaseDatabaseTest {
     
     }
 	
+	@Ignore("FIXME: Needs moving to own without support for create/delete store")
 	@Test public void testShutdown() {
 		final long timeout = 10000;
 		
 		assertFalse(isDatabaseClosed());
 		
 		client.shutdownServer();
+		client.disconnect();
 		
 		long start = System.currentTimeMillis();
 		long waiting;

@@ -48,7 +48,18 @@ public abstract class BaseDatabaseTest {
 		Settings.getInstance().setTransactionTimeToLiveSecs(30);
 		// And this is us waiting for server to respond .. which should usually be < 1 sec even with paging.
 		Settings.getInstance().setCommandTimeoutSecs(25);
+	}
 
+	/** 
+	 * This is a workaround to allow {@link BeforeClass} behaviour to occur
+	 * after subclass has set useEmbeddedDatabase.
+	 * 
+	 * Real solution is to switch to TestNG.
+	 */
+	protected static void connectIfNecessary() throws IOException {
+		if (client != null) {
+			return;
+		}
 		if (useEmbeddedDatabase) {
 			database = null;
 			client = EmbeddedClientFactory.getInstance().createClient();
@@ -66,9 +77,9 @@ public abstract class BaseDatabaseTest {
 	 * setUp - Establish database with empty store, ready to use.
 	 */
 	@Before
-	public void createStore() {
+	public void createStore() throws IOException {
 		JVMAppListener.getInstance().preRequest();
-
+		connectIfNecessary();
 		store = client.createStore(storeName);
 	}
   
@@ -79,7 +90,9 @@ public abstract class BaseDatabaseTest {
 	public void deleteStore() {
 
 		try {
-			client.deleteStore(storeName);
+			if (client.isConnected()) {
+				client.deleteStore(storeName);
+			}
 		} catch (UnknownStoreException e) {
 			// ignore
 		}
@@ -95,6 +108,8 @@ public abstract class BaseDatabaseTest {
 	
 	@AfterClass
 	static public void closeDatabase() throws Exception {
+		client.disconnect();
+		client = null;
 		if (useEmbeddedDatabase) {
 			EmbeddedClientFactory.getInstance().shutdownDatabase();
 		}

@@ -12,7 +12,6 @@ import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Ref;
@@ -21,6 +20,8 @@ import com.wwm.db.internal.RefImpl;
 import com.wwm.db.userobjects.MutableString;
 import com.wwm.util.MTRandom;
 
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@TestExecutionListeners(listeners=)
 public class ReadWritePerfTest extends BaseDatabaseTest {
 	
 	
@@ -28,7 +29,10 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 	static int createAndSequentialReadPerSecond = -1;
 	static int createReadModReadPerSecond = -1; 
 	
-
+	
+	
+//	*** Set persistent is being called after database is started!
+//	Perhaps a classrule might help - or a spring test execution listener 
 	@BeforeClass
 	static public void setPersistent() {
 		EmbeddedClientFactory.getInstance().setPersistent(true);
