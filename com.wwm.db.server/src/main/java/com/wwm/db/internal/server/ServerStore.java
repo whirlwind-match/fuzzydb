@@ -44,7 +44,7 @@ public class ServerStore implements Serializable {
 	private final String storeName;
 
 	private String path; // This could be a URL, thus allowing remote/distributed storage variants
-	private int storeId;
+	private final int storeId;
 	private final Namespaces namespaces;
 	private int nextTableId = 0;
 	/**
@@ -178,14 +178,6 @@ public class ServerStore implements Serializable {
 	void save(long version) throws IOException {
 		savedDbVersion = version;
 		FileUtil.writeVersionedObject(this, path, FILE_PREFIX, version);
-	}
-
-	/**
-	 * Override existing storeId.  Only for use when importing.
-	 * @param id
-	 */
-	void setStoreId(int id) {
-		storeId = id;
 	}
 
 	long getSavedDbVersion() {

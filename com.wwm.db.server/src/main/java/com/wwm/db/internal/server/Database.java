@@ -357,6 +357,9 @@ public final class Database implements DatabaseVersionState {
                         }
                         closed = true;
                     	log.info("===== Database shutdown complete =====");
+                    	if (!isPersistent) { 
+                    		log.info("===== Database is NOT persitent =====");
+                    	}
                     }
                     shutdownFlag.release(); // release to allow blocking close() to wait 
                 }

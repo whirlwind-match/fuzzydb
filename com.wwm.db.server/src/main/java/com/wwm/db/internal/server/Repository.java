@@ -245,14 +245,15 @@ public final class Repository implements Serializable {
 		// - Assign the store a NEW storeId
 		// - Deal with latest dbVersion issues on this store.
 		if (!currentStores.containsKey(storeName)) {
-			log.info("Found new store: " + store + ".  Importing with new id: " + nextStoreId);
-			id = nextStoreId.getAndIncrement();
-			store.setStoreId(id);
-			idStoreMap.put(id, store);
-			currentStores.put(storeName, id);
-			if (store.getSavedDbVersion() > version.get()) { // record if we need to advance version after txLogs...
-				minVersionAtStartup = Math.max(minVersionAtStartup, store.getSavedDbVersion());
-			}
+			log.warn("Ignored store: " + store + ".  Importing is currently not supported.");
+//			log.info("Found new store: " + store + ".  Importing with new id: " + nextStoreId);
+//			id = nextStoreId.getAndIncrement();
+//			store.setStoreId(id);
+//			idStoreMap.put(id, store);
+//			currentStores.put(storeName, id);
+//			if (store.getSavedDbVersion() > version.get()) { // record if we need to advance version after txLogs...
+//				minVersionAtStartup = Math.max(minVersionAtStartup, store.getSavedDbVersion());
+//			}
 		}
 
 	}
