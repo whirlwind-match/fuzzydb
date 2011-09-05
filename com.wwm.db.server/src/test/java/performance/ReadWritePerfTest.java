@@ -49,7 +49,7 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 		System.out.println("Create and sequential reads per second = " + createAndSequentialReadPerSecond);
 	}
 
-	@Test(timeout=30000) 
+	@Test(timeout=25000) 
 	public void testCreateManyAndRandomAccess() throws IOException {
 		final int numberPerCreate = 1;
 		final String[] toCommit = new String[numberPerCreate];
@@ -145,7 +145,7 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 	}
 	
 
-	@Test(timeout=30000) 
+	@Test(timeout=24000) 
 	public void testCreateManyAndSequentialAccess() throws IOException {
 		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 30;
@@ -191,7 +191,7 @@ public class ReadWritePerfTest extends BaseDatabaseTest {
 		}
 	}
 	
-	@Test(timeout=30000) 
+	@Test(timeout=15000) 
 	public void testCreateManyAndUpdate() throws IOException {
 		final int numberPerTransaction = 1000;
 		final int numberOfLoops = 5;
