@@ -1,0 +1,11 @@
+
+Ok.  I seem to have hit the limit to how far I want to go without re-considering the choices made so far.
+
+The implementation of AbstractConvertingRepository makes a few assumptions:
+- the internal ID is of type: Ref<T>
+- the external value marked @Id is null for objects that are not yet persisted
+
+This can work if we use a transformation of Ref<T> as the external ID and convert it each way as necessary.
+This eliminates the need to create an index @Key for Whirlwind items.
+
+To this end, it looks like I should get rid of @Key(unique=true) in BlobStoringWhirlwindItem. 

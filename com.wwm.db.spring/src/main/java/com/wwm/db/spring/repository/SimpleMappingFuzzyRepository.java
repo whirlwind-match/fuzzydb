@@ -81,7 +81,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			addConvertedAttribute(externalMap, attr);
 		}
 		
-		setId(result, internal.getPrimaryKey());
+		setId(result, toExternalId(persister.getRef(internal)));
 		return result;
 	}
 
@@ -95,7 +95,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	@Override
 	protected BlobStoringWhirlwindItem toInternal(T external) {
 		Map<String,Object> externalMap = getAttrsField(external);
-		BlobStoringWhirlwindItem result = new BlobStoringWhirlwindItem(null);
+		BlobStoringWhirlwindItem result = new BlobStoringWhirlwindItem();
 		for (Entry<String, Object> item : externalMap.entrySet()) {
 			addConvertedAttribute(result, item.getKey(), item.getValue());
 		}

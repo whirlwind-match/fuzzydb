@@ -33,7 +33,6 @@ import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 
@@ -54,7 +53,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	
 	
 	@Captor 
-	private ArgumentCaptor<IWhirlwindItem> wwItemCaptor;
+	private ArgumentCaptor<BlobStoringWhirlwindItem> wwItemCaptor;
 	
 	
 	@Before
@@ -74,16 +73,20 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	public void shouldConvertToWWItemOnSave() {
 		// mocks
 		when(persister.save((FuzzyItem)anyObject())).thenReturn(new RefImpl<FuzzyItem>(1,2,3));
+		when(persister.getRef((FuzzyItem)anyObject())).thenReturn(new RefImpl<FuzzyItem>(1,2,3));
 		
 		
 		// the action
 		FuzzyItem external = new FuzzyItem();
+//		external.ref = "1_2_3";
+		
 		external.populateTestData();
-		repo.save(external);
+		FuzzyItem result = repo.save(external);
 
-		// verify
+		// verify attributes converted
 		verify(persister, times(1)).save(wwItemCaptor.capture());
-		IAttributeMap<IAttribute> attrs = wwItemCaptor.getValue().getAttributeMap();
+		BlobStoringWhirlwindItem storedInDatabase = wwItemCaptor.getValue();
+		IAttributeMap<IAttribute> attrs = storedInDatabase.getAttributeMap();
 		assertThat((BooleanValue)attrs.findAttr(isMaleId),equalTo(new BooleanValue(isMaleId,false)));
 		FloatValue attr = (FloatValue)attrs.findAttr(ageId);
 
@@ -91,6 +94,9 @@ public class SimpleMappingFuzzyRepositoryTest  {
 
 		FloatRangePreference floatPref = (FloatRangePreference) attrs.findAttr(ageRangeId);
 		assertThat(floatPref, equalTo(new FloatRangePreference(ageRangeId, 25f, 30f, 38f)));
+		
+		// Verify id got set in result
+		assertThat(result.ref, equalTo("1_2_3"));
 	}
 	
 	
@@ -101,6 +107,8 @@ public class SimpleMappingFuzzyRepositoryTest  {
 		// mock
 		BlobStoringWhirlwindItem internal = getWWItem();
 		when(persister.retrieve((Ref<BlobStoringWhirlwindItem>) anyObject())).thenReturn(internal);
+		when(persister.getRef((FuzzyItem)anyObject())).thenReturn(new RefImpl<FuzzyItem>(1,2,3));
+		
 
 		// the action
 		FuzzyItem result = repo.findOne("1_1_1");
@@ -115,7 +123,7 @@ public class SimpleMappingFuzzyRepositoryTest  {
 	
 	
 	private BlobStoringWhirlwindItem getWWItem() {
-		BlobStoringWhirlwindItem item = new BlobStoringWhirlwindItem("somePrimaryKey");
+		BlobStoringWhirlwindItem item = new BlobStoringWhirlwindItem();
 		item.getAttributeMap().putAttr(new BooleanValue(isMaleId, true));
 		item.getAttributeMap().putAttr(new FloatValue(ageId, 2.2f));
 		item.getAttributeMap().putAttr(new FloatRangePreference(ageRangeId, 1.2f, 2.3f, 3.4f));
