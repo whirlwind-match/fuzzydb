@@ -91,7 +91,7 @@ public class WWResultSetIterator<T extends Object> implements ResultIterator<Res
 		private void handleResults(OkRsp response) {
 			if (response instanceof WWSearchOkayRsp) {
 				WWSearchOkayRsp fetch = (WWSearchOkayRsp) response;
-				fetch.getResults(clazz, results);
+				fetch.getResults(results, store);
 				moreResults = fetch.isMoreResults();
 				moreResultsKnown = true;
 			} else if (response instanceof WWSearchNomineeOkayRsp) {

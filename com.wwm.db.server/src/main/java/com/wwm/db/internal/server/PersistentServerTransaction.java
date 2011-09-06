@@ -434,19 +434,19 @@ public class PersistentServerTransaction extends ServerTransaction {
             ArrayList<Score> scores = new ArrayList<Score>();
             ArrayList<NextItem> items = search.getNextResults(fetchSize);
             for (NextItem ni : items) {
-                Object nominee = ni.getItem().getNominee();
+            	Object nominee = ni.getItem().getObject().getNominee();
                 results.add( nominee );
                 scores.add( ni.getScore() );
             }
             source.send( new WWSearchNomineeOkayRsp(storeId, cid, results, scores, search.isMoreResults() ) );
         } else {
             // Item version
-            ArrayList<IWhirlwindItem> results = new ArrayList<IWhirlwindItem>();
+            ArrayList<MetaObject<? extends IWhirlwindItem>> results = new ArrayList<MetaObject<? extends IWhirlwindItem>>();
             ArrayList<Score> scores = new ArrayList<Score>();
             ArrayList<NextItem> items = search.getNextResults(fetchSize);
             for (NextItem ni : items) {
-                IWhirlwindItem item = ni.getItem();
-                results.add(item);
+            	MetaObject<? extends IWhirlwindItem> mo = ni.getItem();
+                results.add(mo);
                 scores.add(ni.getScore());
             }
             source.send( new WWSearchOkayRsp(storeId, cid, results, scores, search.isMoreResults()) );

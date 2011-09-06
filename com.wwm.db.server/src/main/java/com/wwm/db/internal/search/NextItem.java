@@ -11,6 +11,7 @@
 package com.wwm.db.internal.search;
 
 import com.wwm.attrs.Score;
+import com.wwm.db.internal.MetaObject;
 import com.wwm.db.marker.IWhirlwindItem;
 
 
@@ -20,12 +21,12 @@ import com.wwm.db.marker.IWhirlwindItem;
 public class NextItem extends Priority {
 	private Score score;
 	private Object leaf; // Keep track of leaf node to allow to track splits (store as object because can't see Leaf here
-	private IWhirlwindItem item;
+	private MetaObject<? extends IWhirlwindItem> item;
 	
 	/**
 	 * @return Returns the item.
 	 */
-	public IWhirlwindItem getItem() {
+	public MetaObject<? extends IWhirlwindItem> getItem() {
 		return item;
 	}
 
@@ -34,7 +35,7 @@ public class NextItem extends Priority {
 	 * @param sequence
 	 * @param node
 	 */
-	public NextItem(Score score, int sequence, IWhirlwindItem item, Object leaf) {
+	public NextItem(Score score, int sequence, MetaObject<? extends IWhirlwindItem> item, Object leaf) {
 		super(sequence);
 		this.score = score;
 		this.item = item;

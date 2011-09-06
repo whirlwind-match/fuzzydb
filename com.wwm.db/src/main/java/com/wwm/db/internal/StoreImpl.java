@@ -45,7 +45,7 @@ import com.wwm.io.core.messages.Response;
  * @author Adrian Clarkson
  * @author Neale Upstone
  */
-public final class StoreImpl extends AbstractDataOperationsProxy implements Store {
+public final class StoreImpl extends AbstractDataOperationsProxy implements Store, MetaCache {
 
 	private class StoreImplContext implements Helper {
 		private static final int maxIdsToRequest = 1024;

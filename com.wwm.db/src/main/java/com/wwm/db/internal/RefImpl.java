@@ -97,7 +97,7 @@ public final class RefImpl<T> implements Ref<T>, Serializable, Comparable<RefImp
 	 */
 	static public <E> Ref<E> valueOf(String refAsString) {
 		String[] parts = refAsString.split("_");
-		Assert.state(parts.length == 3, "Illegal ref ");
+		Assert.state(parts.length == 3, "Illegal ref " + refAsString);
 		
 		int p1 = Integer.valueOf(parts[0]);
 		int p2 = Integer.valueOf(parts[1]);

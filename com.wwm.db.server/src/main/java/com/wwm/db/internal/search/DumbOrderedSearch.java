@@ -33,7 +33,7 @@ import com.wwm.util.NanoTimer;
  * of a large database being built but without a real index.
  */
 
-public class DumbOrderedSearch<T> implements Search {
+public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
 
     private static Logger log = LogFactory.getLogger(DumbOrderedSearch.class);
 
@@ -83,11 +83,11 @@ public class DumbOrderedSearch<T> implements Search {
     private void fillResultsQ() {
         int indexed = 0;
         for (MetaObject<T> mo : table) {
-            IWhirlwindItem dbItem = (IWhirlwindItem) mo.getObject();
+            IWhirlwindItem dbItem = mo.getObject();
             NodeScore itemScore = new NodeScore();
             config.scoreAllItemToItem(itemScore, spec.getAttributeMap(), dbItem.getAttributeMap(), spec.getSearchMode());
             if (itemScore.compareTo(resultsQ.getCurrentScoreThreshold()) > 0 ) { // By default, zero, so we add all non-zero scores
-            	NextItem newItem = new NextItem(itemScore, nextSeq++, dbItem, null);
+            	NextItem newItem = new NextItem(itemScore, nextSeq++, mo, null);
                 resultsQ.add(newItem);
             }
             if (indexed++ > INDEX_ABORT_LIMIT) {

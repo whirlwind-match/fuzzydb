@@ -17,7 +17,9 @@ package com.wwm.db.internal.whirlwind;
  * Once written or updated, a clone must be made before doing any writes
  * to an Immutable object.
  * This can be implemented by 
+ * <pre>
  * 		private transient boolean mutable;
+ * </pre>
  * and
  * 		setting mutable=true in the clone() or copy constructor methods.
  * 
@@ -25,10 +27,13 @@ package com.wwm.db.internal.whirlwind;
  * 		assert(mutable);
  * 
  * And to ensure that the modified object got committed to storage, add:
+ * <pre>
  * 	public void finalize(){
  * 		assert(!mutable);
  * 	}
- * which will ensure that mutable got reset by create() or update()
+ * </pre>
+ * which may (assuming finalize gets called) ensure that mutable got reset 
+ * by create() or update()
  * 
  * @author Neale
  *

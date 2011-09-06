@@ -12,8 +12,9 @@ package com.wwm.db.internal.comms.messages;
 
 import java.util.ArrayList;
 
+import com.wwm.db.internal.MetaObject;
+import com.wwm.db.internal.MetaCache;
 import com.wwm.db.internal.ResultImpl;
-import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.query.Result;
 import com.wwm.model.attributes.Score;
@@ -23,21 +24,22 @@ public class WWSearchOkayRsp extends OkRsp {
 
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<IWhirlwindItem> results;
+	private ArrayList<MetaObject<? extends IWhirlwindItem>> results;
 	private ArrayList<Score> scores;
 	private boolean moreResults;
 	
-	public WWSearchOkayRsp(int storeId, int cid, ArrayList<IWhirlwindItem> results, ArrayList<Score> scores, boolean moreResults) {
+	public WWSearchOkayRsp(int storeId, int cid, ArrayList<MetaObject<? extends IWhirlwindItem>> results, ArrayList<Score> scores, boolean moreResults) {
 		super(storeId, cid);
 		this.results = results;
 		this.moreResults = moreResults;
 		this.scores = scores;
 	}
 
-	public <E extends Object> void getResults(Class<E> clazz, ArrayList<Result<E>> array) {
+	public <E extends Object> void getResults(ArrayList<Result<E>> array, MetaCache metaCache) {
 		int count = 0;
-		for (IAttributeContainer i : results) {
-			ResultImpl<E> result = new ResultImpl<E>( clazz.cast(i), scores.get(count++) );
+		for (MetaObject<? extends IWhirlwindItem> i : results) {
+			metaCache.addToMetaCache(i);
+			ResultImpl<E> result = new ResultImpl<E>( (E) i.getObject(), scores.get(count++) );
 			array.add( result );
 		}
 	}

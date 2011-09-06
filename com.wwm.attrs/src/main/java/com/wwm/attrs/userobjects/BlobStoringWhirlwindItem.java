@@ -18,7 +18,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import com.wwm.attrs.AttrsFactory;
-import com.wwm.db.annotations.Key;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.internal.AttributeCache;
@@ -38,13 +37,6 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
 
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Field to use for Spring Data Id annotation
-     */
-    public static final String PRIMARY_KEY_FIELD_NAME = "primaryKey";
-    @Key( unique=true )
-    private String primaryKey;
 
     private byte[] blob = null;
     
@@ -68,11 +60,6 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
     private TIntObjectHashMap<String> nonIndexAttrs = null;
 
 
-    public BlobStoringWhirlwindItem(String primaryKey) {
-        super();
-        this.primaryKey = primaryKey;
-    }
-
     @SuppressWarnings("unchecked")
     public IAttributeMap<IAttribute> getAttributeMap() {
         return (IAttributeMap<IAttribute>)attrs;  // Server side.  Should aim to eliminate this.
@@ -91,10 +78,6 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
     	return blob;
     }
 
-    public String getPrimaryKey() {
-		return primaryKey;
-	}
-    
     /**
      * Add a non-index string to this object, e.g. Postcode="CB4 2QW"
      * Note: AttrId is used as Strings would be inefficient (esp as they're not
