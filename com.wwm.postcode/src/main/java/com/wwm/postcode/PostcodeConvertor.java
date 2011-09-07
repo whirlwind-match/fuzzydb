@@ -11,6 +11,7 @@
 package com.wwm.postcode;
 
 import org.slf4j.Logger;
+import org.springframework.core.convert.converter.Converter;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.util.StringUtils;
@@ -22,7 +23,7 @@ import com.wwm.util.StringUtils;
  * therefore uses the DAO object supplied for that.
  *
  */
-public class PostcodeConvertor {
+public class PostcodeConvertor implements Converter<String, PostcodeResult>{
 
 
 	private static Logger log = LogFactory.getLogger(PostcodeConvertor.class);
@@ -64,5 +65,15 @@ public class PostcodeConvertor {
 		
 		postcode = postcode.substring(0, trimmedLength);
 		return jibble.lookupShort(postcode);
+	}
+
+	@Override
+	public PostcodeResult convert(String postcode) {
+        PostcodeResult result = jibble.lookupShort(postcode);
+        if (result == null) {
+            result = service.lookupFull(postcode);
+        }
+        return result;
+
 	}
 }
