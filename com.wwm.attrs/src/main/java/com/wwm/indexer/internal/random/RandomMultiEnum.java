@@ -16,21 +16,20 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.model.attributes.MultiEnumAttribute;
 import com.wwm.util.MTRandom;
 
-public class RandomMultiEnum implements RandomGenerator {
+public class RandomMultiEnum extends AbstractRandomGenerator<MultiEnumAttribute> {
 
     EnumDefinition enumdef;
-    private int nullPercent;
 
     public RandomMultiEnum(EnumDefinition enumdef) {
         this.enumdef = enumdef;
     }
 
-    public MultiEnumAttribute next(String attrName) {
-        int rand = MTRandom.getInstance().nextInt(100);
-        if (rand < nullPercent) {
-            return null;
-        }
+    public RandomMultiEnum(EnumDefinition enumdef, float nullProportion) {
+    	super(nullProportion);
+        this.enumdef = enumdef;
+    }
 
+    protected MultiEnumAttribute randomResult(String attrName) {
         int numvals = MTRandom.getInstance().nextInt(enumdef.size() - 1) + 1;
 
         TreeSet<String> values = new TreeSet<String>();

@@ -14,23 +14,18 @@ package com.wwm.indexer.internal.random;
 import com.wwm.model.attributes.FloatAttribute;
 import com.wwm.util.MTRandom;
 
-public class RandomFloat implements RandomGenerator {
+public class RandomFloat extends AbstractRandomGenerator<FloatAttribute> {
 
     private float min;
     private float max;
-    private int nullPercent;
-
-    public RandomFloat(float min, float max, int nullPercent) {
-        this.min = min;
+    
+    public RandomFloat(float min, float max, float nullProportion) {
+        super(nullProportion);
+    	this.min = min;
         this.max = max;
-        this.nullPercent = nullPercent;
     }
 
-    public FloatAttribute next(String attrName) {
-        int rand = MTRandom.getInstance().nextInt(100);
-        if (rand < nullPercent) {
-            return null;
-        }
+    protected FloatAttribute randomResult(String attrName) {
 
         float f = min + ((max - min) * MTRandom.getInstance().nextFloat());
         return new FloatAttribute(attrName, f);

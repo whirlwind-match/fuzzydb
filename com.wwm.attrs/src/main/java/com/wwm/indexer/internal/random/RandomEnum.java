@@ -16,20 +16,21 @@ import com.wwm.model.attributes.EnumAttribute;
 import com.wwm.util.MTRandom;
 
 
-public class RandomEnum implements RandomGenerator {
+public class RandomEnum extends AbstractRandomGenerator<EnumAttribute> {
 
-    EnumDefinition enumdef;
-    private int nullPercent;
+    private EnumDefinition enumdef;
 
+    public RandomEnum(EnumDefinition enumdef, float nullProportion) {
+    	super(nullProportion);
+    	this.enumdef = enumdef;
+    }
+    
     public RandomEnum(EnumDefinition enumdef) {
+    	super(0f);
         this.enumdef = enumdef;
     }
 
-    public EnumAttribute next(String attrName) {
-        int rand = MTRandom.getInstance().nextInt(100);
-        if (rand < nullPercent) {
-            return null;
-        }
+    protected EnumAttribute randomResult(String attrName) {
 
         short randenum = (short) MTRandom.getInstance().nextInt(enumdef.size());
         String str = enumdef.findAsString(randenum);

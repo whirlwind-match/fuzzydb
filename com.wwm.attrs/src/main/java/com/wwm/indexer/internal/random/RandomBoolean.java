@@ -14,7 +14,7 @@ package com.wwm.indexer.internal.random;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.util.MTRandom;
 
-public class RandomBoolean implements RandomGenerator {
+public class RandomBoolean implements RandomGenerator<BooleanAttribute> {
 
     private int truePercent;
     private int falsePercent;
