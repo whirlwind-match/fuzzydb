@@ -11,10 +11,10 @@
 package com.wwm.indexer.db.converters;
 
 
+import com.wwm.geo.GeoInformation;
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.model.attributes.NonIndexStringAttribute;
 import com.wwm.postcode.PostcodeConvertor;
-import com.wwm.postcode.PostcodeResult;
 
 
 public class UKPostcodeToPlaceDerivation extends InboundDerivation<String> {
@@ -34,7 +34,7 @@ public class UKPostcodeToPlaceDerivation extends InboundDerivation<String> {
     synchronized public String convertToInternal(int attrid, Object object) throws AttributeException {
         NonIndexStringAttribute attr = (NonIndexStringAttribute) object;
         String postcode = attr.getValue();
-        PostcodeResult result = converter.lookupShort(postcode);
+        GeoInformation result = converter.lookupShort(postcode);
         if (result == null) {
             result = converter.lookupFull(postcode);
         }

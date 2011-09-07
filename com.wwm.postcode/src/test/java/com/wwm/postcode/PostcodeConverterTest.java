@@ -17,8 +17,8 @@ import org.junit.Test;
 import junit.framework.Assert;
 
 import com.wwm.db.core.Settings;
+import com.wwm.geo.GeoInformation;
 import com.wwm.postcode.PostcodeConvertor;
-import com.wwm.postcode.PostcodeResult;
 
 /**
  * These tests assume the postcode data has been built and installed into the correct location.
@@ -37,17 +37,17 @@ public class PostcodeConverterTest {
 
     @Test
     public void testJibbleSimple() {
-        PostcodeResult r = convertor.lookupShort("CB4");
+        GeoInformation r = convertor.lookupShort("CB4");
         assertCB4(r);
     }
 
     @Test
     public void testJibbleSimpleSpaced() {
-        PostcodeResult r = convertor.lookupShort("CB 4");
+        GeoInformation r = convertor.lookupShort("CB 4");
         assertCB4(r);
     }
 
-    private void assertCB4(PostcodeResult r) {
+    private void assertCB4(GeoInformation r) {
         Assert.assertNotNull(r);
         Assert.assertTrue (r.getLatitude() < 52.35);
         Assert.assertTrue (r.getLatitude() > 52.2);
@@ -57,25 +57,25 @@ public class PostcodeConverterTest {
 
     @Test
     public void testJibbleSimpleCased() {
-        PostcodeResult r = convertor.lookupShort("cb4");
+        GeoInformation r = convertor.lookupShort("cb4");
         assertCB4(r);
     }
 
     @Test
     public void testJibbleSimpleCasedSpaced() {
-        PostcodeResult r = convertor.lookupShort(" c B 4 ");
+        GeoInformation r = convertor.lookupShort(" c B 4 ");
         assertCB4(r);
     }
 
     @Test
     public void testJibbleInvalid() {
-        PostcodeResult r = convertor.lookupShort("FOOBAR");
+        GeoInformation r = convertor.lookupShort("FOOBAR");
         Assert.assertNull(r);
     }
 
     @Test
     public void testJibbleEmpty() {
-        PostcodeResult r = convertor.lookupShort("");
+        GeoInformation r = convertor.lookupShort("");
         Assert.assertNull(r);
     }
 }

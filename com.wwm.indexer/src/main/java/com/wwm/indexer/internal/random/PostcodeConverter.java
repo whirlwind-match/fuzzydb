@@ -15,15 +15,15 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.wwm.attrs.location.EcefVector;
 import com.wwm.db.whirlwind.internal.IAttribute;
+import com.wwm.geo.GeoInformation;
 import com.wwm.indexer.db.converters.TempFactory;
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.model.attributes.LocationAttribute;
-import com.wwm.postcode.PostcodeResult;
 
 
 public class PostcodeConverter {
 
-    private static final Converter<String, PostcodeResult> converter = TempFactory.getPostcodeConverter();
+    private static final Converter<String, GeoInformation> converter = TempFactory.getPostcodeConverter();
 
     public Class<EcefVector> getIAttributeClass() {
         return EcefVector.class;
@@ -48,7 +48,7 @@ public class PostcodeConverter {
             postcode = (String)object;
             name = String.valueOf(attrid);
         }
-        PostcodeResult result = converter.convert(postcode);
+        GeoInformation result = converter.convert(postcode);
 
         if (result == null){
             throw new AttributeException("Unable to lookup postcode for: " + name + "=" + postcode);

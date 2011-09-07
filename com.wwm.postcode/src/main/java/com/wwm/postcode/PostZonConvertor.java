@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import java.util.zip.GZIPInputStream;
 
 import com.wwm.db.core.Settings;
+import com.wwm.geo.GeoInformation;
 import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
 import com.wwm.util.StringUtils;
 
@@ -66,7 +67,7 @@ public class PostZonConvertor {
 	 * @throws LostDbConnection
 	 */
 	@SuppressWarnings("unchecked")
-	public synchronized PostcodeResult lookupFull(String postcode) throws LostDbConnection {
+	public synchronized GeoInformation lookupFull(String postcode) throws LostDbConnection {
 		postcode = StringUtils.stripSpaces(postcode.toUpperCase());
 		if (postcode.length() < PostcodeService.minPostcodeLen) {
 			return null;
@@ -99,7 +100,7 @@ public class PostZonConvertor {
 			GZIPInputStream gzis = new GZIPInputStream(is);
 			ObjectInputStream ois = new ObjectInputStream(gzis);
 			TreeMap<String, PostcodeResult> subMap = (TreeMap<String, PostcodeResult>)ois.readObject();
-			PostcodeResult pr = subMap.get(postcode);
+			GeoInformation pr = subMap.get(postcode);
 			return pr;
 		} catch (IOException e) {
 			log.error("Error reading full data: " + e);

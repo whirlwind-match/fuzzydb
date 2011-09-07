@@ -18,8 +18,8 @@ import org.junit.Test;
 import junit.framework.Assert;
 
 import com.wwm.db.core.Settings;
+import com.wwm.geo.GeoInformation;
 import com.wwm.postcode.PostcodeConvertor;
-import com.wwm.postcode.PostcodeResult;
 import com.wwm.postcode.RandomPostcodeGenerator;
 import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
 
@@ -41,7 +41,7 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullAb() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("ab101af");
+        GeoInformation r = convertor.lookupFull("ab101af");
         Assert.assertNotNull(r);
         Assert.assertEquals(57.15, r.getLatitude(), 0.05);
         Assert.assertEquals(-2.05, r.getLongitude(), 0.01);
@@ -49,7 +49,7 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullCB45RJ() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("CB4 5RJ");
+        GeoInformation r = convertor.lookupFull("CB4 5RJ");
         Assert.assertNotNull(r);
         Assert.assertEquals(52.30, r.getLatitude(), 0.05);
         Assert.assertEquals(-0.005, r.getLongitude(), 0.005);
@@ -57,7 +57,7 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullCB42QW() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("CB4 2QW");
+        GeoInformation r = convertor.lookupFull("CB4 2QW");
         Assert.assertNotNull(r);
         Assert.assertEquals(52.30, r.getLatitude(), 0.05);
         Assert.assertEquals(-0.005, r.getLongitude(), 0.005);
@@ -65,7 +65,7 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullBL09BX() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("BL09BX");
+        GeoInformation r = convertor.lookupFull("BL09BX");
         Assert.assertNotNull(r);
 		Assert.assertTrue (r.getLatitude() < 52.35);
 		Assert.assertTrue (r.getLatitude() > 52.25);
@@ -75,7 +75,7 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullGL170LS() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("GL170LS");
+        GeoInformation r = convertor.lookupFull("GL170LS");
         Assert.assertNotNull(r);
 		Assert.assertTrue (r.getLatitude() < 52.35);
 		Assert.assertTrue (r.getLatitude() > 52.25);
@@ -85,7 +85,7 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullW93PJ() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("W93PJ");
+        GeoInformation r = convertor.lookupFull("W93PJ");
         Assert.assertNotNull(r);
 		Assert.assertTrue (r.getLatitude() < 52.35);
 		Assert.assertTrue (r.getLatitude() > 52.25);
@@ -95,11 +95,11 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullAbSpaced() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("AB10 1AF");
+        GeoInformation r = convertor.lookupFull("AB10 1AF");
         assertAB101AF(r);
     }
 
-    private void assertAB101AF(PostcodeResult r) {
+    private void assertAB101AF(GeoInformation r) {
         Assert.assertNotNull(r);
         Assert.assertEquals(57.15, r.getLatitude(), 0.01);
         Assert.assertEquals(-2.1, r.getLongitude(), 0.005);
@@ -107,25 +107,25 @@ public class FullPostcodeConverterTest {
 
     @Test
     public void testFullAbSpacedCaps() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("ab 10 1Af  ");
+        GeoInformation r = convertor.lookupFull("ab 10 1Af  ");
         assertAB101AF(r);
     }
 
     @Test
     public void testFullInvalid() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("FOOBAR");
+        GeoInformation r = convertor.lookupFull("FOOBAR");
         Assert.assertNull(r);
     }
 
     @Test
     public void testFullShort() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("g");
+        GeoInformation r = convertor.lookupFull("g");
         Assert.assertNull(r);
     }
 
     @Test
     public void testFullEmpty() throws LostDbConnection {
-        PostcodeResult r = convertor.lookupFull("");
+        GeoInformation r = convertor.lookupFull("");
         Assert.assertNull(r);
     }
 
@@ -135,7 +135,7 @@ public class FullPostcodeConverterTest {
         final int count = 1000;
         long start = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
-            PostcodeResult r = convertor.lookupFull(gen.nextFullPostcode());
+            GeoInformation r = convertor.lookupFull(gen.nextFullPostcode());
             Assert.assertNotNull(r);
         }
         long dur = System.currentTimeMillis() - start;

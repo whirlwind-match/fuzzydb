@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.geo.GeoInformation;
 import com.wwm.util.StringUtils;
 
 /**
@@ -23,7 +24,7 @@ import com.wwm.util.StringUtils;
  * therefore uses the DAO object supplied for that.
  *
  */
-public class PostcodeConvertor implements Converter<String, PostcodeResult>{
+public class PostcodeConvertor implements Converter<String, GeoInformation>{
 
 
 	private static Logger log = LogFactory.getLogger(PostcodeConvertor.class);
@@ -43,7 +44,7 @@ public class PostcodeConvertor implements Converter<String, PostcodeResult>{
 		PostcodeConvertor.service = service;
 	}
 	
-	public PostcodeResult lookupShort(String prefix) {
+	public GeoInformation lookupShort(String prefix) {
 		return jibble.lookupShort(prefix);
 	}
 
@@ -52,7 +53,7 @@ public class PostcodeConvertor implements Converter<String, PostcodeResult>{
 	 * @return A PostcodeResult if the postcode is valid, otherwise null
 	 * @throws LostDbConnection
 	 */
-	public synchronized PostcodeResult lookupFull(String postcode) {
+	public synchronized GeoInformation lookupFull(String postcode) {
 		// If no service for full postcode, then try short somehow
 		if (service != null){
 			return service.lookupFull(postcode);
@@ -68,7 +69,7 @@ public class PostcodeConvertor implements Converter<String, PostcodeResult>{
 	}
 
 	@Override
-	public PostcodeResult convert(String postcode) {
+	public GeoInformation convert(String postcode) {
         PostcodeResult result = jibble.lookupShort(postcode);
         if (result == null) {
             result = service.lookupFull(postcode);

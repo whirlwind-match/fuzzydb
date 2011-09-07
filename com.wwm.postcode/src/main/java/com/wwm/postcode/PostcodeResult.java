@@ -12,7 +12,9 @@ package com.wwm.postcode;
 
 import java.io.Serializable;
 
-public class PostcodeResult implements Serializable {
+import com.wwm.geo.GeoInformation;
+
+public class PostcodeResult implements Serializable, GeoInformation {
 
 	private static final long serialVersionUID = -705047195020495531L;
 
