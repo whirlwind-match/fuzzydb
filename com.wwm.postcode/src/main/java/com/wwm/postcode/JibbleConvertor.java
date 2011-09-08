@@ -24,13 +24,24 @@ import com.wwm.util.StringUtils;
 public class JibbleConvertor {
 	
 	
-	static private final Logger log = LogFactory.getLogger(JibbleConvertor.class);
+	private static final Logger log = LogFactory.getLogger(JibbleConvertor.class);
 	
 	private static final String jibbleFile = Settings.getInstance().getPostcodeRoot() + File.separatorChar + JibbleImporter.jibbleDataFile;
-	TreeMap<String, PostcodeResult> jibbleMap;
+	
+	private static JibbleConvertor instance;
+	
+	private TreeMap<String, PostcodeResult> jibbleMap;
 
+	
+	public static synchronized JibbleConvertor getInstance() {
+		if (instance == null) {
+			instance = new JibbleConvertor();
+		}
+		return instance;
+	}
+	
 	@SuppressWarnings("unchecked")
-	public JibbleConvertor(Logger removeThis) {
+	private JibbleConvertor() {
 		log.info("Starting up JibbleConvertor using data: " + jibbleFile);
 		try {
 			jibbleMap = (TreeMap<String, PostcodeResult>)FileUtils.readObjectFromGZip(jibbleFile);

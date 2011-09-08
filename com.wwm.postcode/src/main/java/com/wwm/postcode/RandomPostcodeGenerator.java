@@ -46,7 +46,7 @@ public class RandomPostcodeGenerator {
 	
 	public String nextFullPostcode() {
 		if (fullData==null || fullData.length < 7) {
-			throw new Error("Random Postcodes data did not load");
+			throw new RuntimeException("Random Postcodes data did not load");
 		}
 		int numCodes = fullData.length / 7;
 		int index = 7 * random.nextInt(numCodes);
@@ -57,7 +57,7 @@ public class RandomPostcodeGenerator {
 			result = new String(fullData, index, 7, "UTF8");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("Internal error: " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		return result.trim();
 	}
@@ -82,7 +82,7 @@ public class RandomPostcodeGenerator {
 	
 	private void load() {
 		// Load Jibble data
-		JibbleConvertor j = new JibbleConvertor(log);
+		JibbleConvertor j = JibbleConvertor.getInstance();
 		shortData = j.getPrefixData();
 		
 		// Load full data

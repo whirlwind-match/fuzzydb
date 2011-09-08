@@ -37,7 +37,7 @@ public class PostcodeConvertor implements Converter<String, GeoInformation>{
 	}
 	
 	public PostcodeConvertor() {
-		jibble = new JibbleConvertor(log);
+		jibble = JibbleConvertor.getInstance();
 	}
 	
 	public static void setService(PostcodeService service) {

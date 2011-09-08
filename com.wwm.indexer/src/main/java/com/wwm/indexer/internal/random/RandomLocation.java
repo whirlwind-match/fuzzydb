@@ -17,7 +17,7 @@ import com.wwm.model.attributes.Point3DAttribute;
 import com.wwm.postcode.RandomPostcodeGenerator;
 import com.wwm.util.MTRandom;
 
-public class RandomLocation implements RandomGenerator {
+public class RandomLocation implements RandomGenerator<Point3DAttribute> {
 
     private int nullPercent;
     private RandomPostcodeGenerator gen;
