@@ -21,7 +21,6 @@ import com.wwm.db.core.Settings;
 import com.wwm.geo.GeoInformation;
 import com.wwm.postcode.PostcodeConvertor;
 import com.wwm.postcode.RandomPostcodeGenerator;
-import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
 
 /**
  * These tests assume the postcode data has been built and installed into the correct location.
@@ -40,7 +39,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullAb() throws LostDbConnection {
+    public void testFullAb() {
         GeoInformation r = convertor.lookupFull("ab101af");
         Assert.assertNotNull(r);
         Assert.assertEquals(57.15, r.getLatitude(), 0.05);
@@ -48,7 +47,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullCB45RJ() throws LostDbConnection {
+    public void testFullCB45RJ() {
         GeoInformation r = convertor.lookupFull("CB4 5RJ");
         Assert.assertNotNull(r);
         Assert.assertEquals(52.30, r.getLatitude(), 0.05);
@@ -56,7 +55,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullCB42QW() throws LostDbConnection {
+    public void testFullCB42QW() {
         GeoInformation r = convertor.lookupFull("CB4 2QW");
         Assert.assertNotNull(r);
         Assert.assertEquals(52.30, r.getLatitude(), 0.05);
@@ -64,7 +63,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullBL09BX() throws LostDbConnection {
+    public void testFullBL09BX() {
         GeoInformation r = convertor.lookupFull("BL09BX");
         Assert.assertNotNull(r);
 		Assert.assertTrue (r.getLatitude() < 52.35);
@@ -74,7 +73,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullGL170LS() throws LostDbConnection {
+    public void testFullGL170LS() {
         GeoInformation r = convertor.lookupFull("GL170LS");
         Assert.assertNotNull(r);
 		Assert.assertTrue (r.getLatitude() < 52.35);
@@ -84,7 +83,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullW93PJ() throws LostDbConnection {
+    public void testFullW93PJ() {
         GeoInformation r = convertor.lookupFull("W93PJ");
         Assert.assertNotNull(r);
 		Assert.assertTrue (r.getLatitude() < 52.35);
@@ -94,7 +93,7 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullAbSpaced() throws LostDbConnection {
+    public void testFullAbSpaced() {
         GeoInformation r = convertor.lookupFull("AB10 1AF");
         assertAB101AF(r);
     }
@@ -106,31 +105,31 @@ public class FullPostcodeConverterTest {
     }
 
     @Test
-    public void testFullAbSpacedCaps() throws LostDbConnection {
+    public void testFullAbSpacedCaps() {
         GeoInformation r = convertor.lookupFull("ab 10 1Af  ");
         assertAB101AF(r);
     }
 
     @Test
-    public void testFullInvalid() throws LostDbConnection {
+    public void testFullInvalid() {
         GeoInformation r = convertor.lookupFull("FOOBAR");
         Assert.assertNull(r);
     }
 
     @Test
-    public void testFullShort() throws LostDbConnection {
+    public void testFullShort() {
         GeoInformation r = convertor.lookupFull("g");
         Assert.assertNull(r);
     }
 
     @Test
-    public void testFullEmpty() throws LostDbConnection {
+    public void testFullEmpty() {
         GeoInformation r = convertor.lookupFull("");
         Assert.assertNull(r);
     }
 
     @Test
-    public void testFullPerf() throws LostDbConnection {
+    public void testFullPerf() {
         RandomPostcodeGenerator gen = new RandomPostcodeGenerator();
         final int count = 1000;
         long start = System.currentTimeMillis();
@@ -146,7 +145,7 @@ public class FullPostcodeConverterTest {
     }
 
     // Doesn't make sense as Db connection is in another thread
-    //	public void testFullDisconnect() throws LostDbConnection, DbCommandFailedException, DbNetworkErrorException {
+    //	public void testFullDisconnect(), DbCommandFailedException, DbNetworkErrorException {
     //		client.disconnect();
     //		boolean threw = false;
     //		PostcodeResult r = null;

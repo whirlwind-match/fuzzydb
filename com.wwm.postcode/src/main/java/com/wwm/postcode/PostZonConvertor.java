@@ -23,7 +23,6 @@ import java.util.zip.GZIPInputStream;
 
 import com.wwm.db.core.Settings;
 import com.wwm.geo.GeoInformation;
-import com.wwm.postcode.PostcodeConvertor.LostDbConnection;
 import com.wwm.util.StringUtils;
 
 /**
@@ -67,7 +66,7 @@ public class PostZonConvertor {
 	 * @throws LostDbConnection
 	 */
 	@SuppressWarnings("unchecked")
-	public synchronized GeoInformation lookupFull(String postcode) throws LostDbConnection {
+	public synchronized GeoInformation lookupFull(String postcode) {
 		postcode = StringUtils.stripSpaces(postcode.toUpperCase());
 		if (postcode.length() < PostcodeService.minPostcodeLen) {
 			return null;

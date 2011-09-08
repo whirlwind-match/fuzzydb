@@ -24,7 +24,7 @@ import com.wwm.util.StringUtils;
  * therefore uses the DAO object supplied for that.
  *
  */
-public class PostcodeConvertor implements Converter<String, GeoInformation>{
+public class PostcodeConvertor implements Converter<String, GeoInformation> {
 
 
 	private static Logger log = LogFactory.getLogger(PostcodeConvertor.class);
@@ -32,9 +32,6 @@ public class PostcodeConvertor implements Converter<String, GeoInformation>{
 			
 	private final JibbleConvertor jibble;
 
-	public static class LostDbConnection extends Exception {
-		private static final long serialVersionUID = 5523931674418224181L;
-	}
 	
 	public PostcodeConvertor() {
 		jibble = JibbleConvertor.getInstance();
@@ -51,7 +48,6 @@ public class PostcodeConvertor implements Converter<String, GeoInformation>{
 	/**Look up a full postcode.<br><br>WARNING - EXECUTING THIS FUNCTION COSTS 1p!!<br><br>
 	 * @param postcode A full postcode to lookup, any caps, any spaces
 	 * @return A PostcodeResult if the postcode is valid, otherwise null
-	 * @throws LostDbConnection
 	 */
 	public synchronized GeoInformation lookupFull(String postcode) {
 		// If no service for full postcode, then try short somehow
