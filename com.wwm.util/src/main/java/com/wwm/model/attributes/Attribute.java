@@ -10,14 +10,16 @@
  *****************************************************************************/
 package com.wwm.model.attributes;
 
+import java.io.Serializable;
+
 /**
  * Bean representation of named attributes, such as a boolean value,
  * enum value, or location preference.
  * Values should be strings or intrinsic types (float, Date, String[], etc)
  */
-public abstract class Attribute<V> {
+public abstract class Attribute<V> implements Serializable {
 
-    private String name;
+	private String name;
 
     public Attribute( String name) {
         assert name != null;
