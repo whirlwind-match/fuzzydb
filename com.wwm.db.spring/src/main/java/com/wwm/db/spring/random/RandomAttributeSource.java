@@ -71,4 +71,9 @@ public class RandomAttributeSource {
 		EnumDefinition enumDef = attributeService.getEnumDefForAttrId(attrId);
 		attrRandomisers.put(attrName, new RandomMultiEnum(enumDef, nullProportion));
 	}
+
+
+	public void addRandomGenerator(String attrName, RandomGenerator<? extends Attribute<?>> generator) {
+		attrRandomisers.put(attrName, generator);
+	}
 }
