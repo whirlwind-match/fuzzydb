@@ -1,6 +1,7 @@
 package com.wwm.indexer.internal.random;
 
 import com.wwm.model.attributes.Attribute;
+import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.MTRandom;
 
 public abstract class AbstractRandomGenerator<RESULT extends Attribute<?>> implements RandomGenerator<RESULT> {

@@ -15,9 +15,11 @@ import java.util.Random;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.model.attributes.NonIndexStringAttribute;
+import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.MTRandom;
 
-public class RandomUKShortPostcode {
+public class RandomUKShortPostcode implements RandomGenerator<NonIndexStringAttribute> {
 	private static Logger log = LogFactory.getLogger(RandomUKShortPostcode.class);
 
 	private Random random;
@@ -30,6 +32,11 @@ public class RandomUKShortPostcode {
 	public RandomUKShortPostcode() {
 		random = new MTRandom();
 		jibble = JibbleConvertor.getInstance();
+	}
+	
+	@Override
+	public NonIndexStringAttribute next(String attrName) {
+		return new NonIndexStringAttribute(attrName, nextShortPostcode());
 	}
 	
 	public String nextShortPostcode() {

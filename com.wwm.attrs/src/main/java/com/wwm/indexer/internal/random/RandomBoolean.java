@@ -12,6 +12,7 @@ package com.wwm.indexer.internal.random;
 
 
 import com.wwm.model.attributes.BooleanAttribute;
+import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.MTRandom;
 
 public class RandomBoolean implements RandomGenerator<BooleanAttribute> {

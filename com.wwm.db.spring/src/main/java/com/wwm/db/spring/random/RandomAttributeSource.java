@@ -11,9 +11,9 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.indexer.internal.random.RandomBoolean;
 import com.wwm.indexer.internal.random.RandomEnum;
 import com.wwm.indexer.internal.random.RandomFloat;
-import com.wwm.indexer.internal.random.RandomGenerator;
 import com.wwm.indexer.internal.random.RandomMultiEnum;
 import com.wwm.model.attributes.Attribute;
+import com.wwm.model.attributes.RandomGenerator;
 
 @Component
 public class RandomAttributeSource {

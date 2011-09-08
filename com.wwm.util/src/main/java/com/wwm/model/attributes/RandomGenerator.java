@@ -8,9 +8,8 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.indexer.internal.random;
+package com.wwm.model.attributes;
 
-import com.wwm.model.attributes.Attribute;
 
 public interface RandomGenerator<RESULT extends Attribute<?>> {
     RESULT next(String attrName);

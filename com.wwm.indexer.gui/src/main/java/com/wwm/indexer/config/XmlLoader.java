@@ -27,7 +27,7 @@ import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
 import com.wwm.attrs.internal.xstream.XmlNameMapper;
 import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
-import com.wwm.indexer.internal.random.RandomGenerator;
+import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.DynamicRef;
 import com.wwm.util.ResourcePatternProcessor;
 

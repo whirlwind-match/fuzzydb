@@ -8,7 +8,7 @@ import whirlwind.demo.gui.searchtabs.SearchTabXmlConfig;
 
 import com.wwm.db.Client;
 import com.wwm.indexer.demo.internal.Randomiser;
-import com.wwm.indexer.internal.random.RandomGenerator;
+import com.wwm.model.attributes.RandomGenerator;
 
 public class WhirlwindDemoConfig {
 

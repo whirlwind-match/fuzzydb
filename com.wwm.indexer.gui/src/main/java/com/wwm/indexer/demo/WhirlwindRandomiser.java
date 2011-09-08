@@ -10,8 +10,8 @@ import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;
 import com.wwm.indexer.internal.RecordImpl;
-import com.wwm.indexer.internal.random.RandomGenerator;
 import com.wwm.model.attributes.Attribute;
+import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.NanoTimer;
 
 public class WhirlwindRandomiser {
