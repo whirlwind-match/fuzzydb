@@ -42,6 +42,7 @@ import com.wwm.model.attributes.LocationAttribute;
 import com.wwm.model.attributes.MultiEnumAttribute;
 import com.wwm.model.attributes.NonIndexStringAttribute;
 import com.wwm.model.attributes.Point3DAttribute;
+import com.wwm.model.dimensions.IPoint3D;
 /**
  * Responsible for allocating attribute ids, against a string and class, and allowing
  * extension to support persistence of these mappings.
@@ -183,8 +184,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return String[].class;
         case STRING:
             return String.class;
-//        case VECTOR:
-//            return VectorValue;
+        case VECTOR:
+            return IPoint3D.class;
         case FLOAT_RANGE_PREF:
             return float[].class;
 //        case LOCATION_PREF:
@@ -192,7 +193,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         case DATE:
     		return Date.class;
         default:
-            throw new RuntimeException("Type mapping needed.");
+            throw new RuntimeException("Type mapping needed for " + (attrId & ATTR_CLASS_MASK));
         }
 	}
 
