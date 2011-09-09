@@ -11,68 +11,62 @@
 package com.wwm.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ResourceUtils;
 
 public class FileUtils {
 
-	static private Logger log;
+	
+	static private Logger log = LoggerFactory.getLogger(FileUtils.class);
 	
 	/**
-	 * WARNING: Currently throws Error (should be IOException
-	 * @param fileName
+	 * @param resourceUrl the resource location to resolve: either a "classpath:" pseudo URL, a "file:" URL, or a plain file path
 	 * @throws RuntimeException if file not found
 	 */
-	static public Object readObjectFromGZip(String fileName) {
-		// FIXME: Do finally { blah.close().. etc }
-		File file = new File(fileName);
+	static public Object readObjectFromGZip(String resourceUrl) {
 		
-		FileInputStream fis;
+		InputStream stream = null;
 		try {
-			fis = new FileInputStream(file);
+			stream = ResourceUtils.getURL(resourceUrl).openStream();
+			return readObjectFromGZip(stream);
 		} catch (FileNotFoundException e) {
-			System.out.println("File missing: " + file);
+			log.error("Error opening resource: " + e.getMessage());
+			throw new RuntimeException(e);
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		GZIPInputStream gzis;
-		try {
-			gzis = new GZIPInputStream(fis);
-		} catch (IOException e) {
-			System.out.println("Error reading from " + file);
-			System.out.println("Error opening GZIP input stream: " + e);
-			throw new RuntimeException(e);
+		finally {
+			try {
+				stream.close();
+			} catch (IOException e) {
+				// squash close exception
+			}
 		}
-		ObjectInputStream ois;
+	}
+
+	
+	protected static Object readObjectFromGZip(InputStream stream) throws IOException, ClassNotFoundException {
+		GZIPInputStream gzis = null;
+		ObjectInputStream ois = null;
 		try {
+			gzis = new GZIPInputStream(stream);
 			ois = new ObjectInputStream(gzis);
-		} catch (IOException e) {
-			System.out.println("Error reading from " + file);
-			System.out.println("Error opening ObjectInputStream: " + e);
-			throw new RuntimeException(e);
+			return ois.readObject();
+		} 
+		finally {
+			if (gzis != null) gzis.close();
+			if (ois != null) ois.close();
 		}
-		
-		Object obj;
-		try {
-			obj = ois.readObject();
-		} catch (IOException e) {
-			System.out.println("Error reading from " + file + ": " + e);
-			throw new RuntimeException(e);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Internal Error reading from " + file + ": " + e);
-			throw new RuntimeException(e);
-		} catch (ClassCastException e) {
-			System.out.println("File Format Error reading from " + file + ": " + e);
-			throw new RuntimeException(e);
-		}
-		return obj;
 	}
 
 	static public void writeObjectToGZip(String outFileName, Object obj) throws IOException {
@@ -87,7 +81,7 @@ public class FileUtils {
 		try {
 			fos = new FileOutputStream(outfile);
 		} catch (FileNotFoundException e) {
-			System.out.println("Error opening " + outfile + " for output: " + e.getMessage());
+			log.error("Error opening " + outfile + " for output: " + e.getMessage());
 			throw e;
 		}
 				
@@ -95,7 +89,7 @@ public class FileUtils {
 		try {
 			gzos = new GZIPOutputStream(fos);
 		} catch (IOException e) {
-			System.out.println("Error creating GZIPOutputStream: " + e.getMessage());
+			log.error("Error creating GZIPOutputStream: " + e.getMessage());
 			throw e;
 		}
 		
@@ -103,7 +97,7 @@ public class FileUtils {
 		try {
 			oos = new ObjectOutputStream(gzos);
 		} catch (IOException e) {
-			System.out.println("Error creating ObjectOutputStream: " + e.getMessage());
+			log.error("Error creating ObjectOutputStream: " + e.getMessage());
 			throw e;
 		}
 		
@@ -112,7 +106,7 @@ public class FileUtils {
 			oos.flush();
 			oos.close();
 		} catch (IOException e) {
-			System.out.println("Error while writing: " + e.getMessage());
+			log.error("Error while writing: " + e.getMessage());
 			throw e;
 		}
 	}

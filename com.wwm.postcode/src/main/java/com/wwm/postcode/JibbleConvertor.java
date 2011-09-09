@@ -10,23 +10,29 @@
  *****************************************************************************/
 package com.wwm.postcode;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Set;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.Settings;
+import com.wwm.geo.GeoInformation;
 import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;
 
+/**
+ * Convert UK postcodes to {@link GeoInformation} using the prefix part.
+ * 
+ * The original database used was called Jibble, hence the name.
+ * 
+ * @author Neale Upstone
+ *
+ */
 public class JibbleConvertor {
-	
 	
 	private static final Logger log = LogFactory.getLogger(JibbleConvertor.class);
 	
-	private static final String jibbleFile = Settings.getInstance().getPostcodeRoot() + File.separatorChar + JibbleImporter.jibbleDataFile;
+	private static final String jibbleFile = "classpath:jibble";
 	
 	private static JibbleConvertor instance;
 	
@@ -45,7 +51,7 @@ public class JibbleConvertor {
 		log.info("Starting up JibbleConvertor using data: " + jibbleFile);
 		try {
 			jibbleMap = (TreeMap<String, PostcodeResult>)FileUtils.readObjectFromGZip(jibbleFile);
-		} catch (Error e) {
+		} catch (RuntimeException e) {
 			log.error("Lookups disabled.  Failed to load Jibble data " + e.getCause().getMessage());
 		}
 	}

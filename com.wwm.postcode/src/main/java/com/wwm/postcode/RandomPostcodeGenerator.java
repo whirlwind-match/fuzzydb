@@ -56,7 +56,7 @@ public class RandomPostcodeGenerator {
 		try {
 			result = new String(fullData, index, 7, "UTF8");
 		} catch (UnsupportedEncodingException e) {
-			System.out.println("Internal error: " + e);
+			log.error("Internal error: ", e);
 			throw new RuntimeException(e);
 		}
 		return result.trim();
@@ -91,7 +91,7 @@ public class RandomPostcodeGenerator {
 		fullData = (byte[]) FileUtils.readObjectFromGZip(fileName);
 
 		if (fullData.length % 7 != 0) {
-			System.out.println("Error reading from " + fileName + ": Postcodes array is not a multiple of 7!");
+			log.error("Error reading from " + fileName + ": Postcodes array is not a multiple of 7!");
 			throw new Error();
 		}
 	}

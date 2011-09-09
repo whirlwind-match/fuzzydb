@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.wwm.db.core.Settings;
 import com.wwm.util.CsvReader;
 import com.wwm.util.FileUtils;
 import com.wwm.util.CsvReader.GarbageLineException;
@@ -38,7 +37,7 @@ public class NPEMapImporter {
 
 	public static void main(String[] args) {
 		NPEMapImporter j = new NPEMapImporter();
-		String root = Settings.getInstance().getPostcodeRoot();
+//		String root = Settings.getInstance().getPostcodeRoot();
 //		j.convert(root + File.separatorChar + jibbleSourceFile, root + File.separatorChar + jibbleDataFile);
 		j.convert("data" + File.separatorChar + sourceFile, "data" + File.separatorChar + dataFile);
 	}

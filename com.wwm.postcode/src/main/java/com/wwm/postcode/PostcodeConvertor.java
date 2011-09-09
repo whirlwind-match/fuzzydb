@@ -18,11 +18,9 @@ import com.wwm.geo.GeoInformation;
 import com.wwm.util.StringUtils;
 
 /**
- * Rather piggy-in-the-middle implementation which sits bridging static instances and OSGi service objects.
- * 
- * FIXME: This is dangerous as it assumes that only one instance of PostcodeConverter is created, and
- * therefore uses the DAO object supplied for that.
- *
+ * Converts postcodes to geographic information using available PostcodeService
+ * <p>
+ * Rather specific to UK which is on the list to sort out.
  */
 public class PostcodeConvertor implements Converter<String, GeoInformation> {
 
@@ -30,6 +28,7 @@ public class PostcodeConvertor implements Converter<String, GeoInformation> {
 	private static Logger log = LogFactory.getLogger(PostcodeConvertor.class);
 	static private PostcodeService service;
 			
+	/** Converter for UK part postcodes - e.g. SE1 */
 	private final JibbleConvertor jibble;
 
 	
