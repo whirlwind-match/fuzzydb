@@ -26,7 +26,7 @@ public abstract class BlockProcessor {
 	}
 	
 	
-	public void process( int number ) throws Exception {
+	public void process( int number ) {
 		/* The same as above  */ 
 		for ( int i = 0; i < number; i++) {
 			everyTime( i );
@@ -41,13 +41,13 @@ public abstract class BlockProcessor {
 	 * Action to be performed for each iteration
 	 * @throws Exception 
 	 */
-	abstract public void everyTime( int count ) throws Exception;
+	abstract public void everyTime( int count );
 	
 	/**
 	 * Action to be performed after each <code>blockSize</code> calls to <code>everyTime()</code>
 	 * @throws Exception 
 	 */
-	abstract public void everyBlock( int count ) throws Exception;
+	abstract public void everyBlock( int count );
 
     public void blocksComplete() {
     }

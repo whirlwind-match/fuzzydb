@@ -36,16 +36,16 @@ public abstract class TransactionBlockProcessor extends BlockProcessor {
 	}
 
 	@Override
-	public void everyBlock(int count) throws Exception {
+	public void everyBlock(int count) {
 		t.commit();
 		t = store.getAuthStore().begin();
 	}
 
 	@Override
-	public void everyTime(int count) throws Exception {
+	public void everyTime(int count) {
 		everyTime( t, count );
 	}
 	
-	public abstract void everyTime(Transaction t, int count) throws Exception;
+	public abstract void everyTime(Transaction t, int count);
 
 }
