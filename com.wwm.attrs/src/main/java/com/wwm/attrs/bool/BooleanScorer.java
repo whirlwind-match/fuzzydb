@@ -19,9 +19,6 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 
-
-
-
 /**
  * @author Neale
  */

@@ -12,6 +12,8 @@ package com.wwm.attrs.enums;
 
 
 
+import org.springframework.util.Assert;
+
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.Score.Direction;
@@ -149,5 +151,10 @@ public class EnumSingleValueScorer extends Scorer {
 //           }
 //       }
 //       return minScore;
-   }
+    }
+
+    @Override
+    protected void assertValidInternal() {
+    	Assert.state(matchValue != null, "matchValue must be defined");
+    }
 }

@@ -20,6 +20,7 @@
         <scorerAttrId>price</scorerAttrId>
         <otherAttrId>price</otherAttrId>
         <expectedRange>1e5f</expectedRange> <!-- Within 100k (dollars?) -->
+        <weight>0.7</weight>
     </SimilarFloatValueScorer>
 
 

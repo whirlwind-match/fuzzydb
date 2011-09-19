@@ -41,6 +41,7 @@ public class ScoreConfigurationManager implements Serializable {
 	 * so if in doubt, call getConfig(name) first.
 	 */
 	public void setConfig(String name, ScoreConfiguration config) {
+		config.assertValid();
 		configs.put( name, config );
 	}
 

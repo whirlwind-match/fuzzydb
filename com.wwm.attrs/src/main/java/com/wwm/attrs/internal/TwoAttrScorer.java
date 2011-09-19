@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.attrs.internal;
 
+import org.springframework.util.Assert;
+
 import com.wwm.attrs.Scorer;
 
 
@@ -24,12 +26,17 @@ public abstract class TwoAttrScorer extends Scorer {
 
     public TwoAttrScorer( int scoreAttrId, int otherAttrId ) {
         super( scoreAttrId );
-        assert otherAttrId != 0;
+		Assert.state(otherAttrId != 0, "otherAttrId must be defined");
         this.otherAttrId = otherAttrId;
     }
 
     public int getOtherAttrId() {
         return otherAttrId;
     }
+
+	@Override
+	protected void assertValidInternal() {
+		Assert.state(otherAttrId != 0, "otherAttrId must be defined");
+	}
 
 }

@@ -12,6 +12,8 @@ package com.wwm.attrs;
 
 import java.io.Serializable;
 
+import org.springframework.util.Assert;
+
 import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.internal.GlobalDecorators;
 import com.wwm.attrs.internal.IConstraintMap;
@@ -185,4 +187,21 @@ public abstract class Scorer implements Serializable {
         return this.getClass().getSimpleName() + ":" + GlobalDecorators.getInstance().getAttrName(this.scorerAttrId) + ": noScoreDir = " + this.noScoreDirection 
         + ": name = " + name;
     }
+    
+    /**
+     * Assert that fields in a subclass form a valid configuration
+     */
+    abstract protected void assertValidInternal();
+
+    /**
+     * Check that this is a validly configured scorer.
+     * <p> Subclasses must implement assertValidInternal();
+     */
+	public void assertValid() {
+		Assert.state(0f <= scoreOnNull && scoreOnNull <= 1f, "scoreOnNull must be between 0 and 1 inclusive");
+		Assert.state(weight > 0f, "weight must satisfy: 0 < weight <= 1");
+		Assert.state(0f <= minScore && minScore <= 1f, "minScore must be between 0 and 1 inclusive");
+		Assert.state(0f <= maxScore && maxScore <= 1f, "maxScore must be between 0 and 1 inclusive");
+		Assert.state(minScore <= maxScore, "minScore must be <= maxScore");
+	}
 }

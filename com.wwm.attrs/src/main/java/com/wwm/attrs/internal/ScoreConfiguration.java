@@ -12,8 +12,6 @@ package com.wwm.attrs.internal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-
 import com.wwm.attrs.IScoreConfiguration;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Scorer;
@@ -176,6 +174,16 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
 			if (nodeAttributes != null) {
 		        this.scoreAllAnnotations( currentScore, Score.Direction.reverse, nodeAttributes, searchAttrs);
 		    }
+		}
+	}
+
+	/**
+	 * Assert that this score configuration is valid (i.e. that it contains validly
+	 * configured scorers)
+	 */
+	public void assertValid() {
+		for (Scorer scorer : scorersList) {
+			scorer.assertValid();
 		}
 	}
 	

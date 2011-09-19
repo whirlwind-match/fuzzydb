@@ -31,7 +31,7 @@ public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute im
 		super(attrId);
 	}
 
-	protected Attribute(Attribute rhs) {
+	protected Attribute(Attribute<?> rhs) {
 		super(rhs);
 	}
 	
