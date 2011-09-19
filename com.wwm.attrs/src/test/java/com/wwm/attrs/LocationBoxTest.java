@@ -168,13 +168,13 @@ public class LocationBoxTest {
 		}
 	}
 	
-	@Test(timeout=2000) // failed at 1000 on loki
+	@Test(timeout=1000)
 	public void testManyPoints() {
 		MTRandom rand = new MTRandom(42);
 		EcefVector home = EcefVector.fromDegs(1, 45, 45);
 		DimensionsRangeConstraint homeBc = home.createAnnotation();
 		
-		for (int count=0; count < 100000; count++)
+		for (int count=0; count < 50000; count++)
 		{
 			EcefVector p1 = EcefVector.fromDegs(2, 
 					55 - rand.nextFloat() * 20, 
@@ -186,10 +186,10 @@ public class LocationBoxTest {
 		}
 	}
 	
-	@Test(timeout=20000) // Takes around 2 secs on Neale's laptop. Shouldn't be too slow!
+	@Test(timeout=2000) 
 	public void testManyPointsSixHomes() {
 		MTRandom rand = new MTRandom(42);
-		for (int loop=0; loop < 500; loop++) {
+		for (int loop=0; loop < 50; loop++) {
 			int homes = rand.nextInt(6)+1;	// 1-6 inclusive
 			DimensionsRangeConstraint homeBc = null;
 			EcefVector home[] = new EcefVector[homes];
