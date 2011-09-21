@@ -15,6 +15,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.fuzzydb.attrs</groupId>
+            <artifactId>org.fuzzydb.attrs.compact</artifactId>
+            <version>1.0.0.M3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.server</artifactId>
             <version>1.0.0.M3-SNAPSHOT</version>
