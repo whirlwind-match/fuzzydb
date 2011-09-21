@@ -13,15 +13,14 @@ package com.wwm.scratch;
 import java.io.Serializable;
 
 import com.wwm.attrs.byteencoding.CompactAttrMap;
-import com.wwm.attrs.simple.FloatValue;
+import com.wwm.attrs.userobjects.AugmentedAttributeMap;
 import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.internal.AttributeCache;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 
-public class CompactTestWhirlwindClass implements IWhirlwindItem, Serializable {
+public class CompactTestWhirlwindClass extends AugmentedAttributeMap implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
@@ -38,17 +37,6 @@ public class CompactTestWhirlwindClass implements IWhirlwindItem, Serializable {
 
 
 
-	
-	public void setFloat(int attrId, float f) {
-		attrs.addAttribute(attrId, f);
-	}
-	
-	public Object getFloat(int attrId) {
-		FloatValue attr = (FloatValue) attrs.findAttr(attrId);
-		return attr.getValue();
-	}
-	
-	
 	
 	public IAttributeMap<IAttribute> getAttributeMap() {
 		return attrs;  // Server side.  Sound aim to eliminate this.
