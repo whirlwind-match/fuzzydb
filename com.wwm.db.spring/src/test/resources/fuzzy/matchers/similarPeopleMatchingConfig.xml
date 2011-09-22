@@ -2,44 +2,57 @@
 <ScoreConfiguration name="similarPeople">
 
     <BooleanScorer>
-        <name>isSameSex</name>
+        <name>Is Same Sex</name>
         <scorerAttrId>isMale</scorerAttrId>
         <otherAttrId>isMale</otherAttrId>
         <weight>0.7</weight>
+        <scoreNull>true</scoreNull>
+        <scoreOnNull>0.5</scoreOnNull>
     </BooleanScorer>
 
     <MultiEnumScorer>
-        <name>newspapers</name>
+        <name>Reads Same Newspapers</name>
         <scorerAttrId>newspapers</scorerAttrId>
         <otherAttrId>newspapers</otherAttrId>
         <weight>0.7</weight>
+        <scoreNull>true</scoreNull>
+        <scoreOnNull>0.2</scoreOnNull>
     </MultiEnumScorer>        
 
-    <EnumMatchScorer>
-        <name>education</name>
-        <scorerAttrId>education</scorerAttrId>
-        <otherAttrId>education</otherAttrId>
+    <VectorDistanceScorer>
+        <name>Within 100 miles</name>
+        <scorerAttrId>location</scorerAttrId>
+        <otherAttrId>location</otherAttrId>
+        <range>100</range>
+        <preferClose>true</preferClose>
+        <!-- Asymptotic scorer tends to zero at infinity -->
+        <scoreMapper class="AsymptoticScoreMapper">
+            <squareness>3</squareness> 
+            <!-- Will become valueAtBoundary once migrated away from XStream for reading this -->
+            <inverseValueAtBoundary>2.5</inverseValueAtBoundary> 
+            <!-- i.e. score is 40% at boundary  -->
+        </scoreMapper>
         <weight>0.7</weight>
-    </EnumMatchScorer>        
+    </VectorDistanceScorer>
 
     <SimilarFloatValueScorer>
-        <name>similarSalary</name>
+        <name>Salary Within 50,000</name>
         <scorerAttrId>salary</scorerAttrId>
         <otherAttrId>salary</otherAttrId>
-        <expectedRange>5e4f</expectedRange> <!-- Within 50k -->
+        <expectedRange>5e4f</expectedRange>
         <weight>0.7</weight>
     </SimilarFloatValueScorer>
 
     <SimilarFloatValueScorer>
-        <name>similarAge</name>
+        <name>Within 10 Years of Age</name>
         <scorerAttrId>age</scorerAttrId>
         <otherAttrId>age</otherAttrId>
-        <expectedRange>20</expectedRange> 
+        <expectedRange>10</expectedRange> 
         <weight>0.7</weight>
     </SimilarFloatValueScorer>
     
 	<EnumScoresMapScorer>
-        <name>compatibleSmoking</name>
+        <name>Similar Smoking Habits</name>
 		<scorerAttrId>smoke</scorerAttrId>
 		<otherAttrId>smoke</otherAttrId>
 		<filter>false</filter>
