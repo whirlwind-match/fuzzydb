@@ -179,11 +179,11 @@ public abstract class Score implements com.wwm.model.attributes.Score, Comparabl
     	throw new UnsupportedOperationException();
     }
     
-	public float getForwardsScore(String name) {
+	public Float getForwardsScore(String name) {
     	throw new UnsupportedOperationException();
 	}
 
-	public float getReverseScore(String name) {
+	public Float getReverseScore(String name) {
     	throw new UnsupportedOperationException();
 	}
 

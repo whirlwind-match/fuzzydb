@@ -7,11 +7,23 @@ public interface Score {
     float forwardsTotal();
     float reverseTotal();
 
-    float getForwardsScore(String name);
-    float getReverseScore(String name);
+    /**
+     * Return the individual forwards score for the named scorer
+     * @param name name of the scorer
+     * @return the score, or null if no score was recorded for this direction
+     */
+    Float getForwardsScore(String name);
 
     /**
-     * Return available annotations
+     * Return the individual reverse score for the named scorer
+     * @param name name of the scorer
+     * @return the score, or null if no score was recorded for this direction
+     */
+    Float getReverseScore(String name);
+
+    /**
+     * Returns the names for the available match results
+     * <br>TODO: Rename - shouldn't refer to Attr as matcher can be anything
      */
     Collection<String> getScorerAttrNames();
 }

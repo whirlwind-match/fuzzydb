@@ -2,7 +2,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuzzydb.attrs</groupId>
 	<artifactId>org.fuzzydb.attrs</artifactId>
-	<version>1.0.0.M3-SNAPSHOT</version>
 	<parent>
 		<artifactId>whirlwind-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>

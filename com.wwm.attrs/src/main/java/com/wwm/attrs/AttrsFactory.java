@@ -18,11 +18,17 @@ import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 
-
+/**
+// * Source of implementations of various items such as attribute maps.
+ * 
+ * @author Neale Upstone
+ *
+ */
 public final class AttrsFactory {
 
 	public static CardinalAttributeMap<IAttribute> getCardinalAttributeMap() {
 	    return new CardinalAttributeMapImpl();
+//	    return new CompactCardinalAttributeMap();
 	}
 
 	public static <E extends IAttributeContainer> SearchSpec createSearchSpec( Class<E> clazz ){

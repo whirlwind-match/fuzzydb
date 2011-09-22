@@ -240,11 +240,11 @@ public class NodeScore extends Score implements Serializable {
 		map.put(name, value);
 	}
 
-	public float getForwardsScore(String name) {
+	public Float getForwardsScore(String name) {
 		return getLabelledForwardScores().get(name);
 	}
 
-	public float getReverseScore(String name) {
+	public Float getReverseScore(String name) {
 		return getLabelledReverseScores().get(name);
 	}
 }

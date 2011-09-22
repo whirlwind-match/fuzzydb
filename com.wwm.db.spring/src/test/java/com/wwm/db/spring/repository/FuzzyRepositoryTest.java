@@ -27,7 +27,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.wwm.db.Ref;
 import com.wwm.db.query.Result;
 import com.wwm.model.attributes.Score;
 
