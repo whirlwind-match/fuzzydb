@@ -1,14 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.client</artifactId>
-    <version>1.0.0.M3-SNAPSHOT</version>
 
     <parent>
         <artifactId>whirlwind-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
         <version>1.0.0.M3-SNAPSHOT</version>
-        
+        <relativePath>../whirlwind-parent</relativePath>
     </parent>
 
     <description>database client and items common to the client and server (i.e. messages in between)
@@ -35,11 +34,10 @@ NOTE: compiled against io.packet, but io.packet is set as provided scope and mus
             <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
-        	<groupId>org.fuzzydb</groupId>
-        	<artifactId>org.fuzzydb.io.packet</artifactId>
-        	<version>1.0.0.M3-SNAPSHOT</version>
-        	<type>jar</type>
-        	<scope>provided</scope>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.io.packet</artifactId>
+            <version>1.0.0.M3-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

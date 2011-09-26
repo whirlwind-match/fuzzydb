@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fuzzydb.atom</groupId>
     <artifactId>org.fuzzydb.atom.server</artifactId>
-    <version>1.0.0.M3-SNAPSHOT</version>
 
-  <parent>
-  	<artifactId>whirlwind-parent</artifactId>
-  	<groupId>org.fuzzydb</groupId>
-  	<version>1.0.0.M3-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <artifactId>whirlwind-parent</artifactId>
+        <groupId>org.fuzzydb</groupId>
+        <version>1.0.0.M3-SNAPSHOT</version>
+        <relativePath>../whirlwind-parent</relativePath>
+    </parent>
 
     <dependencies>
         <dependency>
@@ -22,20 +23,18 @@
             <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
-        	<groupId>org.fuzzydb</groupId>
-        	<artifactId>org.fuzzydb.indexer</artifactId>
-        	<version>1.0.0.M3-SNAPSHOT</version>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.indexer</artifactId>
+            <version>1.0.0.M3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.osgi</groupId>
             <artifactId>org.eclipse.osgi.services</artifactId>
         </dependency>
         <dependency>
-        	<groupId>org.eclipse.jetty.aggregate</groupId>
-        	<artifactId>jetty-servlet</artifactId>
-        	<version>7.2.2.v20101205</version>
-        	<type>jar</type>
-        	<scope>compile</scope>
+            <groupId>org.eclipse.jetty.aggregate</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>7.2.2.v20101205</version>
         </dependency>
     </dependencies>
 </project>

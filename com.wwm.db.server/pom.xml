@@ -1,52 +1,47 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.fuzzydb</groupId>
-  <artifactId>org.fuzzydb.server</artifactId>
-  <version>1.0.0.M3-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>org.fuzzydb.server</artifactId>
 
     <parent>
         <groupId>org.fuzzydb</groupId>
         <artifactId>whirlwind-parent-aspectj</artifactId>
         <version>1.0.0.M3-SNAPSHOT</version>
-        
+        <relativePath>../whirlwind-parent-aspectj</relativePath>
     </parent>
 
     <description>Server:
 Compiles against io.packet, but that artifact must be included into runtime scope if you want to use TCPIP.</description>
     <dependencies>
-    <dependency>
-      <groupId>org.fuzzydb</groupId> 
-      <artifactId>org.fuzzydb.client</artifactId>
-      <version>1.0.0.M3-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.fuzzydb.attrs</groupId>
-    	<artifactId>org.fuzzydb.attrs</artifactId>
-    	<version>1.0.0.M3-SNAPSHOT</version>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.fuzzydb</groupId>
-    	<artifactId>org.fuzzydb.io.packet</artifactId>
-    	<version>1.0.0.M3-SNAPSHOT</version>
-    	<type>jar</type>
-    	<scope>provided</scope>
-    </dependency>
-		<dependency>
-		    <groupId>org.eclipse</groupId>
-		    <artifactId>osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-commons-core</artifactId>
-			<version>${spring.data.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.client</artifactId>
+            <version>1.0.0.M3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fuzzydb.attrs</groupId>
+            <artifactId>org.fuzzydb.attrs</artifactId>
+            <version>1.0.0.M3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.io.packet</artifactId>
+            <version>1.0.0.M3-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>osgi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons-core</artifactId>
+            <version>${spring.data.version}</version>
+        </dependency>
     </dependencies>
 </project>

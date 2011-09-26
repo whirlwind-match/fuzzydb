@@ -2,12 +2,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuzzydb.attrs</groupId>
 	<artifactId>org.fuzzydb.attrs</artifactId>
+
 	<parent>
 		<artifactId>whirlwind-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>
 		<version>1.0.0.M3-SNAPSHOT</version>
-
+		<relativePath>../whirlwind-parent</relativePath>
 	</parent>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
