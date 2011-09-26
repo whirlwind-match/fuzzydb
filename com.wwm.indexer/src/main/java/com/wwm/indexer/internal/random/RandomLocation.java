@@ -20,14 +20,14 @@ import com.wwm.util.MTRandom;
 
 public class RandomLocation implements RandomGenerator<Point3DAttribute> {
 
-    private int nullPercent;
+    private int nullProportion;
     private RandomPostcodeGenerator gen;
     private PostcodeConverter converter;
 
 
     public Point3DAttribute next(String attrName) {
         int rand = MTRandom.getInstance().nextInt(100);
-        if (rand < nullPercent) {
+        if (rand < nullProportion) {
             return null;
         }
 

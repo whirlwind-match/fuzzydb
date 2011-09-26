@@ -1,4 +1,4 @@
 <com.wwm.indexer.internal.random.RandomEnum>
 	<enumdef>LiftType.xml</enumdef>
-	<nullPercent>0</nullPercent>
+	<nullProportion>0</nullProportion>
 </com.wwm.indexer.internal.random.RandomEnum>
