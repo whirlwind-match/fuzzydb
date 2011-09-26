@@ -30,7 +30,7 @@
 				<dependency>
 					<groupId>com.wwm.db</groupId>
 					<artifactId>com.wwm.db.server.whirlwind</artifactId>
-					<version>1.0.0.CI-SNAPSHOT</version>
+					<version>1.0.0.M3-SNAPSHOT</version>
 				</dependency>
 			</dependencies>
 		</profile>
