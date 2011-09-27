@@ -17,7 +17,8 @@
     <modules>
         <module>whirlwind-parent</module>
         <module>whirlwind-parent-aspectj</module>
-
+        
+        <module>test-support</module>
         <module>com.wwm.util</module>
         <module>com.wwm.util.gui</module>
         <module>com.wwm.util.servlet</module>

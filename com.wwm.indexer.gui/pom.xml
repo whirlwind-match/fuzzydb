@@ -21,6 +21,11 @@
 			<artifactId>org.fuzzydb.util.gui</artifactId>
 			<version>1.0.0.M3-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>org.fuzzydb</groupId>
+            <artifactId>org.fuzzydb.test.support</artifactId>
+            <scope>runtime</scope> <!-- for logging -->
+        </dependency>
 	</dependencies>
 
 	<profiles>
