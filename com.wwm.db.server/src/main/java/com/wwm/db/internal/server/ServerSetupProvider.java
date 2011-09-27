@@ -19,14 +19,9 @@ import com.wwm.db.core.Settings;
 public class ServerSetupProvider {
 
 	private String diskRoot = Settings.getInstance().getDbRoot();
-			// Settings.getInstance().isWindows() ? "\\db2" : "/lmdb2/db";
 	private String txDiskPath = "tx";
 	private String logDiskPath = "log";
 	private String reposDiskPath = "repos";
-	
-	public ServerSetupProvider() {
-		assertWriteableDirectory(diskRoot);
-	}
 	
 	
 	private void assertWriteableDirectory(String directoryPath) {
@@ -48,6 +43,7 @@ public class ServerSetupProvider {
 	}
 	
 	public String getTxDiskRoot() {
+		assertWriteableDirectory(diskRoot);
 		return diskRoot + File.separator +txDiskPath;
 	}
 	
