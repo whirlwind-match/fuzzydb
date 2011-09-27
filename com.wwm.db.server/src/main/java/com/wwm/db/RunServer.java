@@ -24,6 +24,7 @@ import com.wwm.util.FileUtils;
  */
 public class RunServer {
 
+	// TODO: Use args4j to clean this up.
 	public static void main(String[] args) {
 		Settings config = Settings.getInstance();
 

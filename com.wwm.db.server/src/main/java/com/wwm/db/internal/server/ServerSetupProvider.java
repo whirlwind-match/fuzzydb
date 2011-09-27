@@ -12,6 +12,8 @@ package com.wwm.db.internal.server;
 
 import java.io.File;
 
+import org.springframework.util.Assert;
+
 import com.wwm.db.core.Settings;
 
 public class ServerSetupProvider {
@@ -22,6 +24,21 @@ public class ServerSetupProvider {
 	private String logDiskPath = "log";
 	private String reposDiskPath = "repos";
 	
+	public ServerSetupProvider() {
+		assertWriteableDirectory(diskRoot);
+	}
+	
+	
+	private void assertWriteableDirectory(String directoryPath) {
+		File dir = new File(directoryPath);
+		
+		if (dir.isDirectory() && dir.canWrite()) {
+			return;
+		}
+		Assert.state(dir.mkdirs(), "Could not create directory: " + directoryPath);
+	}
+
+
 	public String getReposDiskRoot() {
 		return diskRoot + File.separator +reposDiskPath;
 	}
