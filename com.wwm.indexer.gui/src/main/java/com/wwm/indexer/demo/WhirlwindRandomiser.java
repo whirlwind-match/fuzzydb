@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.wwm.context.JVMAppListener;
 import com.wwm.indexer.IndexerFactory;
@@ -25,6 +26,8 @@ public class WhirlwindRandomiser {
 
     private final WhirlwindCommon wCommon;
 
+    private final AtomicInteger numAllocated = new AtomicInteger();
+    
     Date now = new Date();
 
     public WhirlwindRandomiser(WhirlwindCommon WCommon) {
@@ -34,6 +37,8 @@ public class WhirlwindRandomiser {
     public void createRandomEntries(int numEntries, IProgress progress)
     throws Exception {
         NanoTimer total = new NanoTimer();
+        
+        int offset = numAllocated.getAndAdd(numEntries);
 
         int numberToCreate = NUMOBJECTSPERCREATE;
         for (int i = 0; i < numEntries; i += NUMOBJECTSPERCREATE) {
@@ -44,7 +49,8 @@ public class WhirlwindRandomiser {
 
             ArrayList<Record> entries = new ArrayList<Record>();
             for (int j = 0; j < numberToCreate; j++) {
-                RecordImpl rec = new RecordImpl("Rec:" + (i*NUMOBJECTSPERCREATE)+j);
+                int index = offset + i * NUMOBJECTSPERCREATE + j;
+				RecordImpl rec = new RecordImpl("Rec:" + index);
                 rec.setTitle("Random Data");
                 rec.setAttributes(generateProfileAttributes());
                 entries.add(rec);
