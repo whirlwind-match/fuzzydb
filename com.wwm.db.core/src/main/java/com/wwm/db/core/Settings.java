@@ -69,8 +69,8 @@ public class Settings implements SettingsMBean {
 
 	// DbServer Configs
     private boolean dbCleanOnStart = false; // NOTE: true deletes database dirs EVERY time
-	private String dbRootWin = "\\apps\\wwm-db";
-	private String dbRootLinux = "/lmdb/db";
+	private String dbRootWin = "target\\wwm-db";
+	private String dbRootLinux = "target/wwm-db";
 	private String reposDir = "repos";
 	private String txDir = "tx";
 	private String logDir = "log";
