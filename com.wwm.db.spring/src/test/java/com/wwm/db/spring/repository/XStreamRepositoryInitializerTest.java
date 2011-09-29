@@ -38,7 +38,7 @@ public class XStreamRepositoryInitializerTest {
 	}
 
 	@Test
-	public void singleObjectFromXmlFileShouldBePersisted() {
+	public void singleObjectFromXmlFileShouldBePersisted() throws ClassNotFoundException {
 
 		Mockito.when(repo.save(captor.capture())).thenAnswer(new Answer<PrimaryKeyedItem>() {
 			public PrimaryKeyedItem answer(InvocationOnMock invocation) throws Throwable {
@@ -61,7 +61,7 @@ public class XStreamRepositoryInitializerTest {
 	}
 
 	@Test
-	public void multipleObjectsFromXmlFileShouldBePersisted() {
+	public void multipleObjectsFromXmlFileShouldBePersisted() throws ClassNotFoundException {
 
 		Mockito.when(repo.save(listCaptor.capture())).thenAnswer(new Answer<Iterable<PrimaryKeyedItem>>() {
 			@SuppressWarnings("unchecked")
