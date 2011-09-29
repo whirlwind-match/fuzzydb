@@ -9,14 +9,8 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
-
 import com.thoughtworks.xstream.XStream;
 import com.wwm.util.ResourcePatternProcessor;
 
@@ -28,8 +22,6 @@ public class XStreamRepositoryInitializer<T, ID extends Serializable> implements
 	
 	private String resources;
 
-	private PlatformTransactionManager transactionManager;
-	
 	public XStreamRepositoryInitializer(CrudRepository<T, ID> repo) {
 		this.repo = repo;
 	}
@@ -68,25 +60,12 @@ public class XStreamRepositoryInitializer<T, ID extends Serializable> implements
         }.runWithResources(resources);
 	}
 
-	@Autowired
-	public void setTransactionManager(PlatformTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
-	}
-	
 	private void save(final T object) {
-		new TransactionTemplate(transactionManager).execute(new TransactionCallback<T>() {
-			public T doInTransaction(TransactionStatus status) {
-				return repo.save(object);
-			}
-		});
+		repo.save(object);
 	}
 	
 	private void save(final ArrayList<T> objects) {
-		new TransactionTemplate(transactionManager).execute(new TransactionCallback<Iterable<T>>() {
-			public Iterable<T> doInTransaction(TransactionStatus status) {
-				return repo.save(objects);
-			}
-		});
+		repo.save(objects);
 	}
 	
 }

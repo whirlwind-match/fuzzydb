@@ -19,8 +19,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.PlatformTransactionManager;
-
 import com.thoughtworks.xstream.XStream;
 
 public class XStreamRepositoryInitializerTest {
@@ -33,9 +31,6 @@ public class XStreamRepositoryInitializerTest {
 
 	@Captor
 	ArgumentCaptor<Iterable<PrimaryKeyedItem>> listCaptor;
-
-	@Mock
-	private PlatformTransactionManager transactionManager;
 
 	@Before
 	public void init() {
@@ -55,7 +50,6 @@ public class XStreamRepositoryInitializerTest {
 		XStreamRepositoryInitializer<PrimaryKeyedItem, String> initializer = XStreamRepositoryInitializer
 				.forRepository(repo);
 		initializer.setResources("classpath:/keyedItem.xml");
-		initializer.setTransactionManager(transactionManager);
 		initializer.afterPropertiesSet();
 
 		// verify
@@ -80,7 +74,6 @@ public class XStreamRepositoryInitializerTest {
 		XStreamRepositoryInitializer<PrimaryKeyedItem, String> initializer = XStreamRepositoryInitializer
 				.forRepository(repo);
 		initializer.setResources("classpath:/keyedItems.xml");
-		initializer.setTransactionManager(transactionManager);
 		initializer.afterPropertiesSet();
 
 		// verify
