@@ -27,7 +27,7 @@
 		<otherAttrId>Smoke</otherAttrId>
 		<filter>false</filter>
 		<weight>1.0</weight>
-	    <map scorerEnumDefinition="Smoke" otherEnumDefinition="Smoke" url="classpath:xml/liftshare/scorerConfigs/smokeEnumMap.html"/>
+	    <map scorerEnumDefinition="Smoke" otherEnumDefinition="Smoke" url="classpath:xml/liftshare/scorerconfigs/smokeEnumMap.html"/>
 	</EnumScoresMapScorer>
 	
 	<!-- SimilarAge.xml-->
