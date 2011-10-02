@@ -76,7 +76,7 @@ public class AttributeIdMapper implements Converter {
         
         // Dive in and get field we know is there!
         PathTracker tracker = (PathTracker) new DirectFieldAccessor(ptr).getPropertyValue("pathTracker");
-        // instead of PathTracker tracker = ptr.getPathTracker();
+        // instead of PathTracker tracker = ptr.getPathTracker();  - see http://jira.codehaus.org/browse/XSTR-490
         
         String path = tracker.getPath().toString();
         int end = path.lastIndexOf('['); // duplicates are indexed i.e. parent[2] and we don't want the index
