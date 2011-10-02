@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.test.support</artifactId>
-            <scope>runtime</scope> <!-- for logging -->
+            <scope>compile</scope> <!-- for logging --> <!-- Doesn't seem to work with exec:java at runtime scope -->
         </dependency>
 	</dependencies>
 
