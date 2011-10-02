@@ -64,7 +64,7 @@ public class RandomPostcodeGenerator {
 
 	public String nextShortPostcode() {
 		if (shortData==null || shortData.length < 4) {
-			throw new Error("Random Postcodes short data did not load");
+			throw new RuntimeException("Random Postcodes short data did not load");
 		}
 		int numCodes = shortData.length / 4;
 		int index = 4 * random.nextInt(numCodes);
@@ -75,7 +75,7 @@ public class RandomPostcodeGenerator {
 			result = new String(shortData, index, 4, "UTF8");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("Internal error: " + e);
-			throw new Error(e);
+			throw new RuntimeException(e);
 		}
 		return result.trim();
 	}
@@ -86,13 +86,18 @@ public class RandomPostcodeGenerator {
 		shortData = j.getPrefixData();
 		
 		// Load full data
-		String root = Settings.getInstance().getPostcodeRoot();
-		String fileName = root + File.separatorChar + RandomPostcodeImporter.randomCodesFile;
-		fullData = (byte[]) FileUtils.readObjectFromGZip(fileName);
-
-		if (fullData.length % 7 != 0) {
-			log.error("Error reading from " + fileName + ": Postcodes array is not a multiple of 7!");
-			throw new Error();
+		try {
+			String root = Settings.getInstance().getPostcodeRoot();
+			String fileName = root + File.separatorChar + RandomPostcodeImporter.randomCodesFile;
+			fullData = (byte[]) FileUtils.readObjectFromGZip(fileName);
+			if (fullData.length % 7 != 0) {
+				log.error("Error reading from " + fileName + ": Postcodes array is not a multiple of 7!");
+				throw new RuntimeException("Error reading from " + fileName + ": Postcodes array is not a multiple of 7!");
+			}
+		} catch (Exception e) {
+			// ignore exception
+			log.debug("Aborted loading random postcode data file due to: ", e.getMessage());
 		}
+		
 	}
 }

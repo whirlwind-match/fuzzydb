@@ -11,7 +11,6 @@
 package com.wwm.postcode;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Random;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
@@ -22,16 +21,10 @@ import com.wwm.util.MTRandom;
 public class RandomUKShortPostcode implements RandomGenerator<NonIndexStringAttribute> {
 	private static Logger log = LogFactory.getLogger(RandomUKShortPostcode.class);
 
-	private Random random;
-
-	private JibbleConvertor jibble;
-	
 	/**
 	 * Create a new postcode generator with a default source of randomness
 	 */
 	public RandomUKShortPostcode() {
-		random = new MTRandom();
-		jibble = JibbleConvertor.getInstance();
 	}
 	
 	@Override
@@ -40,12 +33,12 @@ public class RandomUKShortPostcode implements RandomGenerator<NonIndexStringAttr
 	}
 	
 	public String nextShortPostcode() {
-		byte[] shortData = jibble.getPrefixData();
+		byte[] shortData = JibbleConvertor.getInstance().getPrefixData();
 		if (shortData==null || shortData.length < 4) {
 			throw new RuntimeException("Random Postcodes short data did not load");
 		}
 		int numCodes = shortData.length / 4;
-		int index = 4 * random.nextInt(numCodes);
+		int index = 4 * MTRandom.getInstance().nextInt(numCodes);
 		
 		String result;
 		
