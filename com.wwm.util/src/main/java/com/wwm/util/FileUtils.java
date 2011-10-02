@@ -47,7 +47,9 @@ public class FileUtils {
 		}
 		finally {
 			try {
-				stream.close();
+				if (stream != null) {
+					stream.close();
+				}
 			} catch (IOException e) {
 				// squash close exception
 			}
