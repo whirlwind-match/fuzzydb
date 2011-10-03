@@ -10,9 +10,8 @@
  *****************************************************************************/
 
 package com.wwm.attrs.byteencoding;
-import com.wwm.db.whirlwind.AttributeRemapper;
+
 import com.wwm.db.whirlwind.CardinalAttributeMap;
-import com.wwm.db.whirlwind.StringAttributeMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 
@@ -24,11 +23,6 @@ public class CompactCardinalAttributeMap extends CompactAttrMap<IAttribute> impl
 
 	public IAttributeMap<IAttribute> getAttributeMap() {
 		return this; // a fancy cast
-	}
-
-	// TODO: I think that remap is going to disappear... as we'll just support a single internal impl.
-	public StringAttributeMap<IAttribute> remap(AttributeRemapper remapper) {
-		throw new UnsupportedOperationException();
 	}
 
 

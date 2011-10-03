@@ -15,11 +15,10 @@ import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.util.IntMap;
 
 /**
- * Int to V map including remap() capability
+ * Int to V map access to attributes
  *
  * @param <V>
  */
 public interface CardinalAttributeMap<V> extends IntMap<V>, IAttributeContainer {
 
-	public StringAttributeMap<V> remap(AttributeRemapper remapper);
 }

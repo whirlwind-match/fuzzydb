@@ -20,7 +20,5 @@ import com.wwm.model.attributes.Attribute;
  */
 public interface StringAttributeMap<V> extends IAttributeContainer {
 
-	public CardinalAttributeMap<V> remap(AttributeRemapper remapper);
-	
 	public void put(Attribute obj);
 }

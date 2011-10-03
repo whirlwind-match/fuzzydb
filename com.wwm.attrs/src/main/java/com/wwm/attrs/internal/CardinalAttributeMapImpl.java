@@ -14,10 +14,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-
-import com.wwm.db.whirlwind.AttributeRemapper;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
-import com.wwm.db.whirlwind.StringAttributeMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 
@@ -37,12 +34,6 @@ public class CardinalAttributeMapImpl extends AttributeMap<IAttribute> implement
 
 	public CardinalAttributeMapImpl(IAttributeMap<IAttribute> attributes) {
 		super(attributes);
-	}
-
-
-	public StringAttributeMap<IAttribute> remap(AttributeRemapper remapper) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

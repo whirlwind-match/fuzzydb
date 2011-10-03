@@ -17,8 +17,6 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.simple.FloatValue;
 import com.wwm.db.Store;
-import com.wwm.db.whirlwind.AttributeRemapper;
-import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.StringAttributeMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
@@ -47,11 +45,6 @@ public class CartmanStringAttributeMapImpl extends AttributeMap<IAttribute> impl
 
 	public IAttributeMap<IAttribute> getAttributeMap() {
 		return this; // a fancy cast
-	}
-
-	// TODO: I think that remap is going to disappear... as we'll just support a single internal impl.
-	public CardinalAttributeMap<Object> remap(AttributeRemapper remapper) {
-		throw new UnsupportedOperationException();
 	}
 
 	public void put(Attribute attr1) {
