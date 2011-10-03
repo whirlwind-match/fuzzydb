@@ -1,25 +1,53 @@
 package org.fuzzydb.spring.config;
 
 import org.fuzzydb.spring.config.SimpleFuzzyRepositoryConfiguration.FuzzyRepositoryConfiguration;
-import org.fuzzydb.spring.repository.support.FuzzyRepositorySupport;
-import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser;
 import org.w3c.dom.Element;
+
+import com.wwm.attrs.converters.WhirlwindConversionService;
+import com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr;
+import com.wwm.db.spring.transaction.WhirlwindExceptionTranslator;
 
 public class FuzzyRepositoryConfigDefinitionParser extends
 		AbstractRepositoryConfigDefinitionParser<SimpleFuzzyRepositoryConfiguration, FuzzyRepositoryConfiguration> {
 
-	/**
-	 * Override parse to pick up on beans we need to register at this point.
-	 */
+    private static final Class<?> EXCEPTION_TRANSLATOR = WhirlwindExceptionTranslator.class;
+	
 	@Override
-	public BeanDefinition parse(Element element, ParserContext parser) {
-		BeanDefinition beanDefinition = super.parse(element, parser);
-		FuzzyRepositorySupport.registerFuzzySupportBeans(parser);
-		return beanDefinition;
+	protected void registerBeansForRoot(BeanDefinitionRegistry registry, Object source) {
+		super.registerBeansForRoot(registry, source);
+
+        if (!hasBean(EXCEPTION_TRANSLATOR, registry)) {
+            AbstractBeanDefinition definition =
+                    BeanDefinitionBuilder
+                            .rootBeanDefinition(EXCEPTION_TRANSLATOR)
+                            .getBeanDefinition();
+
+            registerWithSourceAndGeneratedBeanName(registry, definition, source);
+        }
+
+		// Conversion service default
+        if (!hasBean(WhirlwindConversionService.class, registry)) {
+            AbstractBeanDefinition definition =
+                    BeanDefinitionBuilder
+                            .rootBeanDefinition(WhirlwindConversionService.class)
+                            .getBeanDefinition();
+            registerWithSourceAndGeneratedBeanName(registry, definition, source);
+		}
+	
+		// Conversion service default
+        if (!hasBean(CurrentTxAttrDefinitionMgr.class, registry)) {
+            AbstractBeanDefinition definition =
+                    BeanDefinitionBuilder
+                            .rootBeanDefinition(CurrentTxAttrDefinitionMgr.class)
+                            .getBeanDefinition();
+            registerWithSourceAndGeneratedBeanName(registry, definition, source);
+		}
+		
+
 	}
 
 	@Override
@@ -35,4 +63,6 @@ public class FuzzyRepositoryConfigDefinitionParser extends
 		// Do something with our context...
 	}
 
+	
+	
 }

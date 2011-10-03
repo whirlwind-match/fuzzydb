@@ -41,7 +41,7 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 	@Override
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
 		
-		FuzzyRepositorySupport.registerFuzzySupportBeans(parserContext);
+		FuzzyRepositorySupport.registerFuzzySupportBeans(parserContext.getRegistry());
 	    
 	    // Build the repository for class
 	    String persistedClass = element.getAttribute("class");

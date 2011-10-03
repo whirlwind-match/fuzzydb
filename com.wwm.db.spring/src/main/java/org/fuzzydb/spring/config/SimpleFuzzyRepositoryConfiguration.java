@@ -1,5 +1,6 @@
 package org.fuzzydb.spring.config;
 
+import org.fuzzydb.spring.repository.support.FuzzyRepositoryFactoryBean;
 import org.springframework.data.repository.config.AutomaticRepositoryConfigInformation;
 import org.springframework.data.repository.config.ManualRepositoryConfigInformation;
 import org.springframework.data.repository.config.RepositoryConfig;
@@ -9,8 +10,7 @@ import org.w3c.dom.Element;
 public class SimpleFuzzyRepositoryConfiguration  extends
 			RepositoryConfig<SimpleFuzzyRepositoryConfiguration.FuzzyRepositoryConfiguration, SimpleFuzzyRepositoryConfiguration> {
 
-    private static final String FACTORY_CLASS =
-            "org.fuzzydb.spring.repository.support.FuzzyRepositoryFactoryBean";
+    private static final String FACTORY_CLASS = FuzzyRepositoryFactoryBean.class.getCanonicalName();
 
 	static interface FuzzyRepositoryConfiguration extends
 	SingleRepositoryConfigInformation<SimpleFuzzyRepositoryConfiguration> {
