@@ -11,8 +11,8 @@
 package com.wwm.attrs;
 
 
-import com.wwm.attrs.internal.CardinalAttributeMapImpl;
 import com.wwm.attrs.search.SearchSpecImpl;
+import com.wwm.db.core.Settings;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
@@ -26,8 +26,16 @@ import com.wwm.db.whirlwind.internal.IAttribute;
  */
 public final class AttrsFactory {
 
+	@SuppressWarnings("unchecked")
 	public static CardinalAttributeMap<IAttribute> getCardinalAttributeMap() {
-	    return new CardinalAttributeMapImpl();
+		String mapClassName = Settings.getInstance().getAttributeMapClassName();
+		try {
+			return (CardinalAttributeMap<IAttribute>) Class.forName(mapClassName).newInstance();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+//	    return new CardinalAttributeMapImpl();
 //	    return new CompactCardinalAttributeMap();
 	}
 

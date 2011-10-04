@@ -96,7 +96,7 @@ public class Settings implements SettingsMBean {
 	private boolean compressLogs = false;
 	private boolean xmlLogs = false;
 	
-	private String attributeMapClassName = "com.wwm.attrs.internal.AttributeMap";
+	private String attributeMapClassName = "com.wwm.attrs.internal.CardinalAttributeMapImpl"; // TODO: shouldn't this be able to be "com.wwm.attrs.internal.AttributeMap" ?
     private String constraintMapClassName = "com.wwm.attrs.internal.ConstraintMap";
     private String configDAOClassName = "com.archopolis.db.dao.internal.Db1ClientDAO";
     private String statsDAOClassName = "com.wwm.db.dao.StatsStoreDao"; 
