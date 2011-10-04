@@ -212,7 +212,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 		for (;;) {
 			if (vo == null)
 				return;
-			if (vo.getVersion() <= preserveVersion) {
+			if (vo.getVersion() < preserveVersion) {
 				vo.clearOldVersions();
 				return;
 			}
