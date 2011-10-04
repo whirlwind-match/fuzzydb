@@ -50,7 +50,7 @@ public class WhirlwindRandomiser {
             ArrayList<Record> entries = new ArrayList<Record>();
             for (int j = 0; j < numberToCreate; j++) {
                 int index = offset + i * NUMOBJECTSPERCREATE + j;
-				RecordImpl rec = new RecordImpl("Rec:" + index);
+				RecordImpl rec = new RecordImpl("Rec:" + index + 1000000);
                 rec.setTitle("Random Data");
                 rec.setAttributes(generateProfileAttributes());
                 entries.add(rec);
@@ -68,7 +68,7 @@ public class WhirlwindRandomiser {
     private TreeMap<String, Attribute<?>> generateAttributes() throws Exception {
         TreeMap<String, Attribute<?>> attributes = new TreeMap<String, Attribute<?>>();
 
-        for (Entry<String, RandomGenerator> entry : wCommon.getXmlLoader().getDemoCfg().getRandomGenerators().entrySet()) {
+        for (Entry<String, RandomGenerator<?>> entry : wCommon.getXmlLoader().getDemoCfg().getRandomGenerators().entrySet()) {
             Attribute<?> attr = entry.getValue().next(entry.getKey());
             attributes.put(entry.getKey(), attr);
         }

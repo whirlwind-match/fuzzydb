@@ -18,7 +18,7 @@ public class WhirlwindDemoConfig {
 
     private String randomiser;
     private Randomiser randInst;
-    private TreeMap<String, RandomGenerator> randomGenerators;
+    private TreeMap<String, RandomGenerator<?>> randomGenerators;
     private ArrayList<SearchTabXmlConfig> searchTabs;
     //	private TreeMap<String, BaseFormatter> formatters;
 
@@ -79,7 +79,7 @@ public class WhirlwindDemoConfig {
     //		return formatters;
     //	}
 
-    public TreeMap<String, RandomGenerator> getRandomGenerators() {
+    public TreeMap<String, RandomGenerator<?>> getRandomGenerators() {
         return randomGenerators;
     }
 }
