@@ -14,25 +14,32 @@ import com.wwm.db.internal.server.ServerTransaction.Mode;
 
 public interface TransactionControl {
 
-	public void setMode(Mode mode);
+	void setMode(Mode mode);
 
 	/**
 	 * The version of the database when this transaction was created.
 	 * Allows this transaction to see a static database.
 	 */
-	public long getVisibleVersion();
+	long getVisibleVersion();
 
 	/**
 	 * The version the database will be after this transactions commit phase.
 	 * This field is null until the transaction enters commit phase.
 	 * @return The vew version, or null if not in commit phase
 	 */
-	public Long getCommitVersion();
+	Long getCommitVersion();
 
-	/**Determines if this transaction is in the commit phase.
+	/**
+	 * Determines if this transaction is in the commit phase.
 	 * This method also determines if the getCommitVersion() method will return null.
 	 * @return true if this transaction is committing. 
 	 */
-	public boolean isInCommitPhase();
-
+	boolean isInCommitPhase();
+	
+	
+	/**
+	 * Get the oldest visible database version.  Used within the database to
+	 * support timely purging of stale versions.
+	 */
+	long getOldestDbVersion();
 }

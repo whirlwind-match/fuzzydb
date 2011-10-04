@@ -75,4 +75,7 @@ public class TransactionState implements TransactionControl {
 		return commitVersion != null;
 	}
 
+	public long getOldestDbVersion() {
+		return vp.getOldestTransactionVersion();
+	}
 }

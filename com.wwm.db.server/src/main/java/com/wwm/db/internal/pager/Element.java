@@ -236,6 +236,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 			currentVersion = currentVersion.olderVersion;
 		}
 		currentVersion = new VersionedObject<T>(dbversion, currentVersion, object);
+		flushOldVersions(CurrentTransactionHolder.getTransaction().getOldestDbVersion());
 	}
 
 	/* (non-Javadoc)

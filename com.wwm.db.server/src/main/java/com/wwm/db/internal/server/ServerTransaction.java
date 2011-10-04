@@ -78,6 +78,10 @@ public abstract class ServerTransaction implements TransactionControl {
 		return transactionState.getCommitVersion();
 	}
 
+	public long getOldestDbVersion() {
+		return transactionState.getCommitVersion();
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.wwm.db.internal.server.TransactionControl#isInCommitPhase()
 	 */
