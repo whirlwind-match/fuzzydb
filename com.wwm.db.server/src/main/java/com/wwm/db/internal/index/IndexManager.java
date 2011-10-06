@@ -12,7 +12,6 @@ package com.wwm.db.internal.index;
 
 import java.io.Serializable;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.search.Search;
@@ -56,7 +55,12 @@ public abstract class IndexManager<T> implements Serializable {
 	 */
 	abstract public boolean deletePersistentData();
 
+	/**
+	 * Validate that we can add the supplied item to an index.
+	 * @throws KeyCollisionException if the item is already in the index
+	 */
 	abstract public void testAddToIndexes(MetaObject<T> mo) throws KeyCollisionException;
+	
 	abstract public void addToIndexes(MetaObject<T> mo);
 	abstract public void removeFromIndexes(MetaObject<T> mo);
 	abstract public Search getSearch(SearchSpec searchSpec, boolean wantNominee);

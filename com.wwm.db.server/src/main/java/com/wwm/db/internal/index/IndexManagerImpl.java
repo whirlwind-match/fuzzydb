@@ -11,14 +11,17 @@
 package com.wwm.db.internal.index;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
-
+import java.util.concurrent.Callable;
 import org.slf4j.Logger;
 import org.springframework.data.annotation.Id;
 import org.springframework.util.StringUtils;
 
+import com.wwm.db.core.WorkManager;
 import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
@@ -103,17 +106,40 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
     }
 
     @Override
-    public void testAddToIndexes(MetaObject<T> mo) throws KeyCollisionException {
-        for (Index<T> index : indexes.values()) {
-            index.testInsert(mo.getRef(), mo.getObject());
-        }
-    }
+    public void testAddToIndexes(final MetaObject<T> mo) throws KeyCollisionException {
+    	LinkedList<Callable<Void>> tasks = new LinkedList<Callable<Void>>();
 
-    @Override
-    public void addToIndexes(MetaObject<T> mo) {
-        for (Index<T> index : indexes.values()) {
-            index.insert(mo.getRef(), mo.getObject());
+        for (final Index<T> index : indexes.values()) {
+        
+            tasks.add( new TransactionPropagatingCallable<Void>() {
+				@Override
+				public Void callInternal() throws Exception {
+					index.testInsert(mo.getRef(), mo.getObject());
+					return null;
+				}
+    		});
         }
+        
+        WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
+    }
+    
+	@Override
+    public void addToIndexes(final MetaObject<T> mo) {
+    	
+    	ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(indexes.size());
+
+        for (final Index<T> index : indexes.values()) {
+        
+            tasks.add( new TransactionPropagatingCallable<Void>() {
+				@Override
+				public Void callInternal() throws Exception {
+					index.insert(mo.getRef(), mo.getObject());
+					return null;
+				}
+    		});
+        }
+        
+        WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
     }
 
     @Override
@@ -198,7 +224,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
     /**
      * Ensure that there is a WhirlwindIndex for each index strategy we have defined for this class.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
 	private void checkWWIndex() {
         // If we're not dealing with a WhirlwindItem, then we don't need to go any further
         if (!IWhirlwindItem.class.isAssignableFrom(table.getStoredClass())) {
