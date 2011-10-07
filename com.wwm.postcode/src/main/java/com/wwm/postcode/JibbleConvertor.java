@@ -38,6 +38,8 @@ public class JibbleConvertor {
 	
 	private TreeMap<String, PostcodeResult> jibbleMap;
 
+	private byte[] prefixData;
+
 	
 	public static synchronized JibbleConvertor getInstance() {
 		if (instance == null) {
@@ -64,6 +66,10 @@ public class JibbleConvertor {
 	}
 	
 	public byte[] getPrefixData() {
+		if (prefixData != null) {
+			return prefixData;
+		}
+		
 		StringBuffer sb = new StringBuffer();
 		Set<String> set = jibbleMap.keySet();
 		for (String s : set) {
@@ -76,7 +82,8 @@ public class JibbleConvertor {
 		}
 		String data = sb.toString();
 		try {
-			return data.getBytes("UTF8");
+			prefixData = data.getBytes("UTF8");
+			return prefixData;
 		} catch (UnsupportedEncodingException e) {
 			throw new Error("Internal Error. ", e);
 		}
