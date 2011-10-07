@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import jsr166y.ForkJoinPool;
@@ -12,8 +13,8 @@ public class WorkManager {
 
 	static private WorkManager instance = new WorkManager();
 	
-//	private ExecutorService executor = Executors.newFixedThreadPool(2);
-	private ForkJoinPool executor = new ForkJoinPool(2);
+	private ExecutorService executor = Executors.newFixedThreadPool(2);
+	private ForkJoinPool forkJoinPool = new ForkJoinPool(2);
 	
 	public static WorkManager getInstance() {
 		return instance;
@@ -24,7 +25,7 @@ public class WorkManager {
 	}
 	
 	public ForkJoinPool getForkJoinExecutor() {
-		return executor;
+		return forkJoinPool;
 	}
 
 	public void invokeAllAndRethrowExceptions(List<Callable<Void>> tasks) {
