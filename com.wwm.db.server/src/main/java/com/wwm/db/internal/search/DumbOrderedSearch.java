@@ -66,8 +66,8 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
         this.nominee = nominee;
         this.config = config;
 
-        if ( log.isInfoEnabled() ){
-        	log.info( "New Search: threshold = " + spec.getScoreThreshold()
+        if ( log.isDebugEnabled() ){
+        	log.debug( "New Search: threshold = " + spec.getScoreThreshold()
         			+ ", targetNumResults = " + spec.getTargetNumResults()
         			+ ", searchType = " + spec.getScorerConfig() );
         }
@@ -141,8 +141,8 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
         }
 
         // Log some info about the work done
-        if ( log.isInfoEnabled() ) {
-            log.info( "Queued " + resultsQ.size() +
+        if ( log.isDebugEnabled() ) {
+            log.debug( "Queued " + resultsQ.size() +
             		" results.  Time (ms): " + timer.getMillis()
             );
         }
@@ -151,7 +151,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
         searchCount++;
 
 
-        if (searchCount == 10) {
+        if (searchCount == 100) {
             float avTime = searchTime / searchCount;
             float avElapsed = (float)(System.currentTimeMillis() - searchStartTime) / searchCount;
             float avResults = (float)(totalResults) / searchCount;
@@ -169,8 +169,8 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
     private void logResults(ArrayList<NextItem> results) {
 
         // Log some info about the work done
-        if ( log.isInfoEnabled() ) {
-            log.info( "# results: " + results.size()
+        if ( log.isDebugEnabled() ) {
+            log.debug( "# results: " + results.size()
             );
         }
 
