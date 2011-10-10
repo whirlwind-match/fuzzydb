@@ -62,8 +62,7 @@ public class TestScoringLocation {
 		search.putAttr(point1);
 		search.putAttr(range100);
 		profile.putAttr(point1);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertEquals(1.0f / 1.1f, score.total(), 0.001f); // large range reduces score a bit: 1 / (1 + range/1000)
 	}
 
@@ -74,8 +73,7 @@ public class TestScoringLocation {
 		search.putAttr(point1);
 		search.putAttr(range100);
 		profile.putAttr(point2);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() > 0f);
 		Assert.assertTrue(score.total() < 1.0f);
 	}
@@ -87,8 +85,7 @@ public class TestScoringLocation {
 		search.putAttr(point1);
 		search.putAttr(range100);
 		profile.putAttr(point3);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() == 0f);
 	}
 
@@ -100,8 +97,7 @@ public class TestScoringLocation {
 		search.putAttr(range100);
 		profile.putAttr(point1);
 		profile.putAttr(range100);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertEquals(1f / 1.1f, score.total(), 0.001f);
 	}
 
@@ -113,8 +109,7 @@ public class TestScoringLocation {
 		search.putAttr(range100);
 		profile.putAttr(point2);
 		profile.putAttr(range100);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() > 0f);
 		Assert.assertTrue(score.total() < 1.0f);
 	}
@@ -126,8 +121,7 @@ public class TestScoringLocation {
 		search.putAttr(range100);
 		profile.putAttr(point3);
 		profile.putAttr(range100);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() == 0f);
 	}
 
@@ -139,8 +133,7 @@ public class TestScoringLocation {
 		search.putAttr(range100);
 		profile.putAttr(point2);
 		profile.putAttr(range2small);
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 		Assert.assertTrue(score.total() == 0f);
 	}
 	

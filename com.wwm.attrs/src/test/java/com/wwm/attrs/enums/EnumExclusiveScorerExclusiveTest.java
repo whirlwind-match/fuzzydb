@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.wwm.attrs.AttributeMapFactory;
-import com.wwm.attrs.ItemScore;
+import com.wwm.attrs.Score;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.db.whirlwind.SearchSpec.SearchMode;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -46,14 +46,12 @@ public class EnumExclusiveScorerExclusiveTest {
 		search.putAttr(wantNullStatus);	// looking for null
 		// profile.putAttr( nowt !! );
 		
-		ItemScore score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.Forwards);
+		Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.Forwards);
 		assertTrue(score.total() == 1.0f);
 
 
 		profile.putAttr(statusIsOne);
-		score = new ItemScore();
-		scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.Forwards);
+		score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.Forwards);
 		assertTrue(score.total() == 0.0f);
     }
 

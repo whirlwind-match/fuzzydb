@@ -40,8 +40,8 @@ public interface IScoreConfiguration {
 
 
 	
-	public void scoreAllItemToItem(Score score, IAttributeMap<IAttribute> searchAttrs,
-			IAttributeMap<IAttribute> itemAttrs, SearchMode searchMode);
+	public Score scoreAllItemToItem(IAttributeMap<IAttribute> searchAttrs, IAttributeMap<IAttribute> itemAttrs,
+			SearchMode searchMode);
 
 	/**
 	 * Score search->constraints and constraints->search

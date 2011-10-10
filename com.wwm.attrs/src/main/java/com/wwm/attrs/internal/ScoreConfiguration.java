@@ -93,13 +93,16 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
     /** 
 	 * Support client side scoring both ways according to what search mode is set (added when migrating AppLayer)
 	 */
-	public void scoreAllItemToItem(Score score, IAttributeMap<IAttribute> searchAttrs, IAttributeMap<IAttribute> itemAttrs, SearchMode searchMode) {
+	public Score scoreAllItemToItem(IAttributeMap<IAttribute> searchAttrs, IAttributeMap<IAttribute> itemAttrs, SearchMode searchMode) {
+		final Score score = new NodeScore();
+		
 		if (searchMode == SearchMode.Forwards || searchMode == SearchMode.TwoWay) {
 			scoreAll(score, Direction.forwards, searchAttrs, itemAttrs );
 		}
 		if (searchMode == SearchMode.Reverse || searchMode == SearchMode.TwoWay) {
 			scoreAll(score, Direction.reverse, itemAttrs, searchAttrs );
 		}
+		return score;
 	}
     
 

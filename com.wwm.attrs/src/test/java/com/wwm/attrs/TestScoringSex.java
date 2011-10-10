@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.wwm.attrs.AttributeMapFactory;
-import com.wwm.attrs.ItemScore;
 import com.wwm.attrs.bool.BooleanScorer;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.internal.Attribute;
@@ -69,8 +68,7 @@ public class TestScoringSex {
 			search.putAttr(wantman);	// looking for man
 			profile.putAttr(haveman);	// profile is man
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 1.0f);
 	}
 	
@@ -83,8 +81,7 @@ public class TestScoringSex {
 			search.putAttr(wantwoman);	// looking for woman
 			profile.putAttr(havewoman);	// profile is woman
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 1.0f);
 	}
 	
@@ -97,8 +94,7 @@ public class TestScoringSex {
 			search.putAttr(wantwoman);	// looking for woman
 			profile.putAttr(haveman);	// profile is man
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 	
@@ -111,8 +107,7 @@ public class TestScoringSex {
 			search.putAttr(wantman);	// looking for man
 			profile.putAttr(havewoman); // profile is woman
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 	
@@ -128,8 +123,7 @@ public class TestScoringSex {
 			profile.putAttr(haveman);
 			profile.putAttr(wantwoman); // straight man
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 1.0f);
 	}
 
@@ -145,8 +139,7 @@ public class TestScoringSex {
 			profile.putAttr(haveman);	// straight man
 			profile.putAttr(wantwoman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 
@@ -162,8 +155,7 @@ public class TestScoringSex {
 			profile.putAttr(havewoman);	// straight woman
 			profile.putAttr(wantman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 	
@@ -179,8 +171,7 @@ public class TestScoringSex {
 			profile.putAttr(havewoman);	// gay woman
 			profile.putAttr(wantwoman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 	
@@ -196,8 +187,7 @@ public class TestScoringSex {
 			profile.putAttr(havewoman);	// gay woman
 			profile.putAttr(wantwoman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 	
@@ -213,8 +203,7 @@ public class TestScoringSex {
 			profile.putAttr(haveman);	// gay man
 			profile.putAttr(wantman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 
@@ -230,8 +219,7 @@ public class TestScoringSex {
 			profile.putAttr(haveman);	// gay man
 			profile.putAttr(wantman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 1.0f);
 	}
 
@@ -247,8 +235,7 @@ public class TestScoringSex {
 			profile.putAttr(havewoman);	// gay woman
 			profile.putAttr(wantwoman);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 1.0f);
 	}
 
@@ -266,8 +253,7 @@ public class TestScoringSex {
 			profile.putAttr(wantman);
 			profile.putAttr(haveMaleDog);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 1.0f);
 	}
 
@@ -285,8 +271,7 @@ public class TestScoringSex {
 			profile.putAttr(wantman);
 			profile.putAttr(haveFemaleDog);
 			
-			ItemScore score = new ItemScore();
-			scoreConfig.scoreAllItemToItem(score, search, profile, SearchMode.TwoWay);
+			Score score = scoreConfig.scoreAllItemToItem(search, profile, SearchMode.TwoWay);
 			Assert.assertTrue(score.total() == 0.0f);
 	}
 	

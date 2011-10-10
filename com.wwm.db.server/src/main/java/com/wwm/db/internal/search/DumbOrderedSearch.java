@@ -11,10 +11,12 @@
 package com.wwm.db.internal.search;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.slf4j.Logger;
 
 import com.wwm.attrs.IScoreConfiguration;
-import com.wwm.attrs.internal.NodeScore;
+import com.wwm.attrs.Score;
 import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.MetaObject;
@@ -38,7 +40,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
     private static Logger log = LogFactory.getLogger(DumbOrderedSearch.class);
 
     private final SearchSpecImpl spec;
-    private int nextSeq=0;
+    private AtomicInteger nextSeq = new AtomicInteger();
     private final ResultsQ resultsQ;
     private final UserTable<T> table;
 
@@ -84,10 +86,9 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
         int indexed = 0;
         for (MetaObject<T> mo : table) {
             IWhirlwindItem dbItem = mo.getObject();
-            NodeScore itemScore = new NodeScore();
-            config.scoreAllItemToItem(itemScore, spec.getAttributeMap(), dbItem.getAttributeMap(), spec.getSearchMode());
+            Score itemScore = config.scoreAllItemToItem(spec.getAttributeMap(), dbItem.getAttributeMap(), spec.getSearchMode());
             if (itemScore.compareTo(resultsQ.getCurrentScoreThreshold()) > 0 ) { // By default, zero, so we add all non-zero scores
-            	NextItem newItem = new NextItem(itemScore, nextSeq++, mo, null);
+            	NextItem newItem = new NextItem(itemScore, nextSeq.getAndIncrement(), mo, null);
                 resultsQ.add(newItem);
             }
             if (indexed++ > INDEX_ABORT_LIMIT) {
@@ -95,7 +96,6 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
                 break; // FIXME: Need to inform user/upper layers that limit was reached
             }
         }
-
     }
 
 
@@ -110,7 +110,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
      * @return next unique sequence number
      */
     public int getNextSeq() {
-        return nextSeq++;
+        return nextSeq.getAndIncrement();
     }
 
     /* (non-Javadoc)
