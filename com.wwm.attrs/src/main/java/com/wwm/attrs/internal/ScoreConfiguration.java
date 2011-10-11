@@ -12,13 +12,10 @@ package com.wwm.attrs.internal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
-
 import com.wwm.attrs.IScoreConfiguration;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Scorer;
 import com.wwm.attrs.Score.Direction;
-import com.wwm.db.core.WorkManager;
 import com.wwm.db.whirlwind.SearchSpec.SearchMode;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
@@ -114,29 +111,26 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
 		this.scoreAll( newScore, Direction.reverse, itemAttrs, searchAttrs );
 	}
 
-    /* (non-Javadoc)
-	 * @see likemynds.db.indextree.IScoreConfiguration#scoreAllItemToItems(likemynds.db.indextree.Score, likemynds.db.indextree.Score.Direction, com.wwm.db.core.whirlwind.internal.IAttributeMap, com.wwm.db.core.whirlwind.internal.IAttributeMap)
-	 */
     public void scoreAllItemToItems(final Score score, final Direction d, final IAttributeMap<IAttribute> scoreAttrs, final IAttributeMap<IAttribute> c) {
-    	ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(scorersList.size());
+        // ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(scorersList.size());
 
-    	for ( final Scorer scorer : scorersList ) {
-        
-            tasks.add( new Callable<Void>() {
-				@Override
-				public Void call() throws Exception {
-						int attrId = scorer.getScorerAttrId();
-						IAttribute ia = scoreAttrs.findAttr(attrId);
-						if (ia == null && scorer instanceof TwoAttrScorer) {
-							return null; // Attribute might not exist
-						}
-						scoreItemToItems(score, d, scorer, c, scoreAttrs);
-					return null;
-				}
-    		});
+        for (final Scorer scorer : scorersList) {
+            //
+            // tasks.add( new Callable<Void>() {
+            // @Override
+            // public Void call() throws Exception {
+            // int attrId = scorer.getScorerAttrId();
+            // IAttribute ia = scoreAttrs.findAttr(attrId);
+            // if (ia == null && scorer instanceof TwoAttrScorer) {
+            // return null; // Attribute might not exist
+            // }
+            scoreItemToItems(score, d, scorer, c, scoreAttrs);
+            // return null;
+            // }
+            // });
         }
-        
-        WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
+        //
+        // WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
     }
 
 	private void scoreItemToItems(Score score, Score.Direction d, Scorer scorer, 
@@ -160,25 +154,26 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
     }
 
 
-	/**
-	 * Score all attributes that we have scorers defined for.
-	 */
-    private void scoreSearchToNode(final Score score, final Direction d, final IAttributeMap<? extends IAttribute> attrs, final IConstraintMap c) {
+    /**
+     * Score all attributes that we have scorers defined for.
+     */
+    private void scoreSearchToNode(final Score score, final Direction d,
+            final IAttributeMap<? extends IAttribute> attrs, final IConstraintMap c) {
 
-    	ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(scorersList.size());
-
-    	for ( final Scorer scorer : scorersList ) {
-        
-            tasks.add( new Callable<Void>() {
-				@Override
-				public Void call() throws Exception {
-					scoreSearchToNode(score, d, scorer, c, attrs);
-					return null;
-				}
-    		});
+        // ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(scorersList.size());
+        //
+        for (final Scorer scorer : scorersList) {
+            //
+            // tasks.add(new Callable<Void>() {
+            // @Override
+            // public Void call() throws Exception {
+            scoreSearchToNode(score, d, scorer, c, attrs);
+            // return null;
+            // }
+            // });
         }
-        
-        WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
+
+        // WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
     }
 
 	private void scoreSearchToNode(Score score, Score.Direction d, Scorer scorer, IConstraintMap c, IAttributeMap<? extends IAttribute> scoreAttrs) {
