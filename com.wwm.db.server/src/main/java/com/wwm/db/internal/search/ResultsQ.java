@@ -21,7 +21,7 @@ import com.wwm.attrs.Scorer;
 public class ResultsQ extends Q<NextItem> {
 
     private int resultsQAdded = 0; // track number of results added to resutltsQ so that we can start discarding end of resultsQ
-    private Score currentScoreThreshold; // Scores of this value and below are not added
+    private volatile Score currentScoreThreshold; // Scores of this value and below are not added
     private final int targetNumResults; // The number of results we're expecting to look at (any beyond this may not include all profiles)
 
 

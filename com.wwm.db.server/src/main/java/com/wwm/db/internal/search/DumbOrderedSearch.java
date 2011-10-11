@@ -11,6 +11,10 @@
 package com.wwm.db.internal.search;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
@@ -19,6 +23,7 @@ import com.wwm.attrs.IScoreConfiguration;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.db.core.LogFactory;
+import com.wwm.db.core.WorkManager;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.table.UserTable;
 import com.wwm.db.marker.IWhirlwindItem;
@@ -77,23 +82,55 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
         NanoTimer timer = new NanoTimer();
         resultsQ = new ResultsQ(spec.getMaxNonMatches(), spec.getScoreThreshold(), spec.getTargetNumResults());
 
-        fillResultsQ(); // FIXME: This should be on demand until we have sufficient results, and remembe where we got to
+        fillResultsQ();
 
         logResults(timer);
     }
 
+    /**
+     * Naively score everything in the table with a cheeky limit :)
+     */
     private void fillResultsQ() {
+        LinkedList<Future<NextItem>> results = new LinkedList<Future<NextItem>>();
+        
         int indexed = 0;
-        for (MetaObject<T> mo : table) {
-            IWhirlwindItem dbItem = mo.getObject();
-            Score itemScore = config.scoreAllItemToItem(spec.getAttributeMap(), dbItem.getAttributeMap(), spec.getSearchMode());
-            if (itemScore.compareTo(resultsQ.getCurrentScoreThreshold()) > 0 ) { // By default, zero, so we add all non-zero scores
-            	NextItem newItem = new NextItem(itemScore, nextSeq.getAndIncrement(), mo, null);
-                resultsQ.add(newItem);
-            }
+        for (final MetaObject<T> mo : table) {
+
+            Callable<NextItem> task = new Callable<NextItem>() {
+                public NextItem call() throws Exception {
+                    IWhirlwindItem dbItem = mo.getObject();
+                    Score itemScore = config.scoreAllItemToItem(spec.getAttributeMap(), dbItem.getAttributeMap(), spec.getSearchMode());
+                    if (itemScore.compareTo(resultsQ.getCurrentScoreThreshold()) > 0 ) { // By default, zero, so we add all non-zero scores
+                        NextItem newItem = new NextItem(itemScore, nextSeq.getAndIncrement(), mo, null);
+                        resultsQ.add(newItem);
+                        return newItem;
+                    }
+                    return null;
+                }
+            };
+            results.add(WorkManager.getInstance().submit(task));
+
             if (indexed++ > INDEX_ABORT_LIMIT) {
-            	log.warn("Aborted dumb search after " + INDEX_ABORT_LIMIT +" items.  Perhaps you want the accelerator pack ;)");
+                log.warn("Aborted dumb search after " + INDEX_ABORT_LIMIT +" items.  Perhaps you want the accelerator pack ;)");
                 break; // FIXME: Need to inform user/upper layers that limit was reached
+            }
+        }
+        
+        
+        
+        for (Future<NextItem> future : results) {
+            NextItem result;
+            try {
+                result = future.get();
+                if (result != null) {
+                    resultsQ.add(result);
+                }
+            }
+            catch (InterruptedException e) {
+                WorkManager.handleException(e);
+            }
+            catch (ExecutionException e) {
+                WorkManager.handleException(e);
             }
         }
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -13,7 +14,7 @@ public class WorkManager {
 
 	static private WorkManager instance = new WorkManager();
 	
-	private ExecutorService executor = Executors.newFixedThreadPool(3);
+	private ExecutorService executor = Executors.newFixedThreadPool(4);
 	private ForkJoinPool forkJoinPool = new ForkJoinPool(2);
 	
 	public static WorkManager getInstance() {
@@ -87,4 +88,26 @@ public class WorkManager {
 	public <T> Future<T> submit( Callable<T> task) {
 		return executor.submit(task);
 	}
+
+	/**
+	 * Common handling of exceptions while doing {@link Future#get()} on our
+	 * tasks.
+	 */
+    public static void handleException(InterruptedException e) {
+        throw new RuntimeException("Unexpected interruption", e); 
+    }
+
+    /**
+     * Common handling of exceptions thrown during execution
+     * of a task.
+     * <p>This method unwraps the exception and wraps it in 
+     * a {@link RuntimeException} if it is not already one.
+     */
+    public static void handleException(ExecutionException e) {
+        // If any call() throws an exception, then we unwrap.
+        if (e.getCause() instanceof RuntimeException) {
+            throw (RuntimeException)e.getCause();
+        }
+        throw new RuntimeException(e);
+    }
 }
