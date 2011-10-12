@@ -14,22 +14,12 @@ import com.wwm.db.core.exceptions.ArchException;
 
 @SuppressWarnings("serial")
 public class StoreExistsException extends ArchException {
-	private final String storeName;
 	
 	public StoreExistsException() {
-		storeName = null;
+	    super();
 	}
 	
-	public StoreExistsException(String storeName) {
-		this.storeName = storeName;
-	}
-
-	public String getStoreName() {
-		return storeName;
-	}
-	
-	@Override
-	public String toString() {
-		return "Store already exists: " + storeName;
+	public StoreExistsException(String message) {
+	    super(message);
 	}
 }

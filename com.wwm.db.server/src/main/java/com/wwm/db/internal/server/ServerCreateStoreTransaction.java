@@ -13,7 +13,6 @@ package com.wwm.db.internal.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.StoreExistsException;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.comms.messages.CreateStoreCmd;
@@ -45,7 +44,7 @@ public class ServerCreateStoreTransaction extends ServerTransaction {
 		} catch (UnknownStoreException e) {
 			return;
 		}
-		throw new StoreExistsException(storeName);
+		throw new StoreExistsException("Store already exists: " + storeName);
 	}
 	
 	@Override
