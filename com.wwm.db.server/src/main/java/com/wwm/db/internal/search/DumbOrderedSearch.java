@@ -102,7 +102,6 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
                     Score itemScore = config.scoreAllItemToItem(spec.getAttributeMap(), dbItem.getAttributeMap(), spec.getSearchMode());
                     if (itemScore.compareTo(resultsQ.getCurrentScoreThreshold()) > 0 ) { // By default, zero, so we add all non-zero scores
                         NextItem newItem = new NextItem(itemScore, nextSeq.getAndIncrement(), mo, null);
-                        resultsQ.add(newItem);
                         return newItem;
                     }
                     return null;
