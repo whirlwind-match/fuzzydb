@@ -18,7 +18,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import com.wwm.attrs.AttrsFactory;
-import com.wwm.db.annotations.Key;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
@@ -43,8 +42,8 @@ public class StandaloneWWIndexData implements IWhirlwindItem, Serializable {
     private static final long serialVersionUID = 1L;
 
     public static final String sPrivateId = "privateId";
-    @Key( unique=true )
-    private String privateId;
+//    @Key( unique=true )  - experiment
+//    private String privateId;
 
     private String description;
 
@@ -57,7 +56,7 @@ public class StandaloneWWIndexData implements IWhirlwindItem, Serializable {
 
     public StandaloneWWIndexData(String privateId) {
         super();
-        this.privateId = privateId;
+//        this.privateId = privateId;
     }
 
     public String getDescription() {
@@ -69,11 +68,11 @@ public class StandaloneWWIndexData implements IWhirlwindItem, Serializable {
     }
 
     public String getPrivateId() {
-        return privateId;
+        return toString();
     }
 
     public void setPrivateId(String privateId) {
-        this.privateId = privateId;
+//        this.privateId = privateId;
     }
 
     @SuppressWarnings("unchecked")

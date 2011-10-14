@@ -263,9 +263,7 @@ public class PersistentServerTransaction extends ServerTransaction {
             	String namespace = entry.getKey();
                 ArrayList<MetaObject<?>> objects = entry.getValue(); 
                 Namespace ns = store.getNamespace(namespace);
-                for (MetaObject<?> mo : objects) {
-                    ns.create(mo);
-                }
+                ns.create(objects); 
             }
         }
 

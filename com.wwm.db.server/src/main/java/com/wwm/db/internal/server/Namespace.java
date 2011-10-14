@@ -12,6 +12,7 @@ package com.wwm.db.internal.server;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -96,10 +97,14 @@ public class Namespace implements Serializable {
 	//===========================================================
 	// Write, commit phase methods
 	//===========================================================
-	public <T> void create(MetaObject<T> mo) {
-		RefImpl<T> ref = mo.getRef();
-		getTable(ref).create(mo);
-		indexes.add(mo);
+	
+	// TODO: Batch items up per table and pass array into each
+	public void create(ArrayList<MetaObject<?>> objects) {
+	    for (MetaObject<?> mo : objects) {
+            RefImpl ref = mo.getRef();
+            getTable(ref).create(mo);
+            indexes.add(mo);
+	    }
 	}
 
 	public <T> void update(MetaObject<T> mo) throws UnknownObjectException {
