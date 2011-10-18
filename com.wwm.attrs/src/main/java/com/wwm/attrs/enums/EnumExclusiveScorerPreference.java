@@ -27,7 +27,13 @@ public class EnumExclusiveScorerPreference extends TwoAttrScorer {
     
     private static final long serialVersionUID = -9082946034037926876L;
     private final EnumPreferenceMap map;
-    
+ 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private EnumExclusiveScorerPreference() {
+        this(1, 1, null);
+    }
+
     /**
      * 
      * @param attrId

@@ -36,6 +36,12 @@ public class VectorDistanceScorer extends TwoAttrScorer {
     protected float range;
     protected boolean preferClose = true;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private VectorDistanceScorer() {
+        this(1, 1, null, 1f);
+    }
+
     public VectorDistanceScorer(int scoreAttrId, int otherAttrId, ScoreMapper scoreMapper, float range) {
         super(scoreAttrId, otherAttrId);
         this.scoreMapper = scoreMapper;

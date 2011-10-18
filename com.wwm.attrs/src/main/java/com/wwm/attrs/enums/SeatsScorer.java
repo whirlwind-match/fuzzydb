@@ -45,6 +45,11 @@ public class SeatsScorer extends TwoByTwoAttrScorer {
     
     protected ScoreMapper scoreMapper;
     
+    /** Default ctor for serialization libraries */
+    private SeatsScorer() {
+        super(1, 1, 1, 1);
+    }
+
     /**
      * @param scoreAttrId
      * @param scoreSecondAttrId

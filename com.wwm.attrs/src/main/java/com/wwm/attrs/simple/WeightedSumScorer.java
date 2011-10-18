@@ -33,6 +33,12 @@ public class WeightedSumScorer extends TwoAttrScorer {
 	
     private final int scoreAttr3Id;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private WeightedSumScorer() {
+        this(1, 1, 1);
+    }
+
 	public WeightedSumScorer( int scoreAttr1Id, int scoreAttr2Id, int scoreAttr3Id) {
 		super(scoreAttr1Id, scoreAttr2Id);
         this.scoreAttr3Id = scoreAttr3Id;

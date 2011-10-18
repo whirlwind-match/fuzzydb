@@ -18,6 +18,11 @@ public class EnumExclusiveSplitConfiguration extends SplitConfiguration {
 	private float priority;
 	private int size;
 
+    /** Default ctor for serialization libraries */
+    private EnumExclusiveSplitConfiguration() {
+        super(0);
+    }
+
 	public EnumExclusiveSplitConfiguration(int id, int size, float priority) {
 		super(id);
 		this.size = size;

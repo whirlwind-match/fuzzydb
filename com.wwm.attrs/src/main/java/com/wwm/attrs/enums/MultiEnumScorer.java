@@ -34,6 +34,12 @@ public class MultiEnumScorer extends TwoAttrScorer {
     // Specifies the Max number of matches to use in calculating the score
     private Integer maxMatches;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private MultiEnumScorer() {
+        this(1, 1);
+    }
+
     /**
      * @param attrId
      * @param otherAttrId

@@ -27,6 +27,12 @@ public class Dimensions implements IDimensions, Cloneable {
 
     protected float[] values = null;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private Dimensions() {
+        super();
+    }
+
     /**Basic constructor which leaves all dimensions uninitialised (zero)
      * @param numDimensions
      */

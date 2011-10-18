@@ -19,6 +19,12 @@ public class FloatSplitConfiguration extends SplitConfiguration {
 	private final float expected;
 	private final float priority;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private FloatSplitConfiguration() {
+        this(0, 1f, 1f);
+    }
+
 	public FloatSplitConfiguration(int id, float expected, float priority) {
 		super(id);
 		this.expected = expected;

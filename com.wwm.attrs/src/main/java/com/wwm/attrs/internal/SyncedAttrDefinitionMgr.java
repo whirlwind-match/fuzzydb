@@ -33,6 +33,8 @@ import com.wwm.util.DynamicRef;
 public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serializable, ITraceWanted {
 
     private static final long serialVersionUID = 1L;
+    
+    private static final Object getInstanceLock = new Object();
 
     
 
@@ -41,6 +43,10 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      * This should be set after we've created or retrieved from store.
      */
     transient Store store; // For when we write attr defs to database.
+
+    /** Default ctor for serialization libraries */
+    private SyncedAttrDefinitionMgr() {
+    }
 
     private SyncedAttrDefinitionMgr(Store store) {
         this.store = store;
@@ -54,33 +60,35 @@ public class SyncedAttrDefinitionMgr extends AttrDefinitionMgr implements Serial
      * @return DynamicRef (a poor version of AtomicReference).  If we've already returned
      * the ADM for this store before, then we always re-use the same (so all threads see the update)
      */
-    public static synchronized DynamicRef<SyncedAttrDefinitionMgr> getInstance( Store store ) {
+    public static DynamicRef<SyncedAttrDefinitionMgr> getInstance( Store store ) {
     	
-    	String className = SyncedAttrDefinitionMgrs.class.getName();
-		SyncedAttrDefinitionMgrs sadms = (SyncedAttrDefinitionMgrs) ContextManager.getCurrentAppContext().get(className);
-    	
-    	if (sadms == null) {
-    		sadms = new SyncedAttrDefinitionMgrs();
-    		ContextManager.getCurrentAppContext().set(className, sadms);
-    	}
-    	
-        DynamicRef<SyncedAttrDefinitionMgr> w = sadms.get( store );
-		if (w.getObject() == null) {
-			SyncedAttrDefinitionMgr mgr = getFromStore( store );
-            w.setObject(mgr);
-        }
-        else { // If already have it, refresh it
-            Transaction tx = beginTx(store);
-            try {
-            	SyncedAttrDefinitionMgr mgr = tx.refresh( w.getObject() );
-            	tx.dispose();
-                mgr.setStore( store );
-                w.setObject(mgr);
-            } catch (UnknownObjectException e) {
-                w.setObject( getFromStore( store ) );
+    	synchronized (getInstanceLock) {
+            String className = SyncedAttrDefinitionMgrs.class.getName();
+            SyncedAttrDefinitionMgrs sadms = (SyncedAttrDefinitionMgrs) ContextManager.getCurrentAppContext().get(
+                    className);
+            if (sadms == null) {
+                sadms = new SyncedAttrDefinitionMgrs();
+                ContextManager.getCurrentAppContext().set(className, sadms);
             }
+            DynamicRef<SyncedAttrDefinitionMgr> w = sadms.get(store);
+            if (w.getObject() == null) {
+                SyncedAttrDefinitionMgr mgr = getFromStore(store);
+                w.setObject(mgr);
+            }
+            else { // If already have it, refresh it
+                Transaction tx = beginTx(store);
+                try {
+                    SyncedAttrDefinitionMgr mgr = tx.refresh(w.getObject());
+                    tx.dispose();
+                    mgr.setStore(store);
+                    w.setObject(mgr);
+                }
+                catch (UnknownObjectException e) {
+                    w.setObject(getFromStore(store));
+                }
+            }
+            return w;
         }
-        return w;
     }
     
 

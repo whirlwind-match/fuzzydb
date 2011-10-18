@@ -26,6 +26,12 @@ public class ManualIndexStrategy implements IndexStrategy {
 
     private ArrayList<SplitConfiguration> splitConfigurations = new ArrayList<SplitConfiguration>();
 
+    
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private ManualIndexStrategy() {
+    }
+    
     public ManualIndexStrategy( String name) {
         this.name = name;
     }

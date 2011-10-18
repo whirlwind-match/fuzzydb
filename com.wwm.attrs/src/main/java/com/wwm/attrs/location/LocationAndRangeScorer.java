@@ -42,6 +42,11 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
     protected int scorerRangeAttrId;
     protected ScoreMapper scoreMapper;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private LocationAndRangeScorer() {
+        this(1, 1, 1, null);
+    }
 
     public LocationAndRangeScorer(int scoreAttrId, int scoreRangeAttrId, int otherAttrId, ScoreMapper scoreMapper) {
         super(scoreAttrId, otherAttrId);

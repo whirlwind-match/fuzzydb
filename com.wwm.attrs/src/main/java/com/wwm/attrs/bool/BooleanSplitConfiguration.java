@@ -17,6 +17,12 @@ public class BooleanSplitConfiguration extends SplitConfiguration {
 	private static final long serialVersionUID = -6366036733104491988L;
 	private final float priority;
 	
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private BooleanSplitConfiguration() {
+        this(0, 1f);
+    }
+
 	public BooleanSplitConfiguration(int id, float priority) {
 		super(id);
 		this.priority = priority;

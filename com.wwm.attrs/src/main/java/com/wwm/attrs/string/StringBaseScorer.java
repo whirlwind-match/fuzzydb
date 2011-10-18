@@ -25,6 +25,12 @@ public abstract class StringBaseScorer extends TwoAttrScorer {
     
     private static final long serialVersionUID = 6358946451731357494L;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private StringBaseScorer() {
+        this(1, 1);
+    }
+
     public StringBaseScorer(int attrId, int otherAttrId) {
         super( attrId, otherAttrId );
     }

@@ -34,6 +34,12 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
 
     private float expectedRange;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private SimilarFloatValueScorer() {
+        this(1, 1, 1f);
+    }
+
     public SimilarFloatValueScorer( int scoreAttrId, int otherAttrId, float expectedRange ) {
         super(scoreAttrId, otherAttrId);
         assert( expectedRange > 0f);

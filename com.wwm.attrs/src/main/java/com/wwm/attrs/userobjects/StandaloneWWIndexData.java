@@ -54,6 +54,11 @@ public class StandaloneWWIndexData implements IWhirlwindItem, Serializable {
     private boolean compacted = false;
     private TIntObjectHashMap<String> nonIndexAttrs = null;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private StandaloneWWIndexData() {
+        super();
+    }
 
     public StandaloneWWIndexData(String privateId) {
         super();

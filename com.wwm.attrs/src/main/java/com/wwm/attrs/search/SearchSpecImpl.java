@@ -17,6 +17,7 @@ import java.io.Serializable;
 import com.wwm.attrs.AttributeMapFactory;
 import com.wwm.attrs.internal.CardinalAttributeMapImpl;
 import com.wwm.db.core.Settings;
+import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.SearchSpec;
@@ -35,31 +36,36 @@ import com.wwm.db.whirlwind.internal.IAttributeMap;
 public class SearchSpecImpl implements SearchSpec, Serializable {
 	private static final long serialVersionUID = 1L;
 	private IAttributeMap<IAttribute> attributes = AttributeMapFactory.newInstance(IAttribute.class);
-	private Class<? extends IAttributeContainer> clazz;
+	private String clazz;
 	private String scorerConfig = "default";
 	private float scoreThreshold = Settings.getInstance().getDefaultScoreThreshold();
 	private int targetNumResults = Settings.getInstance().getDefaultTargetNumResults();
     private int maxNonMatches = 0; // Default is to not show anything where there are non-matching attributes
 	private SearchMode searchMode;
 	
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private SearchSpecImpl() {
+    }
+
 	public SearchSpecImpl(Class<? extends IAttributeContainer> clazz) {
-		this.clazz = clazz;
+		this.clazz = clazz.getCanonicalName();
 		this.searchMode = SearchMode.TwoWay;
 	}
 
 	public SearchSpecImpl(Class<? extends IAttributeContainer> clazz, SearchMode searchMode) {
-		this.clazz = clazz;
+        this.clazz = clazz.getCanonicalName();
 		this.searchMode = searchMode;
 	}
 
 	public SearchSpecImpl(Class<? extends IAttributeContainer> clazz, String scorerConfig) {
-		this.clazz = clazz;
+        this.clazz = clazz.getCanonicalName();
 		this.scorerConfig = scorerConfig;
 		this.searchMode = SearchMode.TwoWay;
 	}
 
 	public SearchSpecImpl(Class<? extends IWhirlwindItem> clazz, String scorerConfig, SearchMode searchMode) {
-		this.clazz = clazz;
+        this.clazz = clazz.getCanonicalName();
 		this.scorerConfig = scorerConfig;
 		this.searchMode = searchMode;
 	}
@@ -80,8 +86,14 @@ public class SearchSpecImpl implements SearchSpec, Serializable {
 		attributes = attributeMap.getAttributeMap();
 	}
 	
-	public Class<? extends IAttributeContainer> getClazz() {
-		return clazz;
+	@SuppressWarnings("unchecked")
+    public Class<? extends IAttributeContainer> getClazz() {
+		try {
+            return (Class<? extends IAttributeContainer>) Class.forName(clazz);
+        }
+        catch (ClassNotFoundException e) {
+            throw new ArchException("Class not found", e);
+        }
 	}
 
 

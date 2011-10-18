@@ -14,6 +14,12 @@ public class StringEqualsScorer extends StringBaseScorer {
     
     private static final long serialVersionUID = 6358946451731357494L;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private StringEqualsScorer() {
+        this(1, 1);
+    }
+
     public StringEqualsScorer(int attrId, int otherAttrId) {
         super( attrId, otherAttrId );
     }

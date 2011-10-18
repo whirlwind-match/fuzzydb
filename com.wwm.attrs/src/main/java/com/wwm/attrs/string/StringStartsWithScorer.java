@@ -16,6 +16,12 @@ public class StringStartsWithScorer extends StringBaseScorer {
     
     private static final long serialVersionUID = 6358946451731357494L;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private StringStartsWithScorer() {
+        this(1, 1);
+    }
+
     public StringStartsWithScorer(int attrId, int otherAttrId) {
         super( attrId, otherAttrId );
     }

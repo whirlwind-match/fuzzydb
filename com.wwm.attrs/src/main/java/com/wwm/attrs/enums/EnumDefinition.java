@@ -38,6 +38,14 @@ public class EnumDefinition implements Serializable {
      */
     private transient AttrDefinitionMgr mgr;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private EnumDefinition() {
+        this.mgr = null;
+        this.name = null;
+        this.enumDefId = 0;
+    }
+    
     public EnumDefinition(AttrDefinitionMgr mgr, String name, short enumDefId) {
         assert name != null;
         this.mgr = mgr;

@@ -29,7 +29,13 @@ public class EnumSingleValueScorer extends Scorer {
 
 	private static final long serialVersionUID = 4763946886241506862L;
 
-	EnumExclusiveValue matchValue;
+	private EnumExclusiveValue matchValue;
+
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private EnumSingleValueScorer() {
+        this(1, null);
+    }
 
 	public EnumSingleValueScorer(int scoreAttrId, EnumExclusiveValue value) {
 		super(scoreAttrId);

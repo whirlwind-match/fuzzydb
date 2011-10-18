@@ -34,7 +34,12 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
 
     protected ScoreMapper scoreMapper;
     
-    
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private FloatRangePreferenceScorer() {
+        this(1, 1, null);
+    }
+
     public FloatRangePreferenceScorer(int scoreAttrId, int otherAttrId, ScoreMapper scoreMapper) {
 		super(scoreAttrId, otherAttrId);
 		this.scoreMapper = scoreMapper;

@@ -55,6 +55,11 @@ public class PathDeviationScorer extends TwoByTwoAttrScorer {
     protected ScoreMapper scoreMapper;
     protected float maxPathToDevRatio;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private PathDeviationScorer() {
+        this(1, 1, 1, 1, null, 1f);
+    }
     
     /**
      * @param scoreAttrId

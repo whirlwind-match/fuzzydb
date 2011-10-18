@@ -26,6 +26,12 @@ public class BooleanScorer extends TwoAttrScorer {
     
     private static final long serialVersionUID = 7508377312739017363L;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private BooleanScorer() {
+        this(1, 1);
+    }
+    
     /**
      * 
      * @param wantAttr

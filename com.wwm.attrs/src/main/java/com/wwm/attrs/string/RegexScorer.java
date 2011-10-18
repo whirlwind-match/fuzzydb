@@ -26,6 +26,12 @@ public class RegexScorer extends TwoAttrScorer {
     
     private static final long serialVersionUID = 6358946451731357494L;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private RegexScorer() {
+        this(1, 1);
+    }
+
     public RegexScorer(int attrId, int otherAttrId) {
         super( attrId, otherAttrId );
     }

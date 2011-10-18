@@ -21,6 +21,12 @@ public class DimensionSplitConfiguration extends SplitConfiguration {
 	private final IDimensions expected;
 	private final IDimensions priority;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private DimensionSplitConfiguration() {
+        this(0, null, null);
+    }
+
 	public DimensionSplitConfiguration(int id, IDimensions expected, IDimensions priority) {
 		super(id);
 		this.expected = expected;

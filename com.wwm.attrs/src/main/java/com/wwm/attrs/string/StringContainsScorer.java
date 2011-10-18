@@ -15,6 +15,12 @@ public class StringContainsScorer extends StringBaseScorer {
     
     private static final long serialVersionUID = 6358946451731357494L;
     
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private StringContainsScorer() {
+        this(1, 1);
+    }
+
     public StringContainsScorer(int attrId, int otherAttrId) {
         super( attrId, otherAttrId );
     }
