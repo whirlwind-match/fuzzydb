@@ -15,6 +15,12 @@ import com.wwm.io.core.messages.Command;
 @SuppressWarnings("serial")
 public class ListStoresCmd extends Command {
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private ListStoresCmd() {
+        super(-1, -1);
+    }
+
 	public ListStoresCmd(int cid) {
 		super(0, cid);
 	}

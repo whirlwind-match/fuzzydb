@@ -15,6 +15,13 @@ public class OpenStoreRsp extends OkRsp {
 	private final int openedStoreId;
 	private final String openedStoreName;
 	
+    /** Default ctor for serialization libraries */
+    private OpenStoreRsp() {
+        super(-1, -1);
+        this.openedStoreId = 0;
+        this.openedStoreName = null;
+    }
+
 	public OpenStoreRsp(int cid, String storeName, int storeId) {
 		super(0, cid);
 		this.openedStoreId = storeId;

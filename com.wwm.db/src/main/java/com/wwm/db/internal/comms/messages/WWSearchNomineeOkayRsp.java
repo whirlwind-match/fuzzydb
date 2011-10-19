@@ -25,6 +25,11 @@ public class WWSearchNomineeOkayRsp extends OkRsp {
 	private ArrayList<Score> scores;
 	private boolean moreResults;
 	
+    /** Default ctor for serialization libraries */
+    private WWSearchNomineeOkayRsp() {
+        super(-1, -1);
+    }
+
 	public WWSearchNomineeOkayRsp(int storeId, int cid, ArrayList<Object> results, ArrayList<Score> scores, boolean moreResults) {
 		super(storeId, cid);
 		this.results = results;

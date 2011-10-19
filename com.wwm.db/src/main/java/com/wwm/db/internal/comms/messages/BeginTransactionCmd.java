@@ -18,6 +18,14 @@ public class BeginTransactionCmd extends Command {
 	private final Command payload;
 	private final int tid;
 
+    /** Default ctor for serialization libraries */
+   @SuppressWarnings("unused")
+   private BeginTransactionCmd() {
+       super(0, 0);
+       this.payload = null;
+       this.tid = -1;
+    }
+
 	public BeginTransactionCmd(int storeId, int cid, int tid, Command payload) {
 		super(storeId, cid);
 		this.payload = payload;

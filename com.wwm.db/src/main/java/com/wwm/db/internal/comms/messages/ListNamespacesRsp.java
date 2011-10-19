@@ -16,6 +16,12 @@ public class ListNamespacesRsp extends OkRsp {
 
 	private final String[] namespaces;
 	
+    /** Default ctor for serialization libraries */
+    private ListNamespacesRsp() {
+        super(-1, -1);
+        this.namespaces = null;
+    }
+
 	public ListNamespacesRsp(int storeId, int cid, String[] namespaces) {
 		super(storeId, cid);
 		this.namespaces = namespaces;

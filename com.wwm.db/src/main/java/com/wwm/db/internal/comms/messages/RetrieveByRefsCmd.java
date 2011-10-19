@@ -17,7 +17,13 @@ import com.wwm.db.internal.RefImpl;
 
 @SuppressWarnings("serial")
 public class RetrieveByRefsCmd<T> extends TransactionCommand {
-	private final RefImpl<T>[] refs;
+	private final RefImpl<?>[] refs;
+
+    /** Default ctor for serialization libraries */
+    private RetrieveByRefsCmd() {
+        super(-1, -1, -1);
+        this.refs = null;
+    }
 
 	public RetrieveByRefsCmd(int storeId, int cid, int tid, Collection<Ref<T>> refs) {
 		super(storeId, cid, tid);
@@ -26,8 +32,8 @@ public class RetrieveByRefsCmd<T> extends TransactionCommand {
 		this.refs = refs.toArray( new RefImpl[0] );
 	}
 
-	public RefImpl<T>[] getRefs() {
-		return refs;
+	@SuppressWarnings("unchecked")
+    public RefImpl<T>[] getRefs() {
+		return (RefImpl<T>[]) refs;
 	}
-
 }

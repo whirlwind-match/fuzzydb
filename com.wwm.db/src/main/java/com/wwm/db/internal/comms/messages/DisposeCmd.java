@@ -20,6 +20,12 @@ public class DisposeCmd extends Command {
 	private ArrayList<Integer> disposedTransactions;
 	private ArrayList<Integer> disposedQueries;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private DisposeCmd() {
+        super(-1, -1);
+    }
+
 	public DisposeCmd(int cid, ArrayList<Integer> disposedTransactions, ArrayList<Integer> disposedQueries) {
 		super(0, cid);
 		this.disposedTransactions = disposedTransactions;

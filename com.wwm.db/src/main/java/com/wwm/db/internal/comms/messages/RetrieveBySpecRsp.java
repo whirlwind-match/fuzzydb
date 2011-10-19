@@ -18,6 +18,12 @@ public class RetrieveBySpecRsp extends OkRsp {
 
 	private final RetrieveSpecResultImpl result;
 
+    /** Default ctor for serialization libraries */
+    private RetrieveBySpecRsp() {
+        super(-1, -1);
+        this.result = null;
+    }
+
 	public RetrieveBySpecRsp(int storeId, int cid, RetrieveSpecResultImpl result) {
 		super(storeId, cid);
 		this.result = result;

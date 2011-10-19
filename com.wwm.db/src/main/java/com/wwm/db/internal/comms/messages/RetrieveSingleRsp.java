@@ -16,6 +16,12 @@ public class RetrieveSingleRsp extends OkRsp {
 	//private final CompactedObject object;
 	private final Object object;
 	
+    /** Default ctor for serialization libraries */
+	private RetrieveSingleRsp() {
+        super(0, 0);
+        this.object = null;
+    }
+	
 	public RetrieveSingleRsp(int storeId, int cid, Object object) {
 		super(storeId, cid);
 		this.object = object;

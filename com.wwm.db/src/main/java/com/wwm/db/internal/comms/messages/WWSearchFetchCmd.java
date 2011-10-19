@@ -18,6 +18,11 @@ public class WWSearchFetchCmd extends TransactionCommand {
 	private int qid;
 	private int fetchSize;
 
+    /** Default ctor for serialization libraries */
+    private WWSearchFetchCmd() {
+        super(-1, -1, -1);
+    }
+
 	public WWSearchFetchCmd(int storeId, int cid, int tid, int qid, int fetchSize) {
 		super(storeId, cid, tid);
 		this.qid = qid;

@@ -17,6 +17,12 @@ import com.wwm.io.core.messages.Loggable;
 public class DeleteStoreCmd extends Command implements Loggable {
 	private String deleteStoreName;
 
+	/** Default ctor for serialization libraries */
+	@SuppressWarnings("unused")
+	private DeleteStoreCmd() {
+	    super(-1, -1);
+	}
+   
 	public DeleteStoreCmd(int cid, String storeName) {
 		super(0, cid);
 		this.deleteStoreName = storeName;

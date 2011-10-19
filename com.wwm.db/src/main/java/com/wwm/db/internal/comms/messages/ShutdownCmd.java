@@ -15,6 +15,12 @@ import com.wwm.io.core.messages.Command;
 @SuppressWarnings("serial")
 public class ShutdownCmd extends Command {
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private ShutdownCmd() {
+        super(-1, -1);
+    }
+
 	public ShutdownCmd(int cid) {
 		super(0, cid);
 	}

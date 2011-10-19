@@ -24,6 +24,14 @@ public class CommitCmd extends TransactionCommand implements Loggable {
 	private final ArrayList<MetaObject<?>> updated;
 	private final ArrayList<RefImpl<?>> deleted;
 
+    /** Default ctor for serialization libraries */
+	private CommitCmd() {
+        super(0, 0, 0);
+        this.created = null;
+        this.updated = null;
+        this.deleted = null;
+    }
+	
 	public CommitCmd(int storeId, int cid, int tid, Map<String, ArrayList<MetaObject<?>>> created, 
 			ArrayList<MetaObject<?>> updated, ArrayList<RefImpl<?>> deleted) {
 		super(storeId, cid, tid);

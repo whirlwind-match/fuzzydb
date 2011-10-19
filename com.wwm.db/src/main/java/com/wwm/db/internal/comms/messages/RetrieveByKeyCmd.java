@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
+import com.wwm.db.core.exceptions.ArchException;
+
 public class RetrieveByKeyCmd extends TransactionCommand {
 
 	private static final long serialVersionUID = 1L;
@@ -19,14 +21,23 @@ public class RetrieveByKeyCmd extends TransactionCommand {
 
 	private final String namespace;
 
-	private final Class<?> forClass;
+	private final String forClass;
 	
+    /** Default ctor for serialization libraries */
+    private RetrieveByKeyCmd() {
+        super(-1, -1, -1);
+        this.key = null;
+        this.fieldName = null;
+        this.namespace = null;
+        this.forClass = null;
+    }
+
 	public RetrieveByKeyCmd(int storeId, String namespace, int cid, int tid, Class<?> forClass, final Comparable<?> key, final String fieldName) {
 		super(storeId, cid, tid);
 		this.key = key;
 		this.fieldName = fieldName;
 		this.namespace = namespace;
-		this.forClass = forClass;
+		this.forClass = forClass.getCanonicalName();
 	}
 
 	public String getFieldName() {
@@ -42,6 +53,11 @@ public class RetrieveByKeyCmd extends TransactionCommand {
 	}
 
 	public Class<?> getForClass() {
-		return forClass;
+        try {
+            return Class.forName(forClass);
+        }
+        catch (ClassNotFoundException e) {
+            throw new ArchException("Class " + forClass + " not not on (probably server) classpath", e);
+        }
 	}
 }

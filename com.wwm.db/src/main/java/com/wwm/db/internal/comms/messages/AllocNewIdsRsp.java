@@ -18,6 +18,15 @@ public class AllocNewIdsRsp extends OkRsp {
 	private final int tableid;
 	private final int count;
 
+    /** Default ctor for serialization libraries */
+    private AllocNewIdsRsp() {
+       super(0, 0);
+       this.slice = 0;
+       this.firstOid = 0;
+       this.tableid = 0;
+       this.count = 0;
+    }
+
 	public AllocNewIdsRsp(int storeId, int cid, int slice, int tableId, long firstOid, int count) {
 		super(storeId, cid);
 		this.slice = slice;

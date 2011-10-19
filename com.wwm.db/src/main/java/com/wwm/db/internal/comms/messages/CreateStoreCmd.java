@@ -18,6 +18,12 @@ public class CreateStoreCmd extends Command implements Loggable {
 
 	private String createStoreName;
 
+    /** Default ctor for serialization libraries */
+	@SuppressWarnings("unused")
+    private CreateStoreCmd() {
+	    super(0, 0);
+	}
+	
 	public CreateStoreCmd(int cid, String storeName) {
 		super(0, cid);
 		this.createStoreName = storeName;

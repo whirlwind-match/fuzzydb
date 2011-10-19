@@ -18,6 +18,11 @@ public class QueryRsp extends OkRsp {
 	private ArrayList<Object> results;
 	private boolean moreResults;
 	
+    /** Default ctor for serialization libraries */
+    private QueryRsp() {
+        super(-1, -1);
+    }
+
 	public QueryRsp(int storeId, int cid, ArrayList<Object> results, boolean moreResults) {
 		super(storeId, cid);
 		this.results = results;

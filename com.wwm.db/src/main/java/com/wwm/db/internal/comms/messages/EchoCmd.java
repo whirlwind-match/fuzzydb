@@ -17,6 +17,13 @@ public class EchoCmd extends Command {
 
 	private final String message;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private EchoCmd() {
+        super(-1, -1);
+        this.message = null;
+    }
+
 	public EchoCmd(int storeId, int cid, String message) {
 		super(storeId, cid);
 		this.message = message;

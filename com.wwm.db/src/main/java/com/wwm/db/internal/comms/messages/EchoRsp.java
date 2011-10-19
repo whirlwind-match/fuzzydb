@@ -15,6 +15,12 @@ public class EchoRsp extends OkRsp {
 
 	private String message;
 
+    /** Default ctor for serialization libraries */
+    private EchoRsp() {
+        super(-1, -1);
+        this.message = null;
+    }
+
 	public EchoRsp(int storeId, int cid, String message) {
 		super(storeId, cid);
 		this.message = message;

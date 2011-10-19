@@ -16,6 +16,12 @@ import com.wwm.io.core.messages.Loggable;
 
 @SuppressWarnings("serial")
 public class BeginAndCommitCmd extends BeginTransactionCmd implements Loggable {
+    
+    /** Default ctor for serialization libraries */
+    private BeginAndCommitCmd() {
+        super(0, 0, 0, null);
+    }
+
 	public BeginAndCommitCmd(int storeId, int cid, int tid, Command payload) {
 		super(storeId, cid, tid, payload);
 	}

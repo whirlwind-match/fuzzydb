@@ -14,6 +14,12 @@ package com.wwm.db.internal.comms.messages;
 public class RetrieveMultiRsp extends OkRsp {
 	private final Object[] objects;
 	
+    /** Default ctor for serialization libraries */
+    private RetrieveMultiRsp() {
+        super(-1, -1);
+        this.objects = null;
+    }
+
 	public RetrieveMultiRsp(int storeId, int cid, Object[] objects) {
 		super(storeId, cid);
 		this.objects = objects;

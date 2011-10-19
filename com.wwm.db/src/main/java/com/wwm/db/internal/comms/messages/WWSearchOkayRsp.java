@@ -28,6 +28,11 @@ public class WWSearchOkayRsp extends OkRsp {
 	private ArrayList<Score> scores;
 	private boolean moreResults;
 	
+    /** Default ctor for serialization libraries */
+    private WWSearchOkayRsp() {
+        super(0, 0);
+    }
+
 	public WWSearchOkayRsp(int storeId, int cid, ArrayList<MetaObject<? extends IWhirlwindItem>> results, ArrayList<Score> scores, boolean moreResults) {
 		super(storeId, cid);
 		this.results = results;
@@ -39,7 +44,8 @@ public class WWSearchOkayRsp extends OkRsp {
 		int count = 0;
 		for (MetaObject<? extends IWhirlwindItem> i : results) {
 			metaCache.addToMetaCache(i);
-			ResultImpl<E> result = new ResultImpl<E>( (E) i.getObject(), scores.get(count++) );
+			@SuppressWarnings("unchecked")
+            ResultImpl<E> result = new ResultImpl<E>( (E) i.getObject(), scores.get(count++) );
 			array.add( result );
 		}
 	}

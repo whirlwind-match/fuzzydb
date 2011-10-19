@@ -16,6 +16,12 @@ import java.util.Collection;
 public class ListStoresRsp extends OkRsp {
 	private final Collection<String> storeNames;
 	
+    /** Default ctor for serialization libraries */
+    private ListStoresRsp() {
+        super(-1, -1);
+        this.storeNames = null;
+    }
+
 	public ListStoresRsp(int cid, Collection<String> storeNames) {
 		super(0, cid);
 		this.storeNames = storeNames;

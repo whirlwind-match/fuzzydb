@@ -26,6 +26,12 @@ public class WWSearchCmd extends TransactionCommand {
 
 	private int fetchSize;
 
+    /** Default ctor for serialization libraries */
+    private WWSearchCmd() {
+        super(0, 0, 0);
+        this.search = null;
+    }
+
 	public WWSearchCmd(int storeId, int cid, int tid, String namespace, int queryId, boolean wantNominee, int fetchSize, SearchSpec search) {
 		super(storeId, cid, tid);
 		this.namespace = namespace;

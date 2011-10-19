@@ -15,6 +15,13 @@ public class CreateStoreRsp extends OkRsp {
 	private final int createStoreId;
 	private final String createStoreName;
 	
+    /** Default ctor for serialization libraries */
+    private CreateStoreRsp() {
+       super(-1, -1);
+       this.createStoreId = 0;
+       this.createStoreName = null; 
+    }
+
 	public CreateStoreRsp(int cid, String storeName, int storeId) {
 		super(0, cid);
 		this.createStoreId = storeId;

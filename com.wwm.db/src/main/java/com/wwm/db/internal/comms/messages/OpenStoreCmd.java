@@ -18,12 +18,11 @@ public class OpenStoreCmd extends Command {
 
 	private String openStoreName;
 
-	/**
-	 * Compile time constructor.. rather than leaving JRE to do run time generation
-	 */
-	public OpenStoreCmd() {
-		super();
-	}
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private OpenStoreCmd() {
+        super(-1, -1);
+    }
 	
 	public OpenStoreCmd(int cid, String storeName) {
 		super(0, cid);

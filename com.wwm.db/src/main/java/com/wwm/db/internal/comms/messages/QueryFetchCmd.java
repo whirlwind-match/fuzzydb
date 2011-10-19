@@ -16,6 +16,11 @@ public class QueryFetchCmd extends TransactionCommand {
 
 	private int qid;
 	
+    /** Default ctor for serialization libraries */
+    private QueryFetchCmd() {
+        super(-1, -1, -1);
+    }
+
 	public QueryFetchCmd(int storeId, int cid, int tid, int qid) {
 		super(storeId, cid, tid);
 		this.qid = qid;

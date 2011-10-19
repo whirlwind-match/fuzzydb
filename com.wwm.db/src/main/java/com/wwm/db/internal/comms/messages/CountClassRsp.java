@@ -15,6 +15,12 @@ public class CountClassRsp extends OkRsp {
 	
 	private final long count;
 	
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private CountClassRsp() {
+        this(0, 0, 0);
+    }
+	
 	public CountClassRsp(int storeId, int cid, long count) {
 		super(storeId, cid);
 		this.count = count;

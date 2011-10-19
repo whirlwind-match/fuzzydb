@@ -14,6 +14,11 @@ public class ListNamespacesCmd extends TransactionCommand {
 
 	private static final long serialVersionUID = 1L;
 	
+    /** Default ctor for serialization libraries */
+    private ListNamespacesCmd() {
+        super(-1, -1, -1);
+    }
+
 	public ListNamespacesCmd(int storeId, int cid, int tid) {
 		super(storeId, cid, tid);
 	}

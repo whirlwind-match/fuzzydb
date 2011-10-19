@@ -10,25 +10,40 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
+import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Loggable;
 
 @SuppressWarnings("serial")
 public class AllocNewIdsCmd extends Command implements Loggable {
 
-	private final Class<?> clazz;
+	private final String clazz;
 	private final String namespace;
 	private final int count;
+	
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private AllocNewIdsCmd() {
+       super(0, 0);
+       this.namespace = null;
+       this.clazz = null;
+       this.count = 0;
+    }
 	
 	public AllocNewIdsCmd(int storeId, int cid, String namespace, Class<?> clazz, int count) {
 		super(storeId, cid);
 		this.namespace = namespace;
-		this.clazz = clazz;
+		this.clazz = clazz.getCanonicalName();
 		this.count = count;
 	}
 
 	public Class<?> getClazz() {
-		return clazz;
+		try {
+            return Class.forName(clazz);
+        }
+        catch (ClassNotFoundException e) {
+            throw new ArchException("Class " + clazz + " not not on (probably server) classpath", e);
+        }
 	}
 
 	public String getNamespace() {

@@ -10,20 +10,34 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
+import com.wwm.db.core.exceptions.ArchException;
+
 @SuppressWarnings("serial")
 public class CountClassCmd extends TransactionCommand {
 	
-	private final Class<?> clazz;
+	private final String clazz;
 	private final String namespace;
 	
+    /** Default ctor for serialization libraries */
+    private CountClassCmd() {
+        super(0, 0, 0);
+        this.clazz = null;
+        this.namespace = null;
+    }
+
 	public CountClassCmd(int storeId, int cid, int tid, String namespace, Class<?> clazz) {
 		super(storeId, cid, tid);
-		this.clazz = clazz;
+		this.clazz = clazz.getCanonicalName();
 		this.namespace = namespace;
 	}
 
 	public Class<?> getClazz() {
-		return clazz;
+        try {
+            return Class.forName(clazz);
+        }
+        catch (ClassNotFoundException e) {
+            throw new ArchException("Class " + clazz + " not not on (probably server) classpath", e);
+        }
 	}
 
 	public String getNamespace() {

@@ -17,6 +17,12 @@ public class RetrieveByRefCmd extends TransactionCommand {
 
 	private final Ref ref;
 
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private RetrieveByRefCmd() {
+        this(0, 0, 0, null);
+    }
+
 	public RetrieveByRefCmd(int storeId, int cid, int tid, Ref ref) {
 		super(storeId, cid, tid);
 		this.ref = ref;

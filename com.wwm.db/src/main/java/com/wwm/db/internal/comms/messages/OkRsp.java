@@ -15,6 +15,11 @@ import com.wwm.io.core.messages.Response;
 @SuppressWarnings("serial")
 public class OkRsp extends Response {
 
+    /** Default ctor for serialization libraries */
+    private OkRsp() {
+        super(0, 0);
+    }
+    
 	public OkRsp(int storeId, int cid) {
 		super(storeId, cid);
 	}

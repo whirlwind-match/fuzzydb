@@ -16,7 +16,14 @@ import com.wwm.io.core.messages.Command;
 public class TransactionCommand extends Command {
 	final int tid;
 	
-	public TransactionCommand(int storeId, int cid, int tid) {
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private TransactionCommand() {
+        super(-1, -1);
+        this.tid = 0;
+    }
+
+	protected TransactionCommand(int storeId, int cid, int tid) {
 		super(storeId, cid);
 		this.tid = tid;
 	}

@@ -10,18 +10,27 @@
  *****************************************************************************/
 package com.wwm.db.internal.comms.messages;
 
+import com.wwm.db.core.exceptions.ArchException;
+
 public class RetrieveFirstOfCmd extends TransactionCommand {
 
 	private static final long serialVersionUID = 1L;
 
 	private final String namespace;
 
-	private final Class<?> forClass;
+	private final String forClass;
 	
+	/** Default ctor for serialization libraries */
+    private RetrieveFirstOfCmd() {
+       super(0, 0, 0);
+       this.namespace = null;
+       this.forClass = null;
+    }
+
 	public RetrieveFirstOfCmd(int storeId, String namespace, int cid, int tid, Class<?> forClass) {
 		super(storeId, cid, tid);
 		this.namespace = namespace;
-		this.forClass = forClass;
+		this.forClass = forClass.getCanonicalName();
 	}
 
 	public String getNamespace() {
@@ -29,6 +38,11 @@ public class RetrieveFirstOfCmd extends TransactionCommand {
 	}
 
 	public Class<?> getForClass() {
-		return forClass;
+		try {
+            return Class.forName(forClass);
+        }
+        catch (ClassNotFoundException e) {
+            throw new ArchException("Class " + forClass + " not not on (probably server) classpath", e);
+        }
 	}
 }

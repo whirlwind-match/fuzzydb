@@ -19,6 +19,13 @@ public class RetrieveBySpecCmd extends TransactionCommand {
 	private final RetrieveSpec spec;
 	private final String namespace;
 
+    /** Default ctor for serialization libraries */
+    private RetrieveBySpecCmd() {
+        super(-1, -1, -1);
+        this.spec = null;
+        this.namespace = null;
+    }
+
 	public RetrieveBySpecCmd(int storeId, String namespace, int cid, int tid, RetrieveSpec spec) {
 		super(storeId, cid, tid);
 		this.spec = spec;
