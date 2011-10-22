@@ -33,8 +33,6 @@ import com.wwm.db.whirlwind.internal.IAttribute;
  */
 public class CurrentTxAttrDefinitionMgr implements AttributeDefinitionService {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * One instance per thread, so that updates are not pushed to other threads.
      * If we modify this, we must detach the instance so that we read-afresh after
