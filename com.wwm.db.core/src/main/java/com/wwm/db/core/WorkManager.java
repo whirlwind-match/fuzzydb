@@ -14,7 +14,7 @@ public class WorkManager {
 
 	static private WorkManager instance = new WorkManager();
 	
-	private ExecutorService executor = Executors.newFixedThreadPool(4);
+	private ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 	private ForkJoinPool forkJoinPool = new ForkJoinPool(2);
 	
 	public static WorkManager getInstance() {
