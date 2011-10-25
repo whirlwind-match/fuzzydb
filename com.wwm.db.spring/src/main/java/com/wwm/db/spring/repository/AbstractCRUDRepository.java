@@ -2,18 +2,27 @@ package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mapping.model.MappingException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
 import com.wwm.db.DataOperations;
+import com.wwm.db.query.ResultSet;
 
 public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean {
 
@@ -56,9 +65,22 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	}
 
 
+	@Override
 	@Transactional(readOnly=true)
 	public Iterable<T> findAll() {
-		throw new UnsupportedOperationException("not yet implemented");
+		final ResultSet<I> all = persister.query(getInternalType(), null, null);
+		return new Iterable<T>(){
+
+			public Iterator<T> iterator() {
+				return new ConvertingIterator<I,T>(all.iterator()) {
+					
+					@Override
+					protected T convert(I internal) {
+						return fromInternal(internal);
+					}
+				};
+			}
+		};
 	}
 
 	@Transactional(readOnly=true)
@@ -145,5 +167,41 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		for (T entity : entities) {
 			delete(entity);
 		}
+	}
+
+
+	@Transactional(readOnly=true)
+	@Override
+	public Iterable<T> findAll(Sort sort) {
+		throw new UnsupportedOperationException("not yet implemented - feel free to fork at github.com/whirlwind-match/whirlwind-db");
+	}
+
+	@Transactional(readOnly=true)
+	@Override
+	public Page<T> findAll(Pageable pageable) {
+		// Not scaleable!
+		
+		Iterable<T> results = findAll();
+		Iterator<T> iterator = results.iterator(); 
+		// See if we have the requested page by skipping past those we don't need
+		int i = 0;
+		int pageStartCount = pageable.getPageNumber() * pageable.getPageSize();
+		for ( ; i < pageStartCount; i++) {
+			if (!iterator.hasNext()) {
+				return new PageImpl<T>(empty(), pageable, i);
+			}
+		}
+		
+		ArrayList<T> resultsPage = new ArrayList<T>(pageable.getPageSize());
+		for ( ; i < pageStartCount + pageable.getPageSize(); i++) {
+			if (!iterator.hasNext()) {
+				return new PageImpl<T>(resultsPage, pageable, i);
+			}
+		}
+		return new PageImpl<T>(resultsPage, pageable, Integer.MAX_VALUE); // Don't know total size
+	}
+
+	private List<T> empty() {
+		return Collections.emptyList();
 	}
 }

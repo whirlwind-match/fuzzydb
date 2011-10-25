@@ -3,13 +3,14 @@ package com.wwm.db.spring.repository;
 import java.io.Serializable;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * Extends {@link CrudRepository} with some Whirlwind-specific operations
  * 
  * @author Neale Upstone
  */
-public interface WhirlwindCrudRepository<T, ID extends Serializable> extends CrudRepository<T,ID> {
+public interface WhirlwindCrudRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T,ID> {
 
 	/**
 	 * Sometimes it's helpful to just find the first of our target class (e.g. where 
