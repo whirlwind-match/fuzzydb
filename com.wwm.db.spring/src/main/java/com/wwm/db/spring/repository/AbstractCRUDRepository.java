@@ -190,6 +190,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 			if (!iterator.hasNext()) {
 				return new PageImpl<T>(empty(), pageable, i);
 			}
+			iterator.next();
 		}
 		
 		ArrayList<T> resultsPage = new ArrayList<T>(pageable.getPageSize());
@@ -197,8 +198,9 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 			if (!iterator.hasNext()) {
 				return new PageImpl<T>(resultsPage, pageable, i);
 			}
+			resultsPage.add(iterator.next());
 		}
-		return new PageImpl<T>(resultsPage, pageable, Integer.MAX_VALUE); // Don't know total size
+		return new PageImpl<T>(resultsPage, pageable, Long.MAX_VALUE); // Don't know total size
 	}
 
 	private List<T> empty() {
