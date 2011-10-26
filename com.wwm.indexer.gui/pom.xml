@@ -5,9 +5,9 @@
 
 	<parent>
 		<groupId>org.fuzzydb</groupId>
-		<artifactId>whirlwind-parent</artifactId>
+		<artifactId>fuzzydb-parent</artifactId>
 		<version>1.0.0.M3-SNAPSHOT</version>
-        <relativePath>../whirlwind-parent</relativePath>
+        <relativePath>../fuzzydb-parent</relativePath>
 	</parent>
 
 	<dependencies>

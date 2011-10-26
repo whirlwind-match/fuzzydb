@@ -5,9 +5,9 @@
 
     <parent>
         <groupId>org.fuzzydb</groupId>
-        <artifactId>whirlwind-parent-aspectj</artifactId>
+        <artifactId>fuzzydb-parent-aspectj</artifactId>
         <version>1.0.0.M3-SNAPSHOT</version>
-        <relativePath>../whirlwind-parent-aspectj</relativePath>
+        <relativePath>../fuzzydb-parent-aspectj</relativePath>
     </parent>
 
     <description>Server:

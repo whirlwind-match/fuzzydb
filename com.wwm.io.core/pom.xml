@@ -4,10 +4,10 @@
     <artifactId>org.fuzzydb.io.core</artifactId>
 
     <parent>
-        <artifactId>whirlwind-parent</artifactId>
+        <artifactId>fuzzydb-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
         <version>1.0.0.M3-SNAPSHOT</version>
-        <relativePath>../whirlwind-parent</relativePath>
+        <relativePath>../fuzzydb-parent</relativePath>
     </parent>
 
     <dependencies>

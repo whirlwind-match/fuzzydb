@@ -7,16 +7,14 @@
     <packaging>pom</packaging>
     <version>1.0.0.M3-SNAPSHOT</version>
 
-    <name>whirlwind-db</name>
-    <description>
-        Whirlwind is a fuzzy matching database engine capable of providing human-like search results that make life 
-        much easier for users of websites searching for things like cars, houses, people and jobs
-    </description>
+    <name>${project.artifactId}</name>
+    <description>fuzzydb is a fuzzy matching database engine capable of providing human-like search results that make life 
+        much easier for users of websites searching for things like cars, houses, people and jobs</description>
     <url>http://www.fuzzydb.org</url>
 
     <modules>
-        <module>whirlwind-parent</module>
-        <module>whirlwind-parent-aspectj</module>
+        <module>fuzzydb-parent</module>
+        <module>fuzzydb-parent-aspectj</module>
         
         <module>test-support</module>
         <module>com.wwm.util</module>

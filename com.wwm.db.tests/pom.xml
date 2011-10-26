@@ -3,13 +3,13 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>org.fuzzydb.tests</artifactId>
-    <name>Whirlwind Standalone Database Tests</name>
+    <name>org.fuzzydb.tests</name>
 
     <parent>
-        <artifactId>whirlwind-parent</artifactId>
+        <artifactId>fuzzydb-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
         <version>1.0.0.M3-SNAPSHOT</version>
-        <relativePath>../whirlwind-parent</relativePath>
+        <relativePath>../fuzzydb-parent</relativePath>
     </parent>
 
     <dependencies>
@@ -41,4 +41,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <description>Standalone database tests</description>
 </project>
