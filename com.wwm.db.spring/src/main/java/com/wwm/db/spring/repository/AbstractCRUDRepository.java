@@ -183,27 +183,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		
 		Iterable<T> results = findAll();
 		Iterator<T> iterator = results.iterator(); 
-		// See if we have the requested page by skipping past those we don't need
-		int i = 0;
-		int pageStartCount = pageable.getPageNumber() * pageable.getPageSize();
-		for ( ; i < pageStartCount; i++) {
-			if (!iterator.hasNext()) {
-				return new PageImpl<T>(empty(), pageable, i);
-			}
-			iterator.next();
-		}
 		
-		ArrayList<T> resultsPage = new ArrayList<T>(pageable.getPageSize());
-		for ( ; i < pageStartCount + pageable.getPageSize(); i++) {
-			if (!iterator.hasNext()) {
-				return new PageImpl<T>(resultsPage, pageable, i);
-			}
-			resultsPage.add(iterator.next());
-		}
-		return new PageImpl<T>(resultsPage, pageable, Long.MAX_VALUE); // Don't know total size
-	}
-
-	private List<T> empty() {
-		return Collections.emptyList();
+		return PageUtils.getPage(iterator, pageable);
 	}
 }
