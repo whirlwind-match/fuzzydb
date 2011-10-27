@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -133,6 +135,15 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		selectNamespace();
 		I internal = toInternal(query.getQueryTarget());
 		return findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
+	}
+
+	@Transactional(readOnly=true, propagation=Propagation.MANDATORY)
+	public Page<Result<T>> findMatchesFor(AttributeMatchQuery<T> query, Pageable pageable) {
+		selectNamespace();
+		I internal = toInternal(query.getQueryTarget());
+		Iterator<Result<T>> resultIterator = findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
+		return PageUtils.getPage(resultIterator, pageable);
+		
 	}
 
 	protected Iterator<Result<T>> findMatchesInternal(I internal, String matchStyle, int maxResults) {
