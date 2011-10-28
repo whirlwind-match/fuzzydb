@@ -9,8 +9,14 @@ public interface GeoInformation {
 
 	String getCounty();
 
+	/**
+	 * Latitude in degrees
+	 */
 	float getLatitude();
 
+	/**
+	 * Longitude in degrees 
+	 */
 	float getLongitude();
 
 	String getTown();
