@@ -12,6 +12,8 @@ import java.util.Map.Entry;
 
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
+
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.enums.EnumExclusiveValue;
@@ -115,8 +117,15 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	private void addConvertedAttribute(BlobStoringWhirlwindItem result,
 			String key, Object value) {
 
+		Assert.hasLength(key);
+		Assert.notNull(value);
+
+		// Empty strings are ignored
+		if (value instanceof String && value.toString().length() == 0) {
+			return;
+		}
+			
 		// We expect the id to already be known
-		
 		int id;
 		try {
 			id = attrDefinitionService.getAttrId(key, value.getClass());
@@ -124,7 +133,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			// if already known but clashing, convert value to required type
 			id = attrDefinitionService.getAttrId(key);
 			Class<?> expected = attrDefinitionService.getExternalClass(id);
-			value = converter.convert(value, expected);
+			value = converter.convert(value, expected); 
 		}
 		
 		Class<? extends IAttribute> dbClass = attrDefinitionService.getDbClass(id);
