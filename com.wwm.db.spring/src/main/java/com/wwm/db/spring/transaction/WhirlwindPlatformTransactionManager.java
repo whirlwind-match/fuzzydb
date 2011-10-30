@@ -5,6 +5,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 import org.springframework.transaction.support.DefaultTransactionStatus;
+import org.springframework.transaction.support.SmartTransactionObject;
 import org.springframework.util.Assert;
 
 import com.wwm.db.DataOperations;
@@ -15,9 +16,11 @@ import com.wwm.db.core.exceptions.ArchException;
 public class WhirlwindPlatformTransactionManager extends
 		AbstractPlatformTransactionManager {
 
-	private class TransactionHolder {
+	private class TransactionHolder implements SmartTransactionObject {
 
 		private Transaction transaction;
+
+		private boolean rollbackOnly = false;
 		
 		public TransactionHolder(Transaction currentTransaction) {
 			this.transaction = currentTransaction;
@@ -29,6 +32,20 @@ public class WhirlwindPlatformTransactionManager extends
 
 		public void setTransaction(Transaction transaction) {
 			this.transaction = transaction;
+		}
+
+		public void setRollbackOnly() {
+			this.rollbackOnly = true;
+		}
+		
+		@Override
+		public boolean isRollbackOnly() {
+			return rollbackOnly;
+		}
+
+		@Override
+		public void flush() {
+			// do nothing
 		}
 	}
 
@@ -72,7 +89,13 @@ public class WhirlwindPlatformTransactionManager extends
 
 		try {
 			TransactionHolder th = (TransactionHolder) status.getTransaction();
-			th.getTransaction().commit();
+			if (th.isRollbackOnly()) {
+				th.getTransaction().dispose();
+			}
+			else {
+				th.getTransaction().commit();
+			}
+			
 			th.setTransaction(null);
 		} catch (ArchException e) {
 			throwTranslatedException(e);
@@ -103,4 +126,10 @@ public class WhirlwindPlatformTransactionManager extends
 		return store.currentTransaction();
 	}
 
+	@Override
+	protected void doSetRollbackOnly(DefaultTransactionStatus status)
+			throws TransactionException {
+		TransactionHolder th = (TransactionHolder)status.getTransaction();
+		th.setRollbackOnly();
+	}
 }
