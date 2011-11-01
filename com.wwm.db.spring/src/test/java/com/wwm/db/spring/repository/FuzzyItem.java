@@ -5,18 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Persistent;
 
+@Persistent
 public class FuzzyItem implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	private String description;
 	
-	private Map<String, Object> attributes = new HashMap<String,Object>();
+	private final Map<String, Object> attributes = new HashMap<String,Object>();
 	
 	@Id
 	private String ref;
 
+
+	private String[] newspapers;
 	
 	/**
 	 * Public constructor needed by some frameworks
@@ -38,6 +42,14 @@ public class FuzzyItem implements Serializable {
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public String[] getNewspapers() {
+		return newspapers;
+	}
+	
+	public void setNewspapers(String[] newspapers) {
+		this.newspapers = newspapers;
 	}
 	
 	public String getRef() {

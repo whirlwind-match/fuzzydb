@@ -10,13 +10,15 @@
  *****************************************************************************/
 package com.wwm.attrs.userobjects;
 
-import gnu.trove.TIntObjectHashMap;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.AttrsFactory;
 import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.CardinalAttributeMap;
@@ -30,10 +32,6 @@ import com.wwm.db.whirlwind.internal.IAttributeMap;
  * for the object mapped using MessagePack.  
  */
 public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
-
-    /** For use when instance value is null, but want to return a map */
-    static private final TIntObjectHashMap<String> emptyStringMap = new TIntObjectHashMap<String>(0);
-
 
 
     private static final long serialVersionUID = 1L;
@@ -56,8 +54,8 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
     private CardinalAttributeMap<IAttribute> attrs = AttrsFactory.getCardinalAttributeMap();
 
     // track if we've already compacted this
-    private boolean compacted = false;
-    private TIntObjectHashMap<String> nonIndexAttrs = null;
+//    private boolean compacted = false;
+    private HashMap<String,String> nonIndexAttrs = null;
 
 
     @SuppressWarnings("unchecked")
@@ -80,25 +78,27 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
 
     /**
      * Add a non-index string to this object, e.g. Postcode="CB4 2QW"
-     * Note: AttrId is used as Strings would be inefficient (esp as they're not
-     * easily merged when dealing with serialised I/O)
+     * Note: The use of Strings for keys is inefficient.  This could be an attribute id once we have
+     * a decent {@link AttributeDefinitionService} available.
      */
-    public void setNonIndexString(int attrId, String value){
+    public void setNonIndexString(String name, String value) {
         if (nonIndexAttrs == null) {
-            nonIndexAttrs = new TIntObjectHashMap<String>(4, 1.0f); // high load factor to get compact map
+            nonIndexAttrs = new HashMap<String, String>(4, 1.0f); // high load factor to get compact map
         }
-        nonIndexAttrs.put(attrId, value);
+        nonIndexAttrs.put(name, value);
     }
 
-    public String getNonIndexString(int attrId){
-        return nonIndexAttrs == null ? null : nonIndexAttrs.get(attrId);
+    public String getNonIndexString(String name){
+        return nonIndexAttrs == null ? null : nonIndexAttrs.get(name);
     }
 
-
-    public TIntObjectHashMap<String> getNonIndexAttrs(){
-        return nonIndexAttrs == null ? emptyStringMap : nonIndexAttrs;
-    }
-
+    public Map<String, String> getNonIndexAttrs() {
+		if (nonIndexAttrs != null) {
+			return nonIndexAttrs;
+		} else {
+			return Collections.emptyMap();
+		}
+	}
     
     public Object getNominee() {
         throw new UnsupportedOperationException(); // TODO: Deserialze the blob..?  or is this just the buffer
@@ -112,7 +112,7 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
 	public void mergeDuplicates(AttributeCache cache) {
     	
     	// FIXME: merge attributes too - is this AttributeRemapper??
-    	cache.mergeStrings( nonIndexAttrs );
+//    	cache.mergeStrings( nonIndexAttrs );
     }
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -121,10 +121,10 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
     }
     
     private void writeObject(ObjectOutputStream out) throws IOException {
-    	if (!compacted){
-    		if (nonIndexAttrs != null) nonIndexAttrs.compact(); // reduce mem footprint before sending over wire or to disk
-    		compacted = true; // worth the byte to save empty spaces in arrays.
-    	}
+//    	if (!compacted){
+//    		if (nonIndexAttrs != null) nonIndexAttrs.compact(); // reduce mem footprint before sending over wire or to disk
+//    		compacted = true; // worth the byte to save empty spaces in arrays.
+//    	}
     	out.defaultWriteObject();
     }
     
