@@ -81,6 +81,7 @@ public class FuzzyRepositoryTest {
 		{
 			// Now modify a field
 			matt.setAttr("salary", 21000f);
+			matt.setSmoke("Non-smoker");
 			FuzzyItem updated = updateItem(matt);
 			assertEquals("ref should be same for same object", ref, updated.getRef());
 		}
@@ -92,6 +93,7 @@ public class FuzzyRepositoryTest {
 			assertNotNull(result.getRef());
 			assertNotSame(result, matt);
 			assertEquals(21000f, result.getAttr("salary"));
+			assertEquals("Non-smoker", result.getSmoke());
 		}
 		
 		{
@@ -140,6 +142,7 @@ public class FuzzyRepositoryTest {
 	private List<Result<FuzzyItem>> doQuery(final AttributeMatchQuery<FuzzyItem> query) {
 		
 		return new TransactionTemplate(transactionManager).execute(new TransactionCallback<List<Result<FuzzyItem>>>() {
+			@Override
 			public List<Result<FuzzyItem>> doInTransaction(TransactionStatus status) {
 				
 				Iterator<Result<FuzzyItem>> items = repo.findMatchesFor(query);

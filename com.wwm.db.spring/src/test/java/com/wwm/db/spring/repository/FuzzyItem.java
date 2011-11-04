@@ -19,8 +19,9 @@ public class FuzzyItem implements Serializable {
 	@Id
 	private String ref;
 
-
 	private String[] newspapers;
+	
+	private String smoke;
 	
 	/**
 	 * Public constructor needed by some frameworks
@@ -52,6 +53,14 @@ public class FuzzyItem implements Serializable {
 		this.newspapers = newspapers;
 	}
 	
+	public String getSmoke() {
+		return smoke;
+	}
+
+	public void setSmoke(String smoke) {
+		this.smoke = smoke;
+	}
+
 	public String getRef() {
 		return ref;
 	}

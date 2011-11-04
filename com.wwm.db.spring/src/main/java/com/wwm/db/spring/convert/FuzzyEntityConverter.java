@@ -52,6 +52,7 @@ public class FuzzyEntityConverter<E>
 		this.converter = converter;
 		this.attrDefinitionService = attrDefinitionService;
 		this.persister = persister;
+		mappingContext.setAttrDefinitionService(attrDefinitionService);
 	}
 	
 	@Override
@@ -144,13 +145,19 @@ public class FuzzyEntityConverter<E>
 				else if (persistentProperty.isMap() && persistentProperty.getComponentType().equals(String.class)) {
 					addAttributesFromMap(sink, (Map<String,Object>) value);
 				}
+
+				else if (persistentProperty.isFuzzyAttribute()) {
+					addConvertedAttribute(sink, persistentProperty.getName(), value);
+				}
 				
 				// To persist strings,
 				else if (persistentProperty.getType().equals(String.class)) {
 					addNonFuzzyAttr(sink, persistentProperty.getName(), (String) value);
 				}
 				else {
+					// need to sort out things like IPoint3D being mapped from postcode !!  Always a pain in the but this one!
 					addConvertedAttribute(sink, persistentProperty.getName(), value);
+//					throw new MappingException("Unable to map persistent property: " + persistentProperty);
 				}
 			}
 
