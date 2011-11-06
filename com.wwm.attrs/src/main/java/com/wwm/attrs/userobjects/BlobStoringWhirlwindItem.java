@@ -36,8 +36,6 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private byte[] blob = null;
-    
     /**
      * Map containing the key/values for this that represent unique keys to be indexed in the database.
      * TODO: IMplement support for @Key against a Map and then enable
@@ -66,14 +64,6 @@ public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
     @SuppressWarnings("unchecked")
 	public void setAttributeMap(IAttributeMap<IAttribute> attrs) {
         this.attrs = (CardinalAttributeMap<IAttribute>)attrs;
-    }
-
-    public void setBlob(byte[] blob) {
-    	this.blob = blob;
-    }
-    
-    public byte[] getBlob() {
-    	return blob;
     }
 
     /**

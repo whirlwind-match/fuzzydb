@@ -1,7 +1,6 @@
 package com.wwm.db.spring.convert;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -100,7 +99,10 @@ public class FuzzyEntityConverter<E>
 	}
 
 	private <R> void addAttribute(R target, String key, Object value) {
-		getAttrsField(target).put(key, value);
+		Map<String, Object> attrsField = getAttrsField(target);
+		if (attrsField != null) {
+			attrsField.put(key, value);
+		}
 	}
 
 	private static final String ATTRIBUTES_FIELD_NAME = "attributes";
@@ -112,7 +114,7 @@ public class FuzzyEntityConverter<E>
 			Object attrs = directFieldAccessor.getPropertyValue(ATTRIBUTES_FIELD_NAME); // TODO: make annotated
 			return (Map<String, Object>) attrs;
 		}
-		return Collections.EMPTY_MAP;
+		return null;
 	}
 
 	@Override

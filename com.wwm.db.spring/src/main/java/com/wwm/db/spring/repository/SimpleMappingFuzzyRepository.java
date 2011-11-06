@@ -1,8 +1,5 @@
 package com.wwm.db.spring.repository;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,16 +79,6 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 		
 		entityConverter.write(external, result);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(external);
-			oos.close();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		byte[] bytes = baos.toByteArray();
-		result.setBlob(bytes);
 		return result;
 	}
 
@@ -140,7 +127,6 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 			Ref<BlobStoringWhirlwindItem> existingRef) {
 		
 		BlobStoringWhirlwindItem existing = getPersister().retrieve(existingRef);
-		existing.setBlob(toWrite.getBlob());
 		existing.setAttributeMap(toWrite.getAttributeMap());
 		return existing;
 	}
