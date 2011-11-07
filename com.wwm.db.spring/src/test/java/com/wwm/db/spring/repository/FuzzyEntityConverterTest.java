@@ -26,7 +26,7 @@ import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.simple.FloatValue;
 import com.wwm.attrs.simple.FloatRangePreference;
-import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
+import com.wwm.attrs.userobjects.MappedFuzzyItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
@@ -50,7 +50,7 @@ public class FuzzyEntityConverterTest  {
 	
 	
 	@Captor 
-	private ArgumentCaptor<BlobStoringWhirlwindItem> wwItemCaptor;
+	private ArgumentCaptor<MappedFuzzyItem> wwItemCaptor;
 	
 	
 	@Before
@@ -82,7 +82,7 @@ public class FuzzyEntityConverterTest  {
 
 		// verify attributes converted
 		verify(persister, times(1)).save(wwItemCaptor.capture());
-		BlobStoringWhirlwindItem storedInDatabase = wwItemCaptor.getValue();
+		MappedFuzzyItem storedInDatabase = wwItemCaptor.getValue();
 		IAttributeMap<IAttribute> attrs = storedInDatabase.getAttributeMap();
 		assertThat((BooleanValue)attrs.findAttr(isMaleId),equalTo(new BooleanValue(isMaleId,false)));
 		FloatValue attr = (FloatValue)attrs.findAttr(ageId);
@@ -102,8 +102,8 @@ public class FuzzyEntityConverterTest  {
 	public void shouldConvertToFieldsOnRetrieve() {
 		
 		// mock
-		BlobStoringWhirlwindItem internal = getWWItem();
-		when(persister.retrieve((Ref<BlobStoringWhirlwindItem>) anyObject())).thenReturn(internal);
+		MappedFuzzyItem internal = getWWItem();
+		when(persister.retrieve((Ref<MappedFuzzyItem>) anyObject())).thenReturn(internal);
 		when(persister.getRef((FuzzyItem)anyObject())).thenReturn(new RefImpl<FuzzyItem>(1,2,3));
 		
 
@@ -118,8 +118,8 @@ public class FuzzyEntityConverterTest  {
 	}
 	
 	
-	private BlobStoringWhirlwindItem getWWItem() {
-		BlobStoringWhirlwindItem item = new BlobStoringWhirlwindItem();
+	private MappedFuzzyItem getWWItem() {
+		MappedFuzzyItem item = new MappedFuzzyItem();
 		item.getAttributeMap().putAttr(new BooleanValue(isMaleId, true));
 		item.getAttributeMap().putAttr(new FloatValue(ageId, 2.2f));
 		item.getAttributeMap().putAttr(new FloatRangePreference(ageRangeId, 1.2f, 2.3f, 3.4f));

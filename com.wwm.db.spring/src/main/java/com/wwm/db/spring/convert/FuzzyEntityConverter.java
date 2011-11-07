@@ -20,7 +20,7 @@ import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.enums.EnumExclusiveValue;
 import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
+import com.wwm.attrs.userobjects.MappedFuzzyItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
@@ -33,8 +33,8 @@ import com.wwm.model.attributes.EnumAttribute;
 import com.wwm.model.attributes.MultiEnumAttribute;
 
 /**
- * Maps an entity to a {@link BlobStoringWhirlwindItem} by mapping fuzzy attributes (floats, enums etc) to the fuzzy attributes
- * and undefined attributes to {@link BlobStoringWhirlwindItem#setNonIndexString(String, String)}
+ * Maps an entity to a {@link MappedFuzzyItem} by mapping fuzzy attributes (floats, enums etc) to the fuzzy attributes
+ * and undefined attributes to {@link MappedFuzzyItem#setNonIndexString(String, String)}
 
  * @author Neale Upstone
  *
@@ -42,7 +42,7 @@ import com.wwm.model.attributes.MultiEnumAttribute;
  */
 public class FuzzyEntityConverter<E>
 		implements
-		EntityConverter<PersistentEntity<E, FuzzyProperty>, FuzzyProperty, E, BlobStoringWhirlwindItem> {
+		EntityConverter<PersistentEntity<E, FuzzyProperty>, FuzzyProperty, E, MappedFuzzyItem> {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -60,7 +60,7 @@ public class FuzzyEntityConverter<E>
 	}
 	
 	@Override
-	public <R extends E> R read(Class<R> type, final BlobStoringWhirlwindItem source) {
+	public <R extends E> R read(Class<R> type, final MappedFuzzyItem source) {
 		// mapping context can deal with subtypes of E, of which R is one
 		FuzzyPersistentEntity<E> persistentEntity = mappingContext.getPersistentEntity(type);
 		
@@ -125,7 +125,7 @@ public class FuzzyEntityConverter<E>
 	}
 
 	@Override
-	public void write(E source, final BlobStoringWhirlwindItem sink) {
+	public void write(E source, final MappedFuzzyItem sink) {
 		// mapping context can deal with subtypes of E, of which R is one
 		FuzzyPersistentEntity<E> persistentEntity = mappingContext.getPersistentEntity(source.getClass());
 		
@@ -203,18 +203,18 @@ public class FuzzyEntityConverter<E>
 		}
 	}
 
-	private void addNonFuzzyAttr(BlobStoringWhirlwindItem sink, String name, String value) {
+	private void addNonFuzzyAttr(MappedFuzzyItem sink, String name, String value) {
 		sink.setNonIndexString(name, value);
 	}
 
-	private void addAttributesFromMap(BlobStoringWhirlwindItem sink, Map<String,Object> map) {
+	private void addAttributesFromMap(MappedFuzzyItem sink, Map<String,Object> map) {
 		for (Entry<String, Object> item : map.entrySet()) {
 			addConvertedAttribute(sink, item.getKey(), item.getValue());
 		}
 	}
 
 	// Doesn't currently handle things that cannot be represented as fuzzy attributes
-	private void addConvertedAttribute(BlobStoringWhirlwindItem result,
+	private void addConvertedAttribute(MappedFuzzyItem result,
 			String key, Object value) {
 
 		Assert.hasLength(key);
@@ -305,13 +305,13 @@ public class FuzzyEntityConverter<E>
 		}
 	}
 
-	protected final Ref<BlobStoringWhirlwindItem> toInternalId(String id) {
+	protected final Ref<MappedFuzzyItem> toInternalId(String id) {
 		// Externally we ref as Ref<T>  and we are using the real ref here
 		return RefImpl.valueOf(id);
 	}
 	
-	protected String toExternalId(Ref<BlobStoringWhirlwindItem> ref) {
-		return ((RefImpl<BlobStoringWhirlwindItem>) ref).asString();
+	protected String toExternalId(Ref<MappedFuzzyItem> ref) {
+		return ((RefImpl<MappedFuzzyItem>) ref).asString();
 	}
 
 

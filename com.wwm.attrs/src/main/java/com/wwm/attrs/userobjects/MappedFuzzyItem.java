@@ -27,11 +27,10 @@ import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 /**
- * A {@link IWhirlwindItem} that stores the attribute map plus any BLOB of data associated with it.
- * The BLOB might, for example be a serialized form of the originating object, or a byte buffer
- * for the object mapped using MessagePack.  
+ * A {@link IWhirlwindItem} that can store fuzzy indexable attributes, but also
+ * any non-indexable string attributes.
  */
-public class BlobStoringWhirlwindItem implements IWhirlwindItem, Serializable {
+public class MappedFuzzyItem implements IWhirlwindItem, Serializable {
 
 
     private static final long serialVersionUID = 1L;
