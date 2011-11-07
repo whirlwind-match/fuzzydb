@@ -185,7 +185,7 @@ public class FuzzyRepositoryTest {
 		matt.setAttr("age", 32f);
 		matt.setAttr("ageRange", new float[]{25f, 32f, 38f}); // A perfect match for own age
 		matt.setAttr("salary", 500000f);
-		matt.setAttr("smoke", "Cigar-smoker");
+		matt.setSmoke("Cigar-smoker");
 		matt.setAttr("newspapers", new String[]{"LA Times", "New York Times"});
 		return saveOne(matt);
 	}
@@ -197,7 +197,7 @@ public class FuzzyRepositoryTest {
 		angelina.setAttr("age", 35f);
 		angelina.setAttr("ageRange", new float[]{30f, 37f, 50f});
 		angelina.setAttr("salary", 500000f);
-		angelina.setAttr("smoke", "Cigarette-smoker");
+		angelina.setSmoke("Cigarette-smoker");
 		angelina.setAttr("newspapers", new String[]{"Guardian", "New York Times"});
 		saveOne(angelina);
 
@@ -212,7 +212,7 @@ public class FuzzyRepositoryTest {
 		neale.setAttr("isMale", Boolean.TRUE);
 		neale.setAttr("age", 21f); // I wish (sort of)
 		neale.setAttr("salary", 25000f);
-		neale.setAttr("smoke", "Non-smoker");
+		neale.setSmoke("Non-smoker");
 		saveOne(neale);
 	}
 }
