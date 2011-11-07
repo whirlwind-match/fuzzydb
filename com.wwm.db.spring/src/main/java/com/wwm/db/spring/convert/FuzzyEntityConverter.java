@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.convert.EntityConverter;
@@ -42,6 +44,8 @@ public class FuzzyEntityConverter<E>
 		implements
 		EntityConverter<PersistentEntity<E, FuzzyProperty>, FuzzyProperty, E, BlobStoringWhirlwindItem> {
 
+	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final FuzzyMappingContext<E> mappingContext;
 	private final WhirlwindConversionService converter;
 	private final AttributeDefinitionService attrDefinitionService;
@@ -73,7 +77,7 @@ public class FuzzyEntityConverter<E>
 		
 		// Non-indexed String attributes
 		for ( Entry<String, String> entry: source.getNonIndexAttrs().entrySet()) {
-			setProperty(wrapper, persistentEntity.getPersistentProperty(entry.getKey()), entry.getValue());
+			setProperty(wrapper, persistentEntity, entry.getKey(), entry.getValue());
 		}
 		
 		String value = toExternalId(persister.getRef(source));
@@ -97,7 +101,7 @@ public class FuzzyEntityConverter<E>
 			addAttribute(wrapper.getBean(), key, value);
 		}
 		else {
-			setProperty(wrapper, persistentProperty, value);
+			setProperty(wrapper, entity, key, value);
 		}
 	}
 
@@ -150,7 +154,9 @@ public class FuzzyEntityConverter<E>
 				}
 				
 				else if (persistentProperty.isMap() && persistentProperty.getComponentType().equals(String.class)) {
-					addAttributesFromMap(sink, (Map<String,Object>) value);
+					@SuppressWarnings("unchecked")
+					Map<String,Object> map = (Map<String,Object>) value;
+					addAttributesFromMap(sink, map);
 				}
 
 				else if (persistentProperty.isFuzzyAttribute()) {
@@ -278,9 +284,20 @@ public class FuzzyEntityConverter<E>
 
 	protected <R> void setProperty(
 			final BeanWrapper<FuzzyPersistentEntity<R>, R> wrapper,
-			FuzzyProperty persistentProperty, Object value) {
+			FuzzyPersistentEntity<R> persistentEntity, String propertyName, Object value) {
+		PersistentProperty<?> property = persistentEntity.getPersistentProperty(propertyName);
+		if (property == null) {
+			log.debug("Can't map property {} as no target found on type {}", propertyName, persistentEntity.getType());
+			return;
+		}
+		setProperty(wrapper, property, value);
+	}
+
+	protected <R> void setProperty(
+			final BeanWrapper<FuzzyPersistentEntity<R>, R> wrapper,
+			PersistentProperty<?> property, Object value) {
 		try {
-			wrapper.setProperty(persistentProperty,  value);
+			wrapper.setProperty(property,  value);
 		} catch (IllegalAccessException e) {
 			throw new MappingException(e.getMessage(), e);
 		} catch (InvocationTargetException e) {
