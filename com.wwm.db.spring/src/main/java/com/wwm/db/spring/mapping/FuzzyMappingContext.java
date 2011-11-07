@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mapping.context.AbstractMappingContext;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.TypeInformation;
-
 import com.wwm.attrs.AttributeDefinitionService;
 
 public class FuzzyMappingContext<E> extends AbstractMappingContext<FuzzyPersistentEntity<E>, FuzzyProperty> {
@@ -19,8 +18,9 @@ public class FuzzyMappingContext<E> extends AbstractMappingContext<FuzzyPersiste
 	protected <X> FuzzyPersistentEntity<E> createPersistentEntity(
 			TypeInformation<X> typeInformation) {
 
-		// <X> above should be <E>  I think this is a bug
-		return (FuzzyPersistentEntity<E>) new FuzzyPersistentEntity<X>(typeInformation);
+		@SuppressWarnings("unchecked")
+		FuzzyPersistentEntity<E> entity = (FuzzyPersistentEntity<E>) new FuzzyPersistentEntity<X>(typeInformation);
+		return entity; 
 	}
 
 	@Override

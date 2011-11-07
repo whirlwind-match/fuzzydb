@@ -22,6 +22,7 @@ import com.wwm.attrs.userobjects.BlobStoringWhirlwindItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;
+import com.wwm.db.spring.annotation.DerivedField;
 import com.wwm.db.spring.mapping.FuzzyMappingContext;
 import com.wwm.db.spring.mapping.FuzzyPersistentEntity;
 import com.wwm.db.spring.mapping.FuzzyProperty;
@@ -55,28 +56,30 @@ public class FuzzyEntityConverter<E>
 	}
 	
 	@Override
-	public <R extends E> R read(Class<R> type, final BlobStoringWhirlwindItem internal) {
+	public <R extends E> R read(Class<R> type, final BlobStoringWhirlwindItem source) {
 		// mapping context can deal with subtypes of E, of which R is one
-		@SuppressWarnings("unchecked")
-		FuzzyPersistentEntity<R> persistentEntity = (FuzzyPersistentEntity<R>) mappingContext.getPersistentEntity(type);
+		FuzzyPersistentEntity<E> persistentEntity = mappingContext.getPersistentEntity(type);
 		
-		final BeanWrapper<FuzzyPersistentEntity<R>, R> wrapper = BeanWrapper.create(persistentEntity, null, converter);
-		R result = wrapper.getBean();
+		final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper = BeanWrapper.create(persistentEntity, null, converter);
+		@SuppressWarnings("unchecked")
+		R result = (R) wrapper.getBean();
 		
 		// It should be quicker to go through what properties we have than to go looking for
 		// all properties found in the attribute map than repeated lookups based on the persistent properties
 		// using persistentEntity.doWithProperties()
-		for( IAttribute attr : internal.getAttributeMap()) {
+		for( IAttribute attr : source.getAttributeMap()) {
 			addConvertedAttribute(persistentEntity, wrapper, attr);
 		}
 		
 		// Non-indexed String attributes
-		for ( Entry<String, String> entry: internal.getNonIndexAttrs().entrySet()) {
+		for ( Entry<String, String> entry: source.getNonIndexAttrs().entrySet()) {
 			setProperty(wrapper, persistentEntity.getPersistentProperty(entry.getKey()), entry.getValue());
 		}
 		
-		String value = toExternalId(persister.getRef(internal));
+		String value = toExternalId(persister.getRef(source));
 		setProperty(wrapper, persistentEntity.getIdProperty(), value);
+
+		applyDerivations(persistentEntity, wrapper);
 
 		return result;
 	}
@@ -124,6 +127,8 @@ public class FuzzyEntityConverter<E>
 		
 		final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper = BeanWrapper.create(source, converter);
 
+		applyDerivations(persistentEntity, wrapper);
+
 		// Iterate over peristent props and map as needed
 		persistentEntity.doWithProperties(new PropertyHandler<FuzzyProperty>() {
 			
@@ -164,6 +169,32 @@ public class FuzzyEntityConverter<E>
 			}
 
 		});
+	
+	}
+
+	/**
+	 * Apply derivations on fields marked {@link DerivedField} to the external entity.
+	 * 
+	 * This can be used in both directions.
+	 */
+	protected void applyDerivations(FuzzyPersistentEntity<E> persistentEntity,
+			final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper) {
+		// Handle all derivations
+		for (FuzzyProperty targetProperty : persistentEntity.getDerivations()) {
+			if (getProperty(wrapper, targetProperty) != null) {
+				continue; // skip if already set
+			}
+			String sourceFieldName = targetProperty.getDerivedField().value();
+			FuzzyProperty sourceProperty = persistentEntity.getPersistentProperty(sourceFieldName);
+			Object sourceValue = getProperty(wrapper, sourceProperty);
+			// Nulls and Empty strings are ignored
+			if (sourceValue == null || sourceValue instanceof String && sourceValue.toString().length() == 0) {
+				continue;
+			}
+
+			Object targetValue = converter.convert(sourceValue, targetProperty.getType());
+			setProperty(wrapper, targetProperty, targetValue);
+		}
 	}
 
 	private void addNonFuzzyAttr(BlobStoringWhirlwindItem sink, String name, String value) {
@@ -226,14 +257,16 @@ public class FuzzyEntityConverter<E>
 
 	@Override
 	public ConversionService getConversionService() {
-		// TODO Auto-generated method stub
-		return null;
+		return converter;
 	}
 
 	@SuppressWarnings("unchecked")
 	private <R> R getProperty(
 			BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper,
 			FuzzyProperty persistentProperty) {
+		Assert.notNull(wrapper);
+		Assert.notNull(persistentProperty);
+		
 		try {
 			return (R) wrapper.getProperty(persistentProperty);
 		} catch (IllegalAccessException e) {

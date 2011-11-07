@@ -2,6 +2,8 @@ package com.wwm.db.spring.mapping;
 
 import org.springframework.data.mapping.PersistentProperty;
 
+import com.wwm.db.spring.annotation.DerivedField;
+
 public interface FuzzyProperty extends PersistentProperty<FuzzyProperty> {
 	
 	/**
@@ -9,5 +11,8 @@ public interface FuzzyProperty extends PersistentProperty<FuzzyProperty> {
 	 *  
 	 * @return true if this property is a fuzzy matchable property
 	 */
-	public boolean isFuzzyAttribute();
+	boolean isFuzzyAttribute();
+	
+	
+	DerivedField getDerivedField();
 }
