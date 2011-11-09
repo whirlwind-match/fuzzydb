@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.db.DataOperations;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
 import com.wwm.db.whirlwind.internal.IAttribute;
@@ -40,10 +41,10 @@ public class CurrentTxAttrDefinitionMgr implements AttributeDefinitionService {
      * Currently we have the problem that we don't see the updates within this 
      * transaction 
      */
-    private ThreadLocal<AttrDefinitionMgr> attrDefsRef = new ThreadLocal<AttrDefinitionMgr>();
+    private final ThreadLocal<AttrDefinitionMgr> attrDefsRef = new ThreadLocal<AttrDefinitionMgr>();
     
 
-	private Store store; 
+	private final Store store; 
 
 	@Autowired
     public CurrentTxAttrDefinitionMgr(Store store) {
@@ -64,7 +65,9 @@ public class CurrentTxAttrDefinitionMgr implements AttributeDefinitionService {
 
     	Transaction tx = store.currentTransaction();
     	Assert.state(tx != null, "No transaction active");
+    	store.pushNamespace(DataOperations.DEFAULT_NAMESPACE);
     	AttrDefinitionMgr mgr = tx.retrieveFirstOf( SyncedAttrDefinitionMgr.class ); // currently persisted as sync'd version by store initializer
+    	store.popNamespace();
     	Assert.state(mgr != null, "All AttrDefs must have been provided elsewhere (in a matcher config for example)");
     	mgr.setReadOnly(true);
     	
@@ -82,38 +85,47 @@ public class CurrentTxAttrDefinitionMgr implements AttributeDefinitionService {
 	}
  
     
-    public int getAttrId(String attrName) {
+    @Override
+	public int getAttrId(String attrName) {
 		return getAttrDefs().getAttrId(attrName);
 	}
 
+	@Override
 	public String getAttrName(int attrId) {
 		return getAttrDefs().getAttrName(attrId);
 	}
 
+	@Override
 	public int getAttrId(String attrName, Class<?> clazz) {
 		return getAttrDefs().getAttrId(attrName, clazz);
 	}
 
+	@Override
 	public Class<?> getExternalClass(int attrId) {
 		return getAttrDefs().getExternalClass(attrId);
 	}
 
+	@Override
 	public Class<? extends IAttribute> getDbClass(int attrId) {
 		return getAttrDefs().getDbClass(attrId);
 	}
 
+	@Override
 	public EnumDefinition getEnumDefinition(String defName) {
 		return getAttrDefs().getEnumDefinition(defName);
 	}
 
+	@Override
 	public EnumDefinition getEnumDef(short enumDefId) {
 		return getAttrDefs().getEnumDef(enumDefId);
 	}
 
+	@Override
 	public void associateAttrToEnumDef(int attrId, EnumDefinition enumDef) {
 		getAttrDefs().associateAttrToEnumDef(attrId, enumDef);
 	}
 
+	@Override
 	public EnumDefinition getEnumDefForAttrId(int attrId) {
 		return getAttrDefs().getEnumDefForAttrId(attrId);
 	}

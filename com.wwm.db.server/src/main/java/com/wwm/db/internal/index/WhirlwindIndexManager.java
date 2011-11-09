@@ -20,6 +20,7 @@ import com.wwm.attrs.IScoreConfiguration;
 import com.wwm.attrs.WhirlwindConfiguration;
 import com.wwm.attrs.internal.ScoreConfigurationManager;
 import com.wwm.attrs.search.SearchSpecImpl;
+import com.wwm.db.Store;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.MetaObject;
@@ -44,10 +45,12 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 	/** Ref to the related config - transient to allow specific one to be discovered on restart, if
 	 * previously only had global (not a great solution, admittedly) */
     transient private RefImpl<WhirlwindConfiguration> wwConfigRef = null;
+    transient private Namespace wwConfigNamespace;
 
 	private final UserTable<T> table;
 
 	private final Map<String, Index<T>> allIndexes;
+
 
     
 	/**
@@ -125,7 +128,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
     private WhirlwindConfiguration getWhirlwindConfig() {
 
         // Try using the cached ref to go straight to the object
-        Namespace namespace = table.getNamespace();
+        Namespace namespace = wwConfigNamespace == null ? table.getNamespace() : wwConfigNamespace;
 		if (wwConfigRef != null) {
             try {
                 return namespace.getObject(wwConfigRef).getObject();
@@ -159,10 +162,26 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
             } catch (UnknownObjectException e) {
                 conf = null;
             }
-            if (conf == null){
-                getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Aborting");
-                // Allows to boot database and then insert a config later.
+        }
+        if (conf == null){
+            Namespace defaultNamespace = table.getNamespace().getNamespaces().getNamespace(Store.DEFAULT_NAMESPACE);
+            getLog().debug("Trying first default namespace for WhirlwindConfiguration");
+            Iterator<MetaObject<WhirlwindConfiguration>> iterator;
+            try {
+                iterator = defaultNamespace.retrieveAll(WhirlwindConfiguration.class);
+                if (iterator.hasNext()){
+                    MetaObject<WhirlwindConfiguration> metaObject = iterator.next();
+                    conf = metaObject.getObject();
+                    wwConfigRef = metaObject.getRef();
+                    wwConfigNamespace = defaultNamespace;
+                }
+            } catch (UnknownObjectException e) {
+                conf = null;
             }
+        }
+        if (conf == null){
+            getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Aborting");
+            // Allows to boot database and then insert a config later.
         }
         return conf;
     }

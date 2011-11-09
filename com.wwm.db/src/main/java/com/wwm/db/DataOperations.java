@@ -28,13 +28,13 @@ public interface DataOperations {
 
 // Namespace
 	
-	/**Sets the namespace filter for this transaction to the specified value.
+	String DEFAULT_NAMESPACE = "";
+
+	/**
+	 * Sets the namespace filter for this transaction to the specified value.
 	 * New transactions use the default namespace from the creating Store, this state may be restored by calling this function and passing null.
 	 * The namespace selects the scope of create, search and query operations. Explicit retrivals, updates etc. that specify
 	 * an object by ref or otherwise identify the namespace are unaffected.
-	 * If you're very lucky you might be able to use a regex here to select a set of namespaces. In which case the name 'default' will refer to the default (usually null) namespace. 
-	 * @param namespace
-	 * @throws ArchException 
 	 * @see pushNamespace()
 	 */
 	void setNamespace(String namespace);

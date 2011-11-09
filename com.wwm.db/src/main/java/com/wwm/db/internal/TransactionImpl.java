@@ -21,6 +21,7 @@ import java.util.Stack;
 
 import org.slf4j.Logger;
 
+import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
@@ -78,7 +79,7 @@ public class TransactionImpl implements Transaction {
 	public TransactionImpl(StoreImpl store) {
 		this.store = store;
 		this.tid = store.getNextId();
-		this.namespace = "";
+		this.namespace = DataOperations.DEFAULT_NAMESPACE;
 		log.debug("New transaction: {} on {}", tid, store);
 	}
 	
@@ -135,6 +136,7 @@ public class TransactionImpl implements Transaction {
 	}
 	
 	
+	@Override
 	public synchronized void commit() {
 		requiresAuth();
 		requiresActive();
@@ -165,6 +167,7 @@ public class TransactionImpl implements Transaction {
 		store.clearCurrentTransaction(this);
 	}
 
+	@Override
 	public synchronized <E> long count(Class<E> clazz) {
 		requiresActive();
 		Command cmd = new CountClassCmd(store.getStoreId(), store.getNextId(), tid, namespace, clazz);
@@ -172,6 +175,7 @@ public class TransactionImpl implements Transaction {
 		return rsp.getCount();
 	}
 
+	@Override
 	public synchronized <E> Ref<E> create(E obj) {
 		requiresActive();
 		requiresAuth();
@@ -181,6 +185,7 @@ public class TransactionImpl implements Transaction {
 		return ref;
 	}
 
+	@Override
 	public synchronized Ref[] create(Object[] objs) {
 		requiresActive();
 		requiresAuth();
@@ -191,22 +196,26 @@ public class TransactionImpl implements Transaction {
 		return refs;
 	}
 
+	@Override
 	public synchronized Ref[] create(Collection<Object> objs) {
 		requiresActive();
 		requiresAuth();
 		return create(objs.toArray());
 	}
 
+	@Override
 	public void delete(Object obj) {
 		delete(getRef(obj));
 	}
 
+	@Override
 	public synchronized void delete(Ref ref) {
 		requiresActive();
 		requiresAuth();
 		addDeleted(ref);
 	}
 
+	@Override
 	public synchronized void delete(Ref[] ref) {
 		requiresActive();
 		requiresAuth();
@@ -215,6 +224,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
+	@Override
 	public synchronized void delete(Iterable<Ref> refs) {
 		requiresActive();
 		requiresAuth();
@@ -223,6 +233,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
+	@Override
 	public synchronized void dispose() {
 		store.clearCurrentTransaction(this);
 		if (disposed) return;
@@ -237,20 +248,24 @@ public class TransactionImpl implements Transaction {
 		log.debug("Disposed (i.e. no commit) transaction: {}", tid);
 	}
 
+	@Override
 	public synchronized Object execute(String methodName, Ref ref, Object param) {
 		requiresActive();
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public synchronized String getNamespace() {
 		return namespace;
 	}
 
+	@Override
 	public synchronized long getVersion(Ref ref) {
 		return getVersion(retrieve(ref));
 	}
 
+	@Override
 	public synchronized String[] listNamespaces() {
 		requiresActive();
 		Command cmd = new ListNamespacesCmd(store.getStoreId(), store.getNextId(), tid);
@@ -259,31 +274,37 @@ public class TransactionImpl implements Transaction {
 		return rsp.getNamespaces();
 	}
 
+	@Override
 	public synchronized void modifyAttributes(IWhirlwindItem obj, CardinalAttributeMap<IAttribute> add, Collection<Long> remove) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public synchronized void modifyField(Object obj, String field, Object newval) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public synchronized void modifyNominee(IAttributeContainer obj, Object nominee) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public synchronized void modifyNomineeField(IAttributeContainer obj, String field, Object newval) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public synchronized void popNamespace() throws EmptyStackException {
 		requiresActive();
 		this.namespace = namespaceStack.pop();
 	}
 
+	@Override
 	public synchronized void pushNamespace(String namespace) {
 		requiresActive();
 		if (namespaceStack == null) {
@@ -293,50 +314,59 @@ public class TransactionImpl implements Transaction {
 		this.namespace = namespace;
 	}
 
+	@Override
 	public synchronized <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr) {
 		return query(clazz, index, expr, defaultFetchSize);
 	}
 
+	@Override
 	public synchronized <E> ResultSet<E> query(Class<E> clazz, LogicExpr index, LogicExpr expr, int fetchSize) {
 		requiresActive();
 		return new ResultSetImpl<E>(this, clazz, index, expr, fetchSize);
 	}
 
 	
+	@Override
 	public synchronized <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search) {
 		requiresActive();
 		return query(resultClazz, search, 10); // TODO: Is 10 a sensible default (was what we had in DBv1)
 	}
 
+	@Override
 	public synchronized <E extends IAttributeContainer> ResultSet<Result<E>> query(Class<E> resultClazz, SearchSpec search, int fetchSize) {
 		requiresActive();
 		return new WWResultSet<E>(resultClazz, store, this, tid, search, fetchSize, false);
 	}
 
 
+	@Override
 	public synchronized <E> long queryCount(Class<E> clazz, LogicExpr index, LogicExpr expr) {
 		requiresActive();
 		throw new UnsupportedOperationException();
 	}
 
 	
+	@Override
 	public synchronized <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search) {
 		requiresActive();
 		return queryNominee(resultClazz, search, 1);
 	}
 
+	@Override
 	public synchronized <E> ResultSet<Result<E>> queryNominee(Class<E> resultClazz, SearchSpec search, int fetchSize) {
 		requiresActive();
 		return new WWResultSet<E>(resultClazz, store, this, tid, search, fetchSize, true);
 	}
 
 	
+	@Override
 	public synchronized <E> E refresh(E obj) {
 		requiresActive();
 		// TODO add current version check. (Right now this always fetches the object)
 		return retrieve(getRef(obj));
 	}
 
+	@Override
 	public synchronized <E> E retrieve(Ref<E> ref) {
 		requiresActive();
 		Command cmd = new RetrieveByRefCmd(store.getStoreId(), store.getNextId(), tid, ref);
@@ -377,6 +407,7 @@ public class TransactionImpl implements Transaction {
 //		return inflated;
 //	}
 
+	@Override
 	public synchronized <E> Map<Ref<E>, E> retrieve(Collection<Ref<E>> refs) {
 		requiresActive();
 		RetrieveByRefsCmd<E> cmd = new RetrieveByRefsCmd<E>(store.getStoreId(), store.getNextId(), tid, refs);
@@ -394,6 +425,7 @@ public class TransactionImpl implements Transaction {
 		return result;
 	}
 
+	@Override
 	public synchronized RetrieveSpecResult retrieve(RetrieveSpec spec) {
 		requiresActive();
 		Command cmd = new RetrieveBySpecCmd(store.getStoreId(), namespace, store.getNextId(), tid, spec);
@@ -404,6 +436,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	// FIXME: test that this works for clazz, null, null
+	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized <E> E retrieve(Class<E> clazz, String keyfield, Comparable<?> keyval) {
 		requiresActive();
@@ -413,17 +446,20 @@ public class TransactionImpl implements Transaction {
 		return receiveObject(mo);
 	}
 
+	@Override
 	public synchronized <E> Collection<E> retrieveAll(Class<E> clazz, String keyfield, Comparable<?> keyval) {
 		requiresActive();
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public synchronized void setNamespace(String namespace) {
 		requiresActive();
 		this.namespace = namespace;
 	}
 
+	@Override
 	public synchronized <E> Ref<E> save(E obj) {
 		requiresAuth();
 		requiresActive();
@@ -439,6 +475,7 @@ public class TransactionImpl implements Transaction {
 			return ref;
 		}
 	}
+	@Override
 	public synchronized <E> void update(E obj) {
 		requiresAuth();
 		requiresActive();
@@ -446,6 +483,7 @@ public class TransactionImpl implements Transaction {
 		addUpdated(meta);
 	}
 
+	@Override
 	public synchronized void update(Object[] objs) {
 		requiresAuth();
 		requiresActive();
@@ -454,6 +492,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
+	@Override
 	public synchronized void update(Collection<Object> objs) {
 		requiresAuth();
 		requiresActive();
@@ -475,18 +514,22 @@ public class TransactionImpl implements Transaction {
 	}
 
 	
+	@Override
 	public synchronized boolean isAuthoritative() {
 		return store.isAuthoritative();
 	}
 
+	@Override
 	public synchronized <T> RefImpl<T> getRef(T obj) throws UnknownObjectException {
 		return (RefImpl<T>)store.getRef(obj);
 	}
 
+	@Override
 	public synchronized int getVersion(Object obj) throws UnknownObjectException {
 		return store.getVersion(obj);
 	}
 
+	@Override
 	public void forceStart() {
 		if (!started) {
 			store.execute(new BeginTransactionCmd(store.getStoreId(), store.getNextId(), tid, null));
@@ -494,6 +537,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public <E> E retrieveFirstOf(Class<E> clazz) {
 		requiresActive();
@@ -508,6 +552,7 @@ public class TransactionImpl implements Transaction {
 		return receiveObject(mo);
 	}
 
+	@Override
 	public StoreImpl getStore() {
 		return store;
 	}
