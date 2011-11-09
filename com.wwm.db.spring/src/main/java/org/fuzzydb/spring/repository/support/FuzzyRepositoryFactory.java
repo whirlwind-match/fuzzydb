@@ -17,11 +17,11 @@ import com.wwm.db.spring.repository.SimpleMappingFuzzyRepository;
 
 public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
 
-	private AttributeDefinitionService attributeDefinitionService;
+	private final AttributeDefinitionService attributeDefinitionService;
 	
-	private WhirlwindConversionService conversionService;
+	private final WhirlwindConversionService conversionService;
 
-	private DataOperations persister;
+	private final DataOperations persister;
 
 	
     public FuzzyRepositoryFactory(DataOperations persister, AttributeDefinitionService attributeDefinitionService, WhirlwindConversionService conversionService) {
@@ -46,7 +46,7 @@ public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
         
         // depending on interface .. create diff implementations
         if (FuzzyRepository.class.isAssignableFrom(repositoryInterface)) {
-        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainClass(), true, 
+        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainClass(), false, 
         			persister, conversionService, attributeDefinitionService);
         	repo.afterPropertiesSet();
         	return repo;

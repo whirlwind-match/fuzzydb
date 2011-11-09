@@ -38,7 +38,6 @@ public class FuzzyRepositoryConfigDefinitionParser extends
             registerWithSourceAndGeneratedBeanName(registry, definition, source);
 		}
 	
-		// Conversion service default
         if (!hasBean(CurrentTxAttrDefinitionMgr.class, registry)) {
             AbstractBeanDefinition definition =
                     BeanDefinitionBuilder
