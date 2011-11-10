@@ -44,32 +44,29 @@ public class PostcodeConvertor implements Converter<String, GeoInformation> {
 		return jibble.lookupShort(prefix);
 	}
 
-	/**Look up a full postcode.<br><br>WARNING - EXECUTING THIS FUNCTION COSTS 1p!!<br><br>
+	public synchronized GeoInformation lookupFull(String postcode) {
+		return convert(postcode);
+	}
+
+	/** 
+	 * Look up a full postcode.<br>
 	 * @param postcode A full postcode to lookup, any caps, any spaces
 	 * @return A PostcodeResult if the postcode is valid, otherwise null
 	 */
-	public synchronized GeoInformation lookupFull(String postcode) {
-		// If no service for full postcode, then try short somehow
-		if (service != null){
-			return service.lookupFull(postcode);
-		}
-		log.debug("No PostcodeService present, falling back to jibble for {}", postcode);
-		postcode = StringUtils.stripSpaces(postcode);
-
-		int trimmedLength = postcode.length() - 3; // strip off tail
-		if (trimmedLength <2 || trimmedLength > 4) return null;
-		
-		postcode = postcode.substring(0, trimmedLength);
-		return jibble.lookupShort(postcode);
-	}
-
 	@Override
 	public GeoInformation convert(String postcode) {
-        PostcodeResult result = jibble.lookupShort(postcode);
-        if (result == null) {
-            result = service.lookupFull(postcode);
-        }
-        return result;
+		if (service != null && postcode.length() > 4) {
+			return service.lookupFull(postcode);
+		}
+		log.debug("Converting short postcode for {}", postcode);
+		postcode = StringUtils.stripSpaces(postcode);
 
+		// Trim length if longer than first part
+		if (postcode.length() > 4) {
+			int trimmedLength = postcode.length() - 3; // strip off tail
+			if (trimmedLength <2 || trimmedLength > 4) return null;
+			postcode = postcode.substring(0, trimmedLength);
+		}
+		return jibble.lookupShort(postcode);
 	}
 }
