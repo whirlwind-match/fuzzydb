@@ -59,7 +59,8 @@ public class ResultsQ extends Q<NextItem> {
         // worst result to compare against.
         if ( resultsQAdded > targetNumResults) {
             NextItem worstItem = this.worst();
-            assert( currentScoreThreshold.compareTo( worstItem.getScore() ) <= 0  ); // should never have things in resultsQ that are below the threshold
+            // FIXME: Re-enable this assertion and check it
+            // assert( currentScoreThreshold.compareTo( worstItem.getScore() ) <= 0  ); // should never have things in resultsQ that are below the threshold
             currentScoreThreshold = worstItem.getScore();  // Update so that we discard any Items or Nodes that are worst than best results so far.
             this.remove( worstItem ); // Get rid of surplus one
         }
