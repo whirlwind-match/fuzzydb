@@ -126,7 +126,6 @@ public class FuzzyEntityConverter<E>
 
 	@Override
 	public void write(E source, final MappedFuzzyItem sink) {
-		// mapping context can deal with subtypes of E, of which R is one
 		FuzzyPersistentEntity<E> persistentEntity = mappingContext.getPersistentEntity(source.getClass());
 		
 		final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper = BeanWrapper.create(source, converter);
