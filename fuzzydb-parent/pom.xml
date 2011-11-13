@@ -211,14 +211,14 @@
                     <fork>true</fork>
                     <compilerVersion>${java.version}</compilerVersion>
                     <encoding>UTF-8</encoding>
-                    <compilerId>eclipse</compilerId>
+<!--                     <compilerId>eclipse</compilerId> -->
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.plexus</groupId>
-                        <artifactId>plexus-compiler-eclipse</artifactId>
-                        <version>1.8.2</version>
-                    </dependency>
+<!--                     <dependency> -->
+<!--                         <groupId>org.codehaus.plexus</groupId> -->
+<!--                         <artifactId>plexus-compiler-eclipse</artifactId> -->
+<!--                         <version>1.8.2</version> -->
+<!--                     </dependency> -->
                 </dependencies>
             </plugin>
 
