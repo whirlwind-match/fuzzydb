@@ -115,6 +115,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	@Override
 	@Transactional(readOnly=true)
 	public Iterable<T> findAll() {
+		selectNamespace();
 		final ResultSet<I> all = persister.query(getInternalType(), null, null);
 		return new Iterable<T>(){
 
