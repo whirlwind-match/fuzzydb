@@ -179,10 +179,9 @@ public class LayoutAttrMap<T extends IAttribute> implements Cloneable, IAttribut
 // FIXME: implement this properly .. currently not used (at least, not as far as start
 		try {
 			LayoutAttrMap clone = (LayoutAttrMap) super.clone();
-			clone.floats = this.floats.clone();
-			clone.ints = this.ints.clone();
+			clone.floats = Arrays.copyOf(this.floats, this.floats.length);
+			clone.ints = Arrays.copyOf(this.ints, this.ints.length);
 			return clone;
-//			// FIXME: NOTE: Where we're clone()ing arrays, we could use Arrays.copyOf() or arraycopy instead (as clone is supposedly much slower, pre java 7)
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e); // Should always impl
 		}
