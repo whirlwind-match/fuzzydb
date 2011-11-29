@@ -24,7 +24,7 @@ public class EnumDefinition implements Serializable {
      * we're going to lose out when someone selects perhaps 3 values out of 64, as
      * we'd have been able to use 3 bytes to achieve the same thing.
      */
-    public static final int MAX_ENTRIES = 32; // Can use a single int
+    public static final int MAX_ENTRIES = 64; // Can use a single int
 
     private static final long serialVersionUID = 1L;
 
