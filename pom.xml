@@ -17,27 +17,27 @@
         <module>fuzzydb-parent-aspectj</module>
         
         <module>test-support</module>
-        <module>com.wwm.util</module>
-        <module>com.wwm.util.gui</module>
-        <module>com.wwm.util.servlet</module>
-        <module>com.wwm.db.core</module>
-        <module>com.wwm.io.core</module>
-        <module>com.wwm.io.packet</module>
-        <module>com.wwm.db</module>
-        <module>com.wwm.attrs</module>
-        <module>com.wwm.attrs.compact</module>
-        <module>com.wwm.expressions</module>
-        <module>com.wwm.db.server</module>
-        <module>com.wwm.db.tests</module>
+        <module>util</module>
+        <module>util-gui</module>
+        <module>util-servlet</module>
+        <module>core</module>
+        <module>io-core</module>
+        <module>io-packet</module>
+        <module>client</module>
+        <module>attrs</module>
+        <module>attrs-compact</module>
+        <module>expressions</module>
+        <module>server</module>
+        <module>system-tests</module>
 
-        <module>com.wwm.postcode</module>
-        <module>com.wwm.indexer</module>
-        <module>com.wwm.indexer.gui</module>
-        <module>com.wwm.db.spring</module>
+        <module>postcode</module>
+        <module>indexer</module>
+        <module>indexer-gui</module>
+        <module>spring</module>
 
-        <module>com.wwm.abdera.util</module>
-        <module>com.wwm.atom</module>
-        <module>com.wwm.atom.server</module>
+        <module>abdera-util</module>
+        <module>atom</module>
+        <module>atom-server</module>
     </modules>
 
     <build>
