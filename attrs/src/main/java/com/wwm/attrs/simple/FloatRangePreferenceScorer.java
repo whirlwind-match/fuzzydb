@@ -15,7 +15,7 @@ import com.wwm.attrs.Score;
 import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.dimensions.DimensionsRangeConstraint;
 import com.wwm.attrs.internal.IConstraintMap;
-import com.wwm.attrs.internal.TwoAttrScorer;
+import com.wwm.attrs.internal.MappedTwoAttrScorer;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
@@ -28,12 +28,10 @@ import com.wwm.util.ScoreMapper;
  * 
  * @author Neale
  */
-public class FloatRangePreferenceScorer extends TwoAttrScorer {
+public class FloatRangePreferenceScorer extends MappedTwoAttrScorer {
 
     private static final long serialVersionUID = -2314631712003854132L;
 
-    protected ScoreMapper scoreMapper;
-    
     /** Default ctor for serialization libraries */
     @SuppressWarnings("unused")
     private FloatRangePreferenceScorer() {
@@ -41,8 +39,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
     }
 
     public FloatRangePreferenceScorer(int scoreAttrId, int otherAttrId, ScoreMapper scoreMapper) {
-		super(scoreAttrId, otherAttrId);
-		this.scoreMapper = scoreMapper;
+		super(scoreAttrId, otherAttrId, scoreMapper);
 	}
 
     /**
@@ -156,7 +153,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
         DimensionsRangeConstraint want = (DimensionsRangeConstraint)bNa;
 
         float scoreFactor = getNodeScoreFactor( want, otherAttr.getValue() );
-        float scoreVal = scoreMapper.getScore(scoreFactor);
+        float scoreVal = getMappedScore(scoreFactor);
         score.add(this, scoreVal, d);
     }
     
@@ -192,7 +189,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
 		else if (wantAttr instanceof DimensionsRangeConstraint) { // Scoring a node against the Have attribute
 		    DimensionsRangeConstraint want = (DimensionsRangeConstraint)wantAttr;
 			float nodeScoreFactor = getNodeScoreFactor( want, have.getValue() );
-            score.add(this, scoreMapper.getScore(nodeScoreFactor), d);
+            score.add(this, getMappedScore(nodeScoreFactor), d);
 		}
 		else {
 		    throw new RuntimeException( "FloatRangePreferenceScorer doesn't support " + wantAttr.getClass().getName() );
@@ -218,7 +215,7 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
 	// so can be used by subclasses
 	protected float scoreGap(float theirs, float low, float hi, float pref) {
 		float scoreFactor = getScoreFactor(low, pref, hi, theirs);
-        return scoreMapper.getScore(scoreFactor);
+        return getMappedScore(scoreFactor);
 	}
 
 
@@ -286,13 +283,5 @@ public class FloatRangePreferenceScorer extends TwoAttrScorer {
 
         float scoreFactor = 1.0f - diff / range;
         return scoreFactor;
-    }
-
-    public ScoreMapper getScoreMapper() {
-        return scoreMapper;
-    }
-
-    public void setScoreMapper(ScoreMapper scoreMapper) {
-        this.scoreMapper = scoreMapper;
     }
 }

@@ -154,11 +154,6 @@ public class CompactFloatPreferenceScorer extends com.wwm.attrs.simple.FloatRang
     @Override
     public void scoreNodeToSearch(Score score, Direction d, IAttributeMap<IAttributeConstraint> c, IAttributeMap<IAttribute> searchAttrs) {
 
-    	// temp. for back to back testing while in debugger
-    	if (false) {
-    		super.scoreNodeToSearch(score, d, c, searchAttrs);
-    		return;
-    	}
     	
     	//================ BEGIN STANDARD BLOCK (to refactor) ====================
     	// We assume that both are CompactAttrMap
@@ -193,7 +188,7 @@ public class CompactFloatPreferenceScorer extends com.wwm.attrs.simple.FloatRang
         DimensionsRangeConstraint want = (DimensionsRangeConstraint)c.findAttr(scorerAttrId);
 
         float scoreFactor = getNodeScoreFactor( want, otherValue );
-        float scoreVal = scoreMapper.getScore(scoreFactor);
+        float scoreVal = getMappedScore(scoreFactor);
         score.add(this, scoreVal, d);
     }
 

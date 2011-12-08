@@ -14,10 +14,11 @@ package com.wwm.attrs.simple;
 import com.wwm.attrs.Score;
 import com.wwm.attrs.Score.Direction;
 import com.wwm.attrs.internal.IConstraintMap;
-import com.wwm.attrs.internal.TwoAttrScorer;
+import com.wwm.attrs.internal.MappedTwoAttrScorer;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
+import com.wwm.util.ScoreMapper;
 
 
 
@@ -26,7 +27,7 @@ import com.wwm.db.whirlwind.internal.IAttributeMap;
  * TODO: Make less crude!
  * @author Neale
  */
-public class SimilarFloatValueScorer extends TwoAttrScorer {
+public class SimilarFloatValueScorer extends MappedTwoAttrScorer {
 
     private static final long serialVersionUID = -8084444429926674398L;
 
@@ -37,17 +38,21 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
     /** Default ctor for serialization libraries */
     @SuppressWarnings("unused")
     private SimilarFloatValueScorer() {
-        this(1, 1, 1f);
+        this(1, 1, 1f, null);
     }
 
-    public SimilarFloatValueScorer( int scoreAttrId, int otherAttrId, float expectedRange ) {
-        super(scoreAttrId, otherAttrId);
+    public SimilarFloatValueScorer( int scoreAttrId, int otherAttrId, float expectedRange, ScoreMapper scoreMapper ) {
+        super(scoreAttrId, otherAttrId, scoreMapper);
         assert( expectedRange > 0f);
         this.expectedRange = expectedRange;
     }
 
 
-    /**
+    public SimilarFloatValueScorer(int scoreAttrId, int otherAttrId, float expectedRange) {
+		this(scoreAttrId, otherAttrId, expectedRange, null);
+	}
+
+	/**
      * Calculate the score
      */
     private float scoreFloats( float scoreVal, float otherVal ) {
@@ -55,13 +60,9 @@ public class SimilarFloatValueScorer extends TwoAttrScorer {
 
         float diff = Math.abs( scoreVal - otherVal );
 
-        if ( diff >= expectedRange ) {
-            return 0f;
-        }
-
         float result = 1.0f - (diff / expectedRange);
         assert( result <= 1.0f );
-        return result;
+        return getMappedScore(result);
     }
 
     /**
