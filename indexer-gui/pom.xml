@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.fuzzydb</groupId>
 		<artifactId>fuzzydb-parent</artifactId>
-		<version>1.0.0.M3-SNAPSHOT</version>
+		<version>1.0.0.M3</version>
         <relativePath>../fuzzydb-parent</relativePath>
 	</parent>
 
@@ -14,17 +14,17 @@
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.indexer</artifactId>
-			<version>1.0.0.M3-SNAPSHOT</version>
+			<version>1.0.0.M3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.util.gui</artifactId>
-			<version>1.0.0.M3-SNAPSHOT</version>
+			<version>1.0.0.M3</version>
 		</dependency>
         <dependency>
             <groupId>org.fuzzydb.attrs</groupId>
             <artifactId>org.fuzzydb.attrs.compact</artifactId>
-            <version>1.0.0.M3-SNAPSHOT</version>
+            <version>1.0.0.M3</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>

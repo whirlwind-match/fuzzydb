@@ -1,12 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>org.fuzzydb.io.core</artifactId>
 
     <parent>
         <artifactId>fuzzydb-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
-        <version>1.0.0.M3-SNAPSHOT</version>
+        <version>1.0.0.M3</version>
         <relativePath>../fuzzydb-parent</relativePath>
     </parent>
 
@@ -14,7 +13,7 @@
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.core</artifactId>
-            <version>1.0.0.M3-SNAPSHOT</version>
+            <version>1.0.0.M3</version>
         </dependency>
     </dependencies>
 </project>
