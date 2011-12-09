@@ -7,7 +7,7 @@
     <parent>
         <artifactId>fuzzydb-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
-        <version>1.0.0.M3</version>
+        <version>1.0.0.M4-SNAPSHOT</version>
         <relativePath>../fuzzydb-parent</relativePath>
     </parent>
 
@@ -15,17 +15,17 @@
         <dependency>
             <groupId>org.fuzzydb.attrs</groupId>
             <artifactId>org.fuzzydb.attrs.compact</artifactId>
-            <version>1.0.0.M3</version>
+            <version>1.0.0.M4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.server</artifactId>
-            <version>1.0.0.M3</version>
+            <version>1.0.0.M4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.server</artifactId>
-            <version>1.0.0.M3</version>
+            <version>1.0.0.M4-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.io.packet</artifactId>
-            <version>1.0.0.M3</version>
+            <version>1.0.0.M4-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
