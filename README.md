@@ -26,6 +26,12 @@ Check out the latest stable snapshot and build it:
     mvn install
 
 
+OTHER STUFF
+============
+
+ * Example webapp - https://github.com/whirlwind-match/fuzzydb-samples
+ * Cutting a release - https://github.com/whirlwind-match/fuzzydb/wiki/Release-Instructions
+	
 This should pass all tests.
 
 RUNNING THE DEMO UI
