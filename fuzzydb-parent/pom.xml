@@ -10,7 +10,7 @@
 
     <name>${project.artifactId}</name>
     <description>Parent POM for specifying common properties for Whirlwind Match open source projects.</description>
-    <url>https://github.com/whirlwind-match/whirlwind-db</url>
+    <url>https://github.com/whirlwind-match/fuzzydb</url>
     <inceptionYear>2004 or was it 2003</inceptionYear>
 
     <properties>
@@ -375,9 +375,9 @@
         </license>
     </licenses>
     <scm>
-        <url>http://github.com/whirlwind-match/whirlwind-db</url>
-        <connection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</connection>
-        <developerConnection>scm:git:git://github.com/whirlwind-match/whirlwind-db.git</developerConnection>
+        <url>http://github.com/whirlwind-match/fuzzydb</url>
+        <connection>scm:git:git://github.com/whirlwind-match/fuzzydb.git</connection>
+        <developerConnection>scm:git:git://github.com/whirlwind-match/fuzzydb.git</developerConnection>
     </scm>
     <mailingLists>
         <mailingList>
@@ -390,7 +390,7 @@
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/whirlwind-match/whirlwind-db/issues/</url>
+        <url>https://github.com/whirlwind-match/fuzzydb/issues/</url>
     </issueManagement>
 
     <developers>
