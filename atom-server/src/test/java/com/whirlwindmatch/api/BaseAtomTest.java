@@ -43,6 +43,7 @@ import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.EntryDecorator;
 import com.wwm.atom.impl.HttpServer;
+import com.wwm.atom.impl.HttpServerFactory;
 import com.wwm.db.core.LogFactory;
 import com.wwm.util.NanoTimer;
 
@@ -54,7 +55,7 @@ public abstract class BaseAtomTest {
 
     protected String privateId = "10_50-" + String.valueOf(new Date().getTime()); // generate our own id
 
-    static private HttpServer server = HttpServer.getInstance();
+    static private HttpServer server = HttpServerFactory.getInstance();
     
     
     @BeforeClass

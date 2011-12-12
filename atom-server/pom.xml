@@ -34,6 +34,13 @@
             <groupId>org.eclipse.jetty.aggregate</groupId>
             <artifactId>jetty-servlet</artifactId>
             <version>7.2.2.v20101205</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>slf4j-simple</artifactId>
+        	<version>1.6.1</version>
+        	<scope>test</scope>
         </dependency>
     </dependencies>
 </project>

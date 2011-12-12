@@ -12,16 +12,10 @@ import org.springframework.context.Lifecycle;
  */
 public class HttpServer implements Lifecycle {
 
-	private static final HttpServer instance = new HttpServer();
-	
-	private final Server server = new Server(9090);
+	private final Server server;
 
-	public static HttpServer getInstance() {
-		return instance;
-	}
-
-	
-	private HttpServer() {
+	HttpServer() {
+		server = new Server(9090);
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		context.setContextPath("/");
 		context.addServlet(new ServletHolder(new FuzzAbderaServlet()),"/fuzz/*");

@@ -69,13 +69,16 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 		Class<?> cl; 
 		Lifecycle httpServer = null;
 		try {
-			cl = Class.forName("com.wwm.atom.impl.HttpServer");
+			cl = Class.forName("com.wwm.atom.impl.HttpServerFactory");
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
 		try {
 			Method m = cl.getMethod("getInstance");
 			httpServer = (Lifecycle) m.invoke(null);
+			if (httpServer == null) {
+				return null;
+			}
 			// NOTE: The implementation will also want to use the embedded database 
 			// - it therefore shouldn't try got get a client instance until the first request 
 			httpServer.start(); 
