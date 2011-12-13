@@ -13,7 +13,7 @@
     </parent>
 
     <properties>
-        <aspectj.version>1.6.8</aspectj.version>
+        <aspectj.version>1.6.9</aspectj.version>
     </properties>
     <dependencies>
         <dependency>

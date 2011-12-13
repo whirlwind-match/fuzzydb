@@ -11,9 +11,6 @@
         <relativePath>../fuzzydb-parent</relativePath>
     </parent>
 
-    <properties>
-        <spring.version>3.0.5.RELEASE</spring.version>
-    </properties>
 
     <dependencies>
         <dependency>
