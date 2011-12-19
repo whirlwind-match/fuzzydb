@@ -34,8 +34,8 @@
 
 		<menu name="Documentation" inherit="none">
 			<item name="Home" href="index.html" />
-			<item name="Getting Started" href="https://github.com/whirlwind-match/whirlwind-db/wiki/" />
-			<item name="Issue Tracking" href="https://github.com/whirlwind-match/whirlwind-db/issues/" />
+			<item name="Getting Started" href="https://github.com/whirlwind-match/fuzzydb/wiki/" />
+			<item name="Issue Tracking" href="https://github.com/whirlwind-match/fuzzydb/issues/" />
 			<!-- <item name="API" href="apidocs/index.html" /> -->
 		</menu>
 
