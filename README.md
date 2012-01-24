@@ -14,6 +14,13 @@ There's always a friendly response at hand on a mail group.  Any questions, and 
 
 The mailing list is fuzzydb-users@googlegroups.com.  You can join at: https://groups.google.com/group/fuzzydb-users
 
+The blog
+--------
+http://fuzzydb.blogspot.com
+
+The demo
+--------
+The sample webapp can often be found deployed at: http://fuzzydb-sample-webapp.cloudfoundry.com
 
 
 GETTING STARTED
