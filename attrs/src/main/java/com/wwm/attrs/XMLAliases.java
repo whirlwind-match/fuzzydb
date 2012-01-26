@@ -13,6 +13,7 @@ import com.wwm.attrs.enums.EnumExclusiveScorerExclusive;
 import com.wwm.attrs.enums.EnumExclusiveScorerPreference;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
 import com.wwm.attrs.enums.MultiEnumScorer;
+import com.wwm.attrs.enums.OptionsScorer;
 import com.wwm.attrs.enums.SeatsScorer;
 import com.wwm.attrs.internal.ScoreConfiguration;
 import com.wwm.attrs.location.LocationAndRangeScorer;
@@ -41,6 +42,7 @@ public class XMLAliases {
         scorerAliases.put("EnumScoresMapScorer", EnumExclusiveScorerPreference.class);
         
         scorerAliases.put("MultiEnumScorer", MultiEnumScorer.class);
+        scorerAliases.put("OptionsScorer", OptionsScorer.class);
         
         scorerAliases.put("SimilarFloatValueScorer", SimilarFloatValueScorer.class);
         scorerAliases.put("FloatRangePreferenceScorer", FloatRangePreferenceScorer.class);
