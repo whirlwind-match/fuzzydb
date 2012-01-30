@@ -18,9 +18,8 @@ import java.util.Map.Entry;
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.MetaObject;
-import com.wwm.db.internal.RefImpl;
+import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
-import com.wwm.db.internal.table.Table;
 
 /**
  * Implementation to perform a lookup using the BTree that indexes a field within
@@ -31,9 +30,9 @@ import com.wwm.db.internal.table.Table;
 public class BtreeLookup<T> {
 
     private final BTree<T> btree;
-    private final Table<NodeW,NodeW> table;
+    private final YoofRepository<NodeW, NodeW> table;
 
-    private final HashSet<RefImpl> removalPending = new HashSet<RefImpl>();
+    private final HashSet<Ref> removalPending = new HashSet<Ref>();
 
     BtreeLookup(BTree<T> btree) {
         this.btree = btree;
@@ -77,13 +76,13 @@ public class BtreeLookup<T> {
                         removalPending.remove(mo.getRef());
                     }
                 }
-                ArrayList<RefImpl> deleted = po.getRemovals().get(key);
+                ArrayList<? extends Ref> deleted = po.getRemovals().get(key);
                 if (deleted != null) {
                     removalPending.addAll(deleted);
                 }
             }
-            TreeMap<Comparable<Object>, RefImpl> children = branch.getChildren();
-            for (Entry<Comparable<Object>, RefImpl> entry : children.entrySet()) {
+            TreeMap<Comparable<Object>, ? extends Ref> children = branch.getChildren();
+            for (Entry<Comparable<Object>, ? extends Ref> entry : children.entrySet()) {
                 if (key.compareTo(entry.getKey()) <= 0) {
                     NodeR child;
                     try {
@@ -125,7 +124,7 @@ public class BtreeLookup<T> {
             RefdObject ro = (RefdObject)o;
             return (MetaObject<T>) ro.object;
         } else {
-            RefImpl<T> ref = (RefImpl<T>)o;
+            Ref<T> ref = (Ref<T>)o;
             try {
                 return btree.getNamespace().getObject(ref);
             } catch (UnknownObjectException e) {

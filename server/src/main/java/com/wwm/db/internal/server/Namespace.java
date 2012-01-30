@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 
 import com.wwm.attrs.WhirlwindConfiguration;
+import com.wwm.db.Ref;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.KeyCollisionException;
 import com.wwm.db.exceptions.ObjectExistsException;
@@ -121,9 +122,10 @@ public class Namespace implements Serializable {
 	//===========================================================
 	// Read methods
 	//===========================================================
-	public <T> MetaObject<T> getObject(RefImpl<T> ref) throws UnknownObjectException {
-		UserTable<T> table = getTable(ref);
-		return table.getObject(ref);
+	public <T> MetaObject<T> getObject(Ref<T> ref) throws UnknownObjectException {
+		RefImpl<T> refImpl = (RefImpl<T>) ref; // TODO: Push down removal of use of RefImpl to only those areas it is created
+		UserTable<T> table = getTable(refImpl);
+		return table.getObject(refImpl);
 	}
 
 	//=======================================================================

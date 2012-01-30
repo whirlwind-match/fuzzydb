@@ -16,16 +16,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import com.wwm.db.internal.RefImpl;
+import com.wwm.db.Ref;
+
 
 public class PendingOperations implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
-	private HashMap<Comparable<Object>, ArrayList<Object>> pendingInsertions = new HashMap<Comparable<Object>, ArrayList<Object>>();
+	private final HashMap<Comparable<Object>, ArrayList<Object>> pendingInsertions = new HashMap<Comparable<Object>, ArrayList<Object>>();
 	private int pendingInsertCount = 0;
 
-	private HashMap<Comparable<Object>, ArrayList<RefImpl>> pendingRemovals = new HashMap<Comparable<Object>, ArrayList<RefImpl>>();
+	private final HashMap<Comparable<Object>, ArrayList<Ref>> pendingRemovals = new HashMap<Comparable<Object>, ArrayList<Ref>>();
 	private int pendingRemovalCount = 0;
 	
 	public PendingOperations() {
@@ -42,9 +43,9 @@ public class PendingOperations implements Serializable, Cloneable {
 		}
 		this.pendingInsertCount = clonee.pendingInsertCount;
 		
-		for(Entry<Comparable<Object>, ArrayList<RefImpl>> entry : clonee.pendingRemovals.entrySet()) {
+		for(Entry<Comparable<Object>, ArrayList<Ref>> entry : clonee.pendingRemovals.entrySet()) {
 			Comparable<Object> key = entry.getKey();
-			ArrayList<RefImpl> values = new ArrayList<RefImpl>();
+			ArrayList<Ref> values = new ArrayList<Ref>();
 			values.addAll(entry.getValue());
 			pendingRemovals.put(key, values);
 		}
@@ -75,17 +76,17 @@ public class PendingOperations implements Serializable, Cloneable {
 		}
 	}
 
-	public void addPendingRemovals(HashMap<Comparable<Object>, ArrayList<RefImpl>> removals) {
-		for (Entry<Comparable<Object>, ArrayList<RefImpl>> entry : removals.entrySet()) {
+	public void addPendingRemovals(HashMap<Comparable<Object>, ArrayList<Ref>> removals) {
+		for (Entry<Comparable<Object>, ArrayList<Ref>> entry : removals.entrySet()) {
 			Comparable<Object> key = entry.getKey();
-			ArrayList<RefImpl> listToRemove = entry.getValue();
+			ArrayList<Ref> listToRemove = entry.getValue();
 			
 			// remove the removal from the inserts if need be
 			ArrayList<Object> inserts = pendingInsertions.get(key);
 			if (inserts != null) {
-				Iterator<RefImpl> i = listToRemove.iterator();
+				Iterator<Ref> i = listToRemove.iterator();
 				while (i.hasNext()) {
-					RefImpl removal = i.next();
+					Ref removal = i.next();
 					
 					boolean removed = false;
 					for (int index = 0; index < inserts.size(); index++) {
@@ -96,7 +97,7 @@ public class PendingOperations implements Serializable, Cloneable {
 								removed = true;
 								break;
 							}
-						} else if (((RefImpl)o).equals(removal)) {
+						} else if (((Ref)o).equals(removal)) {
 							inserts.remove(index);
 							removed = true;
 							break;
@@ -116,7 +117,7 @@ public class PendingOperations implements Serializable, Cloneable {
 			}
 			
 			if (listToRemove.size() > 0) {
-				ArrayList<RefImpl> existingList = pendingRemovals.get(key);
+				ArrayList<Ref> existingList = pendingRemovals.get(key);
 				if (existingList == null) {
 					pendingRemovals.put(key, listToRemove);
 				} else {
@@ -139,14 +140,14 @@ public class PendingOperations implements Serializable, Cloneable {
 		return pendingInsertions;
 	}
 
-	public HashMap<Comparable<Object>, ArrayList<RefImpl>> getRemovals() {
+	public HashMap<Comparable<Object>, ArrayList<Ref>> getRemovals() {
 		return pendingRemovals;
 	}
 	
 	public PendingOperations extractLeft(Comparable<Object> key) {
 		PendingOperations ops = new PendingOperations();
 		HashMap<Comparable<Object>, ArrayList<Object>> inserts = new HashMap<Comparable<Object>, ArrayList<Object>>();
-		HashMap<Comparable<Object>, ArrayList<RefImpl>> removals = new HashMap<Comparable<Object>, ArrayList<RefImpl>>();
+		HashMap<Comparable<Object>, ArrayList<Ref>> removals = new HashMap<Comparable<Object>, ArrayList<Ref>>();
 		
 		Iterator<Entry<Comparable<Object>, ArrayList<Object>>> i = pendingInsertions.entrySet().iterator();
 		while (i.hasNext()) {
@@ -158,9 +159,9 @@ public class PendingOperations implements Serializable, Cloneable {
 			}
 		}
 		
-		Iterator<Entry<Comparable<Object>, ArrayList<RefImpl>>> j = pendingRemovals.entrySet().iterator();
+		Iterator<Entry<Comparable<Object>, ArrayList<Ref>>> j = pendingRemovals.entrySet().iterator();
 		while (j.hasNext()) {
-			Entry<Comparable<Object>, ArrayList<RefImpl>> entry = j.next();
+			Entry<Comparable<Object>, ArrayList<Ref>> entry = j.next();
 			if (entry.getKey().compareTo(key) <= 0) {
 				pendingRemovalCount -= entry.getValue().size();
 				removals.put(entry.getKey(), entry.getValue());

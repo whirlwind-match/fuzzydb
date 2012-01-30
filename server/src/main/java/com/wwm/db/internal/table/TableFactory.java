@@ -10,6 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.table;
 
+import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.IndexManager;
 import com.wwm.db.internal.index.IndexManagerImpl;
 import com.wwm.db.internal.index.IndexedTable;
@@ -39,12 +40,12 @@ public class TableFactory {
         return indexed;
     }
 
-    public static <E> Table<E, E> createPagedIndexTable(Class<E> forNode, Namespace namespace, Class<?> clazz, String fieldName) {
+    public static <E> YoofRepository<E, E> createPagedIndexTable(Class<E> forNode, Namespace namespace, Class<?> clazz, String fieldName) {
 
         // Create a paged underlying table with a user table on top of the stack
         // 2 entity stack
         RawTable<E> rawTable = new RawPagedTableImpl<E>(namespace, clazz, '@' + fieldName); // class@field is used as disk name
-        Table<E, E> table = new TableImpl<E, E>(rawTable, -1); // table id not required for index tables
+        YoofRepository<E, E> table = new TableImpl<E, E>(rawTable, -1); // table id not required for index tables
 
         return table;
     }

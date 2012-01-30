@@ -15,15 +15,15 @@ import java.util.Map.Entry;
 
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.NodeFactory;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
-import com.wwm.db.internal.table.Table;
 
 abstract class Operator<T> {
 
     protected final BTree<T> tree;
     protected final IndexPointerStyle style;
-    protected final Table<NodeW, NodeW> table;
+    protected final YoofRepository<NodeW, NodeW> table;
 
     private final HashMap<Ref<? extends NodeR>, NodeW> writeBehind = new HashMap<Ref<? extends NodeR>, NodeW>();
 

@@ -154,7 +154,7 @@ class Insertor<T> extends Operator<T> {
             // Splitting a branch node. This node becomes new right child
             SplitOut so = bnw.splitOutLeft();
             Ref<NodeW> newRef = createNear(parentRef, parentNode, so.node);
-            splitResult = new SplitResult(so.key, (RefImpl<NodeW>) newRef);
+            splitResult = new SplitResult(so.key, newRef);
         }
 
 
@@ -203,9 +203,9 @@ class Insertor<T> extends Operator<T> {
         }
     }
 
-    public void remove(Comparable<Object> key, RefImpl ref) {
-        HashMap<Comparable<Object>, ArrayList<RefImpl>> removes = new HashMap<Comparable<Object>, ArrayList<RefImpl>>();
-        ArrayList<RefImpl> al = new ArrayList<RefImpl>();
+    public void remove(Comparable<Object> key, Ref ref) {
+        HashMap<Comparable<Object>, ArrayList<Ref>> removes = new HashMap<Comparable<Object>, ArrayList<Ref>>();
+        ArrayList<Ref> al = new ArrayList<Ref>();
         al.add(ref);
         removes.put(key, al);
 

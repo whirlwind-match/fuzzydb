@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.internal.RefImpl;
+import com.wwm.db.Ref;
 import com.wwm.db.internal.index.btree.IndexPointerStyle;
 import com.wwm.db.internal.index.btree.LeafNodeW;
 import com.wwm.db.internal.index.btree.PendingOperations;
@@ -47,25 +47,15 @@ class LeafNode extends Node implements LeafNodeW {
 		return data.get(key);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.index.btree.LeafNodeR#clone()
-	 */
-	@Override
 	public LeafNodeW clone() {
 		return new LeafNode(this);
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.index.btree.LeafNodeR#getCount()
-	 */
 	public int getCount() {
 		return count;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.index.btree.LeafNodeR#getKeyCount()
-	 */
 	public int getKeyCount() {
 		return data.size();
 	}
@@ -88,13 +78,13 @@ class LeafNode extends Node implements LeafNodeW {
 	}
 	
 	public void insertData(IndexPointerStyle style, PendingOperations ops) {
-		HashMap<Comparable<Object>, ArrayList<RefImpl>> removals = ops.getRemovals();
-		for (Entry<Comparable<Object>, ArrayList<RefImpl>> entry : removals.entrySet()) {
+		HashMap<Comparable<Object>, ArrayList<Ref>> removals = ops.getRemovals();
+		for (Entry<Comparable<Object>, ArrayList<Ref>> entry : removals.entrySet()) {
 			boolean removed = false;
 			Comparable<Object> key = entry.getKey();
-			ArrayList<RefImpl> values = entry.getValue();
+			ArrayList<Ref> values = entry.getValue();
 			ArrayList<Object> existingData = data.get(key);
-			for (RefImpl refToRemove : values) {
+			for (Ref refToRemove : values) {
 				Iterator<Object> i = existingData.iterator();
 				while (i.hasNext()) {
 					Object o = i.next();
@@ -129,9 +119,6 @@ class LeafNode extends Node implements LeafNodeW {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.index.btree.LeafNodeW#insertPeerData(java.util.TreeMap)
-	 */
 	public void insertPeerData(TreeMap<Comparable<Object>, ArrayList<Object>> inserts) {
 		for (Entry<Comparable<Object>, ArrayList<Object>> entry : inserts.entrySet()) {
 			Comparable<Object> key = entry.getKey();

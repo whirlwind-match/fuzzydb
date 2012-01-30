@@ -17,10 +17,9 @@ import java.security.PrivilegedAction;
 
 import com.wwm.db.Ref;
 import com.wwm.db.internal.MetaObject;
-import com.wwm.db.internal.RefImpl;
+import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
 import com.wwm.db.internal.server.Namespace;
-import com.wwm.db.internal.table.Table;
 import com.wwm.db.internal.table.TableFactory;
 
 /**
@@ -35,7 +34,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
     private final IndexPointerStyle style;
     private final IndexKeyUniqueness unique;
 
-    private final Table<NodeW, NodeW> table;
+    private final YoofRepository<NodeW, NodeW> table;
 
     private final Ref<NodeW> sentinel;
 
@@ -73,7 +72,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
             }
             if (!field.isAccessible()) {
                 AccessController.doPrivileged(new PrivilegedAction<Object>() {
-                    public Object run() {
+					public Object run() {
                         field.setAccessible(true);
                         return null;
                     }
@@ -98,7 +97,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
     }
 
     public void insert(MetaObject<T> mo) {
-        RefImpl<T> ref = mo.getRef();
+        Ref<T> ref = mo.getRef();
         Object object = mo.getObject();
         Insertor<T> insertor = new Insertor<T>(this);
         Comparable<Object> key = getFieldValue(object);
@@ -121,7 +120,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
     }
 
     public void remove(MetaObject<T> mo) {
-        RefImpl<T> ref = mo.getRef();
+        Ref<T> ref = mo.getRef();
         Object object = mo.getObject();
         Insertor<T> insertor = new Insertor<T>(this);
         Comparable<Object> key = getFieldValue(object);
@@ -137,7 +136,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
         return style;
     }
 
-    Table<NodeW,NodeW> getTable() {
+    YoofRepository<NodeW, NodeW> getTable() {
         return table;
     }
 
