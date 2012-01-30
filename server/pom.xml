@@ -21,6 +21,12 @@ Compiles against io.packet, but that artifact must be included into runtime scop
             <groupId>org.fuzzydb.attrs</groupId>
             <artifactId>org.fuzzydb.attrs</artifactId>
             <version>1.0.0.M4-SNAPSHOT</version>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>spring-beans</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
@@ -40,11 +46,40 @@ Compiles against io.packet, but that artifact must be included into runtime scop
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>spring-beans</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>spring-expression</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>spring-aop</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>spring-asm</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
+		<!-- For indexing annotations used in Spring Data -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons-core</artifactId>
             <version>${spring.data.version}</version>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>spring-tx</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            	<exclusion>
+            		<artifactId>spring-beans</artifactId>
+            		<groupId>org.springframework</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
