@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
+ * Copyright (c) 2005-2012 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 
@@ -17,10 +17,9 @@ import java.security.PrivilegedAction;
 
 import com.wwm.db.Ref;
 import com.wwm.db.internal.MetaObject;
+import com.wwm.db.internal.common.MetaObjectSource;
 import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
-import com.wwm.db.internal.server.Namespace;
-import com.wwm.db.internal.table.TableFactory;
 
 /**
  * A BTree indexing a field within an object of class T.
@@ -45,19 +44,20 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
     private final Class<T> forClass;
 
     private final String fieldName;
-    private final Namespace namespace;
+    private final MetaObjectSource namespace;
 
 
 
-    public BTree(Namespace namespace, Class<T> clazz, String fieldName, IndexKeyUniqueness unique, IndexPointerStyle style) {
-        this.table = TableFactory.createPagedIndexTable(NodeW.class, namespace, clazz, fieldName);
-        this.style = style;
+    public BTree(YoofRepository<NodeW, NodeW> table, MetaObjectSource namespace, Class<T> clazz, String fieldName, IndexKeyUniqueness unique, IndexPointerStyle style) {
+    	this.table = table;
+    	this.style = style;
         this.unique = unique;
         this.sentinel = table.allocOneRef();
         table.create(sentinel, new RootSentinel(null));
         forClass = clazz;
         this.fieldName = fieldName;
         this.namespace = namespace;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -165,7 +165,7 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
         return unique;
     }
 
-    Namespace getNamespace() {
+    MetaObjectSource getMetaObjectSource() {
         return namespace;
     }
 

@@ -26,7 +26,10 @@ import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.index.btree.BTree;
 import com.wwm.db.internal.index.btree.IndexKeyUniqueness;
 import com.wwm.db.internal.index.btree.IndexPointerStyle;
+import com.wwm.db.internal.index.btree.NodeW;
 import com.wwm.db.internal.server.ServerTransaction.Mode;
+import com.wwm.db.internal.table.Table;
+import com.wwm.db.internal.table.TableFactory;
 
 /**
  * FIXME: Needs implementing as impl's of Index interface and gluing in to IndexManagerImpl
@@ -94,8 +97,9 @@ public class Indexes implements Serializable {
 
 	private <FC> void addBTree(Class<FC> forClass, String fieldName, Map<String, BTree<?>> fieldIndexes, 
 			IndexKeyUniqueness unique, IndexPointerStyle style) {
-		
-		BTree<FC> btree = new BTree<FC>(namespace, forClass, fieldName, unique, style);
+		Table<NodeW, NodeW> table = TableFactory.createPagedIndexTable(NodeW.class, namespace, forClass, fieldName);
+
+		BTree<FC> btree = new BTree<FC>(table, table.getNamespace(), forClass, fieldName, unique, style);
 		fieldIndexes.put(fieldName, btree);
 	}
 	

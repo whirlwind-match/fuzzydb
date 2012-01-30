@@ -126,7 +126,7 @@ public class BtreeLookup<T> {
         } else {
             Ref<T> ref = (Ref<T>)o;
             try {
-                return btree.getNamespace().getObject(ref);
+                return btree.getMetaObjectSource().getObject(ref);
             } catch (UnknownObjectException e) {
                 throw new RuntimeException("Missing object in index", e);
             }
