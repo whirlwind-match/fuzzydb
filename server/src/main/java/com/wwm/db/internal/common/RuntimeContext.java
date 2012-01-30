@@ -8,20 +8,21 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.db.internal.server;
+package com.wwm.db.internal.common;
 
 import com.wwm.db.internal.pager.PagePersister;
+import com.wwm.db.internal.server.Database;
 
 /**
  * Holder for data that is passed through the initialisation tree to 
  * allow components to extract the information they need
  */
-public class InitialisationContext {
+public class RuntimeContext {
 	// NOTE: All must be final
 	public final Database database;
 	public final PagePersister pager;
 	
-	public InitialisationContext(Database database) {
+	public RuntimeContext(Database database) {
 		this.database = database;
 		this.pager = database.getPager();
 	}

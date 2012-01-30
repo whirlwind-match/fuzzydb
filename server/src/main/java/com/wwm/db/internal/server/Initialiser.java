@@ -14,6 +14,7 @@ import java.util.concurrent.Semaphore;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
+import com.wwm.db.internal.common.RuntimeContext;
 
 /**
  * Initialiser extends WorkerThread so that database operations can get at current transaction etc.
@@ -43,7 +44,7 @@ public class Initialiser extends WorkerThread {
 		log.info("Initialising Transient Data... (no transaction writes can occur here)");
 		try {
 			// Init repos with transient data
-			repository.initTransientData( new InitialisationContext(database) );
+			repository.initTransientData( new RuntimeContext(database) );
 			log.info("Initialise completed.");
 		} catch (Throwable e){
 			log.error( "Unexpected Exception", e );

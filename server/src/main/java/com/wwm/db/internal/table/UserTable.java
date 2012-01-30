@@ -17,7 +17,7 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.internal.server.InitialisationContext;
+import com.wwm.db.internal.common.RuntimeContext;
 import com.wwm.db.internal.server.Namespace;
 
 public interface UserTable<T> extends Iterable<MetaObject<T>>{
@@ -29,7 +29,7 @@ public interface UserTable<T> extends Iterable<MetaObject<T>>{
 	 * by testing a transient variable within the table.
 	 * @param initialisationContext 
 	 */
-	void initialise(InitialisationContext initialisationContext);
+	void initialise(RuntimeContext initialisationContext);
 
 	long allocNewIds(int count);
 

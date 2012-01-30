@@ -27,6 +27,7 @@ import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.common.MetaObjectSource;
+import com.wwm.db.internal.common.RuntimeContext;
 import com.wwm.db.internal.index.IndexedTable;
 import com.wwm.db.internal.pager.PagePersister;
 import com.wwm.db.internal.search.Search;
@@ -57,7 +58,7 @@ public class Namespace implements Serializable, MetaObjectSource {
 
 	private final AttributeCache attributeCache = new AttributeCache();
 
-	private transient InitialisationContext context;
+	private transient RuntimeContext context;
 
 	public Namespace(Namespaces namespaces, String name) {
 		this.name = name;
@@ -171,7 +172,7 @@ public class Namespace implements Serializable, MetaObjectSource {
 		return path;
 	}
 
-	public void initialise(InitialisationContext initialisationContext) {
+	public void initialise(RuntimeContext initialisationContext) {
 		this.context = initialisationContext;
 		for (UserTable<?> table : idToTableMap.values()) {
 			table.initialise(initialisationContext);

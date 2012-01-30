@@ -13,6 +13,7 @@ package com.wwm.db.internal.server;
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.wwm.db.internal.common.RuntimeContext;
 import com.wwm.db.services.IndexImplementationsService;
 
 public class Namespaces implements Serializable {
@@ -21,7 +22,7 @@ public class Namespaces implements Serializable {
 	private final ServerStore store;
 	private final ConcurrentHashMap<Integer, Namespace> tableIdToNamespace = new ConcurrentHashMap<Integer, Namespace>();
 	private final ConcurrentHashMap<String, Namespace> namespaces = new ConcurrentHashMap<String, Namespace>();
-	private transient InitialisationContext context;
+	private transient RuntimeContext context;
 	
 //	private transient boolean initialised = false; // triggers lazy-init after load from persistent storage.
 	
@@ -62,7 +63,7 @@ public class Namespaces implements Serializable {
 		return store;
 	}
 	
-	public synchronized void initialise(InitialisationContext initialisationContext) {
+	public synchronized void initialise(RuntimeContext initialisationContext) {
 		this.context = initialisationContext;
 		for (Namespace namespace : namespaces.values()) {
 			namespace.initialise(initialisationContext);

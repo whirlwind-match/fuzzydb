@@ -19,9 +19,9 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
+import com.wwm.db.internal.common.RuntimeContext;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.server.CurrentTransactionHolder;
-import com.wwm.db.internal.server.InitialisationContext;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.server.ServerTransaction.Mode;
 import com.wwm.db.internal.table.UserTable;
@@ -45,7 +45,7 @@ public class IndexedTable<T> implements UserTable<T>, Serializable {
 	}
 
 
-	public void initialise( InitialisationContext context) {
+	public void initialise( RuntimeContext context) {
 		table.initialise(context);
 		indexManager.initialise();
 	}
