@@ -29,7 +29,6 @@ import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.common.MetaObjectSource;
 import com.wwm.db.internal.common.RuntimeContext;
 import com.wwm.db.internal.index.IndexedTable;
-import com.wwm.db.internal.pager.PagePersister;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.table.TableFactory;
 import com.wwm.db.internal.table.UserTable;
@@ -179,10 +178,10 @@ public class Namespace implements Serializable, MetaObjectSource {
 		}
 	}
 
-	public PagePersister getPager() {
-		return context.pager;
+	public RuntimeContext getContext() {
+		return context;
 	}
-
+	
 	public int getStoreId() {
 		return namespaces.getStoreId();
 	}

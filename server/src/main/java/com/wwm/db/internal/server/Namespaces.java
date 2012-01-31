@@ -92,6 +92,6 @@ public class Namespaces implements Serializable {
 	}
 
 	public IndexImplementationsService getIndexImplementationsService() {
-		return context.database.getIndexImplementationsService();
+		return context.getBean(Database.class).getIndexImplementationsService();
 	}
 }

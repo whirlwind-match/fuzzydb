@@ -47,7 +47,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		setModulus();
 	}
 
-	private AtomicLong nextOid = new AtomicLong(0);
+	private final AtomicLong nextOid = new AtomicLong(0);
 
 	private transient PagePersister pager;
 	private transient TimeHistory loadTime;
@@ -95,7 +95,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 			// FIXME: I think we should get rid of public initialise() and
 			// internally lazy init.
 		}
-		this.pager = namespace.getPager(); // Keep ref as quick lookup (NU)
+		this.pager = namespace.getContext().getBean(PagePersister.class); // Keep ref as quick lookup (NU)
 		pages = new HashMap<Long, Page<T>>();
 		loadTime = new TimeHistory();
 		saveTime = new TimeHistory();

@@ -32,6 +32,7 @@ import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.common.RuntimeContext;
+import com.wwm.db.internal.pager.PagePersister;
 
 /**
  * A repository is a collection of ServerStores, for which there is the notion of a version.
@@ -110,8 +111,8 @@ public final class Repository implements Serializable {
 	 */
 	private final Map<Integer, String> deletedStores = new HashMap<Integer, String>();
 	
-	private AtomicLong version = new AtomicLong(0);
-	private AtomicInteger nextStoreId = new AtomicInteger(1);
+	private final AtomicLong version = new AtomicLong(0);
+	private final AtomicInteger nextStoreId = new AtomicInteger(1);
 
 	// Transient data - needs to be initialised by initTransientData()
 	private transient RuntimeContext context;
@@ -298,7 +299,7 @@ public final class Repository implements Serializable {
 		assert(!currentStores.containsKey(storeName));
 		assert(!idStoreMap.containsKey(nextStoreId));
 		
-		ServerStore store = new ServerStore(context.pager.getPath(), storeName, nextStoreId.get());
+		ServerStore store = new ServerStore(context.getBean(PagePersister.class).getPath(), storeName, nextStoreId.get());
 		currentStores.put(storeName, nextStoreId.get());
 		idStoreMap.put(nextStoreId.get(), store);
 		store.initTransientData(context);

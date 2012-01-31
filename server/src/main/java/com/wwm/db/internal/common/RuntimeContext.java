@@ -10,20 +10,45 @@
  *****************************************************************************/
 package com.wwm.db.internal.common;
 
-import com.wwm.db.internal.pager.PagePersister;
-import com.wwm.db.internal.server.Database;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Holder for data that is passed through the initialisation tree to 
- * allow components to extract the information they need
+ * Generic application context for storing service beans that may be wanted elsewhere.
  */
 public class RuntimeContext {
-	// NOTE: All must be final
-	public final Database database;
-	public final PagePersister pager;
 	
-	public RuntimeContext(Database database) {
-		this.database = database;
-		this.pager = database.getPager();
+	
+	private static final RuntimeContext instance = new RuntimeContext();
+	
+	// Currently does not support finding beans matching an interface although...
+	private final Map<String, Object> beans = new HashMap<String, Object>();
+	
+	
+	public static final RuntimeContext getInstance() {
+		return instance; 
 	}
+
+	private RuntimeContext() {
+	}
+	
+	public void addBean(Object bean) {
+		// TODO assert duplicates extract interfaces etc, or just migrate to something like Guice
+		beans.put(bean.getClass().getCanonicalName(), bean);
+	}
+
+	/**
+	 * Adds a bean that fulfills the role of the given serviceInterface, such that
+	 * it can be retrieved using {@link #getBean(Class)} against that interface.
+	 */
+	public <I, B extends I>void addBean(B bean, Class<I> serviceInterface) {
+		beans.put(serviceInterface.getCanonicalName(), bean);
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getBean(Class<T> beanClass) {
+		return (T) beans.get(beanClass.getCanonicalName());
+	}
+	
 }
