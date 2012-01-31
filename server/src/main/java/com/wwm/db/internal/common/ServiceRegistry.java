@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
+ * Copyright (c) 2005-2012 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 
@@ -16,20 +16,20 @@ import java.util.Map;
 /**
  * Generic application context for storing service beans that may be wanted elsewhere.
  */
-public class RuntimeContext {
+public class ServiceRegistry {
 	
 	
-	private static final RuntimeContext instance = new RuntimeContext();
+	private static final ServiceRegistry instance = new ServiceRegistry();
 	
 	// Currently does not support finding beans matching an interface although...
 	private final Map<String, Object> beans = new HashMap<String, Object>();
 	
 	
-	public static final RuntimeContext getInstance() {
+	public static final ServiceRegistry getInstance() {
 		return instance; 
 	}
 
-	private RuntimeContext() {
+	private ServiceRegistry() {
 	}
 	
 	public void addBean(Object bean) {

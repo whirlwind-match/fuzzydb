@@ -14,7 +14,7 @@ import java.util.concurrent.Semaphore;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.internal.common.RuntimeContext;
+import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.pager.PagePersister;
 
 /**
@@ -45,7 +45,7 @@ public class Initialiser extends WorkerThread {
 		log.info("Initialising Transient Data... (no transaction writes can occur here)");
 		try {
 			// Init repos with transient data
-			RuntimeContext runtimeContext = getRuntimeContext();
+			ServiceRegistry runtimeContext = getRuntimeContext();
 			repository.initTransientData( runtimeContext );
 			log.info("Initialise completed.");
 		} catch (Throwable e){
@@ -55,8 +55,8 @@ public class Initialiser extends WorkerThread {
 		}
 	}
 
-	private RuntimeContext getRuntimeContext() {
-		RuntimeContext runtimeContext = RuntimeContext.getInstance();
+	private ServiceRegistry getRuntimeContext() {
+		ServiceRegistry runtimeContext = ServiceRegistry.getInstance();
 		runtimeContext.addBean(database);
 		runtimeContext.addBean(database.getPager(), PagePersister.class);
 		return runtimeContext;

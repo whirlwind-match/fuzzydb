@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
-import com.wwm.db.internal.common.RuntimeContext;
+import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.pager.PagePersister;
 
 /**
@@ -115,7 +115,7 @@ public final class Repository implements Serializable {
 	private final AtomicInteger nextStoreId = new AtomicInteger(1);
 
 	// Transient data - needs to be initialised by initTransientData()
-	private transient RuntimeContext context;
+	private transient ServiceRegistry context;
 
 	/** Min version that database must be at due to importing stores from a later database */
 	private long minVersionAtStartup;
@@ -264,7 +264,7 @@ public final class Repository implements Serializable {
 	 * Completely initialise transient data throughout repository
 	 * @param initialisationContext
 	 */
-	public void initTransientData(RuntimeContext initialisationContext) {
+	public void initTransientData(ServiceRegistry initialisationContext) {
 		this.context = initialisationContext;
 		
 		for (ServerStore store : idStoreMap.values()) {

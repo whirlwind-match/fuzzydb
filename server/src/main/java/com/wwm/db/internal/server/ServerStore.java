@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.internal.common.RuntimeContext;
+import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.ClassTokenCache;
@@ -120,7 +120,7 @@ public class ServerStore implements Serializable {
 		return path; 
 	}
 
-	public void initTransientData(RuntimeContext initialisationContext) {
+	public void initTransientData(ServiceRegistry initialisationContext) {
 		namespaces.initialise(initialisationContext);
 	}
 	
