@@ -12,6 +12,11 @@
     <description>Server:
 Compiles against io.packet, but that artifact must be included into runtime scope if you want to use TCPIP.</description>
     <dependencies>
+    	<dependency>
+    		<groupId>com.google.inject</groupId>
+    		<artifactId>guice</artifactId>
+    		<version>3.0</version>
+    	</dependency>
         <dependency>
             <groupId>org.fuzzydb</groupId>
             <artifactId>org.fuzzydb.client</artifactId>
