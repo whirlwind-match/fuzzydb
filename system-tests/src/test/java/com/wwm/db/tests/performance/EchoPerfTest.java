@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.wwm.db.internal.comms.messages.EchoCmd;
 import com.wwm.db.internal.comms.messages.EchoRsp;
 import com.wwm.db.internal.server.Database;
+import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.impl.DummyCli;
@@ -43,7 +44,7 @@ public class EchoPerfTest {
 	public void testEcho() throws IOException {
 		final int loops = 1000;
 		// Make server
-		Database database = new Database(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
+		Database database = DatabaseFactory.createDatabase(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 		database.startServer();
 		
 		// Make client

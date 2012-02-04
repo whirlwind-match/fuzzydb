@@ -1,8 +1,5 @@
 package com.wwm.db.internal.pager;
 
-import com.wwm.db.internal.server.Database;
-import com.wwm.db.internal.server.DatabaseVersionState;
-
 /**
  * A persister that doesn't.
  * 
@@ -11,10 +8,8 @@ import com.wwm.db.internal.server.DatabaseVersionState;
  */
 public class NullPersister implements PagePersister {
 
-	private final Database database;
 
-	public NullPersister(Database database) {
-		this.database = database;
+	public NullPersister() {
 	}
 	
 	public void saveAll() {
@@ -34,10 +29,6 @@ public class NullPersister implements PagePersister {
 	public void ensureCapacity(int numPages) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public DatabaseVersionState getDatabase() {
-		return database;
 	}
 
 	public void addPurgeablePage(PersistentPagedObject pagedTable, long pageId) {

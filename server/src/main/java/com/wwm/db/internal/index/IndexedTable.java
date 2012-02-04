@@ -19,7 +19,6 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.server.CurrentTransactionHolder;
 import com.wwm.db.internal.server.Namespace;
@@ -45,8 +44,8 @@ public class IndexedTable<T> implements UserTable<T>, Serializable {
 	}
 
 
-	public void initialise( ServiceRegistry context) {
-		table.initialise(context);
+	public void initialise() {
+		table.initialise();
 		indexManager.initialise();
 	}
 

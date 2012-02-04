@@ -19,7 +19,9 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.pager.Page.PagePurgedException;
+import com.wwm.db.internal.server.DatabaseVersionState;
 import com.wwm.db.internal.server.FileUtil;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.server.ServerStore;
@@ -54,6 +56,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 	private transient TimeHistory saveTime;
 	private transient Map<Long, Page<T>> pages;
 	private transient String path;
+	private transient DatabaseVersionState databaseVersionState;
 
 	public RawPagedTableImpl(Namespace namespace, Class<?> forClass) {
 		this(namespace, forClass, "");
@@ -80,14 +83,8 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 	 */
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
-//		initPath(); // this breaks!!!
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#initialise()
-	 */
 	public void initialise() {
 		if (pages != null) {
 			return; // already initialised - we might get called from multiple
@@ -95,7 +92,9 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 			// FIXME: I think we should get rid of public initialise() and
 			// internally lazy init.
 		}
-		this.pager = namespace.getContext().getBean(PagePersister.class); // Keep ref as quick lookup (NU)
+		
+		this.pager = ServiceRegistry.getService(PagePersister.class); 
+		this.databaseVersionState = ServiceRegistry.getService(DatabaseVersionState.class);
 		pages = new HashMap<Long, Page<T>>();
 		loadTime = new TimeHistory();
 		saveTime = new TimeHistory();
@@ -109,47 +108,22 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		return pager.deleteFromDisk(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#getNamespace()
-	 */
 	public Namespace getNamespace() {
 		return namespace;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.table.RawTable#getStoredClass()
-	 */
 	public Class<?> getStoredClass() {
 		return forClass;
 	}
 
-	public PagePersister getPager() {
-		return pager;
-	}
-
-	
 	public boolean deleteFromStorage() {
 		return FileUtil.delTree( new File( getPath() ) );
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#getStoreId()
-	 */
 	public int getStoreId() {
 		return namespace.getStoreId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#lockElementForRead(long)
-	 */
 	public ElementReadOnly<T> lockElementForRead(long elementId) throws UnknownObjectException {
 		long pageId = elementId / elementsPerPage;
 		Page<T> page = lockPage(pageId, false);
@@ -168,11 +142,6 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		return element;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#lockElementForWrite(long)
-	 */
 	public Element<T> lockElementForWrite(long elementId) throws UnknownObjectException {
 		long pageId = elementId / elementsPerPage;
 		Page<T> page = lockPage(pageId, true);
@@ -191,11 +160,6 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		return element;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#unlockElementForRead(com.wwm.db.internal.pager.Element)
-	 */
 	public void unlockElementForRead(ElementReadOnly<T> element) {
 		assert (element != null);
 		long pageId = element.getOid() / elementsPerPage;
@@ -205,11 +169,6 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		page.releaseRead();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wwm.db.internal.pager.RawTable#unlockElementForWrite(com.wwm.db.internal.pager.Element)
-	 */
 	public void unlockElementForWrite(ElementReadOnly<T> element) {
 		assert (element != null);
 		long pageId = element.getOid() / elementsPerPage;
@@ -217,7 +176,6 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		assert (page != null); // It can't get purged while it's locked for
 		// access!
 		page.releaseWrite();
-
 	}
 
 	public float calculatePurgeCost(long pageId) {
@@ -277,9 +235,6 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 
 	/**
 	 * Why is locking of a page done in one paging implementation. It's common to any paging requirement
-	 * @param pageId
-	 * @param forWrite
-	 * @return
 	 */
 	protected Page<T> lockPage(long pageId, boolean forWrite) {
 		for (;;) {
@@ -294,7 +249,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 						// page needs loading!
 						// Create an empty page and lock it to prevent other
 						// threads from trying to load it
-						page = Page.blankPage(elementsPerPage, getPathForPage(pageId), this, pager.getDatabase(), pageId
+						page = Page.blankPage(elementsPerPage, getPathForPage(pageId), this, databaseVersionState, pageId
 								* elementsPerPage);
 						pages.put(pageId, page);
 						try {
@@ -352,16 +307,10 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.PageableObject#savePage(java.lang.Long)
-	 */
 	public void savePage(Long pageId) throws PagePurgedException {
 		savePageInternal(pageId, false);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.PageableObject#tryPurgePage(long)
-	 */
 	public boolean tryPurgePage(long pageId) throws PagePurgedException {
 		return savePageInternal(pageId, true);
 	}
@@ -409,9 +358,6 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		return locked;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.PageableObject#flushOldVersions(java.util.HashSet)
-	 */
 	public boolean flushOldVersions(HashSet<Long> pageIds) throws PagePurgedException {
 
 		boolean flushedAll = true;

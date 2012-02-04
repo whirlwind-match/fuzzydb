@@ -14,8 +14,6 @@ import java.util.concurrent.Semaphore;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.internal.common.ServiceRegistry;
-import com.wwm.db.internal.pager.PagePersister;
 
 /**
  * Initialiser extends WorkerThread so that database operations can get at current transaction etc.
@@ -27,7 +25,11 @@ public class Initialiser extends WorkerThread {
 	private final Database database;
 	private final Repository repository;
 	private final Semaphore finished = new Semaphore(0);
-	
+
+	/**
+	 * 
+	 * @param injector we need one of these to be able to inject services into materialised objects
+	 */
 	public Initialiser(Repository repository, Database database, WorkerThreadManager manager) {
 		super("Initialiser", manager);
 		this.database = database;
@@ -45,20 +47,12 @@ public class Initialiser extends WorkerThread {
 		log.info("Initialising Transient Data... (no transaction writes can occur here)");
 		try {
 			// Init repos with transient data
-			ServiceRegistry runtimeContext = getRuntimeContext();
-			repository.initTransientData( runtimeContext );
+			repository.initTransientData();
 			log.info("Initialise completed.");
 		} catch (Throwable e){
 			log.error( "Unexpected Exception", e );
 		} finally {
 			finished.release();
 		}
-	}
-
-	private ServiceRegistry getRuntimeContext() {
-		ServiceRegistry runtimeContext = ServiceRegistry.getInstance();
-		runtimeContext.addBean(database);
-		runtimeContext.addBean(database.getPager(), PagePersister.class);
-		return runtimeContext;
 	}
 }

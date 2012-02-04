@@ -10,16 +10,10 @@ import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
-import com.wwm.io.core.ClassLoaderInterface;
-import com.wwm.io.core.impl.DummyCli;
 import static org.junit.Assert.*;
 
 public class PersistenceTest extends BaseDatabaseTest {
 	
-	static final int serverPort = 5002;
-	
-	ClassLoaderInterface cli = new DummyCli();
-
 	@BeforeClass 
 	static public void setPersitent() {
 		EmbeddedClientFactory.getInstance().setPersistent(true);

@@ -13,6 +13,10 @@ package com.wwm.db.services;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+
+import com.google.inject.Singleton;
+import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.index.IndexImplementation;
 
 
@@ -22,10 +26,17 @@ import com.wwm.db.internal.index.IndexImplementation;
  * This is used internally by the database for discovery of indexes whenever a
  * new class is encountered.
  */
+@Singleton
 public class IndexImplementationsService {
 	
-	private Collection<IndexImplementation> impls = new LinkedList<IndexImplementation>();
+    private final Logger log = LogFactory.getLogger(getClass());
 
+    private final Collection<IndexImplementation> impls = new LinkedList<IndexImplementation>();
+
+	public IndexImplementationsService() {
+		installAccPackIfAvailable();
+	}
+	
 	public Collection<IndexImplementation> getIndexImplementations() {
 		return impls;
 	}
@@ -37,4 +48,26 @@ public class IndexImplementationsService {
 	public void remove( IndexImplementation impl ) {
 		impls.remove(impl);
 	}
+	
+	private void installAccPackIfAvailable() {
+		Class<?> cl; 
+		try {
+			cl = Class.forName("com.wwm.db.server.whirlwind.WhirlwindIndexImpl");
+		} catch (ClassNotFoundException e) {
+			return;
+		}
+		try {
+			log.info("** Accelerator Pack detected. Enabling **");
+			IndexImplementation index = (IndexImplementation) cl.newInstance(); 
+			add(index);
+			return;
+		} catch (InstantiationException e) {
+			log.warn("Can't create " + cl.getName(), e);
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			log.error("Error getting index instance", e);
+			throw new RuntimeException(e);
+		}
+	}
+
 }

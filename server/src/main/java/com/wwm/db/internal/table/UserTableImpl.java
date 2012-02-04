@@ -18,7 +18,6 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.server.VersionedObject;
 
@@ -59,7 +58,7 @@ public class UserTableImpl<T> implements Serializable, UserTable<T> {
 	}
 
 
-	public void initialise(ServiceRegistry context) {
+	public void initialise() {
 		table.initialise();
 	}
 

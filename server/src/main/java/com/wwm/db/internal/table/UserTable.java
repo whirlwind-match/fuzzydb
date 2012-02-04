@@ -17,7 +17,6 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
-import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.server.Namespace;
 
 public interface UserTable<T> extends Iterable<MetaObject<T>>{
@@ -27,9 +26,8 @@ public interface UserTable<T> extends Iterable<MetaObject<T>>{
 	 * is a type of table that gets stored.
 	 * NOTE: This could probably be dropped, and done as a lazy-init
 	 * by testing a transient variable within the table.
-	 * @param initialisationContext 
 	 */
-	void initialise(ServiceRegistry initialisationContext);
+	void initialise();
 
 	long allocNewIds(int count);
 

@@ -13,16 +13,12 @@ package com.wwm.db.internal.server;
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.wwm.db.internal.common.ServiceRegistry;
-import com.wwm.db.services.IndexImplementationsService;
-
 public class Namespaces implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private final ServerStore store;
 	private final ConcurrentHashMap<Integer, Namespace> tableIdToNamespace = new ConcurrentHashMap<Integer, Namespace>();
 	private final ConcurrentHashMap<String, Namespace> namespaces = new ConcurrentHashMap<String, Namespace>();
-	private transient ServiceRegistry context;
 	
 //	private transient boolean initialised = false; // triggers lazy-init after load from persistent storage.
 	
@@ -47,7 +43,7 @@ public class Namespaces implements Serializable {
 
 		Namespace namespace = new Namespace(this, name);
 		namespaces.put(name, namespace);
-		namespace.initialise(context);
+		namespace.initialise();
 		return namespace;
 	}
 	
@@ -63,10 +59,9 @@ public class Namespaces implements Serializable {
 		return store;
 	}
 	
-	public synchronized void initialise(ServiceRegistry initialisationContext) {
-		this.context = initialisationContext;
+	public synchronized void initialise() {
 		for (Namespace namespace : namespaces.values()) {
-			namespace.initialise(initialisationContext);
+			namespace.initialise();
 		}
 	}
 	
@@ -89,9 +84,5 @@ public class Namespaces implements Serializable {
 	public String[] getNamespaces() {
 		String[] tmp = new String[0];
 		return namespaces.keySet().toArray(tmp);
-	}
-
-	public IndexImplementationsService getIndexImplementationsService() {
-		return context.getBean(Database.class).getIndexImplementationsService();
 	}
 }

@@ -65,16 +65,16 @@ public class AttributeCache implements Serializable {
 			return false;
 		}
 
+		@Override
+		public int hashCode() {
+			return ((value == null) ? 0 : value.getAttrId());
+		}
+		
 		public IAttribute getValue() {
 			return value;
 		}
+
 		
-		@Override
-		public int hashCode() {
-			// this ensures that we don't break hashCode rules where equal objects should have equal hashCodes
-			assert false : "hashCode not designed"; 
-			return 0; // any arbitrary constant will do 
-		}
 	}
 	
 	/**
@@ -82,9 +82,9 @@ public class AttributeCache implements Serializable {
 	 * TODO: Consider using Soft or Weak refs.  Need to monitor size
 	 * NOTE: using Map rather than set as set doesn't give us access to the object instance in the Set.
 	 */
-	private HashMap<String,String> stringCache = new HashMap<String,String>();
+	private final HashMap<String,String> stringCache = new HashMap<String,String>();
 	
-	private TreeMap<CacheEntry, IAttribute> cache = new TreeMap<CacheEntry, IAttribute>();
+	private final TreeMap<CacheEntry, IAttribute> cache = new TreeMap<CacheEntry, IAttribute>();
 	private int successes = 0;
 	
 	public AttributeCache() {
@@ -115,8 +115,8 @@ public class AttributeCache implements Serializable {
 		return cache.size();
 	}
 
-	private int[] strSuccessesByKey = new int[256];
-	private int[] strFailuresByKey = new int[256];
+	private final int[] strSuccessesByKey = new int[256];
+	private final int[] strFailuresByKey = new int[256];
 	
 	/**
 	 * Iterate over the map, and ensure that if the same string is in the cache,

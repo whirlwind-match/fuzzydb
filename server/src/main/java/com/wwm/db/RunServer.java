@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.db.internal.server.Database;
-import com.wwm.db.services.IndexImplementationsService;
+import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.io.packet.layer1.SocketListeningServer;
 import com.wwm.util.FileUtils;
 
@@ -50,9 +50,7 @@ public class RunServer {
 		}
 		
 		try {
-			Database db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)), true);
-			IndexImplementationsService service = new IndexImplementationsService();
-			db.setIndexImplsService(service);
+			Database db = DatabaseFactory.createDatabase(new SocketListeningServer(new InetSocketAddress(host, port)), true);
 			db.startServer();
 		} catch (Throwable e) {
 			LogFactory.getLogger(RunServer.class).error( "Unhandled exception starting database", e);

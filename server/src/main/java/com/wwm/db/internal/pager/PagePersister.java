@@ -1,7 +1,5 @@
 package com.wwm.db.internal.pager;
 
-import com.wwm.db.internal.server.DatabaseVersionState;
-
 /**
  * Abstraction of the 'thing' that makes a database durable, or not.
  * 
@@ -20,6 +18,4 @@ public interface PagePersister {
 	void addPurgeablePage(PersistentPagedObject pagedTable, long pageId);
 
 	boolean deleteFromDisk(PersistentPagedObject object);
-	
-	DatabaseVersionState getDatabase();
 }

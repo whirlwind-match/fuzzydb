@@ -27,7 +27,6 @@ import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.common.MetaObjectSource;
-import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.index.IndexedTable;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.table.TableFactory;
@@ -56,8 +55,6 @@ public class Namespace implements Serializable, MetaObjectSource {
 	private final ConcurrentHashMap<Integer, UserTable<?>> idToTableMap = new ConcurrentHashMap<Integer, UserTable<?>>();
 
 	private final AttributeCache attributeCache = new AttributeCache();
-
-	private transient ServiceRegistry context;
 
 	public Namespace(Namespaces namespaces, String name) {
 		this.name = name;
@@ -161,7 +158,7 @@ public class Namespace implements Serializable, MetaObjectSource {
 		String className = clazz.getName();
 		nameToTableMap.put(className, table);
 		idToTableMap.put(id, table);
-		table.initialise(context);
+		table.initialise();
 		indexes.createIndexes(clazz);
 		return table;
 	}
@@ -171,17 +168,12 @@ public class Namespace implements Serializable, MetaObjectSource {
 		return path;
 	}
 
-	public void initialise(ServiceRegistry initialisationContext) {
-		this.context = initialisationContext;
+	public void initialise() {
 		for (UserTable<?> table : idToTableMap.values()) {
-			table.initialise(initialisationContext);
+			table.initialise();
 		}
 	}
 
-	public ServiceRegistry getContext() {
-		return context;
-	}
-	
 	public int getStoreId() {
 		return namespaces.getStoreId();
 	}

@@ -20,7 +20,7 @@ import com.wwm.db.core.Settings;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.StoreImpl;
 import com.wwm.db.internal.server.Database;
-import com.wwm.db.services.IndexImplementationsService;
+import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.io.packet.layer1.SocketListeningServer;
 
 
@@ -123,10 +123,7 @@ public abstract class BaseDatabaseTest {
 	static private Database startNewDatabase() throws IOException {
 		// NOTE: We use the single parameter version of InetSocketAddr
 		InetSocketAddress anyLocalAddress = new InetSocketAddress(serverPort);
-		Database db = new Database(new SocketListeningServer(anyLocalAddress), true);
-		IndexImplementationsService service = new IndexImplementationsService();
-//			service.add( new WhirlwindIndexImpl());
-		db.setIndexImplsService(service);
+		Database db = DatabaseFactory.createDatabase(new SocketListeningServer(anyLocalAddress), true);
 		db.startServer();
 		return db;
 

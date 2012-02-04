@@ -22,6 +22,8 @@ import java.util.concurrent.Semaphore;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.wwm.db.internal.pager.Page.PagePurgedException;
 import com.wwm.db.internal.server.Database;
 
@@ -37,6 +39,7 @@ import com.wwm.db.internal.server.Database;
  * @author Neale Upstone (debugging and documentation reverse-engineering)
  * 
  */
+@Singleton
 public class FileSerializingPagePersister implements PagePersister, PagerMBean {
 
 	private static final int MIN_PAGES_LOADED = 400;
@@ -151,7 +154,7 @@ public class FileSerializingPagePersister implements PagePersister, PagerMBean {
 
 
 
-	
+	@Inject
 	public FileSerializingPagePersister(Database database) {
 		this.database = database;
 		

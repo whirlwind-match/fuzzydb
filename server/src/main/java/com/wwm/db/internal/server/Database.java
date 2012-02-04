@@ -15,16 +15,14 @@ import java.util.concurrent.Semaphore;
 
 import org.slf4j.Logger;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.UncaughtExceptionLogger;
-import com.wwm.db.internal.index.IndexImplementation;
-import com.wwm.db.internal.pager.NullPersister;
-import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.db.internal.pager.PagePersister;
-import com.wwm.db.internal.server.txlog.NullTxLogWriter;
 import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
-import com.wwm.db.internal.server.txlog.TxLogWriter;
 import com.wwm.db.services.IndexImplementationsService;
 import com.wwm.io.core.ClassDefinitionRepositoryAware;
 import com.wwm.io.core.ClassLoaderInterface;
@@ -37,36 +35,47 @@ import com.wwm.io.core.impl.DummyCli;
  * 
  * 
  */
+@Singleton
 public final class Database implements DatabaseVersionState {
 
     static private Logger log = LogFactory.getLogger(Database.class);
 
     // Ensure we log all uncaught exceptions for whole server.
     static { UncaughtExceptionLogger.initialise(); }
-    
+
     private final MessageSource messageSource;
     
-    private final DummyCli cli = new DummyCli();
+    @Inject
+    private ServerSetupProvider setup;
+    
+    @Inject
+    private DummyCli cli;
+    
     private ServerTransactionCoordinator transactionCoordinator;
     private CommandProcessingPool commandProcessor;
     private Repository repository;
-    private final ServerSetupProvider setup = new ServerSetupProvider();
-    private final PagePersister pager;
+    @Inject
+    private PagePersister pager;
     private long latestDiskVersion = -1;
-    private final TxLogSink txLog;
+    @Inject
+    private TxLogSink txLog;
     private final Semaphore shutdownFlag = new Semaphore(0);
     private boolean closed = false;
-    
+
     /**
      * True if disk should be used for persistence.  False will not attempt to 
      * read from disk even if a repository may exist.
      */
-    private final boolean isPersistent; 
+    @Inject
+    @Named("isPersistent")
+    private Boolean isPersistent; 
 
     private MaintThread maintThread;
 
     private long lastSync = 0;
     private final long syncPeriod = 5*60*1000L; // every 5 mins
+    
+    @Inject
 	private IndexImplementationsService indexImplsService;
 
     private class MaintThread extends WorkerThread {
@@ -109,7 +118,6 @@ public final class Database implements DatabaseVersionState {
             }
         	log.info("MaintThread finished");
         }
-
     }
 
     
@@ -119,47 +127,15 @@ public final class Database implements DatabaseVersionState {
      * 
      * @param isPersistent true if we page to disk and write use a tx log (TODO probably ought to be a persistence strategy)
      */
-    public Database(MessageSource messageSource, boolean isPersistent) {
+    @Inject
+    Database(MessageSource messageSource) {
     	this.messageSource = messageSource;
-    	
-    	this.pager = isPersistent ? new FileSerializingPagePersister(this) : new NullPersister(this);
-
-    	this.isPersistent = isPersistent; // TODO: Allow read and write persistence to be separate 
-    	// txLog on single core activity seems to be 10-20% (see SimpleIndex test logs when this true/false)
-    	// for heavily loaded server, this may bottleneck more.
-    	
-        txLog = isPersistent ? new TxLogWriter(setup.getTxDiskRoot(), cli) : new NullTxLogWriter();
-        
-		installAccPackIfAvailable();
-
     }
-
-	private void installAccPackIfAvailable() {
-		Class<?> cl; 
-		try {
-			cl = Class.forName("com.wwm.db.server.whirlwind.WhirlwindIndexImpl");
-		} catch (ClassNotFoundException e) {
-			return;
-		}
-		try {
-			log.info("** Accelerator Pack detected. Enabling **");
-			IndexImplementation index = (IndexImplementation) cl.newInstance(); 
-			addIndexImplementation(index);
-			return;
-		} catch (InstantiationException e) {
-			log.warn("Can't create " + cl.getName(), e);
-			throw new RuntimeException(e);
-		} catch (Exception e) {
-			log.error("Error getting index instance", e);
-			throw new RuntimeException(e);
-		}
-	}
-
+    
 
 
     /**
-     * Allows database to be started having been configured as a 'bean' with the serverAddress and serverPort
-     * specified.
+     * Allows database to be started having been configured with a source of client messages for processing
      * @throws IOException
      */
 	public void startServer() throws IOException {
@@ -392,7 +368,7 @@ public final class Database implements DatabaseVersionState {
         return 1;
     }
 
-    public ServerSetupProvider getSetup() {
+	public ServerSetupProvider getSetup() {
         return setup;
     }
 
@@ -414,18 +390,5 @@ public final class Database implements DatabaseVersionState {
 
 	public IndexImplementationsService getIndexImplementationsService() {
 		return indexImplsService;
-	}
-
-	public void setIndexImplsService(IndexImplementationsService indexImplsService) {
-		this.indexImplsService = indexImplsService;
-	}
-
-
-	public void addIndexImplementation(IndexImplementation index) {
-		if (indexImplsService == null) {
-			indexImplsService = new IndexImplementationsService();
-		}
-		indexImplsService.add(index);
-		
 	}
 }

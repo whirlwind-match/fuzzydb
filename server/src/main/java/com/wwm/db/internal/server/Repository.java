@@ -32,7 +32,6 @@ import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.common.ServiceRegistry;
-import com.wwm.db.internal.pager.PagePersister;
 
 /**
  * A repository is a collection of ServerStores, for which there is the notion of a version.
@@ -114,17 +113,12 @@ public final class Repository implements Serializable {
 	private final AtomicLong version = new AtomicLong(0);
 	private final AtomicInteger nextStoreId = new AtomicInteger(1);
 
-	// Transient data - needs to be initialised by initTransientData()
-	private transient ServiceRegistry context;
-
 	/** Min version that database must be at due to importing stores from a later database */
 	private long minVersionAtStartup;
 
 	
 	/**
 	 * Save the repository and all stores
-	 * @param dir
-	 * @throws IOException
 	 */
 	public void save(String dir) throws IOException {
 		Object o = this;
@@ -141,8 +135,6 @@ public final class Repository implements Serializable {
 
 	/**
 	 * load the best repository found in the supplied dir
-	 * @param dir
-	 * @return Repository
 	 */
 	public static Repository load(String dir)  {
 		File dirFile = new File(dir);
@@ -208,7 +200,6 @@ public final class Repository implements Serializable {
 	 * NOTE: Must re-map storeId's for new stores.
 	 * We assume that a storeId/storeName combination that matches that in currentStores, is
 	 * an existing local store.
-	 * @param store
 	 */
 	private void addFoundStore(ServerStore store) {
 		Integer id = store.getStoreId();
@@ -262,19 +253,17 @@ public final class Repository implements Serializable {
 
 	/**
 	 * Completely initialise transient data throughout repository
-	 * @param initialisationContext
 	 */
-	public void initTransientData(ServiceRegistry initialisationContext) {
-		this.context = initialisationContext;
+	public void initTransientData() {
 		
 		for (ServerStore store : idStoreMap.values()) {
-			store.initTransientData(initialisationContext);
+			store.initTransientData();
 		}
 		synchronized (deletedStoresByVersion) {
 			for (ArrayList<Integer> als : deletedStoresByVersion.values()) {
 				for (Integer storeId : als) {
 					ServerStore store = idStoreMap.get(storeId);
-					store.initTransientData(initialisationContext);
+					store.initTransientData();
 				}
 			}
 		}
@@ -291,26 +280,23 @@ public final class Repository implements Serializable {
 	/**Create a new store.
 	 * The store must not already exist.
 	 * The transaction must be in its commit phase (and thus be holding write privilege)
-	 * @param storeName
-	 * @return
 	 */
 	public synchronized int createStore(String storeName) {
 		assert(CurrentTransactionHolder.isInCommitPhase());
 		assert(!currentStores.containsKey(storeName));
 		assert(!idStoreMap.containsKey(nextStoreId));
 		
-		ServerStore store = new ServerStore(context.getBean(PagePersister.class).getPath(), storeName, nextStoreId.get());
+		String rootPath = ServiceRegistry.getService(ServerSetupProvider.class).getReposDiskRoot();
+		ServerStore store = new ServerStore(rootPath, storeName, nextStoreId.get());
 		currentStores.put(storeName, nextStoreId.get());
 		idStoreMap.put(nextStoreId.get(), store);
-		store.initTransientData(context);
+		store.initTransientData();
 		return nextStoreId.getAndIncrement();
 	}
 
 	/**Delete a store.
 	 * The store must exist.
 	 * The transaction must be in its commit phase (and thus be holding write priviledge)
-	 * @param storeName
-	 * @return
 	 */
 	public synchronized void deleteStore(String storeName) {
 		assert(CurrentTransactionHolder.isInCommitPhase());
@@ -391,7 +377,7 @@ public final class Repository implements Serializable {
 		// Now do the work that might take a little time without blocking 
 		// (we're only working with thread local data now)
 		for (ServerStore s : expiredStores) {
-			s.initTransientData(context); // have to be initialised
+			s.initTransientData(); // have to be initialised
 			boolean success = s.deletePersistentData();
 			if (!success) {
 				log.error("Failed to delete persistent data for store at " + s.getPath() );

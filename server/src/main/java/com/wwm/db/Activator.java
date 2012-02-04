@@ -19,6 +19,7 @@ import org.osgi.framework.ServiceRegistration;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.Settings;
 import com.wwm.db.internal.server.Database;
+import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.db.services.IndexImplementationsService;
 import com.wwm.io.packet.layer1.SocketListeningServer;
 
@@ -41,12 +42,11 @@ public class Activator implements BundleActivator {
 		int port = config.getListenPort();
 		
 		try {
-			db = new Database(new SocketListeningServer(new InetSocketAddress(host, port)), true);
+			db = DatabaseFactory.createDatabase(new SocketListeningServer(new InetSocketAddress(host, port)), true);
 			
 			// Also want to register indexManager service, which probably should be in own bundle
-			IndexImplementationsService service = new IndexImplementationsService();
+			IndexImplementationsService service = db.getIndexImplementationsService();
 			registration = context.registerService(IndexImplementationsService.class.getName(), service, null);
-			db.setIndexImplsService(service);
 			db.startServer();
 			
 		} catch (Throwable e) {

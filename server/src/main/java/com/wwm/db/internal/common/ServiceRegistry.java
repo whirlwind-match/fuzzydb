@@ -10,45 +10,30 @@
  *****************************************************************************/
 package com.wwm.db.internal.common;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * Generic application context for storing service beans that may be wanted elsewhere.
  */
 public class ServiceRegistry {
 	
-	
 	private static final ServiceRegistry instance = new ServiceRegistry();
 	
-	// Currently does not support finding beans matching an interface although...
-	private final Map<String, Object> beans = new HashMap<String, Object>();
+	private Injector injector;
 	
-	
-	public static final ServiceRegistry getInstance() {
-		return instance; 
-	}
-
 	private ServiceRegistry() {
 	}
 	
-	public void addBean(Object bean) {
-		// TODO assert duplicates extract interfaces etc, or just migrate to something like Guice
-		beans.put(bean.getClass().getCanonicalName(), bean);
-	}
-
 	/**
-	 * Adds a bean that fulfills the role of the given serviceInterface, such that
-	 * it can be retrieved using {@link #getBean(Class)} against that interface.
+	 * Initialise global instance with the modules for configuration
 	 */
-	public <I, B extends I>void addBean(B bean, Class<I> serviceInterface) {
-		beans.put(serviceInterface.getCanonicalName(), bean);
-	}
-
-	
-	@SuppressWarnings("unchecked")
-	public <T> T getBean(Class<T> beanClass) {
-		return (T) beans.get(beanClass.getCanonicalName());
+	static public void initialise(Module ... modules) {
+		instance.injector = Guice.createInjector(modules);
 	}
 	
+	public static <S> S getService(Class<S> type) {
+		return instance.injector.getInstance(type);
+	}
 }

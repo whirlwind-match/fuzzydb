@@ -25,8 +25,10 @@ import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
+import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.search.DumbOrderedSearch;
 import com.wwm.db.internal.search.Search;
+import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.table.UserTable;
 import com.wwm.db.internal.whirlwind.ScoreConfigOptimiser;
@@ -72,7 +74,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
             return;
         }
 
-    	IndexImplementationsService implService = table.getNamespace().getNamespaces().getIndexImplementationsService();
+    	IndexImplementationsService implService = getIndexImplementationsService();
     	
     	if (implService != null) {
 			Collection<IndexImplementation> impls = implService
@@ -103,7 +105,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
         IScoreConfiguration mergedScorers = ScoreConfigOptimiser.getMergedScorers( searchSpec, config );
 
         // Now get the best index based on what the 'net' search is.  mergedScorers is likely to be the decider.
-    	IndexImplementationsService implService = table.getNamespace().getNamespaces().getIndexImplementationsService();
+    	IndexImplementationsService implService = getIndexImplementationsService();
 
     	if (implService != null) {
 			Collection<IndexImplementation> impls = implService
@@ -118,6 +120,12 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 		}
 		return new DumbOrderedSearch<T>((SearchSpecImpl) searchSpec, config, wantNominee, table);
     }
+
+
+
+	private IndexImplementationsService getIndexImplementationsService() {
+		return ServiceRegistry.getService(Database.class).getIndexImplementationsService();
+	}
 	
     /**
      * FIXME: Prob don't want to do this for every search .. but it's probably not a big issue.

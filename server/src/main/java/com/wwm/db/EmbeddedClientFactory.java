@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.server.Database;
+import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.io.core.Authority;
 
 public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
@@ -54,7 +55,7 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 			return;
 		}
 
-		database = new Database(databaseMessageSource, isPersistent());
+		database = DatabaseFactory.createDatabase(databaseMessageSource, isPersistent());
 		try {
 			database.startServer();
 		} catch (IOException e) {
