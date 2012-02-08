@@ -25,12 +25,19 @@ public class DatabaseModule implements Module {
 
 	public void configure(Binder binder) {
 		binder.bind(Boolean.class).annotatedWith(Names.named("isPersistent")).toInstance(isPersistent);
+		if (isPersistent) {
+			binder.bind(RepositoryStorageManager.class).to(FileRepositoryStorageManager.class);
+			binder.bind(PagePersister.class).to(FileSerializingPagePersister.class);
+			binder.bind(TxLogSink.class).to(TxLogWriter.class); 
+		}
+		else {
+			binder.bind(RepositoryStorageManager.class).to(NullRepositoryStorageManager.class);
+			binder.bind(PagePersister.class).to(NullPersister.class);
+			binder.bind(TxLogSink.class).to(NullTxLogWriter.class); 
+		}
 		binder.bind(MessageSource.class).toInstance(messageSource);
-		binder.bind(PagePersister.class).to( isPersistent ? FileSerializingPagePersister.class : NullPersister.class);
 		binder.bind(ServerSetupProvider.class);
 		binder.bind(ClassLoaderInterface.class).to(DummyCli.class);
-		binder.bind(TxLogSink.class).to(isPersistent ? TxLogWriter.class : NullTxLogWriter.class); 
-				// TxLogWriter(setup.getTxDiskRoot(), cli) : new NullTxLogWriter();
 		binder.bind(IndexImplementationsService.class);
 		binder.bind(DatabaseVersionState.class).to(Database.class);
 		binder.bind(Database.class);

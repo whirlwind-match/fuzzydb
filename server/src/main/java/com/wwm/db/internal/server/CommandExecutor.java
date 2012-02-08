@@ -37,7 +37,6 @@ import com.wwm.db.internal.comms.messages.ShutdownCmd;
 import com.wwm.db.internal.comms.messages.TransactionCommand;
 import com.wwm.db.internal.comms.messages.WWSearchCmd;
 import com.wwm.db.internal.comms.messages.WWSearchFetchCmd;
-import com.wwm.io.core.MessageInterface;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.layer2.SourcedMessageImpl;

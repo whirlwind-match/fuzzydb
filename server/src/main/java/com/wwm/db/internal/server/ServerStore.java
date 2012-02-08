@@ -34,7 +34,7 @@ import com.wwm.util.FileFilters;
 public class ServerStore implements Serializable {
 	private static final String FILE_PREFIX = "s";
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = LogFactory.getLogger(Repository.class);
+	private static final Logger log = LogFactory.getLogger(ServerStore.class);
 
 	
 //	private ClassLoaderInterface commsClassLoader;

@@ -120,15 +120,19 @@ public final class Repository implements Serializable {
 	/**
 	 * Save the repository and all stores
 	 */
-	public void save(String dir) throws IOException {
+	public void save(String dir) {
 		Object o = this;
 		String prefix = "r";
 		
 		long ver = getVersion();
-		FileUtil.writeVersionedObject(o, dir, prefix, ver);
+		try {
+			FileUtil.writeVersionedObject(o, dir, prefix, ver);
 
-		for (ServerStore store : idStoreMap.values()) {
-			store.save(ver);
+			for (ServerStore store : idStoreMap.values()) {
+				store.save(ver);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Unable to save repository to path: " + dir, e);
 		}
 		log.info("  saved repos at version: " + ver);
 	}

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 import org.slf4j.Logger;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -53,10 +52,15 @@ public final class Database implements DatabaseVersionState {
     
     private ServerTransactionCoordinator transactionCoordinator;
     private CommandProcessingPool commandProcessor;
+    
+    @Inject
+    private RepositoryStorageManager repositoryStorageManager;
+    
     private Repository repository;
+
     @Inject
     private PagePersister pager;
-    private long latestDiskVersion = -1;
+
     @Inject
     private TxLogSink txLog;
     private final Semaphore shutdownFlag = new Semaphore(0);
@@ -72,8 +76,6 @@ public final class Database implements DatabaseVersionState {
 
     private MaintThread maintThread;
 
-    private long lastSync = 0;
-    private final long syncPeriod = 5*60*1000L; // every 5 mins
     
     @Inject
 	private IndexImplementationsService indexImplsService;
@@ -124,8 +126,6 @@ public final class Database implements DatabaseVersionState {
     
     /**
      * Create a new database ready to process requests from this message source
-     * 
-     * @param isPersistent true if we page to disk and write use a tx log (TODO probably ought to be a persistence strategy)
      */
     @Inject
     Database(MessageSource messageSource) {
@@ -145,7 +145,8 @@ public final class Database implements DatabaseVersionState {
 		}
 			
         log.info("========== Starting Server ==========");
-        loadOrCreateRepositoryAsNeeded();
+        repositoryStorageManager.loadOrCreateRepositoryAsNeeded();
+        repository = repositoryStorageManager.getRepository();
 
         transactionCoordinator = new ServerTransactionCoordinator( this, repository);
         CommandExecutor commandExecutor = new CommandExecutor(transactionCoordinator, this);
@@ -180,109 +181,8 @@ public final class Database implements DatabaseVersionState {
 	}
 
 
-	/**
-	 * Initialise a repository either by loading one or creating one. 
-	 * <b>Always creates a new in memory one if persistChanges is false.
-	 */
-	private void loadOrCreateRepositoryAsNeeded() throws IOException {
-		if (!isPersistent) {
-			repository = new Repository();
-			latestDiskVersion = getCurrentDbVersion();
-			log.info("In-memory mode. Non-persistent repository initialised");
-			return;
-		}
-		
-		// See if we have a repository to load, and use it if found
-		Repository loaded = Repository.load(setup.getReposDiskRoot());
-		if (loaded != null) {
-			repository = loaded;
-			latestDiskVersion = getCurrentDbVersion();
-			log.info("Loaded repository, version = " + latestDiskVersion);
-			if (!isPersistent) {
-				log.info("Non-persisting mode.  No changes will be saved");
-			}
-			return;
-		}
-		
-        log.info("No repository found. Saving a blank & retrying");
-    	repository = new Repository();
-    	repository.save(setup.getReposDiskRoot());
-    	repository = Repository.load(setup.getReposDiskRoot());
-        latestDiskVersion = getCurrentDbVersion();
-	}
-
-    
-    
     private void performMaintenence() {
-    	if (!isPersistent) {
-    		return;
-    	}
-	
-        // delete stores
-        repository.purgeDeletedStores(transactionCoordinator.getOldestTransactionVersion());
-        pager.doMaintenance();
-        doSync();
-    }
-
-    /**
-     * Sync to disk on a periodic basis.
-     * NOTE: Initial sync is done on first maintenance call, as this would be just after having read transaction logs.
-     * 
-     * (Different) Sync procedure:
-     * 
-     * Bail out early if loadedVersion == current db version (ie disk is clean)
-     * Aquire exclusive sync lock
-     * Aquire write lock (beginning 'quick' part of sync) - this stops the db version getting incremented
-     * get db version number, this is the number we will sync to
-     * force tx log writers to start a new file, so the log start is aligned with the repos we will write
-     * deep clone the repos to avoid seeing schema changes (or just serialize the main one to a buffer? easier! But don't put it on disk)
-     * set the pager to 'retro' mode and supply the sync version. This makes sure pages purged under memory load also get saved for the sync version, otherwise will will miss them out.
-     * Release write lock (beginning 'slow' part of sync) - the db version can start to move forward again
-     * Make pager sync all dirty pages to disk at the specified version. Use suffixes in case of disk name collision. Must always avoid overwriting a page as this could damage a previously synced version if we crash while writing.
-     * Take the pager out of 'retro' mode.
-     * Write the cloned/buffered repos
-     * Update loadedVersion to synced version (maybe change the name of this field.)
-     * Release exclusive sync lock
-     * 
-     * NEALE's NOTES 2008
-     * - Simple first attempt (prob similar to above but I haven't looked yet):  
-     * NOTE dbVersion. 
-     * Sync all pages (must be atomic write of unwritten pages, and modified pages) 
-     * which will all be dbVersion
-     * Save a 'repos' object with noted version
-     * Rollover to a new txLog, so we've always got a new one ready
-     */
-    private void doSync() {
-
-    	// We don't sync etc if we're not recording changes
-    	if (!isPersistent) {
-    		return;
-    	}
-	
-		long now = System.currentTimeMillis();
-
-		if (now - lastSync > syncPeriod) {
-
-			// FIXME: (nu->ac) - This probably needs synchronising, or doing in a blocking thread...?
-			// Can you take a look.
-			log.trace("Syncing...");
-			pager.saveAll();
-			log.trace(".. saved pages.. ");
-
-			try {
-				long dbVersion = getCurrentDbVersion();
-				if (latestDiskVersion != dbVersion) {
-					repository.save(setup.getReposDiskRoot());
-					txLog.rolloverToNewLog(dbVersion); // TODO: Not sure if this is fully robust. May need some review to check the dbVersion is always correct
-					latestDiskVersion = dbVersion;
-				}
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			log.trace(".. completed sync.");
-
-			lastSync = System.currentTimeMillis(); // Ensure we get gap between syncs
-		}
+    	repositoryStorageManager.doMaintenance();
     }
 
 
@@ -320,22 +220,9 @@ public final class Database implements DatabaseVersionState {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        pager.saveAll();
-
-                        repository.purgeDeletedStores(getCurrentDbVersion());
-
-                        try {
-                            if (latestDiskVersion != getCurrentDbVersion() && isPersistent) {
-                                repository.save(setup.getReposDiskRoot());
-                            }
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        repositoryStorageManager.shutdown();
                         closed = true;
                     	log.info("===== Database shutdown complete =====");
-                    	if (!isPersistent) { 
-                    		log.info("===== Database is NOT persitent =====");
-                    	}
                     }
                     shutdownFlag.release(); // release to allow blocking close() to wait 
                 }

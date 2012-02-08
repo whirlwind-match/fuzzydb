@@ -86,10 +86,14 @@ public class TxLogWriter implements TxLogSink, PacketInterface {
 	}
 
 	
-	public void rolloverToNewLog(long version) throws IOException, FileNotFoundException {
-		flush();
-		close();
-		openFile(version);
+	public void rolloverToNewLog(long version) {
+		try {
+			flush();
+			close();
+			openFile(version);
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to rollover to new TxLog:" + e.getMessage(), e);
+		}
 	}
 
 	public Collection<ByteBuffer> read() {
