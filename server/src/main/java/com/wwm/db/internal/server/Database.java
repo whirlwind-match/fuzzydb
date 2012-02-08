@@ -19,7 +19,6 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.UncaughtExceptionLogger;
-import com.wwm.db.internal.pager.PagePersister;
 import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.services.IndexImplementationsService;
@@ -51,6 +50,7 @@ public final class Database {
     private DummyCli cli;
     
     private ServerTransactionCoordinator transactionCoordinator;
+    
     private CommandProcessingPool commandProcessor;
     
     @Inject
@@ -59,11 +59,10 @@ public final class Database {
     private Repository repository;
 
     @Inject
-    private PagePersister pager;
-
-    @Inject
     private TxLogSink txLog;
+    
     private final Semaphore shutdownFlag = new Semaphore(0);
+    
     private boolean closed = false;
 
     /**
@@ -75,7 +74,6 @@ public final class Database {
     private Boolean isPersistent; 
 
     private MaintThread maintThread;
-
     
     @Inject
 	private IndexImplementationsService indexImplsService;
@@ -123,7 +121,6 @@ public final class Database {
     }
 
     
-    
     /**
      * Create a new database ready to process requests from this message source
      */
@@ -132,8 +129,6 @@ public final class Database {
     	this.messageSource = messageSource;
     }
     
-
-
     /**
      * Allows database to be started having been configured with a source of client messages for processing
      * @throws IOException
@@ -145,7 +140,30 @@ public final class Database {
 		}
 			
         log.info("========== Starting Server ==========");
-        repositoryStorageManager.loadOrCreateRepositoryAsNeeded();
+        loadAndReplayAnyRecoveredTransactions();
+        repository.applyImports();
+        goOnline();
+        log.info("========== Server started (ver = " + repository.getVersion() + ") ===============");
+	}
+
+	/**
+	 * Enable new transactions to be started and run
+	 */
+	private void goOnline() {
+		// Enable writing to txLog only once we've finished replay
+        transactionCoordinator.useTxLog( txLog );
+
+        commandProcessor.start();
+        maintThread = new MaintThread(this);
+        maintThread.start(); // note: Dangerous if Database is not final class, as thread would start before rest of ctor
+	}
+
+	/**
+	 * Load repository and recover to the last persisted state
+	 * (this may require replaying transactions from logs on multiple nodes :)
+	 */
+	private void loadAndReplayAnyRecoveredTransactions() {
+		repositoryStorageManager.loadOrCreateRepositoryAsNeeded();
         repository = repositoryStorageManager.getRepository();
 
         transactionCoordinator = new ServerTransactionCoordinator(repository);
@@ -167,17 +185,6 @@ public final class Database {
 	        TxLogPlayback txPlay = new TxLogPlayback(this, commandProcessor);
 	        txPlay.playback();
         }
-        
-        // Apply any imported stores
-        repository.applyImports();
-
-        // start new tx log
-        transactionCoordinator.useTxLog( txLog );
-
-        commandProcessor.start();
-        maintThread = new MaintThread(this);
-        maintThread.start(); // note: Dangerous if Database is not final class, as thread would start before rest of ctor
-        log.info("========== Server started (ver = " + repository.getVersion() + ") ===============");
 	}
 
 
@@ -203,18 +210,6 @@ public final class Database {
                         maintThread.shutdown();
                         commandProcessor.shutdown();
                         transactionCoordinator.close();
-                        try {
-                            Thread.sleep(500); // TODO(nu->ac): Please explain why this sleep happens, and 500ms is adequate?
-                            // NOTE: We're also sleeping while holding a lock which is a deadlock risk
-                        } catch (InterruptedException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        try {
-                            txLog.close();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
                         repositoryStorageManager.shutdown();
                         closed = true;
                     	log.info("===== Database shutdown complete =====");

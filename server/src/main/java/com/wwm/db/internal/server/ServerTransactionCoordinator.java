@@ -201,6 +201,17 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 				Thread.sleep(100);
 			} catch (InterruptedException e) { e.printStackTrace(); } // FIXME: Document this exception
 		}
+        try {
+            Thread.sleep(500); // TODO(nu->ac): Please explain why this sleep happens, and 500ms is adequate?
+            // NOTE: We're also sleeping while holding a lock which is a deadlock risk
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            txLog.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 	}
 	
 	public void writeToTransactionLog(Command command) {
