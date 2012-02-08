@@ -13,7 +13,9 @@ package com.wwm.db.internal.server;
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Namespaces implements Serializable {
+import com.wwm.db.internal.common.InitializingBean;
+
+public class Namespaces implements Serializable, InitializingBean {
 	
 	private static final long serialVersionUID = 1L;
 	private final ServerStore store;

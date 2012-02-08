@@ -26,6 +26,7 @@ import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.exceptions.WriteCollisionException;
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.RefImpl;
+import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.common.MetaObjectSource;
 import com.wwm.db.internal.index.IndexedTable;
 import com.wwm.db.internal.search.Search;
@@ -36,7 +37,7 @@ import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.AttributeCache;
 
 
-public class Namespace implements Serializable, MetaObjectSource {
+public class Namespace implements Serializable, MetaObjectSource, InitializingBean {
 	private static final long serialVersionUID = 1L;
 
 	/** ThreadLocal namespace so we can set/get currentNamespace */

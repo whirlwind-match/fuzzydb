@@ -35,7 +35,7 @@ import com.wwm.io.core.impl.DummyCli;
  * 
  */
 @Singleton
-public final class Database implements DatabaseVersionState {
+public final class Database {
 
     static private Logger log = LogFactory.getLogger(Database.class);
 
@@ -104,7 +104,7 @@ public final class Database implements DatabaseVersionState {
                 
                 // Lock out other threads, and then do maintenance without risk of overlap
                 acquireExclusivity(); 
-                performMaintenence();
+                repositoryStorageManager.doMaintenance();
                 releaseExclusivity();
             }
         }
@@ -148,7 +148,7 @@ public final class Database implements DatabaseVersionState {
         repositoryStorageManager.loadOrCreateRepositoryAsNeeded();
         repository = repositoryStorageManager.getRepository();
 
-        transactionCoordinator = new ServerTransactionCoordinator( this, repository);
+        transactionCoordinator = new ServerTransactionCoordinator(repository);
         CommandExecutor commandExecutor = new CommandExecutor(transactionCoordinator, this);
         
         commandProcessor = new CommandProcessingPool(commandExecutor, messageSource); // Note: Starts listening, so may get connections while processing txlog, should be able to cope as we'll just queue messages until we start the processor
@@ -179,11 +179,6 @@ public final class Database implements DatabaseVersionState {
         maintThread.start(); // note: Dangerous if Database is not final class, as thread would start before rest of ctor
         log.info("========== Server started (ver = " + repository.getVersion() + ") ===============");
 	}
-
-
-    private void performMaintenence() {
-    	repositoryStorageManager.doMaintenance();
-    }
 
 
     /**
@@ -231,18 +226,6 @@ public final class Database implements DatabaseVersionState {
         thread.start();
     }
 
-    public long getCurrentDbVersion() {
-        return repository.getVersion();
-    }
-
-    public long getOldestTransactionVersion() {
-        return transactionCoordinator.getOldestTransactionVersion();
-    }
-
-    public void upissue() {
-        repository.upissue();
-    }
-
     public ServerTransactionCoordinator getTransactionCoordinator() {
         return transactionCoordinator;
     }
@@ -259,16 +242,8 @@ public final class Database implements DatabaseVersionState {
         return setup;
     }
 
-    public TxLogSink getTxLog() {
-        return txLog;
-    }
-
     public ClassLoaderInterface getCommsCli() {
         return cli;
-    }
-
-    public PagePersister getPager() {
-        return pager;
     }
 
     public boolean isClosed() {

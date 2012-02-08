@@ -37,7 +37,7 @@ import com.wwm.io.core.messages.Command;
  * acquire write privileges at a time.
  * Write privileges are required to: a) Commit a transaction, b) reorganise content e.g. lazy inserts on indexes.
  */
-public class ServerTransactionCoordinator extends Thread implements TransactionCoordinator {
+public class ServerTransactionCoordinator extends Thread implements TransactionCoordinator, DatabaseVersionState {
 
 	
 	static private final Logger log = LogFactory.getLogger(ServerTransactionCoordinator.class);
@@ -47,30 +47,36 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 	
 	private final Semaphore exclusiveLock = new Semaphore(1);
 	private Thread privilegedThread = null;
-	private final DatabaseVersionState dbVersionState;
 	private final Repository repository;
 	private final Map<Key, PersistentServerTransaction> transactions = new HashMap<Key, PersistentServerTransaction>();
 	
 	private boolean closing = false;
 	private TxLogSink txLog;
 	
-	public ServerTransactionCoordinator(DatabaseVersionState dbVersionState, Repository repository) {
+	public ServerTransactionCoordinator(Repository repository) {
 		super("Transaction Monitor");
-		this.dbVersionState = dbVersionState;
 		this.repository = repository;
 		super.setDaemon(true);
 		super.setPriority(Thread.MIN_PRIORITY);
 		super.start();
 	}
 
-	public long getOldestTransactionVersion() {
-		long oldest = dbVersionState.getCurrentDbVersion();
+	public final long getCurrentDbVersion() {
+		return repository.getVersion();
+	}
+	
+	public final long getOldestTransactionVersion() {
+		long oldest = repository.getVersion();
 		synchronized (transactions) {
 			for (PersistentServerTransaction transaction : transactions.values()) {
 				oldest = Math.min(oldest, transaction.getVisibleVersion());
 			}
 		}
 		return oldest;
+	}
+	
+	public void upissue() {
+		repository.upissue();
 	}
 	
 	/**
@@ -87,7 +93,9 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 					e.printStackTrace(); // interrupt is unexpected if we're not closing.
 				}
 			}
-			if (closing) return;
+			if (closing) {
+				return;
+			}
 			
 			synchronized (transactions) {
 				GregorianCalendar gc = new GregorianCalendar();
@@ -144,7 +152,9 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		synchronized (transactions) {
 			Key key = new Key(source, tid);
 			PersistentServerTransaction transaction = transactions.get(key);
-			if (transaction == null) throw new UnknownTransactionException(tid);
+			if (transaction == null) {
+				throw new UnknownTransactionException(tid);
+			}
 			CurrentTransactionHolder.setTransaction(transaction);
 			// Due to server threads the start of a new action can occur before another server thread has retired the transaction
 			// from the previous action, causing this assert to trigger.
@@ -165,14 +175,14 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		synchronized (this) {
 			assert(privilegedThread == null);
 			privilegedThread = thread;
-			return dbVersionState.getCurrentDbVersion() + 1;
+			return repository.getVersion() + 1;
 		}
 	}
 
 	public synchronized void releaseWritePrivilege() {
 		assert(privilegedThread == Thread.currentThread());
 		privilegedThread = null;
-		dbVersionState.upissue();
+		repository.upissue();
 		exclusiveLock.release();
 	}
 
@@ -193,12 +203,12 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		}
 	}
 	
-	public void writeToTransactionLog(Command command) throws Error {
+	public void writeToTransactionLog(Command command) {
 		if (txLog != null) {
 			try {
-				txLog.write(dbVersionState.getCurrentDbVersion(), command);
+				txLog.write(repository.getVersion(), command);
 				txLog.flush();
-				log.trace("Txlog version {}: wrote {}", dbVersionState.getCurrentDbVersion(), command);
+				log.trace("Txlog version {}: wrote {}", repository.getVersion(), command);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -207,10 +217,6 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 
 	public void useTxLog(TxLogSink txLog) {
 		this.txLog = txLog;
-	}
-
-	public DatabaseVersionState getDatabaseVersionState() {
-		return dbVersionState;
 	}
 
 	public Repository getRepository() {

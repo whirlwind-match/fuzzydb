@@ -52,7 +52,7 @@ public abstract class ServerTransaction implements TransactionControl {
 	public ServerTransaction(ServerTransactionCoordinator stc, MessageSink source) {
 		this.stc = stc;
 		this.source = source;
-		this.transactionState = new TransactionState(stc.getDatabaseVersionState());
+		this.transactionState = new TransactionState(stc);
 		this.repository = stc.getRepository();
 		CurrentTransactionHolder.setTransaction(this);
 	}

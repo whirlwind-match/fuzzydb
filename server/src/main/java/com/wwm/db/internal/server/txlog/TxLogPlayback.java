@@ -51,7 +51,7 @@ public class TxLogPlayback extends WorkerThread {
 			
 			if (!txDir.exists()) return; 
 
-			TxLogIterator txLogs = new TxLogIterator( txDir, database.getCurrentDbVersion(), false );
+			TxLogIterator txLogs = new TxLogIterator( txDir, database.getTransactionCoordinator().getCurrentDbVersion(), false );
 			
 			for (File file : txLogs) {
 				if (file == null) continue; // algo does cause some

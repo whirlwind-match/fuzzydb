@@ -14,6 +14,7 @@ import java.io.Serializable;
 
 import com.wwm.db.Ref;
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.server.Namespace;
 
@@ -29,9 +30,7 @@ import com.wwm.db.internal.server.Namespace;
  * @param <T> whatever is being stored.  In many cases it is VersionedObject<RT>
  * @param <RT>
  */ 
-public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializable, YoofRepository<RT, T> {
-
-	void initialise();
+public interface Table<RT, T> extends Iterable<RefObjectPair<RT,T>>, Serializable, YoofRepository<RT, T>, InitializingBean {
 
 	/**
 	 * Gets an object without performing any IO. If the object is not available, returns null. The exception may or may

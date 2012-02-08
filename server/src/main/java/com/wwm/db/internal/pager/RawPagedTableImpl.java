@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.pager.Page.PagePurgedException;
+import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.DatabaseVersionState;
 import com.wwm.db.internal.server.FileUtil;
 import com.wwm.db.internal.server.Namespace;
@@ -94,7 +95,7 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 		}
 		
 		this.pager = ServiceRegistry.getService(PagePersister.class); 
-		this.databaseVersionState = ServiceRegistry.getService(DatabaseVersionState.class);
+		this.databaseVersionState = ServiceRegistry.getService(Database.class).getTransactionCoordinator();
 		pages = new HashMap<Long, Page<T>>();
 		loadTime = new TimeHistory();
 		saveTime = new TimeHistory();
@@ -388,7 +389,9 @@ public class RawPagedTableImpl<T> implements RawTable<T>, Serializable, Persiste
 	}
 
 	public String getPath() {
-		if (path == null) initPath();
+		if (path == null) {
+			initPath();
+		}
 		return path;
 	}
 	

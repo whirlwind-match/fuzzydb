@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.RefImpl;
+import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.ClassTokenCache;
@@ -31,7 +32,7 @@ import com.wwm.util.FileFilters;
  * and then re-created then the second one has a different storeId to the first)
  * 
  */
-public class ServerStore implements Serializable {
+public class ServerStore implements InitializingBean, Serializable {
 	private static final String FILE_PREFIX = "s";
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LogFactory.getLogger(ServerStore.class);
@@ -119,7 +120,7 @@ public class ServerStore implements Serializable {
 		return path; 
 	}
 
-	public void initTransientData() {
+	public void initialise() {
 		namespaces.initialise();
 	}
 	
@@ -136,16 +137,27 @@ public class ServerStore implements Serializable {
 	}
 
 	public boolean deletePersistentData() {
-		if (path==null) return true; // nothing to delete
+		if (path==null)
+		 {
+			return true; // nothing to delete
+		}
 		
-		if (!namespaces.deletePersistentData()) return false;
-		if (!deleteTempDir()) return false;
+		if (!namespaces.deletePersistentData()) {
+			return false;
+		}
+		if (!deleteTempDir()) {
+			return false;
+		}
 		
 		File storeDir = new File(getPath());
-		if (!storeDir.exists()) return true;
+		if (!storeDir.exists()) {
+			return true;
+		}
 		
 		// delete remainder of tree.
-		if ( !FileUtil.delTree(storeDir) ) return false;
+		if ( !FileUtil.delTree(storeDir) ) {
+			return false;
+		}
 		
 //		File temp = new File(getTempName());
 //		if (!storeDir.renameTo(temp)) return false;
@@ -155,7 +167,9 @@ public class ServerStore implements Serializable {
 
 	private boolean deleteTempDir() {
 		File tempDir = new File(getTempName());
-		if (!tempDir.exists()) return true;
+		if (!tempDir.exists()) {
+			return true;
+		}
 		return tempDir.delete();
 	}
 	

@@ -47,7 +47,7 @@ public class Initialiser extends WorkerThread {
 		log.info("Initialising Transient Data... (no transaction writes can occur here)");
 		try {
 			// Init repos with transient data
-			repository.initTransientData();
+			repository.initialise();
 			log.info("Initialise completed.");
 		} catch (Throwable e){
 			log.error( "Unexpected Exception", e );

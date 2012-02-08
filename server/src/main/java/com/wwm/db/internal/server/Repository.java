@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownStoreException;
+import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.common.ServiceRegistry;
 
 /**
@@ -61,10 +62,13 @@ import com.wwm.db.internal.common.ServiceRegistry;
  * So.  The answer is YES.  We at least need a list of the paths of stores to be deleted.
  *
  */
-public final class Repository implements Serializable {
+public final class Repository implements InitializingBean, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static private final Logger log = LogFactory.getLogger(Repository.class);
+	
+	// needed so we know wha the latest version is
+	private transient DatabaseVersionState stc;
 	
 	/**
 	 * StoreName to id map for current stores only 
@@ -142,7 +146,9 @@ public final class Repository implements Serializable {
 	 */
 	public static Repository load(String dir)  {
 		File dirFile = new File(dir);
-		if (!dirFile.exists()) return null;
+		if (!dirFile.exists()) {
+			return null;
+		}
 		
 		ArrayList<File> candidates = new ArrayList<File>();
 		Collections.addAll(candidates, dirFile.listFiles());
@@ -255,19 +261,18 @@ public final class Repository implements Serializable {
 
 	}
 
-	/**
-	 * Completely initialise transient data throughout repository
-	 */
-	public void initTransientData() {
+	public void initialise() {
+		
+		this.stc = ServiceRegistry.getService(Database.class).getTransactionCoordinator();
 		
 		for (ServerStore store : idStoreMap.values()) {
-			store.initTransientData();
+			store.initialise();
 		}
 		synchronized (deletedStoresByVersion) {
 			for (ArrayList<Integer> als : deletedStoresByVersion.values()) {
 				for (Integer storeId : als) {
 					ServerStore store = idStoreMap.get(storeId);
-					store.initTransientData();
+					store.initialise();
 				}
 			}
 		}
@@ -294,7 +299,7 @@ public final class Repository implements Serializable {
 		ServerStore store = new ServerStore(rootPath, storeName, nextStoreId.get());
 		currentStores.put(storeName, nextStoreId.get());
 		idStoreMap.put(nextStoreId.get(), store);
-		store.initTransientData();
+		store.initialise();
 		return nextStoreId.getAndIncrement();
 	}
 
@@ -345,6 +350,13 @@ public final class Repository implements Serializable {
 	}
 
 	/**
+	 * Purges stores that were deleted in previous transactions where no transactions now exist that could see those stores
+	 */
+	public void purgeDeletedStores() {
+		purgeDeletedStores(stc.getOldestTransactionVersion());
+	}
+
+	/**
 	 * Purges deleted stores according to whether a live transaction may still be able to access them.
 	 * Any stores deleted prior to the oldest transaction are removed from the repository,
 	 * and their persistent data is deleted.
@@ -381,7 +393,7 @@ public final class Repository implements Serializable {
 		// Now do the work that might take a little time without blocking 
 		// (we're only working with thread local data now)
 		for (ServerStore s : expiredStores) {
-			s.initTransientData(); // have to be initialised
+			s.initialise(); // have to be initialised
 			boolean success = s.deletePersistentData();
 			if (!success) {
 				log.error("Failed to delete persistent data for store at " + s.getPath() );

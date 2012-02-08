@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.wwm.db.internal.pager.PagePersister;
+import com.wwm.db.internal.server.txlog.TxLogSink;
 
 @Singleton
 public class FileRepositoryStorageManager implements RepositoryStorageManager {
@@ -13,9 +15,11 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
-	private final Database database;
+	private final PagePersister pager;
 	
 	private final ServerSetupProvider setup;
+	
+	private final TxLogSink txLog;
 	
 	private volatile Repository repository;
 	
@@ -23,19 +27,20 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
 	
     private long lastSync = 0;
 
+
 	
 	@Inject
-	public FileRepositoryStorageManager(Database database, ServerSetupProvider setup) {
-		this.database = database;
+	public FileRepositoryStorageManager(ServerSetupProvider setup, PagePersister pager, TxLogSink txLog) {
 		this.setup = setup;
+		this.pager = pager;
+		this.txLog = txLog;
 	}
 	
 	public void doMaintenance() {
         // delete stores
-        repository.purgeDeletedStores(database.getTransactionCoordinator().getOldestTransactionVersion());
-        database.getPager().doMaintenance();
+        repository.purgeDeletedStores();
+        pager.doMaintenance();
         doSync();
-		
 	}
 	
 	public Repository getRepository() {
@@ -56,11 +61,11 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
 	}
 
 	public void shutdown() {
-        database.getPager().saveAll();
+        pager.saveAll();
 
-        repository.purgeDeletedStores(database.getCurrentDbVersion());
+        repository.purgeDeletedStores();
 
-        if (latestDiskVersion != database.getCurrentDbVersion()) {
+        if (latestDiskVersion != repository.getVersion()) {
             repository.save(setup.getReposDiskRoot());
         }
 	}
@@ -95,24 +100,24 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
      */
     private void doSync() {
 
-		long now = System.currentTimeMillis();
-
+        long now = System.currentTimeMillis();
+		
 		if (now - lastSync > syncPeriod) {
-
+		
 			// FIXME: (nu->ac) - This probably needs synchronising, or doing in a blocking thread...?
 			// Can you take a look.
 			log.trace("Syncing...");
-			database.getPager().saveAll();
+			pager.saveAll();
 			log.trace(".. saved pages.. ");
-
-			long dbVersion = database.getCurrentDbVersion();
+		
+			long dbVersion = repository.getVersion();
 			if (latestDiskVersion != dbVersion) {
 				repository.save(setup.getReposDiskRoot());
-				database.getTxLog().rolloverToNewLog(dbVersion); // TODO: Not sure if this is fully robust. May need some review to check the dbVersion is always correct
+				txLog.rolloverToNewLog(dbVersion); // TODO: Not sure if this is fully robust. May need some review to check the dbVersion is always correct
 				latestDiskVersion = dbVersion;
 			}
 			log.trace(".. completed sync.");
-
+		
 			lastSync = System.currentTimeMillis(); // Ensure we get gap between syncs
 		}
     }

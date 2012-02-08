@@ -12,6 +12,7 @@ package com.wwm.db.internal.table;
 
 
 import com.wwm.db.exceptions.UnknownObjectException;
+import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.pager.Element;
 import com.wwm.db.internal.pager.ElementReadOnly;
 import com.wwm.db.internal.server.Namespace;
@@ -21,7 +22,7 @@ import com.wwm.db.internal.server.Namespace;
  * 
  * @param <T> What gets stored in each Element (e.g. LeafNode or some user class)
  */
-public interface RawTable<T> {
+public interface RawTable<T> extends InitializingBean {
 
     public Namespace getNamespace();
     public int getStoreId();
@@ -31,8 +32,6 @@ public interface RawTable<T> {
      */
     public Class<?> getStoredClass();
 
-    public void initialise();
-    
     /**
      * Delete this table permanently.  e.g. deletes on-disk representation
      */

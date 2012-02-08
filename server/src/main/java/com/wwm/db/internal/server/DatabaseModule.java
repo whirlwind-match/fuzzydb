@@ -39,7 +39,6 @@ public class DatabaseModule implements Module {
 		binder.bind(ServerSetupProvider.class);
 		binder.bind(ClassLoaderInterface.class).to(DummyCli.class);
 		binder.bind(IndexImplementationsService.class);
-		binder.bind(DatabaseVersionState.class).to(Database.class);
 		binder.bind(Database.class);
 
 	}
