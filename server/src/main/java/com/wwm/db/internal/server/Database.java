@@ -11,8 +11,10 @@
 package com.wwm.db.internal.server;
 
 import java.io.IOException;
-import java.util.concurrent.Semaphore;
-
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -61,9 +63,7 @@ public final class Database {
     @Inject
     private TxLogSink txLog;
     
-    private final Semaphore shutdownFlag = new Semaphore(0);
-    
-    private boolean closed = false;
+    private volatile boolean closed = false;
 
     /**
      * True if disk should be used for persistence.  False will not attempt to 
@@ -73,6 +73,11 @@ public final class Database {
     @Named("isPersistent")
     private Boolean isPersistent; 
 
+    /**
+     * Executor for async tasks
+     */
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    
     private MaintThread maintThread;
     
     @Inject
@@ -193,32 +198,33 @@ public final class Database {
      * this will cause a deadlock.
      */
     public void close() {
-        closeNonBlocking();
-        shutdownFlag.acquireUninterruptibly();
+        try {
+			closeNonBlocking().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			throw new RuntimeException(e);
+		}
     }
 
     /**
      * Close the database, without blocking. Useful for executing a remote close command without causing a deadlock.
      */
-    public void closeNonBlocking() {
-        Thread thread = new Thread("Background Shutdown") {
-            @Override
-            public void run() {
-                synchronized(shutdownFlag) {
-                    if (!closed) {
-                    	log.info("===== Database shutdown started =====");
-                        maintThread.shutdown();
-                        commandProcessor.shutdown();
-                        transactionCoordinator.close();
-                        repositoryStorageManager.shutdown();
-                        closed = true;
-                    	log.info("===== Database shutdown complete =====");
-                    }
-                    shutdownFlag.release(); // release to allow blocking close() to wait 
+    public Future<?> closeNonBlocking() {
+    	return executor.submit(new Runnable() {
+			@Override
+			public void run() {
+                if (!closed) {
+                	log.info("===== Database shutdown started =====");
+                    maintThread.shutdown();
+                    commandProcessor.shutdown();
+                    transactionCoordinator.close();
+                    repositoryStorageManager.shutdown();
+                    closed = true;
+                	log.info("===== Database shutdown complete =====");
                 }
             }
-        };
-        thread.start();
+		});
     }
 
     public ServerTransactionCoordinator getTransactionCoordinator() {
