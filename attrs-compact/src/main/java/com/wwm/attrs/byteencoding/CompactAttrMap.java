@@ -47,16 +47,10 @@ public class CompactAttrMap<T extends IAttribute> implements Cloneable, IAttribu
 
 		int index = 0;
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#hasNext()
-		 */
 		public boolean hasNext() {
 			return index < bytes.size();
 		}
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#next()
-		 */
 		@SuppressWarnings("unchecked")
         public T next() {
 			if (index >= bytes.size()){
@@ -73,9 +67,6 @@ public class CompactAttrMap<T extends IAttribute> implements Cloneable, IAttribu
 			return attr;
 		}
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#remove()
-		 */
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
@@ -131,7 +122,7 @@ public class CompactAttrMap<T extends IAttribute> implements Cloneable, IAttribu
 
 	public T put(int attrId, T value) {
 
-		Object db2Value = value.getAsDb2Attribute();
+		Object db2Value = value.asSimpleAttribute();
 		addAttribute(attrId, db2Value );
 		return null; // TODO: Could return prev value if there was one
 	}
@@ -218,10 +209,16 @@ public class CompactAttrMap<T extends IAttribute> implements Cloneable, IAttribu
 	public boolean consistentFor(IAttributeConstraint constraint, int splitId) {
 		IAttribute att = findAttr(splitId);
 		if (att == null) {
-			if (constraint == null) return true;	// no attribute + no constraint, this is the right branch
+			if (constraint == null)
+			 {
+				return true;	// no attribute + no constraint, this is the right branch
+			}
 			return false; // no attribute but there is a constraint, wrong branch - need the one with no contraint
 		}
-		if (constraint == null) return false;	// there is an attribute matching split id, must select a constrained branch
+		if (constraint == null)
+		 {
+			return false;	// there is an attribute matching split id, must select a constrained branch
+		}
 				
 		return constraint.consistent(att);
 	}

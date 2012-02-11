@@ -44,7 +44,7 @@ public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute im
 	 */
 	public abstract IAttributeConstraint createAnnotation();
 	
-	public Object getAsDb2Attribute() {
+	public Object asSimpleAttribute() {
 		return this; // Default: Needs overriding for DB1 attrs.
 	}
 }

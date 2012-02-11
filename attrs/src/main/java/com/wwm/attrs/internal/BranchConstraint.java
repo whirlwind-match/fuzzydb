@@ -97,7 +97,7 @@ public abstract class BranchConstraint extends BaseAttribute implements IAttribu
 		return !consistent( value );
 	}
 
-	public Object getAsDb2Attribute() {
+	public Object asSimpleAttribute() {
 		return this; // Default: Needs overriding for DB1 attrs.
 	}
 

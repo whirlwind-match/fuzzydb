@@ -38,5 +38,5 @@ public interface IAttribute extends Serializable, Cloneable, com.archopolis.db.w
      * Ensure that the attribute is a DB2 API attribute, allowing DB1 API attrs to
      * be migrated.
      */
-	Object getAsDb2Attribute();
+	Object asSimpleAttribute();
 }

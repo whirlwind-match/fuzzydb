@@ -60,7 +60,7 @@ public class BooleanValue extends Attribute implements IBooleanValue, IMergeable
 	}
 
 	@Override
-	public Object getAsDb2Attribute() {
+	public Object asSimpleAttribute() {
 		return Boolean.valueOf(isTrue);
 	}
     @Override

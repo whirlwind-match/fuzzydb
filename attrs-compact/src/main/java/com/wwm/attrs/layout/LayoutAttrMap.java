@@ -56,17 +56,11 @@ public class LayoutAttrMap<T extends IAttribute> implements Cloneable, IAttribut
 		 */
 		int index = 0;
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#hasNext()
-		 */
 		public boolean hasNext() {
 			skipMissing();
 			return index < getMapConfig().getAttrIds().size();
 		}
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#next()
-		 */
         @SuppressWarnings("unchecked")
 		public T next() {
 			skipMissing();
@@ -93,9 +87,6 @@ public class LayoutAttrMap<T extends IAttribute> implements Cloneable, IAttribut
         	}
         }
 
-		/* (non-Javadoc)
-		 * @see java.util.Iterator#remove()
-		 */
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
@@ -130,7 +121,7 @@ public class LayoutAttrMap<T extends IAttribute> implements Cloneable, IAttribut
 
 	public T put(int attrId, T value) {
 
-		Object db2Value = value.getAsDb2Attribute();
+		Object db2Value = value.asSimpleAttribute();
 		addAttribute( attrId, db2Value );
 		return null; // TODO: Could return prev value if there was one
 	}

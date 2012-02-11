@@ -81,7 +81,7 @@ public class ContainsNotSpecifiedAttrConstraint implements IAttributeConstraint 
     	return "incl null = true"; // + includesNotSpecified ;
     }
 
-	public Object getAsDb2Attribute() {
+	public Object asSimpleAttribute() {
 		return this;
 	}
 

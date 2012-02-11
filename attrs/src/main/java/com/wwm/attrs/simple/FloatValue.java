@@ -83,7 +83,7 @@ public class FloatValue extends Attribute<FloatValue> implements Comparable<Floa
     }
 
     @Override
-    public Object getAsDb2Attribute() {
+    public Object asSimpleAttribute() {
         return new Float(value);
     }
 
