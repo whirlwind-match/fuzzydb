@@ -47,7 +47,7 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
 		return repository;
 	}
 	
-	public void loadOrCreateRepositoryAsNeeded() {
+	public Repository loadOrCreateRepositoryAsNeeded() {
 		// See if we have a repository to load, and use it if found
 		repository = Repository.load(setup.getReposDiskRoot());
 		if (repository == null) {
@@ -58,6 +58,7 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
 
 		latestDiskVersion = repository.getVersion();
 		log.info("Loaded repository, version = " + latestDiskVersion);
+		return repository;
 	}
 
 	public void shutdown() {

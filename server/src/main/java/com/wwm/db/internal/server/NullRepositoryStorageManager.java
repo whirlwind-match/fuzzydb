@@ -19,9 +19,10 @@ public class NullRepositoryStorageManager implements RepositoryStorageManager {
 		return repository;
 	}
 
-	public void loadOrCreateRepositoryAsNeeded() {
+	public Repository loadOrCreateRepositoryAsNeeded() {
 		repository = new Repository();
 		log.info("Empty repository created, as not using persistence");
+		return repository;
 	}
 	
 	public void shutdown() {

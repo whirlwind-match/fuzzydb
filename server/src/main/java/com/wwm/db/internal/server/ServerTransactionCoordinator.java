@@ -126,6 +126,9 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 		}
 	}
 
+	/**
+	 * Disposes of the transaction if possible.  
+	 */
 	public void tryRemoveTransaction(MessageSink source, int tid) {
 		synchronized (transactions) {
 			Key key = new Key(source, tid);
@@ -157,8 +160,7 @@ public class ServerTransactionCoordinator extends Thread implements TransactionC
 			}
 			CurrentTransactionHolder.setTransaction(transaction);
 			// Due to server threads the start of a new action can occur before another server thread has retired the transaction
-			// from the previous action, causing this assert to trigger.
-//			assert(!transaction.isBusy());
+			// from the previous action
 			transaction.markBusy();
 			return transaction;
 		}

@@ -168,8 +168,7 @@ public final class Database {
 	 * (this may require replaying transactions from logs on multiple nodes :)
 	 */
 	private void loadAndReplayAnyRecoveredTransactions() {
-		repositoryStorageManager.loadOrCreateRepositoryAsNeeded();
-        repository = repositoryStorageManager.getRepository();
+		repository = repositoryStorageManager.loadOrCreateRepositoryAsNeeded();
 
         transactionCoordinator = new ServerTransactionCoordinator(repository);
         CommandExecutor commandExecutor = new CommandExecutor(transactionCoordinator, this);

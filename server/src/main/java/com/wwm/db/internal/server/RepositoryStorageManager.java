@@ -6,7 +6,7 @@ public interface RepositoryStorageManager {
 	 * Initialise a repository either by loading one or creating one. 
 	 * <b>Should always creates a new in memory one if not persistent</b>
 	 */
-	void loadOrCreateRepositoryAsNeeded();
+	Repository loadOrCreateRepositoryAsNeeded();
 
 	Repository getRepository();
 
