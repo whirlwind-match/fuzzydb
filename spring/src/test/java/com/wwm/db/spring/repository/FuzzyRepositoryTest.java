@@ -132,9 +132,9 @@ public class FuzzyRepositoryTest {
 	static public void printScores(Result<?> result) {
 		Score score = result.getScore();
 		System.out.println("Item: " + result.getItem().toString() + ", score = " + score.total());
-		Collection<String> scorerAttrNames = score.getScorerAttrNames();
+		Collection<String> scoreEntryNames = score.getScoreEntryNames();
 		
-		for (String attr : scorerAttrNames) {
+		for (String attr : scoreEntryNames) {
 			System.out.println("    " + attr + " : fwd=" + score.getForwardsScore(attr) + ", rev=" + score.getReverseScore(attr));
 		}
 	}

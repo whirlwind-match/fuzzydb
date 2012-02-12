@@ -23,7 +23,6 @@ public interface Score {
 
     /**
      * Returns the names for the available match results
-     * <br>TODO: Rename - shouldn't refer to Attr as matcher can be anything
      */
-    Collection<String> getScorerAttrNames();
+    Collection<String> getScoreEntryNames();
 }

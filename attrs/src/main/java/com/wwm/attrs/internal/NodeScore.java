@@ -158,7 +158,9 @@ public class NodeScore extends Score implements Serializable {
 	 * Return the number of scores that have been recorded (forwards + reverse)
 	 */
 	public float getCount() {
-		return forwardsScores.size() + reverseScores.size();
+		// collections remain null until first entry is needed, so must handle null
+		return (forwardsScores == null ? 0 : forwardsScores.size()) + 
+				(reverseScores == null ? 0 : reverseScores.size());
 	}
 
 	/**
@@ -190,7 +192,7 @@ public class NodeScore extends Score implements Serializable {
 	}
 	
 	private void writeObject(ObjectOutputStream out) throws IOException {
-		getLabelledForwardScores();
+		getForwardScores();
 		populate(labelledForwardsScores, forwardsScores);
 
 		labelledReverseScores = new HashMap<String, Float>();
@@ -199,14 +201,14 @@ public class NodeScore extends Score implements Serializable {
 		out.defaultWriteObject();
 	}
 
-	private Map<String,Float> getLabelledForwardScores() {
+	public Map<String,Float> getForwardScores() {
 		if (labelledForwardsScores == null){
 			labelledForwardsScores = new HashMap<String, Float>();
 		}
 		return labelledForwardsScores;
 	}
 
-	private Map<String,Float> getLabelledReverseScores() {
+	public Map<String,Float> getReverseScores() {
 		if (labelledReverseScores == null){
 			labelledReverseScores = new HashMap<String, Float>();
 		}
@@ -223,8 +225,8 @@ public class NodeScore extends Score implements Serializable {
 		}
 	}
 	
-	public Collection<String> getScorerAttrNames() {
-		Assert.state(labelledForwardsScores != null, "Cannot call getScorerAttrNames() on server");
+	public Collection<String> getScoreEntryNames() {
+		Assert.state(labelledForwardsScores != null, "Cannot call scoreEntryNames() on server");
 		
 		HashSet<String> result = new HashSet<String>(labelledForwardsScores.keySet());
 		result.addAll(labelledReverseScores.keySet());
@@ -236,15 +238,15 @@ public class NodeScore extends Score implements Serializable {
 	 */
 	@Override
 	public void setScorerAttribute(Direction d, String name, float value) {
-		Map<String,Float> map = d == Direction.forwards ? getLabelledForwardScores() : getLabelledReverseScores();
+		Map<String,Float> map = d == Direction.forwards ? getForwardScores() : getReverseScores();
 		map.put(name, value);
 	}
 
 	public Float getForwardsScore(String name) {
-		return getLabelledForwardScores().get(name);
+		return getForwardScores().get(name);
 	}
 
 	public Float getReverseScore(String name) {
-		return getLabelledReverseScores().get(name);
+		return getReverseScores().get(name);
 	}
 }

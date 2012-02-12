@@ -210,7 +210,7 @@ public class IndexEntryHandler implements TypeHandler {
         FuzzyRecordBuilder builder = new FuzzyRecordBuilder(entry);
         // NOTE: Hard coded for now
         Score score = result.getScore();
-        for (String name: score.getScorerAttrNames()){
+        for (String name: score.getScoreEntryNames()){
             if (name.equals("Distance")) {
                 builder.addFloat("Distance", score.getForwardsScore("Distance"));
             }

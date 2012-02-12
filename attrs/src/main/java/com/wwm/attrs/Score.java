@@ -187,7 +187,7 @@ public abstract class Score implements com.wwm.model.attributes.Score, Comparabl
     	throw new UnsupportedOperationException();
 	}
 
-	public Collection<String> getScorerAttrNames() {
+	public Collection<String> getScoreEntryNames() {
     	throw new UnsupportedOperationException();
 	}
 }
