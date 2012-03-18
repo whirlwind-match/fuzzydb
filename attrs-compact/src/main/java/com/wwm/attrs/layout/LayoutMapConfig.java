@@ -14,6 +14,8 @@ import gnu.trove.TIntArrayList;
 
 import java.io.Serializable;
 
+import org.springframework.util.Assert;
+
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.AttrDefinitionMgr.AttrType;
 import com.wwm.db.annotations.Key;
@@ -244,7 +246,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 		indicesPlusOne.set(sequence, index + 1);
 
 		// Add to list of attrIds for iterator
-		assert( attrIds.contains(attrId) == false);
+		Assert.state( attrIds.contains(attrId) == false );
 		attrIds.add(attrId);
 		
 		setLength(sequence, spaceNeeded);
@@ -260,7 +262,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 	 * @param sequence
 	 */
 	private void padSpace(TIntArrayList array, int sequence) {
-		assert ( array.size() <= sequence); // e.g. 0 <= 0, on first add
+		Assert.state( array.size() <= sequence); // e.g. 0 <= 0, on first add
 		while( array.size() <= sequence){ // ensures we add including then value we want to then set
 			array.add( -1 );
 		}
@@ -275,7 +277,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 		if (sequence < indicesPlusOne.size()) {
 			int indexPlusOne = indicesPlusOne.getQuick(sequence);
 			if (indexPlusOne > 0) {
-				assert (getLength(attrId) == spaceNeeded); // dumbo check to ensure not asking for diff size
+				Assert.state(getLength(attrId) == spaceNeeded, "getLength = " + getLength(attrId) + ", requested = " + spaceNeeded); // dumbo check to ensure not asking for diff size
 				return indexPlusOne - 1;
 			}
 		} else {
@@ -289,7 +291,7 @@ public class LayoutMapConfig implements Serializable, Cloneable {
 		indicesPlusOne.set(sequence, index + 1);
 
 		// Add to list of attrIds for iterator
-		assert( attrIds.contains(attrId) == false);
+		Assert.state( attrIds.contains(attrId) == false);
 		attrIds.add(attrId);
 
 		setLength(sequence, spaceNeeded);
