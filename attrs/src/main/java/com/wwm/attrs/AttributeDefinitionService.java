@@ -36,6 +36,14 @@ public interface AttributeDefinitionService {
 	 */
 	int getAttrId(String attrName, Class<?> clazz);
 
+	/**
+	 * Get the numerical attribute identifier for the given name.
+	 * The attribute must already exist.
+	 * 
+	 * @throws IllegalStateException
+	 *            if the attribute was not already defined
+	 */
+
 	int getAttrId(String attrName);
 
 	/**

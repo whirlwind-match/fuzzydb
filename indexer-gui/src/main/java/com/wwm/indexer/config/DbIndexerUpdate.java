@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.SplitConfiguration;
 import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumMultipleValue;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.EnumAttributeSpec;
 import com.wwm.attrs.internal.ScoreConfigurationManager;
 import com.wwm.attrs.userobjects.StandaloneWWIndexData;
@@ -78,7 +78,7 @@ public class DbIndexerUpdate {
             if (EnumAttributeSpec.class.isInstance(entry.getValue())) {
                 EnumAttributeSpec enumspec = (EnumAttributeSpec) entry.getValue();
                 int attrid = loader.getAttrDefs().getObject().getAttrId(strippedName, enumspec.clazz);
-                EnumDefinition def = conf.getEnumDefinition(enumspec.enumdef);
+                OptionsSource def = conf.getEnumDefinition(enumspec.enumdef);
                 if (def == null) {
                     throw new UnsupportedOperationException("Unknown Enum definition "  + enumspec.enumdef + " For attribute " + strippedName);
                 }

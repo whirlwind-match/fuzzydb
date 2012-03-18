@@ -11,21 +11,21 @@
 package com.wwm.indexer.internal.random;
 
 
-import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.model.attributes.EnumAttribute;
 import com.wwm.util.MTRandom;
 
 
 public class RandomEnum extends AbstractRandomGenerator<EnumAttribute> {
 
-    private EnumDefinition enumdef;
+    private final OptionsSource enumdef;
 
-    public RandomEnum(EnumDefinition enumdef, float nullProportion) {
+    public RandomEnum(OptionsSource optionsSource, float nullProportion) {
     	super(nullProportion);
-    	this.enumdef = enumdef;
+    	this.enumdef = optionsSource;
     }
     
-    public RandomEnum(EnumDefinition enumdef) {
+    public RandomEnum(OptionsSource enumdef) {
     	super(0f);
         this.enumdef = enumdef;
     }

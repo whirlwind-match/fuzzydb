@@ -13,33 +13,34 @@ package com.wwm.indexer.internal.random;
 import java.util.TreeSet;
 
 import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.model.attributes.MultiEnumAttribute;
 import com.wwm.util.MTRandom;
 
 public class RandomMultiEnum extends AbstractRandomGenerator<MultiEnumAttribute> {
 
-    EnumDefinition enumdef;
+    OptionsSource options;
 
     public RandomMultiEnum(EnumDefinition enumdef) {
-        this.enumdef = enumdef;
+        this.options = enumdef;
     }
 
-    public RandomMultiEnum(EnumDefinition enumdef, float nullProportion) {
+    public RandomMultiEnum(OptionsSource optionsSource, float nullProportion) {
     	super(nullProportion);
-        this.enumdef = enumdef;
+        this.options = optionsSource;
     }
 
     protected MultiEnumAttribute randomResult(String attrName) {
-        int numvals = MTRandom.getInstance().nextInt(enumdef.size() - 1) + 1;
+        int numvals = MTRandom.getInstance().nextInt(options.size() - 1) + 1;
 
         TreeSet<String> values = new TreeSet<String>();
         while (numvals > values.size()) {
-            short randenum = (short) MTRandom.getInstance().nextInt(enumdef.size());
-            values.add(enumdef.findAsString(randenum));
+            short randIndex = (short) MTRandom.getInstance().nextInt(options.size());
+            values.add(options.findAsString(randIndex));
         }
 
         String[] result = new String[numvals];
         result = values.toArray(result); // uses supplied array
-        return new MultiEnumAttribute(attrName, enumdef.getName(), result);
+        return new MultiEnumAttribute(attrName, options.getName(), result);
     }
 }

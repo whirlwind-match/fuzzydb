@@ -5,9 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.indexer.internal.random.RandomBoolean;
 import com.wwm.indexer.internal.random.RandomEnum;
 import com.wwm.indexer.internal.random.RandomFloat;
@@ -24,9 +23,9 @@ public class RandomAttributeSource {
 	/**
 	 * Default random generators to use based on the attribute class
 	 */
-	private Map<Class<?>, RandomGenerator<?>> classRandomisers = new HashMap<Class<?>, RandomGenerator<?>>();
+	private final Map<Class<?>, RandomGenerator<?>> classRandomisers = new HashMap<Class<?>, RandomGenerator<?>>();
 
-	private Map<String, RandomGenerator<?>> attrRandomisers = new HashMap<String, RandomGenerator<?>>();
+	private final Map<String, RandomGenerator<?>> attrRandomisers = new HashMap<String, RandomGenerator<?>>();
 	
 	
 	public RandomAttributeSource() {
@@ -61,14 +60,20 @@ public class RandomAttributeSource {
 	 * for cars, there are more Fords than Aston Martins
 	 */
 	public void configureEnumAttr(String attrName, float nullProportion) {
-		int attrId = attributeService.getAttrId(attrName);
-		EnumDefinition enumDef = attributeService.getEnumDefForAttrId(attrId);
+		OptionsSource enumDef = getLazyEnumDef(attrName);
 		attrRandomisers.put(attrName, new RandomEnum(enumDef, nullProportion));
 	}
 
+	/** 
+	 * Get lazy variant as it involves database access which we don't want to do while reading configuration.
+	 * Only when generating data in a transaction should we need database access */
+	private ByNameEnumDefinition getLazyEnumDef(String attrName) {
+//		return attributeService.getEnumDefinition(attrName);
+				return new ByNameEnumDefinition(attributeService, attrName);
+	}
+
 	public void configureMultiEnumAttr(String attrName, float nullProportion) {
-		int attrId = attributeService.getAttrId(attrName);
-		EnumDefinition enumDef = attributeService.getEnumDefForAttrId(attrId);
+		OptionsSource enumDef = getLazyEnumDef(attrName);
 		attrRandomisers.put(attrName, new RandomMultiEnum(enumDef, nullProportion));
 	}
 

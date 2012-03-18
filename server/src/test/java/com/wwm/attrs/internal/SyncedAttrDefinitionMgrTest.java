@@ -6,8 +6,8 @@ import org.junit.Test;
 
 
 import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.db.BaseDatabaseTest;
@@ -23,8 +23,8 @@ public class SyncedAttrDefinitionMgrTest extends BaseDatabaseTest {
 	protected int wantGenderId; 
 	protected int smokeId;
 	protected int wantSmokeId;
-	protected EnumDefinition smokeDef;
-	protected EnumDefinition wantSmokeDef;
+	protected OptionsSource smokeDef;
+	protected OptionsSource wantSmokeDef;
 	
 	
 	@Before

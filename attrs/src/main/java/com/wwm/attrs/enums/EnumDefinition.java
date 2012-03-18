@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 
 
-public class EnumDefinition implements Serializable {
+public class EnumDefinition implements Serializable, OptionsSource {
 
     /**
      * Provide some bounds to how many values an enum can have.
@@ -153,10 +153,8 @@ public class EnumDefinition implements Serializable {
         return (short)strValues.indexOf(value);
     }
 
-    /**
-     * Get String representation of an option given the index
-     */
-    public String findAsString(short index) {
+    @Override
+	public String findAsString(short index) {
         assert( index >= -1 );
 
         if (index == -1 || index >= strValues.size()) {
@@ -166,11 +164,8 @@ public class EnumDefinition implements Serializable {
     }
 
 
-    /**
-     * Number of options in this Enum definition
-     * @return int size
-     */
-    public int size() {
+    @Override
+	public int size() {
         return strValues.size();
     }
 

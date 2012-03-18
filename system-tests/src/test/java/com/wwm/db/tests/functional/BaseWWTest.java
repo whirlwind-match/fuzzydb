@@ -12,8 +12,8 @@ import com.wwm.attrs.bool.BooleanScorer;
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.byteencoding.CompactBooleanScorer;
 import com.wwm.attrs.byteencoding.CompactSimilarFloatValueScorer;
-import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveValue;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.ScoreConfigurationManager;
 import com.wwm.attrs.location.EcefVector;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
@@ -36,8 +36,8 @@ public abstract class BaseWWTest extends BaseDatabaseTest {
 
 	protected int locationId;
 
-	protected EnumDefinition smokeDef;
-	protected EnumDefinition wantSmokeDef;
+	protected OptionsSource smokeDef;
+	protected OptionsSource wantSmokeDef;
 	protected int smokeId;
 	protected int wantSmokeId;
     

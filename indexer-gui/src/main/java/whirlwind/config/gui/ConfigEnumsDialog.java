@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.wwm.attrs.enums.EnumDefinition;
+import com.wwm.attrs.enums.OptionsSource;
 
 public class ConfigEnumsDialog extends JDialog {
 
@@ -35,7 +36,7 @@ public class ConfigEnumsDialog extends JDialog {
 	private JScrollPane jScrollPane = null;
 
 	private boolean isOk = false; 
-	private final EnumDefinition def;
+	private final OptionsSource def;
 	
 	/**
 	 * @param null
@@ -64,7 +65,7 @@ public class ConfigEnumsDialog extends JDialog {
 		setVisible(false);
 	}
 	
-	public EnumDefinition getDef() {
+	public OptionsSource getDef() {
 		return def;
 	}
 

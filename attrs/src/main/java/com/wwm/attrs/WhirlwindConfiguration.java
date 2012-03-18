@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 
 import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumPreferenceMap;
+import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.ScoreConfigurationManager;
 import com.wwm.db.marker.IAttributeContainer;
 import com.wwm.db.whirlwind.IndexStrategy;
@@ -111,7 +112,7 @@ public class WhirlwindConfiguration implements Serializable {
         return enumDefinitions.entrySet();
     }
 
-    public EnumDefinition getEnumDefinition(String name) {
+    public OptionsSource getEnumDefinition(String name) {
         return enumDefinitions.get(name);
     }
 
