@@ -328,7 +328,7 @@
             <dependency>
                 <groupId>org.fuzzydb</groupId>
                 <artifactId>org.fuzzydb.test.support</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.0.M4-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
