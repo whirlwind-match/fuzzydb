@@ -41,7 +41,6 @@ public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
 
 		String persistAttribute = element.getAttribute("persistent");
-;		boolean persist = (StringUtils.hasText(persistAttribute)) ? Boolean.valueOf(persistAttribute) : false;
 		
 		// Need to create the embedded client factory if we want embedded
 	    BeanDefinitionBuilder embeddedFactoryBuilder = BeanDefinitionBuilder.genericBeanDefinition(EmbeddedClientFactory.class)
