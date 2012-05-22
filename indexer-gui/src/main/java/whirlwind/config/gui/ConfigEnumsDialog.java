@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.enums.OptionsSource;
+import com.wwm.model.attributes.OptionsSource;
 
 public class ConfigEnumsDialog extends JDialog {
 

@@ -7,10 +7,11 @@ import org.junit.Test;
 
 import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.enums.EnumExclusiveValue;
-import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.AttrDefinitionMgr;
 import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.db.BaseDatabaseTest;
+import com.wwm.model.attributes.OptionsSource;
+
 import static org.junit.Assert.assertEquals;
 
 

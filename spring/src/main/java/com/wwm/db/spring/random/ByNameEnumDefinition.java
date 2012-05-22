@@ -1,7 +1,7 @@
 package com.wwm.db.spring.random;
 
 import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.enums.OptionsSource;
+import com.wwm.model.attributes.OptionsSource;
 
 public class ByNameEnumDefinition implements OptionsSource {
 

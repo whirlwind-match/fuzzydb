@@ -6,12 +6,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.indexer.internal.random.RandomBoolean;
 import com.wwm.indexer.internal.random.RandomEnum;
 import com.wwm.indexer.internal.random.RandomFloat;
 import com.wwm.indexer.internal.random.RandomMultiEnum;
 import com.wwm.model.attributes.Attribute;
+import com.wwm.model.attributes.OptionsSource;
 import com.wwm.model.attributes.RandomGenerator;
 
 @Component

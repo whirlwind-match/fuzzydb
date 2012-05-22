@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.wwm.attrs.internal.AttrDefinitionMgr;
+import com.wwm.model.attributes.OptionsSource;
 
 
 public class EnumDefinition implements Serializable, OptionsSource {

@@ -11,8 +11,8 @@
 package com.wwm.indexer.internal.random;
 
 
-import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.model.attributes.EnumAttribute;
+import com.wwm.model.attributes.OptionsSource;
 import com.wwm.util.MTRandom;
 
 
@@ -30,7 +30,8 @@ public class RandomEnum extends AbstractRandomGenerator<EnumAttribute> {
         this.enumdef = enumdef;
     }
 
-    protected EnumAttribute randomResult(String attrName) {
+    @Override
+	protected EnumAttribute randomResult(String attrName) {
 
         short randenum = (short) MTRandom.getInstance().nextInt(enumdef.size());
         String str = enumdef.findAsString(randenum);

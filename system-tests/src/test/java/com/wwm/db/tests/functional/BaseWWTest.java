@@ -13,7 +13,6 @@ import com.wwm.attrs.bool.BooleanValue;
 import com.wwm.attrs.byteencoding.CompactBooleanScorer;
 import com.wwm.attrs.byteencoding.CompactSimilarFloatValueScorer;
 import com.wwm.attrs.enums.EnumExclusiveValue;
-import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.ScoreConfigurationManager;
 import com.wwm.attrs.location.EcefVector;
 import com.wwm.attrs.simple.FloatSplitConfiguration;
@@ -25,6 +24,7 @@ import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.exceptions.ArchException;
+import com.wwm.model.attributes.OptionsSource;
 
 
 public abstract class BaseWWTest extends BaseDatabaseTest {

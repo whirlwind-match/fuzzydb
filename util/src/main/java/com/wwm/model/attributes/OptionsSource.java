@@ -1,4 +1,4 @@
-package com.wwm.attrs.enums;
+package com.wwm.model.attributes;
 
 public interface OptionsSource {
 

@@ -7,7 +7,6 @@ import com.wwm.attrs.ManualIndexStrategy;
 import com.wwm.attrs.SplitConfiguration;
 import com.wwm.attrs.WhirlwindConfiguration;
 import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.attrs.internal.EnumAttributeSpec;
 import com.wwm.attrs.internal.ScoreConfigurationManager;
 import com.wwm.attrs.userobjects.StandaloneWWIndexData;
@@ -17,6 +16,7 @@ import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.db.converters.ConversionFactory;
 import com.wwm.indexer.db.converters.EnumConverter;
 import com.wwm.indexer.db.converters.MultiEnumConverter;
+import com.wwm.model.attributes.OptionsSource;
 
 
 public class DbIndexerUpdate {

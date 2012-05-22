@@ -12,16 +12,15 @@ package com.wwm.indexer.internal.random;
 
 import java.util.TreeSet;
 
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.enums.OptionsSource;
 import com.wwm.model.attributes.MultiEnumAttribute;
+import com.wwm.model.attributes.OptionsSource;
 import com.wwm.util.MTRandom;
 
 public class RandomMultiEnum extends AbstractRandomGenerator<MultiEnumAttribute> {
 
     OptionsSource options;
 
-    public RandomMultiEnum(EnumDefinition enumdef) {
+    public RandomMultiEnum(OptionsSource enumdef) {
         this.options = enumdef;
     }
 
@@ -30,7 +29,8 @@ public class RandomMultiEnum extends AbstractRandomGenerator<MultiEnumAttribute>
         this.options = optionsSource;
     }
 
-    protected MultiEnumAttribute randomResult(String attrName) {
+    @Override
+	protected MultiEnumAttribute randomResult(String attrName) {
         int numvals = MTRandom.getInstance().nextInt(options.size() - 1) + 1;
 
         TreeSet<String> values = new TreeSet<String>();
