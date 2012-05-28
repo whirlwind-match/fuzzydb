@@ -1,6 +1,7 @@
 package com.wwm.db.spring.random;
 
 import com.wwm.attrs.AttributeDefinitionService;
+import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.model.attributes.OptionsSource;
 
 public class ByNameEnumDefinition implements OptionsSource {
@@ -16,16 +17,20 @@ public class ByNameEnumDefinition implements OptionsSource {
 
 	@Override
 	public String findAsString(short index) {
-		return attributeService.getEnumDefinition(attrName).findAsString(index);
+		return getEnumDef().findAsString(index);
+	}
+
+	private EnumDefinition getEnumDef() {
+		return attributeService.getEnumDefForAttrId(attributeService.getAttrId(attrName));
 	}
 
 	@Override
 	public String getName() {
-		return attributeService.getEnumDefinition(attrName).getName();
+		return getEnumDef().getName();
 	}
 	
 	@Override
 	public int size() {
-		return attributeService.getEnumDefinition(attrName).size();
+		return getEnumDef().size();
 	}
 }
