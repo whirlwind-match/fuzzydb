@@ -3,6 +3,7 @@ package com.wwm.db.spring.convert;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -165,6 +166,9 @@ public class FuzzyEntityConverter<E>
 				// To persist strings,
 				else if (persistentProperty.getType().equals(String.class)) {
 					addNonFuzzyAttr(sink, persistentProperty.getName(), (String) value);
+				}
+				else if (persistentProperty.getType().equals(UUID.class)) {
+					addNonFuzzyAttr(sink, persistentProperty.getName(), value.toString());
 				}
 				else {
 					// need to sort out things like IPoint3D being mapped from postcode !!  Always a pain in the but this one!

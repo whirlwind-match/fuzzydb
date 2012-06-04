@@ -10,6 +10,7 @@ import com.wwm.indexer.internal.random.RandomBoolean;
 import com.wwm.indexer.internal.random.RandomEnum;
 import com.wwm.indexer.internal.random.RandomFloat;
 import com.wwm.indexer.internal.random.RandomMultiEnum;
+import com.wwm.indexer.internal.random.RandomUuid;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.OptionsSource;
 import com.wwm.model.attributes.RandomGenerator;
@@ -64,6 +65,10 @@ public class RandomAttributeSource {
 		attrRandomisers.put(attrName, new RandomEnum(enumDef, nullProportion));
 	}
 
+	public void configureUuidAttr(String attrName) {
+		attrRandomisers.put(attrName, new RandomUuid());
+	}
+	
 	/** 
 	 * Get lazy variant as it involves database access which we don't want to do while reading configuration.
 	 * Only when generating data in a transaction should we need database access */
