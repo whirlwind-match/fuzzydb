@@ -12,6 +12,8 @@ package com.wwm.model.attributes;
 
 public class FloatAttribute extends Attribute<Float> {
 
+	private static final long serialVersionUID = 1L;
+
     private float value;
 
     public FloatAttribute(String name, float value) {

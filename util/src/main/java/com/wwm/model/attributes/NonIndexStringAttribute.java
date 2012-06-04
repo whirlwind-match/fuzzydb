@@ -15,6 +15,8 @@ package com.wwm.model.attributes;
  */
 public class NonIndexStringAttribute extends UnspecifiedTypeAttribute implements NonIndexedAttribute {
 
+	private static final long serialVersionUID = 1L;
+
 	public NonIndexStringAttribute(String name, String value) {
 		super(name, value);
 	}

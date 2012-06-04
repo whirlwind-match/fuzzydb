@@ -14,6 +14,8 @@ import java.util.Date;
 
 public class DateRangeAttribute extends Attribute<Date[]> {
 
+	private static final long serialVersionUID = 1L;
+
 	private Date min;
 	private Date max;
 	private Date pref;

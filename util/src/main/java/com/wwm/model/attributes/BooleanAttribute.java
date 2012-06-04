@@ -12,6 +12,8 @@ package com.wwm.model.attributes;
 
 public class BooleanAttribute extends Attribute<Boolean> {
 
+	private static final long serialVersionUID = 1L;
+
     private boolean value;
 
     public BooleanAttribute(String name, boolean value) {

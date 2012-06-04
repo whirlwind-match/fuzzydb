@@ -14,6 +14,8 @@ import com.wwm.model.dimensions.IPoint3D;
 
 public class Point3DAttribute extends Attribute<IPoint3D> {
 
+	private static final long serialVersionUID = 1L;
+
     private IPoint3D point;
 
     public Point3DAttribute(String name, IPoint3D vec) {

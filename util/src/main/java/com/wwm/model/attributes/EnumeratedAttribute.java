@@ -12,7 +12,9 @@ package com.wwm.model.attributes;
 
 public abstract class EnumeratedAttribute<V> extends Attribute<V> {
 
-   public EnumeratedAttribute( String name) {
+	private static final long serialVersionUID = 1L;
+
+    public EnumeratedAttribute( String name) {
         super(name);
     }
 

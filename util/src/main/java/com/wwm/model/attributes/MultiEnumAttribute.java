@@ -12,6 +12,8 @@ package com.wwm.model.attributes;
 
 public class MultiEnumAttribute extends EnumeratedAttribute<String[]> {
 
+	private static final long serialVersionUID = 1L;
+
     private String[] values;
     private String enumName;
 

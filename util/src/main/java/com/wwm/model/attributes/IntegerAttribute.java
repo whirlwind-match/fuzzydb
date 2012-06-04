@@ -12,6 +12,8 @@ package com.wwm.model.attributes;
 
 public class IntegerAttribute extends Attribute<Integer> {
 
+	private static final long serialVersionUID = 1L;
+
     private int value;
 
     public IntegerAttribute(String name, int value) {

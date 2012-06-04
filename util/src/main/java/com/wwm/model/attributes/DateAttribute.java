@@ -16,6 +16,8 @@ import java.util.GregorianCalendar;
 
 public class DateAttribute extends Attribute<Date> {
 
+	private static final long serialVersionUID = 1L;
+
 	private int year, month, day;
 
 	public DateAttribute(String name, int year, int month, int day) {

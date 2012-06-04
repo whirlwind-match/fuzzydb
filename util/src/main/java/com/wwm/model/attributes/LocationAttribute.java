@@ -12,6 +12,8 @@ package com.wwm.model.attributes;
 
 public class LocationAttribute extends Attribute<String> {
 
+	private static final long serialVersionUID = 1L;
+
 	private String postcode;
 
 	public LocationAttribute(String name, String postcode) {

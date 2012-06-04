@@ -12,6 +12,8 @@ package com.wwm.model.attributes;
 
 public class FloatRangeAttribute extends Attribute<float[]> {
 
+	private static final long serialVersionUID = 1L;
+
 	private float min;
 	private float max;
 	private float pref;
