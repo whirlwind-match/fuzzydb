@@ -10,6 +10,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  */
 public class FuzzyNamespaceHandler extends NamespaceHandlerSupport {
 
+	@Override
 	public void init() {
 
 		registerBeanDefinitionParser("store", new FuzzyStoreConfigParser());

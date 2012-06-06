@@ -56,6 +56,7 @@ public class FuzzyPropertyImpl extends AnnotationBasedPersistentProperty<FuzzyPr
 		return null; //new Association<SimpleProperty>(this, null);
 	}
 	
+	@Override
 	public DerivedField getDerivedField() {
 		return derivedField;
 	}

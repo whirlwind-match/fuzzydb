@@ -12,6 +12,7 @@ import com.wwm.db.exceptions.UnknownObjectException;
 public class WhirlwindExceptionTranslator implements
 		PersistenceExceptionTranslator {
 
+	@Override
 	public DataAccessException translateExceptionIfPossible(RuntimeException ex) {
 		DataAccessException e = doTranslate(ex);
 		if (e == null) {

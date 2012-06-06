@@ -43,9 +43,11 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	/**
 	 * Initialise access to id field
 	 */
+	@Override
 	public void afterPropertiesSet() {
 		
 		ReflectionUtils.doWithFields(type, new FieldCallback() {
+			@Override
 			public void doWith(Field field) throws IllegalArgumentException,
 					IllegalAccessException {
 				if (field.isAnnotationPresent(Id.class)) {
@@ -66,6 +68,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		final ResultSet<I> all = persister.query(getInternalType(), null, null);
 		return new Iterable<T>(){
 
+			@Override
 			public Iterator<T> iterator() {
 				return new ConvertingIterator<I,T>(all.iterator()) {
 					
@@ -78,17 +81,20 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		};
 	}
 
+	@Override
 	@Transactional(readOnly=true)
 	public long count() {
 		selectNamespace();
 		return persister.count(getInternalType());
 	}
 
+	@Override
 	@Transactional
 	public final void deleteAll() {
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
+	@Override
 	@Transactional(readOnly=true)
 	public T findFirst() {
 		selectNamespace();
@@ -147,6 +153,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		}
 	}
 
+	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public Iterable<T> save(Iterable<? extends T> entities) {
@@ -157,6 +164,7 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		return (Iterable<T>) entities;
 	}
 
+	@Override
 	@Transactional
 	public void delete(Iterable<? extends T> entities) {
 		for (T entity : entities) {

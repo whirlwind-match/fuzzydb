@@ -10,10 +10,12 @@ public abstract class ConvertingIterator<FROM,TO> implements Iterator<TO> {
 		this.iterator = iterator;
 	}
 
+	@Override
 	public boolean hasNext() {
 		return iterator.hasNext();
 	}
 
+	@Override
 	public TO next() {
 		FROM resultInternal = iterator.next();
 		TO result = convert(resultInternal);
@@ -22,6 +24,7 @@ public abstract class ConvertingIterator<FROM,TO> implements Iterator<TO> {
 	
 	abstract protected TO convert(FROM internal);
 
+	@Override
 	public void remove() {
 		iterator.remove(); // Generally we'd not expect this to be supported
 	}

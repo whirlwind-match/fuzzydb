@@ -18,6 +18,7 @@ public class FuzzyEntityInformation<T, ID extends Serializable>
 		super(domainClass);
 
 		ReflectionUtils.doWithFields(domainClass, new FieldCallback() {
+			@Override
 			public void doWith(Field field) throws IllegalArgumentException,
 					IllegalAccessException {
 				if (field.isAnnotationPresent(Id.class)) {
@@ -31,6 +32,7 @@ public class FuzzyEntityInformation<T, ID extends Serializable>
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public ID getId(T entity) {
 		try {
@@ -42,6 +44,7 @@ public class FuzzyEntityInformation<T, ID extends Serializable>
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Class<ID> getIdType() {
 		return (Class<ID>) idField.getType();

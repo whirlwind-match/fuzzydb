@@ -44,6 +44,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 * 
 	 * {@inheritDoc}
 	 */
+	@Override
 	@Transactional
 	public T save(T entity) {
 		selectNamespace();
@@ -75,6 +76,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	
 	abstract protected Ref<I> toInternalId(ID id);
 	
+	@Override
 	@Transactional(readOnly=true)
 	public T findOne(ID id) {
 		selectNamespace();
@@ -89,6 +91,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		return entity;
 	}
 
+	@Override
 	@Transactional(readOnly=true)
 	public boolean exists(ID id) {
 		selectNamespace();
@@ -100,12 +103,14 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		}
 	}
 
+	@Override
 	@Transactional
 	public void delete(ID id) {
 		selectNamespace();
 		persister.delete(toInternalId(id));
 	}
 
+	@Override
 	@Transactional
 	public void delete(T entity) {
 		selectNamespace();
@@ -119,6 +124,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		final ResultSet<I> all = persister.query(getInternalType(), null, null);
 		return new Iterable<T>(){
 
+			@Override
 			public Iterator<T> iterator() {
 				return new ConvertingIterator<I,T>(all.iterator()) {
 					
@@ -131,6 +137,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		};
 	}
 	
+	@Override
 	@Transactional(readOnly=true, propagation=Propagation.MANDATORY)
 	public Iterator<Result<T>> findMatchesFor(AttributeMatchQuery<T> query) {
 		selectNamespace();
@@ -138,6 +145,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		return findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
 	}
 
+	@Override
 	@Transactional(readOnly=true, propagation=Propagation.MANDATORY)
 	public Page<Result<T>> findMatchesFor(AttributeMatchQuery<T> query, Pageable pageable) {
 		selectNamespace();

@@ -41,6 +41,7 @@ public class RepositoryInitializer<T, ID extends Serializable> implements Initia
 		this.resources = resources;
 	}
 
+	@Override
 	public void afterPropertiesSet() {
 
         new ResourcePatternProcessor(){

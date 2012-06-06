@@ -45,6 +45,7 @@ public class RepositoryInitializerTest {
 	public void singleObjectFromXmlFileShouldBePersisted() throws ClassNotFoundException {
 
 		Mockito.when(repo.save(captor.capture())).thenAnswer(new Answer<PrimaryKeyedItem>() {
+			@Override
 			public PrimaryKeyedItem answer(InvocationOnMock invocation) throws Throwable {
 				return (PrimaryKeyedItem) invocation.getArguments()[0];
 			}
@@ -67,6 +68,7 @@ public class RepositoryInitializerTest {
 	public void multipleObjectsFromXmlFileShouldBePersisted() throws ClassNotFoundException {
 
 		Mockito.when(repo.save(listCaptor.capture())).thenAnswer(new Answer<Iterable<PrimaryKeyedItem>>() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public Iterable<PrimaryKeyedItem> answer(InvocationOnMock invocation) throws Throwable {
 				return (Iterable<PrimaryKeyedItem>) invocation.getArguments()[0];

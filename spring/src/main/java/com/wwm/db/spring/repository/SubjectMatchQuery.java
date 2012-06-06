@@ -24,14 +24,17 @@ public class SubjectMatchQuery<QT> implements AttributeMatchQuery<QT> {
 		this.maxResults = maxResults;
 	}
 
+	@Override
 	public QT getQueryTarget() {
 		return attributes;
 	}
 	
+	@Override
 	public String getMatchStyle() {
 		return matchStyle;
 	}
 	
+	@Override
 	public int getMaxResults() {
 		return maxResults;
 	}

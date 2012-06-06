@@ -22,10 +22,12 @@ public class SimpleFuzzyRepositoryConfiguration  extends
 	}
 
 
+	@Override
 	public FuzzyRepositoryConfiguration getAutoconfigRepositoryInformation(String interfaceName) {
 		return new AutomaticFuzzyRepositoryConfigInformation(interfaceName, this);
 	}
 
+	@Override
 	public String getNamedQueriesLocation() {
 		return "classpath*:/fuzzy/dummy-named-queries.properties"; // This should get ignored by Data Commons if left at default
 	}

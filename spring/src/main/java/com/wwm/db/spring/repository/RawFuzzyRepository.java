@@ -2,8 +2,6 @@ package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 

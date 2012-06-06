@@ -49,6 +49,7 @@ public class StoreInitializer implements InitializingBean {
 	private String /* TODO: Resource */ resourcePath;
 	
 	
+	@Override
 	public void afterPropertiesSet() throws Exception {
 		// FIXME: Remove everything to do with the next 3 lines!
         JVMAppListener.getInstance().setSingleSession();
@@ -67,7 +68,7 @@ public class StoreInitializer implements InitializingBean {
 			EnumDefinition value = def.getValue();
 			EnumDefinition newDef = attrDefs.getObject().getEnumDefinition(value.getName());
 			ArrayList<String> values = def.getValue().getValues();
-			newDef.getMultiEnum((String[]) values.toArray(new String[values.size()]), -1);
+			newDef.getMultiEnum(values.toArray(new String[values.size()]), -1);
 		}
         
 
