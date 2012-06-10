@@ -48,7 +48,7 @@ public class Settings implements SettingsMBean {
 
 	private static Settings instance = null; 
 	
-    private Properties props = new Properties();
+    private final Properties props = new Properties();
 
 	// DbClient Configs
 	private int primaryServerPort = 27601;		// e.g. Authoritative 	(used by DbClient)
@@ -86,7 +86,7 @@ public class Settings implements SettingsMBean {
 	private int searchInactivityTimeoutSecs = 3600;
 
 	/** Time client waits for server to respond */
-	private int commandTimeoutSecs = 300;
+	private int commandTimeoutSecs = 30;
 	
 	
 	private boolean isSlave = false;
@@ -143,6 +143,7 @@ public class Settings implements SettingsMBean {
 		compressLogs = getPropAsBool( "CompressLogs", compressLogs);
 		xmlLogs = getPropAsBool( "XmlLogs", xmlLogs);
 		
+		commandTimeoutSecs = getPropAsInt( "commandTimeoutSecs", commandTimeoutSecs );
 		transactionInactivityTimeoutSecs = getPropAsInt( "TransactionInactivityTimeoutSecs", transactionInactivityTimeoutSecs );
 		transactionTimeToLiveSecs = getPropAsInt( "TransactionTimeToLiveSecs", transactionTimeToLiveSecs );
 		queryInactivityTimeoutSecs = getPropAsInt( "QueryInactivityTimeoutSecs", queryInactivityTimeoutSecs );
@@ -190,6 +191,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#isWindows()
 	 */
+	@Override
 	public boolean isWindows() {
 		String osName = System.getProperty("os.name");
 		return osName.startsWith("Windows");
@@ -198,6 +200,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getPrimaryServer()
 	 */
+	@Override
 	public String getPrimaryServer() {
 		return primaryServer;
 	}
@@ -209,6 +212,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getPrimaryServerPort()
 	 */
+	@Override
 	public int getPrimaryServerPort() {
 		return primaryServerPort;
 	}
@@ -220,6 +224,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getSecondaryServer()
 	 */
+	@Override
 	public String getSecondaryServer() {
 		return secondaryServer;
 	}
@@ -231,6 +236,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getSecondaryServerPort()
 	 */
+	@Override
 	public int getSecondaryServerPort() {
 		return secondaryServerPort;
 	}
@@ -242,6 +248,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getCompressLogs()
 	 */
+	@Override
 	public boolean getCompressLogs() {
 		return compressLogs;
 	}
@@ -253,6 +260,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getXmlLogs()
 	 */
+	@Override
 	public boolean getXmlLogs() {
 		return xmlLogs;
 	}
@@ -272,6 +280,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getDbRoot()
 	 */
+	@Override
 	public String getDbRoot() {
 		if (isWindows()) {
 			return dbRootWin;
@@ -291,7 +300,8 @@ public class Settings implements SettingsMBean {
     /* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getPostcodeRoot()
 	 */
-    public String getPostcodeRoot() {
+    @Override
+	public String getPostcodeRoot() {
         if (isWindows()) {
             return postcodeRootWin;
         } else {
@@ -310,7 +320,8 @@ public class Settings implements SettingsMBean {
     /* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getIpLookupRoot()
 	 */
-    public String getIpLookupRoot() {
+    @Override
+	public String getIpLookupRoot() {
         if (isWindows()) {
             return iplookupRootWin;
         } else {
@@ -329,6 +340,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getListenPort()
 	 */
+	@Override
 	public int getListenPort() {
 		return listenPort;
 	}
@@ -340,6 +352,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getLogDir()
 	 */
+	@Override
 	public String getLogDir() {
 		return getDbRoot() + File.separator + logDir;
 	}
@@ -353,6 +366,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getReposDir()
 	 */
+	@Override
 	public String getReposDir() {
 		return getDbRoot() + File.separator + reposDir;
 	}
@@ -366,6 +380,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getTxDir()
 	 */
+	@Override
 	public String getTxDir() {
 		return getDbRoot() + File.separator + txDir;
 	}
@@ -378,6 +393,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getLeafCriticalMass()
 	 */
+	@Override
 	public int getLeafCriticalMass() {
 		return leafCriticalMass;
 	}
@@ -523,6 +539,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getDefaultTargetNumResults()
 	 */
+	@Override
 	public int getDefaultTargetNumResults() {
 		return defaultTargetNumResults;
 	}
@@ -530,6 +547,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getDefaultScoreThreshold()
 	 */
+	@Override
 	public float getDefaultScoreThreshold() {
 		return defaultScoreThreshold;
 	}
@@ -537,6 +555,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getQueryInactivityTimeoutSecs()
 	 */
+	@Override
 	public int getQueryInactivityTimeoutSecs() {
 		return queryInactivityTimeoutSecs;
 	}
@@ -544,6 +563,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getQueryTimeToLiveSecs()
 	 */
+	@Override
 	public int getQueryTimeToLiveSecs() {
 		return queryTimeToLiveSecs;
 	}
@@ -551,6 +571,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getSearchInactivityTimeoutSecs()
 	 */
+	@Override
 	public int getSearchInactivityTimeoutSecs() {
 		return searchInactivityTimeoutSecs;
 	}
@@ -558,6 +579,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getSearchTimeToLiveSecs()
 	 */
+	@Override
 	public int getSearchTimeToLiveSecs() {
 		return searchTimeToLiveSecs;
 	}
@@ -570,6 +592,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getTransactionInactivityTimeoutSecs()
 	 */
+	@Override
 	public int getTransactionInactivityTimeoutSecs() {
 		return transactionInactivityTimeoutSecs;
 	}
@@ -581,6 +604,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getTransactionTimeToLiveSecs()
 	 */
+	@Override
 	public int getTransactionTimeToLiveSecs() {
 		return transactionTimeToLiveSecs;
 	}
@@ -588,7 +612,8 @@ public class Settings implements SettingsMBean {
     /* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getDefaultStore()
 	 */
-    public String getDefaultStore() {
+    @Override
+	public String getDefaultStore() {
         return defaultStore;
     }
 
@@ -600,6 +625,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#isSlave()
 	 */
+	@Override
 	public boolean isSlave() {
 		return isSlave;
 	}
@@ -607,6 +633,7 @@ public class Settings implements SettingsMBean {
 	/* (non-Javadoc)
 	 * @see com.wwm.db.core.SettingsMBean#getParentNode()
 	 */
+	@Override
 	public InetSocketAddress getParentNode() {
 		return parentNode;
 	}
