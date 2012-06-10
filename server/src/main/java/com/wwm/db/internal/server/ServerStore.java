@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import org.slf4j.Logger;
+import org.springframework.util.Assert;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.RefImpl;
@@ -64,6 +65,7 @@ public class ServerStore implements InitializingBean, Serializable {
 		this.storeId = storeId;
 		
 		if (storageBasePath != null) {
+			Assert.state( new File(storageBasePath).canWrite(), storageBasePath + " should be writeable");
 			String diskName = makeDirForNewStore(storeName, storageBasePath);
 			this.path = storageBasePath + File.separatorChar + diskName;
 		}
@@ -120,6 +122,7 @@ public class ServerStore implements InitializingBean, Serializable {
 		return path; 
 	}
 
+	@Override
 	public void initialise() {
 		namespaces.initialise();
 	}

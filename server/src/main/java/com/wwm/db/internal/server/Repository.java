@@ -296,8 +296,10 @@ public final class Repository implements InitializingBean, Serializable {
 		assert(CurrentTransactionHolder.isInCommitPhase());
 		assert(!currentStores.containsKey(storeName));
 		assert(!idStoreMap.containsKey(nextStoreId));
+		 
+		String rootPath = (ServiceRegistry.getService(RepositoryStorageManager.class) instanceof NullRepositoryStorageManager) 
+				? null : ServiceRegistry.getService(ServerSetupProvider.class).getReposDiskRoot();
 		
-		String rootPath = ServiceRegistry.getService(ServerSetupProvider.class).getReposDiskRoot();
 		ServerStore store = new ServerStore(rootPath, storeName, nextStoreId.get());
 		currentStores.put(storeName, nextStoreId.get());
 		idStoreMap.put(nextStoreId.get(), store);

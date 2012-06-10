@@ -101,6 +101,7 @@ public class FileUtil {
 	 * @return a variant of the supplied name, which avoids clashing with existing files/dirs.
 	 */
 	public static String makeUniqueDiskName(File dir, String name) {
+		log.debug("Making unique disk name for: dir {}, name: {}", dir.getAbsolutePath(), name);
 		name = mangle(name);
 		File file = new File(dir, name);
 		if (!file.exists()) return name;

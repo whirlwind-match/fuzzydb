@@ -63,7 +63,7 @@ public class Namespace implements Serializable, MetaObjectSource, InitializingBe
 
 		String dn = null;
 
-		if (namespaces.getPath() != null){
+		if (namespaces.getPath() != null) {
 			File dir = null;
 			do {
 				dn = FileUtil.makeUniqueDiskName(new File(namespaces.getPath()), name.equals("") ? "_default" : name);
@@ -121,6 +121,7 @@ public class Namespace implements Serializable, MetaObjectSource, InitializingBe
 	//===========================================================
 	// Read methods
 	//===========================================================
+	@Override
 	public <T> MetaObject<T> getObject(Ref<T> ref) throws UnknownObjectException {
 		RefImpl<T> refImpl = (RefImpl<T>) ref; // TODO: Push down removal of use of RefImpl to only those areas it is created
 		UserTable<T> table = getTable(refImpl);
@@ -169,6 +170,7 @@ public class Namespace implements Serializable, MetaObjectSource, InitializingBe
 		return path;
 	}
 
+	@Override
 	public void initialise() {
 		for (UserTable<?> table : idToTableMap.values()) {
 			table.initialise();
