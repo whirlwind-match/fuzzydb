@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,8 @@ import com.wwm.db.internal.comms.messages.DeleteStoreCmd;
 import com.wwm.db.internal.comms.messages.DisposeCmd;
 import com.wwm.db.internal.comms.messages.EchoCmd;
 import com.wwm.db.internal.comms.messages.EchoRsp;
+import com.wwm.db.internal.comms.messages.ListStoresCmd;
+import com.wwm.db.internal.comms.messages.ListStoresRsp;
 import com.wwm.db.internal.comms.messages.OkRsp;
 import com.wwm.db.internal.comms.messages.OpenStoreCmd;
 import com.wwm.db.internal.comms.messages.OpenStoreRsp;
@@ -232,6 +235,12 @@ public class CommandExecutor {
 	}
 	
 	
+	@SuppressWarnings("unused") // Used via reflection
+	private void cmdListStoresCmd(int storeId, int cid, MessageSink source, ListStoresCmd command, ByteBuffer packet) throws IOException {
+		Collection<String> stores = new ArrayList<String>(stc.getRepository().getStoreNames());
+		ListStoresRsp rsp = new ListStoresRsp(cid, stores);
+		source.send(rsp);
+	}
 
 	@SuppressWarnings("unused") // Used via reflection
 	private void cmdOpenStoreCmd(int storeId, int cid, MessageSink source, OpenStoreCmd command, ByteBuffer packet) throws UnknownStoreException, IOException {

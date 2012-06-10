@@ -60,7 +60,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	
 	        private ClientConnectionManager connection = null;
 	        private final ClassLoaderInterface cli = new DummyCli();
-	        private AtomicInteger nextId = new AtomicInteger(0);
+	        private final AtomicInteger nextId = new AtomicInteger(0);
 	        private final Map<String, StoreImpl> stores = new HashMap<String, StoreImpl>();
 	        private final MetaMap metaMap = new MetaMap();
 	        private final ClassTokenCache ctc = new ClassTokenCache(false);
@@ -102,7 +102,8 @@ public abstract class AbstractClient implements Cloneable, Client {
                 metaMap.add(mo);
 	        }
 	
-	        public int getVersion(Object obj) throws UnknownObjectException {
+	        @Override
+			public int getVersion(Object obj) throws UnknownObjectException {
                 MetaObject<?> mo = metaMap.find(obj);
                 if (mo != null) {
                     return mo.getVersion();
@@ -158,6 +159,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    return context.newOutputStream(storeId, out);
 	}
 
+	@Override
 	public Store createStore(String storeName) {
 	    //throwIfNotAuthoritative();
 	    Map<String, StoreImpl> stores = context.getStores();
@@ -181,6 +183,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    }
 	}
 
+	@Override
 	public Collection<String> listStores() {
 	    ListStoresCmd cmd = new ListStoresCmd(getNextId());
 	    ListStoresRsp rsp = (ListStoresRsp) executeCmd(cmd);
@@ -196,21 +199,25 @@ public abstract class AbstractClient implements Cloneable, Client {
 		return connection.execute(authority, cmd);
 	}
 
+	@Override
 	public Collection<String> listDbClasses() {
 	    // TODO Auto-generated method stub
 	    throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Class<?> getDbClass(String name) {
 	    // TODO Auto-generated method stub
 	    throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Collection<Class<?>> getDbClasses() {
 	    // TODO Auto-generated method stub
 	    throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Collection<String> getNamespaces(Class<?> dbClass) {
 	    // TODO Auto-generated method stub
 	    throw new UnsupportedOperationException();
@@ -224,6 +231,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	 * A store being deleted will rarely happen other than in tests, so
 	 * this is by far the better approach than hitting the server every time.
 	 */
+	@Override
 	public Store openStore(String storeName) {
 	    Map<String, StoreImpl> stores = context.getStores();
 	    synchronized (stores) {
@@ -241,22 +249,23 @@ public abstract class AbstractClient implements Cloneable, Client {
 	}
 
 	/**
-	 * TODO: Add server support for this API, such that OpenStoreCmd allows the store to be created.
+	 * TODO (maybe: we're talking read vs write transaction if we do it):
+	 * Add server support for this API, such that OpenStoreCmd allows the store to be created.
 	 * This implementation is flawed, but not in a major way: It is possible to try to open a
 	 * store on nonAuth server, which doesn't exist, and then try to create it on the auth server
 	 * when it does exist there.  This is no worse than the end-user would have done, for now.
+	 * 
+	 * @throws UnknownStoreException if storeName doesn't exist and !canCreate
 	 */
+	@Override
 	public Store openStore(String storeName, boolean canCreate) {
-	    try {
-	        return openStore(storeName);
-	    } catch (UnknownStoreException e){
-	        if (canCreate){
-	            return createStore(storeName);
-	        }
-	        throw e; // exception stands if we're not allowed to create
-	    }
+		if (!listStores().contains(storeName) && canCreate) {
+			return createStore(storeName);
+		}
+        return openStore(storeName);
 	}
 
+	@Override
 	public void deleteStore(String storeName) {
 	    //throwIfNotAuthoritative();
 	    Map<String, StoreImpl> stores = context.getStores();
@@ -268,15 +277,18 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    }
 	}
 
+	@Override
 	public Client getAuthClient() {
 		Assert.state(peer != null || authority == Authority.Authoritative, "A NonAuthoritative client MUST have an authoritative peer");
 	    return authority == Authority.Authoritative ? this : peer;
 	}
 
+	@Override
 	public Client getNonAuthClient() {
 	    return authority == Authority.NonAuthoritative || peer == null ? this : peer;
 	}
 
+	@Override
 	public boolean isAuthoritative() {
 	    return authority == Authority.Authoritative;
 	}
@@ -285,6 +297,7 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    return context.getRef(obj);
 	}
 
+	@Override
 	public int getVersion(Object obj) throws UnknownObjectException {
 	    return context.getVersion(obj);
 	}
@@ -323,14 +336,17 @@ public abstract class AbstractClient implements Cloneable, Client {
 	    context.addToMetaCache(mo);
 	}
 
+	@Override
 	public void shutdownServer() {
 	    executeCmd(new ShutdownCmd(getNextId()));
 	}
 
+	@Override
 	public ServerStats getStats(boolean forceGC) {
 	    throw new UnsupportedOperationException(); // FIXME: Implement
 	}
 
+	@Override
 	public void disconnect() {
 	    //		 FIXME: Adrian: Is this correct
 	    context.getConnection().close();
@@ -342,16 +358,19 @@ public abstract class AbstractClient implements Cloneable, Client {
 		context.setConnection(connection);
 	}
 
+	@Override
 	public boolean isConnected() {
 	    return context.getConnection() != null;  // FIXME: Adrian is this correct.
 	}
 
 
+	@Override
 	public void connect(InetSocketAddress addr) {
 		throw new UnsupportedOperationException(); // Must implement in subclass
 	}
 
 
+	@Override
 	public void connect(String server) {
 		throw new UnsupportedOperationException(); // Must implement in subclass
 	}

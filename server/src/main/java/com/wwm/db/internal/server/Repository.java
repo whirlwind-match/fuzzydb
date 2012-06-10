@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -261,6 +262,7 @@ public final class Repository implements InitializingBean, Serializable {
 
 	}
 
+	@Override
 	public void initialise() {
 		
 		this.stc = ServiceRegistry.getService(Database.class).getTransactionCoordinator();
@@ -327,6 +329,10 @@ public final class Repository implements InitializingBean, Serializable {
 		synchronized (deletedStores) {
 			deletedStores.put(storeId, storeName);
 		}
+	}
+	
+	public synchronized Collection<String> getStoreNames() {
+		return currentStores.keySet();
 	}
 	
 	public synchronized ServerStore getStore(String storeName) {

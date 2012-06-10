@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.wwm.db.core.LogFactory;
-import com.wwm.db.exceptions.UnknownStoreException;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.io.core.Authority;
@@ -96,7 +95,8 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
     /**
      * Create an embedded client connected to a singleton database instance within same VM
      */
-    public Client createClient() {
+    @Override
+	public Client createClient() {
     	startDatabase();
     	DirectClient client = new DirectClient(Authority.Authoritative, databaseMessageSource);
 		client.connect();
@@ -149,24 +149,23 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 
 	private Store openEmbeddedStore(URL url) {
 		Client client = createClient();
-		try {
-			return client.openStore(url.getPath().substring(1)); // FIXME: substring() to remove leading / should be tidier
-		} catch (UnknownStoreException e) {
-			return client.createStore(url.getPath().substring(1)); // FIXME: substring() to remove leading / should be tidier
-		}
+			return client.openStore(url.getPath().substring(1), true); // FIXME: substring() to remove leading / should be tidier
 	}
 
 
+	@Override
 	public void start() {
 	}
 
 
+	@Override
 	public void stop() {
 		shutdownDatabase();
 		instance = null;
 	}
 
 
+	@Override
 	public boolean isRunning() {
 		return !isDatabaseClosed();
 	}
