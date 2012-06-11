@@ -65,6 +65,7 @@ public class ServerStore implements InitializingBean, Serializable {
 		this.storeId = storeId;
 		
 		if (storageBasePath != null) {
+			new File(storageBasePath).mkdirs();
 			Assert.state( new File(storageBasePath).canWrite(), storageBasePath + " should be writeable");
 			String diskName = makeDirForNewStore(storeName, storageBasePath);
 			this.path = storageBasePath + File.separatorChar + diskName;
