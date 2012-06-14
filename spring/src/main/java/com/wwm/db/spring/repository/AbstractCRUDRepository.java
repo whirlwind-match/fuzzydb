@@ -17,7 +17,6 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
 import com.wwm.db.DataOperations;
-import com.wwm.db.query.ResultSet;
 
 public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean {
 
@@ -62,24 +61,6 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	}
 
 
-	@Override
-	@Transactional(readOnly=true)
-	public Iterable<T> findAll() {
-		final ResultSet<I> all = persister.query(getInternalType(), null, null);
-		return new Iterable<T>(){
-
-			@Override
-			public Iterator<T> iterator() {
-				return new ConvertingIterator<I,T>(all.iterator()) {
-					
-					@Override
-					protected T convert(I internal) {
-						return fromInternal(internal);
-					}
-				};
-			}
-		};
-	}
 
 	@Override
 	@Transactional(readOnly=true)
@@ -94,13 +75,6 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		throw new UnsupportedOperationException("not yet implemented");
 	}
 
-	@Override
-	@Transactional(readOnly=true)
-	public T findFirst() {
-		selectNamespace();
-		I internalResult = persister.retrieveFirstOf(getInternalType());
-		return internalResult == null ? null : fromInternal(internalResult);
-	}
 
 	protected final DataOperations getPersister() {
 		return persister;
@@ -114,22 +88,6 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 	abstract protected void selectNamespace();
 
 	abstract protected Class<I> getInternalType();
-
-	/**
-	 * Decode the internal representation (e.g. a binary buffer) to the type for this repository
-	 * 
-	 * @param internal raw object that has been retrieved from database
-	 * @return converted type
-	 */
-	abstract protected T fromInternal(I internal);
-
-	/**
-	 * Encode the persisted object to its' internal representation.
-	 * 
-	 * @param external the object that is being persisted to the database
-	 * @return an object suitable for persisting
-	 */
-	abstract protected I toInternal(T external);
 
 
 	protected void setId(T entity, ID ref) {
@@ -155,13 +113,12 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 
 	@Override
 	@Transactional
-	@SuppressWarnings("unchecked")
-	public Iterable<T> save(Iterable<? extends T> entities) {
+	public <S extends T> Iterable<S> save(Iterable<S> entities) {
 	
-		for (T entity : entities) {
+		for (S entity : entities) {
 			save(entity);
 		}
-		return (Iterable<T>) entities;
+		return entities;
 	}
 
 	@Override

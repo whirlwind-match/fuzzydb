@@ -1,7 +1,10 @@
 package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Page;
@@ -35,6 +38,22 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	}
 
 	/**
+	 * Decode the internal representation (e.g. a binary buffer) to the type for this repository
+	 * 
+	 * @param internal raw object that has been retrieved from database
+	 * @return converted type
+	 */
+	abstract protected T fromInternal(I internal);
+
+	/**
+	 * Encode the persisted object to its' internal representation.
+	 * 
+	 * @param external the object that is being persisted to the database
+	 * @return an object suitable for persisting
+	 */
+	abstract protected I toInternal(T external);
+
+	/**
 	 * [Should be on interface javadoc] If the field annotated with {@link Id} is set, then this is an update, and
 	 * and update is therefore done, otherwise a fresh instance is created.
 	 * 
@@ -46,7 +65,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	 */
 	@Override
 	@Transactional
-	public T save(T entity) {
+	public <S extends T> S  save(S entity) {
 		selectNamespace();
 		I toWrite = toInternal(entity);
 		ID existingRef = getId(entity);
@@ -93,6 +112,14 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 
 	@Override
 	@Transactional(readOnly=true)
+	public T findFirst() {
+		selectNamespace();
+		I internalResult = persister.retrieveFirstOf(getInternalType());
+		return internalResult == null ? null : fromInternal(internalResult);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
 	public boolean exists(ID id) {
 		selectNamespace();
 		try {
@@ -116,26 +143,42 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		selectNamespace();
 		persister.delete(toInternal(entity));
 	}
+	
 
 	@Override
 	@Transactional(readOnly=true)
 	public Iterable<T> findAll() {
 		selectNamespace();
 		final ResultSet<I> all = persister.query(getInternalType(), null, null);
-		return new Iterable<T>(){
+		return asExternalIterable(all);
+	}
 
+
+	@Override
+	@Transactional(readOnly=true)
+	public Iterable<T> findAll(final Iterable<ID> ids) {
+		selectNamespace();
+		Iterable<Ref<I>> iterable = new Iterable<Ref<I>>(){
 			@Override
-			public Iterator<T> iterator() {
-				return new ConvertingIterator<I,T>(all.iterator()) {
+			public Iterator<Ref<I>> iterator() {
+				
+				return new ConvertingIterator<ID,Ref<I>>(ids.iterator()) {
 					
 					@Override
-					protected T convert(I internal) {
-						return fromInternal(internal);
+					protected Ref<I> convert(ID internal) {
+						return toInternalId(internal);
 					}
 				};
 			}
-		};
+		};	
+		Collection<Ref<I>> refs = new ArrayList<Ref<I>>();
+		for (Ref<I> ref : iterable) {
+			refs.add(ref);
+		}
+		Map<Ref<I>, I> retrieve = persister.retrieve(refs);
+		return asExternalIterable(retrieve.values());
 	}
+
 	
 	@Override
 	@Transactional(readOnly=true, propagation=Propagation.MANDATORY)
@@ -153,6 +196,22 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 		Iterator<Result<T>> resultIterator = findMatchesInternal(internal, query.getMatchStyle(), query.getMaxResults());
 		return PageUtils.getPage(resultIterator, pageable);
 		
+	}
+
+	protected Iterable<T> asExternalIterable(final Iterable<I> all) {
+		return new Iterable<T>(){
+
+			@Override
+			public Iterator<T> iterator() {
+				return new ConvertingIterator<I,T>(all.iterator()) {
+					
+					@Override
+					protected T convert(I internal) {
+						return fromInternal(internal);
+					}
+				};
+			}
+		};
 	}
 
 	protected Iterator<Result<T>> findMatchesInternal(I internal, String matchStyle, int maxResults) {

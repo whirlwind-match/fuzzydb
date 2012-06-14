@@ -46,14 +46,14 @@ public class FuzzyRepositoryFactory extends RepositoryFactorySupport {
         
         // depending on interface .. create diff implementations
         if (FuzzyRepository.class.isAssignableFrom(repositoryInterface)) {
-        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainClass(), false, 
+        	SimpleMappingFuzzyRepository repo = new SimpleMappingFuzzyRepository<T>((Class<T>) metadata.getDomainType(), false, 
         			persister, conversionService, attributeDefinitionService);
         	repo.afterPropertiesSet();
         	return repo;
         }
         
         if (CrudRepository.class.isAssignableFrom(repositoryInterface)) {
-        	RawCRUDRepository crudRepository = new RawCRUDRepository(metadata.getDomainClass(), persister);
+        	RawCRUDRepository crudRepository = new RawCRUDRepository(metadata.getDomainType(), persister);
 			crudRepository.afterPropertiesSet();
 			return crudRepository;
         } 

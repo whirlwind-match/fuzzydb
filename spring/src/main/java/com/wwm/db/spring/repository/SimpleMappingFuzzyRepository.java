@@ -3,8 +3,6 @@ package com.wwm.db.spring.repository;
 import java.util.Iterator;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.EntityConverter;
-import org.springframework.data.mapping.PersistentEntity;
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.search.SearchSpecImpl;
@@ -17,7 +15,6 @@ import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;
 import com.wwm.db.query.ResultSet;
 import com.wwm.db.spring.convert.FuzzyEntityConverter;
-import com.wwm.db.spring.mapping.FuzzyProperty;
 import com.wwm.db.whirlwind.SearchSpec;
 
 /**
@@ -39,7 +36,7 @@ public class SimpleMappingFuzzyRepository<T> extends AbstractConvertingRepositor
 	@Autowired
 	private AttributeDefinitionService attrDefinitionService;
 
-	private EntityConverter<PersistentEntity<T,FuzzyProperty>, FuzzyProperty, T, MappedFuzzyItem> entityConverter;
+	private FuzzyEntityConverter<T> entityConverter;
 	
 	private final boolean useDefaultNamespace;
 	

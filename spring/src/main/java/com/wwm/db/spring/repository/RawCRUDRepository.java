@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.wwm.db.DataOperations;
+import com.wwm.db.query.ResultSet;
 
 public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> extends AbstractCRUDRepository<T,T,ID> {
 
@@ -42,8 +43,26 @@ public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> exten
 	}
 
 	@Override
-	protected T fromInternal(T internal) {
-		return internal;
+	@Transactional(readOnly=true)
+	public T findFirst() {
+		selectNamespace();
+		T internalResult = persister.retrieveFirstOf(getInternalType());
+		return internalResult;
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Iterable<T> findAll() {
+		selectNamespace();
+		final ResultSet<T> all = persister.query(getInternalType(), null, null);
+		return all;
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public Iterable<T> findAll(final Iterable<ID> ids) {
+		throw new UnsupportedOperationException("findAll(Iterable) not available on RawCRUDRepository");
 	}
 
 	@Override
@@ -53,7 +72,7 @@ public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> exten
 
 	@Override
 	@Transactional
-	public T save(T entity) {
+	public <S extends T> S save(S entity) {
 		persister.save(entity);
 		return entity;
 	}
@@ -61,10 +80,5 @@ public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> exten
 	@Override
 	protected void selectNamespace() {
 		// deliberately empty for Raw
-	}
-
-	@Override
-	protected T toInternal(T external) {
-		return external;
 	}
 }

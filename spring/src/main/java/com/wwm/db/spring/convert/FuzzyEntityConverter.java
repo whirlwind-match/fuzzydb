@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.convert.EntityConverter;
-import org.springframework.data.mapping.PersistentEntity;
+import org.springframework.data.convert.ReflectionEntityInstantiator;
 import org.springframework.data.mapping.PersistentProperty;
 import org.springframework.data.mapping.PropertyHandler;
 import org.springframework.data.mapping.model.BeanWrapper;
@@ -43,7 +43,7 @@ import com.wwm.model.attributes.MultiEnumAttribute;
  */
 public class FuzzyEntityConverter<E>
 		implements
-		EntityConverter<PersistentEntity<E, FuzzyProperty>, FuzzyProperty, E, MappedFuzzyItem> {
+		EntityConverter<FuzzyPersistentEntity<E>, FuzzyProperty, E, MappedFuzzyItem> {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -65,9 +65,8 @@ public class FuzzyEntityConverter<E>
 		// mapping context can deal with subtypes of E, of which R is one
 		FuzzyPersistentEntity<E> persistentEntity = mappingContext.getPersistentEntity(type);
 		
-		final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper = BeanWrapper.create(persistentEntity, null, converter);
-		@SuppressWarnings("unchecked")
-		R result = (R) wrapper.getBean();
+		E result = ReflectionEntityInstantiator.INSTANCE.createInstance(persistentEntity, null);
+		final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper = BeanWrapper.create(result, converter);
 		
 		// It should be quicker to go through what properties we have than to go looking for
 		// all properties found in the attribute map than repeated lookups based on the persistent properties
@@ -86,13 +85,15 @@ public class FuzzyEntityConverter<E>
 
 		applyDerivations(persistentEntity, wrapper);
 
-		return result;
+		@SuppressWarnings("unchecked")
+		R castResult = (R)result;
+		return castResult;
 	}
 
 	/**
 	 * Map the given {@link IAttribute} to the {@link PersistentProperty} by name. 
 	 */
-	private <R> void addConvertedAttribute(FuzzyPersistentEntity<R> entity, BeanWrapper<FuzzyPersistentEntity<R>, R> wrapper, IAttribute attr) {
+	private <R> void addConvertedAttribute(FuzzyPersistentEntity<E> entity, BeanWrapper<FuzzyPersistentEntity<E>,E> wrapper, IAttribute attr) {
 		String key = attrDefinitionService.getAttrName(attr.getAttrId());
 		Object value = converter.convert(attr, attrDefinitionService.getExternalClass(attr.getAttrId()));
 		
@@ -285,19 +286,19 @@ public class FuzzyEntityConverter<E>
 		}
 	}
 
-	protected <R> void setProperty(
-			final BeanWrapper<FuzzyPersistentEntity<R>, R> wrapper,
-			FuzzyPersistentEntity<R> persistentEntity, String propertyName, Object value) {
-		PersistentProperty<?> property = persistentEntity.getPersistentProperty(propertyName);
+	protected void setProperty(
+			final BeanWrapper<FuzzyPersistentEntity<E>,E> wrapper,
+			FuzzyPersistentEntity<E> entity, String propertyName, Object value) {
+		PersistentProperty<?> property = entity.getPersistentProperty(propertyName);
 		if (property == null) {
-			log.debug("Can't map property {} as no target found on type {}", propertyName, persistentEntity.getType());
+			log.debug("Can't map property {} as no target found on type {}", propertyName, entity.getType());
 			return;
 		}
 		setProperty(wrapper, property, value);
 	}
 
-	protected <R> void setProperty(
-			final BeanWrapper<FuzzyPersistentEntity<R>, R> wrapper,
+	protected void setProperty(
+			final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper,
 			PersistentProperty<?> property, Object value) {
 		try {
 			wrapper.setProperty(property,  value);
