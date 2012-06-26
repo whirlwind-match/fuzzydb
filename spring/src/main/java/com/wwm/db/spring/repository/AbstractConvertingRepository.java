@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
@@ -66,6 +67,7 @@ public abstract class AbstractConvertingRepository<I,T,ID extends Serializable> 
 	@Override
 	@Transactional
 	public <S extends T> S  save(S entity) {
+		assertValidTypeForRepository(entity);
 		selectNamespace();
 		I toWrite = toInternal(entity);
 		ID existingRef = getId(entity);

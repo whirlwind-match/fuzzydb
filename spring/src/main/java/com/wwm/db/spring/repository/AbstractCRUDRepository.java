@@ -146,4 +146,12 @@ public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> impl
 		
 		return PageUtils.getPage(iterator, pageable);
 	}
+	
+	
+	final protected void assertValidTypeForRepository(Object entity) {
+		if (!type.isInstance(entity)) {
+			throw new IllegalStateException(entity.getClass().getCanonicalName() 
+					+ " cannot be inserted into repository expecting " + type.getCanonicalName());
+		}
+	}
 }
