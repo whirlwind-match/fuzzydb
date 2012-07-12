@@ -9,7 +9,7 @@
 - Add UUID support: RandomUuid + converters for String <-> UUID
 - Allow command timeout to be configured, and default to 30 secs instead of previous 5 mins!
 - When configured for persistence, ensure directories are writeable early - better for things like CloudFoundry
--
+
 
 ## Improvements
 
