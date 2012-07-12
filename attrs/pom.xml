@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>fuzzydb-parent</artifactId>
 		<groupId>org.fuzzydb</groupId>
-		<version>1.0.0.M4</version>
+		<version>1.0.0.RC1-SNAPSHOT</version>
 		<relativePath>../fuzzydb-parent</relativePath>
 	</parent>
 
@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>org.fuzzydb</groupId>
 			<artifactId>org.fuzzydb.client</artifactId>
-			<version>1.0.0.M4</version>
+			<version>1.0.0.RC1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
