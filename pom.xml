@@ -5,7 +5,7 @@
     <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.M4-SNAPSHOT</version>
+    <version>1.0.0.M4</version>
 
     <name>${project.artifactId}</name>
     <description>fuzzydb is a fuzzy matching database engine capable of providing human-like search results that make life 
