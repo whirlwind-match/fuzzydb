@@ -27,10 +27,11 @@ public abstract class PageUtils {
 		ArrayList<T> resultsPage = new ArrayList<T>(pageable.getPageSize());
 		for ( ; i < pageStartCount + pageable.getPageSize(); i++) {
 			if (!iterator.hasNext()) {
-				return new PageImpl<T>(resultsPage, pageable, i);
+				return new PageImpl<T>(resultsPage, pageable, i); // i = element where not found
 			}
 			resultsPage.add(iterator.next());
 		}
-		return new PageImpl<T>(resultsPage, pageable, iterator.hasNext() ? Long.MAX_VALUE : i + 1); // Don't know total size unless this was last item
+		// If this was the last item, we know total count, otherwise we use max value as don't know size, just that there are more.
+		return new PageImpl<T>(resultsPage, pageable, iterator.hasNext() ? Long.MAX_VALUE : pageStartCount + pageable.getPageSize());
 	}
 }
