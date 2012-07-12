@@ -90,7 +90,7 @@ public abstract class BaseDatabaseTest {
 	public void deleteStore() {
 
 		try {
-			if (client.isConnected()) {
+			if (client != null |client.isConnected()) {
 				client.deleteStore(storeName);
 			}
 		} catch (UnknownStoreException e) {
@@ -108,8 +108,10 @@ public abstract class BaseDatabaseTest {
 	
 	@AfterClass
 	static public void closeDatabase() throws Exception {
-		client.disconnect();
-		client = null;
+		if (client != null) {
+			client.disconnect();
+			client = null;
+		}
 		if (useEmbeddedDatabase) {
 			EmbeddedClientFactory.getInstance().shutdownDatabase();
 		}
