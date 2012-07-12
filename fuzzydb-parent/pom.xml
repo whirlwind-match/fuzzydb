@@ -374,8 +374,8 @@
     </licenses>
     <scm>
         <url>http://github.com/whirlwind-match/fuzzydb</url>
-        <connection>scm:git:git://github.com/whirlwind-match/fuzzydb.git</connection>
-        <developerConnection>scm:git:git://github.com/whirlwind-match/fuzzydb.git</developerConnection>
+        <connection>scm:git:git@github.com:whirlwind-match/fuzzydb.git</connection>
+        <developerConnection>scm:git:git@github.com:whirlwind-match/fuzzydb.git</developerConnection>
     </scm>
     <mailingLists>
         <mailingList>
