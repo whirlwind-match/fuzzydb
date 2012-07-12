@@ -1,4 +1,3 @@
-
 # 1.0.0.M4
 
 ## New Features
@@ -25,4 +24,4 @@
 
 - Fix PageUtils so hasNextPage works correctly
 
-## Defects resolved
+
