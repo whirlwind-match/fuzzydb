@@ -12,6 +12,7 @@ import com.wwm.attrs.enums.EnumDefinition;
 import com.wwm.attrs.enums.EnumExclusiveScorerExclusive;
 import com.wwm.attrs.enums.EnumExclusiveScorerPreference;
 import com.wwm.attrs.enums.EnumExclusiveSplitConfiguration;
+import com.wwm.attrs.enums.EnumSingleValueScorer;
 import com.wwm.attrs.enums.MultiEnumScorer;
 import com.wwm.attrs.enums.OptionsScorer;
 import com.wwm.attrs.enums.SeatsScorer;
@@ -40,6 +41,7 @@ public class XMLAliases {
         scorerAliases.put("EnumExclusiveScorerExclusive", EnumExclusiveScorerExclusive.class);
         scorerAliases.put("EnumMatchScorer", EnumExclusiveScorerExclusive.class);
         scorerAliases.put("EnumScoresMapScorer", EnumExclusiveScorerPreference.class);
+        scorerAliases.put("EnumSingleValueScorer", EnumSingleValueScorer.class);
         
         scorerAliases.put("MultiEnumScorer", MultiEnumScorer.class);
         scorerAliases.put("OptionsScorer", OptionsScorer.class);
