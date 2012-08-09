@@ -2,6 +2,9 @@ package org.fuzzydb.spring.repository.support;
 
 import java.io.Serializable;
 
+import org.fuzzydb.spring.repository.FuzzyRepository;
+import org.fuzzydb.spring.repository.RawCRUDRepository;
+import org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
@@ -10,9 +13,6 @@ import org.springframework.data.repository.core.support.RepositoryFactorySupport
 import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.db.DataOperations;
-import com.wwm.db.spring.repository.FuzzyRepository;
-import com.wwm.db.spring.repository.RawCRUDRepository;
-import com.wwm.db.spring.repository.SimpleMappingFuzzyRepository;
 
 
 public class FuzzyRepositoryFactory extends RepositoryFactorySupport {

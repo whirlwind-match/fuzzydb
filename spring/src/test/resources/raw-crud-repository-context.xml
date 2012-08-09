@@ -16,8 +16,8 @@
 
 	<context:annotation-config />
 
-	<bean id="rawCrudRepository" class="com.wwm.db.spring.repository.RawCRUDRepository">
-		<constructor-arg value="com.wwm.db.spring.repository.PrimaryKeyedItem"/>
+	<bean id="rawCrudRepository" class="org.fuzzydb.spring.repository.RawCRUDRepository">
+		<constructor-arg value="org.fuzzydb.spring.repository.PrimaryKeyedItem"/>
 	</bean>
 	
 	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager" />

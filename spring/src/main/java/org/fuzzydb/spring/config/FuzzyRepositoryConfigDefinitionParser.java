@@ -1,6 +1,7 @@
 package org.fuzzydb.spring.config;
 
 import org.fuzzydb.spring.config.SimpleFuzzyRepositoryConfiguration.FuzzyRepositoryConfiguration;
+import org.fuzzydb.spring.transaction.WhirlwindExceptionTranslator;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -9,7 +10,6 @@ import org.w3c.dom.Element;
 
 import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr;
-import com.wwm.db.spring.transaction.WhirlwindExceptionTranslator;
 
 public class FuzzyRepositoryConfigDefinitionParser extends
 		AbstractRepositoryConfigDefinitionParser<SimpleFuzzyRepositoryConfiguration, FuzzyRepositoryConfiguration> {

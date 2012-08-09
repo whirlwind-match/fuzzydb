@@ -26,6 +26,6 @@
 	     defaults to store -->
 	<fuzzy:store id="justTesting" url="wwmdb:/TravelDataStore" />
     
-    <bean class="com.wwm.db.spring.NativeWhirlwindServiceImpl" />
+    <bean class="org.fuzzydb.spring.NativeWhirlwindServiceImpl" />
 
 </beans>

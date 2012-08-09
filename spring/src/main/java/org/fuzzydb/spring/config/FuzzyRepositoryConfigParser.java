@@ -2,6 +2,7 @@ package org.fuzzydb.spring.config;
 
 import static org.fuzzydb.spring.config.Constants.DEFAULT_REPO_ID;
 
+import org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository;
 import org.fuzzydb.spring.repository.support.FuzzyRepositorySupport;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-import com.wwm.db.spring.repository.SimpleMappingFuzzyRepository;
  
 public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 
@@ -34,8 +34,8 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 
 	<bean id="conversionService" class="com.wwm.attrs.converters.WhirlwindConversionService"/>
 
-	<bean id="repository" class="com.wwm.db.spring.repository.SimpleMappingFuzzyRepository">
-		<constructor-arg value="com.wwm.db.spring.repository.FuzzyItem"/>
+	<bean id="repository" class="org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository">
+		<constructor-arg value="org.fuzzydb.spring.repository.FuzzyItem"/>
 	</bean>
 	 */
 	@Override

@@ -21,7 +21,7 @@
 	<fuzzy:tx-manager />
 <!-- 	<fuzzy:initialize />	 -->
 
-    <fuzzy:repositories base-package="com.wwm.db.spring.examples">
+    <fuzzy:repositories base-package="org.fuzzydb.spring.examples">
     </fuzzy:repositories>    
     
 </beans>

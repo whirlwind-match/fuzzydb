@@ -60,7 +60,7 @@ Create a Spring Transaction Manager
 			<xsd:appinfo>
 				<tool:annotation>
 					<tool:exports
-						type="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager" />
+						type="org.fuzzydb.spring.transaction.WhirlwindPlatformTransactionManager" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>

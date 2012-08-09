@@ -2,6 +2,7 @@ package org.fuzzydb.spring.config;
 
 import static org.fuzzydb.spring.config.Constants.DEFAULT_STORE_ID;
 
+import org.fuzzydb.spring.transaction.WhirlwindPlatformTransactionManager;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-import com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager;
  
 
 
@@ -38,7 +38,7 @@ public class FuzzyTxManagerConfigParser extends AbstractBeanDefinitionParser {
 	
 	to produce:
 
-	<bean id="transactionManager" class="com.wwm.db.spring.transaction.WhirlwindPlatformTransactionManager">
+	<bean id="transactionManager" class="org.fuzzydb.spring.transaction.WhirlwindPlatformTransactionManager">
 		<constructor-arg ref="store"/>
 	</bean>
 
