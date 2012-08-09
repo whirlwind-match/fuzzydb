@@ -20,26 +20,36 @@ public class WhirlwindConversionService extends GenericConversionService impleme
 	// TODO: Refactor to extend ConvSFB instead, so we get the default converters 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		// from db to Java
-		addConverter(new AttrToBooleanConverter());
-		addConverter(new AttrToFloatConverter());
-		addConverter(new AttrToFloatArrayConverter());
-		addConverter(new EnumExclusiveValueToStringConverter(attrDefinitionService));
-		addConverter(new EnumMultiValueToStringArrayConverter(attrDefinitionService));
-		
-		// from Java to db
-		addConverter(new BooleanToAttrConverter());
-		addConverter(new FloatToAttrConverter());
-		addConverter(new FloatArrayToAttrConverter());
-		addConverter(new EnumAttributeToEnumExclusiveValueConverter(attrDefinitionService));
-		addConverter(new MultiEnumAttributeToEnumMultipleValueConverter(attrDefinitionService));
-		addConverter(new Point3DAttributeToEcefVectorConverter());
-		
+
+		// simple attributes
 		addConverter(new StringToRefConverter());
 		addConverter(new RefToStringConverter());
 		
 		addConverter(new StringToUuidConverter());
 		addConverter(new UuidToStringConverter());
+
+		addConverter(new AttrToBooleanConverter());
+		addConverter(new BooleanToAttrConverter());
+
+		addConverter(new AttrToFloatConverter());
+		addConverter(new FloatToAttrConverter());
+
+		addConverter(new EnumExclusiveValueToStringConverter(attrDefinitionService));
+		addConverter(new EnumAttributeToEnumExclusiveValueConverter(attrDefinitionService));
+
+		addConverter(new FloatAttrToDateConverter());
+		addConverter(new DateToFloatAttrConverter());
+
+		// arrays
+		addConverter(new MultiEnumAttributeToEnumMultipleValueConverter(attrDefinitionService));
+		addConverter(new EnumMultiValueToStringArrayConverter(attrDefinitionService));
+
+		addConverter(new AttrToFloatArrayConverter());
+		addConverter(new FloatArrayToAttrConverter());
+
+		// more special cases
+		addConverter(new Point3DAttributeToEcefVectorConverter());
+		
 		
 		// if we have something to resolve location data, also resolve to 3d point
 		if (stringToGeo != null) {

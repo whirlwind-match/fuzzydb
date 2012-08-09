@@ -1,6 +1,7 @@
 package com.wwm.db.spring.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,8 @@ public class FuzzyItem implements Serializable {
 	
 	private String smoke;
 	
+	private Date journeyDate;
+	
 	/**
 	 * Public constructor needed by some frameworks
 	 */
@@ -43,6 +46,14 @@ public class FuzzyItem implements Serializable {
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public Date getJourneyDate() {
+		return journeyDate;
+	}
+	
+	public void setJourneyDate(Date journeyDate) {
+		this.journeyDate = journeyDate;
 	}
 	
 	public String[] getNewspapers() {

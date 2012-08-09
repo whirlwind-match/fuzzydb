@@ -215,8 +215,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return EcefVector.class;
         case FLOAT_RANGE_PREF:
             return FloatRangePreference.class;
-//        case DATE:
-//    		return TODO;
+        case DATE:
+    		return FloatValue.class;
         default:
             throw new RuntimeException("Type mapping needed.");
         }
@@ -291,14 +291,14 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         } else if ( clazz.isAssignableFrom(EcefVector.class)
                 || clazz.isAssignableFrom(Point3DAttribute.class)) {
             return VECTOR;
-        } else if ( clazz.isAssignableFrom(DateAttribute.class)) {
+        } else if ( clazz.isAssignableFrom(DateAttribute.class)
+        		|| clazz.isAssignableFrom(Date.class)) {
             return DATE;
         } else if ( clazz.isAssignableFrom(StringValue.class)) {
             return STRING;
         } else if ( clazz.isAssignableFrom(NonIndexStringAttribute.class)
         		|| clazz.isAssignableFrom(LocationAttribute.class)		// i.e. the Postcode, which doesn't go in the index
                 || clazz.isAssignableFrom(IntegerRangeAttribute.class)  // TODO: Need to add support for this including codecs (for now, use FloatRange..)
-                || clazz.isAssignableFrom(Date.class)  // FIXME: Need to add DateAttribute and converters to/from Float
                 || clazz.isAssignableFrom(String[].class)
         		|| clazz.isAssignableFrom(String.class)) {
             return UNKNOWN_CLASS; // actually it's known and non-indexed
