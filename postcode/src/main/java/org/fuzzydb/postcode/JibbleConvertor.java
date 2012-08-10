@@ -18,6 +18,7 @@ import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
 import com.wwm.geo.GeoInformation;
+import com.wwm.postcode.PostcodeResult;
 import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;
 

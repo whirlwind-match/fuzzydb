@@ -2,7 +2,7 @@
   <no-comparator/>
   <entry>
     <int>774</int>
-    <com.wwm.indexer.db.converters.EnumConverter>
+    <com.wwm.postcode.indexer.db.converters.EnumConverter>
       <enumDef>
         <enumDefId>0</enumDefId>
         <strValues>
@@ -14,11 +14,11 @@
           <string>WantTaxiSharers</string>
         </strValues>
       </enumDef>
-    </com.wwm.indexer.db.converters.EnumConverter>
+    </com.wwm.postcode.indexer.db.converters.EnumConverter>
   </entry>
   <entry>
     <int>775</int>
-    <com.wwm.indexer.db.converters.EnumConverter>
+    <com.wwm.postcode.indexer.db.converters.EnumConverter>
       <enumDef>
         <enumDefId>0</enumDefId>
         <strValues>
@@ -31,11 +31,11 @@
           <string>7people</string>
         </strValues>
       </enumDef>
-    </com.wwm.indexer.db.converters.EnumConverter>
+    </com.wwm.postcode.indexer.db.converters.EnumConverter>
   </entry>
   <entry>
     <int>777</int>
-    <com.wwm.indexer.db.converters.EnumConverter>
+    <com.wwm.postcode.indexer.db.converters.EnumConverter>
       <enumDef>
         <enumDefId>0</enumDefId>
         <strValues>
@@ -47,11 +47,11 @@
           <string>Cigar-smoker</string>
         </strValues>
       </enumDef>
-    </com.wwm.indexer.db.converters.EnumConverter>
+    </com.wwm.postcode.indexer.db.converters.EnumConverter>
   </entry>
   <entry>
     <int>1025</int>
-    <com.wwm.indexer.db.converters.MultiEnumConverter>
+    <com.wwm.postcode.indexer.db.converters.MultiEnumConverter>
       <enumDef>
         <enumDefId>0</enumDefId>
         <strValues>
@@ -64,6 +64,6 @@
           <string>Sun</string>
         </strValues>
       </enumDef>
-    </com.wwm.indexer.db.converters.MultiEnumConverter>
+    </com.wwm.postcode.indexer.db.converters.MultiEnumConverter>
   </entry>
 </tree-map>

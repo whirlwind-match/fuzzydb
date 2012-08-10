@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package org.fuzzydb.postcode;
+package com.wwm.postcode;
 
 import java.io.Serializable;
 

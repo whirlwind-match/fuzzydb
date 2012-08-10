@@ -1,4 +1,4 @@
-<com.wwm.indexer.internal.random.RandomEnum>
+<com.wwm.postcode.indexer.internal.random.RandomEnum>
 	<enumdef>LiftType.xml</enumdef>
 	<nullProportion>0</nullProportion>
-</com.wwm.indexer.internal.random.RandomEnum>
+</com.wwm.postcode.indexer.internal.random.RandomEnum>

@@ -24,6 +24,7 @@ import org.fuzzydb.core.Settings;
 
 import com.wwm.geo.LatLongDegs;
 import com.wwm.geo.OsgbGridCoord;
+import com.wwm.postcode.PostcodeResult;
 import com.wwm.util.CsvReader;
 import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;

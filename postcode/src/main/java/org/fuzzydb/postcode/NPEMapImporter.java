@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.wwm.postcode.PostcodeResult;
 import com.wwm.util.CsvReader;
 import com.wwm.util.FileUtils;
 import com.wwm.util.CsvReader.GarbageLineException;

@@ -162,7 +162,7 @@ public class IndexEntryHandler implements TypeHandler {
         int resultsPerPage = 10; // FIXME: Rob needs some paging support
 
         // FIXME: Note numResults and matchStyle are "special" cases and need filtering at
-        // com.wwm.atom.impl.FuzzyRecordBuilder.getRecord(RequestContext)
+        // com.wwm.postcode.atom.impl.FuzzyRecordBuilder.getRecord(RequestContext)
         
         String rpp = request.getParameter("numResults");
         if (rpp != null) {

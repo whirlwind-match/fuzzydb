@@ -50,7 +50,7 @@ public class IndexerImpl implements Indexer {
     }
 
     /* (non-Javadoc)
-     * @see com.wwm.indexer.Indexer#addRecord(com.wwm.indexer.Record)
+     * @see com.wwm.postcode.indexer.Indexer#addRecord(com.wwm.postcode.indexer.Record)
      */
     public void addRecord(Record record) {
         Store currentStore = IndexerFactory.getCurrentStore();
@@ -87,7 +87,7 @@ public class IndexerImpl implements Indexer {
 
 
     /* (non-Javadoc)
-     * @see com.wwm.indexer.Indexer#addRecords(java.util.ArrayList)
+     * @see com.wwm.postcode.indexer.Indexer#addRecords(java.util.ArrayList)
      */
     public void addRecords(ArrayList<Record> records) {
         Store currentStore = IndexerFactory.getCurrentStore();

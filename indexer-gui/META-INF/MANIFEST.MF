@@ -1,20 +1,20 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Indexer GUI
-Bundle-SymbolicName: com.wwm.indexer.gui
+Bundle-SymbolicName: com.wwm.postcode.indexer.gui
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match
-Require-Bundle: com.wwm.indexer;bundle-version="1.0.0",
+Require-Bundle: com.wwm.postcode.indexer;bundle-version="1.0.0",
  org.fuzzydb.client;bundle-version="1.0.0",
  org.fuzzydb.attrs;bundle-version="1.0.0",
- com.wwm.atom;bundle-version="1.0.0",
- com.wwm.util;bundle-version="1.0.0",
- com.wwm.bundle.libs;bundle-version="1.0.0",
- com.wwm.bundle.abdera;bundle-version="0.4.0",
- com.wwm.util.gui;bundle-version="1.0.0"
-Export-Package: com.wwm.indexer.config,
- com.wwm.indexer.demo,
- com.wwm.indexer.demo.internal,
+ com.wwm.postcode.atom;bundle-version="1.0.0",
+ com.wwm.postcode.util;bundle-version="1.0.0",
+ com.wwm.postcode.bundle.libs;bundle-version="1.0.0",
+ com.wwm.postcode.bundle.abdera;bundle-version="0.4.0",
+ com.wwm.postcode.util.gui;bundle-version="1.0.0"
+Export-Package: com.wwm.postcode.indexer.config,
+ com.wwm.postcode.indexer.demo,
+ com.wwm.postcode.indexer.demo.internal,
  whirlwind.config.gui,
  whirlwind.demo.actions,
  whirlwind.demo.gui,

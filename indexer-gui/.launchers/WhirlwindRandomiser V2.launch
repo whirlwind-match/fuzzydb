@@ -11,7 +11,7 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.indexer.demo.WhirlwindRandomiser"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.postcode.indexer.demo.WhirlwindRandomiser"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="xml/liftshare wwmdb:/LiftshareStore 2000"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.fuzzydb.indexer"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>

@@ -19,6 +19,7 @@ import java.util.TreeMap;
 
 import org.fuzzydb.core.Settings;
 
+import com.wwm.postcode.PostcodeResult;
 import com.wwm.util.CsvReader;
 import com.wwm.util.FileUtils;
 import com.wwm.util.CsvReader.GarbageLineException;

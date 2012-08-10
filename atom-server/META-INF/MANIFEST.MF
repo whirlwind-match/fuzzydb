@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: AtomServlet Plug-in
-Bundle-SymbolicName: com.wwm.atom.server;singleton:=true
+Bundle-SymbolicName: com.wwm.postcode.atom.server;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: com.wwm.atom.impl.Activator
+Bundle-Activator: com.wwm.postcode.atom.impl.Activator
 Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0",
  org.apache.commons.codec.binary,
@@ -11,14 +11,14 @@ Import-Package: javax.servlet;version="2.4.0",
  org.osgi.service.http;version="1.2.0",
  org.osgi.util.tracker;version="1.3.1"
 Require-Bundle: org.eclipse.osgi;bundle-version="3.2.0",
- com.wwm.atom;bundle-version="1.0.0",
- com.wwm.indexer;bundle-version="1.0.0",
- com.wwm.util;bundle-version="1.0.0",
- com.wwm.util.servlet;bundle-version="1.0.0",
+ com.wwm.postcode.atom;bundle-version="1.0.0",
+ com.wwm.postcode.indexer;bundle-version="1.0.0",
+ com.wwm.postcode.util;bundle-version="1.0.0",
+ com.wwm.postcode.util.servlet;bundle-version="1.0.0",
  org.fuzzydb.client,
- com.wwm.bundle.libs;bundle-version="1.0.0",
+ com.wwm.postcode.bundle.libs;bundle-version="1.0.0",
  org.eclipse.equinox.http.registry,
- com.wwm.bundle.abdera;bundle-version="0.4.0",
+ com.wwm.postcode.bundle.abdera;bundle-version="0.4.0",
  org.fuzzydb.attrs;bundle-version="1.0.0",
- com.wwm.abdera.util
-Export-Package: com.wwm.atom.impl
+ com.wwm.postcode.abdera.util
+Export-Package: com.wwm.postcode.atom.impl

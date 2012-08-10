@@ -1,4 +1,4 @@
-<com.wwm.indexer.internal.random.RandomBoolean>
+<com.wwm.postcode.indexer.internal.random.RandomBoolean>
 	<truePercent>50</truePercent>
 	<falsePercent>50</falsePercent>
-</com.wwm.indexer.internal.random.RandomBoolean>
+</com.wwm.postcode.indexer.internal.random.RandomBoolean>

@@ -8,7 +8,7 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.indexer.config.DbIndexerUpdate"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.wwm.postcode.indexer.config.DbIndexerUpdate"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="xml/liftshare wwmdb:/LiftshareStore"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.fuzzydb.indexer"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>

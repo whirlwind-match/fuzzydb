@@ -2,54 +2,54 @@
   <no-comparator/>
   <entry>
     <string>Boolean</string>
-    <com.wwm.indexer.db.converters.BooleanConverter/>
+    <com.wwm.postcode.indexer.db.converters.BooleanConverter/>
   </entry>
   <entry>
     <string>BooleanValue</string>
-    <com.wwm.indexer.db.converters.BooleanConverter/>
+    <com.wwm.postcode.indexer.db.converters.BooleanConverter/>
   </entry>
   <entry>
     <string>Date</string>
-    <com.wwm.indexer.db.converters.DateConverter/>
+    <com.wwm.postcode.indexer.db.converters.DateConverter/>
   </entry>
   <entry>
     <string>DateRange</string>
-    <com.wwm.indexer.db.converters.DateRangeConverter/>
+    <com.wwm.postcode.indexer.db.converters.DateRangeConverter/>
   </entry>
   <entry>
     <string>EcefVector</string>
-    <com.wwm.indexer.db.converters.EcefConverter/>
+    <com.wwm.postcode.indexer.db.converters.EcefConverter/>
   </entry>
   <entry>
     <string>Float</string>
-    <com.wwm.indexer.db.converters.FloatConverter/>
+    <com.wwm.postcode.indexer.db.converters.FloatConverter/>
   </entry>
   <entry>
     <string>FloatValue</string>
-    <com.wwm.indexer.db.converters.FloatConverter/>
+    <com.wwm.postcode.indexer.db.converters.FloatConverter/>
   </entry>
   <entry>
     <string>FloatRange</string>
-    <com.wwm.indexer.db.converters.FloatRangeConverter/>
+    <com.wwm.postcode.indexer.db.converters.FloatRangeConverter/>
   </entry>
   <entry>
     <string>FloatRangePreference</string>
-    <com.wwm.indexer.db.converters.FloatRangeConverter/>
+    <com.wwm.postcode.indexer.db.converters.FloatRangeConverter/>
   </entry>
   <entry>
     <string>Integer</string>
-    <com.wwm.indexer.db.converters.IntegerConverter/>
+    <com.wwm.postcode.indexer.db.converters.IntegerConverter/>
   </entry>
   <entry>
     <string>Point3D</string>
-    <com.wwm.indexer.db.converters.Point3DConverter/>
+    <com.wwm.postcode.indexer.db.converters.Point3DConverter/>
   </entry>
   <entry>
     <string>String</string>
-    <com.wwm.indexer.db.converters.StringConverter/>
+    <com.wwm.postcode.indexer.db.converters.StringConverter/>
   </entry>
   <entry>
     <string>StringValue</string>
-    <com.wwm.indexer.db.converters.StringConverter/>
+    <com.wwm.postcode.indexer.db.converters.StringConverter/>
   </entry>
 </tree-map>
