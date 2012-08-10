@@ -148,7 +148,7 @@ public class StoreMgr implements IShutdown {
     	}
     	else {
     		try {
-				Class<?> cl = Class.forName("org.fuzzydb.client.EmbeddedClientFactory");
+				Class<?> cl = Class.forName("com.wwm.db.EmbeddedClientFactory");
 				Method m = cl.getMethod("getInstance");
 				ClientFactory factory = (ClientFactory) m.invoke(null);
 				return factory.createClient();
