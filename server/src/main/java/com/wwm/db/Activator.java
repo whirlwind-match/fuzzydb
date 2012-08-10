@@ -12,12 +12,13 @@ package com.wwm.db;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.Settings;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.Settings;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.db.services.IndexImplementationsService;

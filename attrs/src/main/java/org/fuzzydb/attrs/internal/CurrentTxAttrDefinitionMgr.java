@@ -15,10 +15,10 @@ import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 /**

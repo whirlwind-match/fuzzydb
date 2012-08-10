@@ -17,10 +17,10 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.pager.FileSerializingPagePersister;
 import com.wwm.io.core.ClassLoaderInterface;

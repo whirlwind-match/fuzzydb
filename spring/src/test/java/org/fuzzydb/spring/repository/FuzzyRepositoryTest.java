@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.fuzzydb.core.query.Result;
 import org.fuzzydb.spring.repository.AttributeMatchQuery;
 import org.fuzzydb.spring.repository.FuzzyRepository;
 import org.fuzzydb.spring.repository.SubjectMatchQuery;
@@ -30,7 +31,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.wwm.db.query.Result;
 import com.wwm.model.attributes.Score;
 
 @RunWith(SpringJUnit4ClassRunner.class)

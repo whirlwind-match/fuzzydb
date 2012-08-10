@@ -12,7 +12,8 @@ package com.wwm.io.core.exceptions;
 
 import java.io.IOException;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
+
 
 @SuppressWarnings("serial")
 public class ConnectionLostException extends ArchException {

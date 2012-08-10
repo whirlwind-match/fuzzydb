@@ -29,10 +29,10 @@ import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.string.StringValue;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.model.attributes.DateAttribute;

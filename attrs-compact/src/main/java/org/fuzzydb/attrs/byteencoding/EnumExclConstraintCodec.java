@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumExclusiveConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.util.ByteArray;
 
 public class EnumExclConstraintCodec extends CompactConstraintCodec {

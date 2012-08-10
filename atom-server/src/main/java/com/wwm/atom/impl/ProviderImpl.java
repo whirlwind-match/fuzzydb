@@ -10,10 +10,10 @@
  *****************************************************************************/
 package com.wwm.atom.impl;
 
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
 import com.wwm.abdera.util.server.BaseProviderImpl;
-import com.wwm.db.core.LogFactory;
 
 
 /**

@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.io.core.messages;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
 
 @SuppressWarnings("serial")
 public class ErrorRsp extends Response {

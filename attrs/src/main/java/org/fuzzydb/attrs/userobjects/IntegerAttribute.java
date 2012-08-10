@@ -13,8 +13,8 @@ package org.fuzzydb.attrs.userobjects;
 
 import org.fuzzydb.attrs.internal.Attribute;
 import org.fuzzydb.attrs.simple.IntegerConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 

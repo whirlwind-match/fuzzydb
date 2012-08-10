@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.exceptions;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
 
 @SuppressWarnings("serial")
 public class UnknownStoreException extends ArchException {

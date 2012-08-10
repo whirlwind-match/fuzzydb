@@ -10,7 +10,8 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal.comms.messages;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
+
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Loggable;
 

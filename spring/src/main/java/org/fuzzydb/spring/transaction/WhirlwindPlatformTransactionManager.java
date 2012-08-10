@@ -3,6 +3,7 @@ package org.fuzzydb.spring.transaction;
 import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.core.exceptions.ArchException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
@@ -11,7 +12,6 @@ import org.springframework.transaction.support.DefaultTransactionStatus;
 import org.springframework.transaction.support.SmartTransactionObject;
 import org.springframework.util.Assert;
 
-import com.wwm.db.core.exceptions.ArchException;
 
 public class WhirlwindPlatformTransactionManager extends
 		AbstractPlatformTransactionManager {

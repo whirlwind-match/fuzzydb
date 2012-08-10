@@ -19,13 +19,13 @@ import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.exceptions.WriteCollisionException;
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.server.CurrentTransactionHolder;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.server.ServerTransaction.Mode;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.db.whirlwind.SearchSpec;
 
 
 /**

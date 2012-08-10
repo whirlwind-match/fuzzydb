@@ -13,6 +13,7 @@ import org.fuzzydb.attrs.userobjects.MappedFuzzyItem;
 import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.spring.annotation.DerivedField;
 import org.fuzzydb.spring.mapping.FuzzyMappingContext;
 import org.fuzzydb.spring.mapping.FuzzyPersistentEntity;
@@ -29,7 +30,6 @@ import org.springframework.data.mapping.model.BeanWrapper;
 import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.EnumAttribute;
 import com.wwm.model.attributes.MultiEnumAttribute;
 

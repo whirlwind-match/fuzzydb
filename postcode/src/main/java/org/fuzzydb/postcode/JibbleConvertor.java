@@ -13,9 +13,10 @@ package org.fuzzydb.postcode;
 import java.io.UnsupportedEncodingException;
 import java.util.Set;
 import java.util.TreeMap;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.geo.GeoInformation;
 import com.wwm.util.FileUtils;
 import com.wwm.util.StringUtils;

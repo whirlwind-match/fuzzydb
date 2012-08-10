@@ -23,9 +23,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.exceptions.NotListeningException;
 import com.wwm.io.core.layer2.SourcedMessageImpl;

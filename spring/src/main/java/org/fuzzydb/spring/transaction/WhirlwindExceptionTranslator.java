@@ -2,12 +2,12 @@ package org.fuzzydb.spring.transaction;
 
 import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.core.exceptions.ArchException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
-import com.wwm.db.core.exceptions.ArchException;
 
 public class WhirlwindExceptionTranslator implements
 		PersistenceExceptionTranslator {

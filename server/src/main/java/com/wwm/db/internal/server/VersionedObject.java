@@ -13,8 +13,8 @@ package com.wwm.db.internal.server;
 import java.io.Serializable;
 
 import org.fuzzydb.client.marker.MergeableContainer;
+import org.fuzzydb.core.whirlwind.internal.AttributeCache;
 
-import com.wwm.db.whirlwind.internal.AttributeCache;
 
 /**
  * A tuple storing an object and it's sequential version.

@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.marker;
 
-import com.wwm.db.marker.IAttributeContainer;
+import org.fuzzydb.core.marker.IAttributeContainer;
 
 
 /**

@@ -13,10 +13,10 @@ package com.wwm.db.services;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
 import com.google.inject.Singleton;
-import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.index.IndexImplementation;
 
 

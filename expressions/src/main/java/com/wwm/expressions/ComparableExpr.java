@@ -12,7 +12,8 @@ package com.wwm.expressions;
 
 import java.io.Serializable;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
+
 
 public abstract class ComparableExpr<T> implements Serializable {
 

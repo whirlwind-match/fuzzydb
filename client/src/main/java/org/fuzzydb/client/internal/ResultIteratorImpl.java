@@ -17,9 +17,9 @@ import org.fuzzydb.client.exceptions.NotImplementedException;
 import org.fuzzydb.client.internal.comms.messages.QueryCmd;
 import org.fuzzydb.client.internal.comms.messages.QueryFetchCmd;
 import org.fuzzydb.client.internal.comms.messages.QueryRsp;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.query.ResultIterator;
 
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.query.ResultIterator;
 import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.messages.Command;
 

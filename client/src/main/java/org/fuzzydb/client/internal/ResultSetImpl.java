@@ -12,8 +12,9 @@ package org.fuzzydb.client.internal;
 
 import java.util.HashSet;
 
-import com.wwm.db.query.ResultIterator;
-import com.wwm.db.query.ResultSet;
+import org.fuzzydb.core.query.ResultIterator;
+import org.fuzzydb.core.query.ResultSet;
+
 import com.wwm.expressions.LogicExpr;
 
 public class ResultSetImpl <E> implements ResultSet<E> {

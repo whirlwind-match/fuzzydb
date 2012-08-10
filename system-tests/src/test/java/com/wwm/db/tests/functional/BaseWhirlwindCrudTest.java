@@ -15,13 +15,13 @@ import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.exceptions.WriteCollisionException;
 import org.fuzzydb.client.util.TransactionBlockProcessor;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.whirlwind.SearchSpec;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.whirlwind.SearchSpec;
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.util.BlockProcessor;
 import com.wwm.util.MTRandom;
 

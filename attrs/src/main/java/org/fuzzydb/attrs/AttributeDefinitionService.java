@@ -1,8 +1,8 @@
 package org.fuzzydb.attrs;
 
 import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 /**
  * A service to maintain a mapping between numerical identifiers and string

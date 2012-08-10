@@ -20,11 +20,11 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.fuzzydb.core.Settings;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.wwm.context.IShutdown;
-import com.wwm.db.core.Settings;
 
 /**
  * Implements access to a store by Url, and manages sharing of objects that should be shared, such

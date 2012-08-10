@@ -7,13 +7,13 @@ import org.fuzzydb.attrs.internal.IConstraintMap;
 import org.fuzzydb.attrs.internal.ScoreConfiguration;
 import org.fuzzydb.attrs.layout.LayoutAttrMap;
 import org.fuzzydb.attrs.layout.LayoutConstraintMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 import static org.junit.Assert.*;
 

@@ -10,7 +10,8 @@
  *****************************************************************************/
 package com.wwm.io.core.exceptions;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
+
 import com.wwm.io.core.messages.Command;
 
 @SuppressWarnings("serial")

@@ -1,8 +1,8 @@
 package com.wwm.db.internal.server;
 
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 
 public abstract aspect AbstractLoggingAspect {
 

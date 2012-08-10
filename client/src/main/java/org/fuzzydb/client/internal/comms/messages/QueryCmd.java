@@ -10,7 +10,8 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal.comms.messages;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
+
 import com.wwm.expressions.LogicExpr;
 
 public class QueryCmd extends TransactionCommand {

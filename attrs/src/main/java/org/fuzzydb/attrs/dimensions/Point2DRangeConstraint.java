@@ -14,8 +14,8 @@ package org.fuzzydb.attrs.dimensions;
 import org.fuzzydb.attrs.internal.BranchConstraint;
 import org.fuzzydb.attrs.util.Point2D;
 import org.fuzzydb.attrs.util.Range2D;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 public abstract class Point2DRangeConstraint extends BranchConstraint implements IRange2D {

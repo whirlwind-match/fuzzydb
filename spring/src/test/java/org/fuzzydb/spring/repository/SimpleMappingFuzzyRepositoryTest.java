@@ -24,6 +24,8 @@ import org.fuzzydb.attrs.userobjects.MappedFuzzyItem;
 import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,8 +37,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.data.annotation.Id;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleMappingFuzzyRepositoryTest  {

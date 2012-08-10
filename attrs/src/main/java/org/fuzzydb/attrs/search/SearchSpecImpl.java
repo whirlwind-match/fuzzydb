@@ -16,14 +16,14 @@ import java.io.Serializable;
 import org.fuzzydb.attrs.AttributeMapFactory;
 import org.fuzzydb.attrs.internal.CardinalAttributeMapImpl;
 import org.fuzzydb.client.marker.IWhirlwindItem;
+import org.fuzzydb.core.Settings;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.marker.IAttributeContainer;
+import org.fuzzydb.core.whirlwind.SearchSpec;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
 
-import com.wwm.db.core.Settings;
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.whirlwind.SearchSpec;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 /**
  * Defines a search.

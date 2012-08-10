@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
 
 public interface Transaction extends DataOperations, Authority, Helper {
 	

@@ -12,9 +12,9 @@ package com.wwm.db.internal.server;
 
 import java.io.File;
 
+import org.fuzzydb.core.Settings;
 import org.springframework.util.Assert;
 
-import com.wwm.db.core.Settings;
 
 public class ServerSetupProvider {
 

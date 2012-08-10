@@ -13,10 +13,10 @@ package org.fuzzydb.attrs.string;
 import java.io.Serializable;
 
 import org.fuzzydb.attrs.internal.Attribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IMergeable;
 
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IMergeable;
 
 public class StringValue extends Attribute implements IMergeable, Comparable<StringValue>, Serializable {
 

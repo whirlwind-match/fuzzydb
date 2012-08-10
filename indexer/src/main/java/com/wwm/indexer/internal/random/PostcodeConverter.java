@@ -12,9 +12,9 @@ package com.wwm.indexer.internal.random;
 
 
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.geo.GeoInformation;
 import com.wwm.indexer.db.converters.TempFactory;
 import com.wwm.indexer.exceptions.AttributeException;

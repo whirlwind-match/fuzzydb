@@ -13,13 +13,13 @@ package com.wwm.atom.impl;
 import java.util.Hashtable;
 import javax.servlet.http.HttpServlet;
 
+import org.fuzzydb.core.LogFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 import org.osgi.util.tracker.ServiceTracker;
 
-import com.wwm.db.core.LogFactory;
 
 
 public class Activator implements BundleActivator {

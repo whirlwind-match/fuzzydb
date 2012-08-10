@@ -19,10 +19,10 @@ import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.enums.EnumPreferenceMap;
 import org.fuzzydb.attrs.internal.IConstraintMap;
 import org.fuzzydb.attrs.internal.TwoAttrScorer;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.util.BitSet64;
 import com.wwm.util.ByteArray;
 

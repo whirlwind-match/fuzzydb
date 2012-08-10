@@ -20,9 +20,9 @@ import java.util.Set;
 
 import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.internal.MetaObject;
+import org.fuzzydb.core.annotations.Key;
 import org.springframework.data.annotation.Id;
 
-import com.wwm.db.annotations.Key;
 import com.wwm.db.internal.index.btree.BTree;
 import com.wwm.db.internal.index.btree.IndexKeyUniqueness;
 import com.wwm.db.internal.index.btree.IndexPointerStyle;

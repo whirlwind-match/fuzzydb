@@ -39,8 +39,8 @@ import org.fuzzydb.client.internal.comms.messages.ShutdownCmd;
 import org.fuzzydb.client.internal.comms.messages.TransactionCommand;
 import org.fuzzydb.client.internal.comms.messages.WWSearchCmd;
 import org.fuzzydb.client.internal.comms.messages.WWSearchFetchCmd;
+import org.fuzzydb.core.exceptions.ArchException;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.SourcedMessage;
 import com.wwm.io.core.layer2.SourcedMessageImpl;

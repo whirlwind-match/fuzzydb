@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.byteencoding;
 
 
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.FloatAttribute;
 import com.wwm.util.ByteArray;
 

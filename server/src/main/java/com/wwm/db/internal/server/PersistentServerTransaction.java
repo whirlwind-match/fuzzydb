@@ -48,14 +48,14 @@ import org.fuzzydb.client.internal.comms.messages.WWSearchFetchCmd;
 import org.fuzzydb.client.internal.comms.messages.WWSearchNomineeOkayRsp;
 import org.fuzzydb.client.internal.comms.messages.WWSearchOkayRsp;
 import org.fuzzydb.client.marker.IWhirlwindItem;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.query.RetrieveSpec;
+import org.fuzzydb.core.query.RetrieveSpecItem;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.internal.index.Query;
 import com.wwm.db.internal.search.NextItem;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.db.query.RetrieveSpec;
-import com.wwm.db.query.RetrieveSpecItem;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.ErrorRsp;
 import com.wwm.io.core.messages.Response;

@@ -8,16 +8,16 @@ import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.annotations.Key;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.marker.IAttributeContainer;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.query.RetrieveSpec;
+import org.fuzzydb.core.query.RetrieveSpecResult;
+import org.fuzzydb.core.whirlwind.SearchSpec;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.annotations.Key;
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.query.RetrieveSpec;
-import com.wwm.db.query.RetrieveSpecResult;
-import com.wwm.db.whirlwind.SearchSpec;
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.expressions.LogicExpr;
 
 /**

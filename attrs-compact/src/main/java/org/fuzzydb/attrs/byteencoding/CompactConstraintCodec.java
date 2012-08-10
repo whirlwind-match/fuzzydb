@@ -11,8 +11,9 @@
 package org.fuzzydb.attrs.byteencoding;
 
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+
 import com.wwm.util.ByteArray;
 
 

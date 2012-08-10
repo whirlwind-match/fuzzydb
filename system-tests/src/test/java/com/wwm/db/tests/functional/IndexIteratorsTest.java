@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.userobjects.SampleKeyedObject;
+import org.fuzzydb.core.query.ResultSet;
 import org.junit.Test;
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.query.ResultSet;
 import com.wwm.expressions.LogicExpr;
 import com.wwm.expressions.QueryFactory;
 

@@ -10,11 +10,12 @@
  *****************************************************************************/
 package org.fuzzydb.client;
 
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.whirlwind.SearchSpec;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.marker.IAttributeContainer;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.whirlwind.SearchSpec;
+
 
 public interface Searchable {
 

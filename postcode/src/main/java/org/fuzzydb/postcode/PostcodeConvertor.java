@@ -10,10 +10,10 @@
  *****************************************************************************/
 package org.fuzzydb.postcode;
 
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.geo.GeoInformation;
 import com.wwm.util.StringUtils;
 

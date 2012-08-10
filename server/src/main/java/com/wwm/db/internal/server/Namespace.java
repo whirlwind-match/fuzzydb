@@ -23,9 +23,11 @@ import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.exceptions.WriteCollisionException;
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.whirlwind.SearchSpec;
+import org.fuzzydb.core.whirlwind.internal.AttributeCache;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.common.MetaObjectSource;
 import com.wwm.db.internal.index.IndexedTable;
@@ -33,8 +35,6 @@ import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.table.TableFactory;
 import com.wwm.db.internal.table.UserTable;
 import com.wwm.db.internal.whirlwind.EmptySearch;
-import com.wwm.db.whirlwind.SearchSpec;
-import com.wwm.db.whirlwind.internal.AttributeCache;
 
 
 public class Namespace implements Serializable, MetaObjectSource, InitializingBean {

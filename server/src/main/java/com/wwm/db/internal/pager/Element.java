@@ -16,9 +16,9 @@ import java.io.ObjectOutputStream;
 
 import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.marker.MergeableContainer;
+import org.fuzzydb.core.whirlwind.internal.AttributeCache;
 
 import com.wwm.db.internal.server.CurrentTransactionHolder;
-import com.wwm.db.whirlwind.internal.AttributeCache;
 
 /**
  * A representation of a table row. This contains a single database object, but it may contain several versions of the

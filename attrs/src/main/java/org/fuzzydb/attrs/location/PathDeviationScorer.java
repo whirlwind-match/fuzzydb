@@ -16,11 +16,11 @@ import org.fuzzydb.attrs.Score.Direction;
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.attrs.internal.IConstraintMap;
 import org.fuzzydb.attrs.internal.TwoByTwoAttrScorer;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.util.ScoreMapper;
 
 

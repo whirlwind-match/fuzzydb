@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.exceptions;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
 
 @SuppressWarnings("serial")
 // FIXME: we should override the constructor to update some Db stats (JMX object), so we can

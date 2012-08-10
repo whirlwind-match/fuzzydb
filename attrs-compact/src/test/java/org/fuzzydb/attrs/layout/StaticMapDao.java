@@ -3,7 +3,8 @@ package org.fuzzydb.attrs.layout;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.wwm.db.dao.SimpleDAO;
+import org.fuzzydb.core.dao.SimpleDAO;
+
 
 /**
  * A simple Dao that pretends to store things, but actually sticks one instance per class in

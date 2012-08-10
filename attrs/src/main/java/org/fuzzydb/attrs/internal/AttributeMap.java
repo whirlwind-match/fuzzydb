@@ -14,11 +14,12 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import com.wwm.db.whirlwind.internal.AttributeCache;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
-import com.wwm.db.whirlwind.internal.IMergeable;
+import org.fuzzydb.core.whirlwind.internal.AttributeCache;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.IMergeable;
+
 
 
 public class AttributeMap<T extends IAttribute> implements Cloneable, Serializable, IAttributeMap<T> {
@@ -26,7 +27,7 @@ public class AttributeMap<T extends IAttribute> implements Cloneable, Serializab
     private static final long serialVersionUID = 3761969345898689587L;
     static final int INITIAL_SIZE = 4;
 
-    private com.archopolis.db.whirlwind.internal.IAttribute attributes[] = new IAttribute[INITIAL_SIZE];
+    private org.fuzzydb.core.marker.IAttribute attributes[] = new IAttribute[INITIAL_SIZE];
 
     private int count = 0;
 
@@ -46,7 +47,7 @@ public class AttributeMap<T extends IAttribute> implements Cloneable, Serializab
         for (IAttribute attr : clonee ) {
             try {
                 if (attr != null) {
-                    this.attributes[i++] = (com.archopolis.db.whirlwind.internal.IAttribute) attr.clone();
+                    this.attributes[i++] = (org.fuzzydb.core.marker.IAttribute) attr.clone();
                 }
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);

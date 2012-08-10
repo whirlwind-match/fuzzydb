@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.expressions;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
 
 public class NotExpr extends LogicExpr {
 

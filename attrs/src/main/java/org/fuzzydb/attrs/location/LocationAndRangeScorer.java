@@ -18,10 +18,10 @@ import org.fuzzydb.attrs.internal.IConstraintMap;
 import org.fuzzydb.attrs.internal.TwoAttrScorer;
 import org.fuzzydb.attrs.simple.FloatConstraint;
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.util.ScoreMapper;
 
 

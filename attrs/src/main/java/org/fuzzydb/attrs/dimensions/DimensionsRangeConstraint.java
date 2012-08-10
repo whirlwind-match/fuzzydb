@@ -13,9 +13,9 @@ package org.fuzzydb.attrs.dimensions;
 
 import org.fuzzydb.attrs.internal.BranchConstraint;
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.model.dimensions.IDimensions;
 
 

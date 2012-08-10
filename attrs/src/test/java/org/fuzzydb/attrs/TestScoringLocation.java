@@ -21,13 +21,13 @@ import org.fuzzydb.attrs.internal.ScoreConfiguration;
 import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.attrs.location.LocationAndRangeScorer;
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.core.whirlwind.SearchSpec.SearchMode;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.db.whirlwind.SearchSpec.SearchMode;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.model.dimensions.Point3D;
 import com.wwm.util.LinearScoreMapper;
 

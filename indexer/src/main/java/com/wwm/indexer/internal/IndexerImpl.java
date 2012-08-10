@@ -20,13 +20,13 @@ import org.fuzzydb.attrs.AttrsFactory;
 import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultIterator;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultIterator;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.indexer.Indexer;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;

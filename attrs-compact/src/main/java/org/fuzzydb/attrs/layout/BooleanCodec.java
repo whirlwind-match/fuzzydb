@@ -13,9 +13,9 @@ package org.fuzzydb.attrs.layout;
 
 import org.fuzzydb.attrs.bool.BooleanConstraint;
 import org.fuzzydb.attrs.bool.BooleanValue;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 
 // FIXME: This is not at all complete
 public class BooleanCodec extends LayoutAttrCodec<IAttribute> {

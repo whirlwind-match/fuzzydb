@@ -18,10 +18,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.TreeMap;
+
+import org.fuzzydb.core.Settings;
 import org.slf4j.Logger;
 import java.util.zip.GZIPInputStream;
 
-import com.wwm.db.core.Settings;
 import com.wwm.geo.GeoInformation;
 import com.wwm.util.StringUtils;
 

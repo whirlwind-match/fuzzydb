@@ -5,12 +5,12 @@ import org.fuzzydb.attrs.Score;
 import org.fuzzydb.attrs.enums.EnumExclusiveScorerExclusive;
 import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.internal.ScoreConfiguration;
+import org.fuzzydb.core.whirlwind.SearchSpec.SearchMode;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.db.whirlwind.SearchSpec.SearchMode;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 import static org.junit.Assert.*;
 

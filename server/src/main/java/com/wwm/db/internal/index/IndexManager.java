@@ -14,9 +14,9 @@ import java.io.Serializable;
 
 import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.internal.MetaObject;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 
 import com.wwm.db.internal.search.Search;
-import com.wwm.db.whirlwind.SearchSpec;
 
 
 

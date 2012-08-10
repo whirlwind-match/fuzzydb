@@ -14,10 +14,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.fuzzydb.attrs.internal.Attribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IMergeable;
 
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IMergeable;
 
 
 

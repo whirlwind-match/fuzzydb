@@ -18,10 +18,10 @@ import org.fuzzydb.attrs.internal.XStreamHelper;
 import org.fuzzydb.attrs.internal.xstream.HtmlTableReader;
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.db.core.LogFactory;
 import com.wwm.util.DynamicRef;
 
 /**

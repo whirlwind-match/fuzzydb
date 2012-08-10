@@ -11,8 +11,8 @@
 package com.wwm.db.internal.whirlwind;
 
 import org.fuzzydb.attrs.IScoreConfiguration;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 
-import com.wwm.db.whirlwind.SearchSpec;
 
 
 

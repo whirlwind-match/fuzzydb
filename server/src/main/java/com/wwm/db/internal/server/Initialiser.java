@@ -11,9 +11,10 @@
 package com.wwm.db.internal.server;
 
 import java.util.concurrent.Semaphore;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 
 /**
  * Initialiser extends WorkerThread so that database operations can get at current transaction etc.

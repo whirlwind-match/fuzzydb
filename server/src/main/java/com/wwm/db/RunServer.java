@@ -12,8 +12,10 @@ package com.wwm.db;
 
 import java.io.File;
 import java.net.InetSocketAddress;
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.Settings;
+
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.Settings;
+
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.io.packet.layer1.SocketListeningServer;

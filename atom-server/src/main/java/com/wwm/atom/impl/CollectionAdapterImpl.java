@@ -25,12 +25,12 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 import org.apache.abdera.protocol.server.context.EmptyResponseContext;
+import org.fuzzydb.core.LogFactory;
 
 import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.abdera.util.server.BaseCollectionAdapter;
 import com.wwm.abdera.util.server.NotFoundException;
 import com.wwm.atom.elements.AbderaElementFactory;
-import com.wwm.db.core.LogFactory;
 import com.wwm.indexer.Indexer;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;

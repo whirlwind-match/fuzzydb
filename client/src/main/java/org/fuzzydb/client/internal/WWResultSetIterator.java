@@ -11,11 +11,11 @@ import org.fuzzydb.client.internal.comms.messages.WWSearchCmd;
 import org.fuzzydb.client.internal.comms.messages.WWSearchFetchCmd;
 import org.fuzzydb.client.internal.comms.messages.WWSearchNomineeOkayRsp;
 import org.fuzzydb.client.internal.comms.messages.WWSearchOkayRsp;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultIterator;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultIterator;
-import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.Response;
 

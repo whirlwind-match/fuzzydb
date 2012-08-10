@@ -3,7 +3,8 @@ package org.fuzzydb.spring;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import com.wwm.db.annotations.Key;
+import org.fuzzydb.core.annotations.Key;
+
 
 public class IndexedMap implements Serializable {
 	private static final long serialVersionUID = 1L;

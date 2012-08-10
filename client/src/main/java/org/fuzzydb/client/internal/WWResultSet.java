@@ -10,10 +10,11 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal;
 
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultIterator;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.whirlwind.SearchSpec;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultIterator;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.whirlwind.SearchSpec;
+
 
 class WWResultSet <T extends Object> implements ResultSet<Result<T>> {
 

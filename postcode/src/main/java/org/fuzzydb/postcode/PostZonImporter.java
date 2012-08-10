@@ -20,7 +20,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.core.Settings;
+import org.fuzzydb.core.Settings;
+
 import com.wwm.geo.LatLongDegs;
 import com.wwm.geo.OsgbGridCoord;
 import com.wwm.util.CsvReader;

@@ -21,10 +21,10 @@ import java.util.Map.Entry;
 
 import org.fuzzydb.attrs.Score;
 import org.fuzzydb.attrs.Scorer;
+import org.fuzzydb.core.LogFactory;
 import org.springframework.util.Assert;
 
 
-import com.wwm.db.core.LogFactory;
 
 
 

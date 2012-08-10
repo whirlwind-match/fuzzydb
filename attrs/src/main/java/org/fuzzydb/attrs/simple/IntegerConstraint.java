@@ -13,8 +13,8 @@ package org.fuzzydb.attrs.simple;
 
 import org.fuzzydb.attrs.internal.BranchConstraint;
 import org.fuzzydb.attrs.userobjects.IntegerAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 public class IntegerConstraint extends BranchConstraint /* implements IRange */ {

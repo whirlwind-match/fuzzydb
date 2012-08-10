@@ -16,8 +16,8 @@ import java.util.Map;
 import org.fuzzydb.attrs.bool.BooleanConstraint;
 import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.bool.BooleanConstraint.State;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.util.ByteArray;
 
 

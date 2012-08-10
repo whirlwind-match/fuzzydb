@@ -15,10 +15,10 @@ import org.fuzzydb.attrs.Score;
 import org.fuzzydb.attrs.Score.Direction;
 import org.fuzzydb.attrs.internal.IConstraintMap;
 import org.fuzzydb.attrs.internal.MappedTwoAttrScorer;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.util.ScoreMapper;
 
 
@@ -70,7 +70,7 @@ public class SimilarFloatValueScorer extends MappedTwoAttrScorer {
      * For a node, give the highest possible score.
      * If we're within the bounds of the constraint for the node, then the max poss score is 1.0
      * else, it's the ration of the distance to the nearest value of the range.
-     * @see org.fuzzydb.attrs.Scorer#score(org.fuzzydb.client.whirlwind.internal.IAttribute, likemynds.db.indextree.NodeAttributeContainer)
+     * @see org.fuzzydb.attrs.Scorer#score(org.fuzzydb.core.marker.internal.IAttribute, likemynds.db.indextree.NodeAttributeContainer)
      */
     @Override
     public void scoreSearchToNode(Score score, Score.Direction d, IConstraintMap c, IAttributeMap<? extends IAttribute> scoreAttrs) {

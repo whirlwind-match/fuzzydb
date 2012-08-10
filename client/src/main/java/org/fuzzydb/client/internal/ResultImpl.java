@@ -10,7 +10,8 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal;
 
-import com.wwm.db.query.Result;
+import org.fuzzydb.core.query.Result;
+
 import com.wwm.model.attributes.Score;
 
 public class ResultImpl<E extends Object> implements Result<E> {

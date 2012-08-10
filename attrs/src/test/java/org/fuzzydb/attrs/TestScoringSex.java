@@ -17,13 +17,13 @@ import org.fuzzydb.attrs.bool.BooleanScorer;
 import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.internal.Attribute;
 import org.fuzzydb.attrs.internal.ScoreConfiguration;
+import org.fuzzydb.core.whirlwind.SearchSpec.SearchMode;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.db.whirlwind.SearchSpec.SearchMode;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 public class TestScoringSex {
 

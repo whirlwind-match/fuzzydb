@@ -21,10 +21,10 @@ import java.util.Map.Entry;
 import java.util.concurrent.Semaphore;
 
 import org.fuzzydb.client.exceptions.UnknownTransactionException;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.Settings;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.Settings;
 import com.wwm.db.internal.server.PersistentServerTransaction.Key;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.io.core.MessageSink;

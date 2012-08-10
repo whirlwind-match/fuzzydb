@@ -13,8 +13,8 @@ package org.fuzzydb.client.internal.comms.messages;
 import java.util.ArrayList;
 
 import org.fuzzydb.client.internal.ResultImpl;
+import org.fuzzydb.core.query.Result;
 
-import com.wwm.db.query.Result;
 import com.wwm.model.attributes.Score;
 
 

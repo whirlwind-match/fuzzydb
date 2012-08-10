@@ -15,9 +15,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 
 /**

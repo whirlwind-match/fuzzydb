@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal.comms.messages;
 
-import com.wwm.db.whirlwind.SearchSpec;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 
 public class WWSearchCmd extends TransactionCommand {
 

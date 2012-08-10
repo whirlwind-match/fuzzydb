@@ -11,8 +11,8 @@
 package org.fuzzydb.client.marker;
 
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 /**
  * @deprecated It's unused so we'll mark it as such

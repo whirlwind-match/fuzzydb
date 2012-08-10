@@ -12,11 +12,11 @@ import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.exceptions.WriteCollisionException;
 import org.fuzzydb.client.userobjects.MutableString;
 import org.fuzzydb.client.userobjects.SampleObject;
+import org.fuzzydb.core.exceptions.ArchException;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.impl.DummyCli;
 import com.wwm.util.Stopwatch;

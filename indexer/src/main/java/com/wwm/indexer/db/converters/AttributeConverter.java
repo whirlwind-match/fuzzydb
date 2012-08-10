@@ -10,7 +10,8 @@
  *****************************************************************************/
 package com.wwm.indexer.db.converters;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.model.attributes.Attribute;
 

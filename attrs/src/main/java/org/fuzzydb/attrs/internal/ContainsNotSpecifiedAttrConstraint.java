@@ -10,8 +10,8 @@
  *****************************************************************************/
 package org.fuzzydb.attrs.internal;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
 /**
  * Dummy "NodeAnnotation" for dealing only with InclduesNotspecified

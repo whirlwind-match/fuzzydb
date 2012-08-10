@@ -13,8 +13,8 @@ package org.fuzzydb.attrs.enums;
 
 
 import org.fuzzydb.attrs.internal.BranchConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.util.BitSet64;
 
 

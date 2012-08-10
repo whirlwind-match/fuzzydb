@@ -22,15 +22,15 @@ import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.client.internal.RefImpl;
 import org.fuzzydb.client.marker.IWhirlwindItem;
+import org.fuzzydb.core.WorkManager;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.slf4j.Logger;
 import org.springframework.data.annotation.Id;
 import org.springframework.util.StringUtils;
 
-import com.wwm.db.core.WorkManager;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.db.whirlwind.SearchSpec;
 
 
 /**
@@ -204,7 +204,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 	private void detectSimpleIndexes() {
 		// Detect fields on clazz and update index if not already in existence
         for (Field f: table.getStoredClass().getDeclaredFields()) {
-            if ( f.isAnnotationPresent(com.wwm.db.annotations.Key.class)
+            if ( f.isAnnotationPresent(org.fuzzydb.core.annotations.Key.class)
             		|| f.isAnnotationPresent(Id.class)) {
                 getLog().info(" - Simple Index '" + table.getStoredClass() + "$" + f.getName() + "(" + f.getType().getSimpleName() + ")'");
                 //			createIndex(f);

@@ -12,8 +12,9 @@ package org.fuzzydb.attrs.enums;
 
 import java.io.Serializable;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IMergeable;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IMergeable;
+
 
 
 /**

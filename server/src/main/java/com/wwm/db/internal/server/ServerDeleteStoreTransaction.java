@@ -13,8 +13,8 @@ package com.wwm.db.internal.server;
 import java.nio.ByteBuffer;
 
 import org.fuzzydb.client.internal.comms.messages.DeleteStoreCmd;
+import org.fuzzydb.core.exceptions.ArchException;
 
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 

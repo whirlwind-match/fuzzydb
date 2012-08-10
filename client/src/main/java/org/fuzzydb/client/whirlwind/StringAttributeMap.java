@@ -10,7 +10,8 @@
  *****************************************************************************/
 package org.fuzzydb.client.whirlwind;
 
-import com.wwm.db.marker.IAttributeContainer;
+import org.fuzzydb.core.marker.IAttributeContainer;
+
 import com.wwm.model.attributes.Attribute;
 
 

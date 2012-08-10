@@ -16,11 +16,11 @@ import java.io.Serializable;
 
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
+import org.fuzzydb.core.Settings;
+import org.fuzzydb.core.annotations.Key;
+import org.fuzzydb.core.dao.SimpleDAO;
 import org.springframework.util.Assert;
 
-import com.wwm.db.annotations.Key;
-import com.wwm.db.core.Settings;
-import com.wwm.db.dao.SimpleDAO;
 
 /*
  * Thinking aloud:

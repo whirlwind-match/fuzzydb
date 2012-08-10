@@ -3,7 +3,8 @@ package org.fuzzydb.client.userobjects;
 
 import java.io.Serializable;
 
-import com.wwm.db.annotations.Key;
+import org.fuzzydb.core.annotations.Key;
+
 
 public class SampleUniqueKeyedObject implements Serializable {
 

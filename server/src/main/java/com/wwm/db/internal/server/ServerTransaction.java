@@ -14,10 +14,10 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import org.fuzzydb.client.internal.comms.messages.OkRsp;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.exceptions.ArchException;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.ErrorRsp;

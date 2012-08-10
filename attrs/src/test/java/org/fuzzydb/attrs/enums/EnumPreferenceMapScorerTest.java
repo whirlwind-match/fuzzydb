@@ -13,11 +13,11 @@ import org.fuzzydb.attrs.enums.EnumPreferenceMap;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.NodeScore;
 import org.fuzzydb.attrs.internal.ScoreConfiguration;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 
 

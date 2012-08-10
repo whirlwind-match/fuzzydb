@@ -15,11 +15,11 @@ import java.io.Serializable;
 import org.fuzzydb.attrs.Score.Direction;
 import org.fuzzydb.attrs.internal.GlobalDecorators;
 import org.fuzzydb.attrs.internal.IConstraintMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.springframework.util.Assert;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 
 

@@ -11,9 +11,10 @@
 package org.fuzzydb.postcode;
 
 import java.io.UnsupportedEncodingException;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.model.attributes.NonIndexStringAttribute;
 import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.MTRandom;

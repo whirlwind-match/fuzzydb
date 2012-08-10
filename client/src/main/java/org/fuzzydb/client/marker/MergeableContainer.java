@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.marker;
 
-import com.wwm.db.whirlwind.internal.AttributeCache;
+import org.fuzzydb.core.whirlwind.internal.AttributeCache;
 
 /**
  * An object that can reduce it's memory footprint by replacing contained objects

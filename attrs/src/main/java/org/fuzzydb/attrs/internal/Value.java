@@ -42,7 +42,7 @@ public abstract class Value extends Attribute implements Comparable<Value> {
 		return val;
 	}
 
-	public int compareAttribute(com.wwm.db.whirlwind.internal.IAttribute rhs) {
+	public int compareAttribute(org.fuzzydb.core.whirlwind.internal.IAttribute rhs) {
 		return val.compareTo(rhs);
 	}
 }

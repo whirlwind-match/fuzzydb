@@ -12,9 +12,9 @@
 package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 
 public class CompactCardinalAttributeMap extends CompactAttrMap<IAttribute> implements CardinalAttributeMap<IAttribute> {

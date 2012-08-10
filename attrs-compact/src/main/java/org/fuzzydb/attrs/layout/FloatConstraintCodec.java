@@ -12,9 +12,9 @@ package org.fuzzydb.attrs.layout;
 
 import org.fuzzydb.attrs.simple.FloatConstraint;
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 
 
 public class FloatConstraintCodec extends LayoutConstraintCodec {

@@ -6,12 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.fuzzydb.attrs.dimensions.Value3D;
 import org.fuzzydb.attrs.layout.LayoutAttrMap;
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 @Ignore("Fails due to LayoutMapConfig.getInstance() not being reset when attrDefMgr is in BaseAttributeTest")
 public class EcefVectorTest extends BaseAttributeTest {

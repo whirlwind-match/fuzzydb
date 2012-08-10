@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.layout;
 
 import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.attrs.simple.FloatRangePreference;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.util.ByteArray;
 
 

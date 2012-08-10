@@ -27,12 +27,12 @@ import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.string.StringValue;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.model.attributes.DateAttribute;
 import com.wwm.model.attributes.EnumAttribute;

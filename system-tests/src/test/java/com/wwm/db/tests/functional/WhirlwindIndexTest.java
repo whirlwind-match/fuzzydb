@@ -3,8 +3,8 @@ package com.wwm.db.tests.functional;
 import org.fuzzydb.attrs.AttrsFactory;
 import org.fuzzydb.attrs.userobjects.TestWhirlwindClass;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 public class WhirlwindIndexTest extends BaseWhirlwindCrudTest<TestWhirlwindClass> {
 	

@@ -11,11 +11,11 @@
 package org.fuzzydb.attrs.bool;
 
 import org.fuzzydb.attrs.internal.Attribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IMergeable;
 
 import gnu.trove.TIntObjectHashMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IMergeable;
 
 /**
  * @author Neale

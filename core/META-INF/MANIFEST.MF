@@ -5,13 +5,13 @@ Bundle-SymbolicName: com.wwm.db.core
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Limted
 Export-Package: com.archopolis.db.whirlwind.internal,
- com.wwm.db.annotations,
- com.wwm.db.core,
- com.wwm.db.core.exceptions,
- com.wwm.db.dao,
- com.wwm.db.marker,
- com.wwm.db.query,
- com.wwm.db.whirlwind,
- com.wwm.db.whirlwind.internal,
- com.wwm.stats.counterss
+ com.wwm.stats.counterss,
+ org.fuzzydb.core,
+ org.fuzzydb.core.annotations,
+ org.fuzzydb.core.dao,
+ org.fuzzydb.core.exceptions,
+ org.fuzzydb.core.marker,
+ org.fuzzydb.core.query,
+ org.fuzzydb.core.whirlwind,
+ org.fuzzydb.core.whirlwind.internal
 Import-Package: com.wwm.util

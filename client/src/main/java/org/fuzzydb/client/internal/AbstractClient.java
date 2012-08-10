@@ -26,11 +26,11 @@ import org.fuzzydb.client.internal.comms.messages.ListStoresRsp;
 import org.fuzzydb.client.internal.comms.messages.OpenStoreCmd;
 import org.fuzzydb.client.internal.comms.messages.OpenStoreRsp;
 import org.fuzzydb.client.internal.comms.messages.ShutdownCmd;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.UncaughtExceptionLogger;
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.UncaughtExceptionLogger;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
 import com.wwm.io.core.Authority;

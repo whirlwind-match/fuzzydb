@@ -12,10 +12,10 @@ package org.fuzzydb.attrs;
 
 
 import org.fuzzydb.attrs.internal.IConstraintMap;
+import org.fuzzydb.core.Settings;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.core.Settings;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 /**
  * Factory class to give a configurable implementation of an AttributeMap (IAttributeMap interface)

@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.layout;
 
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 public class LayoutCodecManager {

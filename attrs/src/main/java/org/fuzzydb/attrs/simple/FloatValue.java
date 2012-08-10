@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.simple;
 
 
 import org.fuzzydb.attrs.internal.Attribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 /**
  * @author Neale

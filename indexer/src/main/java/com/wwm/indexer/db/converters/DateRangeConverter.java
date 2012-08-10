@@ -13,8 +13,8 @@ package com.wwm.indexer.db.converters;
 import java.util.Date;
 
 import org.fuzzydb.attrs.simple.FloatRangePreference;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.DateRangeAttribute;
 

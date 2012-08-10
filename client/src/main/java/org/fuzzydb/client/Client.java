@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Collection;
 
-import com.wwm.db.core.exceptions.ArchException;
+import org.fuzzydb.core.exceptions.ArchException;
+
 
 
 /**Client interface.

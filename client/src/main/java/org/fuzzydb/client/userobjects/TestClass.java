@@ -3,7 +3,8 @@ package org.fuzzydb.client.userobjects;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.wwm.db.annotations.Key;
+import org.fuzzydb.core.annotations.Key;
+
 
 @SuppressWarnings("serial")
 public class TestClass implements Serializable {

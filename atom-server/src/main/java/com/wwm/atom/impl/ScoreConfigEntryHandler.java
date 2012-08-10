@@ -17,10 +17,10 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 import org.fuzzydb.attrs.WWConfigHelper;
+import org.fuzzydb.core.LogFactory;
 
 import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.abdera.util.server.NotFoundException;
-import com.wwm.db.core.LogFactory;
 import com.wwm.indexer.IndexerFactory;
 
 public class ScoreConfigEntryHandler implements TypeHandler {

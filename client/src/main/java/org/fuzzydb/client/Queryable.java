@@ -13,10 +13,11 @@ package org.fuzzydb.client;
 import java.util.Collection;
 import java.util.Map;
 
-import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.query.RetrieveSpec;
-import com.wwm.db.query.RetrieveSpecResult;
+import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.query.RetrieveSpec;
+import org.fuzzydb.core.query.RetrieveSpecResult;
+
 import com.wwm.expressions.LogicExpr;
 
 public interface Queryable extends Searchable {

@@ -2,10 +2,10 @@ package org.fuzzydb.attrs.layout;
 
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.layout.LayoutAttrMap;
+import org.fuzzydb.core.Settings;
 import org.junit.Before;
 
 
-import com.wwm.db.core.Settings;
 
 
 /**

@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.wwm.db.core.Settings;
+import org.fuzzydb.core.Settings;
+
 import com.wwm.util.CsvReader;
 import com.wwm.util.FileUtils;
 import com.wwm.util.CsvReader.GarbageLineException;

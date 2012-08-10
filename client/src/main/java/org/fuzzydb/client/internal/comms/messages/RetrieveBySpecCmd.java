@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal.comms.messages;
 
-import com.wwm.db.query.RetrieveSpec;
+import org.fuzzydb.core.query.RetrieveSpec;
 
 public class RetrieveBySpecCmd extends TransactionCommand {
 

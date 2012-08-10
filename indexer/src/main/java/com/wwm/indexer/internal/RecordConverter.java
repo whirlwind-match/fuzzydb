@@ -24,10 +24,10 @@ import org.fuzzydb.attrs.enums.EnumValue;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
 import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.db.converters.ConversionFactory;

@@ -14,9 +14,9 @@ package org.fuzzydb.attrs.layout;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumExclusiveConstraint;
 import org.fuzzydb.attrs.enums.EnumExclusiveValue;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 
 public class EnumExclConstraintCodec extends LayoutConstraintCodec {
 

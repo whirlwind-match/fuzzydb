@@ -14,9 +14,9 @@ import java.io.Serializable;
 import java.util.regex.Pattern;
 
 import org.fuzzydb.attrs.internal.Attribute;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 
 

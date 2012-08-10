@@ -12,9 +12,10 @@ package com.wwm.db.internal.server.txlog;
 
 import java.io.File;
 import java.util.concurrent.Semaphore;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.server.CommandProcessingPool;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.WorkerThread;

@@ -2,9 +2,9 @@ package com.wwm.db.tests.functional;
 
 import org.fuzzydb.attrs.byteencoding.CompactCardinalAttributeMap;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.test.entities.CompactTestWhirlwindClass;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 
 public class WhirlwindIndexCompactTest extends BaseWhirlwindCrudTest<CompactTestWhirlwindClass> {
 	

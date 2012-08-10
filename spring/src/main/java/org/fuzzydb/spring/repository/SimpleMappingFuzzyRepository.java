@@ -10,13 +10,13 @@ import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.internal.RefImpl;
 import org.fuzzydb.client.internal.ResultImpl;
+import org.fuzzydb.core.query.Result;
+import org.fuzzydb.core.query.ResultIterator;
+import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.fuzzydb.spring.convert.FuzzyEntityConverter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.wwm.db.query.Result;
-import com.wwm.db.query.ResultIterator;
-import com.wwm.db.query.ResultSet;
-import com.wwm.db.whirlwind.SearchSpec;
 
 /**
  * A simple (PoC) Repository implementation that performs a minimal conversion to get attributes

@@ -13,7 +13,8 @@ package org.fuzzydb.client.internal;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import com.wwm.db.core.Settings;
+import org.fuzzydb.core.Settings;
+
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.exceptions.CommsErrorException;
 import com.wwm.io.packet.layer1.ClientConnectionManagerImpl;

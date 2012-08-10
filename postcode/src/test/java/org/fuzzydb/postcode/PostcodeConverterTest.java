@@ -11,13 +11,13 @@ package org.fuzzydb.postcode;
  *****************************************************************************/
 
 
+import org.fuzzydb.core.Settings;
 import org.fuzzydb.postcode.PostcodeConvertor;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.Assert;
 
-import com.wwm.db.core.Settings;
 import com.wwm.geo.GeoInformation;
 
 /**

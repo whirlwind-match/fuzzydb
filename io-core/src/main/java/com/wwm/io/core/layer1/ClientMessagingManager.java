@@ -8,11 +8,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.Settings;
+import org.fuzzydb.core.exceptions.ArchException;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.core.Settings;
-import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.ClassDefinitionSource;
 import com.wwm.io.core.Message;

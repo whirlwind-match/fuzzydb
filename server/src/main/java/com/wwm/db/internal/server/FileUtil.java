@@ -16,9 +16,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.Date;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 
 public class FileUtil {
 

@@ -16,8 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.wwm.db.query.RetrieveSpec;
-import com.wwm.db.query.RetrieveSpecItem;
+import org.fuzzydb.core.query.RetrieveSpec;
+import org.fuzzydb.core.query.RetrieveSpecItem;
+
 
 public class RetrieveSpecImpl implements RetrieveSpec, Serializable {
 

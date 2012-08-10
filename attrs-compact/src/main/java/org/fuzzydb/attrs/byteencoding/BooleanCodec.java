@@ -15,8 +15,8 @@ import java.util.Map;
 
 import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.BooleanAttribute;
 import com.wwm.util.ByteArray;
 

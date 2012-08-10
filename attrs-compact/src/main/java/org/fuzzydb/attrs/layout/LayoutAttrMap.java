@@ -19,10 +19,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 /**
  * LayoutAttrMap implements an encoded attribute map, where attributes are encoded into int[] and float[]

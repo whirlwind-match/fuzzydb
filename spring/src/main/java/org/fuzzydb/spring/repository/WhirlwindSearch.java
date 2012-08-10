@@ -3,8 +3,8 @@ package org.fuzzydb.spring.repository;
 
 import java.util.Iterator;
 
-import com.wwm.db.query.Result;
 
+import org.fuzzydb.core.query.Result;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -12,9 +12,9 @@ package org.fuzzydb.attrs.layout;
 
 import org.fuzzydb.attrs.dimensions.DimensionsNodeSelector;
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.model.dimensions.IDimensions;
 
 

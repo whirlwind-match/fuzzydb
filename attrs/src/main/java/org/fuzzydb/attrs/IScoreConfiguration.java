@@ -14,11 +14,11 @@ import java.util.Collection;
 
 import org.fuzzydb.attrs.Score.Direction;
 import org.fuzzydb.attrs.internal.IConstraintMap;
+import org.fuzzydb.core.whirlwind.SearchSpec.SearchMode;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
 
-import com.wwm.db.whirlwind.SearchSpec.SearchMode;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 /**
  * This is the guts of our scoring.  An implementation could be as we have done historically with individual scorers, 

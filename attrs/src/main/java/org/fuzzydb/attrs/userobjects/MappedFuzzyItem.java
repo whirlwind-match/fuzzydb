@@ -22,10 +22,10 @@ import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.AttrsFactory;
 import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.whirlwind.internal.AttributeCache;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-import com.wwm.db.whirlwind.internal.AttributeCache;
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeMap;
 
 /**
  * A {@link IWhirlwindItem} that can store fuzzy indexable attributes, but also

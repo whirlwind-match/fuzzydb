@@ -15,7 +15,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
 
-import com.wwm.db.core.Settings;
+import org.fuzzydb.core.Settings;
+
 
 /**
  * Protocol handler to fit with

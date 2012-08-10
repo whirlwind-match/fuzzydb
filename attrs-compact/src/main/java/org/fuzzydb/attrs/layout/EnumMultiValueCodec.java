@@ -14,9 +14,9 @@ import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumMultipleConstraint;
 import org.fuzzydb.attrs.enums.EnumMultipleValue;
 import org.fuzzydb.attrs.enums.MultiEnumReverseNodeSelector;
+import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
-import com.wwm.db.whirlwind.internal.IAttribute;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 
 
 public class EnumMultiValueCodec extends LayoutAttrCodec<IAttribute> {

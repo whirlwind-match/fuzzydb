@@ -9,9 +9,9 @@ import java.util.concurrent.Semaphore;
 import org.fuzzydb.client.internal.comms.messages.BeginAndCommitCmd;
 import org.fuzzydb.client.internal.comms.messages.CommitCmd;
 import org.fuzzydb.client.internal.comms.messages.OkRsp;
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.db.internal.server.CommandProcessingPool;
 import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.Message;

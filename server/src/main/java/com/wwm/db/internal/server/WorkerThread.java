@@ -12,9 +12,9 @@ package com.wwm.db.internal.server;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 
 /**
  * A WorkerThread is the slave to WorkerThreadManager, which creates and destroys threads according

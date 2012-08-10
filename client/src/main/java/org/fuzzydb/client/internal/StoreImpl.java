@@ -28,10 +28,10 @@ import org.fuzzydb.client.internal.comms.messages.AllocNewIdsRsp;
 import org.fuzzydb.client.internal.comms.messages.BeginAndCommitCmd;
 import org.fuzzydb.client.internal.comms.messages.CommitCmd;
 import org.fuzzydb.client.marker.ITraceWanted;
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
 import com.wwm.io.core.Authority;

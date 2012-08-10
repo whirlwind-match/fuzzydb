@@ -14,11 +14,11 @@ import org.fuzzydb.client.Store;
 import org.fuzzydb.client.StoreMgr;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.exceptions.WriteCollisionException;
+import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.core.dao.DaoWriteCollisionException;
+import org.fuzzydb.core.dao.SimpleDAO;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
-import com.wwm.db.dao.DaoWriteCollisionException;
-import com.wwm.db.dao.SimpleDAO;
 
 /**
  * A DAO that assumes that you're passing it DbObject, as used in DB1.

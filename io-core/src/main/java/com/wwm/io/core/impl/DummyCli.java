@@ -3,9 +3,10 @@ package com.wwm.io.core.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.ClassLoaderInterface;
 
 public class DummyCli implements ClassLoaderInterface {

@@ -18,9 +18,10 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;
 
-import com.wwm.db.core.LogFactory;
 import com.wwm.io.core.PacketInterface;
 
 public class Connection implements PacketInterface, SocketDriver {
