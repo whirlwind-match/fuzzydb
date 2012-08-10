@@ -11,7 +11,8 @@
 package com.wwm.indexer.internal.random;
 
 
-import com.wwm.attrs.location.EcefVector;
+import org.fuzzydb.attrs.location.EcefVector;
+
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.model.attributes.Point3DAttribute;
 import com.wwm.model.attributes.RandomGenerator;

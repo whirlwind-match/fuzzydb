@@ -11,7 +11,8 @@
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.attrs.location.EcefVector;
+import org.fuzzydb.attrs.location.EcefVector;
+
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.Point3DAttribute;

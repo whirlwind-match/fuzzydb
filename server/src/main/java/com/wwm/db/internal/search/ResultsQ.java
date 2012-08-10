@@ -10,8 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.search;
 
-import com.wwm.attrs.Score;
-import com.wwm.attrs.Scorer;
+import org.fuzzydb.attrs.Score;
+import org.fuzzydb.attrs.Scorer;
 
 /**
  * Ordered queue of index items not yet reported in search results. Ordered by priority

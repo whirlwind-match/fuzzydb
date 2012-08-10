@@ -14,12 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.AttrsFactory;
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
-import com.wwm.attrs.internal.AttrDefinitionMgr.AttrType;
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.AttrsFactory;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
+
 import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;

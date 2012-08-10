@@ -14,6 +14,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.bool.BooleanValue;
+import org.fuzzydb.attrs.converters.WhirlwindConversionService;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.attrs.simple.FloatRangePreference;
+import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.attrs.userobjects.MappedFuzzyItem;
 import org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,13 +32,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.data.annotation.Id;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.converters.WhirlwindConversionService;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.simple.FloatValue;
-import com.wwm.attrs.simple.FloatRangePreference;
-import com.wwm.attrs.userobjects.MappedFuzzyItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;

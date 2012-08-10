@@ -3,13 +3,13 @@ package org.fuzzydb.spring.mapping;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.string.StringValue;
 import org.fuzzydb.spring.annotation.DerivedField;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.string.StringValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 
 public class FuzzyPropertyImpl extends AnnotationBasedPersistentProperty<FuzzyProperty> implements FuzzyProperty {

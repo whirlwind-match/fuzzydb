@@ -3,9 +3,9 @@ package org.fuzzydb.spring.random;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.wwm.attrs.AttributeDefinitionService;
 import com.wwm.indexer.internal.random.RandomBoolean;
 import com.wwm.indexer.internal.random.RandomEnum;
 import com.wwm.indexer.internal.random.RandomFloat;

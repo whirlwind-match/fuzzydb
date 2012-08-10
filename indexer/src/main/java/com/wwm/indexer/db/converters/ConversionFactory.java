@@ -18,19 +18,20 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.fuzzydb.attrs.bool.BooleanValue;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.enums.EnumExclusiveValue;
+import org.fuzzydb.attrs.enums.EnumMultipleValue;
+import org.fuzzydb.attrs.enums.EnumValue;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
+import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.attrs.simple.FloatRangePreference;
+import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.attrs.string.StringValue;
+
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.enums.EnumExclusiveValue;
-import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.enums.EnumValue;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.internal.AttrDefinitionMgr.AttrType;
-import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.simple.FloatValue;
-import com.wwm.attrs.simple.FloatRangePreference;
-import com.wwm.attrs.string.StringValue;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.BooleanAttribute;

@@ -16,10 +16,10 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.fuzzydb.attrs.AttrsFactory;
+import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
 import org.slf4j.Logger;
 
-import com.wwm.attrs.AttrsFactory;
-import com.wwm.attrs.userobjects.StandaloneWWIndexData;
 import com.wwm.db.Store;
 import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;

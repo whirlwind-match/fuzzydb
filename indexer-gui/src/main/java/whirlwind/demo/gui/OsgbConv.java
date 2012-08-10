@@ -2,7 +2,8 @@ package whirlwind.demo.gui;
 
 
 
-import com.wwm.attrs.location.EcefVector;
+import org.fuzzydb.attrs.location.EcefVector;
+
 import com.wwm.geo.Datum;
 import com.wwm.geo.Ellipsoid;
 import com.wwm.geo.OsgbGridCoord;

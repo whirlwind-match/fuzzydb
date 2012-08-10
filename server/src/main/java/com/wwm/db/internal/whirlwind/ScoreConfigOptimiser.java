@@ -10,7 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.whirlwind;
 
-import com.wwm.attrs.IScoreConfiguration;
+import org.fuzzydb.attrs.IScoreConfiguration;
+
 import com.wwm.db.whirlwind.SearchSpec;
 
 

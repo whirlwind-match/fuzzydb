@@ -15,9 +15,9 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.fuzzydb.attrs.WhirlwindConfiguration;
 import org.slf4j.Logger;
 
-import com.wwm.attrs.WhirlwindConfiguration;
 import com.wwm.db.Ref;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.exceptions.KeyCollisionException;

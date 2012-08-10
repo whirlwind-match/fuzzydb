@@ -13,10 +13,11 @@ import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 
+import org.fuzzydb.attrs.location.EcefVector;
+
 import whirlwind.demo.gui.CoordRemap;
 import whirlwind.demo.gui.OsgbConv;
 
-import com.wwm.attrs.location.EcefVector;
 import com.wwm.geo.OsgbGridCoord;
 import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;

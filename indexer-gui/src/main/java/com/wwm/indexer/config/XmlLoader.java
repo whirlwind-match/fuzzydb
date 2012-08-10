@@ -7,24 +7,24 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import org.fuzzydb.attrs.Scorer;
+import org.fuzzydb.attrs.SplitConfiguration;
+import org.fuzzydb.attrs.WWConfigHelper;
+import org.fuzzydb.attrs.WhirlwindConfiguration;
+import org.fuzzydb.attrs.XMLAliases;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.XStreamHelper;
+import org.fuzzydb.attrs.internal.xstream.AttributeIdMapper;
+import org.fuzzydb.attrs.internal.xstream.TableToPreferenceMapConverter;
+import org.fuzzydb.attrs.internal.xstream.XmlNameMapper;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.attrs.Scorer;
-import com.wwm.attrs.SplitConfiguration;
-import com.wwm.attrs.WWConfigHelper;
-import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.XMLAliases;
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
-import com.wwm.attrs.internal.XStreamHelper;
-import com.wwm.attrs.internal.xstream.AttributeIdMapper;
-import com.wwm.attrs.internal.xstream.TableToPreferenceMapConverter;
-import com.wwm.attrs.internal.xstream.XmlNameMapper;
 import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.model.attributes.RandomGenerator;

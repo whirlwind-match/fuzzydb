@@ -12,7 +12,8 @@ package com.wwm.db.internal.search;
 
 import java.util.ArrayList;
 
-import com.wwm.attrs.search.SearchSpecImpl;
+import org.fuzzydb.attrs.search.SearchSpecImpl;
+
 
 
 /** 

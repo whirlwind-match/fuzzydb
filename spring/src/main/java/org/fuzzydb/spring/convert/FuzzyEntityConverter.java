@@ -5,6 +5,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.converters.WhirlwindConversionService;
+import org.fuzzydb.attrs.enums.EnumExclusiveValue;
+import org.fuzzydb.attrs.enums.EnumMultipleValue;
+import org.fuzzydb.attrs.userobjects.MappedFuzzyItem;
 import org.fuzzydb.spring.annotation.DerivedField;
 import org.fuzzydb.spring.mapping.FuzzyMappingContext;
 import org.fuzzydb.spring.mapping.FuzzyPersistentEntity;
@@ -21,11 +26,6 @@ import org.springframework.data.mapping.model.BeanWrapper;
 import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.converters.WhirlwindConversionService;
-import com.wwm.attrs.enums.EnumExclusiveValue;
-import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.userobjects.MappedFuzzyItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;

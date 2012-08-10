@@ -3,13 +3,14 @@ package com.wwm.indexer.config;
 import java.net.MalformedURLException;
 import java.util.Map.Entry;
 
-import com.wwm.attrs.ManualIndexStrategy;
-import com.wwm.attrs.SplitConfiguration;
-import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.internal.EnumAttributeSpec;
-import com.wwm.attrs.internal.ScoreConfigurationManager;
-import com.wwm.attrs.userobjects.StandaloneWWIndexData;
+import org.fuzzydb.attrs.ManualIndexStrategy;
+import org.fuzzydb.attrs.SplitConfiguration;
+import org.fuzzydb.attrs.WhirlwindConfiguration;
+import org.fuzzydb.attrs.enums.EnumMultipleValue;
+import org.fuzzydb.attrs.internal.EnumAttributeSpec;
+import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
+import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
+
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.Transaction;
 import com.wwm.indexer.IndexerFactory;

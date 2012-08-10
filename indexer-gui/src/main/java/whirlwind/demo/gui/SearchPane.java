@@ -17,6 +17,12 @@ import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
+import org.fuzzydb.attrs.bool.BooleanValue;
+import org.fuzzydb.attrs.enums.EnumMultipleValue;
+import org.fuzzydb.attrs.enums.EnumValue;
+import org.fuzzydb.attrs.internal.EnumAttributeSpec;
+import org.fuzzydb.attrs.simple.FloatValue;
+
 import whirlwind.demo.gui.searchselectors.BooleanSearchData;
 import whirlwind.demo.gui.searchselectors.EnumSearchData;
 import whirlwind.demo.gui.searchselectors.FloatSearchData;
@@ -26,11 +32,6 @@ import whirlwind.demo.gui.searchselectors.StringSearchData;
 import whirlwind.demo.gui.searchtabs.SearchTab;
 import whirlwind.demo.gui.searchtabs.SearchTabXmlConfig;
 
-import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.enums.EnumValue;
-import com.wwm.attrs.internal.EnumAttributeSpec;
-import com.wwm.attrs.simple.FloatValue;
 import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.config.XmlLoader;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;

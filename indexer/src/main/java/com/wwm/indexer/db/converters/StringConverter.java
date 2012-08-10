@@ -11,7 +11,8 @@
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.attrs.string.StringValue;
+import org.fuzzydb.attrs.string.StringValue;
+
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.NonIndexStringAttribute;

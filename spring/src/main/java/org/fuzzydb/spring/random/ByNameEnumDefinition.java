@@ -1,7 +1,8 @@
 package org.fuzzydb.spring.random;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+
 import com.wwm.model.attributes.OptionsSource;
 
 public class ByNameEnumDefinition implements OptionsSource {

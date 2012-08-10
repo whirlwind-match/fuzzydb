@@ -18,14 +18,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.enums.EnumValue;
+import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
+import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
 import org.slf4j.Logger;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.enums.EnumValue;
-import com.wwm.attrs.internal.AttrDefinitionMgr;
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
-import com.wwm.attrs.userobjects.StandaloneWWIndexData;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.indexer.IndexerFactory;

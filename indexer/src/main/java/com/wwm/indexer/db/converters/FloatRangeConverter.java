@@ -1,4 +1,4 @@
-/*******************************************import com.wwm.attrs.simple.FloatRangePreference;
+/*******************************************import org.fuzzydb.attrs.simple.FloatRangePreference;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.FloatRangeAttribute;
@@ -11,7 +11,8 @@ r the terms of the Open Software Licence v 3.0 as published by the
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.attrs.simple.FloatRangePreference;
+import org.fuzzydb.attrs.simple.FloatRangePreference;
+
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.FloatRangeAttribute;

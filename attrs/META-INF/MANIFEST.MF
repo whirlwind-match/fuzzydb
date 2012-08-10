@@ -1,23 +1,23 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Attributes and Scorers
-Bundle-SymbolicName: com.wwm.attrs
+Bundle-SymbolicName: org.fuzzydb.attrs
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Limited
-Export-Package: com.wwm.attrs,
- com.wwm.attrs.bool,
- com.wwm.attrs.decorators,
- com.wwm.attrs.dimensions,
- com.wwm.attrs.enums,
- com.wwm.attrs.internal,
- com.wwm.attrs.internal.xstream,
- com.wwm.attrs.location,
- com.wwm.attrs.search,
- com.wwm.attrs.simple,
- com.wwm.attrs.string,
- com.wwm.attrs.unused,
- com.wwm.attrs.userobjects,
- com.wwm.attrs.util
+Export-Package: org.fuzzydb.attrs,
+ org.fuzzydb.attrs.bool,
+ org.fuzzydb.attrs.decorators,
+ org.fuzzydb.attrs.dimensions,
+ org.fuzzydb.attrs.enums,
+ org.fuzzydb.attrs.internal,
+ org.fuzzydb.attrs.internal.xstream,
+ org.fuzzydb.attrs.location,
+ org.fuzzydb.attrs.search,
+ org.fuzzydb.attrs.simple,
+ org.fuzzydb.attrs.string,
+ org.fuzzydb.attrs.unused,
+ org.fuzzydb.attrs.userobjects,
+ org.fuzzydb.attrs.util
 Require-Bundle: com.wwm.db.core;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",
  com.wwm.db;bundle-version="1.0.0";visibility:=reexport,

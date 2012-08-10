@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import com.wwm.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+
 import com.wwm.indexer.config.XmlLoader;
 import com.wwm.util.gui.table.TableModel;
 import com.wwm.util.gui.table.TableSorter;

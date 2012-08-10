@@ -5,17 +5,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.WWConfigHelper;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
+import org.fuzzydb.attrs.internal.XStreamHelper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.WWConfigHelper;
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
-import com.wwm.attrs.internal.XStreamHelper;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.Store;
 import com.wwm.db.core.LogFactory;

@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.internal.SyncedAttrDefinitionMgr;
 import com.wwm.context.JVMAppListener;
 import com.wwm.db.Client;
 import com.wwm.db.EmbeddedClientFactory;

@@ -1,7 +1,8 @@
 package com.wwm.db.tests.functional;
 
-import com.wwm.attrs.AttrsFactory;
-import com.wwm.attrs.userobjects.TestWhirlwindClass;
+import org.fuzzydb.attrs.AttrsFactory;
+import org.fuzzydb.attrs.userobjects.TestWhirlwindClass;
+
 import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
 

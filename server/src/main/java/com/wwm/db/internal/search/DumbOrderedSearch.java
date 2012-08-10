@@ -17,11 +17,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.fuzzydb.attrs.IScoreConfiguration;
+import org.fuzzydb.attrs.Score;
+import org.fuzzydb.attrs.search.SearchSpecImpl;
 import org.slf4j.Logger;
 
-import com.wwm.attrs.IScoreConfiguration;
-import com.wwm.attrs.Score;
-import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.WorkManager;
 import com.wwm.db.internal.MetaObject;
@@ -136,7 +136,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
 
 
     /* (non-Javadoc)
-     * @see com.wwm.attrs.search.Search#getSpec()
+     * @see org.fuzzydb.attrs.search.Search#getSpec()
      */
     public SearchSpecImpl getSpec() {
         return spec;
@@ -150,7 +150,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
     }
 
     /* (non-Javadoc)
-     * @see com.wwm.attrs.search.Search#getNextResults(int)
+     * @see org.fuzzydb.attrs.search.Search#getNextResults(int)
      */
     public ArrayList<NextItem> getNextResults(int limit)
     {
@@ -215,7 +215,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
 
 
     /* (non-Javadoc)
-     * @see com.wwm.attrs.search.Search#isMoreResults()
+     * @see org.fuzzydb.attrs.search.Search#isMoreResults()
      */
     public boolean isMoreResults() {
         if (resultsQ.isEmpty()) {
@@ -226,7 +226,7 @@ public class DumbOrderedSearch<T extends IWhirlwindItem> implements Search {
 
 
     /* (non-Javadoc)
-     * @see com.wwm.attrs.search.Search#isNominee()
+     * @see org.fuzzydb.attrs.search.Search#isNominee()
      */
     public boolean isNominee() {
         return nominee;

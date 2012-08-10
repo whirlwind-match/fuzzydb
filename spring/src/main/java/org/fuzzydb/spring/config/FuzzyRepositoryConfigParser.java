@@ -30,9 +30,9 @@ public class FuzzyRepositoryConfigParser extends AbstractBeanDefinitionParser {
 	
 	/* 
 	 * Aiming for this
-	 * 	<bean id="attributeDefinitionService" class="com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr"/>
+	 * 	<bean id="attributeDefinitionService" class="org.fuzzydb.attrs.internal.CurrentTxAttrDefinitionMgr"/>
 
-	<bean id="conversionService" class="com.wwm.attrs.converters.WhirlwindConversionService"/>
+	<bean id="conversionService" class="org.fuzzydb.attrs.converters.WhirlwindConversionService"/>
 
 	<bean id="repository" class="org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository">
 		<constructor-arg value="org.fuzzydb.spring.repository.FuzzyItem"/>

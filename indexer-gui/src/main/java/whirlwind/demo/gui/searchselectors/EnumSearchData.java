@@ -3,7 +3,8 @@ package whirlwind.demo.gui.searchselectors;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
-import com.wwm.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+
 import com.wwm.model.attributes.EnumAttribute;
 
 

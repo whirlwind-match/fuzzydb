@@ -11,7 +11,8 @@
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.attrs.simple.FloatValue;
+import org.fuzzydb.attrs.simple.FloatValue;
+
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.model.attributes.Attribute;
 import com.wwm.model.attributes.FloatAttribute;

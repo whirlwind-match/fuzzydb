@@ -22,12 +22,12 @@ import org.apache.abdera.model.Document;
 import org.apache.abdera.model.Element;
 import org.apache.abdera.model.Entry;
 import org.apache.abdera.protocol.server.RequestContext;
+import org.fuzzydb.attrs.location.EcefVector;
 
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.AttributeElement;
 import com.wwm.atom.elements.EntryDecorator;
 import com.wwm.atom.elements.FuzzyRecordProperties;
-import com.wwm.attrs.location.EcefVector;
 import com.wwm.db.core.LogFactory;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.internal.RecordImpl;

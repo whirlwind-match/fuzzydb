@@ -2,13 +2,13 @@ package org.fuzzydb.spring.repository;
 
 import java.util.Iterator;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.converters.WhirlwindConversionService;
+import org.fuzzydb.attrs.search.SearchSpecImpl;
+import org.fuzzydb.attrs.userobjects.MappedFuzzyItem;
 import org.fuzzydb.spring.convert.FuzzyEntityConverter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.converters.WhirlwindConversionService;
-import com.wwm.attrs.search.SearchSpecImpl;
-import com.wwm.attrs.userobjects.MappedFuzzyItem;
 import com.wwm.db.DataOperations;
 import com.wwm.db.Ref;
 import com.wwm.db.internal.RefImpl;

@@ -6,12 +6,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.GregorianCalendar;
 
 
+import org.fuzzydb.attrs.AttrsFactory;
+import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.attrs.userobjects.AugmentedAttributeMap;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.wwm.attrs.AttrsFactory;
-import com.wwm.attrs.simple.FloatValue;
-import com.wwm.attrs.userobjects.AugmentedAttributeMap;
 import com.wwm.db.Ref;
 import com.wwm.db.Transaction;
 import com.wwm.db.exceptions.UnknownObjectException;

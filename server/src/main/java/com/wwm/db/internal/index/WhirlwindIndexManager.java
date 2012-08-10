@@ -14,12 +14,13 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.fuzzydb.attrs.IScoreConfiguration;
+import org.fuzzydb.attrs.WhirlwindConfiguration;
+import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
+import org.fuzzydb.attrs.search.SearchSpecImpl;
 import org.slf4j.Logger;
 
-import com.wwm.attrs.IScoreConfiguration;
-import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.internal.ScoreConfigurationManager;
-import com.wwm.attrs.search.SearchSpecImpl;
 import com.wwm.db.Store;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.db.exceptions.UnknownObjectException;

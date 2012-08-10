@@ -11,7 +11,7 @@ Export-Package: com.wwm.indexer,
  com.wwm.indexer.internal.random,
  com.wwm.indexer.test
 Require-Bundle: com.wwm.db;bundle-version="1.0.0",
- com.wwm.attrs;bundle-version="1.0.0",
+ org.fuzzydb.attrs;bundle-version="1.0.0",
  com.wwm.postcode;bundle-version="1.0.0",
  com.wwm.bundle.libs;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",

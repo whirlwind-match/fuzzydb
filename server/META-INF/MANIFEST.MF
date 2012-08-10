@@ -20,7 +20,7 @@ DynamicImport-Package: com.wwm.db.server.whirlwind.internal,
 Require-Bundle: org.eclipse.osgi,
  org.eclipse.osgi.services,
  com.wwm.db;visibility:=reexport,
- com.wwm.attrs;bundle-version="1.0.0";visibility:=reexport
+ org.fuzzydb.attrs;bundle-version="1.0.0";visibility:=reexport
 Import-Package: org.aspectj.lang,
  org.aspectj.lang.annotation,
  org.aspectj.lang.internal.lang,

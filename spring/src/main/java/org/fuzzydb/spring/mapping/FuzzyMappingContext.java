@@ -3,11 +3,11 @@ package org.fuzzydb.spring.mapping;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mapping.context.AbstractMappingContext;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.TypeInformation;
-import com.wwm.attrs.AttributeDefinitionService;
 
 public class FuzzyMappingContext<E> extends AbstractMappingContext<FuzzyPersistentEntity<E>, FuzzyProperty> {
 

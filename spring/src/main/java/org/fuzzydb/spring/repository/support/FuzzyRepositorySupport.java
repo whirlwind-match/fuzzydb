@@ -1,12 +1,12 @@
 package org.fuzzydb.spring.repository.support;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.converters.WhirlwindConversionService;
+import org.fuzzydb.attrs.internal.CurrentTxAttrDefinitionMgr;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.converters.WhirlwindConversionService;
-import com.wwm.attrs.internal.CurrentTxAttrDefinitionMgr;
 
 /**
  * Support methods for use when creating repositories

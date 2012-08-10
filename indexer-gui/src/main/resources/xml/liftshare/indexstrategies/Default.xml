@@ -30,7 +30,7 @@
 
 	<DimensionSplitConfiguration>
 	    <id>StartLocation</id>
-	    <priority class="com.wwm.attrs.dimensions.Dimensions">
+	    <priority class="org.fuzzydb.attrs.dimensions.Dimensions">
 	        <values>
 	            <float>1.0</float>
 	            <float>1.0</float>
@@ -44,7 +44,7 @@
 	    <!-- Expected value in Miles == 2*miles/EARTHDIAMETER -->
 	    <!-- So 50 Miles ==   -->
 	    
-	    <expected class="com.wwm.attrs.dimensions.Dimensions">
+	    <expected class="org.fuzzydb.attrs.dimensions.Dimensions">
 	        <values>
 	            <float>0.0126160526</float>
 	            <float>0.0126160526</float>
@@ -55,7 +55,7 @@
 
 	<DimensionSplitConfiguration>
 	    <id>EndLocation</id>
-	    <priority class="com.wwm.attrs.dimensions.Dimensions">
+	    <priority class="org.fuzzydb.attrs.dimensions.Dimensions">
 	        <values>
 	            <float>1.0</float>
 	            <float>1.0</float>
@@ -69,7 +69,7 @@
 	    <!-- Expected value in Miles == 2*miles/EARTHDIAMETER -->
 	    <!-- So 50 Miles ==   -->
 	    
-	    <expected class="com.wwm.attrs.dimensions.Dimensions">
+	    <expected class="org.fuzzydb.attrs.dimensions.Dimensions">
 	        <values>
 	            <float>0.0126160526</float>
 	            <float>0.0126160526</float>

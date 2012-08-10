@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match
 Require-Bundle: com.wwm.indexer;bundle-version="1.0.0",
  com.wwm.db;bundle-version="1.0.0",
- com.wwm.attrs;bundle-version="1.0.0",
+ org.fuzzydb.attrs;bundle-version="1.0.0",
  com.wwm.atom;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",
  com.wwm.bundle.libs;bundle-version="1.0.0",

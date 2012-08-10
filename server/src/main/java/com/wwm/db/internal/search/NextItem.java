@@ -10,7 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.search;
 
-import com.wwm.attrs.Score;
+import org.fuzzydb.attrs.Score;
+
 import com.wwm.db.internal.MetaObject;
 import com.wwm.db.marker.IWhirlwindItem;
 

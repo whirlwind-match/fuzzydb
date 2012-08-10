@@ -10,9 +10,10 @@
  *****************************************************************************/
 package com.wwm.indexer.db.converters;
 
-import com.wwm.attrs.enums.EnumDefinition;
-import com.wwm.attrs.enums.EnumMultipleValue;
-import com.wwm.attrs.enums.EnumValue;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.enums.EnumMultipleValue;
+import org.fuzzydb.attrs.enums.EnumValue;
+
 import com.wwm.model.attributes.EnumeratedAttribute;
 import com.wwm.model.attributes.MultiEnumAttribute;
 

@@ -12,7 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.wwm.attrs.enums.EnumDefinition;
+import org.fuzzydb.attrs.enums.EnumDefinition;
+
 import com.wwm.model.attributes.OptionsSource;
 
 public class ConfigEnumsDialog extends JDialog {

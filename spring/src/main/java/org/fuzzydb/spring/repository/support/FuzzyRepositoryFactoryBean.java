@@ -2,13 +2,13 @@ package org.fuzzydb.spring.repository.support;
 
 import java.io.Serializable;
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.converters.WhirlwindConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 import org.springframework.data.repository.core.support.TransactionalRepositoryFactoryBeanSupport;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.converters.WhirlwindConversionService;
 import com.wwm.db.DataOperations;
 
 

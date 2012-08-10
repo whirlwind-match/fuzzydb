@@ -1,24 +1,24 @@
 package com.wwm.db.tests.functional;
 
 
+import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.attrs.IScoreConfiguration;
+import org.fuzzydb.attrs.ManualIndexStrategy;
+import org.fuzzydb.attrs.WhirlwindConfiguration;
+import org.fuzzydb.attrs.bool.BooleanScorer;
+import org.fuzzydb.attrs.bool.BooleanValue;
+import org.fuzzydb.attrs.byteencoding.CompactBooleanScorer;
+import org.fuzzydb.attrs.byteencoding.CompactSimilarFloatValueScorer;
+import org.fuzzydb.attrs.enums.EnumExclusiveValue;
+import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
+import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.attrs.simple.FloatSplitConfiguration;
+import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.attrs.simple.SimilarFloatValueScorer;
+import org.fuzzydb.attrs.userobjects.TestWhirlwindClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.wwm.attrs.AttributeDefinitionService;
-import com.wwm.attrs.IScoreConfiguration;
-import com.wwm.attrs.ManualIndexStrategy;
-import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.bool.BooleanScorer;
-import com.wwm.attrs.bool.BooleanValue;
-import com.wwm.attrs.byteencoding.CompactBooleanScorer;
-import com.wwm.attrs.byteencoding.CompactSimilarFloatValueScorer;
-import com.wwm.attrs.enums.EnumExclusiveValue;
-import com.wwm.attrs.internal.ScoreConfigurationManager;
-import com.wwm.attrs.location.EcefVector;
-import com.wwm.attrs.simple.FloatSplitConfiguration;
-import com.wwm.attrs.simple.FloatValue;
-import com.wwm.attrs.simple.SimilarFloatValueScorer;
-import com.wwm.attrs.userobjects.TestWhirlwindClass;
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.EmbeddedClientFactory;
 import com.wwm.db.Ref;

@@ -6,8 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.wwm.attrs.WhirlwindConfiguration;
-import com.wwm.attrs.userobjects.StandaloneWWIndexData;
+import org.fuzzydb.attrs.WhirlwindConfiguration;
+import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
+
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.config.XmlLoader;
 

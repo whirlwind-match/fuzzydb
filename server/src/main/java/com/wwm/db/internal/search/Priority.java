@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.search;
 
-import com.wwm.attrs.Score;
+import org.fuzzydb.attrs.Score;
 
 
 
