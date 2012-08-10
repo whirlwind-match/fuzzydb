@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.fuzzydb.client.DataOperations;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.wwm.db.DataOperations;
-import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultSet;
 

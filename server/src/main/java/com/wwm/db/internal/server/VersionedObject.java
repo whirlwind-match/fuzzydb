@@ -12,7 +12,8 @@ package com.wwm.db.internal.server;
 
 import java.io.Serializable;
 
-import com.wwm.db.marker.MergeableContainer;
+import org.fuzzydb.client.marker.MergeableContainer;
+
 import com.wwm.db.whirlwind.internal.AttributeCache;
 
 /**

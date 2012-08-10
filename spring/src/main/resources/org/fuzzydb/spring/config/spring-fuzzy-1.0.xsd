@@ -24,7 +24,7 @@ Creates an embedded in-memory database instance
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="com.wwm.db.Store" />
+					<tool:exports type="org.fuzzydb.client.Store" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -38,7 +38,7 @@ Defines a connection to a given store for an embedded or TCP/IP hosted database.
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="com.wwm.db.Store" />
+					<tool:exports type="org.fuzzydb.client.Store" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -77,7 +77,7 @@ The name of the transaction manager being defined. If omitted, 'transactionMange
 The name of the Store to manage transactions for. If omitted, 'store' will be used.]]></xsd:documentation>
 					<xsd:appinfo>
 						<tool:annotation>
-							<tool:expected-type type="com.wwm.db.Store" />
+							<tool:expected-type type="org.fuzzydb.client.Store" />
 						</tool:annotation>
 					</xsd:appinfo>
 				</xsd:annotation>
@@ -92,7 +92,7 @@ The name of the Store to manage transactions for. If omitted, 'store' will be us
 The name of the Store bean for the store to be initialised. If omitted, 'store' will be used.]]></xsd:documentation>
 				<xsd:appinfo>
 					<tool:annotation>
-						<tool:expected-type type="com.wwm.db.Store" />
+						<tool:expected-type type="org.fuzzydb.client.Store" />
 					</tool:annotation>
 				</xsd:appinfo>
 			</xsd:annotation>

@@ -18,11 +18,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import org.fuzzydb.attrs.AttrsFactory;
+import org.fuzzydb.client.marker.IWhirlwindItem;
+import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
 
 import com.wwm.db.annotations.Key;
 import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.marker.IWhirlwindItem;
-import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.internal.AttributeCache;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;

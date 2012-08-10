@@ -43,8 +43,8 @@
 			<id>accPack</id>
 			<dependencies>
 				<dependency>
-					<groupId>com.wwm.db</groupId>
-					<artifactId>com.wwm.db.server.whirlwind</artifactId>
+					<groupId>org.fuzzydb.client</groupId>
+					<artifactId>org.fuzzydb.client.server.whirlwind</artifactId>
 					<version>1.0.0.M3-SNAPSHOT</version>
 				</dependency>
 			</dependencies>

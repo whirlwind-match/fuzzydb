@@ -18,10 +18,10 @@ import java.util.TreeMap;
 
 import org.fuzzydb.attrs.AttrsFactory;
 import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.Transaction;
 import org.slf4j.Logger;
 
-import com.wwm.db.Store;
-import com.wwm.db.Transaction;
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.query.Result;
 import com.wwm.db.query.ResultIterator;

@@ -11,9 +11,9 @@
 package com.wwm.db.internal.search;
 
 import org.fuzzydb.attrs.Score;
+import org.fuzzydb.client.internal.MetaObject;
+import org.fuzzydb.client.marker.IWhirlwindItem;
 
-import com.wwm.db.internal.MetaObject;
-import com.wwm.db.marker.IWhirlwindItem;
 
 
 /**

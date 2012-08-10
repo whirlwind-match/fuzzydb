@@ -1,12 +1,12 @@
 package com.wwm.db.tests.functional;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.exceptions.KeyCollisionException;
+import org.fuzzydb.client.userobjects.SampleUniqueKeyedObject;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
-import com.wwm.db.exceptions.KeyCollisionException;
-import com.wwm.db.userobjects.SampleUniqueKeyedObject;
 
 
 public class UniqueIndexTest extends BaseDatabaseTest {

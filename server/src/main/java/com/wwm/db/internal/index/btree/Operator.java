@@ -13,8 +13,9 @@ package com.wwm.db.internal.index.btree;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+
 import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.NodeFactory;
 import com.wwm.db.internal.index.btree.node.RootSentinel;

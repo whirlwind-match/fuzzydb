@@ -14,9 +14,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.wwm.db.exceptions.UnknownObjectException;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.marker.MergeableContainer;
+
 import com.wwm.db.internal.server.CurrentTransactionHolder;
-import com.wwm.db.marker.MergeableContainer;
 import com.wwm.db.whirlwind.internal.AttributeCache;
 
 /**
@@ -144,7 +145,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.ElementReadOnly#writeToStream(java.io.ObjectOutputStream)
+	 * @see org.fuzzydb.client.internal.pager.ElementReadOnly#writeToStream(java.io.ObjectOutputStream)
 	 */
 	public void writeToStream(ObjectOutputStream oos) throws IOException {
 		// Stream format
@@ -240,7 +241,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.ElementReadOnly#canSeeLatest()
+	 * @see org.fuzzydb.client.internal.pager.ElementReadOnly#canSeeLatest()
 	 */
 	public boolean canSeeLatest() {
 		if (currentVersion == null)
@@ -269,7 +270,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.ElementReadOnly#getVersion()
+	 * @see org.fuzzydb.client.internal.pager.ElementReadOnly#getVersion()
 	 */
 	public T getVersion() throws UnknownObjectException {
 		long dbversion = CurrentTransactionHolder.getVisibleVersion();
@@ -293,7 +294,7 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.ElementReadOnly#isDeleted()
+	 * @see org.fuzzydb.client.internal.pager.ElementReadOnly#isDeleted()
 	 */
 	public boolean isDeleted() {
 		if (currentVersion == null)
@@ -304,14 +305,14 @@ public class Element<T> implements MergeableContainer, ElementReadOnly<T> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.ElementReadOnly#getOid()
+	 * @see org.fuzzydb.client.internal.pager.ElementReadOnly#getOid()
 	 */
 	public long getOid() {
 		return oid;
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.pager.ElementReadOnly#getLatestVersion()
+	 * @see org.fuzzydb.client.internal.pager.ElementReadOnly#getLatestVersion()
 	 */
 	public long getLatestVersion() {
 		return currentVersion.getVersion();

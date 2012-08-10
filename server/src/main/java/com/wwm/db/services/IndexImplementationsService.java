@@ -52,7 +52,7 @@ public class IndexImplementationsService {
 	private void installAccPackIfAvailable() {
 		Class<?> cl; 
 		try {
-			cl = Class.forName("com.wwm.db.server.whirlwind.WhirlwindIndexImpl");
+			cl = Class.forName("org.fuzzydb.client.server.whirlwind.WhirlwindIndexImpl");
 		} catch (ClassNotFoundException e) {
 			return;
 		}

@@ -13,11 +13,11 @@ package com.wwm.db.internal.pager;
 import java.io.File;
 import java.io.IOException;
 
+import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.db.exceptions.UnknownObjectException;
 import com.wwm.db.internal.pager.Page.PagePurgedException;
 import com.wwm.db.internal.server.CurrentTransactionHolder;
 import com.wwm.db.internal.server.DatabaseVersionState;

@@ -10,6 +10,7 @@ import org.fuzzydb.attrs.WWConfigHelper;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.XStreamHelper;
+import org.fuzzydb.client.Store;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.wwm.context.JVMAppListener;
-import com.wwm.db.Store;
 import com.wwm.db.core.LogFactory;
 import com.wwm.util.DynamicRef;
 

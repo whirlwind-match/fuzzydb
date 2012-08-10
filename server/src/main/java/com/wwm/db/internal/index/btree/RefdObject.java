@@ -12,7 +12,8 @@ package com.wwm.db.internal.index.btree;
 
 import java.io.Serializable;
 
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.internal.RefImpl;
+
 
 public class RefdObject implements Serializable {
 

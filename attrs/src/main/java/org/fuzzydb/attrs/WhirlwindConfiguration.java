@@ -20,10 +20,10 @@ import java.util.Map.Entry;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumPreferenceMap;
 import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
+import org.fuzzydb.client.whirlwind.IndexStrategy;
 
 
 import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.whirlwind.IndexStrategy;
 import com.wwm.db.whirlwind.internal.IAttributeConstraint;
 import com.wwm.model.attributes.OptionsSource;
 

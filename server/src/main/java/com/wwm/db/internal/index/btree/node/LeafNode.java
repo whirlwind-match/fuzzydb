@@ -16,7 +16,8 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.Ref;
+import org.fuzzydb.client.Ref;
+
 import com.wwm.db.internal.index.btree.IndexPointerStyle;
 import com.wwm.db.internal.index.btree.LeafNodeW;
 import com.wwm.db.internal.index.btree.PendingOperations;

@@ -113,7 +113,7 @@ public class LocationAndRangeScorer extends TwoAttrScorer {
 
     /**
      * Score a {range of Location,range of prefRange} against an EcefVector
-     * @see org.fuzzydb.attrs.Scorer#scoreNodeToSearch(org.fuzzydb.attrs.Score, org.fuzzydb.attrs.Score.Direction, com.wwm.db.core.whirlwind.internal.IAttributeMap, com.wwm.db.core.whirlwind.internal.IAttributeMap)
+     * @see org.fuzzydb.attrs.Scorer#scoreNodeToSearch(org.fuzzydb.attrs.Score, org.fuzzydb.attrs.Score.Direction, org.fuzzydb.client.core.whirlwind.internal.IAttributeMap, org.fuzzydb.client.core.whirlwind.internal.IAttributeMap)
      */
     @Override
     public void scoreNodeToSearch(Score score, Score.Direction d, IAttributeMap<IAttributeConstraint> constraints, IAttributeMap<IAttribute> searchAttrs) {

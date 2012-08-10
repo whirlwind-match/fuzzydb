@@ -12,9 +12,10 @@ package com.wwm.db.internal.whirlwind;
 
 
 
-import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.internal.RefImpl;
+
 import com.wwm.db.internal.table.RawTable;
 import com.wwm.db.internal.table.TableImpl;
 

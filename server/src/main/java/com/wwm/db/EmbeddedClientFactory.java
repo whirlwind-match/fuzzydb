@@ -6,6 +6,11 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.fuzzydb.client.Client;
+import org.fuzzydb.client.ClientFactory;
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.StoreMgr;
+import org.fuzzydb.client.WWMDBProtocolHander;
 import org.slf4j.Logger;
 import org.springframework.context.Lifecycle;
 import org.springframework.util.Assert;

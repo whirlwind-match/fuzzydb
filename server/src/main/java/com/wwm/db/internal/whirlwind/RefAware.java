@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.whirlwind;
 
-import com.wwm.db.Ref;
+import org.fuzzydb.client.Ref;
 
 /**
  * Interface that is exposed on objects where we need them to know their own

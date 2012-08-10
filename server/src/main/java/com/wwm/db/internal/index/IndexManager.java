@@ -12,8 +12,9 @@ package com.wwm.db.internal.index;
 
 import java.io.Serializable;
 
-import com.wwm.db.exceptions.KeyCollisionException;
-import com.wwm.db.internal.MetaObject;
+import org.fuzzydb.client.exceptions.KeyCollisionException;
+import org.fuzzydb.client.internal.MetaObject;
+
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.whirlwind.SearchSpec;
 

@@ -13,7 +13,8 @@ package org.fuzzydb.attrs.internal;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.wwm.db.Store;
+import org.fuzzydb.client.Store;
+
 import com.wwm.util.DynamicRef;
 
 /**

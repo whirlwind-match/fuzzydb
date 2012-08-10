@@ -11,7 +11,8 @@
 package com.wwm.db.internal.table;
 
 
-import com.wwm.db.exceptions.UnknownObjectException;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+
 import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.pager.Element;
 import com.wwm.db.internal.pager.ElementReadOnly;

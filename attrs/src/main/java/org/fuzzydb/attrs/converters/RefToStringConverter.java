@@ -1,9 +1,9 @@
 package org.fuzzydb.attrs.converters;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.internal.RefImpl;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.db.Ref;
-import com.wwm.db.internal.RefImpl;
 
 public class RefToStringConverter implements Converter<Ref<?>, String> {
 

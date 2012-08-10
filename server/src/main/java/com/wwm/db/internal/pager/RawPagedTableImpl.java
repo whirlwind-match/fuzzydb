@@ -18,7 +18,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.wwm.db.exceptions.UnknownObjectException;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+
 import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.pager.Page.PagePurgedException;
 import com.wwm.db.internal.server.Database;

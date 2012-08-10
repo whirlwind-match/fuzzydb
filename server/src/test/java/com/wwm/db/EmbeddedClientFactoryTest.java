@@ -4,6 +4,9 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.fuzzydb.client.Client;
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.WWMDBProtocolHander;
 import org.junit.Test;
 
 

@@ -10,9 +10,10 @@
  *****************************************************************************/
 package com.wwm.indexer;
 
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.StoreMgr;
+
 import com.wwm.context.ContextManager;
-import com.wwm.db.Store;
-import com.wwm.db.StoreMgr;
 
 /**
  * FIXME: Look at where this is called from, and adapt it to resolve the

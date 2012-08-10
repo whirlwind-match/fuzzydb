@@ -6,12 +6,12 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.userobjects.SampleKeyedObject;
 import org.junit.Test;
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
 import com.wwm.db.query.ResultSet;
-import com.wwm.db.userobjects.SampleKeyedObject;
 import com.wwm.expressions.LogicExpr;
 import com.wwm.expressions.QueryFactory;
 

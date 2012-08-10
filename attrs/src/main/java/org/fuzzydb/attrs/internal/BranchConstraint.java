@@ -53,12 +53,12 @@ public abstract class BranchConstraint extends BaseAttribute implements IAttribu
 
 
 	/* (non-Javadoc)
-	 * @see likemynds.db.indextree.attributes.IAttributeConstraint#consistent(com.wwm.db.core.whirlwind.internal.IAttribute)
+	 * @see likemynds.db.indextree.attributes.IAttributeConstraint#consistent(org.fuzzydb.client.core.whirlwind.internal.IAttribute)
 	 */
 	public abstract boolean consistent(IAttribute value);
 
 	/* (non-Javadoc)
-	 * @see likemynds.db.indextree.attributes.IAttributeConstraint#expand(com.wwm.db.core.whirlwind.internal.IAttribute)
+	 * @see likemynds.db.indextree.attributes.IAttributeConstraint#expand(org.fuzzydb.client.core.whirlwind.internal.IAttribute)
 	 */
 	public boolean expand(IAttribute value) {
 		if (value == null){
@@ -82,7 +82,7 @@ public abstract class BranchConstraint extends BaseAttribute implements IAttribu
 
 	
 	/* (non-Javadoc)
-	 * @see likemynds.db.indextree.attributes.IAttributeConstraint#canExpand(com.wwm.db.core.whirlwind.internal.IAttribute)
+	 * @see likemynds.db.indextree.attributes.IAttributeConstraint#canExpand(org.fuzzydb.client.core.whirlwind.internal.IAttribute)
 	 */
 	public boolean isExpandedBy(IAttribute value){
 		// add support for null here, just in case consistent doesn't support it

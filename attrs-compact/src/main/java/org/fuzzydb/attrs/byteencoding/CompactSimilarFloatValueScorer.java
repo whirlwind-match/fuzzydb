@@ -129,7 +129,7 @@ public class CompactSimilarFloatValueScorer extends TwoAttrScorer {
      * For a node, give the highest possible score.
      * If we're within the bounds of the constraint for the node, then the max poss score is 1.0
      * else, it's the ration of the distance to the nearest value of the range.
-     * @see org.fuzzydb.attrs.Scorer#score(com.wwm.db.whirlwind.internal.IAttribute, likemynds.db.indextree.NodeAttributeContainer)
+     * @see org.fuzzydb.attrs.Scorer#score(org.fuzzydb.client.whirlwind.internal.IAttribute, likemynds.db.indextree.NodeAttributeContainer)
      */
 	private void score(Score score, Score.Direction d, IAttribute scoreAttr, IConstraintMap c) {
     	

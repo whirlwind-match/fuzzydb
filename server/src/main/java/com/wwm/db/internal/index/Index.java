@@ -11,8 +11,8 @@
 package com.wwm.db.internal.index;
 
 
-import com.wwm.db.exceptions.KeyCollisionException;
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.exceptions.KeyCollisionException;
+import org.fuzzydb.client.internal.RefImpl;
 
 
 public interface Index<T> {

@@ -3,6 +3,8 @@ package org.fuzzydb.spring.repository;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Iterator;
+
+import org.fuzzydb.client.DataOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -16,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 
-import com.wwm.db.DataOperations;
 
 public abstract class AbstractCRUDRepository<I, T, ID extends Serializable> implements WhirlwindCrudRepository<T,ID>, InitializingBean {
 

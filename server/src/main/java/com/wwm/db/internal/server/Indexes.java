@@ -18,11 +18,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.fuzzydb.client.exceptions.KeyCollisionException;
+import org.fuzzydb.client.internal.MetaObject;
 import org.springframework.data.annotation.Id;
 
 import com.wwm.db.annotations.Key;
-import com.wwm.db.exceptions.KeyCollisionException;
-import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.index.btree.BTree;
 import com.wwm.db.internal.index.btree.IndexKeyUniqueness;
 import com.wwm.db.internal.index.btree.IndexPointerStyle;

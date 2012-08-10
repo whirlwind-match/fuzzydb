@@ -10,8 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.index.btree;
 
-import com.wwm.db.Ref;
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.internal.RefImpl;
 
 public interface BranchNodeW extends BranchNodeR, NodeW {
 	public static class SplitOut {

@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.Ref;
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.internal.RefImpl;
+
 import com.wwm.db.internal.index.btree.BranchNodeW.SplitOut;
 import com.wwm.db.internal.index.btree.node.NodeFactory;
 

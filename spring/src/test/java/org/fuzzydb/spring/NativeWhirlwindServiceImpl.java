@@ -1,11 +1,11 @@
 package org.fuzzydb.spring;
 
+import org.fuzzydb.client.DataOperations;
+import org.fuzzydb.client.Ref;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wwm.db.DataOperations;
-import com.wwm.db.Ref;
 
 public class NativeWhirlwindServiceImpl {
 	

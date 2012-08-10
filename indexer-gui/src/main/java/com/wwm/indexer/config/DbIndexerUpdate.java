@@ -10,9 +10,9 @@ import org.fuzzydb.attrs.enums.EnumMultipleValue;
 import org.fuzzydb.attrs.internal.EnumAttributeSpec;
 import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
 import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
+import org.fuzzydb.client.Transaction;
 
 import com.wwm.context.JVMAppListener;
-import com.wwm.db.Transaction;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.db.converters.ConversionFactory;
 import com.wwm.indexer.db.converters.EnumConverter;

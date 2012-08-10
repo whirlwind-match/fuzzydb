@@ -2,7 +2,10 @@ package com.wwm.db;
 
 import java.io.IOException;
 import java.util.Collection;
-import com.wwm.db.internal.AbstractClient;
+
+import org.fuzzydb.client.Client;
+import org.fuzzydb.client.internal.AbstractClient;
+
 import com.wwm.io.core.Authority;
 import com.wwm.io.core.Message;
 import com.wwm.io.core.MessageSink;

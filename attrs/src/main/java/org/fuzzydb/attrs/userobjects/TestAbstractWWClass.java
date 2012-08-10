@@ -12,8 +12,9 @@ package org.fuzzydb.attrs.userobjects;
 
 import java.io.Serializable;
 
+import org.fuzzydb.client.marker.IWhirlwindItem;
+
 import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.internal.AttributeCache;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;

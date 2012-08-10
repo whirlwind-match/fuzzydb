@@ -1,8 +1,8 @@
 package org.fuzzydb.attrs.userobjects;
 
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.client.marker.IWhirlwindItem;
 
-import com.wwm.db.marker.IWhirlwindItem;
 
 abstract public class AugmentedAttributeMap implements IWhirlwindItem {
 

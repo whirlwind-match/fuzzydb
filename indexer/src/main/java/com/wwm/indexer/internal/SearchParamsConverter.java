@@ -20,8 +20,8 @@ import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
+import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
 
-import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.indexer.IndexerFactory;

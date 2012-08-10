@@ -20,13 +20,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.fuzzydb.attrs.IScoreConfiguration;
 import org.fuzzydb.attrs.Score;
 import org.fuzzydb.attrs.search.SearchSpecImpl;
+import org.fuzzydb.client.internal.MetaObject;
+import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.WorkManager;
-import com.wwm.db.internal.MetaObject;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.util.NanoTimer;
 
 

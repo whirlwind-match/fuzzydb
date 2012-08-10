@@ -18,9 +18,9 @@ Export-Package: org.fuzzydb.attrs,
  org.fuzzydb.attrs.unused,
  org.fuzzydb.attrs.userobjects,
  org.fuzzydb.attrs.util
-Require-Bundle: com.wwm.db.core;bundle-version="1.0.0",
+Require-Bundle: org.fuzzydb.client.core;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",
- com.wwm.db;bundle-version="1.0.0";visibility:=reexport,
+ org.fuzzydb.client;bundle-version="1.0.0";visibility:=reexport,
  com.wwm.io.packet
 Import-Package: org.junit;version="4.3.1"
 Eclipse-RegisterBuddy: com.wwm.io.packet

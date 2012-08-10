@@ -15,8 +15,9 @@ import java.lang.reflect.Field;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-import com.wwm.db.Ref;
-import com.wwm.db.internal.MetaObject;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.internal.MetaObject;
+
 import com.wwm.db.internal.common.MetaObjectSource;
 import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.RootSentinel;

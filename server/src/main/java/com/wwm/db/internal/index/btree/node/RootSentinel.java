@@ -12,7 +12,8 @@ package com.wwm.db.internal.index.btree.node;
 
 import java.io.Serializable;
 
-import com.wwm.db.Ref;
+import org.fuzzydb.client.Ref;
+
 import com.wwm.db.internal.index.btree.NodeW;
 
 public class RootSentinel extends Node implements Serializable, Cloneable {

@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.userobjects.TestIndexClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
-import com.wwm.db.userobjects.TestIndexClass;
 import com.wwm.util.MTRandom;
 
 public class SimpleIndexTest extends BaseDatabaseTest {

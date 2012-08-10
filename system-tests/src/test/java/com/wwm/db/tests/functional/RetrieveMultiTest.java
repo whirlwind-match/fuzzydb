@@ -10,14 +10,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.userobjects.SampleKeyedObject;
+import org.fuzzydb.client.userobjects.SampleUniqueKeyedObject;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.userobjects.SampleKeyedObject;
-import com.wwm.db.userobjects.SampleUniqueKeyedObject;
 
 /**
  * @author ac

@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.table;
 
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.internal.RefImpl;
 
 /**
  * @param <RT> Type of object that RefImpl refers to... which may be within T rather than T itself 

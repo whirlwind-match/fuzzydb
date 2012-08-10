@@ -12,8 +12,9 @@ package com.wwm.db.internal.index.btree.node;
 
 import java.util.TreeMap;
 
-import com.wwm.db.Ref;
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.internal.RefImpl;
+
 import com.wwm.db.internal.index.btree.BranchNodeW;
 import com.wwm.db.internal.index.btree.PendingOperations;
 

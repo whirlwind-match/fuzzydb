@@ -12,7 +12,8 @@ package com.wwm.db.internal.index.btree;
 
 import java.util.TreeMap;
 
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.internal.RefImpl;
+
 
 public interface BranchNodeR extends NodeR, Cloneable {
 	public BranchNodeW clone();

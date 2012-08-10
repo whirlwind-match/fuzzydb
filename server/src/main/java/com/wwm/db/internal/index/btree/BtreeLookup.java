@@ -15,9 +15,10 @@ import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.MetaObject;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.internal.MetaObject;
+
 import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.index.btree.node.RootSentinel;
 

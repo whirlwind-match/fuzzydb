@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.db.internal.index.btree;
 
-import com.wwm.db.Ref;
+import org.fuzzydb.client.Ref;
 
 class RefdNode {
 

@@ -12,11 +12,12 @@ package org.fuzzydb.attrs.internal;
 
 import java.io.Serializable;
 
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.marker.ITraceWanted;
+
 import com.wwm.context.ContextManager;
-import com.wwm.db.Store;
-import com.wwm.db.Transaction;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.marker.ITraceWanted;
 import com.wwm.util.DynamicRef;
 
 /**

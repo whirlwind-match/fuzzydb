@@ -16,9 +16,9 @@ import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.whirlwind.StringAttributeMap;
 
-import com.wwm.db.Store;
-import com.wwm.db.whirlwind.StringAttributeMap;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 import com.wwm.model.attributes.Attribute;

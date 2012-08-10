@@ -12,8 +12,9 @@ package com.wwm.db.internal.table;
 
 import java.io.Serializable;
 
-import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+
 import com.wwm.db.internal.common.InitializingBean;
 import com.wwm.db.internal.common.YoofRepository;
 import com.wwm.db.internal.server.Namespace;

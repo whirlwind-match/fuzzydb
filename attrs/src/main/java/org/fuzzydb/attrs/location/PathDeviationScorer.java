@@ -86,7 +86,7 @@ public class PathDeviationScorer extends TwoByTwoAttrScorer {
      * Forward will find deviations that match a given path (i.e. driver looking for people to give lift to)
      * Reverse will find paths that match a deviation (i.e. I'm looking for a lift)
      * TODO: When adding reverse score, check if forward got scored, and ensure only best score remains.
-     * @see org.fuzzydb.attrs.Scorer#scoreItemToItems(org.fuzzydb.attrs.Score, org.fuzzydb.attrs.Score.Direction, likemynds.db.indextree.attributes.Attribute, com.wwm.db.core.whirlwind.internal.IAttributeMap, com.wwm.db.core.whirlwind.internal.IAttributeMap)
+     * @see org.fuzzydb.attrs.Scorer#scoreItemToItems(org.fuzzydb.attrs.Score, org.fuzzydb.attrs.Score.Direction, likemynds.db.indextree.attributes.Attribute, org.fuzzydb.client.core.whirlwind.internal.IAttributeMap, org.fuzzydb.client.core.whirlwind.internal.IAttributeMap)
      */
     @Override
     public void scoreItemToItem(Score score, Direction d, IAttributeMap<IAttribute> otherAttrs, IAttributeMap<IAttribute> scoreAttrs) {

@@ -7,18 +7,18 @@
 
     <!-- Create somewhere we can register impls, and give database access to it 
          (other bundles will add their impls by using the service registry to get this bean) -->
-    <osgi:service id="indexImplsService" interface="com.wwm.db.services.IndexImplementationsService">
-        <bean class="com.wwm.db.services.IndexImplementationsService"></bean>
+    <osgi:service id="indexImplsService" interface="org.fuzzydb.client.services.IndexImplementationsService">
+        <bean class="org.fuzzydb.client.services.IndexImplementationsService"></bean>
     </osgi:service>
 
-    <bean id="databaseInstance" class="com.wwm.db.internal.server.Database" >
+    <bean id="databaseInstance" class="org.fuzzydb.client.internal.server.Database" >
         <property name="serverPort" value="27601"/>        
         <property name="indexImplsService" ref="indexImplsService"/>
     </bean>
 
-    <osgi:service auto-export="disabled" ref="databaseInstance" interface="com.wwm.db.internal.server.Database"/>
+    <osgi:service auto-export="disabled" ref="databaseInstance" interface="org.fuzzydb.client.internal.server.Database"/>
 
-    <osgi:reference id="myDbRef" interface="com.wwm.db.internal.server.Database">
+    <osgi:reference id="myDbRef" interface="org.fuzzydb.client.internal.server.Database">
          <osgi:listener ref="databaseInstance" bind-method="startServer" unbind-method="close"></osgi:listener>
     </osgi:reference>
 

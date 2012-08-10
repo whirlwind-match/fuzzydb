@@ -161,7 +161,7 @@ public class VectorDistanceScorer extends TwoAttrScorer {
 
 
     /* (non-Javadoc)
-     * @see likemynds.db.indextree.Scorer#score(com.wwm.db.core.whirlwind.internal.IAttribute, likemynds.db.indextree.NodeAttributeContainer)
+     * @see likemynds.db.indextree.Scorer#score(org.fuzzydb.client.core.whirlwind.internal.IAttribute, likemynds.db.indextree.NodeAttributeContainer)
      */
     public void score(Score score, Score.Direction d, IAttribute wantAttr, IConstraintMap c) {
 

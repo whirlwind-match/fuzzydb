@@ -12,10 +12,10 @@ package org.fuzzydb.attrs;
 
 
 import org.fuzzydb.attrs.search.SearchSpecImpl;
+import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
 
 import com.wwm.db.core.Settings;
 import com.wwm.db.marker.IAttributeContainer;
-import com.wwm.db.whirlwind.CardinalAttributeMap;
 import com.wwm.db.whirlwind.SearchSpec;
 import com.wwm.db.whirlwind.internal.IAttribute;
 

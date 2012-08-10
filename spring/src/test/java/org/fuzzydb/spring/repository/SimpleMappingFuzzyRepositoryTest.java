@@ -21,6 +21,9 @@ import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.userobjects.MappedFuzzyItem;
+import org.fuzzydb.client.DataOperations;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.internal.RefImpl;
 import org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +35,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.data.annotation.Id;
 
-import com.wwm.db.DataOperations;
-import com.wwm.db.Ref;
-import com.wwm.db.internal.RefImpl;
 import com.wwm.db.whirlwind.internal.IAttribute;
 import com.wwm.db.whirlwind.internal.IAttributeMap;
 

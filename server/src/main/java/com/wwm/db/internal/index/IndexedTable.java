@@ -13,12 +13,13 @@ package com.wwm.db.internal.index;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import com.wwm.db.exceptions.KeyCollisionException;
-import com.wwm.db.exceptions.ObjectExistsException;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.exceptions.WriteCollisionException;
-import com.wwm.db.internal.MetaObject;
-import com.wwm.db.internal.RefImpl;
+import org.fuzzydb.client.exceptions.KeyCollisionException;
+import org.fuzzydb.client.exceptions.ObjectExistsException;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.exceptions.WriteCollisionException;
+import org.fuzzydb.client.internal.MetaObject;
+import org.fuzzydb.client.internal.RefImpl;
+
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.server.CurrentTransactionHolder;
 import com.wwm.db.internal.server.Namespace;

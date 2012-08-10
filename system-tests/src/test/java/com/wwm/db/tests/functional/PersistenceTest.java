@@ -2,14 +2,14 @@ package com.wwm.db.tests.functional;
 
 import java.io.IOException;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.EmbeddedClientFactory;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
 import static org.junit.Assert.*;
 
 public class PersistenceTest extends BaseDatabaseTest {

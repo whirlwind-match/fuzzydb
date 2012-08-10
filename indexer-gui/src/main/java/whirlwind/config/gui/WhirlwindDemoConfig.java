@@ -3,10 +3,11 @@ package whirlwind.config.gui;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import org.fuzzydb.client.Client;
+
 import whirlwind.demo.gui.searchtabs.SearchTab;
 import whirlwind.demo.gui.searchtabs.SearchTabXmlConfig;
 
-import com.wwm.db.Client;
 import com.wwm.indexer.demo.internal.Randomiser;
 import com.wwm.model.attributes.RandomGenerator;
 

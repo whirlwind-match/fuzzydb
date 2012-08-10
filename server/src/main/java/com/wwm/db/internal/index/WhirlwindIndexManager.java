@@ -19,13 +19,14 @@ import org.fuzzydb.attrs.IScoreConfiguration;
 import org.fuzzydb.attrs.WhirlwindConfiguration;
 import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
 import org.fuzzydb.attrs.search.SearchSpecImpl;
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.internal.MetaObject;
+import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.slf4j.Logger;
 
-import com.wwm.db.Store;
 import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.MetaObject;
-import com.wwm.db.internal.RefImpl;
 import com.wwm.db.internal.common.ServiceRegistry;
 import com.wwm.db.internal.search.DumbOrderedSearch;
 import com.wwm.db.internal.search.Search;
@@ -33,7 +34,6 @@ import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.table.UserTable;
 import com.wwm.db.internal.whirlwind.ScoreConfigOptimiser;
-import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.services.IndexImplementationsService;
 import com.wwm.db.whirlwind.SearchSpec;
 

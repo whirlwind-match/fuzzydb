@@ -8,12 +8,12 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
-import com.wwm.db.exceptions.UnknownObjectException;
 
 
 

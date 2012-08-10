@@ -1,25 +1,25 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.wwm.db.server
-Bundle-SymbolicName: com.wwm.db.server;singleton:=true
+Bundle-Name: org.fuzzydb.client.server
+Bundle-SymbolicName: org.fuzzydb.client.server;singleton:=true
 Bundle-Version: 1.0.0
-Export-Package: com.wwm.db,
- com.wwm.db.internal.index,
- com.wwm.db.internal.index.btree,
- com.wwm.db.internal.index.btree.node,
- com.wwm.db.internal.pager,
- com.wwm.db.internal.search,
- com.wwm.db.internal.server,
- com.wwm.db.internal.server.txlog,
- com.wwm.db.internal.table,
- com.wwm.db.internal.whirlwind,
- com.wwm.db.services
-Bundle-Activator: com.wwm.db.Activator
-DynamicImport-Package: com.wwm.db.server.whirlwind.internal,
- com.wwm.db.server.wwstrategies.manual
+Export-Package: org.fuzzydb.client,
+ org.fuzzydb.client.internal.index,
+ org.fuzzydb.client.internal.index.btree,
+ org.fuzzydb.client.internal.index.btree.node,
+ org.fuzzydb.client.internal.pager,
+ org.fuzzydb.client.internal.search,
+ org.fuzzydb.client.internal.server,
+ org.fuzzydb.client.internal.server.txlog,
+ org.fuzzydb.client.internal.table,
+ org.fuzzydb.client.internal.whirlwind,
+ org.fuzzydb.client.services
+Bundle-Activator: org.fuzzydb.client.Activator
+DynamicImport-Package: org.fuzzydb.client.server.whirlwind.internal,
+ org.fuzzydb.client.server.wwstrategies.manual
 Require-Bundle: org.eclipse.osgi,
  org.eclipse.osgi.services,
- com.wwm.db;visibility:=reexport,
+ org.fuzzydb.client;visibility:=reexport,
  org.fuzzydb.attrs;bundle-version="1.0.0";visibility:=reexport
 Import-Package: org.aspectj.lang,
  org.aspectj.lang.annotation,

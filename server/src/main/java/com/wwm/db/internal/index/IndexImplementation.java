@@ -12,9 +12,9 @@ package com.wwm.db.internal.index;
 
 import org.fuzzydb.attrs.IScoreConfiguration;
 import org.fuzzydb.attrs.WhirlwindConfiguration;
+import org.fuzzydb.client.marker.IWhirlwindItem;
 
 import com.wwm.db.internal.search.Search;
-import com.wwm.db.marker.IWhirlwindItem;
 import com.wwm.db.whirlwind.SearchSpec;
 
 

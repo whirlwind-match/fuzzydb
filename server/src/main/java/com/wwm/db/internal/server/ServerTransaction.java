@@ -12,11 +12,12 @@ package com.wwm.db.internal.server;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import org.fuzzydb.client.internal.comms.messages.OkRsp;
 import org.slf4j.Logger;
 
 import com.wwm.db.core.LogFactory;
 import com.wwm.db.core.exceptions.ArchException;
-import com.wwm.db.internal.comms.messages.OkRsp;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 import com.wwm.io.core.messages.ErrorRsp;
@@ -58,21 +59,21 @@ public abstract class ServerTransaction implements TransactionControl {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.server.TransactionControl#setMode(com.wwm.db.internal.server.ServerTransaction.Mode)
+	 * @see org.fuzzydb.client.internal.server.TransactionControl#setMode(org.fuzzydb.client.internal.server.ServerTransaction.Mode)
 	 */
 	public void setMode(Mode mode) {
 		this.transactionState.setMode(mode);
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.server.TransactionControl#getVisibleVersion()
+	 * @see org.fuzzydb.client.internal.server.TransactionControl#getVisibleVersion()
 	 */
 	public long getVisibleVersion() {
 		return transactionState.getVisibleVersion();
 	}
 
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.server.TransactionControl#getCommitVersion()
+	 * @see org.fuzzydb.client.internal.server.TransactionControl#getCommitVersion()
 	 */
 	public Long getCommitVersion() {
 		return transactionState.getCommitVersion();
@@ -83,7 +84,7 @@ public abstract class ServerTransaction implements TransactionControl {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.wwm.db.internal.server.TransactionControl#isInCommitPhase()
+	 * @see org.fuzzydb.client.internal.server.TransactionControl#isInCommitPhase()
 	 */
 	public boolean isInCommitPhase() {
 		return transactionState.isInCommitPhase();

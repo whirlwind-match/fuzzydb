@@ -13,7 +13,8 @@ package com.wwm.db.internal.pager;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import com.wwm.db.exceptions.UnknownObjectException;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+
 
 public interface ElementReadOnly<T> {
 

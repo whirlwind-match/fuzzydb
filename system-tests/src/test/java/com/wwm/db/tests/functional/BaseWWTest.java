@@ -16,13 +16,13 @@ import org.fuzzydb.attrs.simple.FloatSplitConfiguration;
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.simple.SimilarFloatValueScorer;
 import org.fuzzydb.attrs.userobjects.TestWhirlwindClass;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.EmbeddedClientFactory;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
 import com.wwm.db.core.exceptions.ArchException;
 import com.wwm.model.attributes.OptionsSource;
 

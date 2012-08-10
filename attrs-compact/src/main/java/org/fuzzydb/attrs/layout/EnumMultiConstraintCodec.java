@@ -1,6 +1,6 @@
 /********************************import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumMultipleConstraint;
-import com.wwm.db.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.client.whirlwind.internal.IAttributeConstraint;
 e; you can use, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 
  * Open Source Initiative.

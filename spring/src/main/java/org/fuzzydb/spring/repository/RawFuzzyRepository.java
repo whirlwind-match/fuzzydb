@@ -2,10 +2,10 @@ package org.fuzzydb.spring.repository;
 
 import java.io.Serializable;
 
+import org.fuzzydb.client.Ref;
 import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 
-import com.wwm.db.Ref;
 
 /**
  * A Repository implementation that performs no conversion.
@@ -59,7 +59,7 @@ public class RawFuzzyRepository<T> extends AbstractConvertingRepository<T, T, Re
 	}
 	
 	@Override
-	protected T merge(T toWrite, com.wwm.db.Ref<T> existingRef) {
+	protected T merge(T toWrite, org.fuzzydb.client.Ref<T> existingRef) {
 		return toWrite;
 	}
 	

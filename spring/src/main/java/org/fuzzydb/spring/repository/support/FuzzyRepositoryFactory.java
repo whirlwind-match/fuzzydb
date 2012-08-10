@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.converters.WhirlwindConversionService;
+import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.spring.repository.FuzzyRepository;
 import org.fuzzydb.spring.repository.RawCRUDRepository;
 import org.fuzzydb.spring.repository.SimpleMappingFuzzyRepository;
@@ -12,7 +13,6 @@ import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
-import com.wwm.db.DataOperations;
 
 
 public class FuzzyRepositoryFactory extends RepositoryFactorySupport {

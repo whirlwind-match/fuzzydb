@@ -13,10 +13,11 @@ package com.wwm.db.internal.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import com.wwm.db.exceptions.StoreExistsException;
-import com.wwm.db.exceptions.UnknownStoreException;
-import com.wwm.db.internal.comms.messages.CreateStoreCmd;
-import com.wwm.db.internal.comms.messages.CreateStoreRsp;
+import org.fuzzydb.client.exceptions.StoreExistsException;
+import org.fuzzydb.client.exceptions.UnknownStoreException;
+import org.fuzzydb.client.internal.comms.messages.CreateStoreCmd;
+import org.fuzzydb.client.internal.comms.messages.CreateStoreRsp;
+
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;
 

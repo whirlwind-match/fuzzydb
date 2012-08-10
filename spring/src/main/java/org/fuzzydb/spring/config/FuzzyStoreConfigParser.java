@@ -3,6 +3,7 @@ package org.fuzzydb.spring.config;
 import static org.fuzzydb.spring.config.Constants.DEFAULT_STORE_ID;
 import static org.springframework.beans.factory.support.BeanDefinitionReaderUtils.*;
 
+import org.fuzzydb.client.Store;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
@@ -14,7 +15,6 @@ import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 import com.wwm.db.EmbeddedClientFactory;
-import com.wwm.db.Store;
  
 public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 
@@ -30,7 +30,7 @@ public class FuzzyStoreConfigParser extends AbstractBeanDefinitionParser {
 	
 	/* 
 	 * Aiming for this
-	 * 	<bean id="clientFactory" class="com.wwm.db.EmbeddedClientFactory"
+	 * 	<bean id="clientFactory" class="org.fuzzydb.client.EmbeddedClientFactory"
 		factory-method="getInstance" />
 
 	<bean id="store" factory-bean="clientFactory" factory-method="openStore">

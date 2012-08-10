@@ -162,7 +162,7 @@ public class FileSerializingPagePersister implements PagePersister, PagerMBean {
         
         ObjectName name;
 		try {
-			name = new ObjectName("com.wwm.db.core:type=Pager");
+			name = new ObjectName("org.fuzzydb.client.core:type=Pager");
 			mbs.registerMBean(this, name); 
 		} catch (Throwable e) {
 			System.out.println( "Exception registering Pager MBean.  Continuing without JMX support" );

@@ -9,15 +9,15 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.Transaction;
+import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.client.userobjects.MutableString;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import com.wwm.db.BaseDatabaseTest;
 import com.wwm.db.EmbeddedClientFactory;
-import com.wwm.db.Ref;
-import com.wwm.db.Transaction;
-import com.wwm.db.internal.RefImpl;
-import com.wwm.db.userobjects.MutableString;
 import com.wwm.util.MTRandom;
 
 //@RunWith(SpringJUnit4ClassRunner.class)

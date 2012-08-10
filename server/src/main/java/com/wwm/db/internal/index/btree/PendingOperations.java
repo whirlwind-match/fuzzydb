@@ -16,7 +16,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import com.wwm.db.Ref;
+import org.fuzzydb.client.Ref;
+
 
 
 public class PendingOperations implements Serializable, Cloneable {

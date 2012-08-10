@@ -19,13 +19,13 @@ import org.fuzzydb.attrs.internal.XStreamHelper;
 import org.fuzzydb.attrs.internal.xstream.AttributeIdMapper;
 import org.fuzzydb.attrs.internal.xstream.TableToPreferenceMapConverter;
 import org.fuzzydb.attrs.internal.xstream.XmlNameMapper;
+import org.fuzzydb.client.Store;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 import whirlwind.config.gui.WhirlwindDemoConfig;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.db.Store;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.model.attributes.RandomGenerator;
 import com.wwm.util.DynamicRef;

@@ -10,9 +10,9 @@
  *****************************************************************************/
 package com.wwm.db.internal.common;
 
-import com.wwm.db.Ref;
-import com.wwm.db.exceptions.UnknownObjectException;
-import com.wwm.db.internal.MetaObject;
+import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.client.internal.MetaObject;
 
 /**
  * Allows the retrieval of any object in the same namespace/context.

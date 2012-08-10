@@ -13,8 +13,9 @@ package org.fuzzydb.attrs;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.fuzzydb.client.whirlwind.IndexStrategy;
 
-import com.wwm.db.whirlwind.IndexStrategy;
+
 
 
 

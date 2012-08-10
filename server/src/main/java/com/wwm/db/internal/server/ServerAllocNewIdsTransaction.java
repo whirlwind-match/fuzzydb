@@ -13,8 +13,9 @@ package com.wwm.db.internal.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import com.wwm.db.internal.comms.messages.AllocNewIdsCmd;
-import com.wwm.db.internal.comms.messages.AllocNewIdsRsp;
+import org.fuzzydb.client.internal.comms.messages.AllocNewIdsCmd;
+import org.fuzzydb.client.internal.comms.messages.AllocNewIdsRsp;
+
 import com.wwm.db.internal.table.UserTable;
 import com.wwm.io.core.MessageSink;
 import com.wwm.io.core.messages.Command;

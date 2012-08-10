@@ -12,12 +12,12 @@ package org.fuzzydb.attrs.internal;
 
 import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.client.DataOperations;
+import org.fuzzydb.client.Store;
+import org.fuzzydb.client.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-import com.wwm.db.DataOperations;
-import com.wwm.db.Store;
-import com.wwm.db.Transaction;
 import com.wwm.db.whirlwind.internal.IAttribute;
 
 

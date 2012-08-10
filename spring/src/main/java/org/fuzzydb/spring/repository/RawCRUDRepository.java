@@ -1,10 +1,11 @@
 package org.fuzzydb.spring.repository;
 
 import java.io.Serializable;
+
+import org.fuzzydb.client.DataOperations;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.wwm.db.DataOperations;
 import com.wwm.db.query.ResultSet;
 
 public class RawCRUDRepository<T,ID extends Serializable & Comparable<ID>> extends AbstractCRUDRepository<T,T,ID> {
