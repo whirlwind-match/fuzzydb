@@ -1,4 +1,4 @@
-package com.wwm.postcode;
+package org.fuzzydb.postcode;
 /******************************************************************************
  * Copyright (c) 2005-2009 Whirlwind Match Limited. All rights reserved.
  *
@@ -11,6 +11,7 @@ package com.wwm.postcode;
  *****************************************************************************/
 
 
+import org.fuzzydb.postcode.PostcodeConvertor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +19,6 @@ import junit.framework.Assert;
 
 import com.wwm.db.core.Settings;
 import com.wwm.geo.GeoInformation;
-import com.wwm.postcode.PostcodeConvertor;
 
 /**
  * These tests assume the postcode data has been built and installed into the correct location.

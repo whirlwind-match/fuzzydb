@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.postcode;
+package org.fuzzydb.postcode;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;

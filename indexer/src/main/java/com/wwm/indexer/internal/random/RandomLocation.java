@@ -12,11 +12,11 @@ package com.wwm.indexer.internal.random;
 
 
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.postcode.RandomPostcodeGenerator;
 
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.model.attributes.Point3DAttribute;
 import com.wwm.model.attributes.RandomGenerator;
-import com.wwm.postcode.RandomPostcodeGenerator;
 import com.wwm.util.MTRandom;
 
 public class RandomLocation implements RandomGenerator<Point3DAttribute> {

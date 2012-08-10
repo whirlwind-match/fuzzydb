@@ -11,9 +11,10 @@
 package com.wwm.indexer.internal.random;
 
 
+import org.fuzzydb.postcode.RandomPostcodeGenerator;
+
 import com.wwm.model.attributes.NonIndexStringAttribute;
 import com.wwm.model.attributes.RandomGenerator;
-import com.wwm.postcode.RandomPostcodeGenerator;
 import com.wwm.util.MTRandom;
 
 public class RandomShortPostcode implements RandomGenerator {

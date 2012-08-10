@@ -11,7 +11,7 @@
 package com.wwm.indexer.db.converters;
 
 
-import com.wwm.postcode.PostcodeConvertor;
+import org.fuzzydb.postcode.PostcodeConvertor;
 
 public class TempFactory {
     private static final PostcodeConvertor converter = new PostcodeConvertor();

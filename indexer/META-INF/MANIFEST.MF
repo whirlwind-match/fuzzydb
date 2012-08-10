@@ -12,7 +12,7 @@ Export-Package: com.wwm.indexer,
  com.wwm.indexer.test
 Require-Bundle: org.fuzzydb.client;bundle-version="1.0.0",
  org.fuzzydb.attrs;bundle-version="1.0.0",
- com.wwm.postcode;bundle-version="1.0.0",
+ org.fuzzydb.postcode;bundle-version="1.0.0",
  com.wwm.bundle.libs;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",
  com.wwm.atom;bundle-version="1.0.0",

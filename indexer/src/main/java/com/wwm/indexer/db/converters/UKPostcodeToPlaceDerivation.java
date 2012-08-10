@@ -11,10 +11,11 @@
 package com.wwm.indexer.db.converters;
 
 
+import org.fuzzydb.postcode.PostcodeConvertor;
+
 import com.wwm.geo.GeoInformation;
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.model.attributes.NonIndexStringAttribute;
-import com.wwm.postcode.PostcodeConvertor;
 
 
 public class UKPostcodeToPlaceDerivation extends InboundDerivation<String> {

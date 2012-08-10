@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.wwm.postcode
+Bundle-Name: org.fuzzydb.postcode
 Bundle-Description: Open source postcode support for UK, based on Jibble database.  Some support is provided here
  for using PostZon data from the 'Royal' Mail.  A full in memory encoder for PostZon, requiring only 6Mb for all UK
  postcode resolution to lat,lon,town is available from Whirlwind Match.
-Bundle-SymbolicName: com.wwm.postcode
+Bundle-SymbolicName: org.fuzzydb.postcode
 Bundle-Version: 1.0.0
-Export-Package: com.wwm.postcode
+Export-Package: org.fuzzydb.postcode
 Require-Bundle: com.wwm.db;bundle-version="1.0.0",
  com.wwm.util;bundle-version="1.0.0",
  org.eclipse.osgi;bundle-version="3.4.0",
@@ -14,5 +14,5 @@ Require-Bundle: com.wwm.db;bundle-version="1.0.0",
  com.wwm.db.core;bundle-version="1.0.0"
 Import-Package: org.osgi.framework;version="1.4.0",
  org.osgi.util.tracker;version="1.3.3"
-Bundle-Activator: com.wwm.postcode.Activator
+Bundle-Activator: org.fuzzydb.postcode.Activator
 Eclipse-RegisterBuddy: com.wwm.util

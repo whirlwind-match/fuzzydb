@@ -1,5 +1,5 @@
-<com.wwm.postcode.RandomUKShortPostcode>
+<org.fuzzydb.postcode.RandomUKShortPostcode>
 <!-- doesn't support this at the mo' 
 <nullProportion>0</nullProportion>
  -->
-</com.wwm.postcode.RandomUKShortPostcode>
+</org.fuzzydb.postcode.RandomUKShortPostcode>

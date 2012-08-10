@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.postcode;
+package org.fuzzydb.postcode;
 
 import java.io.EOFException;
 import java.io.File;
@@ -36,7 +36,7 @@ import com.wwm.util.CsvReader.UnsupportedTypeException;
  * This needs a lot of memory, as it loads everything in one go then spits it back out.
  * At least 300MB
  * 
- * @deprecated com.wwm.postcode.uk.full plug-in provides low memory footprint version.
+ * @deprecated org.fuzzydb.postcode.uk.full plug-in provides low memory footprint version.
  */
 @Deprecated
 public class PostZonImporter {
