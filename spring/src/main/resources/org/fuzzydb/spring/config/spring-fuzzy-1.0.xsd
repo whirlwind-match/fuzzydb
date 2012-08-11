@@ -24,7 +24,7 @@ Creates an embedded in-memory database instance
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="org.fuzzydb.client.Store" />
+					<tool:exports type="org.fuzzydb.client.internal.StoreImpl" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -38,7 +38,7 @@ Defines a connection to a given store for an embedded or TCP/IP hosted database.
 			]]></xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
-					<tool:exports type="org.fuzzydb.client.Store" />
+					<tool:exports type="org.fuzzydb.client.internal.StoreImpl" />
 				</tool:annotation>
 			</xsd:appinfo>
 		</xsd:annotation>
