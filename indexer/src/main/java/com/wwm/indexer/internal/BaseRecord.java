@@ -13,10 +13,11 @@ package com.wwm.indexer.internal;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
+
 import com.wwm.indexer.Record;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.BooleanAttribute;
-import com.wwm.model.attributes.FloatAttribute;
 
 /**
  * Base class providing attribute functionality.

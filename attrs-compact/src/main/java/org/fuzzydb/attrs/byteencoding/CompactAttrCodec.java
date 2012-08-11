@@ -13,8 +13,8 @@ package org.fuzzydb.attrs.byteencoding;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 public abstract class CompactAttrCodec {
 

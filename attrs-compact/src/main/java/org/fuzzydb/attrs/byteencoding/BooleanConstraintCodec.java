@@ -17,8 +17,8 @@ import org.fuzzydb.attrs.bool.BooleanConstraint;
 import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.bool.BooleanConstraint.State;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 
 

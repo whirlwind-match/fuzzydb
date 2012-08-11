@@ -15,8 +15,8 @@ import org.fuzzydb.attrs.dimensions.Dimensions;
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.attrs.internal.Attribute;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
-import com.wwm.model.dimensions.IDimensions;
 
 /**
  * As RangePreference, but using float instead of Comparable (i.e. lighter weight)

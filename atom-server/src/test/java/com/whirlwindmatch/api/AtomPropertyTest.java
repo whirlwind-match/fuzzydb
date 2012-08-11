@@ -16,13 +16,13 @@ import java.util.Map;
 import org.apache.abdera.i18n.iri.IRI;
 import org.apache.abdera.model.Document;
 import org.apache.abdera.model.Feed;
+import org.fuzzydb.util.CsvReader;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.atom.client.Config;
 import com.wwm.atom.elements.EntryDecorator;
-import com.wwm.util.CsvReader;
 
 public class AtomPropertyTest extends BaseAtomTest {
 

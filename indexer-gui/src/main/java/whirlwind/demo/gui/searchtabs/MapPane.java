@@ -14,16 +14,16 @@ import java.util.Map.Entry;
 import javax.swing.ImageIcon;
 
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.dto.attributes.Point3DAttribute;
+import org.fuzzydb.util.geo.OsgbGridCoord;
 
 import whirlwind.demo.gui.CoordRemap;
 import whirlwind.demo.gui.OsgbConv;
 
-import com.wwm.geo.OsgbGridCoord;
 import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;
 import com.wwm.indexer.demo.internal.WhirlwindQuery;
 import com.wwm.indexer.demo.internal.WhirlwindQuery.QueryConfig;
-import com.wwm.model.attributes.Point3DAttribute;
 
 
 // OS references:

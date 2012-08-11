@@ -3,9 +3,9 @@ package org.fuzzydb.attrs.converters;
 import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumMultipleValue;
+import org.fuzzydb.dto.attributes.MultiEnumAttribute;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.model.attributes.MultiEnumAttribute;
 
 public class MultiEnumAttributeToEnumMultipleValueConverter implements Converter<MultiEnumAttribute, EnumMultipleValue> {
 

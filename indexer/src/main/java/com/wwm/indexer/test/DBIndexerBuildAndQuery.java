@@ -12,7 +12,8 @@ package com.wwm.indexer.test;
 
 import java.net.MalformedURLException;
 
-import com.wwm.context.JVMAppListener;
+import org.fuzzydb.util.context.JVMAppListener;
+
 import com.wwm.indexer.Indexer;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;

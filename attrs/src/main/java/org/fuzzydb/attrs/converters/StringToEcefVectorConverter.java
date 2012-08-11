@@ -1,11 +1,11 @@
 package org.fuzzydb.attrs.converters;
 
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.dto.dimensions.IPoint3D;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.geo.GeoInformation;
-import com.wwm.model.dimensions.IPoint3D;
 
 /**
  * This assumes that you've stuck a converter in that converts strings to GeoInformation

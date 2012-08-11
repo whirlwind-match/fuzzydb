@@ -14,9 +14,9 @@ import java.util.Date;
 
 import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.DateRangeAttribute;
 
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.DateRangeAttribute;
 
 
 public class DateRangeConverter implements AttributeConverter {

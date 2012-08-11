@@ -16,9 +16,9 @@ import java.util.Map;
 import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.model.attributes.BooleanAttribute;
-import com.wwm.util.ByteArray;
 
 
 public class BooleanCodec extends CompactAttrCodec {

@@ -10,11 +10,11 @@ import java.util.Random;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.userobjects.TestIndexClass;
+import org.fuzzydb.util.MTRandom;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.util.MTRandom;
 
 public class SimpleIndexTest extends BaseDatabaseTest {
 

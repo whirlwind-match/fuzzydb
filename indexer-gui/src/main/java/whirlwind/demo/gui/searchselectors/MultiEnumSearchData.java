@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.dto.attributes.MultiEnumAttribute;
 
-import com.wwm.model.attributes.MultiEnumAttribute;
 
 public class MultiEnumSearchData extends PopupSearchData {
 	

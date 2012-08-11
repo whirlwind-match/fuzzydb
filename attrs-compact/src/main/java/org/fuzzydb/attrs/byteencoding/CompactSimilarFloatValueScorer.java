@@ -20,9 +20,9 @@ import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.util.ByteArray;
 import org.slf4j.Logger;
 
-import com.wwm.util.ByteArray;
 
 
 

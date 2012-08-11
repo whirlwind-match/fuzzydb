@@ -12,8 +12,8 @@ package org.fuzzydb.client.util;
 
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.util.BlockProcessor;
 
-import com.wwm.util.BlockProcessor;
 
 
 /**

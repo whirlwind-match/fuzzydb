@@ -6,14 +6,15 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.wwm.context.JVMAppListener;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.RandomGenerator;
+import org.fuzzydb.util.NanoTimer;
+import org.fuzzydb.util.context.JVMAppListener;
+
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;
 import com.wwm.indexer.internal.RecordImpl;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.RandomGenerator;
-import com.wwm.util.NanoTimer;
 
 public class WhirlwindRandomiser {
 

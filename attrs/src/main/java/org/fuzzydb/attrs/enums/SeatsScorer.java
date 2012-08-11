@@ -18,8 +18,8 @@ import org.fuzzydb.attrs.internal.TwoByTwoAttrScorer;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.util.ScoreMapper;
 
-import com.wwm.util.ScoreMapper;
 
 
 /**

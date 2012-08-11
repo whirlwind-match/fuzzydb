@@ -13,12 +13,12 @@ package com.wwm.indexer.internal.random;
 
 import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.LocationAttribute;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.geo.GeoInformation;
 import com.wwm.indexer.db.converters.TempFactory;
 import com.wwm.indexer.exceptions.AttributeException;
-import com.wwm.model.attributes.LocationAttribute;
 
 
 public class PostcodeConverter {

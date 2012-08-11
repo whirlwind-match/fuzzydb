@@ -1,13 +1,13 @@
 package org.fuzzydb.attrs.converters;
 
 import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
 
-import com.wwm.geo.GeoInformation;
 
 public class WhirlwindConversionService extends GenericConversionService implements InitializingBean {
 

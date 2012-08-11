@@ -25,9 +25,9 @@ import org.apache.abdera.protocol.server.ServiceManager;
 import org.apache.abdera.protocol.server.servlet.AbderaServlet;
 import org.apache.commons.codec.binary.Base64;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.context.ApplicationContext;
+import org.fuzzydb.util.context.SimpleApplicationContext;
 
-import com.wwm.context.ApplicationContext;
-import com.wwm.context.SimpleApplicationContext;
 import com.wwm.context.servlet.WebContainerAppListener;
 import com.wwm.indexer.IndexerFactory;
 

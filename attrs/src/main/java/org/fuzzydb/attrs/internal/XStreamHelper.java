@@ -29,11 +29,11 @@ import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.internal.xstream.AttributeIdMapper;
 import org.fuzzydb.attrs.internal.xstream.TableToPreferenceMapConverter;
 import org.fuzzydb.client.Store;
+import org.fuzzydb.util.DynamicRef;
+import org.fuzzydb.util.ResourcePatternProcessor;
 import org.springframework.core.io.Resource;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.util.DynamicRef;
-import com.wwm.util.ResourcePatternProcessor;
 
 
 public class XStreamHelper {

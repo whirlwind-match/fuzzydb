@@ -14,10 +14,10 @@ package org.fuzzydb.attrs.location;
 
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.dto.dimensions.Point3D;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.wwm.model.dimensions.Point3D;
 
 public class LocationRangeValueTest {
 

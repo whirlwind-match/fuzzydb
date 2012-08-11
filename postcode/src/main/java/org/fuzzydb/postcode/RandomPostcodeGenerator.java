@@ -16,10 +16,10 @@ import java.util.Random;
 
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.util.FileUtils;
+import org.fuzzydb.util.MTRandom;
 import org.slf4j.Logger;
 
-import com.wwm.util.FileUtils;
-import com.wwm.util.MTRandom;
 
 public class RandomPostcodeGenerator {
 	private static Logger log = LogFactory.getLogger(RandomPostcodeGenerator.class);

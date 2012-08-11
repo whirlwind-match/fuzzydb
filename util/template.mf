@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bundle-SymbolicName: com.wwm.util
+Bundle-SymbolicName: org.fuzzydb.util
 Bundle-Name: Whirlwind Utils
 Bundle-Vendor: Whirlwind Match
 Bundle-Version: ${version}

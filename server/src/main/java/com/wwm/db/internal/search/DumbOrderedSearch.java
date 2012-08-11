@@ -24,10 +24,10 @@ import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.WorkManager;
+import org.fuzzydb.util.NanoTimer;
 import org.slf4j.Logger;
 
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.util.NanoTimer;
 
 
 

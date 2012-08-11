@@ -11,8 +11,8 @@
 package org.fuzzydb.client.whirlwind;
 
 import org.fuzzydb.core.marker.IAttributeContainer;
+import org.fuzzydb.dto.attributes.Attribute;
 
-import com.wwm.model.attributes.Attribute;
 
 
 /**

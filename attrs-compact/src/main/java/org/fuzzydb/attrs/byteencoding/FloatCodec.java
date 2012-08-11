@@ -13,9 +13,9 @@ package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.model.attributes.FloatAttribute;
-import com.wwm.util.ByteArray;
 
 
 public class FloatCodec extends CompactAttrCodec {

@@ -12,7 +12,8 @@ package org.fuzzydb.attrs.dimensions;
 
 import java.io.Serializable;
 
-import com.wwm.model.dimensions.IDimensions;
+import org.fuzzydb.dto.dimensions.IDimensions;
+
 
 
 

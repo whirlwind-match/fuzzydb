@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
+import org.fuzzydb.util.ResourcePatternProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -16,7 +17,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.oxm.Unmarshaller;
 
-import com.wwm.util.ResourcePatternProcessor;
 
 public class RepositoryInitializer<T, ID extends Serializable> implements InitializingBean {
 

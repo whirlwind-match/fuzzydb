@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 public class CodecManager {
 

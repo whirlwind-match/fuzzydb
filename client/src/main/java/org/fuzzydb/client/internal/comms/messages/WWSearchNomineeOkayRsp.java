@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 import org.fuzzydb.client.internal.ResultImpl;
 import org.fuzzydb.core.query.Result;
+import org.fuzzydb.dto.attributes.Score;
 
-import com.wwm.model.attributes.Score;
 
 
 public class WWSearchNomineeOkayRsp extends OkRsp {

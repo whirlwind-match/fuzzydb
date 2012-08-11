@@ -18,6 +18,8 @@ import java.nio.ByteBuffer;
 import java.util.Collection;
 import java.util.Date;
 
+import org.fuzzydb.util.MeteredOutputStream;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.wwm.db.internal.server.ServerSetupProvider;
@@ -25,7 +27,6 @@ import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.core.PacketInterface;
 import com.wwm.io.core.layer2.PacketCodec;
 import com.wwm.io.core.messages.Command;
-import com.wwm.util.MeteredOutputStream;
 @Singleton
 public class TxLogWriter implements TxLogSink, PacketInterface {
 

@@ -21,8 +21,8 @@ import java.util.NoSuchElementException;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 /**
  * Compact implementation of IAttributeMap that encodes and decodes attributes to and from a ByteArray

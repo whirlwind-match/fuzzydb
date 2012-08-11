@@ -19,12 +19,12 @@ import java.io.InputStreamReader;
 
 import org.apache.abdera.i18n.iri.IRI;
 import org.apache.abdera.model.Entry;
+import org.fuzzydb.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import com.wwm.abdera.util.server.BadRequestException;
-import com.wwm.util.StringUtils;
 
 public class Config {
 

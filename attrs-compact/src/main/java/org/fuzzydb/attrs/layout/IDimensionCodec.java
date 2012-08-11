@@ -14,8 +14,8 @@ import org.fuzzydb.attrs.dimensions.DimensionsNodeSelector;
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
-import com.wwm.model.dimensions.IDimensions;
 
 
 class IDimensionCodec extends LayoutAttrCodec<IAttribute> {

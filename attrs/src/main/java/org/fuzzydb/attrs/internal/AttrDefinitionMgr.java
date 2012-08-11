@@ -29,21 +29,21 @@ import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.string.StringValue;
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+import org.fuzzydb.dto.attributes.DateAttribute;
+import org.fuzzydb.dto.attributes.EnumAttribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
+import org.fuzzydb.dto.attributes.FloatRangeAttribute;
+import org.fuzzydb.dto.attributes.IntegerRangeAttribute;
+import org.fuzzydb.dto.attributes.LocationAttribute;
+import org.fuzzydb.dto.attributes.MultiEnumAttribute;
+import org.fuzzydb.dto.attributes.NonIndexStringAttribute;
+import org.fuzzydb.dto.attributes.Point3DAttribute;
+import org.fuzzydb.dto.dimensions.IPoint3D;
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
 
-import com.wwm.model.attributes.BooleanAttribute;
-import com.wwm.model.attributes.DateAttribute;
-import com.wwm.model.attributes.EnumAttribute;
-import com.wwm.model.attributes.FloatAttribute;
-import com.wwm.model.attributes.FloatRangeAttribute;
-import com.wwm.model.attributes.IntegerRangeAttribute;
-import com.wwm.model.attributes.LocationAttribute;
-import com.wwm.model.attributes.MultiEnumAttribute;
-import com.wwm.model.attributes.NonIndexStringAttribute;
-import com.wwm.model.attributes.Point3DAttribute;
-import com.wwm.model.dimensions.IPoint3D;
 /**
  * Responsible for allocating attribute ids, against a string and class, and allowing
  * extension to support persistence of these mappings.

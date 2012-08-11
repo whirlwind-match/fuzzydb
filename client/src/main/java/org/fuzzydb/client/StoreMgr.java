@@ -21,10 +21,10 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.util.context.IShutdown;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import com.wwm.context.IShutdown;
 
 /**
  * Implements access to a store by Url, and manages sharing of objects that should be shared, such

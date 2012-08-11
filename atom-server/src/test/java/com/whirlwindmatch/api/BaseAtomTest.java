@@ -31,6 +31,7 @@ import org.apache.abdera.protocol.client.AbderaClient;
 import org.apache.abdera.protocol.client.ClientResponse;
 import org.apache.abdera.protocol.client.util.BaseRequestEntity;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.NanoTimer;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -45,7 +46,6 @@ import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.EntryDecorator;
 import com.wwm.atom.impl.HttpServer;
 import com.wwm.atom.impl.HttpServerFactory;
-import com.wwm.util.NanoTimer;
 
 public abstract class BaseAtomTest {
 	

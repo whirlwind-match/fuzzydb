@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.util.CsvReader;
+import org.fuzzydb.util.FileUtils;
+import org.fuzzydb.util.CsvReader.GarbageLineException;
+import org.fuzzydb.util.CsvReader.NoSuchColumnException;
+import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
 
-import com.wwm.util.CsvReader;
-import com.wwm.util.FileUtils;
-import com.wwm.util.CsvReader.GarbageLineException;
-import com.wwm.util.CsvReader.NoSuchColumnException;
-import com.wwm.util.CsvReader.UnsupportedTypeException;
 
 public class RandomPostcodeImporter {
 	private static final String postcodeColName = "Postcode";

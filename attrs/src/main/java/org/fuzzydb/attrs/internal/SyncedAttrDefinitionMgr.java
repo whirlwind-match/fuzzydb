@@ -16,9 +16,9 @@ import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.marker.ITraceWanted;
+import org.fuzzydb.util.DynamicRef;
+import org.fuzzydb.util.context.ContextManager;
 
-import com.wwm.context.ContextManager;
-import com.wwm.util.DynamicRef;
 
 /**
  * Extends AttrDefinitionMgr to allow it to store itself in a Db2 store.<p>

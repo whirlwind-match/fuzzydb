@@ -11,13 +11,13 @@ import org.fuzzydb.attrs.internal.EnumAttributeSpec;
 import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
 import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.dto.attributes.OptionsSource;
+import org.fuzzydb.util.context.JVMAppListener;
 
-import com.wwm.context.JVMAppListener;
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.db.converters.ConversionFactory;
 import com.wwm.indexer.db.converters.EnumConverter;
 import com.wwm.indexer.db.converters.MultiEnumConverter;
-import com.wwm.model.attributes.OptionsSource;
 
 
 public class DbIndexerUpdate {

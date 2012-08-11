@@ -20,6 +20,7 @@ import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumExclusiveScorerPreference;
 import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.enums.EnumPreferenceMap;
+import org.fuzzydb.util.DynamicRef;
 import org.springframework.beans.ConfigurablePropertyAccessor;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -30,7 +31,6 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.path.Path;
-import com.wwm.util.DynamicRef;
 
 public class TableToPreferenceMapConverter implements Converter {
 

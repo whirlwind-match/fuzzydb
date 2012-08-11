@@ -12,8 +12,8 @@ package com.wwm.indexer.db.converters;
 
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumValue;
+import org.fuzzydb.dto.attributes.EnumeratedAttribute;
 
-import com.wwm.model.attributes.EnumeratedAttribute;
 
 public interface EnumeratedConverter {
 

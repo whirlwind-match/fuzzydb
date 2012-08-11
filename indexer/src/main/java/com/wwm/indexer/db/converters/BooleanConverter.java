@@ -13,10 +13,10 @@ package com.wwm.indexer.db.converters;
 
 import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+import org.fuzzydb.dto.attributes.UnspecifiedTypeAttribute;
 
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.BooleanAttribute;
-import com.wwm.model.attributes.UnspecifiedTypeAttribute;
 
 
 public class BooleanConverter implements AttributeConverter {

@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 
 

@@ -13,8 +13,8 @@ package org.fuzzydb.attrs.byteencoding;
 import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.attrs.simple.IFloatRangePreference;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 
 

@@ -14,8 +14,8 @@ package org.fuzzydb.attrs.simple;
 import org.fuzzydb.attrs.dimensions.Dimensions;
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
-import com.wwm.model.dimensions.IDimensions;
 
 /**
  * As compared to a DimensionsRangeConstraint, FloatPreferenceConstraint has certain things it knows:

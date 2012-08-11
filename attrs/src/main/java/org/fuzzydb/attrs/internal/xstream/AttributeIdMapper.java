@@ -12,6 +12,7 @@ package org.fuzzydb.attrs.internal.xstream;
 
 import org.fuzzydb.attrs.AttrIdClassMapper;
 import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.util.DynamicRef;
 import org.springframework.beans.DirectFieldAccessor;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -21,7 +22,6 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.path.PathTracker;
 import com.thoughtworks.xstream.io.path.PathTrackingReader;
-import com.wwm.util.DynamicRef;
 
 /**
  * Given access to an {@link AttributeDefinitionService}, 

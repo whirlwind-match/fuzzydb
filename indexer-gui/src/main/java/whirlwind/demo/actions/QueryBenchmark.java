@@ -2,11 +2,12 @@ package whirlwind.demo.actions;
 
 import java.util.ArrayList;
 
+import org.fuzzydb.util.NanoTimer;
+
 import com.wwm.indexer.demo.WhirlwindBenchmark;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;
 import com.wwm.indexer.demo.internal.WhirlwindQuery;
 import com.wwm.indexer.demo.internal.WhirlwindQuery.QueryConfig;
-import com.wwm.util.NanoTimer;
 
 public class QueryBenchmark extends WhirlwindBenchmark {
 

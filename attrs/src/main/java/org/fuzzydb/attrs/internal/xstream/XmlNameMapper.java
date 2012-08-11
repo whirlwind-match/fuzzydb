@@ -23,10 +23,10 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
  * for the object.
  * 
  * e.g. <pre>
- * &lt;com.wwm.indexer.internal.random.RandomEnum>
+ * &lt;org.fuzzydb.random.RandomEnum>
  *   &lt;enumdef>Smoke.xml&lt;/enumdef>
  *   &lt;nullPercent>0&lt;/nullPercent>
- * &lt;/com.wwm.indexer.internal.random.RandomEnum></pre>
+ * &lt;/org.fuzzydb.random.RandomEnum></pre>
  * 
  * Will use this converter to select the enumDef labelled Smoke.xml from
  * the map supplied to the constructor.

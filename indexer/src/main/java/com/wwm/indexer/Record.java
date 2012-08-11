@@ -13,7 +13,8 @@ package com.wwm.indexer;
 import java.util.Date;
 import java.util.Map;
 
-import com.wwm.model.attributes.Attribute;
+import org.fuzzydb.dto.attributes.Attribute;
+
 
 public interface Record {
 

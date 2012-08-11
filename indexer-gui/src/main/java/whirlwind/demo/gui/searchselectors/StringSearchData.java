@@ -1,7 +1,8 @@
 package whirlwind.demo.gui.searchselectors;
 
+import org.fuzzydb.dto.attributes.NonIndexStringAttribute;
+
 import com.wwm.indexer.exceptions.AttributeException;
-import com.wwm.model.attributes.NonIndexStringAttribute;
 
 
 public class StringSearchData extends TextEntrySearchData {

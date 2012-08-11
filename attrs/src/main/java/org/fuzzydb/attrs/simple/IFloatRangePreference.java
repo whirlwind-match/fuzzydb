@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.attrs.simple;
 
-import com.wwm.model.dimensions.IDimensions;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
 public interface IFloatRangePreference extends IDimensions {
 

@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.fuzzydb.attrs.converters.StringToEcefVectorConverter;
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.dto.dimensions.IPoint3D;
 import org.junit.Test;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.model.dimensions.IPoint3D;
 
 public class StringToEcefVectorConverterTest {
 

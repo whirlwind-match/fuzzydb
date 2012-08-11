@@ -11,8 +11,8 @@
 package org.fuzzydb.client.internal;
 
 import org.fuzzydb.core.query.Result;
+import org.fuzzydb.dto.attributes.Score;
 
-import com.wwm.model.attributes.Score;
 
 public class ResultImpl<E extends Object> implements Result<E> {
 

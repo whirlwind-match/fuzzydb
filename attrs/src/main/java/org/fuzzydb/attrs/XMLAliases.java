@@ -23,10 +23,10 @@ import org.fuzzydb.attrs.simple.FloatRangePreferenceScorer;
 import org.fuzzydb.attrs.simple.FloatSplitConfiguration;
 import org.fuzzydb.attrs.simple.SimilarFloatValueScorer;
 import org.fuzzydb.attrs.simple.WeightedSumScorer;
+import org.fuzzydb.util.AsymptoticScoreMapper;
+import org.fuzzydb.util.LinearScoreMapper;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.util.AsymptoticScoreMapper;
-import com.wwm.util.LinearScoreMapper;
 
 public class XMLAliases {
 

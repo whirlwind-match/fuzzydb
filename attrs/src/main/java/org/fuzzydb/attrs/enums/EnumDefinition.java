@@ -14,8 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
+import org.fuzzydb.dto.attributes.OptionsSource;
 
-import com.wwm.model.attributes.OptionsSource;
 
 
 public class EnumDefinition implements Serializable, OptionsSource {

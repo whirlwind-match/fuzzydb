@@ -10,8 +10,9 @@
  *****************************************************************************/
 package org.fuzzydb.attrs.byteencoding;
 
-import com.wwm.model.dimensions.IDimensions;
-import com.wwm.util.ByteArray;
+import org.fuzzydb.dto.dimensions.IDimensions;
+import org.fuzzydb.util.ByteArray;
+
 
 
 

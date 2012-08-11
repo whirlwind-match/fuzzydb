@@ -30,21 +30,21 @@ import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.string.StringValue;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+import org.fuzzydb.dto.attributes.DateAttribute;
+import org.fuzzydb.dto.attributes.DateRangeAttribute;
+import org.fuzzydb.dto.attributes.EnumAttribute;
+import org.fuzzydb.dto.attributes.EnumeratedAttribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
+import org.fuzzydb.dto.attributes.FloatRangeAttribute;
+import org.fuzzydb.dto.attributes.IntegerAttribute;
+import org.fuzzydb.dto.attributes.MultiEnumAttribute;
+import org.fuzzydb.dto.attributes.NonIndexStringAttribute;
+import org.fuzzydb.dto.attributes.Point3DAttribute;
 
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.BooleanAttribute;
-import com.wwm.model.attributes.DateAttribute;
-import com.wwm.model.attributes.DateRangeAttribute;
-import com.wwm.model.attributes.EnumAttribute;
-import com.wwm.model.attributes.EnumeratedAttribute;
-import com.wwm.model.attributes.FloatAttribute;
-import com.wwm.model.attributes.FloatRangeAttribute;
-import com.wwm.model.attributes.IntegerAttribute;
-import com.wwm.model.attributes.MultiEnumAttribute;
-import com.wwm.model.attributes.NonIndexStringAttribute;
-import com.wwm.model.attributes.Point3DAttribute;
 
 
 public class ConversionFactory {

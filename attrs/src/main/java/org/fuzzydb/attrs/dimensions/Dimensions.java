@@ -13,9 +13,9 @@ package org.fuzzydb.attrs.dimensions;
 import java.util.Arrays;
 
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
 
-import com.wwm.model.dimensions.IDimensions;
 
 /**
  * @author Neale

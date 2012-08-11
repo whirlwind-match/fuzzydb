@@ -14,7 +14,8 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
 
-import com.wwm.context.SessionContext;
+import org.fuzzydb.util.context.SessionContext;
+
 
 
 /**

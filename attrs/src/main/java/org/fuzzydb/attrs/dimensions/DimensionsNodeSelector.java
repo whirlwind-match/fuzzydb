@@ -14,8 +14,8 @@ package org.fuzzydb.attrs.dimensions;
 
 import org.fuzzydb.attrs.internal.BranchConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
-import com.wwm.model.dimensions.IDimensions;
 
 
 /**

@@ -23,15 +23,15 @@ import org.fuzzydb.attrs.internal.AttrDefinitionMgr.AttrType;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
 import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.NonIndexStringAttribute;
+import org.fuzzydb.dto.attributes.UnspecifiedTypeAttribute;
+import org.fuzzydb.util.DynamicRef;
 
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.db.converters.ConversionFactory;
 import com.wwm.indexer.db.converters.SearchConverter;
 import com.wwm.indexer.db.converters.UKPostcodeToVectorDerivation;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.NonIndexStringAttribute;
-import com.wwm.model.attributes.UnspecifiedTypeAttribute;
-import com.wwm.util.DynamicRef;
 
 /**
  * Responsible for:

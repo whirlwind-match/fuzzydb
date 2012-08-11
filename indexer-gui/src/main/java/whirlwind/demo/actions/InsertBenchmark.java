@@ -1,11 +1,12 @@
 package whirlwind.demo.actions;
 
 
+import org.fuzzydb.util.NanoTimer;
+
 import com.wwm.indexer.demo.WhirlwindBenchmark;
 import com.wwm.indexer.demo.WhirlwindRandomiser;
 import com.wwm.indexer.demo.WhirlwindRandomiser.IProgress;
 import com.wwm.indexer.demo.internal.WhirlwindCommon;
-import com.wwm.util.NanoTimer;
 
 public class InsertBenchmark extends WhirlwindBenchmark {
 

@@ -6,8 +6,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.fuzzydb.dto.attributes.Attribute;
+
 import com.wwm.indexer.exceptions.AttributeException;
-import com.wwm.model.attributes.Attribute;
 
 public abstract class SearchData {
     private JPanel panel;

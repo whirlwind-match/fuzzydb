@@ -13,12 +13,12 @@ package org.fuzzydb.postcode;
 
 import org.fuzzydb.core.Settings;
 import org.fuzzydb.postcode.PostcodeConvertor;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.Assert;
 
-import com.wwm.geo.GeoInformation;
 
 /**
  * These tests assume the postcode data has been built and installed into the correct location.

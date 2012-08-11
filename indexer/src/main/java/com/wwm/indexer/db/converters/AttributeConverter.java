@@ -11,9 +11,9 @@
 package com.wwm.indexer.db.converters;
 
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
 
 import com.wwm.indexer.exceptions.AttributeException;
-import com.wwm.model.attributes.Attribute;
 
 public interface AttributeConverter {
 

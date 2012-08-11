@@ -14,8 +14,8 @@ package org.fuzzydb.attrs.location;
 
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.attrs.dimensions.Value3D;
+import org.fuzzydb.dto.dimensions.IPoint3D;
 
-import com.wwm.model.dimensions.IPoint3D;
 
 
 public class EcefVector extends Value3D {

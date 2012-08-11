@@ -17,12 +17,13 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.fuzzydb.util.CsvReader;
+import org.fuzzydb.util.FileUtils;
+import org.fuzzydb.util.CsvReader.GarbageLineException;
+import org.fuzzydb.util.CsvReader.NoSuchColumnException;
+import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
+
 import com.wwm.postcode.PostcodeResult;
-import com.wwm.util.CsvReader;
-import com.wwm.util.FileUtils;
-import com.wwm.util.CsvReader.GarbageLineException;
-import com.wwm.util.CsvReader.NoSuchColumnException;
-import com.wwm.util.CsvReader.UnsupportedTypeException;
 
 /**
  * This application converts [postcode root]\npemap.org.uk.outward-part.csv and outputs to [postcode root]\jibble

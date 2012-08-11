@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.fuzzydb.attrs.AttributeDefinitionService;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.OptionsSource;
+import org.fuzzydb.dto.attributes.RandomGenerator;
+import org.fuzzydb.random.RandomBoolean;
+import org.fuzzydb.random.RandomEnum;
+import org.fuzzydb.random.RandomFloat;
+import org.fuzzydb.random.RandomMultiEnum;
+import org.fuzzydb.random.RandomUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.wwm.indexer.internal.random.RandomBoolean;
-import com.wwm.indexer.internal.random.RandomEnum;
-import com.wwm.indexer.internal.random.RandomFloat;
-import com.wwm.indexer.internal.random.RandomMultiEnum;
-import com.wwm.indexer.internal.random.RandomUuid;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.OptionsSource;
-import com.wwm.model.attributes.RandomGenerator;
 
 @Component
 public class RandomAttributeSource {

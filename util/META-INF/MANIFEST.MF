@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Util Plug-in
-Bundle-Description: Provides various simple util classes.  In com.wwm.util, FileUtils will need classes registering
+Bundle-Description: Provides various simple util classes.  In org.fuzzydb.util, FileUtils will need classes registering
  with it in order to be able to load those classes from another bundle, as this bundle clearly does not have
  knowledge of the classloader to use.
-Bundle-SymbolicName: com.wwm.util
+Bundle-SymbolicName: org.fuzzydb.util
 Bundle-Version: 1.0.0
 Bundle-Vendor: Whirlwind Match Ltd
 Eclipse-BuddyPolicy: registered
-Export-Package: com.wwm.context,
- com.wwm.geo,
- com.wwm.model.attributes,
- com.wwm.model.dimensions,
- com.wwm.util
+Export-Package: org.fuzzydb.dto.attributes,
+ org.fuzzydb.dto.dimensions,
+ org.fuzzydb.util,
+ org.fuzzydb.util.context,
+ org.fuzzydb.util.geo

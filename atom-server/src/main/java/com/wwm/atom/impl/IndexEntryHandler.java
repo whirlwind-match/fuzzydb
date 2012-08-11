@@ -21,6 +21,8 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.model.Feed;
 import org.apache.abdera.protocol.server.RequestContext;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.Score;
 
 import com.wwm.abdera.util.server.BadRequestException;
 import com.wwm.abdera.util.server.NotFoundException;
@@ -30,8 +32,6 @@ import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.SearchResults;
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.indexer.exceptions.IndexerException;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.Score;
 
 public class IndexEntryHandler implements TypeHandler {
 

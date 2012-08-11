@@ -14,4 +14,4 @@ Export-Package: com.archopolis.db.whirlwind.internal,
  org.fuzzydb.core.query,
  org.fuzzydb.core.whirlwind,
  org.fuzzydb.core.whirlwind.internal
-Import-Package: com.wwm.util
+Import-Package: org.fuzzydb.util

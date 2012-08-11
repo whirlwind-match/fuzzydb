@@ -13,10 +13,10 @@ package com.wwm.indexer.db.converters;
 
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
+import org.fuzzydb.dto.attributes.UnspecifiedTypeAttribute;
 
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.FloatAttribute;
-import com.wwm.model.attributes.UnspecifiedTypeAttribute;
 
 
 public class FloatConverter implements AttributeConverter {

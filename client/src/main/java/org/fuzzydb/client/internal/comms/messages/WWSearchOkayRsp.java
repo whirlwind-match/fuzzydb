@@ -17,8 +17,8 @@ import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.client.internal.ResultImpl;
 import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.fuzzydb.core.query.Result;
+import org.fuzzydb.dto.attributes.Score;
 
-import com.wwm.model.attributes.Score;
 
 
 public class WWSearchOkayRsp extends OkRsp {

@@ -24,6 +24,12 @@ import org.apache.abdera.model.Entry;
 import org.apache.abdera.protocol.server.RequestContext;
 import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.DateAttribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
+import org.fuzzydb.dto.attributes.FloatRangeAttribute;
+import org.fuzzydb.dto.attributes.Point3DAttribute;
+import org.fuzzydb.dto.attributes.UnspecifiedTypeAttribute;
 
 import com.wwm.atom.elements.AbderaElementFactory;
 import com.wwm.atom.elements.AttributeElement;
@@ -31,12 +37,6 @@ import com.wwm.atom.elements.EntryDecorator;
 import com.wwm.atom.elements.FuzzyRecordProperties;
 import com.wwm.indexer.Record;
 import com.wwm.indexer.internal.RecordImpl;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.DateAttribute;
-import com.wwm.model.attributes.FloatAttribute;
-import com.wwm.model.attributes.FloatRangeAttribute;
-import com.wwm.model.attributes.Point3DAttribute;
-import com.wwm.model.attributes.UnspecifiedTypeAttribute;
 
 /**
  * FIXME: There are bits of this that need reviewing.  The conversion to elements from our beans

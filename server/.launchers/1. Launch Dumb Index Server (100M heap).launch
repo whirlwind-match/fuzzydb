@@ -9,7 +9,7 @@
 <stringAttribute key="configLocation" value="${workspace_loc}/OSGi/1. Launch Dumb Index Server (100M heap)"/>
 <booleanAttribute key="default_auto_start" value="true"/>
 <intAttribute key="default_start_level" value="4"/>
-<stringAttribute key="deselected_workspace_plugins" value="Postcode,com.wwm.util.gui,com.wwm.indexer.gui,DbUnitTests2,org.fuzzydb.client.server.whirlwind"/>
+<stringAttribute key="deselected_workspace_plugins" value="Postcode,org.fuzzydb.util.gui,com.wwm.indexer.gui,DbUnitTests2,org.fuzzydb.client.server.whirlwind"/>
 <booleanAttribute key="includeOptional" value="true"/>
 <booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
@@ -480,6 +480,6 @@
 <mapEntry key="org.eclipse.ui.intro.universal/trace/logInfo" value="true"/>
 </mapAttribute>
 <booleanAttribute key="useDefaultConfigArea" value="false"/>
-<stringAttribute key="workspace_bundles" value="com.wwm.util.servlet@default:default,org.fuzzydb.attrs.compact@default:default,com.wwm.expressions@default:default,org.fuzzydb.attrs@default:default,com.dbpractice.private@default:default,org.fuzzydb.client.core@default:default,com.wwm.bundle.abdera@default:default,com.wwm.indexer@default:default,com.wwm.bundle.libs@default:default,com.wwm.postcode@default:default,com.wwm.io.packet@default:default,com.wwm.util@default:default,org.fuzzydb.attrs.db1@default:default,com.wwm.atom@default:default,org.fuzzydb.client@default:default,org.fuzzydb.client.server@default:default,com.wwm.atom.server@default:default,com.wwm.postcode.uk.full@5:default"/>
+<stringAttribute key="workspace_bundles" value="org.fuzzydb.util.servlet@default:default,org.fuzzydb.attrs.compact@default:default,com.wwm.expressions@default:default,org.fuzzydb.attrs@default:default,com.dbpractice.private@default:default,org.fuzzydb.client.core@default:default,com.wwm.bundle.abdera@default:default,com.wwm.indexer@default:default,com.wwm.bundle.libs@default:default,com.wwm.postcode@default:default,com.wwm.io.packet@default:default,org.fuzzydb.util@default:default,org.fuzzydb.attrs.db1@default:default,com.wwm.atom@default:default,org.fuzzydb.client@default:default,org.fuzzydb.client.server@default:default,com.wwm.atom.server@default:default,com.wwm.postcode.uk.full@5:default"/>
 <stringAttribute key="yk-options" value="&#13;&#10;alloc-size-limit-enabled=false&#13;&#10;alloc-record-each=10&#13;&#10;additional-options=&#13;&#10;alloc-size-limit=1048576&#13;&#10;snapshots-dir=F\:\\YJP Snapshots&#13;&#10;alloc-record-each-enabled=true&#13;&#10;startup=132&#13;&#10;"/>
 </launchConfiguration>

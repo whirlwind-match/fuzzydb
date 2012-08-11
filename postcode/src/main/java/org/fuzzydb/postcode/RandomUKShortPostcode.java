@@ -13,11 +13,11 @@ package org.fuzzydb.postcode;
 import java.io.UnsupportedEncodingException;
 
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.dto.attributes.NonIndexStringAttribute;
+import org.fuzzydb.dto.attributes.RandomGenerator;
+import org.fuzzydb.util.MTRandom;
 import org.slf4j.Logger;
 
-import com.wwm.model.attributes.NonIndexStringAttribute;
-import com.wwm.model.attributes.RandomGenerator;
-import com.wwm.util.MTRandom;
 
 public class RandomUKShortPostcode implements RandomGenerator<NonIndexStringAttribute> {
 	private static Logger log = LogFactory.getLogger(RandomUKShortPostcode.class);

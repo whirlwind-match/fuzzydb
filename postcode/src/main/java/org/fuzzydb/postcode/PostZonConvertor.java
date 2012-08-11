@@ -20,12 +20,12 @@ import java.io.ObjectInputStream;
 import java.util.TreeMap;
 
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.util.StringUtils;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.slf4j.Logger;
 import java.util.zip.GZIPInputStream;
 
-import com.wwm.geo.GeoInformation;
 import com.wwm.postcode.PostcodeResult;
-import com.wwm.util.StringUtils;
 
 /**
  * Old version with high memory footprint

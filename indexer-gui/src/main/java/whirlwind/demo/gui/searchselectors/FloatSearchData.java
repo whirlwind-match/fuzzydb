@@ -2,9 +2,10 @@ package whirlwind.demo.gui.searchselectors;
 
 import javax.swing.JComponent;
 
+import org.fuzzydb.dto.attributes.FloatAttribute;
+
 import whirlwind.demo.gui.util.FloatTextField;
 
-import com.wwm.model.attributes.FloatAttribute;
 
 public class FloatSearchData extends SearchData {
 	

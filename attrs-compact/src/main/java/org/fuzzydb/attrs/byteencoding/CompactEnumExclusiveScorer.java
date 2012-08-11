@@ -22,9 +22,9 @@ import org.fuzzydb.attrs.internal.TwoAttrScorer;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.util.BitSet64;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.BitSet64;
-import com.wwm.util.ByteArray;
 
 
 public class CompactEnumExclusiveScorer extends TwoAttrScorer {

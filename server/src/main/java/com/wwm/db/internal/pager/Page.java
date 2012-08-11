@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.MeteredOutputStream;
 import org.slf4j.Logger;
 
 import com.wwm.db.internal.server.CurrentTransactionHolder;
@@ -30,7 +31,6 @@ import com.wwm.db.internal.server.TransactionControl;
 import com.wwm.db.internal.server.WorkerThread;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
-import com.wwm.util.MeteredOutputStream;
 
 // Page format is:
 // The number of Elements (rows) on a page is always known beforehand, call this 'n'

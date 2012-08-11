@@ -13,9 +13,10 @@ package com.wwm.indexer;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.wwm.context.IShutdown;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.util.context.IShutdown;
+
 import com.wwm.indexer.exceptions.IndexerException;
-import com.wwm.model.attributes.Attribute;
 
 public interface Indexer extends IShutdown {
 

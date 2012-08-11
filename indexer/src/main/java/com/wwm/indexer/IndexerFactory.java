@@ -12,8 +12,8 @@ package com.wwm.indexer;
 
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.StoreMgr;
+import org.fuzzydb.util.context.ContextManager;
 
-import com.wwm.context.ContextManager;
 
 /**
  * FIXME: Look at where this is called from, and adapt it to resolve the

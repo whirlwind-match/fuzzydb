@@ -25,6 +25,7 @@ import org.fuzzydb.core.query.Result;
 import org.fuzzydb.core.query.ResultIterator;
 import org.fuzzydb.core.query.ResultSet;
 import org.fuzzydb.core.whirlwind.SearchSpec;
+import org.fuzzydb.dto.attributes.Attribute;
 import org.slf4j.Logger;
 
 import com.wwm.indexer.Indexer;
@@ -33,7 +34,6 @@ import com.wwm.indexer.Record;
 import com.wwm.indexer.SearchResults;
 import com.wwm.indexer.exceptions.AttributeException;
 import com.wwm.indexer.exceptions.IndexerException;
-import com.wwm.model.attributes.Attribute;
 
 public class IndexerImpl implements Indexer {
 	

@@ -3,7 +3,8 @@ package whirlwind.demo.gui.searchselectors;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
-import com.wwm.model.attributes.BooleanAttribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+
 
 public class BooleanSearchData extends SearchData {
 	

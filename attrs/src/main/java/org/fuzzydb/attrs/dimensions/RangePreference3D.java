@@ -13,9 +13,9 @@ package org.fuzzydb.attrs.dimensions;
 
 import org.fuzzydb.attrs.internal.Attribute;
 import org.fuzzydb.attrs.util.Range3D;
+import org.fuzzydb.dto.dimensions.IPoint3D;
+import org.fuzzydb.dto.dimensions.IRange3D;
 
-import com.wwm.model.dimensions.IPoint3D;
-import com.wwm.model.dimensions.IRange3D;
 
 public abstract class RangePreference3D extends Attribute implements IRange3D {
 	/**

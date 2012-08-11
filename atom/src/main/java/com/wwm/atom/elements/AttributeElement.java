@@ -3,7 +3,7 @@
 import org.apache.abdera.factory.Factory;
 import org.apache.abdera.model.Element;
 
-import com.wwm.model.attributes.Attribute;
+import org.fuzzydb.dto.attributes.Attribute;
 se, redistribute and/or modify
  * it under the terms of the Open Software Licence v 3.0 as published by the 
  * Open Source Initiative.
@@ -17,8 +17,8 @@ import javax.xml.namespace.QName;
 
 import org.apache.abdera.factory.Factory;
 import org.apache.abdera.model.Element;
+import org.fuzzydb.dto.attributes.Attribute;
 
-import com.wwm.model.attributes.Attribute;
 
 public abstract class AttributeElement extends NamedElement {
 

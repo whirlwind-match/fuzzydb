@@ -13,9 +13,9 @@ package org.fuzzydb.attrs;
 
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.util.MTRandom;
 import org.junit.Test;
 
-import com.wwm.util.MTRandom;
 
 import static org.junit.Assert.assertTrue;
 

@@ -21,16 +21,16 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.util.CsvReader;
+import org.fuzzydb.util.FileUtils;
+import org.fuzzydb.util.StringUtils;
+import org.fuzzydb.util.CsvReader.GarbageLineException;
+import org.fuzzydb.util.CsvReader.NoSuchColumnException;
+import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
+import org.fuzzydb.util.geo.LatLongDegs;
+import org.fuzzydb.util.geo.OsgbGridCoord;
 
-import com.wwm.geo.LatLongDegs;
-import com.wwm.geo.OsgbGridCoord;
 import com.wwm.postcode.PostcodeResult;
-import com.wwm.util.CsvReader;
-import com.wwm.util.FileUtils;
-import com.wwm.util.StringUtils;
-import com.wwm.util.CsvReader.GarbageLineException;
-import com.wwm.util.CsvReader.NoSuchColumnException;
-import com.wwm.util.CsvReader.UnsupportedTypeException;
 
 /**This application assumes the file [postcode root]\PostZon.csv exists
  * It generates postzon data to [postcode root]\postzon\*

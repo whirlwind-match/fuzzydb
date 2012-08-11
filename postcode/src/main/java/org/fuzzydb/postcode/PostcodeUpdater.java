@@ -18,11 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.util.CsvReader;
+import org.fuzzydb.util.StringUtils;
+import org.fuzzydb.util.CsvReader.GarbageLineException;
+import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
 
-import com.wwm.util.CsvReader;
-import com.wwm.util.StringUtils;
-import com.wwm.util.CsvReader.GarbageLineException;
-import com.wwm.util.CsvReader.UnsupportedTypeException;
 
 public class PostcodeUpdater {
 

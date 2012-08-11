@@ -12,8 +12,8 @@ package org.fuzzydb.attrs.dimensions;
 
 
 import org.fuzzydb.attrs.SplitConfiguration;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
-import com.wwm.model.dimensions.IDimensions;
 
 public class DimensionSplitConfiguration extends SplitConfiguration {
 

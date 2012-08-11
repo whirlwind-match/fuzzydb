@@ -13,9 +13,9 @@ package com.wwm.indexer.db.converters;
 
 import org.fuzzydb.attrs.simple.FloatRangePreference;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.FloatRangeAttribute;
 
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.FloatRangeAttribute;
 
 
 public class FloatRangeConverter implements AttributeConverter {

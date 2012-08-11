@@ -12,8 +12,8 @@ package org.fuzzydb.client.whirlwind;
 
 
 import org.fuzzydb.core.marker.IAttributeContainer;
+import org.fuzzydb.util.IntMap;
 
-import com.wwm.util.IntMap;
 
 /**
  * Int to V map access to attributes

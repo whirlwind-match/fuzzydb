@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import org.fuzzydb.client.Client;
+import org.fuzzydb.dto.attributes.RandomGenerator;
 
 import whirlwind.demo.gui.searchtabs.SearchTab;
 import whirlwind.demo.gui.searchtabs.SearchTabXmlConfig;
 
 import com.wwm.indexer.demo.internal.Randomiser;
-import com.wwm.model.attributes.RandomGenerator;
 
 public class WhirlwindDemoConfig {
 

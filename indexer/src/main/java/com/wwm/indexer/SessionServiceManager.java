@@ -12,11 +12,11 @@ package com.wwm.indexer;
 
 
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.context.ContextManager;
+import org.fuzzydb.util.context.SessionContext;
+import org.fuzzydb.util.context.SessionContextMgrBase;
 import org.slf4j.Logger;
 
-import com.wwm.context.ContextManager;
-import com.wwm.context.SessionContext;
-import com.wwm.context.SessionContextMgrBase;
 import com.wwm.indexer.internal.IndexerImpl;
 
 /**

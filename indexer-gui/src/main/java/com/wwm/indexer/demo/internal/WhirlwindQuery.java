@@ -3,11 +3,12 @@ package com.wwm.indexer.demo.internal;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.fuzzydb.dto.attributes.Attribute;
+
 import com.wwm.indexer.Record;
 import com.wwm.indexer.SearchResult;
 import com.wwm.indexer.SearchResults;
 import com.wwm.indexer.internal.RecordImpl;
-import com.wwm.model.attributes.Attribute;
 
 
 public class WhirlwindQuery {

@@ -18,8 +18,8 @@ import org.fuzzydb.attrs.internal.TwoAttrScorer;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.util.BitSet64;
 
-import com.wwm.util.BitSet64;
 
 /**
  * Scores such that the set of options presented (which may be null or an empty set), 

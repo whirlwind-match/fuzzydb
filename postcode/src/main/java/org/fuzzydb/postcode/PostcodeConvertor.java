@@ -11,11 +11,11 @@
 package org.fuzzydb.postcode;
 
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.StringUtils;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.slf4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 
-import com.wwm.geo.GeoInformation;
-import com.wwm.util.StringUtils;
 
 /**
  * Converts postcodes to geographic information using available PostcodeService

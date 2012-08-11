@@ -12,7 +12,8 @@ package com.wwm.postcode;
 
 import java.io.Serializable;
 
-import com.wwm.geo.GeoInformation;
+import org.fuzzydb.util.geo.GeoInformation;
+
 
 public class PostcodeResult implements Serializable, GeoInformation {
 

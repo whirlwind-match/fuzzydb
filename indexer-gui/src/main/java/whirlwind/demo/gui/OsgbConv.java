@@ -3,10 +3,10 @@ package whirlwind.demo.gui;
 
 
 import org.fuzzydb.attrs.location.EcefVector;
+import org.fuzzydb.util.geo.Datum;
+import org.fuzzydb.util.geo.Ellipsoid;
+import org.fuzzydb.util.geo.OsgbGridCoord;
 
-import com.wwm.geo.Datum;
-import com.wwm.geo.Ellipsoid;
-import com.wwm.geo.OsgbGridCoord;
 
 
 

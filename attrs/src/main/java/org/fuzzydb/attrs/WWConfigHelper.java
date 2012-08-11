@@ -19,10 +19,10 @@ import org.fuzzydb.attrs.internal.xstream.HtmlTableReader;
 import org.fuzzydb.client.Store;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.DynamicRef;
 import org.slf4j.Logger;
 
 import com.thoughtworks.xstream.XStream;
-import com.wwm.util.DynamicRef;
 
 /**
  * Helper class for isolated CRUD ops on elements of WhirlwindConfiguration.

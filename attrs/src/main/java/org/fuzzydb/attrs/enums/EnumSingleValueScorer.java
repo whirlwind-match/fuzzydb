@@ -19,9 +19,9 @@ import org.fuzzydb.attrs.internal.IConstraintMap;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.util.BitSet64;
 import org.springframework.util.Assert;
 
-import com.wwm.util.BitSet64;
 
 
 

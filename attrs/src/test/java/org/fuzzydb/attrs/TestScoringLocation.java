@@ -24,12 +24,12 @@ import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.core.whirlwind.SearchSpec.SearchMode;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.dto.dimensions.Point3D;
+import org.fuzzydb.util.LinearScoreMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.model.dimensions.Point3D;
-import com.wwm.util.LinearScoreMapper;
 
 import static org.junit.Assert.assertEquals;
 

@@ -12,9 +12,9 @@ package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.attrs.dimensions.Dimensions;
 import org.fuzzydb.attrs.dimensions.DimensionsRangeConstraint;
+import org.fuzzydb.dto.dimensions.IDimensions;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.model.dimensions.IDimensions;
-import com.wwm.util.ByteArray;
 
 
 

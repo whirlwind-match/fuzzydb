@@ -26,6 +26,11 @@ import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
 import org.fuzzydb.attrs.userobjects.StandaloneWWIndexData;
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.EnumeratedAttribute;
+import org.fuzzydb.dto.attributes.NonIndexStringAttribute;
+import org.fuzzydb.dto.attributes.NonIndexedAttribute;
+import org.fuzzydb.util.DynamicRef;
 import org.slf4j.Logger;
 
 import com.wwm.indexer.IndexerFactory;
@@ -35,11 +40,6 @@ import com.wwm.indexer.db.converters.InboundDerivation;
 import com.wwm.indexer.db.converters.UKPostcodeToPlaceDerivation;
 import com.wwm.indexer.db.converters.UKPostcodeToVectorDerivation;
 import com.wwm.indexer.exceptions.IndexerException;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.EnumeratedAttribute;
-import com.wwm.model.attributes.NonIndexStringAttribute;
-import com.wwm.model.attributes.NonIndexedAttribute;
-import com.wwm.util.DynamicRef;
 
 /**
  * This is where all the to and from conversion goes on.

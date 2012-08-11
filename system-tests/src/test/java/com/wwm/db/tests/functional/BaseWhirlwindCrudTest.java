@@ -19,11 +19,11 @@ import org.fuzzydb.core.query.Result;
 import org.fuzzydb.core.query.ResultSet;
 import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.util.BlockProcessor;
+import org.fuzzydb.util.MTRandom;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.wwm.util.BlockProcessor;
-import com.wwm.util.MTRandom;
 
 abstract public class BaseWhirlwindCrudTest<T extends AugmentedAttributeMap> extends BaseWWTest {
 	

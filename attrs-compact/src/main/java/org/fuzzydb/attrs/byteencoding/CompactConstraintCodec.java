@@ -13,8 +13,8 @@ package org.fuzzydb.attrs.byteencoding;
 
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.util.ByteArray;
 
-import com.wwm.util.ByteArray;
 
 
 public abstract class CompactConstraintCodec extends CompactAttrCodec {

@@ -4,8 +4,8 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.dto.attributes.EnumAttribute;
 
-import com.wwm.model.attributes.EnumAttribute;
 
 
 public class EnumSearchData extends SearchData {

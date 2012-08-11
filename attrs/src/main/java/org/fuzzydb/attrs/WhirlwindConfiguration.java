@@ -23,9 +23,9 @@ import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
 import org.fuzzydb.client.whirlwind.IndexStrategy;
 import org.fuzzydb.core.marker.IAttributeContainer;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.dto.attributes.OptionsSource;
 
 
-import com.wwm.model.attributes.OptionsSource;
 
 
 public class WhirlwindConfiguration implements Serializable {

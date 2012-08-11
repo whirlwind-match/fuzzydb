@@ -10,7 +10,7 @@
  *****************************************************************************/
 package com.wwm.indexer;
 
-import com.wwm.model.attributes.Score;
+import org.fuzzydb.dto.attributes.Score;
 
 public interface SearchResult extends Record {
     Score getScore();

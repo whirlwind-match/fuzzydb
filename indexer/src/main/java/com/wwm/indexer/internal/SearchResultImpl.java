@@ -10,9 +10,10 @@
  *****************************************************************************/
 package com.wwm.indexer.internal;
 
+import org.fuzzydb.dto.attributes.Score;
+
 import com.wwm.indexer.Record;
 import com.wwm.indexer.SearchResult;
-import com.wwm.model.attributes.Score;
 
 public class SearchResultImpl extends RecordImpl implements SearchResult {
 

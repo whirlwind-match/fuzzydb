@@ -13,7 +13,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.SoftBevelBorder;
 
-import com.wwm.context.JVMAppListener;
+import org.fuzzydb.util.context.JVMAppListener;
+
 import com.wwm.indexer.IndexerFactory;
 import com.wwm.indexer.demo.WhirlwindRandomiser;
 import com.wwm.indexer.demo.WhirlwindRandomiser.IProgress;

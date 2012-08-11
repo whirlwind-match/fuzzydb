@@ -13,10 +13,10 @@ package com.wwm.indexer;
 
 import java.net.MalformedURLException;
 
+import org.fuzzydb.util.context.JVMAppListener;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.wwm.context.JVMAppListener;
 import com.wwm.indexer.internal.RecordImpl;
 
 import static org.junit.Assert.*;

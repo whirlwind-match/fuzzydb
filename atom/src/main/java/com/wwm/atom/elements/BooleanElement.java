@@ -14,9 +14,9 @@ import javax.xml.namespace.QName;
 
 import org.apache.abdera.factory.Factory;
 import org.apache.abdera.model.Element;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
 
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.BooleanAttribute;
 
 public class BooleanElement extends AttributeElement {
 

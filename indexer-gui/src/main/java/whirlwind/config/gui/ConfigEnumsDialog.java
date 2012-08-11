@@ -13,8 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.fuzzydb.attrs.enums.EnumDefinition;
+import org.fuzzydb.dto.attributes.OptionsSource;
 
-import com.wwm.model.attributes.OptionsSource;
 
 public class ConfigEnumsDialog extends JDialog {
 

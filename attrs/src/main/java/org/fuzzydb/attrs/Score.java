@@ -21,7 +21,7 @@ import java.util.Collection;
  * @author ac
  *
  */
-public abstract class Score implements com.wwm.model.attributes.Score, Comparable<Score>, Serializable {
+public abstract class Score implements org.fuzzydb.dto.attributes.Score, Comparable<Score>, Serializable {
 
     static final long serialVersionUID = 5484270146323132L;
 

@@ -20,11 +20,11 @@ import org.fuzzydb.client.Store;
 import org.fuzzydb.client.whirlwind.StringAttributeMap;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.BooleanAttribute;
+import org.fuzzydb.dto.attributes.EnumAttribute;
+import org.fuzzydb.dto.attributes.FloatAttribute;
 
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.BooleanAttribute;
-import com.wwm.model.attributes.EnumAttribute;
-import com.wwm.model.attributes.FloatAttribute;
 
 
 /*

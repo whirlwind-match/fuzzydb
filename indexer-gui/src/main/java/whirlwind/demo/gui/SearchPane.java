@@ -22,6 +22,9 @@ import org.fuzzydb.attrs.enums.EnumMultipleValue;
 import org.fuzzydb.attrs.enums.EnumValue;
 import org.fuzzydb.attrs.internal.EnumAttributeSpec;
 import org.fuzzydb.attrs.simple.FloatValue;
+import org.fuzzydb.dto.attributes.Attribute;
+import org.fuzzydb.dto.attributes.LocationAttribute;
+import org.fuzzydb.util.NanoTimer;
 
 import whirlwind.demo.gui.searchselectors.BooleanSearchData;
 import whirlwind.demo.gui.searchselectors.EnumSearchData;
@@ -38,9 +41,6 @@ import com.wwm.indexer.demo.internal.WhirlwindCommon;
 import com.wwm.indexer.demo.internal.WhirlwindQuery;
 import com.wwm.indexer.demo.internal.WhirlwindQuery.QueryConfig;
 import com.wwm.indexer.exceptions.AttributeException;
-import com.wwm.model.attributes.Attribute;
-import com.wwm.model.attributes.LocationAttribute;
-import com.wwm.util.NanoTimer;
 
 
 public class SearchPane extends JPanel {

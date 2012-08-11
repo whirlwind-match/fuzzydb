@@ -12,7 +12,8 @@ package org.fuzzydb.attrs.util;
 
 import java.io.Serializable;
 
-import com.wwm.model.dimensions.IPoint3D;
+import org.fuzzydb.dto.dimensions.IPoint3D;
+
 
 
 /**

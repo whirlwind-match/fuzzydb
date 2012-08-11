@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.abdera.model.Entry;
+import org.fuzzydb.dto.attributes.Score;
 
-import com.wwm.model.attributes.Score;
 
 
 

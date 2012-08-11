@@ -5,12 +5,12 @@ import org.fuzzydb.attrs.bool.BooleanValue;
 import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
+import org.fuzzydb.dto.attributes.OptionsSource;
 import org.junit.Before;
 import org.junit.Test;
 
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.model.attributes.OptionsSource;
 
 import static org.junit.Assert.assertEquals;
 

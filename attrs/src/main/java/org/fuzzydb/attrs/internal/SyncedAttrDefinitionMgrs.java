@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.fuzzydb.client.Store;
+import org.fuzzydb.util.DynamicRef;
 
-import com.wwm.util.DynamicRef;
 
 /**
  * Container in which SADMs are stored.

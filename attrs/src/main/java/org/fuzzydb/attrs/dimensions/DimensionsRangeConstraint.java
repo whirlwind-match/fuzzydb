@@ -15,8 +15,8 @@ import org.fuzzydb.attrs.internal.BranchConstraint;
 import org.fuzzydb.attrs.location.EcefVector;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
+import org.fuzzydb.dto.dimensions.IDimensions;
 
-import com.wwm.model.dimensions.IDimensions;
 
 
 /**

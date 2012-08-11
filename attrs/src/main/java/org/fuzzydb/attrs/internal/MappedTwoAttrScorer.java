@@ -1,7 +1,7 @@
 package org.fuzzydb.attrs.internal;
 
-import com.wwm.util.LinearScoreMapper;
-import com.wwm.util.ScoreMapper;
+import org.fuzzydb.util.LinearScoreMapper;
+import org.fuzzydb.util.ScoreMapper;
 
 public abstract class MappedTwoAttrScorer extends TwoAttrScorer {
 

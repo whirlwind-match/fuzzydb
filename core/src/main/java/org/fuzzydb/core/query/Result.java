@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.core.query;
 
-import com.wwm.model.attributes.Score;
+import org.fuzzydb.dto.attributes.Score;
 
 public interface Result<E extends Object> {
 	E getItem();

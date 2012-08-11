@@ -14,6 +14,8 @@ import org.fuzzydb.client.DataOperations;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.internal.RefImpl;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.attributes.EnumAttribute;
+import org.fuzzydb.dto.attributes.MultiEnumAttribute;
 import org.fuzzydb.spring.annotation.DerivedField;
 import org.fuzzydb.spring.mapping.FuzzyMappingContext;
 import org.fuzzydb.spring.mapping.FuzzyPersistentEntity;
@@ -30,8 +32,6 @@ import org.springframework.data.mapping.model.BeanWrapper;
 import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 
-import com.wwm.model.attributes.EnumAttribute;
-import com.wwm.model.attributes.MultiEnumAttribute;
 
 /**
  * Maps an entity to a {@link MappedFuzzyItem} by mapping fuzzy attributes (floats, enums etc) to the fuzzy attributes

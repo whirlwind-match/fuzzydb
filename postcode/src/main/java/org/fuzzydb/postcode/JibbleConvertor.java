@@ -15,12 +15,12 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.util.FileUtils;
+import org.fuzzydb.util.StringUtils;
+import org.fuzzydb.util.geo.GeoInformation;
 import org.slf4j.Logger;
 
-import com.wwm.geo.GeoInformation;
 import com.wwm.postcode.PostcodeResult;
-import com.wwm.util.FileUtils;
-import com.wwm.util.StringUtils;
 
 /**
  * Convert UK postcodes to {@link GeoInformation} using the prefix part.

@@ -13,9 +13,9 @@ package org.fuzzydb.attrs.dimensions;
 
 import org.fuzzydb.attrs.internal.Attribute;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.dto.dimensions.IDimensions;
+import org.fuzzydb.dto.dimensions.IPoint3D;
 
-import com.wwm.model.dimensions.IDimensions;
-import com.wwm.model.dimensions.IPoint3D;
 
 /**
  * X,Y,Z 
