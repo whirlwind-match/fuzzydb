@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.WWConfigHelper;
@@ -40,7 +42,7 @@ public class StoreInitializer implements InitializingBean {
 	
 	static private final Logger log = LogFactory.getLogger(StoreInitializer.class);
 	
-	private String autoResourceBase = "classpath*:/fuzzy/";
+	private final String autoResourceBase = "classpath*:/fuzzy/";
 	
 	private Store store;
 	
@@ -85,11 +87,11 @@ public class StoreInitializer implements InitializingBean {
 	}
 
 	@Autowired
-	public void setStore(Store store) {
+	public void setStore(@Nonnull Store store) {
 		this.store = store;
 	}
 	
-	public void setResource(String resource) {
+	public void setResource(@Nullable String resource) {
 		this.resourcePath = resource;
 	}
 }

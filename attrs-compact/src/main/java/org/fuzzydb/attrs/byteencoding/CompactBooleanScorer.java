@@ -25,7 +25,6 @@ import org.fuzzydb.util.ByteArray;
 
 
 
-
 public class CompactBooleanScorer extends TwoAttrScorer {
 
 	private static final long serialVersionUID = 1L;
@@ -46,9 +45,8 @@ public class CompactBooleanScorer extends TwoAttrScorer {
     	ByteArray otherBytes = ((CompactAttrMap<?>)otherAttrs).getByteArray();
     	
     	int scoreIndex = CompactAttrCodec.findAttrInBuf(scoreBytes, scorerAttrId);
-		if (scoreIndex == CompactAttrCodec.NOT_FOUND) {
+		if (scoreIndex == CompactAttrCodec.NOT_FOUND)
 			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
 
     	int otherIndex = CompactAttrCodec.findAttrInBuf(otherBytes, otherAttrId);
 
@@ -63,11 +61,9 @@ public class CompactBooleanScorer extends TwoAttrScorer {
 
 	@Override
     public void scoreSearchToNode(Score score, Direction d, IConstraintMap c, IAttributeMap<? extends IAttribute> scoreAttrs) {
-        Attribute attr = (Attribute)scoreAttrs.findAttr(scorerAttrId);
-		if (attr == null) {
+		IBooleanValue attr = (IBooleanValue)scoreAttrs.findAttr(scorerAttrId);
+		if (attr == null)
 			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
-        IBooleanValue bAttr = (IBooleanValue) attr;
         IAttributeConstraint na = c.findAttr(otherAttrId);
         
         // If there is no Node Data then we only score null 
@@ -84,16 +80,15 @@ public class CompactBooleanScorer extends TwoAttrScorer {
             }
         }
         assert(na instanceof BooleanConstraint);
-        result = Math.max(result, calcScore((BooleanConstraint)na, bAttr));
+        result = Math.max(result, calcScore((BooleanConstraint)na, attr));
         score.add(this, result, d);
     }
     
     @Override
     public void scoreNodeToSearch(Score score, Direction d, IAttributeMap<IAttributeConstraint> c, IAttributeMap<IAttribute> searchAttrs) {
     	IAttributeConstraint na = c.findAttr(scorerAttrId);
-		if (na == null) {
+		if (na == null)
 			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
 		IAttributeConstraint bNa = na;
         IBooleanValue otherAttr = (IBooleanValue) searchAttrs.findAttr(otherAttrId);
 

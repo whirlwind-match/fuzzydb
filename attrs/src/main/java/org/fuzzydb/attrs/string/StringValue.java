@@ -18,13 +18,13 @@ import org.fuzzydb.core.whirlwind.internal.IMergeable;
 
 
 
-public class StringValue extends Attribute implements IMergeable, Comparable<StringValue>, Serializable {
+public class StringValue extends Attribute<StringValue> implements IMergeable, Comparable<StringValue>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private boolean delimited = false;
     private char delimiter = ' ';
-    private String value;
+    private final String value;
 
     /**
      * Create an instance value from the supplied string from the definition.
@@ -54,7 +54,8 @@ public class StringValue extends Attribute implements IMergeable, Comparable<Str
     /**
      * Implement Comparable interface to allow values to be sorted
      */
-    public int compareTo(StringValue rval) {
+    @Override
+	public int compareTo(StringValue rval) {
         assert(rval.getAttrId() == this.getAttrId()); // Should only be called on matching ID
         return value.compareTo(rval.value);
     }
@@ -68,15 +69,15 @@ public class StringValue extends Attribute implements IMergeable, Comparable<Str
         return value;
     }
 
-    public int compareAttribute(IAttribute rhs) {
+    @Override
+	public int compareAttribute(IAttribute rhs) {
         return compareTo((StringValue)rhs);
     }
 
     @Override
     public StringConstraint createAnnotation() {
-        if (delimited) {
-            return new StringConstraint(getAttrId(), this, delimiter);
-        }
+        if (delimited)
+			return new StringConstraint(getAttrId(), this, delimiter);
         return new StringConstraint(getAttrId(), this);
     }
 

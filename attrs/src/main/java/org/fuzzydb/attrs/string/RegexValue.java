@@ -20,11 +20,11 @@ import org.fuzzydb.core.whirlwind.internal.IAttribute;
 
 
 
-public class RegexValue extends Attribute implements Comparable<RegexValue>, Serializable {
+public class RegexValue extends Attribute<RegexValue> implements Comparable<RegexValue>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Pattern value;
+    private final Pattern value;
 
     /**
      * Create an instance value from the supplied string from the definition.
@@ -49,7 +49,8 @@ public class RegexValue extends Attribute implements Comparable<RegexValue>, Ser
     /**
      * Implement Comparable interface to allow values to be sorted
      */
-    public int compareTo(RegexValue rval) {
+    @Override
+	public int compareTo(RegexValue rval) {
         assert(rval.getAttrId() == this.getAttrId()); // Should only be called on matching ID
         return value.toString().compareTo(rval.value.toString());
     }
@@ -63,7 +64,8 @@ public class RegexValue extends Attribute implements Comparable<RegexValue>, Ser
         return value.toString();
     }
 
-    public int compareAttribute(IAttribute rhs) {
+    @Override
+	public int compareAttribute(IAttribute rhs) {
         return compareTo((RegexValue)rhs);
     }
 

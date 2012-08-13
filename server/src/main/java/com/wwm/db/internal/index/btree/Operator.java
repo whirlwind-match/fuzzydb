@@ -12,6 +12,7 @@ package com.wwm.db.internal.index.btree;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import javax.annotation.Nonnull;
 
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
@@ -73,7 +74,7 @@ abstract class Operator<T> {
         return cloned;
     }
 
-    protected BranchNodeW getWritable(Ref<? extends NodeR> ref, BranchNodeR bn) {
+    protected @Nonnull BranchNodeW getWritable(Ref<? extends NodeR> ref, BranchNodeR bn) {
         NodeW n = writeBehind.get(ref);
         if (n != null) {
             return (BranchNodeW) n;

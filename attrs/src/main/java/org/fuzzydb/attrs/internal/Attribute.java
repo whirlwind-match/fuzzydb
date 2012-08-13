@@ -16,8 +16,7 @@ import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 
 
 /**
- * @author ac
- *
+ * @param <T> the value returned when cloning
  */
 public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute implements IAttribute, Cloneable {
 
@@ -44,6 +43,7 @@ public abstract class Attribute<T extends Attribute<T>> extends BaseAttribute im
 	 */
 	public abstract IAttributeConstraint createAnnotation();
 	
+	@Override
 	public Object asSimpleAttribute() {
 		return this; // Default: Needs overriding for DB1 attrs.
 	}

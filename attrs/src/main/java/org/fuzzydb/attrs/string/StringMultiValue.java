@@ -21,7 +21,7 @@ import org.fuzzydb.core.whirlwind.internal.IMergeable;
 
 
 
-public class StringMultiValue extends Attribute implements IMergeable, Comparable<StringMultiValue>, Serializable {
+public class StringMultiValue extends Attribute<StringMultiValue> implements IMergeable, Comparable<StringMultiValue>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,18 +58,16 @@ public class StringMultiValue extends Attribute implements IMergeable, Comparabl
     /**
      * Implement Comparable interface to allow values to be sorted
      */
-    public int compareTo(StringMultiValue rval) {
+    @Override
+	public int compareTo(StringMultiValue rval) {
         assert(rval.getAttrId() == this.getAttrId()); // Should only be called on matching ID
-        if (value.size() > rval.value.size()) {
-            return 1;
-        } if (value.size() > rval.value.size()) {
-            return -1;
-        }
+        if (value.size() > rval.value.size())
+			return 1; if (value.size() > rval.value.size())
+			return -1;
         for (int i = 0; i < value.size(); i++) {
             int result = value.get(i).compareTo(rval.value.get(i));
-            if (result != 0) {
-                return result;
-            }
+            if (result != 0)
+				return result;
         }
         return 0;
     }
@@ -83,15 +81,15 @@ public class StringMultiValue extends Attribute implements IMergeable, Comparabl
         return "{ " + value + " }";
     }
 
-    public int compareAttribute(IAttribute rhs) {
+    @Override
+	public int compareAttribute(IAttribute rhs) {
         return compareTo((StringMultiValue)rhs);
     }
 
     @Override
     public StringConstraint createAnnotation() {
-        if (delimited) {
-            return new StringConstraint(getAttrId(), this, delimiter);
-        }
+        if (delimited)
+			return new StringConstraint(getAttrId(), this, delimiter);
         return new StringConstraint(getAttrId(), this);
     }
 

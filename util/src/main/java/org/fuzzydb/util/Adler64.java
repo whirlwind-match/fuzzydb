@@ -28,23 +28,32 @@ public final class Adler64 implements Checksum {
 		reset();
 	}
 	
+	@Override
 	public final void update(int b) {
 		s1 += b;
-		if (s1>=crcBase) s1 -= crcBase;	// same as mod % but with no risk of costly 64 bit math
+		if (s1>=crcBase)
+		 {
+			s1 -= crcBase;	// same as mod % but with no risk of costly 64 bit math
+		}
 		s2 += s1;
-		if (s2>=crcBase) s2 -= crcBase;
+		if (s2>=crcBase) {
+			s2 -= crcBase;
+		}
 	}
 
+	@Override
 	public final void update(byte[] b, int off, int len) {
 		for (int i=0; i<len; i++) {
 			update(b[off+i]);
 		}
 	}
 
+	@Override
 	public final long getValue() {
 		return (s2 << 32) | s1;
 	}
 
+	@Override
 	public final void reset() {
 		s1 = 1;
 		s2 = 0;

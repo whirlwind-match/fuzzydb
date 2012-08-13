@@ -19,7 +19,6 @@ import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeConstraint;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
 
-
 /**
  * @author Neale
  */
@@ -44,11 +43,9 @@ public class BooleanScorer extends TwoAttrScorer {
     
     @Override
     public void scoreSearchToNode(Score score, Score.Direction d, IConstraintMap c, IAttributeMap<? extends IAttribute> scoreAttrs) {
-        Attribute attr = (Attribute)scoreAttrs.findAttr(scorerAttrId);
-		if (attr == null) {
+    	IBooleanValue attr = (IBooleanValue)scoreAttrs.findAttr(scorerAttrId);
+		if (attr == null)
 			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
-        IBooleanValue bAttr = (IBooleanValue) attr;
         IAttributeConstraint na = c.findAttr(otherAttrId);
         
         // If there is no Node Data then we only score null 
@@ -65,16 +62,15 @@ public class BooleanScorer extends TwoAttrScorer {
             }
         }
         assert(na instanceof BooleanConstraint);
-        result = Math.max(result, calcScore((BooleanConstraint)na, bAttr));
+        result = Math.max(result, calcScore((BooleanConstraint)na, attr));
         score.add(this, result, d);
     }
     
     @Override
     public void scoreNodeToSearch(Score score, Score.Direction d, IAttributeMap<IAttributeConstraint> c, IAttributeMap<IAttribute> searchAttrs) {
     	IAttribute na = c.findAttr(scorerAttrId);
-		if (na == null) {
+		if (na == null)
 			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
 		IAttributeConstraint bNa = (IAttributeConstraint) na;
         IBooleanValue otherAttr = (IBooleanValue) searchAttrs.findAttr(otherAttrId);
 
@@ -103,20 +99,17 @@ public class BooleanScorer extends TwoAttrScorer {
     
     @Override
     public void scoreItemToItem(Score score, Score.Direction d, IAttributeMap<IAttribute> c, IAttributeMap<IAttribute> scoreAttrs) {
-        Attribute attr = (Attribute)scoreAttrs.findAttr(scorerAttrId);
-		if (attr == null) {
+    	IBooleanValue attr = (IBooleanValue)scoreAttrs.findAttr(scorerAttrId);
+		if (attr == null)
 			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
 
-		// FIXME: what's this lot doing?  Seems lots of overhead to avoid a ClassCastException?  Perf critical code here.
-        IBooleanValue bAttr = (IBooleanValue) attr;
         IBooleanValue bOtherAttr = (IBooleanValue) c.findAttr( otherAttrId );
 
         if (bOtherAttr == null) {
             score.addNull(this, d);
             return;
         }
-        score.add(this, calcScore(bAttr, bOtherAttr), d);
+        score.add(this, calcScore(attr, bOtherAttr), d);
     }
     
     private float calcScore(IBooleanValue thisAttr, IBooleanValue otherAttr) {

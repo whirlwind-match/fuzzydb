@@ -20,7 +20,7 @@ import gnu.trove.TIntObjectHashMap;
 /**
  * @author Neale
  */
-public class BooleanValue extends Attribute implements IBooleanValue, IMergeable {
+public class BooleanValue extends Attribute<BooleanValue> implements IBooleanValue, IMergeable {
 
 	private static final long serialVersionUID = 3616447890939983923L;
 	private final boolean isTrue;
@@ -45,10 +45,12 @@ public class BooleanValue extends Attribute implements IBooleanValue, IMergeable
     	return new BooleanValue(this);
     }
     
-    public boolean isTrue() {
+    @Override
+	public boolean isTrue() {
     	return this.isTrue;
     }
 
+	@Override
 	public int compareAttribute(IAttribute rhs) {
 		BooleanValue r = (BooleanValue)rhs;
 		if (isTrue != r.isTrue) return isTrue ? -1 : 1;
@@ -66,9 +68,8 @@ public class BooleanValue extends Attribute implements IBooleanValue, IMergeable
 	}
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof BooleanValue)) {
-            return false;
-        }
+        if (!(obj instanceof BooleanValue))
+			return false;
         BooleanValue bv = (BooleanValue)obj;
         return (bv.attrId == attrId && bv.isTrue == isTrue);
     }
@@ -84,11 +85,10 @@ public class BooleanValue extends Attribute implements IBooleanValue, IMergeable
 	private final static TIntObjectHashMap<BooleanValue> falseValues = new TIntObjectHashMap<BooleanValue>();
 
 	public static BooleanValue valueOf(int attrId, boolean isTrue) {
-		if (isTrue){
+		if (isTrue)
 			return getCachedInstance( attrId, trueValues, true );
-		} else {
+		else
 			return getCachedInstance( attrId, falseValues, false);
-		}
 	}
 	
 	private static BooleanValue getCachedInstance(int attrId, TIntObjectHashMap<BooleanValue> cache, boolean isTrue) {

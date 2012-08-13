@@ -12,7 +12,9 @@ package org.fuzzydb.attrs.enums;
 
 import org.fuzzydb.attrs.internal.Attribute;
 
-public abstract class EnumValue extends Attribute {
+public abstract class EnumValue extends Attribute<EnumValue> {
+
+	private static final long serialVersionUID = 1L;
 
 	protected short enumDefId;
 
