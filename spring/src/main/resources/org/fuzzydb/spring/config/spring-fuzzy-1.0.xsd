@@ -15,7 +15,7 @@
 	<xsd:import namespace="http://www.springframework.org/schema/context"
 		schemaLocation="http://www.springframework.org/schema/context/spring-context.xsd" />
 	<xsd:import namespace="http://www.springframework.org/schema/data/repository"
-		schemaLocation="http://www.springframework.org/schema/data/repository/spring-repository.xsd" />
+		schemaLocation="http://www.springframework.org/schema/data/repository/spring-repository-1.4.xsd" />
 
 	<xsd:element name="embedded-database" type="storeType">
 		<xsd:annotation>
@@ -132,12 +132,7 @@ Set to true to persist data on disk]]></xsd:documentation><!-- FIXME: Not applic
     </xsd:complexType>
 
 
-	<!-- TODO. Don't extend repository:repository for now, just implement as 
-		our simple case -->
 	<xsd:complexType name="fuzzyRepository">
-<!--  		<xsd:complexContent> -->
-<!-- 			<xsd:extension base="repository:repository"> -->
-<!-- 				<xsd:attributeGroup ref="repository:transactional-repository-attributes" /> -->
 				<xsd:attribute name="id" type="xsd:ID" use="optional">
 					<xsd:annotation>
 						<xsd:documentation><![CDATA[
@@ -157,9 +152,6 @@ Defaults to false. This must be set true for the one repository where fuzzy attr
 expected to be relaxed in a future release]]></xsd:documentation>
 					</xsd:annotation>
 				</xsd:attribute>
- 
-<!-- 			</xsd:extension> -->
-<!-- 		</xsd:complexContent> -->
  	</xsd:complexType>
 
 	<xsd:element name="repository" type="fuzzyRepository">
@@ -174,9 +166,6 @@ An implementation of FuzzyRepository for persisting and searching on the specifi
         <xsd:complexType>
             <xsd:complexContent>
                 <xsd:extension base="repository:repositories">
-                    <xsd:sequence>
-                        <xsd:element name="repository" minOccurs="0" maxOccurs="unbounded" type="fuzzyRepository" />
-                    </xsd:sequence>
                     <xsd:attributeGroup ref="repository:transactional-repository-attributes" />
                 </xsd:extension>
             </xsd:complexContent>
