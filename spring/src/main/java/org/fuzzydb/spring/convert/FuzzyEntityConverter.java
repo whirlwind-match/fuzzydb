@@ -1,6 +1,5 @@
 package org.fuzzydb.spring.convert;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -29,7 +28,6 @@ import org.springframework.data.convert.ReflectionEntityInstantiator;
 import org.springframework.data.mapping.PersistentProperty;
 import org.springframework.data.mapping.PropertyHandler;
 import org.springframework.data.mapping.model.BeanWrapper;
-import org.springframework.data.mapping.model.MappingException;
 import org.springframework.util.Assert;
 
 
@@ -140,14 +138,12 @@ public class FuzzyEntityConverter<E>
 			@Override
 			public void doWithPersistentProperty(FuzzyProperty persistentProperty) {
 
-				if (persistentProperty.isTransient()) {
+				if (persistentProperty.isTransient())
 					return;
-				}
 
 				Object value = getProperty(wrapper, persistentProperty);
-				if (value == null) {
+				if (value == null)
 					return;
-				}
 				
 				if (persistentProperty.isIdProperty()) {
 					// currently dealt with by merge() - TODO Need to look at whether we need to deal with ID at this level 
@@ -224,9 +220,8 @@ public class FuzzyEntityConverter<E>
 		Assert.hasLength(key);
 
 		// Nulls and Empty strings are ignored
-		if (value == null || value instanceof String && value.toString().length() == 0) {
+		if (value == null || value instanceof String && value.toString().length() == 0)
 			return;
-		}
 
 			
 		// We expect the id to already be known
@@ -251,12 +246,10 @@ public class FuzzyEntityConverter<E>
 	}
 	
 	private Object wrapValue(String key, Object value, Class<? extends IAttribute> dbClass) {
-		if (dbClass.equals(EnumExclusiveValue.class)) {
+		if (dbClass.equals(EnumExclusiveValue.class))
 			return new EnumAttribute(key, "not used", (String)value);
-		}
-		if (dbClass.equals(EnumMultipleValue.class)) {
+		if (dbClass.equals(EnumMultipleValue.class))
 			return new MultiEnumAttribute(key, "not used", (String[])value);
-		}
 		return value;
 	}
 
@@ -277,13 +270,7 @@ public class FuzzyEntityConverter<E>
 		Assert.notNull(wrapper);
 		Assert.notNull(persistentProperty);
 		
-		try {
-			return (R) wrapper.getProperty(persistentProperty);
-		} catch (IllegalAccessException e) {
-			throw new MappingException(e.getMessage(), e);
-		} catch (InvocationTargetException e) {
-			throw new MappingException(e.getMessage(), e);
-		}
+		return (R) wrapper.getProperty(persistentProperty);
 	}
 
 	protected void setProperty(
@@ -300,13 +287,8 @@ public class FuzzyEntityConverter<E>
 	protected void setProperty(
 			final BeanWrapper<FuzzyPersistentEntity<E>, E> wrapper,
 			PersistentProperty<?> property, Object value) {
-		try {
-			wrapper.setProperty(property,  value);
-		} catch (IllegalAccessException e) {
-			throw new MappingException(e.getMessage(), e);
-		} catch (InvocationTargetException e) {
-			throw new MappingException(e.getMessage(), e);
-		}
+
+		wrapper.setProperty(property,  value);
 	}
 
 	protected final Ref<MappedFuzzyItem> toInternalId(String id) {
