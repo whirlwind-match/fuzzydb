@@ -12,6 +12,7 @@ import org.fuzzydb.client.Store;
 import org.fuzzydb.client.StoreMgr;
 import org.fuzzydb.client.WWMDBProtocolHander;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.io.core.Authority;
 import org.slf4j.Logger;
 import org.springframework.context.Lifecycle;
 import org.springframework.util.Assert;
@@ -19,7 +20,6 @@ import org.springframework.util.StringUtils;
 
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.DatabaseFactory;
-import com.wwm.io.core.Authority;
 
 public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 

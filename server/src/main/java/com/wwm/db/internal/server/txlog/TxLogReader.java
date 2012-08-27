@@ -18,7 +18,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.wwm.io.core.PacketInterface;
+import org.fuzzydb.io.core.PacketInterface;
+
 
 public class TxLogReader implements PacketInterface {
 

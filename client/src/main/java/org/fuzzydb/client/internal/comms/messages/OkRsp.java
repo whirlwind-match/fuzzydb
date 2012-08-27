@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal.comms.messages;
 
-import com.wwm.io.core.messages.Response;
+import org.fuzzydb.io.core.messages.Response;
 
 @SuppressWarnings("serial")
 public class OkRsp extends Response {

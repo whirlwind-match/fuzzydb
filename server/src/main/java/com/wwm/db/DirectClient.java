@@ -5,14 +5,14 @@ import java.util.Collection;
 
 import org.fuzzydb.client.Client;
 import org.fuzzydb.client.internal.AbstractClient;
+import org.fuzzydb.io.core.Authority;
+import org.fuzzydb.io.core.Message;
+import org.fuzzydb.io.core.MessageSink;
+import org.fuzzydb.io.core.SourcedMessage;
+import org.fuzzydb.io.core.exceptions.NotListeningException;
+import org.fuzzydb.io.core.layer1.ClientMessagingManager;
+import org.fuzzydb.io.core.layer2.SourcedMessageImpl;
 
-import com.wwm.io.core.Authority;
-import com.wwm.io.core.Message;
-import com.wwm.io.core.MessageSink;
-import com.wwm.io.core.SourcedMessage;
-import com.wwm.io.core.exceptions.NotListeningException;
-import com.wwm.io.core.layer1.ClientMessagingManager;
-import com.wwm.io.core.layer2.SourcedMessageImpl;
 
 
 /**

@@ -1,5 +1,9 @@
 package com.wwm.db.internal.server;
 
+import org.fuzzydb.io.core.ClassLoaderInterface;
+import org.fuzzydb.io.core.MessageSource;
+import org.fuzzydb.io.core.impl.DummyCli;
+
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
@@ -10,9 +14,6 @@ import com.wwm.db.internal.server.txlog.NullTxLogWriter;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.internal.server.txlog.TxLogWriter;
 import com.wwm.db.services.IndexImplementationsService;
-import com.wwm.io.core.ClassLoaderInterface;
-import com.wwm.io.core.MessageSource;
-import com.wwm.io.core.impl.DummyCli;
 
 public class DatabaseModule implements Module {
 	private final boolean isPersistent;

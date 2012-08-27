@@ -11,7 +11,8 @@
 package com.wwm.io.packet.layer1;
 
 
-import com.wwm.io.core.MessageSource;
+import org.fuzzydb.io.core.MessageSource;
+
 import com.wwm.io.packet.CommsStack;
 
 public interface ConnectionManager extends MessageSource {

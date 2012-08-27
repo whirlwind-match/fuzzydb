@@ -13,13 +13,13 @@ import org.fuzzydb.client.exceptions.WriteCollisionException;
 import org.fuzzydb.client.userobjects.MutableString;
 import org.fuzzydb.client.userobjects.SampleObject;
 import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.io.core.ClassLoaderInterface;
+import org.fuzzydb.io.core.impl.DummyCli;
 import org.fuzzydb.util.Stopwatch;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.io.core.ClassLoaderInterface;
-import com.wwm.io.core.impl.DummyCli;
 
 import static org.junit.Assert.*;
 

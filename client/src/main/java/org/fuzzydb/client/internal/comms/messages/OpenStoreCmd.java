@@ -10,7 +10,7 @@
  *****************************************************************************/
 package org.fuzzydb.client.internal.comms.messages;
 
-import com.wwm.io.core.messages.Command;
+import org.fuzzydb.io.core.messages.Command;
 
 public class OpenStoreCmd extends Command {
 

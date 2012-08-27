@@ -14,9 +14,9 @@ import java.nio.ByteBuffer;
 
 import org.fuzzydb.client.internal.comms.messages.DeleteStoreCmd;
 import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.io.core.MessageSink;
+import org.fuzzydb.io.core.messages.Command;
 
-import com.wwm.io.core.MessageSink;
-import com.wwm.io.core.messages.Command;
 
 public class ServerDeleteStoreTransaction extends ServerTransaction {
 	

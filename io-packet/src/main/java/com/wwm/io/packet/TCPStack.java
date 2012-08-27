@@ -13,9 +13,10 @@ package com.wwm.io.packet;
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
 
-import com.wwm.io.core.ClassLoaderInterface;
-import com.wwm.io.core.MessageInterface;
-import com.wwm.io.core.layer2.PacketCodec;
+import org.fuzzydb.io.core.ClassLoaderInterface;
+import org.fuzzydb.io.core.MessageInterface;
+import org.fuzzydb.io.core.layer2.PacketCodec;
+
 import com.wwm.io.packet.layer1.Connection;
 import com.wwm.io.packet.layer1.SocketDriver;
 

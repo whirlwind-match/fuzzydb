@@ -1,8 +1,9 @@
 package com.wwm.db.internal.server;
 
+import org.fuzzydb.io.core.MessageSource;
+
 import com.google.inject.Module;
 import com.wwm.db.internal.common.ServiceRegistry;
-import com.wwm.io.core.MessageSource;
 
 public class DatabaseFactory {
 

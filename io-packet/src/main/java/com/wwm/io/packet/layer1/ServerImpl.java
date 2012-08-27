@@ -19,10 +19,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fuzzydb.io.core.ClassDefinitionRepositoryAware;
+import org.fuzzydb.io.core.ClassLoaderInterface;
 import org.springframework.util.Assert;
 
-import com.wwm.io.core.ClassDefinitionRepositoryAware;
-import com.wwm.io.core.ClassLoaderInterface;
 import com.wwm.io.packet.CommsStack;
 import com.wwm.io.packet.TCPStack;
 

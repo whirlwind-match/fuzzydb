@@ -11,9 +11,9 @@
 package org.fuzzydb.client.internal.comms.messages;
 
 import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.io.core.messages.Command;
+import org.fuzzydb.io.core.messages.Loggable;
 
-import com.wwm.io.core.messages.Command;
-import com.wwm.io.core.messages.Loggable;
 
 @SuppressWarnings("serial")
 public class AllocNewIdsCmd extends Command implements Loggable {

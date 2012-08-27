@@ -15,9 +15,9 @@ import org.fuzzydb.core.exceptions.ArchException;
 import org.fuzzydb.core.query.Result;
 import org.fuzzydb.core.query.ResultIterator;
 import org.fuzzydb.core.whirlwind.SearchSpec;
+import org.fuzzydb.io.core.messages.Command;
+import org.fuzzydb.io.core.messages.Response;
 
-import com.wwm.io.core.messages.Command;
-import com.wwm.io.core.messages.Response;
 
 public class WWResultSetIterator<T extends Object> implements ResultIterator<Result<T>> {
 

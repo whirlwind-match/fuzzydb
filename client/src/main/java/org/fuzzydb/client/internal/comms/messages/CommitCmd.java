@@ -15,8 +15,8 @@ import java.util.Map;
 
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.client.internal.RefImpl;
+import org.fuzzydb.io.core.messages.Loggable;
 
-import com.wwm.io.core.messages.Loggable;
 
 @SuppressWarnings("serial")
 public class CommitCmd extends TransactionCommand implements Loggable {

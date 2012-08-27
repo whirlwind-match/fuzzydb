@@ -20,9 +20,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.io.core.PacketInterface;
 import org.slf4j.Logger;
 
-import com.wwm.io.core.PacketInterface;
 
 public class Connection implements PacketInterface, SocketDriver {
 	private static final Logger log = LogFactory.getLogger(Connection.class);

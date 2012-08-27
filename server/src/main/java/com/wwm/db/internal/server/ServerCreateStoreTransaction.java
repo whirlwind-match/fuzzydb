@@ -17,9 +17,9 @@ import org.fuzzydb.client.exceptions.StoreExistsException;
 import org.fuzzydb.client.exceptions.UnknownStoreException;
 import org.fuzzydb.client.internal.comms.messages.CreateStoreCmd;
 import org.fuzzydb.client.internal.comms.messages.CreateStoreRsp;
+import org.fuzzydb.io.core.MessageSink;
+import org.fuzzydb.io.core.messages.Command;
 
-import com.wwm.io.core.MessageSink;
-import com.wwm.io.core.messages.Command;
 
 public class ServerCreateStoreTransaction extends ServerTransaction {
 

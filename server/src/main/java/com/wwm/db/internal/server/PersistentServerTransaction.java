@@ -52,15 +52,15 @@ import org.fuzzydb.core.exceptions.ArchException;
 import org.fuzzydb.core.query.RetrieveSpec;
 import org.fuzzydb.core.query.RetrieveSpecItem;
 import org.fuzzydb.dto.attributes.Score;
+import org.fuzzydb.io.core.MessageSink;
+import org.fuzzydb.io.core.messages.ErrorRsp;
+import org.fuzzydb.io.core.messages.Response;
 import org.fuzzydb.util.TupleKey;
 
 import com.wwm.db.internal.index.Query;
 import com.wwm.db.internal.search.NextItem;
 import com.wwm.db.internal.search.Search;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.io.core.MessageSink;
-import com.wwm.io.core.messages.ErrorRsp;
-import com.wwm.io.core.messages.Response;
 
 
 public class PersistentServerTransaction extends ServerTransaction {

@@ -12,7 +12,8 @@ package com.wwm.db.internal.server.txlog;
 
 import java.io.IOException;
 
-import com.wwm.io.core.messages.Command;
+import org.fuzzydb.io.core.messages.Command;
+
 
 public interface TxLogSink {
 	public void flush() throws IOException;

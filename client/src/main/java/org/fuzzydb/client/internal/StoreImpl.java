@@ -29,15 +29,15 @@ import org.fuzzydb.client.internal.comms.messages.BeginAndCommitCmd;
 import org.fuzzydb.client.internal.comms.messages.CommitCmd;
 import org.fuzzydb.client.marker.ITraceWanted;
 import org.fuzzydb.core.LogFactory;
+import org.fuzzydb.io.core.ArchInStream;
+import org.fuzzydb.io.core.ArchOutStream;
+import org.fuzzydb.io.core.Authority;
+import org.fuzzydb.io.core.Message;
+import org.fuzzydb.io.core.messages.Command;
+import org.fuzzydb.io.core.messages.Response;
 import org.slf4j.Logger;
 import org.springframework.util.Assert;
 
-import com.wwm.io.core.ArchInStream;
-import com.wwm.io.core.ArchOutStream;
-import com.wwm.io.core.Authority;
-import com.wwm.io.core.Message;
-import com.wwm.io.core.messages.Command;
-import com.wwm.io.core.messages.Response;
 
 /**
  * Equivalent to a JDBC Connection on which transactions can be managed and operations performed.

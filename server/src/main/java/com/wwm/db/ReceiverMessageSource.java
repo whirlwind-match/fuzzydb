@@ -6,13 +6,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.fuzzydb.io.core.Message;
+import org.fuzzydb.io.core.MessageSource;
+import org.fuzzydb.io.core.SourcedMessage;
+import org.fuzzydb.io.core.exceptions.NotListeningException;
+import org.fuzzydb.io.core.layer2.SourcedMessageImpl;
 import org.springframework.util.SerializationUtils;
 
-import com.wwm.io.core.Message;
-import com.wwm.io.core.MessageSource;
-import com.wwm.io.core.SourcedMessage;
-import com.wwm.io.core.exceptions.NotListeningException;
-import com.wwm.io.core.layer2.SourcedMessageImpl;
 
 /**
  * TODO: Rename to QueuingMessageSource

@@ -14,8 +14,8 @@ package org.fuzzydb.client;
 import org.fuzzydb.client.internal.ClientImpl;
 import org.fuzzydb.client.internal.RetrieveSpecImpl;
 import org.fuzzydb.core.query.RetrieveSpec;
+import org.fuzzydb.io.core.Authority;
 
-import com.wwm.io.core.Authority;
 
 
 

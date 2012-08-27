@@ -18,6 +18,10 @@ import java.util.concurrent.Future;
 
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.UncaughtExceptionLogger;
+import org.fuzzydb.io.core.ClassDefinitionRepositoryAware;
+import org.fuzzydb.io.core.ClassLoaderInterface;
+import org.fuzzydb.io.core.MessageSource;
+import org.fuzzydb.io.core.impl.DummyCli;
 import org.slf4j.Logger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -25,10 +29,6 @@ import com.google.inject.name.Named;
 import com.wwm.db.internal.server.txlog.TxLogPlayback;
 import com.wwm.db.internal.server.txlog.TxLogSink;
 import com.wwm.db.services.IndexImplementationsService;
-import com.wwm.io.core.ClassDefinitionRepositoryAware;
-import com.wwm.io.core.ClassLoaderInterface;
-import com.wwm.io.core.MessageSource;
-import com.wwm.io.core.impl.DummyCli;
 
 /**
  * TODO: (nu, 8Mar08) I believe Pager should be replaced with a an abstraction of the backing-store, as this should
