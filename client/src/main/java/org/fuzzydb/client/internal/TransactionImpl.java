@@ -51,9 +51,9 @@ import org.fuzzydb.core.query.RetrieveSpec;
 import org.fuzzydb.core.query.RetrieveSpecResult;
 import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.expressions.LogicExpr;
 import org.slf4j.Logger;
 
-import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.ArchInStream;
 import com.wwm.io.core.ArchOutStream;
 import com.wwm.io.core.exceptions.CommandTimedOutException;

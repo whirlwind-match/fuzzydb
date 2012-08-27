@@ -18,12 +18,12 @@ import java.util.Iterator;
 
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.expressions.ExprContext;
+import org.fuzzydb.expressions.LogicExpr;
 
 import com.wwm.db.internal.server.Namespace;
 import com.wwm.db.internal.server.TransactionControl;
 import com.wwm.db.internal.table.UserTable;
-import com.wwm.expressions.ExprContext;
-import com.wwm.expressions.LogicExpr;
 
 public class Query implements ExprContext {
 

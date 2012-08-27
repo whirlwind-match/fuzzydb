@@ -28,7 +28,7 @@ DynamicImport-Package: com.wwm.db,
 Require-Bundle: org.fuzzydb.util;visibility:=reexport,
  com.wwm.io.packet;visibility:=reexport,
  org.fuzzydb.core;visibility:=reexport,
- com.wwm.expressions;visibility:=reexport
+ org.fuzzydb.expressions;visibility:=reexport
 Eclipse-RegisterBuddy: com.wwm.bundle.libs,
  com.wwm.io.packet
 Import-Package: org.aspectj.lang,

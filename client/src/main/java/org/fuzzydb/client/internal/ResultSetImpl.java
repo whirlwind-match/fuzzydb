@@ -14,8 +14,8 @@ import java.util.HashSet;
 
 import org.fuzzydb.core.query.ResultIterator;
 import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.expressions.LogicExpr;
 
-import com.wwm.expressions.LogicExpr;
 
 public class ResultSetImpl <E> implements ResultSet<E> {
 

@@ -17,8 +17,8 @@ import org.fuzzydb.core.exceptions.ArchException;
 import org.fuzzydb.core.query.ResultSet;
 import org.fuzzydb.core.query.RetrieveSpec;
 import org.fuzzydb.core.query.RetrieveSpecResult;
+import org.fuzzydb.expressions.LogicExpr;
 
-import com.wwm.expressions.LogicExpr;
 
 public interface Queryable extends Searchable {
 

@@ -11,8 +11,8 @@
 package org.fuzzydb.client.internal.comms.messages;
 
 import org.fuzzydb.core.exceptions.ArchException;
+import org.fuzzydb.expressions.LogicExpr;
 
-import com.wwm.expressions.LogicExpr;
 
 public class QueryCmd extends TransactionCommand {
 	

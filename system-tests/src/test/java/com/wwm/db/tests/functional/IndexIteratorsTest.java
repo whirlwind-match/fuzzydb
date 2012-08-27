@@ -10,10 +10,10 @@ import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.userobjects.SampleKeyedObject;
 import org.fuzzydb.core.query.ResultSet;
+import org.fuzzydb.expressions.LogicExpr;
+import org.fuzzydb.expressions.QueryFactory;
 import org.junit.Test;
 import com.wwm.db.BaseDatabaseTest;
-import com.wwm.expressions.LogicExpr;
-import com.wwm.expressions.QueryFactory;
 
 public class IndexIteratorsTest extends BaseDatabaseTest {
 

@@ -19,8 +19,8 @@ import org.fuzzydb.client.internal.comms.messages.QueryFetchCmd;
 import org.fuzzydb.client.internal.comms.messages.QueryRsp;
 import org.fuzzydb.core.exceptions.ArchException;
 import org.fuzzydb.core.query.ResultIterator;
+import org.fuzzydb.expressions.LogicExpr;
 
-import com.wwm.expressions.LogicExpr;
 import com.wwm.io.core.messages.Command;
 
 public class ResultIteratorImpl<E> implements ResultIterator<E> {

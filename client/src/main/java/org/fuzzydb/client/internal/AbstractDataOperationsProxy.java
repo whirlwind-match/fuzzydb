@@ -16,8 +16,8 @@ import org.fuzzydb.core.query.RetrieveSpec;
 import org.fuzzydb.core.query.RetrieveSpecResult;
 import org.fuzzydb.core.whirlwind.SearchSpec;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
+import org.fuzzydb.expressions.LogicExpr;
 
-import com.wwm.expressions.LogicExpr;
 
 /**
  * Proxy for DataOperations interface to allow dynamic resolution of the target (e.g.
