@@ -15,6 +15,7 @@ import java.net.InetSocketAddress;
 
 import org.fuzzydb.core.LogFactory;
 import org.fuzzydb.core.Settings;
+import org.fuzzydb.io.packet.layer1.SocketListeningServer;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -22,7 +23,6 @@ import org.osgi.framework.ServiceRegistration;
 import com.wwm.db.internal.server.Database;
 import com.wwm.db.internal.server.DatabaseFactory;
 import com.wwm.db.services.IndexImplementationsService;
-import com.wwm.io.packet.layer1.SocketListeningServer;
 
 /**
  * This implements the OSGi {@link BundleActivator} interface, and, for the moment,

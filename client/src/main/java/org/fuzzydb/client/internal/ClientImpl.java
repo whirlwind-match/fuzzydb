@@ -16,8 +16,8 @@ import java.net.InetSocketAddress;
 import org.fuzzydb.core.Settings;
 import org.fuzzydb.io.core.Authority;
 import org.fuzzydb.io.core.exceptions.CommsErrorException;
+import org.fuzzydb.io.packet.layer1.ClientConnectionManagerImpl;
 
-import com.wwm.io.packet.layer1.ClientConnectionManagerImpl;
 
 public class ClientImpl extends AbstractClient {
 

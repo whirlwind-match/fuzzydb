@@ -1,4 +1,4 @@
-package com.wwm.io.packet;
+package org.fuzzydb.io.packet;
 
 
 import java.io.IOException;
@@ -14,12 +14,14 @@ import org.fuzzydb.io.core.Message;
 import org.fuzzydb.io.core.SourcedMessage;
 import org.fuzzydb.io.core.exceptions.NotListeningException;
 import org.fuzzydb.io.core.impl.DummyCli;
+import org.fuzzydb.io.packet.CommsStack;
+import org.fuzzydb.io.packet.TCPStack;
+import org.fuzzydb.io.packet.layer1.Server;
+import org.fuzzydb.io.packet.layer1.ServerImpl;
+import org.fuzzydb.io.packet.layer1.SocketListeningServer;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wwm.io.packet.layer1.Server;
-import com.wwm.io.packet.layer1.ServerImpl;
-import com.wwm.io.packet.layer1.SocketListeningServer;
 
 public class CommsStressTest {
 	protected static final String defaultAddress = "127.0.0.1";

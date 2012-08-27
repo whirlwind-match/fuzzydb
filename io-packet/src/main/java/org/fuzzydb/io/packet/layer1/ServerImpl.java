@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.io.packet.layer1;
+package org.fuzzydb.io.packet.layer1;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -21,10 +21,10 @@ import java.util.Map;
 
 import org.fuzzydb.io.core.ClassDefinitionRepositoryAware;
 import org.fuzzydb.io.core.ClassLoaderInterface;
+import org.fuzzydb.io.packet.CommsStack;
+import org.fuzzydb.io.packet.TCPStack;
 import org.springframework.util.Assert;
 
-import com.wwm.io.packet.CommsStack;
-import com.wwm.io.packet.TCPStack;
 
 /**
  * A MessageSource capable of listening on multiple InetSockets

@@ -8,12 +8,12 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.io.packet.layer1;
+package org.fuzzydb.io.packet.layer1;
 
 
 import org.fuzzydb.io.core.MessageSource;
+import org.fuzzydb.io.packet.CommsStack;
 
-import com.wwm.io.packet.CommsStack;
 
 public interface ConnectionManager extends MessageSource {
 	//void closeAllConnections();

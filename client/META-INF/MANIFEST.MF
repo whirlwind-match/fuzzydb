@@ -26,11 +26,11 @@ DynamicImport-Package: com.wwm.db,
  com.wwm.db.server.wwstrategies.manual,
  likemynds.db.server
 Require-Bundle: org.fuzzydb.util;visibility:=reexport,
- com.wwm.io.packet;visibility:=reexport,
+ org.fuzzydb.io.packet;visibility:=reexport,
  org.fuzzydb.core;visibility:=reexport,
  org.fuzzydb.expressions;visibility:=reexport
 Eclipse-RegisterBuddy: com.wwm.bundle.libs,
- com.wwm.io.packet
+ org.fuzzydb.io.packet
 Import-Package: org.aspectj.lang,
  org.aspectj.lang.annotation,
  org.aspectj.lang.reflect,

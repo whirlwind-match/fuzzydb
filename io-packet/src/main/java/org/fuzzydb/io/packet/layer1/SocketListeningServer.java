@@ -1,4 +1,4 @@
-package com.wwm.io.packet.layer1;
+package org.fuzzydb.io.packet.layer1;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

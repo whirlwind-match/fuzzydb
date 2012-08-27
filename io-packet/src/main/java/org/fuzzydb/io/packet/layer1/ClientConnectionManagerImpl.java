@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.io.packet.layer1;
+package org.fuzzydb.io.packet.layer1;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -22,8 +22,8 @@ import org.fuzzydb.io.core.MessageSink;
 import org.fuzzydb.io.core.SourcedMessage;
 import org.fuzzydb.io.core.exceptions.NotListeningException;
 import org.fuzzydb.io.core.layer1.ClientMessagingManager;
+import org.fuzzydb.io.packet.TCPStack;
 
-import com.wwm.io.packet.TCPStack;
 
 /**
  * ClientMessagingManager that uses sockets for it's connection with a single server.

@@ -8,13 +8,15 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.io.packet;
+package org.fuzzydb.io.packet.layer1;
 
-import org.fuzzydb.io.core.MessageInterface;
+import java.io.IOException;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.SocketChannel;
 
-import com.wwm.io.packet.layer1.SocketDriver;
-
-public interface CommsStack {
-	public SocketDriver getDriver();
-	public MessageInterface getMessageInterface();
+public interface SocketDriver {
+	public void eventReadable() throws IOException;
+	public void eventWritable() throws IOException;
+	public SocketChannel getSocketChannel();
+	public void setSelectionKey(SelectionKey sk);
 }

@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package com.wwm.io.packet.layer1;
+package org.fuzzydb.io.packet.layer1;
 
 import java.io.IOException;
 import java.nio.channels.ClosedChannelException;
@@ -29,9 +29,9 @@ import org.fuzzydb.io.core.SourcedMessage;
 import org.fuzzydb.io.core.exceptions.NotListeningException;
 import org.fuzzydb.io.core.layer2.SourcedMessageImpl;
 import org.fuzzydb.io.core.messages.PacketMessage;
+import org.fuzzydb.io.packet.CommsStack;
 import org.slf4j.Logger;
 
-import com.wwm.io.packet.CommsStack;
 
 public abstract class ConnectionManagerImpl implements ConnectionManager {
 

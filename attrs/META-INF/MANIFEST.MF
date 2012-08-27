@@ -21,6 +21,6 @@ Export-Package: org.fuzzydb.attrs,
 Require-Bundle: org.fuzzydb.client.core;bundle-version="1.0.0",
  org.fuzzydb.util;bundle-version="1.0.0",
  org.fuzzydb.client;bundle-version="1.0.0";visibility:=reexport,
- com.wwm.io.packet
+ org.fuzzydb.io.packet
 Import-Package: org.junit;version="4.3.1"
-Eclipse-RegisterBuddy: com.wwm.io.packet
+Eclipse-RegisterBuddy: org.fuzzydb.io.packet
