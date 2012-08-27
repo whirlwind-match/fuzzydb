@@ -10,6 +10,8 @@
  *****************************************************************************/
 package com.wwm.db.internal.server;
 
+import org.fuzzydb.server.internal.server.Namespace;
+
 
 /**
  * This aspect is concerned with ensuring that the Namespace is published to WorkerThread, when doing

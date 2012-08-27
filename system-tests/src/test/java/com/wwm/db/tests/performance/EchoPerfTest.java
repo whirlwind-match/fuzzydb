@@ -15,10 +15,10 @@ import org.fuzzydb.io.core.layer1.ClientConnectionManager;
 import org.fuzzydb.io.core.messages.Response;
 import org.fuzzydb.io.packet.layer1.ClientConnectionManagerImpl;
 import org.fuzzydb.io.packet.layer1.SocketListeningServer;
+import org.fuzzydb.server.internal.server.Database;
+import org.fuzzydb.server.internal.server.DatabaseFactory;
 import org.junit.Test;
 
-import com.wwm.db.internal.server.Database;
-import com.wwm.db.internal.server.DatabaseFactory;
 
 public class EchoPerfTest {
 	protected static int serverPort = 5002;

@@ -13,15 +13,15 @@ import org.fuzzydb.client.exceptions.UnknownStoreException;
 import org.fuzzydb.client.internal.StoreImpl;
 import org.fuzzydb.core.Settings;
 import org.fuzzydb.io.packet.layer1.SocketListeningServer;
+import org.fuzzydb.server.EmbeddedClientFactory;
+import org.fuzzydb.server.internal.server.Database;
+import org.fuzzydb.server.internal.server.DatabaseFactory;
 import org.fuzzydb.util.context.JVMAppListener;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.wwm.db.EmbeddedClientFactory;
-import com.wwm.db.internal.server.Database;
-import com.wwm.db.internal.server.DatabaseFactory;
 
 
 public abstract class BaseDatabaseTest {

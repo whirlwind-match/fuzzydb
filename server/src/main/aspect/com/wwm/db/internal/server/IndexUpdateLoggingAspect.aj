@@ -1,7 +1,7 @@
 package com.wwm.db.internal.server;
 
-import com.wwm.db.internal.index.Index;
-import com.wwm.db.internal.server.Indexes;
+import org.fuzzydb.server.internal.index.Index;
+import org.fuzzydb.server.internal.server.Indexes;
 
 public aspect IndexUpdateLoggingAspect extends AbstractLoggingAspect {
 
