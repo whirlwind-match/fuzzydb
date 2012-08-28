@@ -20,11 +20,11 @@ import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.core.exceptions.ArchException;
 import org.fuzzydb.dto.attributes.OptionsSource;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.fuzzydb.server.EmbeddedClientFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import com.wwm.db.BaseDatabaseTest;
 
 
 public abstract class BaseWWTest extends BaseDatabaseTest {

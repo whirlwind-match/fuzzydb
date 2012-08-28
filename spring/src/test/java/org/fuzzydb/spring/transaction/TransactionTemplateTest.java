@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.userobjects.TestIndexClass;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.fuzzydb.spring.transaction.WhirlwindPlatformTransactionManager;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -17,7 +18,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.wwm.db.BaseDatabaseTest;
 
 public class TransactionTemplateTest extends BaseDatabaseTest {
 	

@@ -11,9 +11,9 @@ import junit.framework.Assert;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.junit.Test;
 
-import com.wwm.db.BaseDatabaseTest;
 
 
 

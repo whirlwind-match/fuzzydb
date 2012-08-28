@@ -4,9 +4,9 @@ import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.userobjects.SampleUniqueKeyedObject;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.junit.Test;
 
-import com.wwm.db.BaseDatabaseTest;
 
 
 public class UniqueIndexTest extends BaseDatabaseTest {

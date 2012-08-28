@@ -13,12 +13,12 @@ import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.internal.RefImpl;
 import org.fuzzydb.client.userobjects.MutableString;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.fuzzydb.server.EmbeddedClientFactory;
 import org.fuzzydb.util.MTRandom;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import com.wwm.db.BaseDatabaseTest;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@TestExecutionListeners(listeners=)

@@ -6,11 +6,11 @@ import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.internal.AttrDefinitionMgr;
 import org.fuzzydb.attrs.internal.SyncedAttrDefinitionMgr;
 import org.fuzzydb.dto.attributes.OptionsSource;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
 
-import com.wwm.db.BaseDatabaseTest;
 
 import static org.junit.Assert.assertEquals;
 

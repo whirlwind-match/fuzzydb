@@ -12,8 +12,8 @@ import org.fuzzydb.client.userobjects.SampleKeyedObject;
 import org.fuzzydb.core.query.ResultSet;
 import org.fuzzydb.expressions.LogicExpr;
 import org.fuzzydb.expressions.QueryFactory;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.junit.Test;
-import com.wwm.db.BaseDatabaseTest;
 
 public class IndexIteratorsTest extends BaseDatabaseTest {
 

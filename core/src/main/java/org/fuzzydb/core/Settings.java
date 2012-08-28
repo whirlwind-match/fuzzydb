@@ -96,7 +96,7 @@ public class Settings implements SettingsMBean {
 	private boolean compressLogs = false;
 	private boolean xmlLogs = false;
 	
-	private String attributeMapClassName = "org.fuzzydb.attrs.internal.CardinalAttributeMapImpl"; // TODO: shouldn't this be able to be "com.wwm.attrs.internal.AttributeMap" ?
+	private String attributeMapClassName = "org.fuzzydb.attrs.internal.CardinalAttributeMapImpl"; // TODO: shouldn't this be able to be "org.fuzzydb.attrs.internal.AttributeMap" ?
     private String constraintMapClassName = "org.fuzzydb.attrs.internal.ConstraintMap";
     private String configDAOClassName = "com.archopolis.db.dao.internal.Db1ClientDAO";
     private String statsDAOClassName = "org.fuzzydb.core.dao.StatsStoreDao"; 

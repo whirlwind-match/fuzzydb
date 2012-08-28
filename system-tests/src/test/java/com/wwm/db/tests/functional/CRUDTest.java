@@ -15,11 +15,11 @@ import org.fuzzydb.client.userobjects.SampleObject;
 import org.fuzzydb.core.exceptions.ArchException;
 import org.fuzzydb.io.core.ClassLoaderInterface;
 import org.fuzzydb.io.core.impl.DummyCli;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.fuzzydb.util.Stopwatch;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.wwm.db.BaseDatabaseTest;
 
 import static org.junit.Assert.*;
 

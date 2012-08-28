@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.fuzzydb.server.EmbeddedClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.wwm.db.BaseDatabaseTest;
 import static org.junit.Assert.*;
 
 public class PersistenceTest extends BaseDatabaseTest {

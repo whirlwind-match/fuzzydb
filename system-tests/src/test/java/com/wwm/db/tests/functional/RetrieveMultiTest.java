@@ -15,9 +15,9 @@ import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.userobjects.SampleKeyedObject;
 import org.fuzzydb.client.userobjects.SampleUniqueKeyedObject;
+import org.fuzzydb.server.BaseDatabaseTest;
 import org.junit.Test;
 
-import com.wwm.db.BaseDatabaseTest;
 
 /**
  * @author ac
