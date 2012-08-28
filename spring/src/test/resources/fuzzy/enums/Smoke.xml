@@ -1,9 +1,0 @@
-<EnumDefinition name="Smoke">
-    <string>Non-smoker</string>
-    <string>Tolerates-smoker</string>
-    <string>Non-smoker-in-cars</string>
-    <string>Cigarette-smoker</string>
-    <string>Pipe-smoker</string>
-    <string>Cigar-smoker</string>
-    <!-- Remember to update size in the splitConfiguration -->
-</EnumDefinition>

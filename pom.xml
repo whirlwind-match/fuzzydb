@@ -29,7 +29,6 @@
         <module>system-tests</module>
 
         <module>postcode</module>
-        <module>spring</module>
 
     </modules>
 

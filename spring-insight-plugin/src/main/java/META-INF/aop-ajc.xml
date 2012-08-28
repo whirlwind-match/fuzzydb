@@ -1,6 +1,0 @@
-<aspectj>
-<aspects>
-<aspect name="com.springsource.insight.plugin.whirlwind.CollectionAspect"/>
-</aspects>
-</aspectj>
-

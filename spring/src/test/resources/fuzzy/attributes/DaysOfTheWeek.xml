@@ -1,4 +1,0 @@
-<EnumAttributeSpec>
-	<clazz>org.fuzzydb.attrs.enums.EnumMultipleValue</clazz>
-	<enumdef>DaysOfTheWeek</enumdef>
-</EnumAttributeSpec>
