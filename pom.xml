@@ -18,8 +18,6 @@
         
         <module>test-support</module>
         <module>util</module>
-        <module>util-gui</module>
-        <module>util-servlet</module>
         <module>core</module>
         <module>io-core</module>
         <module>io-packet</module>
@@ -31,13 +29,8 @@
         <module>system-tests</module>
 
         <module>postcode</module>
-        <module>indexer</module>
-        <module>indexer-gui</module>
         <module>spring</module>
 
-        <module>abdera-util</module>
-        <module>atom</module>
-        <module>atom-server</module>
     </modules>
 
     <build>

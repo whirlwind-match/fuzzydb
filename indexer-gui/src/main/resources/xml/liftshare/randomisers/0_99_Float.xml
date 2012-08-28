@@ -1,5 +1,0 @@
-<com.wwm.postcode.indexer.internal.random.RandomFloat>
-	<min>0</min>
-	<max>99</max>
-	<nullProportion>0</nullProportion>
-</com.wwm.postcode.indexer.internal.random.RandomFloat>
