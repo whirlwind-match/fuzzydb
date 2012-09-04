@@ -129,11 +129,13 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         }
     }
 
+    @Override
     public int getAttrId(String attrName) {
         return getAttrId(attrName, null);
     }
 
     // FIXME: Create a map for this lookup
+    @Override
     public String getAttrName(int attrId) {
 
         for(Entry<String, Integer> entry : ids.entrySet()) {
@@ -148,19 +150,31 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         // See if we already know this one
         Integer attrId = ids.get( attrName );
         if (attrId != null) {
-        	// If we do, it's okay if the supplied class is recognised as
-        	// specifically for that type
-        	int overlay = getAttributeClassCode(clazz);
-        	if (clazz != null && (attrId & ATTR_CLASS_MASK) != overlay ) {
-	        	Class<?> externalClass = getExternalClass(attrId);
-	        	Assert.state(externalClass.equals(clazz), "Attribute : " + attrName + " already defined with class: " 
-	        				+ externalClass.getName() + ".  Cannot redefine using class " + clazz.getName());
-        	}
+        	ensureCompatible(attrName, clazz, attrId);
         }
         return attrId;
     }
+
+    /**
+     * If clazz is specified, then we must ensure that the mapping is consistent
+     * with what's already defined. This means checking that the database type
+     * is the
+     */
+    private void ensureCompatible(String attrName, Class<?> clazz, Integer attrId) {
+        if (clazz == null) {
+            return;
+        }
+
+        int overlay = getAttributeClassCode(clazz);
+        if ((attrId & ATTR_CLASS_MASK) != overlay) {
+            Class<?> externalClass = getDbClass(attrId);
+        	Assert.state(externalClass.equals(clazz), "Attribute : " + attrName + " already defined with class: " 
+        				+ externalClass.getName() + ".  Cannot redefine using class " + clazz.getName());
+        }
+    }
     
-   	public int getAttrId(String attrName, Class<?> clazz) {
+   	@Override
+    public int getAttrId(String attrName, Class<?> clazz) {
 
    		Integer attrId = getExistingAttrId(attrName, clazz);
    		if (attrId == null) {
@@ -171,7 +185,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
     }
 
 
-	public Class<?> getExternalClass(int attrId) {
+	@Override
+    public Class<?> getExternalClass(int attrId) {
         switch (attrId & ATTR_CLASS_MASK) {
         case UNKNOWN_CLASS:
         	return Object.class;
@@ -198,7 +213,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         }
 	}
 
-	public Class<? extends IAttribute> getDbClass(int attrId) {
+	@Override
+    public Class<? extends IAttribute> getDbClass(int attrId) {
         switch (attrId & ATTR_CLASS_MASK) {
         case UNKNOWN_CLASS:
         	return null;
@@ -224,7 +240,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
 	}
 
 
-	public EnumDefinition getEnumDefinition(String defName) {
+	@Override
+    public EnumDefinition getEnumDefinition(String defName) {
         assert defName != null;
         EnumDefinition def = defs.get(defName);
         if (def != null) {
@@ -233,6 +250,7 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         return getNextEnumDef(defName);
     }
 
+    @Override
     public EnumDefinition getEnumDef(short enumDefId) {
         return enumDefIdsToDef.get(enumDefId).setMgr(this);
     }
@@ -352,7 +370,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
         return def.setMgr(this);
     }
 
-	public void associateAttrToEnumDef(int attrId, EnumDefinition enumDef) {
+	@Override
+    public void associateAttrToEnumDef(int attrId, EnumDefinition enumDef) {
 		if (attrIdsToDef.get(attrId) != null){
 			return; // already associated
 		}
@@ -366,7 +385,8 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
 		
 	}
 
-	public EnumDefinition getEnumDefForAttrId( int attrId ){
+	@Override
+    public EnumDefinition getEnumDefForAttrId( int attrId ){
 		EnumDefinition enumDefinition = attrIdsToDef.get(attrId);
 		enumDefinition.setMgr(this);
 		return enumDefinition;
