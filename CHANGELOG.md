@@ -1,3 +1,25 @@
+# 1.0.0.RELEASE
+
+## New Features
+
+- Implement @EnableFuzzyRepositories
+- Support mapping java.util.Date into a fuzzydb record
+- 
+
+## Improvements
+
+- Base Spring Data Support on Spring Data Commons 1.4.0
+- Clean up java package structure - all now org.fuzzydb
+- Introduce use of JSR305 @Nonnull, etc annotations
+- Core cleanup:
+    - Move Spring support to https://github.com/whirlwind-match/fuzzydb-spring/
+    - Move Atom Publishing Protocol and old 'indexer' app to https://github.com/whirlwind-match/fuzzydb-extras/
+
+## Defects
+
+- Fix fuzzydb XSD incorrect tool:exports class
+
+
 # 1.0.0.M4
 
 ## New Features

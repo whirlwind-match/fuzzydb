@@ -1,3 +1,4 @@
+*~
 target/
 
 # Ignore eclipse project artifacts and instead rely on pom.xml
