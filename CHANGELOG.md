@@ -4,7 +4,7 @@
 
 - Implement @EnableFuzzyRepositories
 - Support mapping java.util.Date into a fuzzydb record
-- 
+
 
 ## Improvements
 
