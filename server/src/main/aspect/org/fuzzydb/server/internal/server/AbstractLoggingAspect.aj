@@ -1,4 +1,4 @@
-package com.wwm.db.internal.server;
+package org.fuzzydb.server.internal.server;
 
 import org.fuzzydb.core.LogFactory;
 import org.slf4j.Logger;

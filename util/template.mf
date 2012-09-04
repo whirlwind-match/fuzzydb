@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-SymbolicName: org.fuzzydb.util
-Bundle-Name: Whirlwind Utils
-Bundle-Vendor: Whirlwind Match
+Bundle-Name: fuzzydb Utils
+Bundle-Vendor: Whirlwind Match Limited
 Bundle-Version: ${version}
 Bundle-ManifestVersion: 2
 Ignored-Existing-Headers: 
