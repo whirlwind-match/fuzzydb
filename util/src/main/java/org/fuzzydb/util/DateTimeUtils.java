@@ -16,26 +16,37 @@ import java.util.GregorianCalendar;
 
 public class DateTimeUtils {
 
+    private static final double SECOND = 1000;
+    private static final double MINUTE = SECOND * 60;
+    private static final double HOUR   = MINUTE * 60;
+    private static final double DAY    = HOUR * 24;
+    private static final double WEEK   = DAY * 7;
+    private static final double YEAR   = DAY * 365.25;
+    
     public static float getDateDiff(Date d1, Date d2, int gregorianCalendarUnits) {
-        long millis = d1.getTime()-d2.getTime(); 
+        return getMillisDiff(d1.getTime(), d2.getTime(), gregorianCalendarUnits);
+    }
+    
+    public static float getMillisDiff(long lhs, long rhs, int gregorianCalendarUnits) {
+        long millis = lhs - rhs; 
         switch(gregorianCalendarUnits) {
         case Calendar.MILLISECOND:
             return millis;
         case Calendar.SECOND:
-            return millis/1000;
+            return (float) (millis/SECOND);
         case Calendar.MINUTE:
-            return millis/1000/60;
+            return (float) (millis/MINUTE);
         case Calendar.HOUR:
-            return millis/1000/60/60;
+            return (float) (millis/HOUR);
         case Calendar.DAY_OF_WEEK:
         case Calendar.DAY_OF_MONTH:
         case Calendar.DAY_OF_YEAR:
-            return millis/1000/60/60/24;
+            return (float) (millis/DAY);
         case Calendar.WEEK_OF_MONTH:
         case Calendar.WEEK_OF_YEAR:
-            return millis/1000/60/60/24/7;
+            return (float) (millis/WEEK);
         case Calendar.YEAR:
-            return (float) (millis/1000/60/60/24/365.25);
+            return (float) (millis/YEAR);
         default:
             return 0.0f;
         }

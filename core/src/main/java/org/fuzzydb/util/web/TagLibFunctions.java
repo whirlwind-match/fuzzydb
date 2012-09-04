@@ -1,6 +1,8 @@
 package org.fuzzydb.util.web;
 
 import java.awt.Color;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,6 +12,7 @@ import org.springframework.util.Assert;
 
 import org.fuzzydb.core.query.Result;
 import org.fuzzydb.dto.attributes.Score;
+import org.fuzzydb.util.DateTimeUtils;
 
 public abstract class TagLibFunctions {
 
@@ -134,5 +137,39 @@ public abstract class TagLibFunctions {
 		}
 
 		return object.toString();
+	}
+	
+	public static String dateAsMinsHoursDaysEtcAgo(Date date) {
+        
+        float hours = DateTimeUtils.getMillisDiff(System.currentTimeMillis(), date.getTime(), Calendar.HOUR);
+        
+        
+        if ( hours < 1f ) {
+            int mins = (int) (hours * 60f);
+            return (mins < 2) ? "< 2 mins ago" : mins + " mins ago";    
+        }
+        if ( hours < 2f ) {
+            return "1 hour ago";    
+        }
+        if ( hours < 48f ) {
+            return (int)hours + " hours ago";
+        } 
+        if ( hours < 24f * 7f) { 
+            return (int)(hours / 24f) + " days ago";    
+        }
+        if ( hours < 24f * 7f * 2f) { 
+            return "a week ago";    
+        }
+        if ( hours < 24 * 30) { 
+            return (int)(hours / 24 / 7) + " weeks ago";    
+        }
+        if ( hours < 24 * 30 * 2) { 
+            return "a month ago";    
+        }
+        if ( hours < 24 * 365) { 
+            return (int)(hours / 24 / 30) + " months ago";    
+        }
+        return "> 1 year ago";
+	    
 	}
 }

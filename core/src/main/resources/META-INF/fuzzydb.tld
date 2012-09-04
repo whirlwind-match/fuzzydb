@@ -75,4 +75,10 @@
         <function-class>java.lang.Math</function-class>
         <function-signature>int round(float)</function-signature>
     </function>
+    
+    <function>
+        <name>dateAsMinsHoursDaysEtcAgo</name>
+        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-signature>java.lang.String dateAsMinsHoursDaysEtcAgo(java.util.Date)</function-signature>
+    </function>
 </taglib>
