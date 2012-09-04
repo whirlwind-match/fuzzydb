@@ -4,6 +4,7 @@
 
 - Implement @EnableFuzzyRepositories
 - Support mapping java.util.Date into a fuzzydb record
+- Add fuzzydb.tld function taglib to ease use of displaying results
 
 
 ## Improvements
