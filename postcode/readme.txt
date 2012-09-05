@@ -12,3 +12,6 @@ To set up for random account generation and/or junit testing:
 Run the above launchers.
 Run RandomPostcodeImporter launcher. The conversion should take 30 secs. Note any console output. Generates [postcode root]/randomPostcodes
 
+For updating what was once the Jibble database, I found this site useful for visualising the centre of a postcode 
+inbound part (e.g. for CB23) http://www.doogal.co.uk/UKPostcodes.php?Search=CB23
+

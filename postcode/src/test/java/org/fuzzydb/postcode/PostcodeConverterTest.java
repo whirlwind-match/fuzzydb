@@ -37,17 +37,17 @@ public class PostcodeConverterTest {
 
     @Test
     public void testJibbleSimple() {
-        GeoInformation r = convertor.lookupShort("CB4");
-        assertCB4(r);
+        GeoInformation r = convertor.lookupShort("CB23");
+        assertCB23(r);
     }
 
     @Test
     public void testJibbleSimpleSpaced() {
-        GeoInformation r = convertor.lookupShort("CB 4");
-        assertCB4(r);
+        GeoInformation r = convertor.lookupShort("CB 23");
+        assertCB23(r);
     }
 
-    private void assertCB4(GeoInformation r) {
+    private void assertCB23(GeoInformation r) {
         Assert.assertNotNull(r);
         Assert.assertTrue (r.getLatitude() < 52.35);
         Assert.assertTrue (r.getLatitude() > 52.2);
@@ -57,14 +57,14 @@ public class PostcodeConverterTest {
 
     @Test
     public void testJibbleSimpleCased() {
-        GeoInformation r = convertor.lookupShort("cb4");
-        assertCB4(r);
+        GeoInformation r = convertor.lookupShort("cb23");
+        assertCB23(r);
     }
 
     @Test
     public void testJibbleSimpleCasedSpaced() {
-        GeoInformation r = convertor.lookupShort(" c B 4 ");
-        assertCB4(r);
+        GeoInformation r = convertor.lookupShort(" c B 23 ");
+        assertCB23(r);
     }
 
     @Test
