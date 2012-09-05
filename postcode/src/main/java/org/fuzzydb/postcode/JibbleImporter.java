@@ -24,7 +24,6 @@ import org.fuzzydb.util.CsvReader.GarbageLineException;
 import org.fuzzydb.util.CsvReader.NoSuchColumnException;
 import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
 
-import com.wwm.postcode.PostcodeResult;
 
 /**
  * This application converts [postcode root]\jibble-postcodes.csv and outputs to [postcode root]\jibble
@@ -41,8 +40,9 @@ public class JibbleImporter {
 
 	public static void main(String[] args) {
 		JibbleImporter j = new JibbleImporter();
-		String root = Settings.getInstance().getPostcodeRoot();
-		j.convert(root + File.separatorChar + jibbleSourceFile, root + File.separatorChar + jibbleDataFile);
+		String inDir = (args.length == 0) ? Settings.getInstance().getPostcodeRoot() : args[0];
+		String outDir = (args.length < 2) ? inDir : args[1];
+		j.convert(inDir + File.separatorChar + jibbleSourceFile, outDir + File.separatorChar + jibbleDataFile);
 	}
 
 	public JibbleImporter() {
@@ -102,6 +102,7 @@ public class JibbleImporter {
 			return;
 		}
 		
+		System.out.println("Writing to: " + out);
 		try {
 			FileUtils.writeObjectToGZip(out, map);
 		} catch (IOException e) {

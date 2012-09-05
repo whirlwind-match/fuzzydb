@@ -23,7 +23,6 @@ import org.fuzzydb.util.CsvReader.GarbageLineException;
 import org.fuzzydb.util.CsvReader.NoSuchColumnException;
 import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
 
-import com.wwm.postcode.PostcodeResult;
 
 /**
  * This application converts [postcode root]\npemap.org.uk.outward-part.csv and outputs to [postcode root]\jibble

@@ -10,7 +10,6 @@
  *****************************************************************************/
 package org.fuzzydb.postcode;
 
-import com.wwm.postcode.PostcodeResult;
 
 public interface PostcodeService {
 

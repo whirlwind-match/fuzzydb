@@ -20,7 +20,6 @@ import org.fuzzydb.util.StringUtils;
 import org.fuzzydb.util.geo.GeoInformation;
 import org.slf4j.Logger;
 
-import com.wwm.postcode.PostcodeResult;
 
 /**
  * Convert UK postcodes to {@link GeoInformation} using the prefix part.

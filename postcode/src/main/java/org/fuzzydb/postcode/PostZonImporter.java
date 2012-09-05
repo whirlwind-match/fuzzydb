@@ -30,7 +30,6 @@ import org.fuzzydb.util.CsvReader.UnsupportedTypeException;
 import org.fuzzydb.util.geo.LatLongDegs;
 import org.fuzzydb.util.geo.OsgbGridCoord;
 
-import com.wwm.postcode.PostcodeResult;
 
 /**This application assumes the file [postcode root]\PostZon.csv exists
  * It generates postzon data to [postcode root]\postzon\*

@@ -25,7 +25,6 @@ import org.fuzzydb.util.geo.GeoInformation;
 import org.slf4j.Logger;
 import java.util.zip.GZIPInputStream;
 
-import com.wwm.postcode.PostcodeResult;
 
 /**
  * Old version with high memory footprint
