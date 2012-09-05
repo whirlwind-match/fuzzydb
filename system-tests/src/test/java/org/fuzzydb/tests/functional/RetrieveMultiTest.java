@@ -2,7 +2,7 @@
  * Created on 13-Mar-2005
  *
  */
-package com.wwm.db.tests.functional;
+package org.fuzzydb.tests.functional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -1,4 +1,4 @@
-package com.wwm.db.tests.functional;
+package org.fuzzydb.tests.functional;
 
 import org.fuzzydb.attrs.AttrsFactory;
 import org.fuzzydb.attrs.userobjects.TestWhirlwindClass;

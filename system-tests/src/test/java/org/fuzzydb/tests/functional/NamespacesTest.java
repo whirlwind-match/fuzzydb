@@ -1,4 +1,4 @@
-package com.wwm.db.tests.functional;
+package org.fuzzydb.tests.functional;
 
 import java.util.ArrayList;
 import java.util.Arrays;

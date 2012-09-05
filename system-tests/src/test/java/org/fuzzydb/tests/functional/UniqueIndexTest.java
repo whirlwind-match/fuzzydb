@@ -1,4 +1,4 @@
-package com.wwm.db.tests.functional;
+package org.fuzzydb.tests.functional;
 
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;

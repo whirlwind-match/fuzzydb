@@ -1,4 +1,4 @@
-package com.wwm.db.tests.performance;
+package org.fuzzydb.tests.performance;
 
 
 import java.io.IOException;
