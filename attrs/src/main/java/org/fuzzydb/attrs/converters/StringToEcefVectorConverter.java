@@ -27,6 +27,9 @@ public class StringToEcefVectorConverter implements Converter<String, IPoint3D> 
 		}
 		
 		GeoInformation geo = stringToGeo.convert(source);
+		if (geo == null) {
+			throw new IllegalArgumentException("Unable to convert: " + source);
+		}
 		return EcefVector.fromDegs(0, geo.getLatitude(), geo.getLongitude());
 	}
 
