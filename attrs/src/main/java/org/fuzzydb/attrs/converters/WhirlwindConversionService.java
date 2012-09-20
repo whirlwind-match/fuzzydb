@@ -55,7 +55,22 @@ public class WhirlwindConversionService extends GenericConversionService impleme
 		if (stringToGeo != null) {
 			addConverter(new StringToEcefVectorConverter(stringToGeo));
 		}
+		
+		if (bsonObjectIdAvailable()) {
+			addConverter(new StringToObjectIdConverter());
+			addConverter(new ObjectIdToStringConverter());
+		}
+		
 		DefaultConversionService.addDefaultConverters(this);
+	}
+
+	private boolean bsonObjectIdAvailable() {
+		try {
+			Class.forName("org.bson.types.ObjectId");
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
 	}
 	
 	
