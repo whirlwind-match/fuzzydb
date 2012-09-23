@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import javax.annotation.Nonnull;
 
+import org.fuzzydb.client.IndexPointerStyle;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.server.internal.common.YoofRepository;

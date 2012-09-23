@@ -13,6 +13,8 @@ package org.fuzzydb.server.internal.index.btree;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import org.fuzzydb.client.IndexPointerStyle;
+
 public interface LeafNodeW extends LeafNodeR, NodeW {
 
 	void insertPeerData(TreeMap<Comparable<Object>, ArrayList<Object>> inserts);

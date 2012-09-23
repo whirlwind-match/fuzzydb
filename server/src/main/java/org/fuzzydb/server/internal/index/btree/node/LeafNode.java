@@ -16,8 +16,8 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.fuzzydb.client.IndexPointerStyle;
 import org.fuzzydb.client.Ref;
-import org.fuzzydb.server.internal.index.btree.IndexPointerStyle;
 import org.fuzzydb.server.internal.index.btree.LeafNodeW;
 import org.fuzzydb.server.internal.index.btree.PendingOperations;
 import org.fuzzydb.server.internal.index.btree.RefdObject;

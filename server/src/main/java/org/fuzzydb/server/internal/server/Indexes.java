@@ -18,12 +18,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.fuzzydb.client.IndexPointerStyle;
+import org.fuzzydb.client.SingleFieldIndexDefinition;
 import org.fuzzydb.client.exceptions.KeyCollisionException;
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.core.annotations.Key;
 import org.fuzzydb.server.internal.index.btree.BTree;
 import org.fuzzydb.server.internal.index.btree.IndexKeyUniqueness;
-import org.fuzzydb.server.internal.index.btree.IndexPointerStyle;
 import org.fuzzydb.server.internal.index.btree.NodeW;
 import org.fuzzydb.server.internal.server.ServerTransaction.Mode;
 import org.fuzzydb.server.internal.table.Table;
@@ -59,48 +60,70 @@ public class Indexes implements Serializable {
         }
     }
 
+    /**
+     * Add indexes detected as annotations on this class.  A one-time process.
+     */
     private <FC> boolean createIndex(Class<FC> forClass) {
         if (indexes.containsKey(forClass)) {
             return true;
         }
 
-        boolean rval = false;
-
         Field[] fields = forClass.getDeclaredFields();
 
+        boolean rval = false;
         for (final Field field : fields) {
-            Key k = field.getAnnotation(Key.class);
-            Id id = field.getAnnotation(Id.class); // equates to Key(unique=true)
-
-            if (k != null || id != null) {
-                rval = true;
-                String fieldName = field.getName();
-                Map<String, BTree<?>> fieldIndexes = indexes.get(forClass);
-                if (fieldIndexes == null) {
-                    fieldIndexes = new HashMap<String, BTree<?>>();
-                    indexes.put(forClass, fieldIndexes);
-                }
-                if (!fieldIndexes.containsKey(fieldName)) {
-                	if (id != null) {
-                		addBTree(forClass, fieldName, fieldIndexes, IndexKeyUniqueness.UniqueKey, IndexPointerStyle.Copy);
-                	}
-                	else {
-	                    IndexKeyUniqueness unique = k.unique() ? IndexKeyUniqueness.UniqueKey : IndexKeyUniqueness.MultiKey;
-	                    IndexPointerStyle style = (k.type()==null||k.type()==Key.Mode.Value) ? IndexPointerStyle.Copy : IndexPointerStyle.Reference;
-	                    addBTree(forClass, fieldName, fieldIndexes, unique, style);
-                	}
-                }
-            }
+            rval |= addIndexForField(forClass, field);
         }
         return rval;
     }
 
-	private <FC> void addBTree(Class<FC> forClass, String fieldName, Map<String, BTree<?>> fieldIndexes, 
-			IndexKeyUniqueness unique, IndexPointerStyle style) {
-		Table<NodeW, NodeW> table = TableFactory.createPagedIndexTable(NodeW.class, namespace, forClass, fieldName);
+    /**
+     * Add indexes for the given Field if annotated appropriately
+     * @return true if an index was added/already present
+     */
+	private <FC> boolean addIndexForField(Class<FC> forClass, final Field field) {
+		Key k = field.getAnnotation(Key.class);
+		Id id = field.getAnnotation(Id.class); // equates to Key(unique=true)
 
-		BTree<FC> btree = new BTree<FC>(table, table.getNamespace(), forClass, fieldName, unique, style);
-		fieldIndexes.put(fieldName, btree);
+		if (k == null && id == null) {
+			return false;
+		}
+		
+	    String fieldName = field.getName();
+	    Map<String, BTree<?>> fieldIndexes = getSingleFieldIndexes(forClass);
+	    if (fieldIndexes.containsKey(fieldName)) {
+	    	return true; // Note: this assumes nothing has changed
+	    }
+
+	    SingleFieldIndexDefinition<FC> indexDefinition;
+	    if (id != null) {
+    		indexDefinition = new SingleFieldIndexDefinition<FC>(forClass, fieldName,
+					true, IndexPointerStyle.Copy);
+    	}
+    	else {
+            IndexPointerStyle style = (k.type()==null||k.type()==Key.Mode.Value) 
+            		? IndexPointerStyle.Copy : IndexPointerStyle.Reference;
+            indexDefinition = new SingleFieldIndexDefinition<FC>(forClass, fieldName,
+					k.unique(), style);
+    	}
+	    addBTree(indexDefinition, fieldIndexes);
+		return true;
+	}
+
+	private <FC> Map<String, BTree<?>> getSingleFieldIndexes(Class<FC> forClass) {
+		Map<String, BTree<?>> fieldIndexes = indexes.get(forClass);
+		if (fieldIndexes == null) {
+		    fieldIndexes = new HashMap<String, BTree<?>>();
+		    indexes.put(forClass, fieldIndexes);
+		}
+		return fieldIndexes;
+	}
+
+	private <FC> void addBTree(SingleFieldIndexDefinition<FC> indexDefinition, Map<String, BTree<?>> fieldIndexes) {
+		Table<NodeW, NodeW> table = TableFactory.createPagedIndexTable(NodeW.class, namespace, indexDefinition.forClass, indexDefinition.fieldName);
+
+		BTree<FC> btree = new BTree<FC>(table, table.getNamespace(), indexDefinition);
+		fieldIndexes.put(indexDefinition.fieldName, btree);
 	}
 	
     /*

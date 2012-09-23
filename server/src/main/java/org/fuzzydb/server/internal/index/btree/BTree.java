@@ -15,11 +15,15 @@ import java.lang.reflect.Field;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
+import org.fuzzydb.client.IndexPointerStyle;
 import org.fuzzydb.client.Ref;
+import org.fuzzydb.client.SingleFieldIndexDefinition;
 import org.fuzzydb.client.internal.MetaObject;
 import org.fuzzydb.server.internal.common.MetaObjectSource;
 import org.fuzzydb.server.internal.common.YoofRepository;
 import org.fuzzydb.server.internal.index.btree.node.RootSentinel;
+import org.fuzzydb.server.internal.server.Namespace;
+import org.fuzzydb.server.internal.table.Table;
 
 
 /**
@@ -48,17 +52,15 @@ public class BTree<T> implements /*Index<Object>,*/ Serializable {
     private final MetaObjectSource namespace;
 
 
-
-    public BTree(YoofRepository<NodeW, NodeW> table, MetaObjectSource namespace, Class<T> clazz, String fieldName, IndexKeyUniqueness unique, IndexPointerStyle style) {
+    public BTree(Table<NodeW, NodeW> table, Namespace namespace, SingleFieldIndexDefinition<T> indexDefinition) {
     	this.table = table;
-    	this.style = style;
-        this.unique = unique;
+    	this.style = indexDefinition.style;
+        this.unique = indexDefinition.unique ? IndexKeyUniqueness.UniqueKey : IndexKeyUniqueness.MultiKey;
         this.sentinel = table.allocOneRef();
         table.create(sentinel, new RootSentinel(null));
-        forClass = clazz;
-        this.fieldName = fieldName;
+        forClass = indexDefinition.forClass;
+        this.fieldName = indexDefinition.fieldName;
         this.namespace = namespace;
-
     }
 
     @SuppressWarnings("unchecked")

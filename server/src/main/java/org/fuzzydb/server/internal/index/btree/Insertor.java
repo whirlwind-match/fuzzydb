@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.fuzzydb.client.IndexPointerStyle;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.internal.RefImpl;
 import org.fuzzydb.server.internal.index.btree.BranchNodeW.SplitOut;

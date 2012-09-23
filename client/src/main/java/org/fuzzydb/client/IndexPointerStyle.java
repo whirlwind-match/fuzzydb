@@ -8,7 +8,7 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package org.fuzzydb.server.internal.index.btree;
+package org.fuzzydb.client;
 
 public enum IndexPointerStyle {
 	Reference,	// Index contains pointers to objects for space efficiency

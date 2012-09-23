@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.fuzzydb.client.IndexPointerStyle;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.exceptions.UnknownObjectException;
 import org.fuzzydb.client.internal.MetaObject;
