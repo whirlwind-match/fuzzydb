@@ -5,6 +5,7 @@ import java.util.EmptyStackException;
 import java.util.Map;
 
 import org.fuzzydb.client.DataOperations;
+import org.fuzzydb.client.IndexDefinition;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.marker.IWhirlwindItem;
@@ -185,5 +186,10 @@ public abstract class AbstractDataOperationsProxy implements DataOperations {
 
 	public final String[] listNamespaces() {
 		return getDataOperations().listNamespaces();
+	}
+	
+	@Override
+	public void ensureIndex(IndexDefinition def) {
+		getDataOperations().ensureIndex(def);
 	}
 }

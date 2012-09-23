@@ -152,5 +152,10 @@ public interface DataOperations {
 	 * Will throw UnknownObjectException if the object is detached or not yet persisted
 	 */
 	<E> Ref<E> getRef(E object);
+	
+	/**
+	 * Ensure that and index matching the definition
+	 */
+	void ensureIndex(IndexDefinition def);
 
 }

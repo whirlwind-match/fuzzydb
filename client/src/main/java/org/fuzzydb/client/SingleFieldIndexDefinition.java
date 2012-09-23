@@ -1,9 +1,8 @@
 package org.fuzzydb.client;
 
-import java.io.Serializable;
 
 
-public class SingleFieldIndexDefinition<FC> implements Serializable {
+public class SingleFieldIndexDefinition<FC> implements IndexDefinition {
 	
 	private static final long serialVersionUID = 1L;
 

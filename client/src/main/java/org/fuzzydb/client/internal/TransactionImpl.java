@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.fuzzydb.client.DataOperations;
+import org.fuzzydb.client.IndexDefinition;
 import org.fuzzydb.client.Ref;
 import org.fuzzydb.client.Transaction;
 import org.fuzzydb.client.exceptions.AuthorityException;
@@ -30,6 +31,7 @@ import org.fuzzydb.client.internal.comms.messages.BeginTransactionCmd;
 import org.fuzzydb.client.internal.comms.messages.CommitCmd;
 import org.fuzzydb.client.internal.comms.messages.CountClassCmd;
 import org.fuzzydb.client.internal.comms.messages.CountClassRsp;
+import org.fuzzydb.client.internal.comms.messages.EnsureIndexCmd;
 import org.fuzzydb.client.internal.comms.messages.ListNamespacesCmd;
 import org.fuzzydb.client.internal.comms.messages.ListNamespacesRsp;
 import org.fuzzydb.client.internal.comms.messages.RetrieveByKeyCmd;
@@ -561,4 +563,11 @@ public class TransactionImpl implements Transaction {
 		return tid;
 	}
 
+	@Override
+	public void ensureIndex(IndexDefinition def) {
+		requiresAuth();
+		
+		execute(new EnsureIndexCmd(store.getStoreId(), store.getNextId(), tid, namespace, def));
+	}
+	
 }
