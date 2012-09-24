@@ -38,5 +38,9 @@ NOTE: compiled against io.packet, but io.packet is set as provided scope and mus
             <version>1.0.0.RC1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        	<groupId>org.mongodb</groupId>
+        	<artifactId>mongo-java-driver</artifactId>
+        </dependency>
     </dependencies>
 </project>
