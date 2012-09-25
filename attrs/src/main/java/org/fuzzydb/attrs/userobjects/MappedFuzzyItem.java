@@ -31,7 +31,7 @@ import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
  * A {@link IWhirlwindItem} that can store fuzzy indexable attributes, but also
  * any non-indexable string attributes.
  */
-public class MappedFuzzyItem implements IWhirlwindItem, Serializable {
+public class MappedFuzzyItem implements MappedItem, IWhirlwindItem, Serializable {
 
 
     private static final long serialVersionUID = 1L;
@@ -56,11 +56,13 @@ public class MappedFuzzyItem implements IWhirlwindItem, Serializable {
     private HashMap<String,String> nonIndexAttrs = null;
 
 
+    @Override
     @SuppressWarnings("unchecked")
     public IAttributeMap<IAttribute> getAttributeMap() {
         return (IAttributeMap<IAttribute>)attrs;  // Server side.  Should aim to eliminate this.
     }
 
+    @Override
     @SuppressWarnings("unchecked")
 	public void setAttributeMap(IAttributeMap<IAttribute> attrs) {
         this.attrs = (CardinalAttributeMap<IAttribute>)attrs;
@@ -71,6 +73,7 @@ public class MappedFuzzyItem implements IWhirlwindItem, Serializable {
      * Note: The use of Strings for keys is inefficient.  This could be an attribute id once we have
      * a decent {@link AttributeDefinitionService} available.
      */
+    @Override
     public void setNonIndexString(String name, String value) {
         if (nonIndexAttrs == null) {
             nonIndexAttrs = new HashMap<String, String>(4, 1.0f); // high load factor to get compact map
@@ -82,6 +85,7 @@ public class MappedFuzzyItem implements IWhirlwindItem, Serializable {
         return nonIndexAttrs == null ? null : nonIndexAttrs.get(name);
     }
 
+    @Override
     public Map<String, String> getNonIndexAttrs() {
 		if (nonIndexAttrs != null) {
 			return nonIndexAttrs;
