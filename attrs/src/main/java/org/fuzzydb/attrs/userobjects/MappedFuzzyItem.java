@@ -94,15 +94,18 @@ public class MappedFuzzyItem implements MappedItem, IWhirlwindItem, Serializable
 		}
 	}
     
-    public Object getNominee() {
+    @Override
+	public Object getNominee() {
         throw new UnsupportedOperationException(); // TODO: Deserialze the blob..?  or is this just the buffer
     }
 
 
-    public void setNominee(Object o) {
+    @Override
+	public void setNominee(Object o) {
         throw new UnsupportedOperationException();
     }
 
+	@Override
 	public void mergeDuplicates(AttributeCache cache) {
     	
     	// FIXME: merge attributes too - is this AttributeRemapper??
@@ -121,6 +124,11 @@ public class MappedFuzzyItem implements MappedItem, IWhirlwindItem, Serializable
 //    	}
     	out.defaultWriteObject();
     }
-    
-    
+
+    @Override
+	public <T extends MappedItem> void mergeFrom(T toMerge) {
+    	MappedFuzzyItem other = (MappedFuzzyItem) toMerge;
+		attrs = other.attrs;
+		nonIndexAttrs = other.nonIndexAttrs;
+	}
 }

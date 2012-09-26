@@ -48,12 +48,14 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
     private HashMap<String,String> nonIndexAttrs = null;
 
 
-    @SuppressWarnings("unchecked")
+    @Override
+	@SuppressWarnings("unchecked")
     public IAttributeMap<IAttribute> getAttributeMap() {
         return (IAttributeMap<IAttribute>)attrs;  // Server side.  Should aim to eliminate this.
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+	@SuppressWarnings("unchecked")
 	public void setAttributeMap(IAttributeMap<IAttribute> attrs) {
         this.attrs = (CardinalAttributeMap<IAttribute>)attrs;
     }
@@ -63,7 +65,8 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
      * Note: The use of Strings for keys is inefficient.  This could be an attribute id once we have
      * a decent {@link AttributeDefinitionService} available.
      */
-    public void setNonIndexString(String name, String value) {
+    @Override
+	public void setNonIndexString(String name, String value) {
         if (nonIndexAttrs == null) {
             nonIndexAttrs = new HashMap<String, String>(4, 1.0f); // high load factor to get compact map
         }
@@ -74,7 +77,8 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
         return nonIndexAttrs == null ? null : nonIndexAttrs.get(name);
     }
 
-    public Map<String, String> getNonIndexAttrs() {
+    @Override
+	public Map<String, String> getNonIndexAttrs() {
 		if (nonIndexAttrs != null) {
 			return nonIndexAttrs;
 		} else {
@@ -82,15 +86,18 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
 		}
 	}
     
-    public Object getNominee() {
+    @Override
+	public Object getNominee() {
         throw new UnsupportedOperationException(); // TODO: Deserialze the blob..?  or is this just the buffer
     }
 
 
-    public void setNominee(Object o) {
+    @Override
+	public void setNominee(Object o) {
         throw new UnsupportedOperationException();
     }
 
+	@Override
 	public void mergeDuplicates(AttributeCache cache) {
     	
     	// FIXME: merge attributes too - is this AttributeRemapper??
@@ -110,5 +117,10 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
     	out.defaultWriteObject();
     }
     
-    
+    @Override
+    public <T extends MappedItem> void mergeFrom(T toMerge) {
+		IdFieldMappedFuzzyItem other = (IdFieldMappedFuzzyItem) toMerge;
+		attrs = other.attrs;
+		nonIndexAttrs = other.nonIndexAttrs;
+	}
 }
