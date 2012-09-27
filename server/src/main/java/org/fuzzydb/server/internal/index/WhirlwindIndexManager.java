@@ -172,28 +172,37 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
                 conf = null;
             }
         }
-        if (conf == null){
-            Namespace defaultNamespace = table.getNamespace().getNamespaces().getNamespace(Store.DEFAULT_NAMESPACE);
-            getLog().debug("Trying first default namespace for WhirlwindConfiguration");
-            Iterator<MetaObject<WhirlwindConfiguration>> iterator;
-            try {
-                iterator = defaultNamespace.retrieveAll(WhirlwindConfiguration.class);
-                if (iterator.hasNext()){
-                    MetaObject<WhirlwindConfiguration> metaObject = iterator.next();
-                    conf = metaObject.getObject();
-                    wwConfigRef = metaObject.getRef();
-                    wwConfigNamespace = defaultNamespace;
-                }
-            } catch (UnknownObjectException e) {
-                conf = null;
-            }
+        if (conf == null) {
+            conf = getConfigFromDefaultNamespace();
         }
-        if (conf == null){
+        if (conf == null) {
             getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Aborting");
             // Allows to boot database and then insert a config later.
         }
         return conf;
     }
+
+	private WhirlwindConfiguration getConfigFromDefaultNamespace() {
+		getLog().debug("Trying first default namespace for WhirlwindConfiguration");
+		Namespace defaultNamespace = table.getNamespace().getNamespaces().getNamespace(Store.DEFAULT_NAMESPACE);
+		if (defaultNamespace == null) {
+			return null;
+		}
+		
+		Iterator<MetaObject<WhirlwindConfiguration>> iterator;
+		try {
+		    iterator = defaultNamespace.retrieveAll(WhirlwindConfiguration.class);
+		    if (iterator.hasNext()){
+		        MetaObject<WhirlwindConfiguration> metaObject = iterator.next();
+		        wwConfigRef = metaObject.getRef();
+		        wwConfigNamespace = defaultNamespace;
+		        return metaObject.getObject();
+		    }
+		} catch (UnknownObjectException e) {
+			// fallthru
+		}
+		return null;
+	}
 
     private Logger getLog(){
         return table.getNamespace().getLog();
