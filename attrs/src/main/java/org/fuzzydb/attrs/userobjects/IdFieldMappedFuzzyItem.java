@@ -48,6 +48,14 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
     private HashMap<String,String> nonIndexAttrs = null;
 
 
+    public Comparable<?> getId() {
+		return id;
+	}
+    
+    public void setId(Comparable<?> id) {
+		this.id = id;
+	}
+    
     @Override
 	@SuppressWarnings("unchecked")
     public IAttributeMap<IAttribute> getAttributeMap() {
