@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -22,13 +22,13 @@ import com.google.inject.Singleton;
 
 /**
  * A service to track what implementations of an index are available.
- * 
+ *
  * This is used internally by the database for discovery of indexes whenever a
  * new class is encountered.
  */
 @Singleton
 public class IndexImplementationsService {
-	
+
     private final Logger log = LogFactory.getLogger(getClass());
 
     private final Collection<IndexImplementation> impls = new LinkedList<IndexImplementation>();
@@ -36,29 +36,29 @@ public class IndexImplementationsService {
 	public IndexImplementationsService() {
 		installAccPackIfAvailable();
 	}
-	
+
 	public Collection<IndexImplementation> getIndexImplementations() {
 		return impls;
 	}
-	
+
 	public void add( IndexImplementation impl ) {
 		impls.add(impl);
 	}
-	
+
 	public void remove( IndexImplementation impl ) {
 		impls.remove(impl);
 	}
-	
+
 	private void installAccPackIfAvailable() {
-		Class<?> cl; 
+		Class<?> cl;
 		try {
-			cl = Class.forName("org.fuzzydb.client.server.whirlwind.WhirlwindIndexImpl");
+			cl = Class.forName("com.wwm.db.server.whirlwind.WhirlwindIndexImpl");
 		} catch (ClassNotFoundException e) {
 			return;
 		}
 		try {
 			log.info("** Accelerator Pack detected. Enabling **");
-			IndexImplementation index = (IndexImplementation) cl.newInstance(); 
+			IndexImplementation index = (IndexImplementation) cl.newInstance();
 			add(index);
 			return;
 		} catch (InstantiationException e) {
