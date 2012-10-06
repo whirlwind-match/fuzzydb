@@ -12,7 +12,7 @@ import org.fuzzydb.attrs.byteencoding.CompactSimilarFloatValueScorer;
 import org.fuzzydb.attrs.enums.EnumExclusiveValue;
 import org.fuzzydb.attrs.internal.ScoreConfigurationManager;
 import org.fuzzydb.attrs.location.EcefVector;
-import org.fuzzydb.attrs.simple.FloatSplitConfiguration;
+import org.fuzzydb.attrs.simple.FloatPriority;
 import org.fuzzydb.attrs.simple.FloatValue;
 import org.fuzzydb.attrs.simple.SimilarFloatValueScorer;
 import org.fuzzydb.attrs.userobjects.TestWhirlwindClass;
@@ -74,7 +74,7 @@ public abstract class BaseWWTest extends BaseDatabaseTest {
 		{
 			ManualIndexStrategy strategy = new ManualIndexStrategy("default");
 			// Split on attrId 1, as a float, with expected range of 100k and priority 1
-			strategy.add(new FloatSplitConfiguration(floatId, 1e5f, 0.9f));
+			strategy.add(new FloatPriority(floatId, 1e5f, 0.9f));
 			conf.addStrategy(strategy);
 		}
 		
@@ -82,7 +82,7 @@ public abstract class BaseWWTest extends BaseDatabaseTest {
 			// Just for fun, we'll have two WWIndexes built
 			ManualIndexStrategy strategy = new ManualIndexStrategy( "second" ); 
 			// Split on attrId 1, as a float, with expected range of 10k and priority 1
-			strategy.add( new FloatSplitConfiguration( floatId, 1e4f, 0.9f) ); 
+			strategy.add( new FloatPriority( floatId, 1e4f, 0.9f) ); 
 			conf.addStrategy( strategy );
 		}
 

@@ -8,21 +8,27 @@
  * You should have received a copy of the Open Software Licence along with this
  * application. if not, contact the Open Source Initiative (www.opensource.org)
  *****************************************************************************/
-package org.fuzzydb.attrs;
+package org.fuzzydb.attrs.bool;
 
-import java.io.Serializable;
+import org.fuzzydb.attrs.AttributePriority;
 
-public abstract class SplitConfiguration implements Serializable {
+public class BooleanPriority extends AttributePriority {
 
-	private static final long serialVersionUID = 1572490919190087518L;
-	private final int id;
+	private static final long serialVersionUID = -6366036733104491988L;
+	private final float priority;
 	
-	protected SplitConfiguration(int id) {
-		super();
-		this.id = id;
+    /** Default ctor for serialization libraries */
+    @SuppressWarnings("unused")
+    private BooleanPriority() {
+        this(0, 1f);
+    }
+
+	public BooleanPriority(int id, float priority) {
+		super(id);
+		this.priority = priority;
 	}
 
-	public int getId() {
-		return id;
-	}
+	public float getPriority() {
+		return priority;
+	}	
 }

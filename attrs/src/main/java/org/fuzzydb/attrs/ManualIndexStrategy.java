@@ -15,17 +15,16 @@ import java.util.Collection;
 
 import org.fuzzydb.client.whirlwind.IndexStrategy;
 
-
-
-
-
+/**
+ * Manual hints for relative likelihood of an attribute being used when searching.
+ */
 public class ManualIndexStrategy implements IndexStrategy {
 
     private static final long serialVersionUID = 1L;
 
     private String name;
 
-    private ArrayList<SplitConfiguration> splitConfigurations = new ArrayList<SplitConfiguration>();
+    private final ArrayList<AttributePriority> priorities = new ArrayList<AttributePriority>();
 
     
     /** Default ctor for serialization libraries */
@@ -41,13 +40,13 @@ public class ManualIndexStrategy implements IndexStrategy {
         return name;
     }
 
-    public void add(SplitConfiguration sc) {
-        splitConfigurations.add( sc);
+    public void add(AttributePriority priority) {
+        priorities.add(priority);
     }
 
-    //	public Map<String, SplitConfiguration> getSplitConfigurations() {
-    public Collection<SplitConfiguration> getSplitConfigurations() {
-        return splitConfigurations;
+    //	public Map<String, AttributePriority> getPriorities() {
+    public Collection<AttributePriority> getPriorities() {
+        return priorities;
     }
 
 

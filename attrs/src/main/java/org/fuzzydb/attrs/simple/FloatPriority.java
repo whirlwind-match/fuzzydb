@@ -10,9 +10,9 @@
  *****************************************************************************/
 package org.fuzzydb.attrs.simple;
 
-import org.fuzzydb.attrs.SplitConfiguration;
+import org.fuzzydb.attrs.AttributePriority;
 
-public class FloatSplitConfiguration extends SplitConfiguration {
+public class FloatPriority extends AttributePriority {
 
 	private static final long serialVersionUID = 3697244522653626113L;
 
@@ -21,11 +21,11 @@ public class FloatSplitConfiguration extends SplitConfiguration {
 
     /** Default ctor for serialization libraries */
     @SuppressWarnings("unused")
-    private FloatSplitConfiguration() {
+    private FloatPriority() {
         this(0, 1f, 1f);
     }
 
-	public FloatSplitConfiguration(int id, float expected, float priority) {
+	public FloatPriority(int id, float expected, float priority) {
 		super(id);
 		this.expected = expected;
 		this.priority = priority;

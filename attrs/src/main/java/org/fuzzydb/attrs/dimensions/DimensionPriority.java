@@ -11,11 +11,11 @@
 package org.fuzzydb.attrs.dimensions;
 
 
-import org.fuzzydb.attrs.SplitConfiguration;
+import org.fuzzydb.attrs.AttributePriority;
 import org.fuzzydb.dto.dimensions.IDimensions;
 
 
-public class DimensionSplitConfiguration extends SplitConfiguration {
+public class DimensionPriority extends AttributePriority {
 
 	private static final long serialVersionUID = 4886507767190021729L;
 
@@ -24,11 +24,11 @@ public class DimensionSplitConfiguration extends SplitConfiguration {
 
     /** Default ctor for serialization libraries */
     @SuppressWarnings("unused")
-    private DimensionSplitConfiguration() {
+    private DimensionPriority() {
         this(0, null, null);
     }
 
-	public DimensionSplitConfiguration(int id, IDimensions expected, IDimensions priority) {
+	public DimensionPriority(int id, IDimensions expected, IDimensions priority) {
 		super(id);
 		this.expected = expected;
 		this.priority = priority;

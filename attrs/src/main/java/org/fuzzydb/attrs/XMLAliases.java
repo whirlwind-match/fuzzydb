@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.fuzzydb.attrs.bool.BooleanScorer;
-import org.fuzzydb.attrs.bool.BooleanSplitConfiguration;
-import org.fuzzydb.attrs.dimensions.DimensionSplitConfiguration;
+import org.fuzzydb.attrs.bool.BooleanPriority;
+import org.fuzzydb.attrs.dimensions.DimensionPriority;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.enums.EnumExclusiveScorerExclusive;
 import org.fuzzydb.attrs.enums.EnumExclusiveScorerPreference;
-import org.fuzzydb.attrs.enums.EnumExclusiveSplitConfiguration;
+import org.fuzzydb.attrs.enums.SingleEnumPriority;
 import org.fuzzydb.attrs.enums.EnumSingleValueScorer;
 import org.fuzzydb.attrs.enums.MultiEnumScorer;
 import org.fuzzydb.attrs.enums.OptionsScorer;
@@ -20,7 +20,7 @@ import org.fuzzydb.attrs.location.LocationAndRangeScorer;
 import org.fuzzydb.attrs.location.PathDeviationScorer;
 import org.fuzzydb.attrs.location.VectorDistanceScorer;
 import org.fuzzydb.attrs.simple.FloatRangePreferenceScorer;
-import org.fuzzydb.attrs.simple.FloatSplitConfiguration;
+import org.fuzzydb.attrs.simple.FloatPriority;
 import org.fuzzydb.attrs.simple.SimilarFloatValueScorer;
 import org.fuzzydb.attrs.simple.WeightedSumScorer;
 import org.fuzzydb.util.AsymptoticScoreMapper;
@@ -96,16 +96,16 @@ public class XMLAliases {
 	    xStream.alias("ManualPriorities", ManualIndexStrategy.class);
 	    xStream.useAttributeFor(ManualIndexStrategy.class, "name");
 	    // ensure contained elements are added to splitConfigurations
-	    xStream.addImplicitCollection(ManualIndexStrategy.class, "splitConfigurations");
+	    xStream.addImplicitCollection(ManualIndexStrategy.class, "priorities");
 	
 	    // Split config stuff
-	    xStream.alias("Splitter", SplitConfiguration.class);
-	    xStream.alias("BooleanSplitConfiguration", BooleanSplitConfiguration.class);
-	    xStream.alias("DimensionSplitConfiguration", DimensionSplitConfiguration.class);
-	    xStream.alias("EnumExclusiveSplitConfiguration", EnumExclusiveSplitConfiguration.class);
-	    // xStream.alias("EnumMultiValueSplitConfiguration", EnumMultiValueSplitConfiguration.class);
-	    xStream.alias("FloatSplitConfiguration", FloatSplitConfiguration.class);
-	    // xStream.alias("RangeSplitConfiguration", RangeSplitConfiguration.class);
+	    xStream.alias("Priority", AttributePriority.class);
+	    xStream.alias("BooleanPriority", BooleanPriority.class);
+	    xStream.alias("DimensionPriority", DimensionPriority.class);
+	    xStream.alias("SingleEnumPriority", SingleEnumPriority.class);
+	    // xStream.alias("MultiEnumPriority", MultiEnumPriority.class);
+	    xStream.alias("FloatPriority", FloatPriority.class);
+	    // xStream.alias("RangePriority", RangePriority.class);
 	}
 	
 	

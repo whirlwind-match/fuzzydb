@@ -124,30 +124,30 @@ public class AttrIdClassMapper {
     private static void addSplitConfigMappings() {
         Map<String, Class<?>> currentAttrNameMap;
 
-        // BooleanSplitConfiguration
+        // BooleanPriority
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry
         currentAttrNameMap.put("id", BooleanValue.class);
-        scorerNameMap.put("BooleanSplitConfiguration", currentAttrNameMap);
+        scorerNameMap.put("BooleanPriority", currentAttrNameMap);
 
-        // DimensionSplitConfiguration
+        // DimensionPriority
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry
         currentAttrNameMap.put("id", EcefVector.class);
-        scorerNameMap.put("DimensionSplitConfiguration", currentAttrNameMap);
+        scorerNameMap.put("DimensionPriority", currentAttrNameMap);
 
-        // EnumExclusiveSplitConfiguration
+        // SingleEnumPriority
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry
         currentAttrNameMap.put("id", EnumExclusiveValue.class);
-        scorerNameMap.put("EnumExclusiveSplitConfiguration", currentAttrNameMap);
+        scorerNameMap.put("SingleEnumPriority", currentAttrNameMap);
 
         // EnumMultiValueSplitConfiguration - TODO: Migrate to DB2, or discard
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry
         currentAttrNameMap.put("id", EnumMultipleValue.class);
         scorerNameMap.put("EnumMultiValueSplitConfiguration", currentAttrNameMap);
 
-        // FloatSplitConfiguration
+        // FloatPriority
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry
         currentAttrNameMap.put("id", FloatValue.class);
-        scorerNameMap.put("FloatSplitConfiguration", currentAttrNameMap);
+        scorerNameMap.put("FloatPriority", currentAttrNameMap);
 
         // RangeSplitConfiguration - TODO: Migrate to DB2, or discard
         currentAttrNameMap = new HashMap<String,Class<?>>(1); // expect 1 entry

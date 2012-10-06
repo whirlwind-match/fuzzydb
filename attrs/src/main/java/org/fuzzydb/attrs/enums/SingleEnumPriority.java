@@ -10,20 +10,20 @@
  *****************************************************************************/
 package org.fuzzydb.attrs.enums;
 
-import org.fuzzydb.attrs.SplitConfiguration;
+import org.fuzzydb.attrs.AttributePriority;
 
-public class EnumExclusiveSplitConfiguration extends SplitConfiguration {
+public class SingleEnumPriority extends AttributePriority {
 
 	private static final long serialVersionUID = 1L;
 	private float priority;
 	private int size;
 
     /** Default ctor for serialization libraries */
-    private EnumExclusiveSplitConfiguration() {
+    private SingleEnumPriority() {
         super(0);
     }
 
-	public EnumExclusiveSplitConfiguration(int id, int size, float priority) {
+	public SingleEnumPriority(int id, int size, float priority) {
 		super(id);
 		this.size = size;
 		this.priority = priority;
