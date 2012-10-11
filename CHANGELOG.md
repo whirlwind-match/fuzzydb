@@ -16,6 +16,7 @@
 - Core cleanup:
     - Move Spring support to https://github.com/whirlwind-match/fuzzydb-spring/
     - Move Atom Publishing Protocol and old 'indexer' app to https://github.com/whirlwind-match/fuzzydb-extras/
+- Add 2012 Olympics location to built-in UK postcode database (something to spin out to another project :)
 
 ## Defects
 
