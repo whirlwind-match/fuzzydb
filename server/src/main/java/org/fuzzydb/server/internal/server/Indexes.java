@@ -29,7 +29,6 @@ import org.fuzzydb.server.internal.index.btree.NodeW;
 import org.fuzzydb.server.internal.server.ServerTransaction.Mode;
 import org.fuzzydb.server.internal.table.Table;
 import org.fuzzydb.server.internal.table.TableFactory;
-import org.springframework.data.annotation.Id;
 
 
 /**
@@ -83,9 +82,8 @@ public class Indexes implements Serializable {
      */
 	private <FC> boolean addIndexForField(Class<FC> forClass, final Field field) {
 		Key k = field.getAnnotation(Key.class);
-		Id id = field.getAnnotation(Id.class); // equates to Key(unique=true)
 
-		if (k == null && id == null) {
+		if (k == null) {
 			return false;
 		}
 		
@@ -95,18 +93,13 @@ public class Indexes implements Serializable {
 	    	return true; // Note: this assumes nothing has changed
 	    }
 
-	    SingleFieldIndexDefinition<FC> indexDefinition;
-	    if (id != null) {
-    		indexDefinition = new SingleFieldIndexDefinition<FC>(forClass, fieldName,
-					true, IndexPointerStyle.Copy);
-    	}
-    	else {
-            IndexPointerStyle style = (k.type()==null||k.type()==Key.Mode.Value) 
-            		? IndexPointerStyle.Copy : IndexPointerStyle.Reference;
-            indexDefinition = new SingleFieldIndexDefinition<FC>(forClass, fieldName,
-					k.unique(), style);
-    	}
-	    addBTree(indexDefinition, fieldIndexes);
+        IndexPointerStyle style = (k.type()==null||k.type()==Key.Mode.Value) 
+        		? IndexPointerStyle.Copy : IndexPointerStyle.Reference;
+
+        SingleFieldIndexDefinition<FC> indexDefinition = new SingleFieldIndexDefinition<FC>(
+				forClass, fieldName, k.unique(), style);
+	    
+        addBTree(indexDefinition, fieldIndexes);
 		return true;
 	}
 

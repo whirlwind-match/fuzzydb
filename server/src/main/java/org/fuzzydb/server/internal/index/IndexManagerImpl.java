@@ -28,7 +28,6 @@ import org.fuzzydb.server.internal.search.Search;
 import org.fuzzydb.server.internal.server.Namespace;
 import org.fuzzydb.server.internal.table.UserTable;
 import org.slf4j.Logger;
-import org.springframework.data.annotation.Id;
 import org.springframework.util.StringUtils;
 
 
@@ -56,11 +55,11 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
     private boolean initialised = false;
 
     /** parent namespace ... for convenience */
-    private Namespace namespace;
+    private final Namespace namespace;
 
-    private Map<String, Index<T>> indexes;
+    private final Map<String, Index<T>> indexes;
 
-    private UserTable<T> table;
+    private final UserTable<T> table;
 
 	private WhirlwindIndexManager<?> wwIndexMgr = null;
 
@@ -204,8 +203,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 	private void detectSimpleIndexes() {
 		// Detect fields on clazz and update index if not already in existence
         for (Field f: table.getStoredClass().getDeclaredFields()) {
-            if ( f.isAnnotationPresent(org.fuzzydb.core.annotations.Key.class)
-            		|| f.isAnnotationPresent(Id.class)) {
+            if ( f.isAnnotationPresent(org.fuzzydb.core.annotations.Key.class) ) {
                 getLog().info(" - Simple Index '" + table.getStoredClass() + "$" + f.getName() + "(" + f.getType().getSimpleName() + ")'");
                 //			createIndex(f);
             }

@@ -22,10 +22,10 @@ import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.AttrsFactory;
 import org.fuzzydb.client.marker.IWhirlwindItem;
 import org.fuzzydb.client.whirlwind.CardinalAttributeMap;
+import org.fuzzydb.core.annotations.Key;
 import org.fuzzydb.core.whirlwind.internal.AttributeCache;
 import org.fuzzydb.core.whirlwind.internal.IAttribute;
 import org.fuzzydb.core.whirlwind.internal.IAttributeMap;
-import org.springframework.data.annotation.Id;
 
 
 /**
@@ -38,7 +38,7 @@ public class IdFieldMappedFuzzyItem implements MappedItem, IWhirlwindItem, Seria
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Key(unique=true)
     private Comparable<?> id;
     
     private CardinalAttributeMap<IAttribute> attrs = AttrsFactory.getCardinalAttributeMap();
