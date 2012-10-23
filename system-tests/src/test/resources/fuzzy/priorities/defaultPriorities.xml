@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ManualPriorities name="Default">
+
+    <SingleEnumPriority>
+        <id>itemStatus</id>
+        <priority>1.0</priority>
+        <size>4</size>
+    </SingleEnumPriority>
+
+    <FloatPriority>
+        <id>listedDate</id>
+        <priority>0.9</priority>
+        <expected>604800000</expected> <!-- Millisecs 604800000 = 1 week -->
+    </FloatPriority>
+
+	<DimensionPriority>
+        <id>location</id>
+	    <priority>
+	        <values>
+	            <float>1.0</float>
+	            <float>1.0</float>
+	            <float>1.0</float>
+	        </values>
+	    </priority>
+	
+	    <!-- EARTHCIRCUMFERENCE = 24901.55  -->
+	    <!-- PI = 3.14159265358979323846  -->
+	    <!-- EARTHDIAMETER = EARTHCIRCUMFERENCE / PI -->
+	    <!-- Expected value in Miles == 2*miles/EARTHDIAMETER -->
+	    <!-- So 50 Miles ==   -->
+	    
+	    <expected>
+	        <values>
+	            <float>0.0126160526</float>
+	            <float>0.0126160526</float>
+	            <float>0.0126160526</float>
+	        </values>
+	    </expected>
+	</DimensionPriority>
+</ManualPriorities>

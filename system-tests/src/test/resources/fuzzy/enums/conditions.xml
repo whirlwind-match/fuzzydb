@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EnumDefinition name="conditions">
+    <string>New</string>
+    <string>Used</string>
+    <string>Spares or Repair</string>
+</EnumDefinition>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EnumDefinition name="categories">
+    <string>Building Supplies &amp; DIY</string>
+    <string>Garden</string>
+    <string>Furniture</string>
+    <string>Computing</string>
+    <string>Electrical Appliances</string>
+    <string>Clothing</string>
+    <string>Children and Family</string>
+    <string>Office</string>
+    <string>Entertainment &amp; Media</string>
+    <string>Vehicles and Parts</string>
+    <string>Home and Kitchen</string>
+    <string>Books Magazines and Newspapers</string>
+    <string>Sport &amp; Fitness Equipment</string>
+    <string>Other Stuff</string>
+</EnumDefinition>

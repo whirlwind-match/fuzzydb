@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EnumDefinition name="itemStatuses">
+    <string>Offered</string>
+    <string>Withdrawn</string>
+    <string>Taken</string>
+    <string>Expired</string>
+    <!-- Don't forget to update size in defaultPriorities.xml - until we have some better way -->
+</EnumDefinition>

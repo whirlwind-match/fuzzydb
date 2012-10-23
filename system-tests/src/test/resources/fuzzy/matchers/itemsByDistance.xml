@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScoreConfiguration name="itemsByDistance">
+
+    <VectorDistanceScorer>
+        <name>Nearby (10 miles)</name>
+        <scorerAttrId>location</scorerAttrId>
+        <otherAttrId>location</otherAttrId>
+        <range>10</range>
+        <preferClose>true</preferClose>
+        <!-- Asymptotic scorer tends to zero at infinity -->
+        <scoreMapper class="AsymptoticScoreMapper">
+            <squareness>3</squareness> 
+            <!-- Will become valueAtBoundary once migrated away from XStream for reading this -->
+            <inverseValueAtBoundary>2.5</inverseValueAtBoundary> 
+            <!-- i.e. score is 40% at boundary  -->
+        </scoreMapper>
+        <weight>1</weight>
+    </VectorDistanceScorer>
+
+	<EnumMatchScorer>
+        <name>Category</name>
+		<scorerAttrId>category</scorerAttrId>
+		<otherAttrId>category</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+	</EnumMatchScorer>
+
+    <EnumMatchScorer>
+        <name>Item Status</name>
+		<scorerAttrId>itemStatus</scorerAttrId>
+		<otherAttrId>itemStatus</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+	</EnumMatchScorer>
+
+	<BooleanScorer>
+        <name>Has Image</name>
+		<scorerAttrId>hasImage</scorerAttrId>
+		<otherAttrId>hasImage</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+	</BooleanScorer>
+</ScoreConfiguration>

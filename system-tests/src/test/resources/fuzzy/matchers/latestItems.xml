@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScoreConfiguration name="latestItems">
+
+	<SimilarFloatValueScorer>
+        <name>Listed Date</name>
+		<scorerAttrId>listedDate</scorerAttrId>
+		<otherAttrId>listedDate</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+		<expectedRange>2592000000</expectedRange>
+	</SimilarFloatValueScorer>
+
+	<EnumMatchScorer>
+        <name>Category</name>
+		<scorerAttrId>category</scorerAttrId>
+		<otherAttrId>category</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+	</EnumMatchScorer>
+
+    <EnumMatchScorer>
+        <name>Item Status</name>
+		<scorerAttrId>itemStatus</scorerAttrId>
+		<otherAttrId>itemStatus</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+	</EnumMatchScorer>
+
+	<BooleanScorer>
+        <name>Has Image</name>
+		<scorerAttrId>hasImage</scorerAttrId>
+		<otherAttrId>hasImage</otherAttrId>
+		<filter>true</filter>
+		<weight>1.0</weight>
+	</BooleanScorer>
+</ScoreConfiguration>
