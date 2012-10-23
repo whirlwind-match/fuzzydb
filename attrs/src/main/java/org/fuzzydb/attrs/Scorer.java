@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -38,7 +38,7 @@ public abstract class Scorer implements Serializable {
 
     /** Name by which to describe the scorer in results */
     private String name;
-    
+
     protected int scorerAttrId;
 
 
@@ -56,8 +56,8 @@ public abstract class Scorer implements Serializable {
     private Score.Direction noScoreDirection; // Null == TwoWay search
     private boolean filter = false;
     private float weight = 1.0f; // FIXME: Find way of ensuring this is set by XStream.  Currently default c'tor doesn't get called.. and this ends up as zero.
-    // Workaround is that we check for weight==0 (which is nonsense) and if so, set it to 1.0. 
-    
+    // Workaround is that we check for weight==0 (which is nonsense) and if so, set it to 1.0.
+
     private boolean scoreNull;
     private float scoreOnNull;
 
@@ -112,7 +112,7 @@ public abstract class Scorer implements Serializable {
      * to allow a middling "don't know" score for something like gender, so if it is unspecified, then
      * both male and female score, say 50% (see {@link Scorer.setScoreOnNull} ), but otherwise
      * maxScore or minScore if the search (i.e. wanted attribute) is present.
-     * 
+     *
      * For Enums, this also allows some optimisation by allowing 'null' to be shorthand for a commonly
      * used default or majority attribute. e.g. it would be sensible to encode sexuality=heterosexual
      * using null if your website were for the general population.
@@ -137,14 +137,6 @@ public abstract class Scorer implements Serializable {
      * NOTE: This is called twice with d = both Direction.forwards & reverse
      */
     abstract public void scoreItemToItem(Score score, Direction d, IAttributeMap<IAttribute> otherAttrs, IAttributeMap<IAttribute> scoreAttrs);
-    /*
-        MIGRATION CODE: Remove na from method params, and insert following at top of method
-
-        IAttribute attr = scoreAttrs.findAttr(scorerAttrId);
-		if (attr == null) {
-			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
-     */
 
     /**
      * FIXME: Make these abstract and migrate all the scorers
@@ -153,14 +145,6 @@ public abstract class Scorer implements Serializable {
      * The item typically being scored is the constraint, itemAttrs(scoreAttrId) to nodeAttrs(otherAttrId)
      */
     abstract public void scoreSearchToNode(Score score, Direction d, IConstraintMap otherAttrs, IAttributeMap<? extends IAttribute> scoreAttrs);
-    /*
-        MIGRATION CODE: Remove na from method params, and insert following at top of method
-
-        IAttribute attr = scoreAttrs.findAttr(scorerAttrId);
-		if (attr == null) {
-			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
-     */
 
     /**
      * Scores a Node item to a search spec container, one case only<br>
@@ -168,26 +152,18 @@ public abstract class Scorer implements Serializable {
      * The item typically being scored is constraints(scoreAttrId) to itemAttrs(otherAttrId)
      */
     abstract public void scoreNodeToSearch(Score score, Direction d, IAttributeMap<IAttributeConstraint> constraints, IAttributeMap<IAttribute> searchAttrs);
-    /*
-        MIGRATION CODE: Remove na from method params, and insert following at top of method
-
-    	IAttributeConstraint na = (IAttributeConstraint)nodeConstraints.findAttr(scorerAttrId);
-		if (na == null) {
-			return; // If we do not have the scorer attr present in the search direction, we do not score - it wasn't 'wanted'
-		}
-     */
 
     /** Get description of this scorer - for use in results table */
     public String getName() {
 		return name;
 	}
-    
+
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":" + GlobalDecorators.getInstance().getAttrName(this.scorerAttrId) + ": noScoreDir = " + this.noScoreDirection 
+        return this.getClass().getSimpleName() + ":" + GlobalDecorators.getInstance().getAttrName(this.scorerAttrId) + ": noScoreDir = " + this.noScoreDirection
         + ": name = " + name;
     }
-    
+
     /**
      * Assert that fields in a subclass form a valid configuration
      */

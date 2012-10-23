@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -27,6 +27,7 @@ import org.fuzzydb.attrs.AttributeDefinitionService;
 import org.fuzzydb.attrs.XMLAliases;
 import org.fuzzydb.attrs.enums.EnumDefinition;
 import org.fuzzydb.attrs.internal.xstream.AttributeIdMapper;
+import org.fuzzydb.attrs.internal.xstream.EnumValueMapper;
 import org.fuzzydb.attrs.internal.xstream.TableToPreferenceMapConverter;
 import org.fuzzydb.client.Store;
 import org.fuzzydb.util.DynamicRef;
@@ -40,7 +41,7 @@ public class XStreamHelper {
 
 //    private static final Logger log = LogFactory.getLogger(XStreamHelper.class);
 
-    
+
 
     public static XStream getScorerXStream(Store store) {
         DynamicRef<? extends AttrDefinitionMgr> attrDefs = SyncedAttrDefinitionMgr.getInstance(store);
@@ -50,6 +51,7 @@ public class XStreamHelper {
 	public static XStream getScorerXStream(DynamicRef<? extends AttributeDefinitionService> attrDefs) {
 		XStream scorerXStream = new XStream();
         scorerXStream.registerConverter(new AttributeIdMapper(attrDefs));
+        scorerXStream.registerConverter(new EnumValueMapper(attrDefs));
         scorerXStream.registerConverter( new TableToPreferenceMapConverter(attrDefs));
         XMLAliases.applyScorerAliases(scorerXStream);
         return scorerXStream;
@@ -102,6 +104,7 @@ public class XStreamHelper {
 
     private static File[] listXMLFiles(File inputPath) {
         FilenameFilter filter = new FilenameFilter() {
+            @Override
             public boolean accept(File dir, String name) {
                 return name.endsWith(".xml");
             }
@@ -116,7 +119,7 @@ public class XStreamHelper {
 	 */
 	public static <T> TreeMap<String, T> loadResources(final XStream xstream, final Class<T> clazz, String resources) {
 	    final TreeMap<String, T> result = new TreeMap<String, T>();
-	
+
 	    new ResourcePatternProcessor(){
 			@Override
 			protected Closeable process(Resource resource) throws IOException {
@@ -125,13 +128,13 @@ public class XStreamHelper {
 				return stream;
 			}
 	    }.runWithResources(resources);
-				
+
 	    return result;
 	}
 	public static Map<String, Object> loadAttributeDefs(String resources,
 			DynamicRef<? extends AttributeDefinitionService> attrDefService) {
 		AttributeDefinitionService ads = attrDefService.getObject();
-		
+
 		XStream xstream = new XStream();
 		xstream.alias("EnumAttributeSpec", EnumAttributeSpec.class);
 

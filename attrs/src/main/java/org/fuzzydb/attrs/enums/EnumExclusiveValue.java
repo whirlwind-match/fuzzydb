@@ -1,8 +1,8 @@
 /******************************************************************************
- * Copyright (c) 2004-2008 Whirlwind Match Limited. All rights reserved.
+ * Copyright (c) 2004-2012 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -26,9 +26,9 @@ import org.fuzzydb.core.whirlwind.internal.IMergeable;
 public class EnumExclusiveValue extends EnumValue implements IMergeable, Comparable<EnumExclusiveValue>, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final short WANT_NULL_VALUE = -2; // So we can use bit 0 for want null in main
-	
+
 	/** The index value in super.definition of this instance */
 	protected short enumIndex; // FIXME: Should be byte!, as should enumDefId
 
@@ -37,7 +37,7 @@ public class EnumExclusiveValue extends EnumValue implements IMergeable, Compara
 		super(attrId, enumDefId);
 		this.enumIndex = enumIndex;
 	}
-	
+
 	/**
 	 * copy constructor
 	 */
@@ -50,7 +50,7 @@ public class EnumExclusiveValue extends EnumValue implements IMergeable, Compara
 	public boolean isWantNull() {
 			return enumIndex == WANT_NULL_VALUE;
 	}
-	
+
 	public short getEnumIndex() {
 		return enumIndex;
 	}
@@ -59,33 +59,35 @@ public class EnumExclusiveValue extends EnumValue implements IMergeable, Compara
 	/**
 	 * Implement Comparable interface to allow values to be sorted
 	 */
+	@Override
 	public int compareTo( EnumExclusiveValue rval) {
-		
+
 		assert(rval.getAttrId() == this.getAttrId()); // Should only be called on matching ID
-		
+
 		// Compare definitions
 		int defComp = this.enumDefId - rval.enumDefId;
 		if (defComp != 0) return defComp;
-		
+
 		// If definitions same, then compare value
 		return this.enumIndex - rval.enumIndex;
 	}
-	
+
 	@Override
 	public EnumExclusiveConstraint createAnnotation() {
 		return new EnumExclusiveConstraint(getAttrId(), this.enumIndex);
 	}
 
+	@Override
 	public int compareAttribute(IAttribute rhs) {
 		assert(rhs instanceof EnumExclusiveValue);
 		return compareTo((EnumExclusiveValue) rhs);
 	}
-		
+
 	@Override
 	public EnumExclusiveValue clone() {
 		return new EnumExclusiveValue( this );
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
