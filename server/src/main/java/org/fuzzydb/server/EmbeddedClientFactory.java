@@ -113,8 +113,10 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
     }
 
     public synchronized void shutdownDatabase() {
-    	database.close();
-    	database = null;
+    	if (!isDatabaseClosed()) {
+	    	database.close();
+	    	database = null;
+    	}
     	if (httpServer != null && httpServer.isRunning()) {
     		httpServer.stop();
     	}
