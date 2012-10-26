@@ -23,15 +23,15 @@ import org.springframework.util.StringUtils;
 
 public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 
-	
+
 	static private final Logger log = LogFactory.getLogger(EmbeddedClientFactory.class);
-	
+
 	private static EmbeddedClientFactory instance;
 
 	private boolean isPersistent = false;
-	
+
 	private Database database;
-	
+
 	/** If we find our HTTP server for web services, then we can start it */
 	private Lifecycle httpServer;
 
@@ -43,9 +43,9 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 		}
 		return instance;
 	}
-	
-	
-	
+
+
+
 	private EmbeddedClientFactory() {
 		databaseMessageSource = new ReceiverMessageSource();
 	}
@@ -65,13 +65,13 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 		} catch (IOException e) {
 			throw new RuntimeException("Failure starting database:" + e.getMessage(), e);
 		}
-		
+
 		httpServer = startHttpServiceIfAvailable();
 	}
 
 
 	private Lifecycle startHttpServiceIfAvailable() {
-		Class<?> cl; 
+		Class<?> cl;
 		Lifecycle httpServer = null;
 		try {
 			cl = Class.forName("com.wwm.atom.impl.HttpServerFactory");
@@ -84,9 +84,9 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 			if (httpServer == null) {
 				return null;
 			}
-			// NOTE: The implementation will also want to use the embedded database 
-			// - it therefore shouldn't try got get a client instance until the first request 
-			httpServer.start(); 
+			// NOTE: The implementation will also want to use the embedded database
+			// - it therefore shouldn't try got get a client instance until the first request
+			httpServer.start();
 			return httpServer;
 		} catch (InvocationTargetException e) {
 			log.warn("Can't start HttpServer", e);
@@ -96,7 +96,7 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
     /**
      * Create an embedded client connected to a singleton database instance within same VM
      */
@@ -107,11 +107,11 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 		client.connect();
 		return client;
     }
-    
+
     public boolean isDatabaseClosed() {
-    	return database.isClosed();
+    	return database == null || database.isClosed();
     }
-    
+
     public synchronized void shutdownDatabase() {
     	database.close();
     	database = null;
@@ -124,28 +124,28 @@ public class EmbeddedClientFactory implements ClientFactory, Lifecycle {
 
     /**
      * Open the store for the given URL.
-     * 
+     *
      * Should handle local/remote, and is allowed to create a store when running locally.
      */
     public Store openStore(String url) throws MalformedURLException {
     	return openStore(WWMDBProtocolHander.getAsURL(url));
     }
 
-    
+
     /**
      * Open the store for the given URL.
-     * 
+     *
      * Should handle local/remote, and is allowed to create a store when running locally.
      */
 	public Store openStore(URL url) {
-		
+
 		Assert.state(url.getProtocol().equals("wwmdb"));
 		String host = url.getHost();
-		
+
 		if (!StringUtils.hasLength(host)) {
 			return openEmbeddedStore(url);
 		}
-		
+
 		// If host is specified, use StoreMgr to get access.
 		return StoreMgr.getInstance().getStore(url.toExternalForm());
 	}
