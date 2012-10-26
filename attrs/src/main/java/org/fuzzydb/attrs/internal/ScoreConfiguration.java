@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -31,22 +31,24 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
 
     private String name; // we have name here to ease XML-based configuration
     // FIXME: Make this a Map, and ensure we don't have duplicates, by name of scorer
-    private ArrayList<Scorer> scorersList = new ArrayList<Scorer>();
+    private final ArrayList<Scorer> scorersList = new ArrayList<Scorer>();
 
-    
+
     /**
      * Add a scorer to this configuration.
-     * 
+     *
      * @param scorer - the scorer to use for the preference (attribute) that it is configured with.
      */
+	@Override
 	public void add(Scorer scorer) {
 		scorersList.add( scorer );
 	}
 
+	@Override
 	public ArrayList<Scorer> getScorers() {
         return scorersList;
     }
-    
+
 	public String getName() {
 		return name;
 	}
@@ -65,12 +67,7 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
             if (ia == null && scorer instanceof TwoAttrScorer) {
 				continue; // Attribute might not exist
 			}
-            if (ia instanceof Attribute) {
-                scoreItemToItems(score, d, scorer, c, scoreAttrs);
-            } else {
-            	throw new RuntimeException("ScoreConfiguration.scoreAll() executing code I thought was dead");
-            	// scoreNodeToSearch(score, d, scorer, (IAttributeMap<IAttributeConstraint>) c, scoreAttrs);
-            }
+            scoreItemToItems(score, d, scorer, c, scoreAttrs);
         }
     }
 
@@ -92,12 +89,13 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
         }
     }
 
-    /** 
+    /**
 	 * Support client side scoring both ways according to what search mode is set (added when migrating AppLayer)
 	 */
+	@Override
 	public Score scoreAllItemToItem(IAttributeMap<IAttribute> searchAttrs, IAttributeMap<IAttribute> itemAttrs, SearchMode searchMode) {
 		final Score score = new NodeScore();
-		
+
 		if (searchMode == SearchMode.Forwards || searchMode == SearchMode.TwoWay) {
 			scoreAll(score, Direction.forwards, searchAttrs, itemAttrs );
 		}
@@ -106,14 +104,15 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
 		}
 		return score;
 	}
-    
+
 
     public void scoreAllItemToItemBothWays(Score newScore, IAttributeMap<IAttribute> searchAttrs, IAttributeMap<IAttribute> itemAttrs) {
 		this.scoreAll( newScore, Direction.forwards, searchAttrs, itemAttrs );
 		this.scoreAll( newScore, Direction.reverse, itemAttrs, searchAttrs );
 	}
 
-    public void scoreAllItemToItems(final Score score, final Direction d, final IAttributeMap<IAttribute> scoreAttrs, final IAttributeMap<IAttribute> c) {
+    @Override
+	public void scoreAllItemToItems(final Score score, final Direction d, final IAttributeMap<IAttribute> scoreAttrs, final IAttributeMap<IAttribute> c) {
         // ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(scorersList.size());
 
         for (final Scorer scorer : scorersList) {
@@ -135,17 +134,17 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
         // WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
     }
 
-	private void scoreItemToItems(Score score, Score.Direction d, Scorer scorer, 
+	private void scoreItemToItems(Score score, Score.Direction d, Scorer scorer,
     		IAttributeMap<IAttribute> c, IAttributeMap<IAttribute> scoreAttrs) {
         assert (scorer != null);
-        
+
         if (scorer.getCanScore(d)) {
             scorer.scoreItemToItem(score, d, c, scoreAttrs);
         }
     }
-    
-    
-	private void scoreNodeToSearch(Score score, Score.Direction d, Scorer scorer, 
+
+
+	private void scoreNodeToSearch(Score score, Score.Direction d, Scorer scorer,
     		IAttributeMap<IAttributeConstraint> c, IAttributeMap<IAttribute> scoreAttrs) {
         assert (scorer != null);
 
@@ -189,6 +188,7 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
 	/**
      *  Top level used for expanding nodes from WorkQ. Scores all attributes, forwards, reverse or TwoWay depending on mode.
      */
+	@Override
 	public void scoreSearchToNodeBothWays(Score currentScore, IConstraintMap nodeAttributes, SearchMode mode, IAttributeMap<IAttribute> searchAttrs) {
 		if (mode == SearchMode.Forwards || mode == SearchMode.TwoWay) {
 			// inlined this.score(score, Score.Direction.forwards, nodeAttributes, scoreConfig); // TODO: Note: This breaks if forward and reverse are swapped.
@@ -211,9 +211,9 @@ public class ScoreConfiguration implements IScoreConfiguration, Serializable {
 			scorer.assertValid();
 		}
 	}
-	
 
-    
-    
-    
+
+
+
+
 }
