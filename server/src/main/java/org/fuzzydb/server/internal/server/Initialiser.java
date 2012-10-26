@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -28,7 +28,7 @@ public class Initialiser extends WorkerThread {
 	private final Semaphore finished = new Semaphore(0);
 
 	/**
-	 * 
+	 *
 	 * @param injector we need one of these to be able to inject services into materialised objects
 	 */
 	public Initialiser(Repository repository, Database database, WorkerThreadManager manager) {
@@ -36,21 +36,21 @@ public class Initialiser extends WorkerThread {
 		this.database = database;
 		this.repository = repository;
 	}
-	
+
 	public void initialise() {
 		super.start();
 		finished.acquireUninterruptibly(); // we wait here until released() by run().
 	}
-	
-	
+
+
 	@Override
 	public void run() {
-		log.info("Initialising Transient Data... (no transaction writes can occur here)");
+		log.debug("Initialising Transient Data... (no transaction writes can occur here)");
 		try {
 			// Init repos with transient data
 			repository.initialise();
-			log.info("Initialise completed.");
-		} catch (Throwable e){
+			log.debug("Initialise completed.");
+		} catch (Throwable e) {
 			log.error( "Unexpected Exception", e );
 		} finally {
 			finished.release();

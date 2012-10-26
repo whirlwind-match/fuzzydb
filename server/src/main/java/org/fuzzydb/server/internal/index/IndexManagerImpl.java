@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -34,16 +34,16 @@ import org.springframework.util.StringUtils;
 
 /**
  * The IndexManager for a given table.
- * 
+ *
  * This is responsible for discovering and maintaining the association between a
  * UserTable and the various indexes associated with it.
- * 
+ *
  * Unlike the DBv1 implementation, it is also responsible for managing the lifecycle
  * of persistent indexes... so it is serialisable in itself.
- * 
+ *
  * It consults an OSGi service called IndexImplementationsService to find out what implementations
  * are available for indexing.
- * 
+ *
  * @author Neale
  *
  */
@@ -110,7 +110,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
     	LinkedList<Callable<Void>> tasks = new LinkedList<Callable<Void>>();
 
         for (final Index<T> index : indexes.values()) {
-        
+
             tasks.add( new TransactionPropagatingCallable<Void>() {
 				@Override
 				public Void callInternal() throws Exception {
@@ -119,17 +119,17 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 				}
     		});
         }
-        
+
         WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
     }
-    
+
 	@Override
     public void addToIndexes(final MetaObject<T> mo) {
-    	
+
     	ArrayList<Callable<Void>> tasks = new ArrayList<Callable<Void>>(indexes.size());
 
         for (final Index<T> index : indexes.values()) {
-        
+
             tasks.add( new TransactionPropagatingCallable<Void>() {
 				@Override
 				public Void callInternal() throws Exception {
@@ -138,7 +138,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 				}
     		});
         }
-        
+
         WorkManager.getInstance().invokeAllAndRethrowExceptions(tasks);
     }
 
@@ -157,7 +157,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
      * then call initialise on all indexes.
      */
     private void initIndexes() {
-        getLog().info(" Initialising All Indexes for '" + describeTable() + "'... ");
+        getLog().debug(" Initialising All Indexes for '" + describeTable() + "'... ");
 
         // iterate over whole list calling initialise()
         // this will ensure that they are built
@@ -167,7 +167,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
             index.initialise();
         }
 
-        getLog().info(" Completed Indexes for '" + describeTable() + "' - ");
+        getLog().debug(" Completed Indexes for '" + describeTable() + "' - ");
                 //				+ table.size() + " item" + ((table.size()==1)?"":"s")
 //                + " inserted");
 
@@ -183,12 +183,12 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
      */
     @Override
 	public void detectNewIndexes() {
-        getLog().info(" Detecting Indexes for '" + describeTable() + "'... ");
+        getLog().debug(" Detecting Indexes for '" + describeTable() + "'... ");
 
         checkWWIndex();
 
         detectSimpleIndexes();
-        getLog().info(" Completed Index detection for '" + describeTable() + "'... ");
+        getLog().debug(" Completed Index detection for '" + describeTable() + "'... ");
 
     }
 
@@ -204,7 +204,7 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
 		// Detect fields on clazz and update index if not already in existence
         for (Field f: table.getStoredClass().getDeclaredFields()) {
             if ( f.isAnnotationPresent(org.fuzzydb.core.annotations.Key.class) ) {
-                getLog().info(" - Simple Index '" + table.getStoredClass() + "$" + f.getName() + "(" + f.getType().getSimpleName() + ")'");
+                getLog().debug(" - Simple Index '" + table.getStoredClass() + "$" + f.getName() + "(" + f.getType().getSimpleName() + ")'");
                 //			createIndex(f);
             }
         }
@@ -231,11 +231,11 @@ public class IndexManagerImpl<T> extends IndexManager<T> {
             // happens before we've got a team of 10 softies, I'll eat my (organic cotton) hat.
             return;
         }
-        
+
         if (wwIndexMgr == null){
         	wwIndexMgr = new WhirlwindIndexManager(table, indexes);
         }
-        
+
         wwIndexMgr.detectNewIndices();
     }
 

@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -55,9 +55,9 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 	private final Map<String, Index<T>> allIndexes;
 
 
-    
+
 	/**
-	 * 
+	 *
 	 * @param table
 	 * @param allIndexes - ref to Map of all indexes to which this should add indexes that should be updated
 	 */
@@ -76,7 +76,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
         }
 
     	IndexImplementationsService implService = getIndexImplementationsService();
-    	
+
     	if (implService != null) {
 			Collection<IndexImplementation> impls = implService
 					.getIndexImplementations();
@@ -87,9 +87,9 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 		// Export of decorators will be interesting.  a toString() function will probably
         // end up checking it's thread to see what the current namespace is
         conf.exportDecorators( table.getNamespace().getClass().getName() );
-		
+
 	}
-    
+
     public Search getSearch(SearchSpec searchSpec, boolean wantNominee) {
         WhirlwindConfiguration wwConfig = getWhirlwindConfig();
         if (wwConfig == null){
@@ -127,11 +127,11 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 	private IndexImplementationsService getIndexImplementationsService() {
 		return ServiceRegistry.getService(Database.class).getIndexImplementationsService();
 	}
-	
+
     /**
      * FIXME: Prob don't want to do this for every search .. but it's probably not a big issue.
      * We need to cache RefImpl for more than just fallback option.  All others hit the index.
-     * 
+     *
      * @return
      */
     private WhirlwindConfiguration getWhirlwindConfig() {
@@ -158,7 +158,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
         }
 
         if (conf == null){
-            getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". GETTING FIRST IN TABLE");
+            getLog().debug("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". GETTING FIRST IN TABLE");
             // Ignore trying to do anything via index, and just see if we have one
             Iterator<MetaObject<WhirlwindConfiguration>> iterator;
             try {
@@ -176,7 +176,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
             conf = getConfigFromDefaultNamespace();
         }
         if (conf == null) {
-            getLog().error("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Aborting");
+            getLog().debug("No WhirlwindConfiguration found for namespace:" + namespace.toString() + ". Skipping");
             // Allows to boot database and then insert a config later.
         }
         return conf;
@@ -188,7 +188,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 		if (defaultNamespace == null) {
 			return null;
 		}
-		
+
 		Iterator<MetaObject<WhirlwindConfiguration>> iterator;
 		try {
 		    iterator = defaultNamespace.retrieveAll(WhirlwindConfiguration.class);
@@ -219,7 +219,7 @@ public class WhirlwindIndexManager<T extends IWhirlwindItem> implements Serializ
 	public void addWWIndex(String name, Index<T> index){
         allIndexes.put("@@" + name , index); // Add Whirlwind Index to master map, so that testAdd/add/remove all get called
 	}
-	
+
 	public Map<String, Index<T>> getIndexes(){
 		return allIndexes;
 	}
