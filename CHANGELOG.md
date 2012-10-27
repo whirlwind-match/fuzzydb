@@ -2,6 +2,30 @@
 
 ## New Features
 
+- [fuzzydb-spring] No need for <fuzzy:initialize> if using defaults.  <fuzzy:repositories> will handle this.
+- Provide ability for matchers to filter by enum (will be refined in 1.1.x or later)
+
+        <EnumSingleValueScorer>
+            <name>Item Status</name>
+            <scorerAttrId>itemStatus</scorerAttrId>
+            <matchValue attrId="itemStatus">Offered</matchValue>
+                <filter>true</filter>
+                <weight>1.0</weight>
+        </EnumSingleValueScorer>
+
+## Improvements
+
+- clearer logging and less at INFO
+
+
+## Defects
+
+- Enums were not mapped correctly to EnumExclusiveValue
+
+# 1.0.0.RELEASE
+
+## New Features
+
 - Implement @EnableFuzzyRepositories
 - Support mapping java.util.Date into a fuzzydb record
 - Support mapping org.bson.types.ObjectId into a fuzzydb record if on classpath
