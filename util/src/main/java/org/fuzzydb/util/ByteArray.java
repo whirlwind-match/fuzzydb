@@ -2,7 +2,7 @@
  * Copyright (c) 2004-2008 Whirlwind Match Limited. All rights reserved.
  *
  * This is open source software; you can use, redistribute and/or modify
- * it under the terms of the Open Software Licence v 3.0 as published by the 
+ * it under the terms of the Open Software Licence v 3.0 as published by the
  * Open Source Initiative.
  *
  * You should have received a copy of the Open Software Licence along with this
@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+
+import sun.misc.Unsafe;
 
 
 /**
@@ -23,25 +26,41 @@ import java.io.Serializable;
  * @author Neale
  */
 public class ByteArray implements Serializable, Cloneable {
-	
+
 	private static final long serialVersionUID = 1L;
 
+    private static final Unsafe unsafe;
+    static
+    {
+        try
+        {
+            Field field = Unsafe.class.getDeclaredField("theUnsafe");
+            field.setAccessible(true);
+            unsafe = (Unsafe)field.get(null);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    private static final long byteArrayOffset = unsafe.arrayBaseOffset(byte[].class);
+
 	private byte[] bytes;
-	
+
 	/**
 	 * How much of the currently allocated array we've used.
 	 */
 	private int count;
-	
+
 	public ByteArray() {
-		bytes = null;	// only for use prior to readObject() 
+		bytes = null;	// only for use prior to readObject()
 	}
-	
+
 	public ByteArray(int initialSize) {
 		bytes = new byte[initialSize];
 	}
-	
-	
+
+
 	final public void putBoolean( int index, boolean bool ) {
 		assertCapacity( index );
 		bytes[index] = bool ? (byte)1 : (byte)0;
@@ -51,11 +70,12 @@ public class ByteArray implements Serializable, Cloneable {
 		assertCapacity( index );
 		bytes[index] = b;
 	}
-	
+
 	final public void putShort(int index, short s) {
 		assertCapacity( index + 1);
-		bytes[index + 1] = (byte) (s >>> 0);
-		bytes[index + 0] = (byte) (s >>> 8);
+		unsafe.putShort(bytes, byteArrayOffset + index, s);
+//		bytes[index + 1] = (byte) (s >>> 0);
+//		bytes[index + 0] = (byte) (s >>> 8);
 	}
 
 	/**
@@ -93,7 +113,7 @@ public class ByteArray implements Serializable, Cloneable {
 		bytes[index + 1] = (byte) (i >>> 16);
 		bytes[index + 0] = (byte) (i >>> 24);
 	}
-	
+
 	/**
 	 * OOH. Cringe.  This is very inefficient, and is actually putArray( index, bytes[] )
 	 */
@@ -105,7 +125,7 @@ public class ByteArray implements Serializable, Cloneable {
 	    	putByte(i, b);
 	    }
 	}
-	
+
 	/**
 	 * Reserve enough room to be able to add length to the buffer.
 	 * @return index where calling function is allowed to write 'length' bytes
@@ -117,7 +137,7 @@ public class ByteArray implements Serializable, Cloneable {
 		return index;
 	}
 
-	
+
 	/**
 	 * Development-time check to ensure developer has allocated capacity.
 	 */
@@ -125,7 +145,7 @@ public class ByteArray implements Serializable, Cloneable {
 		assert( lastIndexToWrite < bytes.length );
 	}
 
-	
+
 	private void ensureCapacity( int neededSize ) {
 		if (neededSize <= bytes.length) {
 			return;
@@ -143,19 +163,22 @@ public class ByteArray implements Serializable, Cloneable {
 
 
 	final public boolean getBoolean(int index) {
-		return bytes[index] != 0;
+		return unsafe.getBoolean(bytes, byteArrayOffset + index);
+//		return bytes[index] != 0;
 	}
 
 	/**
 	 * Get the byte at index
 	 */
 	final public byte getByte(int index) {
-		return bytes[index];
+		return unsafe.getByte(bytes, byteArrayOffset + index);
+//		return bytes[index];
 	}
 
 	final public short getShort(int index) {
-		return (short) (((bytes[index + 1] & 0xFF) << 0) + 
-		((bytes[index + 0] & 0xFF) << 8));
+		return unsafe.getShort(bytes, byteArrayOffset + index);
+//		return (short) (((bytes[index + 1] & 0xFF) << 0) +
+//		((bytes[index + 0] & 0xFF) << 8));
 	}
 
 	/**
@@ -193,7 +216,7 @@ public class ByteArray implements Serializable, Cloneable {
 		return Float.intBitsToFloat(i);
 	}
 
-	
+
 	final public static int getInt(byte[] array, int index) {
 		return ((array[index + 3] & 0xFF) << 0) +
 		   ((array[index + 2] & 0xFF) << 8) +
@@ -218,8 +241,8 @@ public class ByteArray implements Serializable, Cloneable {
 		bytes = new byte[count];
 		din.readFully(bytes); // ensure we get them all in
 	}
-	
-	
+
+
 	/**
 	 * Implement equals that compares the used part of the byte array
 	 */
@@ -227,23 +250,23 @@ public class ByteArray implements Serializable, Cloneable {
 	public boolean equals(Object o) {
 		ByteArray obj = (ByteArray) o;
 		if (count != obj.count) return false;
-		
+
 		// If same length then can do direct compare
 		if (bytes.length == obj.bytes.length) {
 			return bytes.equals(obj);
-			
+
 		}
-		
+
 		int len = (count < obj.count) ? count : obj.count;
 		for (int i = 0; i < len; i++) {
 			if ( bytes[i] != obj.bytes[i] ) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public ByteArray clone() throws CloneNotSupportedException {
 		ByteArray clone = (ByteArray) super.clone();
