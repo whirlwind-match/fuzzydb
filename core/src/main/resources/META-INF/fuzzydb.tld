@@ -12,61 +12,61 @@
 
     <function>
         <name>floatToCssRGBColor</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.String toCssRGBColor(float)</function-signature>
     </function>
 
     <function>
         <name>floatToCssRGBColorSat</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.String toCssRGBColor(float, float)</function-signature>
     </function>
 
     <function>
         <name>toCssRGBColor</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.String toCssRGBColor(org.fuzzydb.dto.attributes.Score)</function-signature>
     </function>
 
     <function>
         <name>toCssRGBColorSat</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.String toCssRGBColor(org.fuzzydb.dto.attributes.Score, float)</function-signature>
     </function>
 
     <function>
         <name>toPercent</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>int toPercent(org.fuzzydb.dto.attributes.Score)</function-signature>
     </function>
 
     <function>
         <name>forwardsTotal</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.Float forwardsTotal(org.fuzzydb.core.query.Result)</function-signature>
     </function>
 
     <function>
         <name>reverseTotal</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.Float reverseTotal(org.fuzzydb.core.query.Result)</function-signature>
     </function>
 
     <function>
         <name>forwardsScore</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.Float forwardsScore(org.fuzzydb.core.query.Result, java.lang.String)</function-signature>
     </function>
 
     <function>
         <name>reverseScore</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.Float reverseScore(org.fuzzydb.core.query.Result, java.lang.String)</function-signature>
     </function>
 
     <function>
         <name>toString</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.String toString(java.lang.Object)</function-signature>
     </function>
 
@@ -78,7 +78,7 @@
     
     <function>
         <name>dateAsMinsHoursDaysEtcAgo</name>
-        <function-class>org.fuzzydb.util.web.TagLibFunctions</function-class>
+        <function-class>org.fuzzydb.core.web.TagLibFunctions</function-class>
         <function-signature>java.lang.String dateAsMinsHoursDaysEtcAgo(java.util.Date)</function-signature>
     </function>
 </taglib>

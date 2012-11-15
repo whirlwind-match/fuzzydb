@@ -1,4 +1,4 @@
-package org.fuzzydb.util.web;
+package org.fuzzydb.core.web;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.fuzzydb.core.web.TagLibFunctions;
 import org.junit.Test;
 
 public class TagLibFunctionsTest {

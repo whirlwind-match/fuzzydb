@@ -1,4 +1,4 @@
-package org.fuzzydb.util.web;
+package org.fuzzydb.core.web;
 
 import java.awt.Color;
 import java.util.Calendar;
