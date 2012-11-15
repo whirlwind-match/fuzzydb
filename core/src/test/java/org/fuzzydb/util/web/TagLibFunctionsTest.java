@@ -4,15 +4,17 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.junit.Test;
 
 public class TagLibFunctionsTest {
-    
+
     @Test
     public void testDateAsMinsHoursDaysEtcAgo() {
-        
+
         Calendar cal = Calendar.getInstance();
+        cal.setTimeZone(TimeZone.getTimeZone("UTC")); // Don't want DST distortions at diff time of year
         cal.add(Calendar.SECOND, -2);
         Date now = cal.getTime();
 

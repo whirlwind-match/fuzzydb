@@ -23,7 +23,7 @@ public abstract class TagLibFunctions {
 	 *   Hue 0 -> 120 (red -> green)
 	 *   Sat -> fixed @ 85
 	 *   Brightness -> fixed @ 90
-	 *   
+	 *
 	 *   @param value 0 - 1.0f
 	 */
 	public static String toCssRGBColor(float value) {
@@ -37,7 +37,7 @@ public abstract class TagLibFunctions {
 	 *   Hue 0 -> 120 (red -> green)
 	 *   Sat -> fixed @ 85
 	 *   Brightness -> fixed @ 90
-	 *   
+	 *
 	 *   @param value 0 - 1.0f
 	 *   @param saturation 0 - 1.0f - lower for paler
 	 */
@@ -54,7 +54,7 @@ public abstract class TagLibFunctions {
 	 *   Hue 0 -> 120 (red -> green)
 	 *   Sat -> fixed @ 85
 	 *   Brightness -> fixed @ 90
-	 *   
+	 *
 	 *   @param value 0 - 1.0f
 	 */
 	public static String toCssRGBColor(Score score) {
@@ -68,10 +68,10 @@ public abstract class TagLibFunctions {
 	public static int toPercent(Score score) {
 		return Math.round(score.total() * 100f);
 	}
-		
+
 	public static <T> List<T> toList(Iterator<T> items) {
 		Assert.notNull(items);
-		
+
 		List<T> list = new LinkedList<T>();
 		for (Iterator<T> iterator = items; iterator.hasNext();) {
 			T item = iterator.next();
@@ -80,7 +80,7 @@ public abstract class TagLibFunctions {
 		return list;
 	}
 
-	
+
 	public static <T> Float forwardsScore(Result<T> result, String matcher) {
 		return result.getScore().getForwardsScore(matcher);
 	}
@@ -106,7 +106,7 @@ public abstract class TagLibFunctions {
 		if (object == null) {
 			return "";
 		}
-		
+
 		if (object instanceof Object[]) {
 			Object[] array = (Object[]) object;
 			StringBuilder sb = new StringBuilder();
@@ -117,7 +117,7 @@ public abstract class TagLibFunctions {
 				}
 			}
 			return sb.toString();
-		} 
+		}
 		else if (object instanceof float[]) {
 			float[] array = (float[]) object;
 			StringBuilder sb = new StringBuilder();
@@ -138,38 +138,38 @@ public abstract class TagLibFunctions {
 
 		return object.toString();
 	}
-	
+
 	public static String dateAsMinsHoursDaysEtcAgo(Date date) {
-        
+
         float hours = DateTimeUtils.getMillisDiff(System.currentTimeMillis(), date.getTime(), Calendar.HOUR);
-        
-        
+
+
         if ( hours < 1f ) {
             int mins = (int) (hours * 60f);
-            return (mins < 2) ? "< 2 mins ago" : mins + " mins ago";    
+            return (mins < 2) ? "< 2 mins ago" : mins + " mins ago";
         }
         if ( hours < 2f ) {
-            return "1 hour ago";    
+            return "1 hour ago";
         }
         if ( hours < 48f ) {
             return (int)hours + " hours ago";
-        } 
-        if ( hours < 24f * 7f) { 
-            return (int)(hours / 24f) + " days ago";    
         }
-        if ( hours < 24f * 7f * 2f) { 
-            return "a week ago";    
+        if ( hours < 24f * 7f) {
+            return (int)(hours / 24f) + " days ago";
         }
-        if ( hours < 24 * 30) { 
-            return (int)(hours / 24 / 7) + " weeks ago";    
+        if ( hours < 24f * 7f * 2f) {
+            return "a week ago";
         }
-        if ( hours < 24 * 30 * 2) { 
-            return "a month ago";    
+        if ( hours < 24f * 30f) {
+            return (int)(hours / 24f / 7f) + " weeks ago";
         }
-        if ( hours < 24 * 365) { 
-            return (int)(hours / 24 / 30) + " months ago";    
+        if ( hours < 24f * 30f * 2f) {
+            return "a month ago";
+        }
+        if ( hours < 24f * 365f) {
+            return (int)(hours / 24f / 30f) + " months ago";
         }
         return "> 1 year ago";
-	    
+
 	}
 }
