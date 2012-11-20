@@ -17,11 +17,16 @@ import org.fuzzydb.io.packet.layer1.ClientConnectionManagerImpl;
 import org.fuzzydb.io.packet.layer1.SocketListeningServer;
 import org.fuzzydb.server.internal.server.Database;
 import org.fuzzydb.server.internal.server.DatabaseFactory;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 public class EchoPerfTest {
 	protected static int serverPort = 5002;
+	
+	private static Database database;
+	
 	
 	private final ClassLoaderInterface cli = new DummyCli();
 	
@@ -40,12 +45,21 @@ public class EchoPerfTest {
 		}
 	}
 	
-	@Test(timeout=5000)
-	public void testEcho() throws IOException {
-		final int loops = 1000;
+	@BeforeClass
+	static public void setup() throws Exception {
 		// Make server
-		Database database = DatabaseFactory.createDatabase(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
+		database = DatabaseFactory.createDatabase(new SocketListeningServer(new InetSocketAddress(serverPort)), true);
 		database.startServer();
+	}
+
+	@AfterClass
+	static public void shutdown() {
+		database.close();
+	}
+	
+	@Test(timeout=4000)
+	public void testEcho() throws IOException {
+		final int loops = 500;
 		
 		// Make client
 		InetSocketAddress isa = new InetSocketAddress("localhost", serverPort);	// connect to main adaptor
@@ -57,8 +71,5 @@ public class EchoPerfTest {
 		doEchoLoops(client, loops);
 		long duration = System.currentTimeMillis() - start;
 		System.out.println(loops + " echo loops took " + duration + "ms");
-		
-		database.close();
-		
 	}
 }
