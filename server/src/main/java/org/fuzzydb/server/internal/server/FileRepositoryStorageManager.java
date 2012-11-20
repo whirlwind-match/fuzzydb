@@ -65,10 +65,9 @@ public class FileRepositoryStorageManager implements RepositoryStorageManager {
         pager.saveAll();
 
         repository.purgeDeletedStores();
-
-        if (latestDiskVersion != repository.getVersion()) {
-            repository.save(setup.getReposDiskRoot());
-        }
+        // always save on shutdown (we may have deleted stores, even if we've not processed
+        // any transactions, hence will have modified Repository
+        repository.save(setup.getReposDiskRoot());
 	}
 	
     /**

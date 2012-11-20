@@ -270,14 +270,6 @@ public final class Repository implements InitializingBean, Serializable {
 		for (ServerStore store : idStoreMap.values()) {
 			store.initialise();
 		}
-		synchronized (deletedStoresByVersion) {
-			for (ArrayList<Integer> als : deletedStoresByVersion.values()) {
-				for (Integer storeId : als) {
-					ServerStore store = idStoreMap.get(storeId);
-					store.initialise();
-				}
-			}
-		}
 	}
 
 	public void upissue() {
@@ -385,13 +377,19 @@ public final class Repository implements InitializingBean, Serializable {
 			
 			while (i.hasNext()) {
 				Entry<Long, ArrayList<Integer>> versionEntry = i.next();
-				if (versionEntry.getKey() > oldestTransaction) {
+				if (versionEntry.getKey() >= oldestTransaction) {
 					continue; // these are still live
 				}
 
 				// These are expired so add the to our expiredList, and remove from here.
 				for (Integer id : versionEntry.getValue()) {
-					expiredStores.add(idStoreMap.get(id));
+					ServerStore store = idStoreMap.get(id);
+					if (store != null) {
+						expiredStores.add(store);
+					}
+					else {
+						log.warn("Store {} had already been deleted from disk", id);
+					}
 					idStoreMap.remove(id);
 				}
 				i.remove(); // removes entire array.

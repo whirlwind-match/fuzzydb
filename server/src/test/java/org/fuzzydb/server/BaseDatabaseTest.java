@@ -90,7 +90,7 @@ public abstract class BaseDatabaseTest {
 	public void deleteStore() {
 
 		try {
-			if (client != null |client.isConnected()) {
+			if (client != null && client.isConnected()) {
 				client.deleteStore(storeName);
 			}
 		} catch (UnknownStoreException e) {
