@@ -37,6 +37,8 @@ public class WhirlwindConversionService extends GenericConversionService impleme
 		addConverter(new EnumExclusiveValueToStringConverter(attrDefinitionService));
 		addConverter(new EnumAttributeToEnumExclusiveValueConverter(attrDefinitionService));
 
+		addConverterFactory(new EnumExclusiveValueToEnumConverterFactory(attrDefinitionService));
+
 		addConverter(new FloatAttrToDateConverter());
 		addConverter(new DateToFloatAttrConverter());
 
