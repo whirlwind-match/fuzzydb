@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnumAttributeSpec>
-	<clazz>org.fuzzydb.attrs.enums.EnumValue</clazz>
+	<clazz>org.fuzzydb.attrs.enums.EnumExclusiveValue</clazz>
 	<enumdef>conditions</enumdef>
 </EnumAttributeSpec>
