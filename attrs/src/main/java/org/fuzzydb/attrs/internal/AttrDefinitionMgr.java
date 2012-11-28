@@ -14,6 +14,7 @@ import gnu.trove.TIntObjectHashMap;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -289,37 +290,39 @@ public class AttrDefinitionMgr implements Serializable, AttributeDefinitionServi
             return UNKNOWN_CLASS;
         }
 
-        if ( clazz.isAssignableFrom(BooleanValue.class)
-                || clazz.isAssignableFrom(BooleanAttribute.class)
-        		|| clazz.isAssignableFrom(Boolean.class)) {
+        if ( clazz.equals(BooleanValue.class)
+                || clazz.equals(BooleanAttribute.class)
+        		|| clazz.equals(Boolean.class)) {
             return BOOLEAN;
-        } else if ( clazz.isAssignableFrom(FloatValue.class)
-                || clazz.isAssignableFrom(FloatAttribute.class) 
-            	|| clazz.isAssignableFrom(Float.class)) {
+        } else if ( clazz.equals(FloatValue.class)
+                || clazz.equals(FloatAttribute.class) 
+            	|| clazz.equals(Float.class)) {
             return FLOAT;
-        } else if ( clazz.isAssignableFrom(FloatRangePreference.class)
-                || clazz.isAssignableFrom(FloatRangeAttribute.class)
-                || clazz.isAssignableFrom(float[].class)) {
+        } else if ( clazz.equals(FloatRangePreference.class)
+                || clazz.equals(FloatRangeAttribute.class)
+                || clazz.equals(float[].class)) {
             return FLOAT_RANGE_PREF;
-        } else if ( clazz.isAssignableFrom(EnumExclusiveValue.class)
-                || clazz.isAssignableFrom(EnumAttribute.class)) {
+        } else if ( clazz.equals(EnumExclusiveValue.class)
+                || clazz.equals(EnumAttribute.class)
+                || Enum.class.isAssignableFrom(clazz)) {
             return ENUM_EXCLUSIVE;
-        } else if ( clazz.isAssignableFrom(EnumMultipleValue.class)
-                || clazz.isAssignableFrom(MultiEnumAttribute.class)) {
+        } else if ( clazz.equals(EnumMultipleValue.class)
+                || clazz.equals(MultiEnumAttribute.class)
+                || clazz.equals(EnumSet.class)) {
             return ENUM_MULTI;
-        } else if ( clazz.isAssignableFrom(EcefVector.class)
-                || clazz.isAssignableFrom(Point3DAttribute.class)) {
+        } else if ( clazz.equals(EcefVector.class)
+                || clazz.equals(Point3DAttribute.class)) {
             return VECTOR;
-        } else if ( clazz.isAssignableFrom(DateAttribute.class)
-        		|| clazz.isAssignableFrom(Date.class)) {
+        } else if ( clazz.equals(DateAttribute.class)
+        		|| clazz.equals(Date.class)) {
             return DATE;
-        } else if ( clazz.isAssignableFrom(StringValue.class)) {
+        } else if ( clazz.equals(StringValue.class)) {
             return STRING;
-        } else if ( clazz.isAssignableFrom(NonIndexStringAttribute.class)
-        		|| clazz.isAssignableFrom(LocationAttribute.class)		// i.e. the Postcode, which doesn't go in the index
-                || clazz.isAssignableFrom(IntegerRangeAttribute.class)  // TODO: Need to add support for this including codecs (for now, use FloatRange..)
-                || clazz.isAssignableFrom(String[].class)
-        		|| clazz.isAssignableFrom(String.class)) {
+        } else if ( clazz.equals(NonIndexStringAttribute.class)
+        		|| clazz.equals(LocationAttribute.class)		// i.e. the Postcode, which doesn't go in the index
+                || clazz.equals(IntegerRangeAttribute.class)  // TODO: Need to add support for this including codecs (for now, use FloatRange..)
+                || clazz.equals(String[].class)
+        		|| clazz.equals(String.class)) {
             return UNKNOWN_CLASS; // actually it's known and non-indexed
         }
 
