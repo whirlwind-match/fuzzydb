@@ -1,4 +1,16 @@
-# 1.0.0.RELEASE
+# 1.1.0.M1
+
+## New Features
+
+- [fuzzydb-spring] Support mapping to/from Java enums
+
+## Improvements
+
+- Ensure that persisted and then deleted databases are handled more gracefully when no
+  transactions took place.  This mainly benefits integration tests, but, while symptom was 
+  benign, it was theoretically possible to get warnings in production scenario.
+
+# 1.0.1.RELEASE
 
 ## New Features
 
