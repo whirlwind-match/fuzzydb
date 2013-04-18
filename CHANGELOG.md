@@ -1,8 +1,9 @@
-# 1.1.0.M1
+# 1.1.0.RELEASE
 
 ## New Features
 
 - [fuzzydb-spring] Support mapping to/from Java enums
+- [fuzzydb-spring] Now based on Spring Data Commons 1.5.1
 
 ## Improvements
 
