@@ -10,7 +10,7 @@
     <parent>
     	<artifactId>fuzzydb-parent</artifactId>
     	<groupId>org.fuzzydb</groupId>
-    	<version>1.1.0.RELEASE</version>
+    	<version>1.2.0.M1-SNAPSHOT</version>
 		<relativePath>../fuzzydb-parent</relativePath>
     </parent>
     <dependencies>
