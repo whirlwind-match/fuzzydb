@@ -5,7 +5,7 @@
     <groupId>org.fuzzydb</groupId>
     <artifactId>fuzzydb-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0.M2-SNAPSHOT</version>
+    <version>1.1.0.RELEASE</version>
 
     <name>${project.artifactId}</name>
     <description>Parent POM for specifying common properties for Whirlwind Match open source projects.</description>
@@ -327,7 +327,7 @@
             <dependency>
                 <groupId>org.fuzzydb</groupId>
                 <artifactId>org.fuzzydb.test.support</artifactId>
-                <version>1.1.0.M2-SNAPSHOT</version>
+                <version>1.1.0.RELEASE</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -380,7 +380,7 @@
         <url>http://github.com/whirlwind-match/fuzzydb</url>
         <connection>scm:git:git@github.com:whirlwind-match/fuzzydb.git</connection>
         <developerConnection>scm:git:git@github.com:whirlwind-match/fuzzydb.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>1.1.0.RELEASE</tag>
   </scm>
     <mailingLists>
         <mailingList>

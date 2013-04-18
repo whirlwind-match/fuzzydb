@@ -5,7 +5,7 @@
     <groupId>org.fuzzydb</groupId>
     <artifactId>org.fuzzydb.aggregator</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0.M2-SNAPSHOT</version>
+    <version>1.1.0.RELEASE</version>
 
     <name>${project.artifactId}</name>
     <description>fuzzydb is a fuzzy matching database engine capable of providing human-like search results that make life 
@@ -124,7 +124,7 @@
         <url>http://github.com/whirlwind-match/fuzzydb</url>
         <connection>scm:git:git@github.com:whirlwind-match/fuzzydb.git</connection>
         <developerConnection>scm:git:git@github.com:whirlwind-match/fuzzydb.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>1.1.0.RELEASE</tag>
   </scm>
     <mailingLists>
         <mailingList>

@@ -6,7 +6,7 @@
     <parent>
         <artifactId>fuzzydb-parent</artifactId>
         <groupId>org.fuzzydb</groupId>
-        <version>1.1.0.M2-SNAPSHOT</version>
+        <version>1.1.0.RELEASE</version>
         <relativePath>../fuzzydb-parent</relativePath>
     </parent>
 
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.fuzzydb.attrs</groupId>
             <artifactId>org.fuzzydb.attrs</artifactId>
-            <version>1.1.0.M2-SNAPSHOT</version>
+            <version>1.1.0.RELEASE</version>
         </dependency>
     </dependencies>
 </project>
