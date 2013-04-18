@@ -41,14 +41,6 @@
 
     <repositories>
         <repository>
-            <id>jboss</id>
-            <url>http://repository.jboss.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
             <id>springsource-milestone</id>
             <name>Spring Framework Milestone Repository</name>
             <url>http://maven.springframework.org/milestone</url>
