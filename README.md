@@ -27,10 +27,9 @@ The sample webapp can often be found deployed at: http://fuzzydb-sample-webapp.c
 GETTING STARTED
 ===============
 
-Check out the latest stable snapshot and build it:
+Check out the latest snapshot and build it:
 
     git clone git://github.com/whirlwind-match/fuzzydb.git
-    git checkout stable
     mvn install
 
 
