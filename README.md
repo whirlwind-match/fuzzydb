@@ -1,4 +1,4 @@
-[![Stories in Ready](http://badge.waffle.io/whirlwind-match/fuzzydb.png)](http://waffle.io/whirlwind-match/fuzzydb)  
+[![Stories in Ready](https://badge.waffle.io/whirlwind-match/fuzzydb.png)](http://waffle.io/whirlwind-match/fuzzydb)  
 JOIN THE COMMUNITY!
 ===================
 
