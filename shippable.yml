@@ -1,0 +1,55 @@
+# See http://docs.shippable.com/ci/shippableyml/ for options
+
+language: java
+
+jdk:
+   - oraclejdk8
+
+services:
+  # - selenium
+
+env:
+  global:
+#    - secure: xxx==
+    # Multi-threaded builds currently dies in acceptance tests
+    - MVN_THREADS="-T1"
+    # Use MAVEN_ARGS: -Dtest={JavaClassName} to run just a single test
+    # skip tests on shippable with MAVEN_ARGS: "-Dtest=x"
+
+build:
+  cache: true
+  cache_dir_list:
+    - $HOME/.m2
+
+  pre_ci_boot:
+#    image_name:
+#    image_tag:
+#    pull:
+#    options:
+
+  ci:
+    - export MAVEN_OPTS="-Xmx1024M"
+    - echo $MAVEN_OPTS
+    - mvn clean verify --batch-mode -Pshippable ${MVN_THREADS} -DfailIfNoTests=false $MAVEN_ARGS
+
+  post_ci:
+    # - command1
+
+  on_success:
+    # - command1
+
+  on_failure:
+    # Always upload logs to our server so we've got ability to see what went on
+
+integrations:
+  notifications:
+    - integrationName: slack
+      type: slack
+      recipients:
+        - "#wwm-builds"
+#      branches:
+#        only:
+#          - master
+#          - dev
+      on_success: change
+      on_failure: always
