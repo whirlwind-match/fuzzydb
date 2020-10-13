@@ -13,7 +13,7 @@
     <inceptionYear>2004 or was it 2003</inceptionYear>
 
     <properties>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <org.mockito.version>2.13.0</org.mockito.version>
         <java.version>1.8</java.version>
         <slf4j.version>1.6.4</slf4j.version>
